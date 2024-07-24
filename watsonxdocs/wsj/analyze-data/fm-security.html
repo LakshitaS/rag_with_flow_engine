@@ -1,0 +1,202 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Your work with foundation models is secure and private, in the same way that all your work on watsonx is secure and private. IBM cannot access your prompts or tuned models.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Security and privacy for foundation models</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=overview-security-foundation-models"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="security-and-privacy-for-foundation-models" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-security-and-privacy-for-foundation-models">
+        <h1 id="security-and-privacy-for-foundation-models">Security and privacy for foundation models</h1>
+        <p>Your work with foundation models is secure and private, in the same way that all your work on watsonx is secure and private. IBM cannot access your prompts or tuned models.</p>
+        <p>The following table summarizes the privacy and security of your foundation model work in watsonx.</p>
+        <table>
+          <caption caption-side="top">Table 1. Privacy and security in watsonx.ai</caption>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Accessible by you</th>
+              <th>Accessible by IBM or anyone else</th>
+              <th>Privacy and security details</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Prompt for foundation model input (text and parameters)</td>
+              <td>Yes</td>
+              <td>No</td>
+              <td>• IBM does not use your work to improve IBM models.<br> • Text that you add to or submit in the Prompt Lab or API is not stored unless you save it.<br> • IBM does not monitor or log foundation model input.<br> • If watsonx.governance is
+                provisioned, you can optionally monitor foundation model input.</td>
+            </tr>
+            <tr>
+              <td>Prompt in transit</td>
+              <td>Not applicable</td>
+              <td>No</td>
+              <td>• Foundation model input is encrypted in transit.<br> • The foundation models are hosted in IBM Cloud; your prompts are not sent to third-party platforms.</td>
+            </tr>
+            <tr>
+              <td>Foundation model output</td>
+              <td>Yes</td>
+              <td>No</td>
+              <td>• IBM does not monitor or log foundation model output.<br> • Foundation model output is not stored unless you save the prompt that elicited the output as a prompt session asset.<br> • IBM does not claim ownership rights to foundation model
+                outputs.<br> • IBM does not use your model outputs to improve IBM models.<br> • If watsonx.governance is provisioned, you can optionally monitor foundation model output.</td>
+            </tr>
+            <tr>
+              <td>Prompt saved as a prompt template asset</td>
+              <td>Yes</td>
+              <td>No</td>
+              <td>• A saved prompt template asset is stored in a dedicated, secure storage bucket.</td>
+            </tr>
+            <tr>
+              <td>Prompt saved as a prompt session asset</td>
+              <td>Yes</td>
+              <td>No</td>
+              <td>• A saved prompt session asset is stored in a dedicated, secure storage bucket.</td>
+            </tr>
+            <tr>
+              <td>Prompt saved as a notebook asset</td>
+              <td>Yes</td>
+              <td>No</td>
+              <td>• A saved notebook asset is stored in a dedicated, secure storage bucket.</td>
+            </tr>
+            <tr>
+              <td>Prompt Lab text in web browser cache</td>
+              <td>Not applicable</td>
+              <td>No</td>
+              <td>• Unsaved prompt text is kept in the web page until the session expires or the page is refreshed, at which time the prompt text is deleted.</td>
+            </tr>
+            <tr>
+              <td>Tuned foundation model</td>
+              <td>Yes</td>
+              <td>No</td>
+              <td>• Your tuned model is saved as a model asset and is stored in a dedicated, secure storage bucket.<br> • Your tuned foundation model is not accessible or used by IBM or any other person or organization.<br> • IBM does not use your tuning
+                experiment work to improve IBM models.</td>
+            </tr>
+            <tr>
+              <td>Tuning experiment</td>
+              <td>Yes</td>
+              <td>No</td>
+              <td>Your tuning experiment is saved as an experiment asset and is stored in a dedicated, secure storage bucket.</td>
+            </tr>
+            <tr>
+              <td>Training data for tuning</td>
+              <td>Yes</td>
+              <td>No</td>
+              <td>The training data that you use for training is saved as a data asset and is stored in a dedicated, secure storage bucket.</td>
+            </tr>
+          </tbody>
+        </table>
+        <section id="section-foundation-model-privacy-and-security">
+          <h2 id="foundation-model-privacy-and-security">Foundation model privacy and security</h2>
+          <p>Foundation models that you interact with through watsonx or tune in Tuning Studio are hosted in IBM Cloud. Your data is not sent to any third-party or open source platforms.</p>
+          <p>The foundation model prompts that you create and engineer in the Prompt Lab or send by using the API are accessible only by you. Your prompts are used only by you and are submitted only to models you choose. Your prompt text is not accessible
+            or used by IBM or any other person or organization.</p>
+          <p>The tuned foundation models that you create in Tuning Studio or by using the API are accessible only to you. Your tuned foundation models are not accessible or used by IBM or any other person or organization.</p>
+          <p>You control whether prompts, model choices, and prompt engineering parameter settings are saved. When saved, your data is stored in a dedicated IBM Cloud Object Storage bucket that is associated with your project.</p>
+          <p>The tuning experiment, tuning parameters, and training data that you use to tune a foundation model are accessible only by you. Tuning experiment and training data assets that you create are stored in your project storage bucket.</p>
+          <p>Metadata about your data assets is stored in a multi-tenanted database. Metadata includes the asset name, description, and tags. The asset data itself is stored in a single-tenant instance of an IBM Cloud Object Storage bucket that is associated
+            with your account and is not shared. Each bucket in the instance is further isolated by permissions. Two projects that use the same IBM Cloud Object Storage instance cannot view each other’s asset data, for example. Data that is stored in
+            your project storage bucket is encrypted at rest and in motion, optionally with your own key. You can delete your stored data at any time by deleting the associated asset from your project or by deleting the project.</p>
+          <p>IBM does measure foundation model usage by account for the purposes of billing, infrastructure planning, and model lifecycle management.</p>
+        </section>
+        <section id="section-privacy-of-text-in-prompt-lab-during-a-session">
+          <h2 id="privacy-of-text-in-prompt-lab-during-a-session">Privacy of text in Prompt Lab during a session</h2>
+          <p>Text that you submit by clicking <strong>Generate</strong> from the prompt editor in Prompt Lab is reformatted as tokens, and then submitted to the foundation model you choose. The submitted message is encrypted in transit.</p>
+          <p>Your prompt text is not saved unless you choose to save your work.</p>
+          <p>Unsaved prompt text is kept in the web page until the session expires or the page is refreshed, at which time the prompt text is deleted.</p>
+        </section>
+        <section id="section-privacy-and-security-of-saved-work-in-prompt-lab">
+          <h2 id="privacy-and-security-of-saved-work-in-prompt-lab">Privacy and security of saved work in Prompt Lab</h2>
+          <p>How work that you save in the Prompt Lab is managed differs based on the asset type that you choose to save:</p>
+          <ul>
+            <li>
+              <p><strong>Prompt template asset</strong>: The current prompt text, model, prompt engineering parameters, and any prompt variables are saved as a prompt template asset and stored in the IBM Cloud Object Storage bucket that is associated with
+                your project. For a prompt that you create in chat mode, the foundation model output is saved also. Prompt template assets are retained until they are deleted or changed by you. When autosave is on, if you open a saved prompt and change
+                the text, the text in the saved prompt template asset is replaced.</p>
+            </li>
+            <li>
+              <p><strong>Prompt session asset</strong>: A prompt session asset includes the prompt input text, model, prompt engineering parameters, and model output. After you create the prompt session asset, prompt information for up to 500 submitted prompts
+                is stored in the project storage bucket where it is retained for 30 days.</p>
+            </li>
+            <li>
+              <p><strong>Notebook asset</strong>: Your prompt, model, prompt engineering parameters, and any prompt variables are formatted as Python code and stored as a notebook asset in the project storage bucket.</p>
+            </li>
+          </ul>
+          <p>Only people with <strong>Admin</strong> or <strong>Editor</strong> role access to the project or the project storage bucket can view saved assets. You control who can access your project and its associated Cloud Object Storage bucket.</p>
+          <ul>
+            <li>For more information about asset security, see <a href="../getting-started/security-data.html">Data security</a>.</li>
+            <li>For more information about managing project access, see <a href="../getting-started/collaborate.html">Project collaborators</a></li>
+          </ul>
+        </section>
+        <section id="section-logging-and-text-in-the-prompt-lab">
+          <h2 id="logging-and-text-in-the-prompt-lab">Logging and text in the Prompt Lab</h2>
+          <p>Nothing that you add to the prompt editor or submit to a model from the Prompt Lab or by using the API is logged by IBM. Messages that are generated by foundation models and returned to the Prompt Lab also are not logged.</p>
+        </section>
+        <section id="section-ownership-of-your-content-and-foundation-model-output">
+          <h2 id="ownership-of-your-content-and-foundation-model-output">Ownership of your content and foundation model output</h2>
+          <p>Content that you upload into watsonx is yours.</p>
+          <p>IBM does not use the content that you upload to watsonx or the output that is generated by a foundation model to further train or improve any IBM developed models.</p>
+          <p>IBM does not claim to have any ownership rights to any foundation model outputs. You remain solely responsible for your content and the output of any tuned or untuned foundation models that you work with in watsonx.</p>
+        </section>
+        <section id="section-privacy-and-security-in-watsonxgovernance">
+          <h2 id="privacy-and-security-in-watsonxgovernance">Privacy and security in watsonx.governance</h2>
+          <p>If watsonx.governance is provisioned, you can choose to enable evaluation and monitoring of foundation models to support governance functions such as drift detection and explainability. When enabled, the request payloads of foundation model
+            input and output are stored in a watsonx.governance database that you administer.</p>
+          <p>You own the data in the database and you control who is allowed to access the data. To meet added encryption or access control needs, you can choose a setup method that gives you more control over the database and deployment space assets that
+            are used.</p>
+          <p>Any stored data is purged when monitoring is disabled or when the monitored prompt template asset or model deployment is deleted.</p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="../console/wdp_admin_cos.html">Setting up IBM Cloud Object Storage for use with watsonx</a></li>
+            <li><a href="../manage-data/manage-assets.html">Managing assets in projects</a></li>
+            <li><a href="https://www.ibm.com/support/customer/csol/terms/?id=i126-9640&amp;lc=en#detail-document" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Watsonx terms</a></li>
+            <li><a href="http://www.ibm.com/support/customer/csol/terms/?id=i126-6883" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Watson Machine Learning terms</a></li>
+            <li><a href="https://www.ibm.com/support/customer/csol/terms/?id=i126-7747" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Watson Studio terms</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="fm-overview.html">Foundation models</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

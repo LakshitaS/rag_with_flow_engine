@@ -1,0 +1,356 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can view and run a built-in sample pipeline that uses sample data to learn how to automate machine learning flows in Watson Pipelines.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Run the built-in sample pipeline</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=pipelines-exploring-built-in-sample-pipeline"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="run-the-built-in-sample-pipeline" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-run-the-built-in-sample-pipeline">
+        <h1 id="run-the-built-in-sample-pipeline">Run the built-in sample pipeline</h1>
+        <p>You can view and run a built-in sample pipeline that uses sample data to learn how to automate machine learning flows in Watson Pipelines.</p>
+        <section id="section-whats-happening-in-the-sample-pipeline">
+          <h2 id="whats-happening-in-the-sample-pipeline">What's happening in the sample pipeline?</h2>
+          <p>The sample pipeline gets training data, trains a machine learning model by using the AutoAI tool, and selects the best pipeline to save as a model. The model is then copied to a deployment space where it is deployed.</p>
+          <p>The sample illustrates how you can automate an end-to-end flow to make the lifecycle easier to run and monitor.</p>
+          <p>The sample pipeline looks like this:</p>
+          <p><img src="images/oflow-tutorial1.png" alt="Sample orchestration pipeline"></p>
+          <p>The tutorial steps you through this process:</p>
+          <ol>
+            <li><a href="#set-up">Prerequisites</a></li>
+            <li><a href="#preview">Preview creating and running the sample pipeline</a></li>
+            <li><a href="#create-sample">Creating the sample pipeline</a></li>
+            <li><a href="#run-flow">Running the sample pipeline</a></li>
+            <li><a href="#review-results">Reviewing the results</a></li>
+            <li><a href="#explore-sample">Exploring the sample nodes and configuration</a></li>
+          </ol>
+        </section>
+        <section id="section-set-up">
+          <h2 id="set-up">Prerequisites</h2>
+          <p>To run this sample, you must first create:</p>
+          <ul>
+            <li>A <a href="../getting-started/projects.html">project</a>, where you can run the sample pipeline.</li>
+            <li>A <a href="ml-space-create.html">deployment space</a>, where you can view and test the results. The deployment space is required to run the sample pipeline.</li>
+          </ul>
+        </section>
+        <section id="section-preview">
+          <h2 id="preview">Preview creating and running the sample pipeline</h2>
+          <p>Watch this video to see how to create and run a sample pipeline.</p>
+          <div>
+            <p style="font-size:smaller">This video provides a visual method to learn the concepts and tasks in this documentation.</p><iframe id="wm-wx-pipeline" src="https://video.ibm.com/embed/channel/23952663/video/wx-pipeline" lang="en-US" style="border: 0;" webkitallowfullscreen="" allowfullscreen="" frameborder="no" width="560" height="315" title="Create and run a sample pipeline" alt="Create and run a sample pipeline"></iframe></div>
+        </section>
+        <section id="section-create-sample">
+          <h2 id="create-sample">Creating the sample pipeline</h2>
+          <p>Create the sample pipeline in the Pipelines editor.</p>
+          <ol>
+            <li>
+              <p>Open the project where you want to create the pipeline.</p>
+            </li>
+            <li>
+              <p>From the <em>Assets</em> tab, click <strong>New asset &gt; Automate model lifecycle</strong>.</p>
+            </li>
+            <li>
+              <p>Click the <strong>Resource hub sample</strong> tab, and select the <strong>Orchestrate an AutoAI experiment</strong>.</p>
+            </li>
+            <li>
+              <p>Enter a name for the pipeline. For example, enter <em>Bank marketing sample</em>.</p>
+            </li>
+            <li>
+              <p>Click <strong>Create</strong> to open the canvas.</p>
+            </li>
+          </ol>
+        </section>
+        <section id="section-run-flow">
+          <h2 id="run-flow">Running the sample pipeline</h2>
+          <p>To run the sample pipeline:</p>
+          <ol>
+            <li>
+              <p>Click <strong>Run pipeline</strong> on the canvas toolbar, then choose <strong>Trial run</strong>.</p>
+            </li>
+            <li>
+              <p>Select a deployment space when prompted to provide a value for the <em>deployment_space</em> pipeline parameter.</p>
+              <ol>
+                <li>
+                  <p>Click <strong>Select Space</strong>.</p>
+                </li>
+                <li>
+                  <p>Expand the <strong>Spaces</strong> section.</p>
+                </li>
+                <li>
+                  <p>Select your deployment space.</p>
+                </li>
+                <li>
+                  <p>Click <strong>Choose</strong>.</p>
+                </li>
+              </ol>
+            </li>
+            <li>
+              <p>Provide an API key if it is your first time to run a pipeline. Pipeline assets use your personal IBM Cloud API key to run operations securely without disruption.</p>
+              <ul>
+                <li>
+                  <p>If you have an existing API key, click <strong>Use existing API key</strong>, paste the API key, and click <strong>Save</strong>.</p>
+                </li>
+                <li>
+                  <p>If you don't have an existing API key, click <strong>Generate new API key</strong>, provide a name, and click <strong>Save</strong>. Copy the API key, and then save the API key for future use. When you're done, click <strong>Close</strong>.</p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>Click <strong>Run</strong> to start the pipeline.</p>
+            </li>
+          </ol>
+        </section>
+        <section id="section-review-results">
+          <h2 id="review-results">Reviewing the results</h2>
+          <p>When the pipeline run completes, you can view the output to see the results.</p>
+          <p><img src="images/oflow-results1.png" alt="Sample pipeline run output"></p>
+          <p>Open the deployment space that you specified as part of the pipeline. You see the new deployment in the space:</p>
+          <p><img src="images/oflow-results-space.png" alt="Sample pipeline deployment"></p>
+          <p>If you want to test the deployment, use the deployment space <strong>Test</strong> page to submit payload data in JSON format and get a score back. For example, click the <strong>JSON</strong> tab and enter this input data:</p>
+          <pre class="codeblock"><code class="lang-JSON hljs"> <span class="hljs-punctuation">{</span><span class="hljs-attr">"input_data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">{</span><span class="hljs-attr">"fields"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">"age"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"job"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"marital"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"education"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"default"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"balance"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"housing"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"loan"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"contact"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"day"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"month"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"duration"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"campaign"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"pdays"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"previous"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"poutcome"</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><span class="hljs-attr">"values"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">[</span><span class="hljs-string">"30"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"unemployed"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"married"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"primary"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"no"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"1787"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"no"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"no"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"cellular"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"19"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"oct"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"79"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"1"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"-1"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"0"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"unknown"</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">}</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">}</span>
+</code></pre>
+          <p>When you click <strong>Predict</strong>, the model generates output with a confidence score for the prediction of whether a customer subscribes to a term deposit promotion.</p>
+          <p><img src="images/oflow-gall-sample-output.png" alt="Prediction score for the sample model"></p>
+          <p>In this case, the prediction of "no" is accompanied by a confidence score of close to 95%, predicting that the client will most likely not subscribe to a term deposit.</p>
+        </section>
+        <section id="section-explore-sample">
+          <h2 id="explore-sample">Exploring the sample nodes and configuration</h2>
+          <p>Get a deeper understanding of how the sample nodes are configured to work in concert in the pipeline sample with the following steps.</p>
+          <ol>
+            <li><a href="#view-flow-param">Viewing the pipeline parameter</a></li>
+            <li><a href="#add-data">Loading the training data for the AutoAI experiment</a></li>
+            <li><a href="#create-autoai">Creating the AutoAI experiment</a></li>
+            <li><a href="#run-autoai">Running the AutoAI experiment</a></li>
+            <li><a href="#web-deploy">Deploying the model to a web service</a></li>
+          </ol>
+          <section id="section-view-flow-param">
+            <h3 id="view-flow-param">Viewing the pipeline parameter</h3>
+            <p>A pipeline parameter specifies a setting for the entire pipeline. In the sample pipeline, a pipeline parameter is used to specify a deployment space where the model that is saved from the AutoAI experiment is stored and deployed. You are prompted
+              to select the deployment space the pipeline parameter links to.</p>
+            <p>Click the Global objects icon <img src="images/global-objects-icon.png" alt="global objects icon"> on the canvas toolbar to view or create pipeline parameters. In the sample pipeline, the pipeline parameter is named <em>deployment_space</em>              and is of type <em>Space</em>. Click the name of the pipeline parameter to view the details. In the sample, the pipeline parameter is used with the <strong>Create data file</strong> node and the <strong>Create AutoAI experiment</strong>              node.</p>
+            <p><img src="images/oflow-flow-param3.png" alt="Flow parameter to specify deployment space"></p>
+          </section>
+          <section id="section-add-data">
+            <h3 id="add-data">Loading the training data for the AutoAI experiment</h3>
+            <p>In this step, a <strong>Create data file</strong> node is configured to access the data set for the experiment. Click the node to view the configuration. The data file is <code>bank-marketing-data.csv</code>, which provides sample data to
+              predict whether a bank customer signs up for a term deposit. The data rests in a Cloud Object Storage bucket and can be refreshed to keep the model training up to date.</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Option</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>File</td>
+                  <td>The location of the data asset for training the AutoAI experiment. In this case, the data file is in a project.</td>
+                </tr>
+                <tr>
+                  <td>File path</td>
+                  <td>The name of the asset, <code>bank-marketing-data.csv</code>.</td>
+                </tr>
+                <tr>
+                  <td>Target scope</td>
+                  <td>For this sample, the target is a deployment space.</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="section-create-autoai">
+            <h3 id="create-autoai">Creating the AutoAI experiment</h3>
+            <p>The node to <strong>Create AutoAI experiment</strong> is configured with these values:</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Option</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>AutoAI experiment name</td>
+                  <td>onboarding-bank-marketing-prediction</td>
+                </tr>
+                <tr>
+                  <td>Scope</td>
+                  <td>For this sample, the target is a deployment space.</td>
+                </tr>
+                <tr>
+                  <td>Prediction type</td>
+                  <td>binary</td>
+                </tr>
+                <tr>
+                  <td>Prediction column (label)</td>
+                  <td>y</td>
+                </tr>
+                <tr>
+                  <td>Positive class</td>
+                  <td>yes</td>
+                </tr>
+                <tr>
+                  <td>Training data split ration</td>
+                  <td>0.9</td>
+                </tr>
+                <tr>
+                  <td>Algorithms to include</td>
+                  <td>GradientBoostingClassifierEstimator<br>XGBClassifierEstimator</td>
+                </tr>
+                <tr>
+                  <td>Algorithms to use</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>Metric to optimize</td>
+                  <td>ROC AUC</td>
+                </tr>
+                <tr>
+                  <td>Optimize metric (optional)</td>
+                  <td><em>default</em></td>
+                </tr>
+                <tr>
+                  <td>Hardware specification (optional)</td>
+                  <td><em>default</em></td>
+                </tr>
+                <tr>
+                  <td>AutoAI experiment description</td>
+                  <td>This experiment uses a sample file, which contains text data that is collected from phone calls to a Portuguese bank in response to a marketing campaign. The classification goal is to predict whether a client subscribes to a term deposit,
+                    represented by variable y.</td>
+                </tr>
+                <tr>
+                  <td>AutoAI experiment tags (optional)</td>
+                  <td><em>none</em></td>
+                </tr>
+                <tr>
+                  <td>Creation mode (optional)</td>
+                  <td><em>default</em></td>
+                </tr>
+              </tbody>
+            </table>
+            <p>Those options define an experiment that uses the bank marketing data to predict whether a customer is likely to enroll in a promotion.</p>
+          </section>
+          <section id="section-run-autoai">
+            <h3 id="run-autoai">Running the AutoAI experiment</h3>
+            <p>In this step, the <strong>Run AutoAI experiment</strong> node runs the AutoAI experiment <em>onboarding-bank-marketing-prediction</em>, trains the pipelines, then saves the best model.</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Option</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>AutoAI experiment</td>
+                  <td>Takes the output from the <strong>Create AutoAI</strong> node as the input to run the experiment.</td>
+                </tr>
+                <tr>
+                  <td>Training data assets</td>
+                  <td>Takes the output from the <strong>Create Data File</strong> node as the training data input for the experiment.</td>
+                </tr>
+                <tr>
+                  <td>Model count</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>Models count (optional)</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>Holdout data asset (optional)</td>
+                  <td><em>none</em></td>
+                </tr>
+                <tr>
+                  <td>Run name (optional)</td>
+                  <td><em>none</em></td>
+                </tr>
+                <tr>
+                  <td>Model name prefix (optional)</td>
+                  <td><em>none</em></td>
+                </tr>
+                <tr>
+                  <td>Run description (optional)</td>
+                  <td><em>none</em></td>
+                </tr>
+                <tr>
+                  <td>Run tags (optional)</td>
+                  <td><em>none</em></td>
+                </tr>
+                <tr>
+                  <td>Creation mode (optional)</td>
+                  <td><em>default</em></td>
+                </tr>
+                <tr>
+                  <td>Error policy (optional)</td>
+                  <td><em>default</em></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="section-web-deploy">
+            <h3 id="web-deploy">Deploying the model to a web service</h3>
+            <p>The <strong>Create Web deployment</strong> node creates an online deployment that is named <em>onboarding-bank-marketing-prediction-deployment</em> so you can deliver data and get predictions back in real time from the REST API endpoint.</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Option</th>
+                  <th>Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>ML asset</td>
+                  <td>Takes the best model output from the <strong>Run AutoAI</strong> node as the input to create the deployment.</td>
+                </tr>
+                <tr>
+                  <td>Deployment name</td>
+                  <td>onboarding-bank-marketing-prediction-deployment</td>
+                </tr>
+              </tbody>
+            </table>
+            <p><strong>Parent topic:</strong> <a href="ml-orchestration-overview.html">IBM Watson Pipelines</a></p>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

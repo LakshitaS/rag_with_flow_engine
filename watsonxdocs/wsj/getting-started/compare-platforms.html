@@ -1,0 +1,189 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="IBM watsonx as a Service and Cloud Pak for Data as a Service have the same common core functionality and are compatible in many ways. The watsonx platform provides a subset of the tools and services that are provided by Cloud Pak for Data as a Service. However, watsonx.ai and watsonx.governance on watsonx provide more functionality than the same set of tools on Cloud Pak for Data as a Service.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Comparison of IBM watsonx as a Service and Cloud Pak for Data as a Service</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=watsonx-comparison-cloud-pak-data-as-service"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="comparison-of-ibm-watsonx-as-a-service-and-cloud-pak-for-data-as-a-service" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-comparison-of-ibm-watsonx-as-a-service-and-cloud-pak-for-data-as-a-service">
+        <h1 id="comparison-of-ibm-watsonx-as-a-service-and-cloud-pak-for-data-as-a-service">Comparison of IBM watsonx as a Service and Cloud Pak for Data as a Service</h1>
+        <p>IBM watsonx as a Service and Cloud Pak for Data as a Service have the same common core functionality and are compatible in many ways. The watsonx platform provides a subset of the tools and services that are provided by Cloud Pak for Data as a
+          Service. However, watsonx.ai and watsonx.governance on watsonx provide more functionality than the same set of tools on Cloud Pak for Data as a Service.</p>
+        <ul>
+          <li><a href="#platform">Common platform functionality</a></li>
+          <li><a href="#services">Services on each platform</a></li>
+          <li><a href="#tools">Data science and MLOps tools</a></li>
+          <li><a href="#gov">AI governance tools</a></li>
+        </ul>
+        <section id="section-platform">
+          <h2 id="platform">Common core functionality</h2>
+          <p>The common core functionality is the same on watsonx and Cloud Pak for Data as a Service:</p>
+          <ul>
+            <li>Security, compliance, and isolation</li>
+            <li>Compute resources for running workloads</li>
+            <li>Global search for assets across the platform</li>
+            <li>The Platform assets catalog for sharing connections across the platform</li>
+            <li>Role-based user management within workspaces</li>
+            <li>A services catalog for adding services</li>
+            <li>View compute usage from the <strong>Administration</strong> menu</li>
+            <li>Connections to remote data sources</li>
+            <li>Connection credentials that are personal or shared</li>
+            <li>Sample assets and projects</li>
+          </ul>
+          <p>If you are signed up for both watsonx and Cloud Pak for Data as a Service, you can switch between platforms. See <a href="platform-switcher.html">Switching your platform</a>.</p>
+        </section>
+        <section id="section-services">
+          <h2 id="services">Services on each platform</h2>
+          <p>Both platforms provide services for data science and MLOps and AI governance use cases:</p>
+          <ul>
+            <li>Watson Studio</li>
+            <li>Watson Machine Learning</li>
+            <li>watsonx.governance</li>
+          </ul>
+          <p>However, the services for watsonx.ai and watsonx.governance on the watsonx platform include features for working with foundation models and generative AI that are not included in these services on Cloud Pak for Data as a Service.</p>
+          <p>Cloud Pak for Data as a Service also provides services for these use cases:</p>
+          <ul>
+            <li>Data integration</li>
+            <li>Data governance</li>
+          </ul>
+          <p>See <a href="../../svc-welcome/cloud-services.html">IBM Cloud services in the Cloud Pak for Data as a Service services catalog</a>.</p>
+        </section>
+        <section id="section-tools">
+          <h2 id="tools">Data science and AI tools </h2>
+          <p>Both platforms provide a common set of data science and AI tools. However, on watsonx, you can also perform foundation model inferencing with the Prompt Lab tool or with a Python library in notebooks. Foundation model inferencing and the Prompt
+            Lab tool are not available on Cloud Pak for Data as a Service.</p>
+          <p>The following table shows which data science and AI tools are available on each platform.</p>
+          <table>
+            <caption caption-side="top">Tools on watsonx and Cloud Pak for Data</caption>
+            <thead>
+              <tr>
+                <th>Tool</th>
+                <th>On watsonx<br> as a Service?</th>
+                <th>On Cloud Pak for Data<br> as a Service?</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><a href="../analyze-data/fm-prompt-lab.html">Prompt Lab</a></td>
+                <td>✓</td>
+                <td>No</td>
+              </tr>
+              <tr>
+                <td><a href="../synthetic/synthetic_data_overview_sd.html">Synthetic Data Generator</a></td>
+                <td>✓</td>
+                <td>No</td>
+              </tr>
+              <tr>
+                <td><a href="../analyze-data/fm-tuning-studio.html">Tuning Studio</a></td>
+                <td>✓</td>
+                <td>No</td>
+              </tr>
+              <tr>
+                <td><a href="../refinery/refining_data.html">Data Refinery</a></td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td><a href="../../dataview/idh_idc_cg_help_main.html">Visualizations</a></td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td><a href="../analyze-data/notebook-editor.html">Jupyter notebooks</a></td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td><a href="../analyze-data/fed-lea.html">Federated learning</a></td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td><a href="../analyze-data/rstudio-overview.html">RStudio IDE</a></td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td><a href="../../wsd/spss-modeler.html">SPSS Modeler</a></td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td><a href="../../DO/DOWS-Cloud_home.html">Decision Optimization</a></td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td><a href="../analyze-data/autoai-overview.html">AutoAI tool</a></td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td><a href="../analyze-data/ml-orchestration-overview.html">Watson Pipelines</a></td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+            </tbody>
+          </table>
+          <br>
+          <p>If you are signed up for Cloud Pak for Data as a Service, you can access watsonx and you can move your projects and deployment spaces that meet the requirements from one platform to the other. See <a href="../manage-data/switch-platform.html">Switching the platform for a project</a>            and <a href="../analyze-data/switch-platform-space.html">Switching the platform for a deployment space</a>.</p>
+        </section>
+        <section id="section-gov">
+          <h2 id="gov">AI governance tools</h2>
+          <p>Both platforms contain the same AI use case inventory and evaluation tools. However, on watsonx, you can track and evaluate generative AI assets and dimensions.See <a href="../analyze-data/xgov-comparison.html">Comparison of governance solutions</a>.</p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="platform-switcher.html">Switching your platform</a></li>
+            <li><a href="../manage-data/switch-platform.html">Switching the platform for a project</a></li>
+            <li><a href="../analyze-data/switch-platform-space.html">Switching the platform for a deployment space</a></li>
+            <li><a href="overview-wx.html">Overview of IBM watsonx as a Service</a></li>
+            <li><a href="../analyze-data/fm-overview.html">Foundation models</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="overview-wx.html">Overview of watsonx</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

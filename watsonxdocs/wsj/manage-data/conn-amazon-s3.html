@@ -1,0 +1,140 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="To access your data in Amazon S3, create a connection asset for it.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Amazon S3 connection</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=connectors-amazon-s3-connection"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="amazon-s3-connection" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-amazon-s3-connection">
+        <h1 id="amazon-s3-connection">Amazon S3 connection</h1>
+        <p>To access your data in Amazon S3, create a connection asset for it.</p>
+        <p>Amazon S3 (Amazon Simple Storage Service) is a service that is offered by Amazon Web Services (AWS) that provides object storage through a web service interface.</p>
+        <p>For other types of S3-compliant connections, you can use the <a href="conn-generics3.html">Generic S3 connection</a>.</p>
+        <section id="section-create-a-connection-to-amazon-s3">
+          <h2 id="create-a-connection-to-amazon-s3">Create a connection to Amazon S3</h2>
+          <p>To create the connection asset, you need these connection details:</p>
+          <ul>
+            <li><strong>Bucket</strong>: Bucket name that contains the files. If your AWS credentials have permissions to list buckets and access all buckets, then you only need to supply the credentials. If your credentials don't have the privilege to list
+              buckets and can only access a particular bucket, then you need to specify the bucket.</li>
+            <li><strong>Endpoint URL</strong>: Use for an AWS GovCloud instance. Include the region code. For example, <code>https://s3.&lt;region-code&gt;.amazonaws.com</code>. For the list of region codes, see <a href="https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">AWS service endpoints</a>.</li>
+            <li><strong>Region</strong>: Amazon Web Services (AWS) region. If you specify an Endpoint URL that is not for the AWS default region (us-west-2), then you should also enter a value for Region.</li>
+          </ul>
+          <p>Select <strong>Server proxy</strong> to access the Amazon S3 data source through a proxy server. Depending on its setup, a proxy server can provide load balancing, increased security, and privacy. The proxy server settings are independent of
+            the authentication credentials and the personal or shared credentials selection.</p>
+          <ul>
+            <li><strong>Proxy host</strong>: The proxy URL. For example, <code>https://proxy.example.com</code>.</li>
+            <li><strong>Proxy port number</strong>: The port number to connect to the proxy server. For example, <code>8080</code> or <code>8443</code>.</li>
+            <li>The <strong>Proxy username</strong> and <strong>Proxy password</strong> fields are optional.</li>
+          </ul>
+          <section id="section-credentials">
+            <h3 id="credentials">Credentials</h3>
+            <p>The combination of <strong>Access key</strong> and <strong>Secret key</strong> is the minimum credentials.
+              <br></p>
+            <p>If the Amazon S3 account owner has set up temporary credentials or a Role ARN (Amazon Resource Name), enter the values provided by the Amazon S3 account owner for the applicable authentication combination:</p>
+            <ul>
+              <li><strong>Access key</strong>, <strong>Secret key</strong>, and <strong>Session token</strong></li>
+              <li><strong>Access key</strong>, <strong>Secret key</strong>, <strong>Role ARN</strong>, <strong>Role session name</strong>, and optional <strong>Duration seconds</strong></li>
+              <li><strong>Access key</strong>, <strong>Secret key</strong>, <strong>Role ARN</strong>, <strong>Role session name</strong>, <strong>External ID</strong>, and optional <strong>Duration seconds</strong></li>
+            </ul>
+            <p>For setup instructions for the Amazon S3 account owner, see <a href="conn-az3-tempcreds.html">Setting up temporary credentials or a Role ARN for Amazon S3</a>.</p>
+          </section>
+          <section id="section-choose-the-method-for-creating-a-connection-based-on-where-you-are-in-the-platform">
+            <h3 id="choose-the-method-for-creating-a-connection-based-on-where-you-are-in-the-platform">Choose the method for creating a connection based on where you are in the platform</h3>
+            <dl>
+              <dt><strong>In a project</strong></dt>
+              <dd>Click <strong>Assets &gt; New asset &gt; Connect to a data source</strong>. See <a href="create-conn.html">Adding a connection to a project</a>.</dd>
+              <dt><strong>In a deployment space</strong></dt>
+              <dd>Click <strong>Add to space &gt; Connection</strong>. See <a href="../analyze-data/ml-space-add-assets.html">Adding connections to a deployment space</a>.</dd>
+              <dt><strong>In the Platform assets catalog</strong></dt>
+              <dd>Click <strong>New connection</strong>. See <a href="platform-conn.html">Adding platform connections</a>.</dd>
+            </dl>
+          </section>
+          <section id="section-next-step-add-data-assets-from-the-connection">
+            <h3 id="next-step-add-data-assets-from-the-connection">Next step: Add data assets from the connection</h3>
+            <ul>
+              <li>See <a href="connected-data.html">Add data from a connection in a project</a>.</li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-where-you-can-use-this-connection">
+          <h2 id="where-you-can-use-this-connection">Where you can use this connection</h2>
+          <p>You can use Amazon S3 connections in the following workspaces and tools:</p>
+          <p><strong>Projects</strong></p>
+          <ul>
+            <li>Data Refinery</li>
+            <li>Decision Optimization</li>
+            <li>Notebooks. Click <strong>Read data</strong> on the <strong>Code snippets</strong> pane to get the connection credentials and load the data into a data structure. See <a href="../analyze-data/load-and-access-data.html#conns">Load data from data source connections</a>.</li>
+            <li>SPSS Modeler</li>
+            <li>Synthetic Data Generator</li>
+          </ul>
+          <p><strong>Catalogs</strong></p>
+          <ul>
+            <li>Platform assets catalog</li>
+          </ul>
+        </section>
+        <section id="section-amazon-s3-setup">
+          <h2 id="amazon-s3-setup">Amazon S3 setup</h2>
+          <p>See the <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/setting-up-s3.html" target="_blank" rel="noopener noreferrer">Amazon Simple Storage Service User Guide</a> for the setup steps.</p>
+        </section>
+        <section id="section-restriction">
+          <h2 id="restriction">Restriction</h2>
+          <p>Folders cannot be named with the slash symbol (<code>/</code>) because the slash symbol is a delimiter for the file structure.</p>
+        </section>
+        <section id="section-supported-file-types">
+          <h2 id="supported-file-types">Supported file types</h2>
+          <p>The Amazon S3 connection supports these file types:&nbsp; Avro, CSV, Delimited text, Excel, JSON, ORC, Parquet, SAS, SAV, SHP, and XML.</p>
+        </section>
+        <section id="section-table-formats">
+          <h2 id="table-formats">Table formats</h2>
+          <p>In addition to Flat file, the Amazon S3 connection supports these Data Lake table formats: Delta Lake and Iceberg.</p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p><a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html" target="_blank" rel="noopener noreferrer">Amazon S3 documentation</a></p>
+          <p><strong>Related connection</strong>: <a href="conn-generics3.html">Generic S3 connection</a></p>
+          <p><strong>Parent topic</strong>: <a href="conn_types.html">Supported connections</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

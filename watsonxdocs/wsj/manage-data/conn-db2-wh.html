@@ -1,0 +1,146 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="To access your data in IBM Db2 Warehouse, create a connection asset for it.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>IBM Db2 Warehouse connection</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=connectors-db2-warehouse-connection"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="ibm-db2-warehouse-connection" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-ibm-db2-warehouse-connection">
+        <h1 id="ibm-db2-warehouse-connection">IBM Db2 Warehouse connection</h1>
+        <p>To access your data in IBM Db2 Warehouse, create a connection asset for it.</p>
+        <p>IBM Db2 Warehouse is an analytics data warehouse that gives you a high level of control over your data and applications. You can use the IBM Db2 Warehouse connection to connect to a database in these products:</p>
+        <ul>
+          <li>IBM Db2 Warehouse in IBM Cloud</li>
+          <li>IBM Db2 Warehouse on-prem</li>
+        </ul>
+        <section id="section-create-a-connection-to-db2-warehouse">
+          <h2 id="create-a-connection-to-db2-warehouse">Create a connection to Db2 Warehouse</h2>
+          <p>To create the connection asset, you need these connection details:</p>
+          <ul>
+            <li><strong>Database name</strong></li>
+            <li><strong>Hostname or IP address</strong> of the database server</li>
+            <li><strong>Port number</strong></li>
+            <li><strong>API key</strong> or <strong>Username</strong> and <strong>password</strong></li>
+          </ul>
+          <ul>
+            <li><strong>Application name</strong> (optional): The name of the application that is currently using the connection. For information, see <a href="https://www.ibm.com/docs/SSEPGG_11.5.0/Javadocs/src/tpc/imjcc_r0052001.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Client info properties support by the IBM Data Server Driver for JDBC and SQLJ</a>.</li>
+            <li><strong>Client accounting information</strong> (optional): The value of the accounting string from the client information that is specified for the connection. For information, see <a href="https://www.ibm.com/docs/SSEPGG_11.5.0/Javadocs/src/tpc/imjcc_r0052001.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Client info properties support by the IBM Data Server Driver for JDBC and SQLJ</a>.</li>
+            <li><strong>Client hostname</strong> (optional): The hostname of the machine on which the application that is using the connection is running. For information, see <a href="https://www.ibm.com/docs/SSEPGG_11.5.0/Javadocs/src/tpc/imjcc_r0052001.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Client info properties support by the IBM Data Server Driver for JDBC and SQLJ</a>.</li>
+            <li><strong>Client user</strong> (optional): The name of the user on whose behalf the application that is using the connection is running. For information, see <a href="https://www.ibm.com/docs/SSEPGG_11.5.0/Javadocs/src/tpc/imjcc_r0052001.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Client info properties support by the IBM Data Server Driver for JDBC and SQLJ</a>.</li>
+          </ul>
+          <ul>
+            <li><strong>SSL certificate</strong> (if required by the database server)</li>
+          </ul>
+          <section id="section-credentials">
+            <h3 id="credentials">Credentials</h3>
+            <p>For Credentials, you can enter either an API key or a username and password</p>
+            <section id="section-authenticating-with-an-api-key">
+              <h4 id="authenticating-with-an-api-key">Authenticating with an API Key</h4>
+              <p>You can use an API key to authenticate to Db2 Warehouse in IBM Cloud.</p>
+              <p><strong>Db2 Warehouse in IBM Cloud</strong><br> First add the user ID as an IAM user or as a service ID. For instructions, see <strong>the Console user experience</strong> section of the <a href="https://cloud.ibm.com/docs/Db2whc?topic=Db2whc-iam#console-ux" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Identity and access management (IAM) on IBM Cloud</a> topic.</p>
+              <p>If users want to authenticate with Db2 Warehouse with an IAM API key, the administrator of the Db2 Warehouse instance can add the IAM users by using the User management console, and then the users can each create an API key for themselves
+                by using the IAM access management console.</p>
+              <p>For <strong>Private connectivity</strong>, to connect to a database that is not externalized to the internet (for example, behind a firewall), you must set up a <a href="securingconn.html">secure connection</a>.</p>
+            </section>
+          </section>
+          <section id="section-choose-the-method-for-creating-a-connection-based-on-where-you-are-in-the-platform">
+            <h3 id="choose-the-method-for-creating-a-connection-based-on-where-you-are-in-the-platform">Choose the method for creating a connection based on where you are in the platform</h3>
+            <dl>
+              <dt><strong>In a project</strong></dt>
+              <dd>Click <strong>Assets &gt; New asset &gt; Connect to a data source</strong>. See <a href="create-conn.html">Adding a connection to a project</a>.</dd>
+              <dt><strong>In a deployment space</strong></dt>
+              <dd>Click <strong>Add to space &gt; Connection</strong>. See <a href="../analyze-data/ml-space-add-assets.html">Adding connections to a deployment space</a>.</dd>
+              <dt><strong>In the Platform assets catalog</strong></dt>
+              <dd>Click <strong>New connection</strong>. See <a href="platform-conn.html">Adding platform connections</a>.</dd>
+            </dl>
+          </section>
+          <section id="section-next-step-add-data-assets-from-the-connection">
+            <h3 id="next-step-add-data-assets-from-the-connection">Next step: Add data assets from the connection</h3>
+            <ul>
+              <li>See <a href="connected-data.html">Add data from a connection in a project</a>.</li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-where-you-can-use-this-connection">
+          <h2 id="where-you-can-use-this-connection">Where you can use this connection</h2>
+          <p>You can use Db2 Warehouse connections in the following workspaces and tools:</p>
+          <p><strong>Projects</strong></p>
+          <ul>
+            <li>Data Refinery</li>
+            <li>Decision Optimization</li>
+            <li>Notebooks. Click <strong>Read data</strong> on the <strong>Code snippets</strong> pane to get the connection credentials and load the data into a data structure. See <a href="../analyze-data/load-and-access-data.html#conns">Load data from data source connections</a>.</li>
+            <li>SPSS Modeler</li>
+            <li>Synthetic Data Generator</li>
+          </ul>
+          <p><strong>Catalogs</strong></p>
+          <ul>
+            <li>Platform assets catalog</li>
+          </ul>
+        </section>
+        <section id="section-db2-warehouse-setup">
+          <h2 id="db2-warehouse-setup">Db2 Warehouse setup</h2>
+          <ul>
+            <li>IBM Db2 Warehouse on Cloud: <a href="https://cloud.ibm.com/docs/Db2whc?topic=Db2whc-getting-started" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Getting started with Db2 Warehouse on Cloud</a></li>
+            <li>IBM Db2 Warehouse on-prem: <a href="https://www.ibm.com/docs/SSCJDQ/com.ibm.swg.im.dashdb.doc/admin/local_setup.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Setting up Db2 Warehouse</a></li>
+          </ul>
+          <section id="section-running-sql-statements">
+            <h3 id="running-sql-statements">Running SQL statements</h3>
+            <p>To ensure that your SQL statements run correctly, refer to the product documentation in <a href="#lm">Learn more </a> for the correct syntax.</p>
+          </section>
+        </section>
+        <section id="section-known-issue">
+          <h2 id="known-issue">Known issue</h2>
+          <p>On Data Refinery, system-level schemas aren’t filtered out.</p>
+        </section>
+        <section id="section-lm">
+          <h2 id="lm">Learn more</h2>
+          <ul>
+            <li>IBM Db2 Warehouse on Cloud <a href="https://cloud.ibm.com/docs/Db2whc" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">product documentation</a> (IBM Cloud)</li>
+            <li>IBM Db2 Warehouse on-prem <a href="https://www.ibm.com/docs/SSCJDQ/com.ibm.swg.im.dashdb.doc/local_overview.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">product documentation</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="conn_types.html">Supported connections</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

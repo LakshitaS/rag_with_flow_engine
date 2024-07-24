@@ -1,0 +1,121 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="The Watson Natural Language Processing Noun phrase extraction block extracts noun phrases from input text.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Noun phrase extraction</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=catalog-noun-phrase-extraction"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="noun-phrases-block" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-noun-phrases-block">
+        <h1 id="noun-phrases-block">Noun phrase extraction</h1>
+        <p>The Watson Natural Language Processing Noun phrase extraction block extracts noun phrases from input text.</p>
+        <p><strong>Block name</strong></p>
+        <p><code>noun-phrases_rbr_&lt;language&gt;_stock</code></p>
+        <div class="note Note"><span class="Notetitle">Note:</span> The "rbr" abbreviation in model name means rule-based reasoning. RBR models handle syntactically regular entity types such as number, email and phone.</div>
+        <p><strong>Supported languages</strong></p>
+        <p>Noun phrase extraction is available for the following languages. For a list of the language codes and the corresponding language, see <a href="watson-nlp-block-catalog.html#lang-codes">Language codes</a>.</p>
+        <p>ar, cs, da, de, es, en, fi, fr, he, hi, it, ja, ko, nb, nl, nn, pt, ro, ru, sk, sv, tr, zh_cn, zh_tw</p>
+        <p><strong>Capabilities</strong></p>
+        <p>The Noun phrase extraction block extracts non-overlapping noun phrases from the input text.</p>
+        <table>
+          <caption>Capabilities of noun phrase extraction based on an example</caption>
+          <thead>
+            <tr>
+              <th>Capabilities</th>
+              <th>Examples</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Extraction of non-overlapping noun phrases</td>
+              <td>"Anna went to school at University of California Santa Cruz" -&gt; Anna, school, University of California Santa Cruz</td>
+            </tr>
+          </tbody>
+        </table>
+        <p><strong>Dependencies on other blocks</strong></p>
+        <p>None</p>
+        <p><strong>Code sample</strong></p>
+        <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">import</span> watson_nlp
+
+<span class="hljs-comment"># Load the model for English</span>
+noun_phrases_model = watson_nlp.load(<span class="hljs-string">'noun-phrases_rbr_en_stock'</span>)
+
+<span class="hljs-comment"># Run the model on the input text</span>
+noun_phrases = noun_phrases_model.run(<span class="hljs-string">'Anna went to school at University of California Santa Cruz'</span>)
+<span class="hljs-built_in">print</span>(noun_phrases)
+</code></pre>
+        <p>Output of the code sample:</p>
+        <pre class="codeblock"><code class="lang-json hljs"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"noun_phrases"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"span"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"begin"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"end"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"text"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Anna"</span>
+      <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"span"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"begin"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">13</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"end"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">19</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"text"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"school"</span>
+      <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"span"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"begin"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">23</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"end"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">58</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"text"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"University of California Santa Cruz"</span>
+      <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"producer_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"RBR Noun phrases"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"version"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"0.0.1"</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+        <p><strong>Parent topic:</strong> <a href="watson-nlp-block-catalog.html">Watson Natural Language Processing task catalog</a></p>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

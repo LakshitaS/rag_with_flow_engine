@@ -1,0 +1,129 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="To access your data in Microsoft Azure File Storage, create a connection asset for it.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Microsoft Azure File Storage connection</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=connectors-microsoft-azure-file-storage-connection"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="microsoft-azure-file-storage-connection" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-microsoft-azure-file-storage-connection">
+        <h1 id="microsoft-azure-file-storage-connection">Microsoft Azure File Storage connection</h1>
+        <!-- NLW: Discussion about naming: https://ibm-analytics.slack.com/archives/CSPNZPAEQ/p1600723911021400?thread_ts=1600712916.019100&cid=CSPNZPAEQ -->
+        <!-- Review: https://rtpdoc01.rtp.raleigh.ibm.com:9443/kc/SSQNUZ_3.5.0_test/wsj/manage-data/conn-azurefs.html -->
+        <p>To access your data in Microsoft Azure File Storage, create a connection asset for it.</p>
+        <p>Azure Files are Microsoft's cloud file system. They are managed file shares that are accessible via the Server Message Block (SMB) protocol or the Network File System (NFS) protocol.</p>
+        <!-- https://docs.microsoft.com/en-us/azure/storage/files/storage-how-to-use-files-portal -->
+        <!-- https://azure.microsoft.com/en-in/blog/azure-file-storage-now-generally-available/ -->
+        <section id="section-create-a-connection-to-microsoft-azure-file-storage">
+          <h2 id="create-a-connection-to-microsoft-azure-file-storage">Create a connection to Microsoft Azure File Storage</h2>
+          <p>To create the connection asset, you need these connection details:</p>
+          <p>Connection string: Authentication is managed by the Azure portal access keys.</p>
+          <section id="section-choose-the-method-for-creating-a-connection-based-on-where-you-are-in-the-platform">
+            <h3 id="choose-the-method-for-creating-a-connection-based-on-where-you-are-in-the-platform">Choose the method for creating a connection based on where you are in the platform</h3>
+            <dl>
+              <dt><strong>In a project</strong></dt>
+              <dd>Click <strong>Assets &gt; New asset &gt; Connect to a data source</strong>. See <a href="create-conn.html">Adding a connection to a project</a>.</dd>
+              <dt><strong>In a deployment space</strong></dt>
+              <dd>Click <strong>Add to space &gt; Connection</strong>. See <a href="../analyze-data/ml-space-add-assets.html">Adding connections to a deployment space</a>.</dd>
+              <dt><strong>In the Platform assets catalog</strong></dt>
+              <dd>Click <strong>New connection</strong>. See <a href="platform-conn.html">Adding platform connections</a>.</dd>
+            </dl>
+          </section>
+          <section id="section-next-step-add-data-assets-from-the-connection">
+            <h3 id="next-step-add-data-assets-from-the-connection">Next step: Add data assets from the connection</h3>
+            <ul>
+              <li>See <a href="connected-data.html">Add data from a connection in a project</a>.</li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-where-you-can-use-this-connection">
+          <h2 id="where-you-can-use-this-connection">Where you can use this connection</h2>
+          <p>You can use Microsoft Azure File Storage connections in the following workspaces and tools:</p>
+          <p><strong>Projects</strong></p>
+          <ul>
+            <li>Decision Optimization</li>
+            <li>SPSS Modeler</li>
+            <li>Synthetic Data Generator</li>
+          </ul>
+          <!-- * Notebooks -->
+          <!-- Notebooks: see: https://ibm.ent.box.com/notes/719984608729 -->
+          <!-- - SPSS Modeler TBD -->
+          <p><strong>Catalogs</strong></p>
+          <ul>
+            <li>Platform assets catalog</li>
+          </ul>
+        </section>
+        <section id="section-azure-file-storage-setup">
+          <h2 id="azure-file-storage-setup">Azure File Storage setup</h2>
+          <p>Set up storage and access keys on the Microsoft Azure portal. For instructions see <a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-account-keys-manage" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Manage storage account access keys</a>.
+            <br>Example connection string, which you can find in the <strong>ApiKeys</strong> section of the container:</p>
+          <p><code>DefaultEndpointsProtocol=https;AccountName=sampleaccount;AccountKey=samplekey;EndpointSuffix=core.windows.net</code></p>
+          <p>Choose the method to create and manage your Azure Files:</p>
+          <ul>
+            <li><a href="https://docs.microsoft.com/en-us/azure/storage/files/storage-files-quick-create-use-windows" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Quickstart: Create and manage Azure Files share with Windows virtual machines</a></li>
+            <li><a href="https://docs.microsoft.com/en-us/azure/storage/files/storage-how-to-use-files-portal" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Quickstart: Create and manage Azure file shares with the Azure portal</a></li>
+            <li><a href="https://docs.microsoft.com/en-us/azure/storage/files/storage-how-to-use-files-powershell" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Quickstart: Create and manage an Azure file share with Azure PowerShell</a></li>
+            <li><a href="https://docs.microsoft.com/en-us/azure/storage/files/storage-how-to-use-files-cli" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Quickstart: Create and manage Azure file shares using Azure CLI</a></li>
+            <li><a href="https://docs.microsoft.com/en-us/azure/storage/files/storage-how-to-use-files-storage-explorer" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Quickstart: Create and manage Azure file shares with Azure Storage Explorer</a></li>
+          </ul>
+        </section>
+        <section id="section-restriction">
+          <h2 id="restriction">Restriction</h2>
+          <p>Microsoft Azure's maximum file size is 1 TB.</p>
+        </section>
+        <section id="section-supported-file-types">
+          <h2 id="supported-file-types">Supported file types</h2>
+          <p>The Azure File Storage connection supports these file types:&nbsp; Avro, CSV, Delimited text, Excel, JSON, ORC, Parquet, SAS, SAV, SHP, and XML.</p>
+        </section>
+        <section id="section-known-issue">
+          <h2 id="known-issue">Known issue</h2>
+          <p>During the upload, the data is appended in portions to a temporary blob and then converted into the file. Depending on the size of the streamed content, there might be a delay in creating the file. Wait until all the data is uploaded.</p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p><a href="https://azure.microsoft.com/en-us/services/storage/files/" target="_blank" rel="noopener noreferrer">Azure Files</a></p>
+          <p><strong>Parent topic:</strong> <a href="conn_types.html">Supported connections</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

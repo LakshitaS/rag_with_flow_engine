@@ -1,0 +1,85 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Global explanation stability gives the degree of consistency in global explanation over time in Watson OpenScale.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Global explanation stability in Watson OpenScale explainability metrics</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=explainability-global-explanation-stability"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="global-explanation-stability-in-watson-openscale-explainability-metrics" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-global-explanation-stability-in-watson-openscale-explainability-metrics">
+        <h1 id="global-explanation-stability-in-watson-openscale-explainability-metrics">Global explanation stability in Watson OpenScale explainability metrics</h1>
+        <p>Global explanation stability gives the degree of consistency in global explanation over time in Watson OpenScale.</p>
+        <section id="section-how-it-works">
+          <h2 id="how-it-works">How it works</h2>
+          <p>Watson OpenScale generates a global explanation with the baseline data that you provide when you configure explainability evaluations. Global explanations identify the features that have the most impact on the behavior of your model. When Watson
+            OpenScale generates new global explanations, each explanation is compared to the baseline global explanation to calculate global explanation stability. Global explanation stability uses the normalized discounted cumulative gain (NDGC) formula
+            to determine the similarity between new global explanations and the baseline global explanation.</p>
+        </section>
+        <section id="section-global-explanation-stability-at-a-glance">
+          <h2 id="global-explanation-stability-at-a-glance">Global explanation stability at a glance</h2>
+          <ul>
+            <li>
+              <p><strong>Description</strong>: Higher values indicate higher uniformity with the baseline explanation</p>
+              <ul>
+                <li><strong>At 0</strong>: The explanations are very different.</li>
+                <li><strong>At 1</strong>: The explanations are very similar.</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section id="section-do-the-math">
+          <h2 id="do-the-math">Do the math</h2>
+          <p>The following formula is used for calculating global explanation stability:</p>
+          <pre class="codeblock"><code class="lang-txt hljs">                  DCGₚ
+nDCGₚ  =    _____________________
+                  IDCGₚ
+</code></pre>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p><a href="wos-insights-transaction-details.html#analyze-explain-global">Explaining model transactions</a></p>
+          <p><strong>Parents topic:</strong> <a href="wos-explainability-config.html">Configuring explainability in Watson OpenScale</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

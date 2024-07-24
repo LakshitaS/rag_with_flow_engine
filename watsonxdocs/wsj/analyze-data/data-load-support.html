@@ -1,0 +1,714 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can add automatically generated code to load data from project data assets to a notebook cell. The asset type can be a file or a database connection.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Loading data through generated code snippets</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=notebook-loading-data-through-generated-code-snippets"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="loading-data-through-generated-code-snippets" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-loading-data-through-generated-code-snippets">
+        <h1 id="loading-data-through-generated-code-snippets">Loading data through generated code snippets</h1>
+        <p>You can add automatically generated code to load data from project data assets to a notebook cell. The asset type can be a file or a database connection.</p>
+        <p>By clicking in an empty code cell in your notebook, clicking the <strong>Code snippets</strong> icon (<img src="images/code-snippets-icon.png" alt="the Code snippets icon" height="20" style="vertical-align:text-bottom">) from the notebook toolbar,
+          selecting <strong>Read data</strong> and an asset from the project, you can:</p>
+        <ul>
+          <li>
+            <p>Insert the data source access credentials. This capability is available for all data assets that are added to a project. With the credentials, you can write your own code to access the asset and load the data into data structures of your choice.</p>
+          </li>
+          <li>
+            <p>Generate code that is added to the notebook cell. The inserted code serves as a quick start to allow you to easily begin working with a data set or connection. For production systems, you should carefully review the inserted code to determine
+              if you should write your own code that better meets your needs.</p>
+            <p>When you run the code cell, the data is accessed and loaded into the data structure you selected.</p>
+            <p><strong>Notes</strong>:</p>
+            <ol>
+              <li>The ability to provide generated code is disabled for some connections if:
+                <ul>
+                  <li>The connection credentials are personal credentials</li>
+                  <li>The connection uses a secure gateway link</li>
+                  <li>The connection credentials are stored in vaults</li>
+                </ul>
+              </li>
+              <li>If the file type or database connection that you are using doesn't appear in the following lists, you can select to create generic code. For Python this is a StreamingBody object and for R a textConnection object.</li>
+            </ol>
+          </li>
+        </ul>
+        <p>The following tables show you which data source connections (file types and database connections) support the option to generate code. The options for generating code vary depending on the data source, the notebook coding language, and the notebook
+          runtime compute.</p>
+        <section id="section-file-types">
+          <h2 id="file-types">Supported files types</h2>
+          <table>
+            <caption caption-side="top">Table 1. Supported file types</caption>
+            <thead>
+              <tr>
+                <th>Data source</th>
+                <th>Notebook coding language</th>
+                <th>Compute engine type</th>
+                <th>Available support to load data</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>CSV files</td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Python</td>
+                <td>Anaconda Python distribution</td>
+                <td>Load data into pandasDataFrame</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Spark</td>
+                <td>Load data into pandasDataFrame and sparkSessionDataFrame</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Hadoop</td>
+                <td>Load data into pandasDataFrame and sparkSessionDataFrame</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>R</td>
+                <td>Anaconda R distribution</td>
+                <td>Load data into R data frame</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Spark</td>
+                <td>Load data into R data frame and sparkSessionDataFrame</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Hadoop</td>
+                <td>Load data into R data frame and sparkSessionDataFrame</td>
+              </tr>
+              <tr>
+                <td>Python Script</td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Python</td>
+                <td>Anaconda Python distribution</td>
+                <td>Load data into pandasStreamingBody</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Spark</td>
+                <td>Load data into pandasStreamingBody</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Hadoop</td>
+                <td>Load data into pandasStreamingBody</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>R</td>
+                <td>Anaconda R distribution</td>
+                <td>Load data into rRawObject</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Spark</td>
+                <td>Load data into rRawObject</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Hadoop</td>
+                <td>Load data into rRawObject</td>
+              </tr>
+              <tr>
+                <td>JSON files</td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Python</td>
+                <td>Anaconda Python distribution</td>
+                <td>Load data into pandasDataFrame</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Spark</td>
+                <td>Load data into pandasDataFrame and sparkSessionDataFrame</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Hadoop</td>
+                <td>Load data into pandasDataFrame and sparkSessionDataFrame</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>R</td>
+                <td>Anaconda R distribution</td>
+                <td>Load data into R data frame</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Spark</td>
+                <td>Load data into R data frame, rRawObject and sparkSessionDataFrame</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Hadoop</td>
+                <td>Load data into R data frame, rRawObject and sparkSessionDataFrame</td>
+              </tr>
+              <tr>
+                <td>.xlsx and .xls files</td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Python</td>
+                <td>Anaconda Python distribution</td>
+                <td>Load data into pandasDataFrame</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Spark</td>
+                <td>Load data into pandasDataFrame</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Hadoop</td>
+                <td>Load data into pandasDataFrame</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>R</td>
+                <td>Anaconda R distribution</td>
+                <td>Load data into rRawObject</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Spark</td>
+                <td>No data load support</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Hadoop</td>
+                <td>No data load support</td>
+              </tr>
+              <tr>
+                <td>Octet-stream file types</td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Python</td>
+                <td>Anaconda Python distribution</td>
+                <td>Load data into pandasStreamingBody</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Spark</td>
+                <td>Load data into pandasStreamingBody</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>R</td>
+                <td>Anaconda R distribution</td>
+                <td>Load data in rRawObject</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Spark</td>
+                <td>Load data in rDataObject</td>
+              </tr>
+              <tr>
+                <td>PDF file type</td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Python</td>
+                <td>Anaconda Python distribution</td>
+                <td>Load data into pandasStreamingBody</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Spark</td>
+                <td>Load data into pandasStreamingBody</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Hadoop</td>
+                <td>Load data into pandasStreamingBody</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>R</td>
+                <td>Anaconda R distribution</td>
+                <td>Load data in rRawObject</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Spark</td>
+                <td>Load data in rDataObject</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Hadoop</td>
+                <td>Load data into rRawData</td>
+              </tr>
+              <tr>
+                <td>ZIP file type</td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Python</td>
+                <td>Anaconda Python distribution</td>
+                <td>Load data into pandasStreamingBody</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Spark</td>
+                <td>Load data into pandasStreamingBody</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>R</td>
+                <td>Anaconda R distribution</td>
+                <td>Load data in rRawObject</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Spark</td>
+                <td>Load data in rDataObject</td>
+              </tr>
+              <tr>
+                <td>JPEG, PNG image files</td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Python</td>
+                <td>Anaconda Python distribution</td>
+                <td>Load data into pandasStreamingBody</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Spark</td>
+                <td>Load data into pandasStreamingBody</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Hadoop</td>
+                <td>Load data into pandasStreamingBody</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>R</td>
+                <td>Anaconda R distribution</td>
+                <td>Load data in rRawObject</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Spark</td>
+                <td>Load data in rDataObject</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Hadoop</td>
+                <td>Load data in rDataObject</td>
+              </tr>
+              <tr>
+                <td>Binary files</td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Python</td>
+                <td>Anaconda Python distribution</td>
+                <td>Load data into pandasStreamingBody</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Spark</td>
+                <td>Load data into pandasStreamingBody</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>Hadoop</td>
+                <td>No data load support</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>R</td>
+                <td>Anaconda R distribution</td>
+                <td>Load data in rRawObject</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Spark</td>
+                <td>Load data into rRawObject</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>Hadoop</td>
+                <td>Load data in rDataObject</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section id="section-database-conns">
+          <h2 id="database-conns">Supported database connections</h2>
+          <table>
+            <caption caption-side="top">Table 2. Supported database connections</caption>
+            <thead>
+              <tr>
+                <th>Data source</th>
+                <th>Notebook coding language</th>
+                <th>Compute engine type</th>
+                <th>Available support to load data</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>- <a href="../manage-data/conn-db2-wh.html">Db2 Warehouse on Cloud</a> <br> - <a href="../manage-data/conn-db2-cloud.html">IBM Db2 on Cloud</a> <br>- <a href="../manage-data/conn-db2.html">IBM Db2 Database</a></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Python</td>
+                <td>Anaconda Python distribution</td>
+                <td>Load data into ibmdbpyIda and ibmdbpyPandas</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Spark</td>
+                <td>Load data into ibmdbpyIda, ibmdbpyPandas and sparkSessionDataFrame</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Hadoop</td>
+                <td>Load data into ibmdbpyIda, ibmdbpyPandas and sparkSessionDataFrame</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>R</td>
+                <td>Anaconda R distribution</td>
+                <td>Load data into ibmdbrIda and ibmdbrDataframe</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Spark</td>
+                <td>Load data into ibmdbrIda, ibmdbrDataFrame and sparkSessionDataFrame</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Hadoop</td>
+                <td>Load data into ibmdbrIda, ibmdbrDataFrame and sparkSessionDataFrame</td>
+              </tr>
+              <tr>
+                <td>- <a href="../manage-data/conn-db2-wh.html">Db2 for z/OS</a> <br></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Python</td>
+                <td>Anaconda Python distribution</td>
+                <td>Load data into ibmdbpyIda and ibmdbpyPandas</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Spark</td>
+                <td>No data load support</td>
+              </tr>
+              <tr>
+                <td>- <a href="../manage-data/conn-amazon-s3.html">Amazon Simple Storage Services (S3)</a> <br>- <a href="../manage-data/conn-amazon-s3.html">Amazon Simple Storage Services (S3) with an IAM access policy</a></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Python</td>
+                <td>Anaconda Python distribution</td>
+                <td>Load data into pandasStreamingBody</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Hadoop</td>
+                <td>Load data into pandasStreamingBody and sparkSessionSetup</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>R</td>
+                <td>Anaconda R distributuion</td>
+                <td>Load data into rRawObject</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Hadoop</td>
+                <td>Load data into rRawObject and sparkSessionSetup</td>
+              </tr>
+              <tr>
+                <td>- <a href="../manage-data/conn-dbase-postgresql.html">IBM Cloud Databases for PostgreSQL</a> <br>- <a href="../manage-data/conn-sql-server.html">Microsoft SQL Server</a></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Python</td>
+                <td>Anaconda Python distribution</td>
+                <td>Load data into pandasDataFrame</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Spark</td>
+                <td>Load data into pandasDataFrame</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>R</td>
+                <td>Anaconda R distribution</td>
+                <td>Load data into R data frame</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Spark</td>
+                <td>Load data into R data frame and sparkSessionDataFrame</td>
+              </tr>
+              <tr>
+                <td>
+                  <ul>
+                    <li><a href="../manage-data/conn-cognos.html">IBM Cognos Analytics</a></li>
+                  </ul>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Python</td>
+                <td>Anaconda Python distribution</td>
+                <td>Load data into pandasDataFrame <br><br> In the generated code: <br> - Edit the path parameter in the last line of code <br> - Remove the comment tagging <br> <br> To read data, see <a href="https://www.ibm.com/support/knowledgecenter/en/SSEP7J_11.1.0/com.ibm.swg.ba.cognos.ca_notebook.doc/c_read_notebook.html">Reading data from a data source</a>                  <br> To search data, see <a href="https://www.ibm.com/support/knowledgecenter/en/SSEP7J_11.1.0/com.ibm.swg.ba.cognos.ca_notebook.doc/c_search_for_data_objects_notebook.html">Searching for data objects</a> <br> To write data, see <a href="https://www.ibm.com/support/knowledgecenter/en/SSEP7J_11.1.0/com.ibm.swg.ba.cognos.ca_notebook.doc/c_write_notebook.html">Writing data to a data source</a></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Spark</td>
+                <td>No data load support</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>R</td>
+                <td>Anaconda R distribution</td>
+                <td>Load data into R data frame <br><br> In the generated code: <br> - Edit the path parameter in the last line of code <br> - Remove the comment tagging <br> <br> To read data, see <a href="https://www.ibm.com/support/knowledgecenter/en/SSEP7J_11.1.0/com.ibm.swg.ba.cognos.ca_notebook.doc/c_read_notebook.html">Reading data from a data source</a>                  <br> To search data, see <a href="https://www.ibm.com/support/knowledgecenter/en/SSEP7J_11.1.0/com.ibm.swg.ba.cognos.ca_notebook.doc/c_search_for_data_objects_notebook.html">Searching for data objects</a> <br> To write data, see <a href="https://www.ibm.com/support/knowledgecenter/en/SSEP7J_11.1.0/com.ibm.swg.ba.cognos.ca_notebook.doc/c_write_notebook.html">Writing data to a data source</a></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Spark</td>
+                <td>No data load support</td>
+              </tr>
+              <tr>
+                <td>
+                  <ul>
+                    <li><a href="../manage-data/conn-cosmosdb.html">Microsoft Azure Cosmos DB</a></li>
+                  </ul>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Python</td>
+                <td>Anaconda Python distribution</td>
+                <td>Load data into pandasDataFrame</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Spark</td>
+                <td>Load data into pandasDataFrame</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>R</td>
+                <td>Anaconda R distribution</td>
+                <td>No data load support</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Spark</td>
+                <td>No data load support</td>
+              </tr>
+              <tr>
+                <td>- <a href="../manage-data/conn-azrds-mysql.html">Amazon RDS for MySQL</a> <br></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Python</td>
+                <td>Anaconda Python distribution</td>
+                <td>Load data into pandasDataFrame</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Spark</td>
+                <td>Load data into pandasDataFrame</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>R</td>
+                <td>Anaconda R distribution</td>
+                <td>Load data into R data frame and sparkSessionDataFrame</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Spark</td>
+                <td>No data load support</td>
+              </tr>
+              <tr>
+                <td>- <a href="../manage-data/conn-http.html">HTTP</a> <br> - <a href="../manage-data/conn-cassandra.html">Apache Cassandra</a> <br> - <a href="../manage-data/conn-azrds-postresql.html">Amazon RDS for PostgreSQL</a></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Python</td>
+                <td>Anaconda Python distribution</td>
+                <td>Load data into pandasDataFrame</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Spark</td>
+                <td>Load data into pandasDataFrame</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>R</td>
+                <td>Anaconda R distribution</td>
+                <td>Load data into R data frame</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>With Spark</td>
+                <td>Load data into R data frame</td>
+              </tr>
+            </tbody>
+          </table>
+          <p><strong>Parent topic:</strong> <a href="../analyze-data/load-and-access-data.html">Loading and accessing data in a notebook</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

@@ -1,0 +1,420 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can use your custom machine learning framework to complete payload logging, feedback logging, and to measure performance accuracy, runtime bias detection, explainability, drift detection, and auto-debias function in the IBM Watson OpenScale service. The custom machine learning framework must have equivalency to IBM Watson Machine Learning.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Custom machine learning frameworks</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=models-custom-ml-frameworks"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="custom-machine-learning-frameworks" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-custom-machine-learning-frameworks">
+        <h1 id="custom-machine-learning-frameworks">Custom machine learning frameworks</h1>
+        <p>You can use your custom machine learning framework to complete payload logging, feedback logging, and to measure performance accuracy, runtime bias detection, explainability, drift detection, and auto-debias function in the IBM Watson OpenScale
+          service. The custom machine learning framework must have equivalency to IBM Watson Machine Learning.</p>
+        <p>IBM Watson OpenScale fully supports the following custom machine learning frameworks:</p>
+        <p>Table 1. Framework support details</p>
+        <table>
+          <caption caption-side="top">Framework support details</caption>
+          <thead>
+            <tr>
+              <th style="text-align:left">Framework</th>
+              <th style="text-align:center">Problem type</th>
+              <th style="text-align:center">Data type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="text-align:left">Equivalent to IBM Watson Machine Learning</td>
+              <td style="text-align:center">Classification</td>
+              <td style="text-align:center">Structured</td>
+            </tr>
+            <tr>
+              <td style="text-align:left">Equivalent to IBM Watson Machine Learning</td>
+              <td style="text-align:center">Regression</td>
+              <td style="text-align:center">Structured</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>For a model that is not equivalent to IBM Watson Machine Learning, you must create a wrapper for the custom model that exposes the required REST API endpoints. You must also and bridge the input/output between Watson OpenScale and the actual custom
+          machine learning engine.</p>
+        <section id="section-fmrk-workaround-enging-choice">
+          <h2 id="fmrk-workaround-enging-choice">When is a custom machine learning engine the best choice for me?</h2>
+          <p>A custom machine learning engine is the best choice when the following situations are true:</p>
+          <ul>
+            <li>You are not using any immediately available products to serve your machine learning models. You have a system to serve your models and no direct support exists in Watson OpenScale for that function.</li>
+            <li>The serving engine that you are using from a 3rd-party supplier is not supported by Watson OpenScale yet. In this case, consider developing a custom machine learning engine as a wrapper to your original or native deployments.</li>
+          </ul>
+        </section>
+        <section id="section-co-works">
+          <h2 id="co-works">How it works</h2>
+          <p>The following image shows the custom environment support:</p>
+          <p><img src="images/wos-custom-how-works.png" alt="How Custom works chart is displayed. It shows boxes for the custom environment with the client API and the Watson OpenScale API"></p>
+          <p>You can also reference the following links:</p>
+          <p><a href="https://cloud.ibm.com/apidocs/ai-openscale#publish-scoring-payload" target="_blank" class="external">Watson OpenScale payload logging API</a></p>
+          <p><a href="https://client-docs.aiopenscale.cloud.ibm.com/html/index.html" target="_blank" class="external">Python client SDK</a></p>
+          <p><a href="https://pypi.org/project/ibm-ai-openscale/" target="_blank" class="external">Python SDK for IBM Watson OpenScale</a></p>
+          <ul>
+            <li>
+              <p><strong>Input criteria for model to support monitors</strong></p>
+              <p>In the following example, your model takes a feature vector, which is essentially a collection of named fields and their values, as an input.</p>
+              <pre class="codeblock"><code class="lang-bash hljs">{
+<span class="hljs-string">"fields"</span>: [
+    <span class="hljs-string">"name"</span>,
+    <span class="hljs-string">"age"</span>,
+    <span class="hljs-string">"position"</span>
+],
+<span class="hljs-string">"values"</span>: [
+    [
+        <span class="hljs-string">"john"</span>,
+        33,
+        <span class="hljs-string">"engineer"</span>
+    ],
+    [
+        <span class="hljs-string">"mike"</span>,
+        23,
+        <span class="hljs-string">"student"</span>
+    ]
+]
+
+</code></pre>
+              <p>The <code>“age”</code> field can be evaluated for fairness.</p>
+              <p>If the input is a tensor or matrix, which is transformed from the input feature space, that model cannot be handled by the Watson OpenScale platform in the current release. By extension, deep learning models with text or image inputs cannot
+                be handled for bias detection and mitigation.</p>
+              <p>Additionally, training data must be loaded to support Explainability.</p>
+              <p note="">For explainability on text, the full text should be one of the features. Explainability on images for a Custom model is not supported in the current release.</p>
+            </li>
+            <li>
+              <p><strong>Output criteria for model to support monitors</strong></p>
+              <p>Your model outputs the input feature vector alongside the prediction probabilities of various classes in that model.</p>
+              <pre class="codeblock"><code class="lang-bash hljs">{
+<span class="hljs-string">"fields"</span>: [
+    <span class="hljs-string">"name"</span>,
+    <span class="hljs-string">"age"</span>,
+    <span class="hljs-string">"position"</span>,
+    <span class="hljs-string">"prediction"</span>,
+    <span class="hljs-string">"probability"</span>
+],
+<span class="hljs-string">"labels"</span>: [
+    <span class="hljs-string">"personal"</span>,
+    <span class="hljs-string">"camping"</span>
+],
+<span class="hljs-string">"values"</span>: [
+    [
+        <span class="hljs-string">"john"</span>,
+        33,
+        <span class="hljs-string">"engineer"</span>,
+        <span class="hljs-string">"personal"</span>,
+        [
+            0.6744664422398081,
+            0.3255335577601919
+        ]
+    ],
+    [
+        <span class="hljs-string">"mike"</span>,
+        23,
+        <span class="hljs-string">"student"</span>
+        <span class="hljs-string">"camping"</span>,
+        [
+            0.2794765664946941,
+            0.7205234335053059
+        ]
+    ]
+]
+}
+</code></pre>
+              <p>In this example, <code>"personal”</code> and <code>“camping”</code> are the possible classes, and the scores in each scoring output are assigned to both classes. If the prediction probabilities are missing, bias detection works, but
+                auto-debias does not.</p>
+              <p>You can access the scoring output from a live scoring endpoint that Watson OpenScale can call with the REST API. For CUSTOMML, SageMaker, and IBM Watson Machine Learning, Watson OpenScale directly connects to the native scoring endpoints.</p>
+            </li>
+          </ul>
+        </section>
+        <section id="section-fmrk-workaround-customengine">
+          <h2 id="fmrk-workaround-customengine">Custom machine learning engine</h2>
+          <p>A custom machine learning engine provides the infrastructure and hosting capabilities for machine learning models and web applications. Custom machine learning engines that are supported by Watson OpenScale must conform to the following requirements:</p>
+          <ul>
+            <li>
+              <p>Expose two types of REST API endpoints:</p>
+              <ul>
+                <li>discovery endpoint (GET list of deployments and details)</li>
+                <li>scoring endpoints (online and real-time scoring)</li>
+              </ul>
+            </li>
+            <li>
+              <p>All endpoints need to be compatible with the swagger specification to be supported.</p>
+            </li>
+            <li>
+              <p>Input payload and output to or from the deployment must be compliant with the JSON file format that is described in the specification.</p>
+            </li>
+          </ul>
+          <p>To see the REST API endpoints specification, see <a href="https://cloud.ibm.com/apidocs/ai-openscale" target="_blank" class="external">Watson OpenScale REST API</a>.</p>
+        </section>
+        <section id="section-frmwrks-custom-add">
+          <h2 id="frmwrks-custom-add">Adding a custom machine learning engine to Watson OpenScale</h2>
+          <p>You can configure Watson OpenScale to work with a custom machine learning provider by using one of the following methods:</p>
+          <ul>
+            <li>You can use the configuration interface to add your first custom machine learning provider to Watson OpenScale. For more information, see <a href="#co-connect">Specifying a custom machine learning instance</a>.</li>
+            <li>You can also add your machine learning provider by using the Python SDK. You must use this method if you want to have more than one provider. For more information, see <a href="#cml-cusbind">Add your custom machine learning engine</a>.</li>
+          </ul>
+        </section>
+        <section id="section-frmwrks-custom-mediumblogs">
+          <h2 id="frmwrks-custom-mediumblogs">Explore further</h2>
+          <p>Use a custom machine learning monitor to create a way to interact with other services:</p>
+          <ul>
+            <li><a href="https://developer.ibm.com/patterns/monitor-custom-machine-learning-engine-with-ai-openscale/" target="_blank" class="external">Monitor custom machine learning engine with Watson OpenScale</a></li>
+          </ul>
+        </section>
+        <section id="section-co-connect">
+          <h2 id="co-connect">Specifying a Custom ML service instance</h2>
+          <p>Your first step in the Watson OpenScale tool is to specify a service instance. Your service instance is where you store your AI models and deployments.</p>
+        </section>
+        <section id="section-co-config">
+          <h2 id="co-config">Connect your Custom service instance</h2>
+          <p>Watson OpenScale connects to AI models and deployments in a service instance. You can connect a custom service. To connect your service to Watson OpenScale, go to the <strong>Configure</strong> <img src="images/wos-config-tab.png" alt="The configuration tab icon">            tab, add a machine learning provider, and click the <strong>Edit</strong> <img src="images/wos-edit-icon.png" alt="The configuration tab icon"> icon. In addition to a name, description and specifying the <strong>Pre-production</strong> or
+            <strong>Production</strong> environment type, you must provide the following information that is specific to this type of service instance:</p>
+          <ul>
+            <li>Username</li>
+            <li>Password</li>
+            <li>API endpoint that uses the format <code>https://host:port</code>, such as <code>https://custom-serve-engine.example.net:8443</code></li>
+          </ul>
+          <p>Choose whether to connect to your deployments <a href="wos-frameworks-custom.html#co-config-request-list">by requesting a list</a> or <a href="wos-frameworks-custom.html#co-config-scoring-endpoints">by entering individual scoring endpoints</a>.</p>
+          <section id="section-co-config-request-list">
+            <h3 id="co-config-request-list">Requesting the list of deployments</h3>
+            <p>If you selected the <strong>Request the list of deployments</strong> tile, enter your credentials and API Endpoint, then save your configuration.</p>
+          </section>
+          <section id="section-co-config-scoring-endpoints">
+            <h3 id="co-config-scoring-endpoints">Providing individual scoring endpoints</h3>
+            <p>If you selected the <strong>Enter individual scoring endpoints</strong> tile, enter your credentials for the API Endpoint, then save your configuration.</p>
+            <p>You are now ready to select deployed models and configure your monitors. Watson OpenScale lists your deployed models on the <strong>Insights</strong> dashboard where you can click <strong>Add to dashboard</strong>. Select the deployments that
+              you want to monitor and click <strong>Configure</strong>.</p>
+            <p>For more information, see <a href="wos-monitors-overview.html">Configure monitors</a>.</p>
+          </section>
+        </section>
+        <section id="section-fmrk-workaround-cstmmlsengex">
+          <h2 id="fmrk-workaround-cstmmlsengex">Custom machine learning engine examples</h2>
+          <p class="shortdesc">Use the following ideas to set up your own custom machine learning engine.</p>
+        </section>
+        <section id="section-fmrk-workaround-pandflask">
+          <h2 id="fmrk-workaround-pandflask">Python and flask</h2>
+          <p>You can use Python and flask to serve scikit-learn model.</p>
+          <p note="">To generate the drift detection model, you must use scikit-learn version 0.20.2 in the notebook.</p>
+          <p>The app can be deployed locally for testing purposes and as an application on IBM Cloud.</p>
+        </section>
+        <section id="section-fmrk-workaround-nodejs">
+          <h2 id="fmrk-workaround-nodejs">Node.js</h2>
+          <p>You can also find an example of a custom machine learning engine that is written in <a href="https://github.com/pmservice/ai-openscale-tutorials/tree/master/applications/custom-ml-engine-nodejs">Node.js here</a>.</p>
+        </section>
+        <section id="section-fmrk-workaround-e2ecode">
+          <h2 id="fmrk-workaround-e2ecode">End2end code pattern</h2>
+          <p><a href="https://developer.ibm.com/patterns/monitor-custom-machine-learning-engine-with-ai-openscale">Code pattern</a> showing end2end example of custom engine deployment and integration with Watson OpenScale.</p>
+        </section>
+        <section id="section-cml-cusconfig">
+          <h2 id="cml-cusconfig">Payload logging with the Custom machine learning engine</h2>
+          <p>To configure payload logging for a non-IBM Watson Machine Learning or custom machine learning engine, you must bind the ML engine as custom.</p>
+          <section id="section-cml-cusbind" help="" support="">
+            <h3 id="cml-cusbind">Add your Custom machine learning engine</h3>
+            <p>A non-Watson Machine Learning engine is added as custom by using metadata and no direct integration with the non-IBM Watson Machine Learning service exists. You can add more than one machine learning engine to Watson OpenScale by using the
+              <code>wos_client.service_providers.add</code> method.</p>
+            <pre class="codeblock"><code class="lang-python hljs">CUSTOM_ENGINE_CREDENTIALS = {
+    <span class="hljs-string">"url"</span>: <span class="hljs-string">"***"</span>,
+    <span class="hljs-string">"username"</span>: <span class="hljs-string">"***"</span>,
+    <span class="hljs-string">"password"</span>: <span class="hljs-string">"***"</span>,
+}
+ 
+wos_client.service_providers.add(
+        name=SERVICE_PROVIDER_NAME,
+        description=SERVICE_PROVIDER_DESCRIPTION,
+        service_type=ServiceTypes.CUSTOM_MACHINE_LEARNING,
+        credentials=CustomCredentials(
+            url= CUSTOM_ENGINE_CREDENTIALS[<span class="hljs-string">'url'</span>],
+            username= CUSTOM_ENGINE_CREDENTIALS[<span class="hljs-string">'username'</span>],
+            password= CUSTOM_ENGINE_CREDENTIALS[<span class="hljs-string">'password'</span>],
+        ),
+        background_mode=<span class="hljs-literal">False</span>
+    ).result
+</code></pre>
+            <p>You can see your service provider with the following command:</p>
+            <pre class="codeblock"><code class="lang-python hljs">client.service_providers.get(service_provider_id).result.to_dict()
+</code></pre>
+            <p><img src="images/wos-ml-generic-bind.png" alt="Generic ML binding"></p>
+          </section>
+          <section id="section-ml-configapikey">
+            <h3 id="ml-configapikey">Configure security with an API key</h3>
+            <p>To configure security for your custom machine learning engine, Watson OpenScale supports IBM Cloud and IBM Cloud Pak for Data as authentication providers. You can use the <code>https://iam.cloud.ibm.com/identity/token</code> URL to generate
+              an IAM token for IBM Cloud and use the <code>https://&lt;$hostname&gt;/icp4d-api/v1/authorize</code> URL to generate a token for Cloud Pak for Data.</p>
+            <p>You can use the <code>POST /v1/deployments/{deployment_id}/online</code> request to implement your scoring API in the following formats:</p>
+            <p>Request</p>
+            <pre class="codeblock"><code class="lang-json hljs"><span class="hljs-punctuation">{</span>
+	<span class="hljs-attr">"input_data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">{</span>
+		<span class="hljs-attr">"fields"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+			<span class="hljs-string">"name"</span><span class="hljs-punctuation">,</span>
+			<span class="hljs-string">"age"</span><span class="hljs-punctuation">,</span>
+			<span class="hljs-string">"position"</span>
+		<span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+		<span class="hljs-attr">"values"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+			<span class="hljs-punctuation">[</span>
+			<span class="hljs-string">"john"</span><span class="hljs-punctuation">,</span>
+			 <span class="hljs-number">33</span><span class="hljs-punctuation">,</span>
+			<span class="hljs-string">"engineer"</span>
+			<span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+			<span class="hljs-punctuation">[</span>
+			<span class="hljs-string">"mike"</span><span class="hljs-punctuation">,</span>
+			 <span class="hljs-number">23</span><span class="hljs-punctuation">,</span>
+			<span class="hljs-string">"student"</span>
+			<span class="hljs-punctuation">]</span>
+		<span class="hljs-punctuation">]</span>
+	<span class="hljs-punctuation">}</span><span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+            <p>Response</p>
+            <pre class="screen"><code class="lang-json hljs"><span class="hljs-punctuation">{</span>
+	<span class="hljs-attr">"predictions"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">{</span>
+		<span class="hljs-attr">"fields"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+			<span class="hljs-string">"name"</span><span class="hljs-punctuation">,</span>
+			<span class="hljs-string">"age"</span><span class="hljs-punctuation">,</span>
+			<span class="hljs-string">"position"</span><span class="hljs-punctuation">,</span>
+			<span class="hljs-string">"prediction"</span><span class="hljs-punctuation">,</span>
+			<span class="hljs-string">"probability"</span>
+		<span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+		<span class="hljs-attr">"labels"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+			<span class="hljs-string">"personal"</span><span class="hljs-punctuation">,</span>
+			<span class="hljs-string">"camping"</span>
+		<span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+		<span class="hljs-attr">"values"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+			<span class="hljs-punctuation">[</span>
+			<span class="hljs-string">"john"</span><span class="hljs-punctuation">,</span>
+			 <span class="hljs-number">33</span><span class="hljs-punctuation">,</span>
+			<span class="hljs-string">"engineer"</span><span class="hljs-punctuation">,</span>
+			<span class="hljs-string">"personal"</span><span class="hljs-punctuation">,</span>
+			<span class="hljs-punctuation">[</span>
+			<span class="hljs-number">0.6744664422398081</span><span class="hljs-punctuation">,</span>
+			<span class="hljs-number">0.32553355776019194</span>
+			<span class="hljs-punctuation">]</span>
+			<span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+			<span class="hljs-punctuation">[</span>
+			<span class="hljs-string">"mike"</span><span class="hljs-punctuation">,</span>
+			 <span class="hljs-number">23</span><span class="hljs-punctuation">,</span>
+			<span class="hljs-string">"student"</span><span class="hljs-punctuation">,</span>
+			<span class="hljs-string">"camping"</span><span class="hljs-punctuation">,</span>
+			<span class="hljs-punctuation">[</span>
+			<span class="hljs-number">0.2794765664946941</span><span class="hljs-punctuation">,</span>
+			<span class="hljs-number">0.7205234335053059</span>
+			<span class="hljs-punctuation">]</span>
+			<span class="hljs-punctuation">]</span>
+		<span class="hljs-punctuation">]</span>
+	<span class="hljs-punctuation">}</span><span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+          </section>
+          <section id="section-cml-cussub">
+            <h3 id="cml-cussub">Add Custom subscription</h3>
+            <p>To add a custom subscription, run the following command:</p>
+            <pre class="codeblock"><code class="lang-python hljs">custom_asset = Asset(
+        asset_id=asset[<span class="hljs-string">'entity'</span>][<span class="hljs-string">'asset'</span>][<span class="hljs-string">'asset_id'</span>],
+        name=asset[<span class="hljs-string">'entity'</span>][<span class="hljs-string">'asset'</span>][<span class="hljs-string">'name'</span>],
+        url = <span class="hljs-string">"dummy_url"</span>,
+        asset_type=asset[<span class="hljs-string">'entity'</span>][<span class="hljs-string">'asset'</span>][<span class="hljs-string">'asset_type'</span>] <span class="hljs-keyword">if</span> <span class="hljs-string">'asset_type'</span> <span class="hljs-keyword">in</span> asset[<span class="hljs-string">'entity'</span>][<span class="hljs-string">'asset'</span>] <span class="hljs-keyword">else</span> <span class="hljs-string">'model'</span>,
+        problem_type=ProblemType.MULTICLASS_CLASSIFICATION,
+        input_data_type=InputDataType.STRUCTURED,
+    )
+deployment = AssetDeploymentRequest(
+        deployment_id=asset[<span class="hljs-string">'metadata'</span>][<span class="hljs-string">'guid'</span>],
+        url=asset[<span class="hljs-string">'metadata'</span>][<span class="hljs-string">'url'</span>],
+        name=asset[<span class="hljs-string">'entity'</span>][<span class="hljs-string">'name'</span>],
+        deployment_type=asset[<span class="hljs-string">'entity'</span>][<span class="hljs-string">'type'</span>],
+        scoring_endpoint =  scoring_endpoint
+    )
+asset_properties = AssetPropertiesRequest(
+        prediction_field=<span class="hljs-string">'predicted_label'</span>,
+        probability_fields = [<span class="hljs-string">"probability"</span>],
+        training_data_reference=<span class="hljs-literal">None</span>,
+        training_data_schema=<span class="hljs-literal">None</span>,
+        input_data_schema=<span class="hljs-literal">None</span>,
+        output_data_schema=output_schema,
+    )
+result = ai_client.subscriptions.add(
+        data_mart_id=cls.datamart_id,
+        service_provider_id=cls.service_provider_id,
+        asset=custom_asset,
+        deployment=deployment,
+        asset_properties=asset_properties,
+        background_mode=<span class="hljs-literal">False</span>
+    ).result
+</code></pre>
+            <p>To get the subscription list, run the following command:</p>
+            <pre class="codeblock"><code class="lang-python hljs">subscription_id = subscription_details.metadata.<span class="hljs-built_in">id</span>
+subscription_id
+ 
+details: wos_client.subscriptions.get(subscription_id).result.to_dict()
+</code></pre>
+          </section>
+          <section id="section-cml-cusenlog">
+            <h3 id="cml-cusenlog">Enable payload logging</h3>
+            <p>To enable payload logging in subscription, run the following command:</p>
+            <pre class="codeblock"><code class="lang-python hljs">request_data = {<span class="hljs-string">'fields'</span>: feature_columns,&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-string">'values'</span>: [[payload_values]]}
+</code></pre>
+            <p>To get logging details, run the following command:</p>
+            <pre class="codeblock"><code class="lang-python hljs">response_data = {<span class="hljs-string">'fields'</span>: <span class="hljs-built_in">list</span>(result[<span class="hljs-string">'predictions'</span>][<span class="hljs-number">0</span>]),
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-string">'values'</span>: [<span class="hljs-built_in">list</span>(x.values()) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> result[<span class="hljs-string">'predictions'</span>]]}
+</code></pre>
+          </section>
+          <section id="section-cml-cusscore">
+            <h3 id="cml-cusscore">Scoring and payload logging</h3>
+            <ul>
+              <li>
+                <p>Score your model.</p>
+              </li>
+              <li>
+                <p>Store the request and response in the payload logging table</p>
+                <pre class="codeblock"><code class="lang-python hljs">records_list = [PayloadRecord(request=request_data, response=response_data, response_time=response_time), PayloadRecord(request=request_data, response=response_data, response_time=response_time)]
+
+subscription.payload_logging.store(records=records_list)
+</code></pre>
+              </li>
+            </ul>
+            <p note="">For languages other than Python, you can also log payload by using a <a href="https://cloud.ibm.com/apidocs/ai-openscale" target="_blank" class="external">REST API</a>.</p>
+            <p><strong>Parent topic:</strong> <a href="wos-frameworks-ovr.html">Supported machine learning engines, frameworks, and models</a></p>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

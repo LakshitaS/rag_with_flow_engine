@@ -1,0 +1,165 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can configure model health monitor evaluations in Watsonx.governance to help you understand your model behavior and performance. You can use model health metrics to determine how efficiently your model deployment processes your transactions.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Configuring IBM watsonx.governance model health monitor evaluations</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=evaluations-configuring-model-health-monitor"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="configuring-ibm-watsonxgovernance-model-health-monitor-evaluations" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-configuring-ibm-watsonxgovernance-model-health-monitor-evaluations">
+        <h1 id="configuring-ibm-watsonxgovernance-model-health-monitor-evaluations">Configuring IBM watsonx.governance model health monitor evaluations</h1>
+        <p>You can configure model health monitor evaluations in Watsonx.governance to help you understand your model behavior and performance. You can use model health metrics to determine how efficiently your model deployment processes your transactions.</p>
+        <p>To configure model health monitor evaluations, you can set threshold values for each metric as shown in the following example:</p>
+        <p><img src="images/wos-model-health-monitor-config.png" alt="Configuring model health monitor evaluations"></p>
+        <section id="section-supported-model-health-metrics">
+          <h2 id="supported-model-health-metrics">Supported model health metrics</h2>
+          <p>The following metric categories for model health evaluations are supported by watsonx.governance. Each category contains metrics that provide details about your model performance:</p>
+          <!-- Scoring requests -->
+          <hr id="accordion08">
+          <details>
+            <summary>Scoring requests</summary>
+            <md-block>
+              <p>Watsonx.governance calculates the number of scoring requests that your model deployment receives during model health evaluations. This metric category is supported for traditional machine learning models and foundation models.</p>
+            </md-block>
+          </details>
+          <hr>
+          <!-- Records -->
+          <hr id="accordion07">
+          <details>
+            <summary>Records</summary>
+            <md-block>
+              <p>Watsonx.governance calculates the <strong>total</strong>, <strong>average</strong>, <strong>minimum</strong>, <strong>maximum</strong>, and <strong>median</strong> number of transaction records that are processed across scoring requests
+                during model health evaluations. This metric category is supported for traditional machine learning models and foundation models.</p>
+            </md-block>
+          </details>
+          <hr>
+          <!-- Token counts -->
+          <hr id="accordion11">
+          <details>
+            <summary>Token counts</summary>
+            <md-block>
+              <p>Watsonx.governance calculates the number of tokens that are processed across scoring requests for your model deployment. This metric category is supported for foundation models only.</p>
+              <p>Watsonx.governance calculates the following metrics to measure token count during evaluations:</p>
+              <ul>
+                <li><strong>Input token count</strong>: Calculates the <strong>total</strong>, <strong>average</strong>, <strong>minimum</strong>, <strong>maximum</strong>, and <strong>median</strong> input token count across multiple scoring requests during
+                  evaluations</li>
+                <li><strong>Output token count</strong>: Calculates the <strong>total</strong>, <strong>average</strong>, <strong>minimum</strong>, <strong>maximum</strong>, and <strong>median</strong> output token count across scoring requests during evaluations</li>
+              </ul>
+            </md-block>
+          </details>
+          <hr>
+          <!-- Throughput and latency -->
+          <hr id="accordion09">
+          <details>
+            <summary>Throughput and latency</summary>
+            <md-block>
+              <p>Watsonx.governance calculates latency by tracking the time that it takes to process scoring requests and transaction records per millisecond (ms). Throughput is calculated by tracking the number of scoring requests and transaction records
+                that are processed per second.</p>
+              <p>To calculate throughput and latency, watsonx.governance uses the <code>response_time</code> value from your scoring requests to track the time that your model deployment takes to process scoring requests.</p>
+              <p>For Watson Machine Learning deployments, Watson OpenScale automatically detects the <code>response_time</code> value when you configure evaluations.</p>
+              <p>For external and custom deployments, you must specify the <code>response_time</code> value when you send scoring requests to calculate throughput and latency as shown in the following example from the Watson OpenScale <a href="https://client-docs.aiopenscale.cloud.ibm.com/html/index.html">Python SDK</a>:</p>
+              <pre class="codeblock"><code class="lang-python hljs">    <span class="hljs-keyword">from</span> ibm_watson_openscale.supporting_classes.payload_record <span class="hljs-keyword">import</span> PayloadRecord            
+        client.data_sets.store_records(
+        data_set_id=payload_data_set_id, 
+        request_body=[
+        PayloadRecord(
+            scoring_id=&lt;uuid&gt;,
+            request=openscale_input,
+            response=openscale_output,
+            response_time=&lt;response_time&gt;,  
+            user_id=&lt;user_id&gt;)
+                    ]
+        ) 
+</code></pre>
+              <p>Watsonx.governance calculates the following metrics to measure thoughput and latency during evaluations:</p>
+              <ul>
+                <li><strong>API latency</strong>: Time taken (in ms) to process a scoring request by your model deployment.</li>
+                <li><strong>API throughput</strong>: Number of scoring requests processed by your model deployment per second</li>
+                <li><strong>Record latency</strong>: Time taken (in ms) to process a record by your model deployment</li>
+                <li><strong>Record throughput</strong>: Number of records processed by your model deployment per second</li>
+              </ul>
+              <p>This metric category is supported for traditional machine learning models and foundation models.</p>
+            </md-block>
+          </details>
+          <hr>
+          <!-- Users -->
+          <hr id="accordion10">
+          <details>
+            <summary>Users</summary>
+            <md-block>
+              <p>Watsonx.governance calculates the number of users that send scoring requests to your model deployments. This metric category is supported for traditional machine learning models and foundation models. To calculate the number of users, watsonx.governance
+                uses the <code>user_id</code> from scoring requests to identify the users that send the scoring requests that your model receives.</p>
+              <p>For external and custom deployments, you must specify the <code>user_id</code> value when you send scoring requests to calculate the number of users as shown in the following example from the Watson OpenScale <a href="https://client-docs.aiopenscale.cloud.ibm.com/html/index.html">Python SDK</a>:</p>
+              <pre class="codeblock"><code class="lang-python hljs">    <span class="hljs-keyword">from</span> ibm_watson_openscale.supporting_classes.payload_record <span class="hljs-keyword">import</span> PayloadRecord    
+        client.data_sets.store_records(
+            data_set_id=payload_data_set_id, 
+            request_body=[
+                PayloadRecord(
+                    scoring_id=&lt;uuid&gt;,
+                    request=openscale_input,
+                    response=openscale_output,
+                    response_time=&lt;response_time&gt;,
+                    user_id=&lt;user_id&gt;). --&gt; value to be supplied by user 
+            ]
+        ) 
+</code></pre>
+              <p>When you view a summary of the <strong>Users</strong> metric in watsonx.governance, you can use the real-time view to see the total number of users and the aggregated views to see the average number of users.
+              </p>
+            </md-block>
+            <p></p>
+          </details>
+          <hr>
+          <!-- Payload size -->
+          <hr id="accordion11">
+          <details>
+            <summary>Payload size</summary>
+            <md-block>
+              <p>Watsonx.governance calculates the <strong>total</strong>, <strong>average</strong>, <strong>minimum</strong>, <strong>maximum</strong>, and <strong>median</strong> payload size of the transaction records that your model deployment processes
+                across scoring requests in kilobytes (KB). Watsonx.governance does not support payload size metrics for image models. This metric category is supported for traditional machine learning models only.</p>
+            </md-block>
+          </details>
+          <hr>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

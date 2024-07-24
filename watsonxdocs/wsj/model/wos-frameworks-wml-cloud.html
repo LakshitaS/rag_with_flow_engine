@@ -1,0 +1,165 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can use IBM Watson Machine Learning to perform payload logging, feedback logging, and to measure performance accuracy, runtime bias detection, drift detection, explainability, and auto-debias function in the IBM Watson OpenScale service.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>IBM Watson Machine Learning frameworks</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=models-watson-machine-learning"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="ibm-watson-machine-learning-frameworks" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-ibm-watson-machine-learning-frameworks">
+        <h1 id="ibm-watson-machine-learning-frameworks">IBM Watson Machine Learning frameworks</h1>
+        <p>You can use IBM Watson Machine Learning to perform payload logging, feedback logging, and to measure performance accuracy, runtime bias detection, drift detection, explainability, and auto-debias function in the IBM Watson OpenScale service.</p>
+        <p>IBM Watson OpenScale fully supports the following IBM Watson Machine Learning frameworks:</p>
+        <p>Table 1. Framework support details</p>
+        <table>
+          <caption caption-side="top">Framework support details</caption>
+          <thead>
+            <tr>
+              <th style="text-align:left">Framework</th>
+              <th style="text-align:center">Problem type</th>
+              <th style="text-align:center">Data type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="text-align:left">AutoAI<sup>1</sup></td>
+              <td style="text-align:center">Classification (binary and multi classes)</td>
+              <td style="text-align:center">Structured (data, text)</td>
+            </tr>
+            <tr>
+              <td style="text-align:left">AutoAI</td>
+              <td style="text-align:center">Regression</td>
+              <td style="text-align:center">Structured or Unstructured<sup>2</sup> (text only)</td>
+            </tr>
+            <tr>
+              <td style="text-align:left">Apache Spark MLlib</td>
+              <td style="text-align:center">Classification</td>
+              <td style="text-align:center">Structured or Unstructured<sup>2</sup> (text only)</td>
+            </tr>
+            <tr>
+              <td style="text-align:left">Apache Spark MLLib</td>
+              <td style="text-align:center">Regression</td>
+              <td style="text-align:center">Structured or Unstructured<sup>2</sup> (text only)</td>
+            </tr>
+            <tr>
+              <td style="text-align:left">Keras with TensorFlow<sup>3</sup><sup>&amp;</sup><sup>4</sup></td>
+              <td style="text-align:center">Classification</td>
+              <td style="text-align:center">Unstructured<sup>2</sup> (image, text)</td>
+            </tr>
+            <tr>
+              <td style="text-align:left">Keras with TensorFlow<sup>3</sup><sup>&amp;</sup><sup>4</sup></td>
+              <td style="text-align:center">Regression</td>
+              <td style="text-align:center">Unstructured<sup>2</sup> (image, text)</td>
+            </tr>
+            <tr>
+              <td style="text-align:left">Python function</td>
+              <td style="text-align:center">Classification</td>
+              <td style="text-align:center">Structured (data, text)</td>
+            </tr>
+            <tr>
+              <td style="text-align:left">Python function</td>
+              <td style="text-align:center">Regression</td>
+              <td style="text-align:center">Structured (data, text)</td>
+            </tr>
+            <tr>
+              <td style="text-align:left">scikit-learn<sup>5</sup></td>
+              <td style="text-align:center">Classification</td>
+              <td style="text-align:center">Structured (data, text)</td>
+            </tr>
+            <tr>
+              <td style="text-align:left">scikit-learn</td>
+              <td style="text-align:center">Regression</td>
+              <td style="text-align:center">Structured (data, text)</td>
+            </tr>
+            <tr>
+              <td style="text-align:left">XGBoost<sup>6</sup></td>
+              <td style="text-align:center">Classification</td>
+              <td style="text-align:center">Structured (data, text)</td>
+            </tr>
+            <tr>
+              <td style="text-align:left">XGBoost</td>
+              <td style="text-align:center">Regression</td>
+              <td style="text-align:center">Structured (data, text)</td>
+            </tr>
+          </tbody>
+        </table>
+        <p note=""><sup>1</sup>To learn more about AutoAI, see <a href="https://dataplatform.cloud.ibm.com/docs/content/wsj/analyze-data/autoai-details.html?audience=wdp&amp;context=analytics" target="_blank" class="external">AutoAI implementation details</a>. For
+          models where the training data is in Cloud Object Storage, there is no support for fairness attributes of type Boolean. However, if the training data is in Db2, Watson OpenScale supports fairness attributes that are Boolean type. When using
+          the AutoAI option, Watson OpenScale does not support models when the model prediction is a binary data type. You must change such models so that the data type of their prediction is a string data type.</p>
+        <p note=""><sup>2</sup>Fairness and drift metrics are not supported for unstructured (image or text) data types.</p>
+        <p note=""><sup>3</sup>Keras support does not include support for fairness.</p>
+        <p note=""><sup>4</sup>Explainability is supported if your model / framework outputs prediction probabilities.</p>
+        <p note=""><sup>5</sup>To generate the drift detection model, you must use scikit-learn version 0.24.1 in notebooks.</p>
+        <p note=""><sup>6</sup>For XGBoost binary and multiple class models, you must update the model to return prediction probability in the form of numerical values for binary models and a list of probabilities per class for multi-class models. Support for the
+          XGBoost framework has the following limitations for classification problems: For binary classification, Watson OpenScale supports the <code>binary:logistic</code> logistic regression function with an output as a probability of <code>True</code>.
+          For multiclass classification, Watson OpenScale supports the <code>multi:softprob</code> function where the result contains the predicted probability of each data point belonging to each class.</p>
+        <section id="section-wml-framework-autoai">
+          <h2 id="wml-framework-autoai">AutoAI models and training data</h2>
+          <p>AutoAI automatically prepares data, applies algorithms, or estimators, and builds model pipelines that are best suited for your data and use case. Watson OpenScale requires access to the training data to analyze the model.</p>
+          <p>Because Watson OpenScale cannot detect the training data location for an AutoAI model like it can for a regular model, you must explicitly provide the needed details to access the training data location:</p>
+          <ul>
+            <li>For the online path, where you manually configuring monitors, you must provide the database details from which training data can be accessed.</li>
+            <li>For the custom notebook path, where you upload training data distribution, you can use the JSON file that is produced by running the notebook.</li>
+          </ul>
+          <p>For more information, see <a href="wos-model-details.html">Provide model details</a>.</p>
+        </section>
+        <section id="section-wml-connect">
+          <h2 id="wml-connect">Specifying an IBM Watson Machine Learning service instance</h2>
+          <p>Your first step in the Watson OpenScale tool is to specify an IBM Watson Machine Learning instance. Your Machine Learning instance is where you store your AI models and deployments.</p>
+        </section>
+        <section id="section-wml-prereq">
+          <h2 id="wml-prereq">Prerequisites</h2>
+          <p>You should have provisioned an IBM Watson Machine Learning instance in the same account or cluster where the Watson OpenScale service instance is present. If you have provisioned a IBM Watson Machine Learning instance in some other account or
+            cluster, then you cannot configure that instance with automatic payload logging with Watson OpenScale.</p>
+        </section>
+        <section id="section-wml-config">
+          <h2 id="wml-config">Connect your Machine Learning service instance</h2>
+          <p>Watson OpenScale connects to AI models and deployments in an IBM Watson Machine Learning instance. To connect your service to Watson OpenScale, go to the <strong>Configure</strong> <img src="images/wos-config-tab.png" alt="The configuration tab icon">            tab, add a machine learning provider, and click the <strong>Edit</strong> <img src="images/wos-edit-icon.png" alt="The edit icon"> icon. In addition to a name and description and whether this is a <strong>Pre-production</strong> or <strong>Production</strong>            environment type, you must provide the following information that is specific to this type of service instance:</p>
+          <ul>
+            <li>If you have an instance of IBM Watson Machine Learning, Watson OpenScale detects it, along with the configuration information.</li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="wos-frameworks-ovr.html">Supported machine learning engines, frameworks, and models</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

@@ -1,0 +1,351 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Import machine learning models trained outside of IBM Watson Machine Learning so that you can deploy and test the models. Review the model frameworks that are available for importing models.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Importing models to a deployment space</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=spaces-adding-models-deployment-space"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="importing-models-to-a-deployment-space" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-importing-models-to-a-deployment-space">
+        <h1 id="importing-models-to-a-deployment-space">Importing models to a deployment space</h1>
+        <p>Import machine learning models trained outside of IBM Watson Machine Learning so that you can deploy and test the models. Review the model frameworks that are available for importing models.</p>
+        <p>Here, <em>to import a trained model</em> means:</p>
+        <ol>
+          <li>Store the trained model in your Watson Machine Learning repository</li>
+          <li>Optional: Deploy the stored model in your Watson Machine Learning service</li>
+        </ol>
+        <p>and <em>repository</em> means a Cloud Object Storage bucket. For more information, see <a href="../analyze-data/ml-space-create.html">Creating deployment spaces</a>.</p>
+        <p>You can import a model in these ways:</p>
+        <ul>
+          <li><a href="#ui-import">Directly through the UI</a></li>
+          <li><a href="#path-file-import">By using a path to a file</a></li>
+          <li><a href="#path-dir-import">By using a path to a directory</a></li>
+          <li><a href="#object-import">Import a model object</a></li>
+        </ul>
+        <p>For more information, see <a href="#supported-formats">Importing models by ML framework</a>.</p>
+        <p>For more information, see <a href="#model-import-considerations">Things to consider when you import models</a>.</p>
+        <p>For an example of how to add a model programmatically by using the <a href="https://ibm.github.io/watson-machine-learning-sdk/">Python client</a>, refer to this notebook:</p>
+        <ul>
+          <li><a href="https://github.com/IBM/watson-machine-learning-samples/blob/df8e5122a521638cb37245254fe35d3a18cd3f59/cloud/notebooks/python_sdk/deployments/pmml/Use%20PMML%20to%20predict%20iris%20species.ipynb" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Use PMML to predict iris species.</a></li>
+        </ul>
+        <p>For an example of how to add a model programmatically by using the <a href="https://cloud.ibm.com/apidocs/machine-learning">REST API</a>, refer to this notebook:</p>
+        <ul>
+          <li><a href="https://github.com/IBM/watson-machine-learning-samples/blob/be84bcd25d17211f41fb34ec262b418f6cd6c87b/cloud/notebooks/rest_api/curl/deployments/scikit/Use%20scikit-learn%20to%20predict%20diabetes%20progression.ipynb" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Use scikit-learn to predict diabetes progression</a></li>
+        </ul>
+        <section id="section-supported-formats">
+          <h2 id="supported-formats">Available ways to import models, per framework type</h2>
+          <p>This table lists the available ways to import models to Watson Machine Learning, per framework type.</p>
+          <table>
+            <caption caption-side="top">Import options for models, per framework type</caption>
+            <thead>
+              <tr>
+                <th>Import option</th>
+                <th>Spark MLlib</th>
+                <th>Scikit-learn</th>
+                <th>XGBoost</th>
+                <th>TensorFlow</th>
+                <th>PyTorch</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><a href="#object-import">Importing a model object</a></td>
+                <td>✓</td>
+                <td>✓</td>
+                <td>✓</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="#path-file-import">Importing a model by using a path to a file</a></td>
+                <td></td>
+                <td>✓</td>
+                <td>✓</td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td><a href="#path-dir-import">Importing a model by using a path to a directory</a></td>
+                <td></td>
+                <td>✓</td>
+                <td>✓</td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+            </tbody>
+          </table>
+          <section id="section-ui-import">
+            <h3 id="ui-import">Adding a model by using UI</h3>
+            <div class="note note"><span class="notetitle">Note:</span>
+              <md-block>
+                <p>If you want to import a model in the PMML format, you can directly import the model <code>.xml</code> file.</p>
+                <p></p>
+              </md-block>
+            </div>
+            <p></p>
+            <p>To import a model by using UI:</p>
+            <ol>
+              <li>From the <strong>Assets</strong> tab of your space in Watson Machine Learning, click <strong>Import assets</strong>.</li>
+              <li>Select <code>Local file</code> and then select <strong>Model</strong>.</li>
+              <li>Select the model file that you want to import and click <strong>Import</strong>.</li>
+            </ol>
+            <p>The importing mechanism automatically selects a matching model type and software specification based on the version string in the <code>.xml</code> file.</p>
+          </section>
+          <section id="section-object-import">
+            <h3 id="object-import">Importing a model object</h3>
+            <div class="note note"><span class="notetitle">Note:</span>
+              <md-block>
+                <p>This import method is supported by a limited number of ML frameworks. For more information, see <a href="#supported-formats">Available ways to import models, per framework type</a>.</p>
+                <p></p>
+              </md-block>
+            </div>
+            <p></p>
+            <p>To import a model object:</p>
+            <ol>
+              <li>If your model is located in a remote location, follow <a href="#model-download">Downloading a model that is stored in a remote location</a>.</li>
+              <li>Store the model object in your Watson Machine Learning repository. For more information, see <a href="#store-in-repo">Storing model in Watson Machine Learning repository</a>.</li>
+            </ol>
+          </section>
+          <section id="section-path-file-import">
+            <h3 id="path-file-import">Importing a model by using a path to a file</h3>
+            <div class="note note"><span class="notetitle">Note:</span>
+              <md-block>
+                <p>This import method is supported by a limited number of ML frameworks. For more information, see <a href="#supported-formats">Available ways to import models, per framework type</a>.</p>
+                <p></p>
+              </md-block>
+            </div>
+            <p></p>
+            <p>To import a model by using a path to a file:</p>
+            <ol>
+              <li>
+                <p>If your model is located in a remote location, follow <a href="#model-download">Downloading a model that is stored in a remote location</a> to download it.</p>
+              </li>
+              <li>
+                <p>If your model is located locally, place it in a specific directory:</p>
+                <pre class="codeblock"><code class="lang-bash hljs">  !cp &lt;saved model&gt; &lt;target directory&gt;
+  !<span class="hljs-built_in">cd</span> &lt;target directory&gt;
+</code></pre>
+              </li>
+              <li>
+                <p>For <strong>Scikit-learn</strong>, <strong>XGBoost</strong>, <strong>Tensorflow</strong>, and <strong>PyTorch</strong> models, if the downloaded file is not a <code>.tar.gz</code> archive, make an archive:</p>
+                <pre class="codeblock"><code class="lang-bash hljs">  !tar -zcvf &lt;saved model&gt;.tar.gz &lt;saved model&gt;
+</code></pre>
+                <p>The model file must be at the top-level folder of the directory, for example:</p>
+                <pre class="codeblock"><code class="lang-bash hljs">assets/
+&lt;saved model&gt;
+variables/
+variables/variables.data-00000-of-00001
+variables/variables.index
+</code></pre>
+              </li>
+              <li>
+                <p>Use the path to the saved file to store the model file in your Watson Machine Learning repository. For more information, see <a href="#store-in-repo">Storing model in Watson Machine Learning repository</a>.</p>
+              </li>
+            </ol>
+          </section>
+          <section id="section-path-dir-import">
+            <h3 id="path-dir-import">Importing a model by using a path to a directory</h3>
+            <div class="note note"><span class="notetitle">Note:</span>
+              <md-block>
+                <p>This import method is supported by a limited number of ML frameworks. For more information, see <a href="#supported-formats">Available ways to import models, per framework type</a>.</p>
+                <p></p>
+              </md-block>
+            </div>
+            <p></p>
+            <p>To import a model by using a path to a directory:</p>
+            <ol>
+              <li>
+                <p>If your model is located in a remote location, refer to <a href="#model-download">Downloading a model stored in a remote location</a>.</p>
+              </li>
+              <li>
+                <p>If your model is located locally, place it in a specific directory:</p>
+                <pre class="codeblock"><code class="lang-bash hljs">!cp &lt;saved model&gt; &lt;target directory&gt;
+!<span class="hljs-built_in">cd</span> &lt;target directory&gt;
+</code></pre>
+                <p>For <strong>scikit-learn</strong>, <strong>XGBoost</strong>, <strong>Tensorflow</strong>, and <strong>PyTorch</strong> models, the model file must be at the top-level folder of the directory, for example:</p>
+                <pre class="codeblock"><code class="lang-bash hljs">assets/
+&lt;saved model&gt;
+variables/
+variables/variables.data-00000-of-00001
+variables/variables.index
+</code></pre>
+              </li>
+              <li>
+                <p>Use the directory path to store the model file in your Watson Machine Learning repository. For more information, see <a href="#store-in-repo">Storing model in Watson Machine Learning repository</a>.</p>
+              </li>
+            </ol>
+          </section>
+          <section id="section-model-download">
+            <h3 id="model-download">Downloading a model stored in a remote location</h3>
+            <p>Follow this sample code to download your model from a remote location:</p>
+            <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">import</span> os
+<span class="hljs-keyword">from</span> wget <span class="hljs-keyword">import</span> download
+
+target_dir = <span class="hljs-string">'&lt;target directory name&gt;'</span>
+<span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> os.path.isdir(target_dir):
+    os.mkdir(target_dir)
+filename = os.path.join(target_dir, <span class="hljs-string">'&lt;model name&gt;'</span>)
+<span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> os.path.isfile(filename):
+    filename = download(<span class="hljs-string">'&lt;url to model&gt;'</span>, out = target_dir)
+</code></pre>
+          </section>
+        </section>
+        <section id="section-model-import-considerations">
+          <h2 id="model-import-considerations">Things to consider when you import models</h2>
+          <p>To learn more about importing a specific model type, see:</p>
+          <ul>
+            <li><a href="#pmml-import">Models saved in PMML format</a></li>
+            <li><a href="#spark-ml-lib-import">Spark MLlib models</a></li>
+            <li><a href="#scikit-learn-import">Scikit-learn models</a></li>
+            <li><a href="#xgboost-import">XGBoost models</a></li>
+            <li><a href="#tf-import">TensorFlow models</a></li>
+            <li><a href="#pt-import">PyTorch models</a></li>
+          </ul>
+          <p>To learn more about frameworks that you can use with Watson Machine Learning, see <a href="../analyze-data/pm_service_supported_frameworks.html">Supported frameworks</a>.</p>
+          <section id="section-pmml-import">
+            <h3 id="pmml-import">Models saved in PMML format</h3>
+            <ul>
+              <li>The only available deployment type for models that are imported from PMML is online deployment.</li>
+              <li>The PMML file must have the <code>.xml</code> file extension.</li>
+              <li>PMML models cannot be used in an SPSS stream flow.</li>
+              <li>The PMML file must not contain a prolog. Depending on the library that you are using when you save your model, a prolog might be added to the beginning of the file by default. For example, if your file contains a prolog string such as <code>spark-mllib-lr-model-pmml.xml</code>,
+                remove the string before you import the PMML file to the deployment space.</li>
+            </ul>
+            <p>Depending on the library that you are using when you save your model, a prolog might be added to the beginning of the file by default, like in this example:</p>
+            <pre class="codeblock"><code class="lang-bash hljs">::::::::::::::
+spark-mllib-lr-model-pmml.xml
+::::::::::::::
+</code></pre>
+            <p>You must remove that prolog before you can import the PMML file to Watson Machine Learning.</p>
+          </section>
+          <section id="section-spark-ml-lib-import">
+            <h3 id="spark-ml-lib-import">Spark MLlib models</h3>
+            <ul>
+              <li>Only classification and regression models are available.</li>
+              <li>Custom transformers, user-defined functions, and classes are not available.</li>
+            </ul>
+          </section>
+          <section id="section-scikit-learn-import">
+            <h3 id="scikit-learn-import">Scikit-learn models</h3>
+            <ul>
+              <li><code>.pkl</code> and <code>.pickle</code> are the available import formats.</li>
+              <li>To serialize or pickle the model, use the <code>joblib</code> package.</li>
+              <li>Only classification and regression models are available.</li>
+              <li>Pandas Dataframe input type for <code>predict()</code> API is not available.</li>
+              <li>The only available deployment type for scikit-learn models is online deployment.</li>
+            </ul>
+          </section>
+          <section id="section-xgboost-import">
+            <h3 id="xgboost-import">XGBoost models</h3>
+            <ul>
+              <li><code>.pkl</code> and <code>.pickle</code> are the available import formats.</li>
+              <li>To serialize or pickle the model, use the <code>joblib</code> package.</li>
+              <li>Only classification and regression models are available.</li>
+              <li>Pandas Dataframe input type for <code>predict()</code> API is not available.</li>
+              <li>The only available deployment type for XGBoost models is online deployment.</li>
+            </ul>
+          </section>
+          <section id="section-tf-import">
+            <h3 id="tf-import">TensorFlow models</h3>
+            <ul>
+              <li><code>.pb</code>, <code>.h5</code>, and <code>.hdf5</code> are the available import formats.</li>
+              <li>To save or serialize a TensorFlow model, use the <code>tf.saved_model.save()</code> method.</li>
+              <li><code>tf.estimator</code> is not available.</li>
+              <li>The only available deployment types for TensorFlow models are: online deployment and batch deployment.</li>
+            </ul>
+          </section>
+          <section id="section-pt-import">
+            <h3 id="pt-import">PyTorch models</h3>
+            <ul>
+              <li>
+                <p>The only available deployment type for PyTorch models is online deployment.</p>
+              </li>
+              <li>
+                <p>For a Pytorch model to be importable to Watson Machine Learning, it must be previously exported to <code>.onnx</code> format. Refer to this code.</p>
+                <pre class="codeblock"><code class="lang-python hljs">torch.onnx.export(&lt;model <span class="hljs-built_in">object</span>&gt;, &lt;prediction/training <span class="hljs-built_in">input</span> data&gt;, <span class="hljs-string">"&lt;serialized model&gt;.onnx"</span>, verbose=<span class="hljs-literal">True</span>, input_names=&lt;<span class="hljs-built_in">input</span> tensor names&gt;, output_names=&lt;output tensor names&gt;)
+</code></pre>
+              </li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-store-in-repo">
+          <h2 id="store-in-repo">Storing a model in your Watson Machine Learning repository</h2>
+          <p>Use this code to store your model in your Watson Machine Learning repository:</p>
+          <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">from</span> ibm_watson_machine_learning <span class="hljs-keyword">import</span> APIClient
+
+client = APIClient(&lt;your credentials&gt;)
+sw_spec_uid = client.software_specifications.get_uid_by_name(<span class="hljs-string">"&lt;software specification name&gt;"</span>)
+
+meta_props = {
+    client.repository.ModelMetaNames.NAME: <span class="hljs-string">"&lt;your model name&gt;"</span>,
+    client.repository.ModelMetaNames.SOFTWARE_SPEC_UID: sw_spec_uid,
+    client.repository.ModelMetaNames.TYPE: <span class="hljs-string">"&lt;model type&gt;"</span>}
+
+client.repository.store_model(model=&lt;your model&gt;, meta_props=meta_props)
+</code></pre>
+          <p><strong>Notes</strong>:</p>
+          <ul>
+            <li>
+              <p>Depending on the model framework used, <code>&lt;your model&gt;</code> can be the actual model object, a full path to a saved model file, or a path to a directory where the model file is located. For more information, see <a href="#supported-formats">Available ways to import models, per framework type</a>.</p>
+            </li>
+            <li>
+              <p>For a list of available software specifications to use as <code>&lt;software specification name&gt;</code>, use the <code>client.software_specifications.list()</code> method.</p>
+            </li>
+            <li>
+              <p>For a list of available model types to use as <code>model_type</code>, refer to <a href="../analyze-data/pm_service_supported_frameworks.html">Software specifications and hardware specifications for deployments</a>.</p>
+            </li>
+            <li>
+              <p>When you export a Pytorch model to the <code>.onnx</code> format, specify the <code>keep_initializers_as_inputs=True</code> flag and set <code>opset_version</code> to 9 (Watson Machine Learning deployments use the <code>caffe2</code> ONNX
+                runtime that doesn't support opset versions higher than 9).</p>
+              <pre class="codeblock"><code class="lang-python hljs">torch.onnx.export(net, x, <span class="hljs-string">'lin_reg1.onnx'</span>, verbose=<span class="hljs-literal">True</span>, keep_initializers_as_inputs=<span class="hljs-literal">True</span>, opset_version=<span class="hljs-number">9</span>)
+</code></pre>
+            </li>
+            <li>
+              <p>To learn more about how to create the <code>&lt;your credentials&gt;</code> dictionary, refer to <a href="ml-authentication.html">Watson Machine Learning authentication</a>.</p>
+            </li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="../analyze-data/ml-space-add-assets-all.html">Assets in deployment spaces</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

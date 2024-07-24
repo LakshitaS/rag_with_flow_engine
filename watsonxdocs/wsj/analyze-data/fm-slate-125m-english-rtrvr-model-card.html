@@ -1,0 +1,402 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="The slate.125m.english.rtrvr model is a standard sentence transformers model based on bi-encoders. The model produces an embedding for a given input e.g. query, passage, document etc. At a high level, our model is trained to maximize the cosine similarity between two input pieces of text e.g. text A (query text) and text B (passage text), which result in the sentence embeddings q and p. These sentence embeddings can then be compared using cosine similarity.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>IBM slate-125m-english-rtrvr model card</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=models-slate-125m-embedding-model-card"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="ibm-slate-125m-english-rtrvr-model-card" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-ibm-slate-125m-english-rtrvr-model-card">
+        <h1 id="ibm-slate-125m-english-rtrvr-model-card">IBM slate-125m-english-rtrvr model card</h1>
+        <section id="section-model-description">
+          <h2 id="model-description">Model description</h2>
+          <p>The slate.125m.english.rtrvr model is a standard <a href="https://www.sbert.net/" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">sentence transformers</a> model based on bi-encoders. The model produces an embedding
+            for a given input e.g. query, passage, document etc. At a high level, our model is trained to maximize the cosine similarity between two input pieces of text e.g. text A (query text) and text B (passage text), which result in the sentence
+            embeddings q and p. These sentence embeddings can then be compared using cosine similarity.</p>
+          <p><img src="images/fm-slate.125m.english.rtrvr-cosine.jpg" alt="Diagram that compares the Slate encoded query text to encoded passage text" style="max-width:90%;height:auto;width:auto"></p>
+          <p>Figure 1. Bi-encoder Embeddings Model for Retrieval</p>
+        </section>
+        <section id="section-base-language-model">
+          <h2 id="base-language-model">Base language model</h2>
+          <p>The underlying Language Model (LM) for our embeddings is slate.125m.english (formerly, known as WatBERT). It has the same architecture as a RoBERTa base transformer model and has ~125 million parameters and an embedding dimension of 768. Our
+            final model is called “slate.125m.english.rtrvr” - notice the suffix at the end denoting that we fine-tune the underlying model architecture for retrieval-based tasks.</p>
+        </section>
+        <section id="section-training-algorithm">
+          <h2 id="training-algorithm">Training algorithm</h2>
+          <p>Most embedding models that are either state-of-the-art or at the top of the <a href="https://huggingface.co/spaces/mteb/leaderboard" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">MTEB leaderboard</a> are typically
+            trained in 3 stages:</p>
+          <ol>
+            <li>Task Specific (retrieval-based) pre-training</li>
+            <li>Task specific fine-tuning on mined pairs</li>
+            <li>Fine-tuning on supervised pairs.</li>
+          </ol>
+          <p>We follow the same approach and finally perform a model fusion by averaging the weights of different trained models.</p>
+          <p>slate.125m.english.rtrvr is produced by performing “model fusion” - averaging the weights of the following models, both trained in stages but having the following variations:</p>
+          <ul>
+            <li>Model 1 fine-tuned with large scale unsupervised data</li>
+            <li>Model 2 fine-tuned with a smaller subset of supervised data</li>
+          </ul>
+          <section id="section-task-specific-pre-training">
+            <h3 id="task-specific-pre-training">Task-specific pre-training</h3>
+            <p>This stage uses the RetroMAE framework, to make our underlying LM more retrieval oriented. We initialize our base LM with slate.125m.english and continue with RetroMAE pre-training, using the data in Table 1. Our hyper-parameters are: learning
+              rate: 2e-5, number of steps: 190000, GPUs: 24 A100 40GB. Note: this is our base LM for the following 2 stages.</p>
+          </section>
+          <section id="section-model1-fine-tuning-with-large-scale-unsupervised-data">
+            <h3 id="model1-fine-tuning-with-large-scale-unsupervised-data">Model1: Fine-tuning with large scale unsupervised data</h3>
+            <p>This model is initialized with the RetroMAE pre-trained model and is trained in 2 stages.</p>
+            <section id="section-stage-1-unsupervised-fine-tuning">
+              <h4 id="stage-1-unsupervised-fine-tuning">Stage 1: Unsupervised fine-tuning</h4>
+              <p>We use a bi-encoder framework for training an embedding model, as in Figure 1. The RetroMAE pre-trained LM is fine-tuned with <code>&lt;query, passage&gt;</code> text pairs using a contrastive loss objective. We mine large scale pairs from
+                various domains, as indicated in Table 2. The model is trained with diverse pairs, including classification tasks such as NLI (Natural Language Inference) which consists of matching a premise to the corresponding hypothesis. Our hyper-parameters
+                are: learning rate: 2e-5; number of steps: 140000; GPUs: 8 A100_80GB, effective batch size: 4096 pairs</p>
+            </section>
+            <section id="section-stage-2-supervised-fine-tuning">
+              <h4 id="stage-2-supervised-fine-tuning">Stage 2: Supervised fine-tuning</h4>
+              <p>Finally, the model is fine-tuned with high-quality supervised training pairs for the retrieval task on the following datasets: SQuAD, Natural Questions, Specter, Stack Exchange (Title, Body) pairs, S2ORC, SearchQA, HotpotQA and Fever. Training
+                hyper-parameters are learning rate: 2e-5; number of steps: 10000; GPUs: 8 A100_80GB, effective batch size: 4096 pairs.</p>
+            </section>
+          </section>
+          <section id="section-model-2-fine-tuning-with-a-more-task-focused-subset">
+            <h3 id="model-2-fine-tuning-with-a-more-task-focused-subset">Model 2: Fine-tuning with a more task-focused subset</h3>
+            <p>In this stage, the RetroMAE pre-trained model undergoes supervised finetuning with a smaller subset of Table2 with supervision coming from hard negative mining. The intermediate model checkpoints are iteratively used to mine dataset specific
+              hard negatives, which are then used for supervised finetuning. This process aims to make the model more robust by letting it learn from its own mistakes and helps in stabilizing with much smaller data.</p>
+            <p>We fine-tune the model by using a subset of datasets (as found via performing validation experiments on a held-out dataset) mentioned in Table2 which are as follows: AllNLI, Squad, Stackexchange, NQ, HotpotQA, Fever and 5M subset from each
+              of Specter, S2orc, WikiAnswers.</p>
+            <p>Training hyper-parameters are learning rate: 2e-5; max query length: 512; max passage length: 512; epochs: 2; effective batch size: 384 triples; GPUs: 24 A100_80GB.</p>
+          </section>
+          <section id="section-our-final-model-slate125menglishrtrvr-model-fusion">
+            <h3 id="our-final-model-slate125menglishrtrvr-model-fusion">Our final model: slate.125m.english.rtrvr: Model fusion</h3>
+            <p>We perform <a href="https://arxiv.org/abs/2311.13534" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">model fusion</a> by averaging the model weights (from the above) trained with large scale unsupervised data and
+              the model trained with the smaller subset of supervised data.</p>
+            <p>We use a dev set (<a href="https://huggingface.co/datasets/colbertv2/lotte">https://huggingface.co/datasets/colbertv2/lotte</a>) and perform grid search for obtaining the optimal weight combination for these models. We average the model weights
+              based on the optimal param: 0.7 for Model1 and 0.3 for Model2.</p>
+          </section>
+        </section>
+        <section id="section-training-data">
+          <h2 id="training-data">Training Data</h2>
+          <table>
+            <caption caption-side="top">Table 1. Pre-Training Data</caption>
+            <thead>
+              <tr>
+                <th>Dataset</th>
+                <th>Passages</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Wikipedia</td>
+                <td>36396918</td>
+              </tr>
+              <tr>
+                <td>Books Corpus</td>
+                <td>3401308</td>
+              </tr>
+              <tr>
+                <td>Stack Exchange</td>
+                <td>15999837</td>
+              </tr>
+            </tbody>
+          </table>
+          <table>
+            <caption caption-side="top">Table 2. Fine-Tuning Data</caption>
+            <thead>
+              <tr>
+                <th>Dataset</th>
+                <th>Pairs</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>SPECTER citation triplets</td>
+                <td>684100</td>
+              </tr>
+              <tr>
+                <td>Stack Exchange Duplicate questions (titles)</td>
+                <td>304525</td>
+              </tr>
+              <tr>
+                <td>AllNLI (SNLI and MultiNLI)</td>
+                <td>277230</td>
+              </tr>
+              <tr>
+                <td>Stack Exchange Duplicate questions (bodies)</td>
+                <td>250519</td>
+              </tr>
+              <tr>
+                <td>Stack Exchange Duplicate questions (titles+bodies)</td>
+                <td>250460</td>
+              </tr>
+              <tr>
+                <td>Natural Questions (NQ)</td>
+                <td>100231</td>
+              </tr>
+              <tr>
+                <td>SQuAD2.0</td>
+                <td>87599</td>
+              </tr>
+              <tr>
+                <td>PAQ (Question, Answer) pairs</td>
+                <td>64371441</td>
+              </tr>
+              <tr>
+                <td>Stack Exchange (Title, Answer) pairs</td>
+                <td>4067139</td>
+              </tr>
+              <tr>
+                <td>Stack Exchange (Title, Body) pairs</td>
+                <td>23978013</td>
+              </tr>
+              <tr>
+                <td>Stack Exchange (Title+Body, Answer) pairs</td>
+                <td>187195</td>
+              </tr>
+              <tr>
+                <td>S2ORC Citation pairs (Titles)</td>
+                <td>52603982</td>
+              </tr>
+              <tr>
+                <td>S2ORC (Title, Abstract)</td>
+                <td>41769185</td>
+              </tr>
+              <tr>
+                <td>S2ORC_citations_abstracts</td>
+                <td>52603982</td>
+              </tr>
+              <tr>
+                <td>WikiAnswers Duplicate question pairs</td>
+                <td>77427422</td>
+              </tr>
+              <tr>
+                <td>SearchQA</td>
+                <td>582261</td>
+              </tr>
+              <tr>
+                <td>HotpotQA</td>
+                <td>85000</td>
+              </tr>
+              <tr>
+                <td>Fever</td>
+                <td>109810</td>
+              </tr>
+              <tr>
+                <td>Arxiv</td>
+                <td>2358545</td>
+              </tr>
+              <tr>
+                <td>Wikipedia</td>
+                <td>20745403</td>
+              </tr>
+              <tr>
+                <td>PubMed</td>
+                <td>20000000</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section id="section-usage">
+          <h2 id="usage">Usage</h2>
+          <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-comment"># Make sure the sentence transformers is installed.</span>
+pip install -U sentence-transformers 
+
+<span class="hljs-keyword">from</span> sentence_transformers <span class="hljs-keyword">import</span> SentenceTransformer, util 
+model = SentenceTransformer(<span class="hljs-string">'path_to_slate_model'</span>) 
+
+input_queries = [ 
+  <span class="hljs-string">'Who made the son My achy breaky heart ?'</span>, 
+  <span class="hljs-string">'summit define'</span>] 
+input_passages = [ 
+  <span class="hljs-string">"Achy Breaky Heart is a country song written by Don Von Tress. Originally titled Don't Tell My Heart and performed by The Marcy Brothers in 1991"</span>, 
+  <span class="hljs-string">"Definition of summit for English Language Learners. : 1 the highest point of a mountain : the top of a mountain. : 2 the highest level. : 3 a meeting or series of meetings between the leaders of two or more governments."</span>] 
+
+query_embeddings = model.encode(input_queries) 
+passage_embeddings = model.encode(input_passages) 
+<span class="hljs-built_in">print</span>(util.cos_sim(query_embeddings, passage_embeddings))
+</code></pre>
+          <p>The maximum sequence length of this model is 512 tokens.</p>
+        </section>
+        <section id="section-evaluation">
+          <h2 id="evaluation">Evaluation</h2>
+          <section id="section-baselines">
+            <h3 id="baselines">Baselines</h3>
+            <p>For a fair comparison, we compare with the following baselines:</p>
+            <ol>
+              <li>BM25 (a traditional model based on tf-idf).</li>
+              <li>ELSER (a commercial search algorithm provided by Elastic).</li>
+              <li>all-MiniLM-l6-v2: a popular open-source sentence transformers model. This model shares the same architecture as slate.125m.english.rtvr, with a smaller embedding dimension and has been trained on more data without commercial-friendly licenses.
+                Huggingface model card (<a href="https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2">https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2</a>) for more details.</li>
+              <li>E5-base: a recent open-source transformer model with very good performance on the BEIR benchmark. This is a base-sized model, which has the same architecture as slate.125m.english.rtvr. [Reference: Wang et.al., 2022: Text Embeddings by Weakly-Supervised
+                Contrastive Pre-training]. Huggingface model card (<a href="https://huggingface.co/intfloat/e5-base">https://huggingface.co/intfloat/e5-base</a>).</li>
+              <li>E5-small: a smaller model within the open source E5 family. The embedding dimension of this model matches that of all-minilm-l6-v2 (384), however it has 12 layers, and thus is larger and slightly slower. [Reference: Wang et.al., 2022: Text
+                Embeddings by Weakly-Supervised Contrastive Pre-training]. Huggingface model card (<a href="https://huggingface.co/intfloat/e5-small">https://huggingface.co/intfloat/e5-small</a>).</li>
+              <li>BGE-base: a recent open-source transformer model with the best performance on the BEIR benchmark for the 768 embedding size (as of 01.20.2024). Huggingface model card (<a href="https://huggingface.co/BAAI/bge-base-en-v1.5">https://huggingface.co/BAAI/bge-base-en-v1.5</a>).</li>
+            </ol>
+          </section>
+          <section id="section-our-evaluation-benchmark-beir-mtebs-retrieval-tab">
+            <h3 id="our-evaluation-benchmark-beir-mtebs-retrieval-tab">Our Evaluation benchmark: BEIR (MTEB’s retrieval tab)</h3>
+            <p>The BEIR benchmark contains 15 open-source retrieval tasks focused on different domains including nine different retrieval tasks: Fact checking, citation prediction, duplicate question retrieval, argument retrieval, news retrieval, question
+              answering, tweet retrieval, bio-medical IR, and entity retrieval. Further, it includes datasets from diverse text domains, datasets that cover broad topics (like Wikipedia) and specialized topics (like COVID-19 publications), different text
+              types (news articles vs. Tweets), datasets of various sizes (3.6k - 15M documents), and datasets with different query lengths (average query length between 3 and 192 words) and document lengths (average document length between 11 and 635
+              words). The performance of all models are noted in the table below. BEIR uses the Normalized Cumulative Discount Gain (specifically, nDCG@10) metric for evaluation. This is the same evaluation that is used in the HuggingFace MTEB leaderboard
+              but mainly focusing on retrieval tasks.</p>
+          </section>
+          <section id="section-long-nq">
+            <h3 id="long-nq">Long NQ</h3>
+            <p>Long NQ is an IBM dataset designed for evaluating the full RAG pipeline, based on a subset of the NaturalQuestions dataset. The dev set has 300 answerable questions with a corpus of 178,891 passages from 2,345 Wikipedia documents. Long NQ
+              also provides gold Wikipedia passages that are relevant for each question. During retrieval, the task is to obtain the relevant gold passage from the corpus for every question. The DCT code for Long NQ is 65971bbc1953f0115c1bbd77.</p>
+          </section>
+          <section id="section-results">
+            <h3 id="results">Results</h3>
+            <table>
+              <caption caption-side="top">Performance comparison on the BEIR benchmark (MTEB retrieval tab)</caption>
+              <thead>
+                <tr>
+                  <th>Model</th>
+                  <th>BEIR-15 (NDCG@10)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>BM25</td>
+                  <td>42.02</td>
+                </tr>
+                <tr>
+                  <td>ELSER</td>
+                  <td>49.01</td>
+                </tr>
+                <tr>
+                  <td>all-miniLM-L6-v2</td>
+                  <td>41.95</td>
+                </tr>
+                <tr>
+                  <td>ES-small</td>
+                  <td>46.01</td>
+                </tr>
+                <tr>
+                  <td>ES-base</td>
+                  <td>48.75</td>
+                </tr>
+                <tr>
+                  <td>BGE-base</td>
+                  <td>53.25</td>
+                </tr>
+                <tr>
+                  <td>slate.125m.english.rtrvr</td>
+                  <td>49.37</td>
+                </tr>
+              </tbody>
+            </table>
+            <p><img src="images/fm-slate.125m.english.rtrvr-beir.png" alt="Graph that shows results for Slate and other models" style="max-width:90%;height:auto;width:auto"></p>
+            <p>Figure 2. Performance comparison on the BEIR benchmark (MTEB retrieval tab)</p>
+            <table>
+              <caption caption-side="top">Performance comparison on the Long NQ dataset</caption>
+              <thead>
+                <tr>
+                  <th>Model</th>
+                  <th>LONGNQ (NDCG@10)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>all-miniLM-L6-v2</td>
+                  <td>58.10</td>
+                </tr>
+                <tr>
+                  <td>ES-small</td>
+                  <td>66.87</td>
+                </tr>
+                <tr>
+                  <td>ES-base</td>
+                  <td>63.95</td>
+                </tr>
+                <tr>
+                  <td>BGE-base</td>
+                  <td>61.29</td>
+                </tr>
+                <tr>
+                  <td>slate.125m.english.rtrvr</td>
+                  <td>65.01</td>
+                </tr>
+              </tbody>
+            </table>
+            <p><img src="images/fm-slate.125m.english.rtrvr-longnq.png" alt="Graph that shows results for Slate and other models" style="max-width:90%;height:auto;width:auto"></p>
+            <p>Figure 3. Performance comparison on the Long NQ dataset</p>
+          </section>
+        </section>
+        <section id="section-runtime-performance">
+          <h2 id="runtime-performance">Runtime Performance</h2>
+          <p>The performance runtime is measured on a re-ranking task with 466 queries. For each query we re-rank the top-100 passages obtained by BM25 and we report the average time over all queries. The re-ranking was performed on a A100_40GB GPU.</p>
+          <table>
+            <caption caption-side="top">Table 3. Run-time performance on re-ranking</caption>
+            <thead>
+              <tr>
+                <th>Model</th>
+                <th>Time/query</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>all-miniLM-L6-v2</td>
+                <td>0.18 sec</td>
+              </tr>
+              <tr>
+                <td>E5-small</td>
+                <td>0.33 sec</td>
+              </tr>
+              <tr>
+                <td>E5-base</td>
+                <td>0.75 sec</td>
+              </tr>
+              <tr>
+                <td>BGE-base</td>
+                <td>0.75 sec</td>
+              </tr>
+              <tr>
+                <td>slate.125m.english.rtrvr</td>
+                <td>0.71 sec</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

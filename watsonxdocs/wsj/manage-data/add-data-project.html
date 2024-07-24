@@ -1,0 +1,178 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="After you create a project, the next step is to add data assets to it so that you can work with data. All the collaborators in the project are automatically authorized to access the data in the project.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Adding data to a project</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=data-adding-project"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="adding-data-to-a-project" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-adding-data-to-a-project">
+        <h1 id="adding-data-to-a-project">Adding data to a project</h1>
+        <p>After you create a project, the next step is to add data assets to it so that you can work with data. All the collaborators in the project are automatically authorized to access the data in the project.</p>
+        <p>Different asset types can have duplicate names. However, you can't add an asset type with the same name multiple times.</p>
+        <p>You can use the following methods to add data assets to projects:</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>When to use</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a href="#files">Add local files</a></td>
+              <td>You have data in CSV or similar files on your local system.</td>
+            </tr>
+            <tr>
+              <td><a href="#community">Add Resource hub data sets</a></td>
+              <td>You want to use sample data sets.</td>
+            </tr>
+            <tr>
+              <td><a href="create-conn.html">Add database connections</a></td>
+              <td>You need to connect to a remote data source.</td>
+            </tr>
+            <tr>
+              <td><a href="connected-data.html">Add data from a connection</a></td>
+              <td>You need one or more tables or files from a remote data source.</td>
+            </tr>
+            <tr>
+              <td><a href="folder-asset.html">Add connected folder assets from IBM Cloud Object Storage</a></td>
+              <td>You need a folder in IBM Cloud Object Storage that contains a dynamic set of files, such as a news feed.</td>
+            </tr>
+            <tr>
+              <td><a href="#os">Convert files in project storage to assets</a></td>
+              <td>You want to convert files that you created in the project into data assets.</td>
+            </tr>
+          </tbody>
+        </table>
+        <section id="section-files">
+          <h2 id="files">Add local files</h2>
+          <p>You can add a file from your local system as a data asset in a project.</p>
+          <dl>
+            <dt><strong>Required permissions</strong></dt>
+            <dd>
+              <p>You must have the <strong>Editor</strong> or <strong>Admin</strong> role in the project.</p>
+            </dd>
+            <dt><strong>Restrictions</strong></dt>
+            <dd>
+              <ul>
+                <li>The file cannot be empty.</li>
+              </ul>
+            </dd>
+            <dd>
+              <ul>
+                <li>The file name can't exceed 255 characters.</li>
+              </ul>
+            </dd>
+            <dd>
+              <ul>
+                <li>The maximum size for files that you can load with the UI is 5 GB. You can <a href="store-large-objs-in-cos.html">load larger files to a project</a> with APIs.</li>
+              </ul>
+            </dd>
+          </dl>
+          <div class="note important"><span class="importanttitle">Important:</span> You can't add executable files to a project. All other types files that you add to a project are not checked for malicious code. You must ensure that your files do not contain malware or other types
+            of malicious software that other collaborators might download.</div>
+          <p>To add data files to a project:</p>
+          <ol>
+            <li>
+              <p>From your project's <strong>Assets</strong> page, click the <strong>Upload asset to project</strong> icon <img src="../console/images/find_data_icon.png" alt="Shows the find data icon." height="20" style="vertical-align:text-bottom">. You
+                can also click the same icon <img src="../console/images/find_data_icon.png" alt="Shows the find data icon." height="20" style="vertical-align:text-bottom"> from within a notebook or canvas.</p>
+            </li>
+            <li>
+              <p>In the pane that opens, browse for the files or drag them onto the pane. You must stay on the page until the load is complete.</p>
+            </li>
+          </ol>
+          <p>The files are saved in the object storage that is associated with your project and are listed as data assets on the <strong>Assets</strong> page of your project.</p>
+          <p>When you click the data asset name, you can see this information about data assets from files:</p>
+          <ul>
+            <li>The asset name and description</li>
+            <li>The tags for the asset</li>
+            <li>The name of the person who created the asset</li>
+            <li>The size of the data</li>
+            <li>The date when the asset was added to the project</li>
+            <li>The date when the asset was last modified</li>
+            <li>A <a href="../getting-started/previews.html">preview</a> of the data, for CSV, Avro, Parquet, TSV, Microsoft Excel, PDF, text, JSON, and image files</li>
+            <li>A <a href="../getting-started/profile.html">profile</a> of the data, for CSV, Avro, Parquet, TSV, and Microsoft Excel files</li>
+          </ul>
+          <p>You can update the contents of a data asset from a file by adding a file with the same name and format to the project and then choosing to replace the existing data asset.</p>
+          <p>You can remove the data asset by choosing the <strong>Delete</strong> option from the action menu next to the asset name. Choose the <strong>Prepare data</strong> option to refine the data with <a href="../refinery/refining_data.html">Data Refinery</a>.</p>
+        </section>
+        <section id="section-community">
+          <h2 id="community">Add Resource hub data sets</h2>
+          <p>You can add data sets from Resource hub to your project:</p>
+          <ol>
+            <li>In Resource hub, find the card for the data set that you want to add.</li>
+            <li>Click the <strong>Add to Project</strong> icon from the action bar, select the project, and click <strong>Add</strong>.</li>
+          </ol>
+          <div>
+            <p style="font-size:smaller">This video provides a visual method to learn the concepts and tasks in this documentation.</p><iframe id="wm-wx-load-and-analyze" src="https://video.ibm.com/embed/channel/23952663/video/wx-load-and-analyze" lang="en-US" style="border: 0;" webkitallowfullscreen="" allowfullscreen="" frameborder="no" width="560" height="315" title="Load and analyze public data" alt="Load and analyze public data"></iframe></div>
+        </section>
+        <section id="section-os">
+          <h2 id="os">Convert files in project storage to assets</h2>
+          <p>The storage for the project contains the data assets that you uploaded to the project, but it can also contain other files. For example, you can save a DataFrame in a notebook in the project environment storage. You can convert files in project
+            storage to assets.</p>
+          <p>To convert files in project storage to assets:</p>
+          <ol>
+            <li>From the <strong>Assets</strong> tab of your project, click <strong>Import asset</strong>.</li>
+            <li>Select <strong>Project files</strong>.</li>
+            <li>Select the <strong>data_asset</strong> folder.</li>
+            <li>Select the asset and click <strong>Import</strong>.</li>
+          </ol>
+        </section>
+        <section id="section-next-steps">
+          <h2 id="next-steps">Next steps</h2>
+          <ul>
+            <li><a href="../refinery/refining_data.html">Refine the data</a></li>
+            <li><a href="../analyze-data/data-science.html">Analyze the data and work with models</a></li>
+          </ul>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="download.html">Downloading data assets</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="get-data.html">Preparing data</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="A job is a way of running a batch deployment, script, or notebook in Watson Machine Learning. You can choose to run a job manually or on a schedule that you specify. After you create one or more jobs, you can view and manage them from the Jobs tab of your deployment space.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Managing deployment jobs</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=assets-managing-deployment-jobs"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="managing-deployment-jobs" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-managing-deployment-jobs">
+        <h1 id="managing-deployment-jobs">Managing deployment jobs</h1>
+        <p>A job is a way of running a batch deployment, script, or notebook in Watson Machine Learning. You can choose to run a job manually or on a schedule that you specify. After you create one or more jobs, you can view and manage them from the <strong>Jobs</strong>          tab of your deployment space.</p>
+        <p>From the <strong>Jobs</strong> tab of your space, you can:</p>
+        <ul>
+          <li>See the list of the jobs in your space</li>
+          <li>View the details of each job. You can change the schedule settings of a job and pick a different environment template.</li>
+          <li>Monitor job runs</li>
+          <li>Delete jobs</li>
+        </ul>
+        <p>See the following sections for various aspects of job management:</p>
+        <ul>
+          <li><a href="#create-jobs-batch">Creating a job for a batch deployment</a></li>
+          <li><a href="#viewing-jobs-in-a-space">Viewing jobs in a space</a></li>
+          <li><a href="#delete-jobs">Managing job metadata retention </a></li>
+        </ul>
+        <section id="section-create-jobs-batch">
+          <h2 id="create-jobs-batch">Creating a job for a batch deployment</h2>
+          <div class="note important"><span class="importanttitle">Important:</span> You must have an existing batch deployment to create a batch job.</div>
+          <p>To learn how to create a job for a batch deployment, see <a href="create-jobs.html">Creating jobs in a batch deployment</a>.</p>
+        </section>
+        <section id="section-viewing-jobs-in-a-space">
+          <h2 id="viewing-jobs-in-a-space">Viewing jobs in a space</h2>
+          <p>You can view all of the jobs that exist for your deployment space from the Jobs page. You can also delete a job.</p>
+          <p>To view the details of a specific job, click the job. From the job's details page, you can do the following:</p>
+          <ul>
+            <li>
+              <p>View the runs for that job and the status of each run. If a run failed, you can select the run and view the log tail or download the entire log file to help you troubleshoot the run. A failed run might be related to a temporary connection
+                or environment problem. Try running the job again. If the job still fails, you can send the log to Customer Support.</p>
+            </li>
+            <li>
+              <p>When a job is running, a progress indicator on the information page displays information about relative progress of the run. You can use the progress indicator to monitor a long run.</p>
+            </li>
+            <li>
+              <p>Edit schedule settings or pick another environment template.</p>
+            </li>
+            <li>
+              <p>Run the job manually by clicking the run icon from the job action bar. You must deselect the schedule to run the job manually.</p>
+            </li>
+          </ul>
+        </section>
+        <section id="section-delete-jobs">
+          <h2 id="delete-jobs">Managing job metadata retention</h2>
+          <p>The Watson Machine Learning plan that is associated with your IBM Cloud account sets limits on the number of running and stored deployments that you can create. If you exceed your limit, you cannot create new deployments until you delete existing
+            deployments or upgrade your plan. For more information, see <a href="../getting-started/wml-plans.html">Watson Machine Learning plans</a>.</p>
+          <section id="section-managing-metadata-retention-and-deletion-programmatically">
+            <h3 id="managing-metadata-retention-and-deletion-programmatically">Managing metadata retention and deletion programmatically</h3>
+            <p>If you are managing a job programmatically by using the Python client or REST API, you can retrieve metadata from the deployment endpoint by using the <code>GET</code> method during the 30 days.</p>
+            <p>To keep the metadata for more or less than 30 days, change the query parameter from the default of <code>retention=30</code> for the <code>POST</code> method to override the default and preserve the metadata.</p>
+            <div class="note note"><span class="notetitle">Note:</span>
+              <md-block>
+                <p>Changing the value to <code>retention=-1</code> cancels the auto-delete and preserves the metadata.</p>
+                <p></p>
+              </md-block>
+            </div>
+            <p></p>
+            <p>To delete a job programmatically, specify the query parameter <code>hard_delete=true</code> for the Watson Machine Learning <code>DELETE</code> method to completely remove the job metadata.</p>
+            <p>The following example shows how to use <code>DELETE</code> method:</p>
+            <pre class="codeblock"><code class="hljs">DELETE /ml/v4/deployment_jobs/{JobsID}
+</code></pre>
+          </section>
+        </section>
+        <section id="section-learn-from-samples">
+          <h2 id="learn-from-samples">Learn from samples</h2>
+          <p>Refer to <a href="ml-samples-overview.html">Machine learning samples and examples</a> for links to sample notebooks that demonstrate creating batch deployments and jobs by using the Watson Machine Learning <a href="https://cloud.ibm.com/apidocs/machine-learning">REST API</a>            and Watson Machine Learning <a href="https://ibm.github.io/watson-machine-learning-sdk/">Python client library</a>.</p>
+          <p><strong>Parent topic:</strong> <a href="../analyze-data/ml-deploy-general.html">Managing predictive deployments</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

@@ -1,0 +1,551 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="IBM watsonx as a Service and watsonx on Cloud Pak for Data software have some differences in features and implementation. IBM watsonx as a Service is a set of IBM Cloud services. Watsonx services on Cloud Pak for Data 4.8 are offered as software that you must install and maintain. Services that are available on both deployments also have differences in features on IBM watsonx as a Service compared to watsonx software on Cloud Pak for Data 4.8.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Feature differences between watsonx deployments</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=watsonx-feature-differences-between-deployments"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="feature-differences-between-watsonx-deployments" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-feature-differences-between-watsonx-deployments">
+        <h1 id="feature-differences-between-watsonx-deployments">Feature differences between watsonx deployments</h1>
+        <p>IBM watsonx as a Service and watsonx on Cloud Pak for Data software have some differences in features and implementation. IBM watsonx as a Service is a set of IBM Cloud services. Watsonx services on Cloud Pak for Data 4.8 are offered as software
+          that you must install and maintain. Services that are available on both deployments also have differences in features on IBM watsonx as a Service compared to watsonx software on Cloud Pak for Data 4.8.</p>
+        <ul>
+          <li><a href="#platform">Platform differences</a></li>
+          <li><a href="#common">Common features across services</a></li>
+          <li><a href="#ws">Watson Studio</a></li>
+          <li><a href="#wml">Watson Machine Learning</a></li>
+          <li><a href="#wos">Watson OpenScale</a></li>
+        </ul>
+        <section id="section-platform">
+          <h2 id="platform">Platform differences</h2>
+          <p>IBM watsonx as a Service and watsonx software on Cloud Pak for Data share a common code base, however, they differ in the following key ways:</p>
+          <table>
+            <caption caption-side="top">Platform differences</caption>
+            <thead>
+              <tr>
+                <th>Features</th>
+                <th>As a service</th>
+                <th>Software</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Software, hardware, and installation</td>
+                <td>IBM watsonx is fully managed by IBM on IBM Cloud. Software updates are automatic. Scaling of compute resources and storage is automatic. You sign up at <a href="https://dataplatform.cloud.ibm.com" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">https://dataplatform.cloud.ibm.com</a>.</td>
+                <td>You provide and maintain hardware. You install, maintain, and upgrade the software. See <a href="https://www.ibm.com/docs/SSQNUZ_4.8.x/sys-reqs/software-reqs.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Software requirements</a>.</td>
+              </tr>
+              <tr>
+                <td>Storage</td>
+                <td>You provision a IBM Cloud Object Storage service instance to provide storage. See <a href="../../svc-welcome/cloud-object-storage.html">IBM Cloud Object Storage</a>.</td>
+                <td>You provide persistent storage on a Red Hat OpenShift cluster. See <a href="https://www.ibm.com/docs/SSQNUZ_4.8.x/sys-reqs/storage-requirements.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Storage requirements</a>.</td>
+              </tr>
+              <tr>
+                <td>Compute resources for running workloads</td>
+                <td>Users choose the appropriate runtime for their jobs. Compute usage is billed based on the rate for the runtime environment and the duration of the job. See <a href="../admin/monitor-resources.html">Monitor account resource usage</a>.</td>
+                <td>You set up the number of Red Hat OpenShift nodes with the appropriate number of vCPUs. See <a href="https://www.ibm.com/docs/SSQNUZ_4.8.x/sys-reqs/hardware-reqs.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Hardware requirements</a>                  and <a href="https://www.ibm.com/docs/SSQNUZ_4.8.x/cpd/admin/platform-management.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Monitoring the platform</a>.</td>
+              </tr>
+              <tr>
+                <td>Cost</td>
+                <td>You buy each service that you need at the appropriate plan level. Many services bill for compute and other resource consumption. See each service page in the <a href="https://cloud.ibm.com/catalog" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud catalog</a> or in the services catalog on IBM watsonx, by selecting <strong>Administration &gt; Services &gt; Services catalog</strong> from the navigation menu.</td>
+                <td>You buy a software license based on the services that you need. See <a href="https://cloud.ibm.com/catalog/content/ibm-cp-datacore-6825cc5d-dbf8-4ba2-ad98-690e6f221701-global" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Cloud Pak for Data</a>.</td>
+              </tr>
+              <tr>
+                <td>Security, compliance, and isolation</td>
+                <td>The data security, network security, security standards compliance, and isolation of IBM watsonx are managed by IBM Cloud. You can set up extra security and encryption options. See <a href="security-overview.html">Security of IBM watsonx</a>.</td>
+                <td>Red Hat OpenShift Container Platform provides basic security features. Cloud Pak for Data is assessed for various Privacy and Compliance regulations and provides features that you can use in preparation for various privacy and compliance
+                  assessments. You are responsible for additional security features, encryption, and network isolation. See <a href="https://www.ibm.com/docs/SSQNUZ_4.8.x/cpd/plan/security.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Security considerations</a>.</td>
+              </tr>
+              <tr>
+                <td>Available services</td>
+                <td>Most watsonx services are available in both deployment environments. <br>See <a href="../../svc-welcome/cloud-services.html">Services for IBM watsonx</a>.</td>
+                <td>Includes many other services for other components and solutions. See <a href="https://www.ibm.com/docs/SSQNUZ_4.8.x/svc-nav/head/services.html" target="_blank" rel="noopener noreferrer">Services for Cloud Pak for Data 4.8</a>.</td>
+              </tr>
+              <tr>
+                <td>User management</td>
+                <td>You add users and user groups and manage their account roles and permissions with IBM Cloud Identity and Access Management. See <a href="setup-addl-users.html">Add users to the account</a>.<br> You can also set up SAML federation on IBM
+                  Cloud. See <a href="https://cloud.ibm.com/docs/account?topic=account-iamoverview" target="_blank" class="external">IBM Cloud docs: How IBM Cloud IAM works</a>.</td>
+                <td>You can add users and create user groups from the <strong>Administration</strong> menu. You can use the Identity and Access Management Service or use your existing SAML SSO or LDAP provider for identity and password management. You can
+                  create dynamic, attribute-based user groups. See <a href="https://www.ibm.com/docs/SSQNUZ_4.8.x/cpd/admin/users.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">User management</a>.</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section id="section-common">
+          <h2 id="common">Common core functionality across services</h2>
+          <p>The following core functionality that is provided with the platform is effectively the same for services on IBM watsonx as a Service and watsonx software on Cloud Pak for Data 4.8:</p>
+          <ul>
+            <li>Global search for assets across the platform</li>
+            <li>The Platform assets catalog for sharing connections across the platform</li>
+            <li>Role-based user management within collaborative workspaces across the platform</li>
+            <li>Common infrastructure for assets and workspaces</li>
+            <li>A services catalog for adding services</li>
+            <li>View compute usage from the <strong>Administration</strong> menu</li>
+          </ul>
+          <p>The following table describes differences in core functionality across services between IBM watsonx as a Service and watsonx software on Cloud Pak for Data 4.8:</p>
+          <table>
+            <caption caption-side="top">Differences in common features across services</caption>
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>As a service</th>
+                <th>Software</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Manage all projects</td>
+                <td>Users with the <strong>Manage projects</strong> permission from the IAM service access <strong>Manager</strong> role for the IBM Cloud Pak for Data service can join any project with the <strong>Admin</strong> role and then manage or delete
+                  the project.</td>
+                <td>Users with the <strong>Manage projects</strong> permission can join any project with the <strong>Admin</strong> role and then manage or delete the project.</td>
+              </tr>
+              <tr>
+                <td>Connections to remote data sources</td>
+                <td>Most supported data sources are common to both deployment environments.<br>See <a href="../manage-data/conn_types.html">Supported connections</a>.</td>
+                <td>See <a href="https://www.ibm.com/docs/SSQNUZ_4.8.x/cpd/access/data-sources.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Supported data sources</a>.</td>
+              </tr>
+              <tr>
+                <td>Connection credentials that are personal or shared</td>
+                <td>Connections in projects and catalogs can require personal credentials or allow shared credentials. Shared credentials can be disabled at the account level.</td>
+                <td>Platform connections can require personal credentials or allow shared credentials. Shared credentials can be disabled at the platform level.</td>
+              </tr>
+              <tr>
+                <td>Connection credentials from secrets in a vault</td>
+                <td>Not available</td>
+                <td>Available</td>
+              </tr>
+              <tr>
+                <td>Kerberos authentication</td>
+                <td>Not available</td>
+                <td>Available for <a href="https://www.ibm.com/docs/SSQNUZ_4.8.x/cpd/plan/kerberos.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">some services and connections</a></td>
+              </tr>
+              <tr>
+                <td>Sample assets and projects from the Resource hub app</td>
+                <td>Available</td>
+                <td>Not available</td>
+              </tr>
+              <tr>
+                <td>Custom JDBC connector</td>
+                <td>Not available</td>
+                <td>Available starting in 4.8.0</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section id="section-ws">
+          <h2 id="ws">Watson Studio</h2>
+          <p>The following Watson Studio features are effectively the same on IBM watsonx as a Service and watsonx software on Cloud Pak for Data 4.8:</p>
+          <ul>
+            <li>Collaboration in projects and deployment spaces</li>
+            <li>Accessing project assets programmatically</li>
+            <li>Project import and export by using a project ZIP file</li>
+            <li>Jupyter notebooks</li>
+            <li>Job scheduling</li>
+            <li>Data Refinery</li>
+            <li>Watson Natural Language Processing for Python</li>
+          </ul>
+          <p>This table describes the feature differences between the Watson Studio service on the as-a-service and software deployment environments, differences between offering plans, and whether additional services are required. For more information about
+            feature differences between offering plans on IBM watsonx, see <a href="../getting-started/ws-plans.html">Watson Studio offering plans</a>.</p>
+          <table>
+            <caption caption-side="top">Differences in Watson Studio</caption>
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>As a service</th>
+                <th>Software</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Sandbox project</td>
+                <td>Created automatically</td>
+                <td>Not available</td>
+              </tr>
+              <tr>
+                <td>Create project</td>
+                <td>Create: <br> • An empty project <br> • A project from a sample in the Resource hub <br> • A project from file</td>
+                <td>Create: <br> • An empty project <br> • A project from file <br> • A project with Git integration</td>
+              </tr>
+              <tr>
+                <td>Git integration</td>
+                <td>• Publish notebooks on GitHub <br> • Publish notebooks as gist</td>
+                <td>• Integrate a project with Git <br> • sync assets to repository in one project and use those assets into another project</td>
+              </tr>
+              <tr>
+                <td>Project terminal for advanced Git operations</td>
+                <td>Not available</td>
+                <td>Available in projects with default Git integration</td>
+              </tr>
+              <tr>
+                <td>Organize assets in projects with folders</td>
+                <td>Not available</td>
+                <td>Available starting with 4.8.0</td>
+              </tr>
+              <tr>
+                <td>Foundation model inferencing</td>
+                <td>Available</td>
+                <td>Requires the watsonx.ai service.</td>
+              </tr>
+              <tr>
+                <td>Supported foundation models</td>
+                <td>Most foundation models are available on both deployments. See <a href="../analyze-data/fm-models.html">Supported foundation models</a></td>
+                <td>Requires that the models are installed on the cluster. See <a href="https://www.ibm.com/docs/SSQNUZ_4.8.x/wsj/analyze-data/fm-models.html" target="_blank" class="external">Supported foundation models</a>.</td>
+              </tr>
+              <tr>
+                <td>Bringing your own foundation model</td>
+                <td>Not available</td>
+                <td>Available</td>
+              </tr>
+              <tr>
+                <td>Chat mode in Prompt Lab</td>
+                <td>Available</td>
+                <td>Not available</td>
+              </tr>
+              <tr>
+                <td>Synthentic data generation</td>
+                <td>Available</td>
+                <td>Requires the Synthetic Data Generator service.</td>
+              </tr>
+              <tr>
+                <td>JupyterLab</td>
+                <td>Not available</td>
+                <td>Available in projects with Git integration</td>
+              </tr>
+              <tr>
+                <td>Visual Studio Code integration</td>
+                <td>Not available</td>
+                <td>Available</td>
+              </tr>
+              <tr>
+                <td>RStudio</td>
+                <td>Cannot integrate with Git</td>
+                <td>Can integrate with Git. Requires an RStudio Server Runtimes service.</td>
+              </tr>
+              <tr>
+                <td>Python scripts</td>
+                <td>Not available</td>
+                <td>Work with Python scripts in JupyterLab. Requires a Watson Studio Runtimes service.</td>
+              </tr>
+              <tr>
+                <td>Generate code to load data to a notebook by using the Flight service</td>
+                <td>Not available</td>
+                <td>Available</td>
+              </tr>
+              <tr>
+                <td>Manage notebook lifecycle</td>
+                <td>Not available</td>
+                <td>Use CPDCTL for notebook lifecycle management</td>
+              </tr>
+              <tr>
+                <td>Code package assets (set of dependent files in a folder structure)</td>
+                <td>Not available</td>
+                <td>Use CPDCTL to create code package assets in a deployment space</td>
+              </tr>
+              <tr>
+                <td>Promote notebooks to spaces</td>
+                <td>Not available</td>
+                <td>Available manually from the project's Assets page or programmatically by using CPDCTL</td>
+              </tr>
+              <tr>
+                <td>Python with GPU</td>
+                <td>Support available for a single GPU type only</td>
+                <td>Support available for multiple Nvidia GPU types. Requires a Watson Studio Runtimes service.</td>
+              </tr>
+              <tr>
+                <td>Create and use custom images</td>
+                <td>Not available</td>
+                <td>Create custom images for Python (with and without GPU), R, JupyterLab (with and without GPU), RStudio, and SPSS environments. Requires a Watson Studio Runtimes and other applicable services.</td>
+              </tr>
+              <tr>
+                <td>Anaconda Repository</td>
+                <td>Not available</td>
+                <td>Use to create custom environments and custom images</td>
+              </tr>
+              <tr>
+                <td>Hadoop integration</td>
+                <td>Not available</td>
+                <td>Build and train models, and run Data Refinery flows on a Hadoop cluster. Requires the Execution Engine for Apache Hadoop service.</td>
+              </tr>
+              <tr>
+                <td>Decision Optimization</td>
+                <td>Available</td>
+                <td>Requires the Decision Optimization service.</td>
+              </tr>
+              <tr>
+                <td>SPSS Modeler</td>
+                <td>Available</td>
+                <td>Requires the SPSS Modeler service.</td>
+              </tr>
+              <tr>
+                <td>Watson Pipelines</td>
+                <td>Available</td>
+                <td>Requires the Watson Pipelines service.</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section id="section-wml">
+          <h2 id="wml">Watson Machine Learning</h2>
+          <p>The following Watson Machine Learning features are effectively the same on IBM watsonx as a Service and watsonx software on Cloud Pak for Data 4.8:</p>
+          <ul>
+            <li>Collaboration in projects and deployment spaces</li>
+            <li>Deploy models</li>
+            <li>Deploy functions</li>
+            <li>Watson Machine Learning REST APIs</li>
+            <li>Watson Machine Learning Python client</li>
+            <li>Create online deployments</li>
+            <li>Scale and update deployments</li>
+            <li>Define and use custom components</li>
+            <li>Use Federated Learning to train a common model with separate and secure data sources</li>
+            <li>Monitor deployments across spaces</li>
+            <li>Updated forms for testing online deployment</li>
+            <li>Use nested pipelines</li>
+            <li>AutoAI data imputation</li>
+            <li>AutoAI fairness evaluation</li>
+            <li>AutoAI time series supporting features</li>
+          </ul>
+          <p>This table describes the differences in features between the Watson Machine Learning service on the as-a-service and software deployment environments, differences between offering plans, and whether additional services are required. For details
+            about functionality differences between offering plans on IBM watsonx, see <a href="wml-plans.html">Watson Machine Learning offering plans</a>.</p>
+          <table>
+            <caption caption-side="top">Feature differences between Watson Machine Learning deployments</caption>
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>As a service</th>
+                <th>Software</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>AutoAI training input</td>
+                <td>Current <a href="../analyze-data/autoai-overview.html">supported data sources</a></td>
+                <td><a href="../analyze-data/autoai-overview.html">Supported data sources</a> change by release</td>
+              </tr>
+              <tr>
+                <td>AutoAI experiment compute configuration</td>
+                <td>8 CPU and 32 GB</td>
+                <td><a href="../analyze-data/autoai-overview.html">Different sizes available</a></td>
+              </tr>
+              <tr>
+                <td>AutoAI limits on data size<br>and number of prediction targets</td>
+                <td>Set limits</td>
+                <td><a href="../analyze-data/autoai-overview.html">Limits differ by compute configuration</a></td>
+              </tr>
+              <tr>
+                <td>AutoAI incremental learning</td>
+                <td>Not available</td>
+                <td>Available</td>
+              </tr>
+              <tr>
+                <td>Deploy using popular frameworks<br> and software specifications</td>
+                <td>Check for latest <a href="../analyze-data/ml-manage-frame-and-specs.html">supported versions</a></td>
+                <td><a href="https://www.ibm.com/docs/SSQNUZ_4.8.x/wsj/analyze-data/ml-manage-frame-and-specs.html">Supported versions</a> differ by release</td>
+              </tr>
+              <tr>
+                <td>Connect to databases for batch deployments</td>
+                <td>Check for <a href="../analyze-data/deploy-batch-details.html">support by deployment type</a></td>
+                <td>Check for support by <a href="https://www.ibm.com/docs/SSQNUZ_4.8.x/wsj/analyze-data/deploy-batch-details.html">deployment type</a><br> and by version</td>
+              </tr>
+              <tr>
+                <td>Deploy and score Python scripts</td>
+                <td>Available via Python client</td>
+                <td>Create scripts in JupyterLab or Python client, then deploy</td>
+              </tr>
+              <tr>
+                <td>Deploy and batch score R Scripts</td>
+                <td>Not available</td>
+                <td>Available</td>
+              </tr>
+              <tr>
+                <td>Deploy Shiny apps</td>
+                <td>Not available</td>
+                <td>Create and deploy Shiny apps<br>Deploy from code package</td>
+              </tr>
+              <tr>
+                <td>Evaluate jobs for fairness, or drift</td>
+                <td>Requires the Watson OpenScale service</td>
+                <td>Requires the Watson OpenScale service</td>
+              </tr>
+              <tr>
+                <td>Evaluate online deployments in a space <br> for fairness, drift or explainability</td>
+                <td>Not available</td>
+                <td>Available <br> Requires the Watson OpenScale service</td>
+              </tr>
+              <tr>
+                <td>Evaluate deployed prompt templates in a space</td>
+                <td>Available <br> Requires the watsonx.governance service</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Control space creation</td>
+                <td>No restrictions by role</td>
+                <td>Use permissions to control who can view and create spaces</td>
+              </tr>
+              <tr>
+                <td>Import from GIT project to space</td>
+                <td>Not available</td>
+                <td>Available</td>
+              </tr>
+              <tr>
+                <td>Code package automatically created when importing<br>from Git project to space</td>
+                <td>Not available</td>
+                <td>Available</td>
+              </tr>
+              <tr>
+                <td>Update RShiny app from code package</td>
+                <td>Not available</td>
+                <td>Available</td>
+              </tr>
+              <tr>
+                <td>Track model details in a model inventory</td>
+                <td>Register models to view factsheets with lifecycle details. Requires the IBM Knowledge Catalog service.</td>
+                <td>Available<br>Requires the AI Factsheets service.</td>
+              </tr>
+              <tr>
+                <td>Create and use custom images</td>
+                <td>Not available</td>
+                <td>Create custom images for Python or SPSS</td>
+              </tr>
+              <tr>
+                <td>Notify collaborators about Pipeline events</td>
+                <td>Not available</td>
+                <td>Use Send Mail to notify collaborators</td>
+              </tr>
+              <tr>
+                <td>Import project or space file into a nonempty space</td>
+                <td>Not available</td>
+                <td>Available</td>
+              </tr>
+              <tr>
+                <td>Deep Learning Experiments</td>
+                <td>Not available</td>
+                <td>Requires the Watson Machine Learning Accelerator service</td>
+              </tr>
+              <tr>
+                <td>Provision and manage IBM Cloud service instances</td>
+                <td>Add instances for Watson Machine Learning<br>or Watson OpenScale</td>
+                <td>Services are provisioned on the cluster<br>by the administrator</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section id="section-wos">
+          <h2 id="wos">watsonx.governance</h2>
+          <p>The following governance features are effectively the same on IBM watsonx as a Service and watsonx software on Cloud Pak for Data 4.8:</p>
+          <ul>
+            <li>Evaluate deployments for fairness</li>
+            <li>Evaluate the quality of deployments</li>
+            <li>Monitor deployments for drift</li>
+            <li>View and compare model results in an Insights dashboard</li>
+            <li>Add deployments from the machine learning provider of your choice</li>
+            <li>Set alerts to trigger when evaluations fall below a specified threshold</li>
+            <li>Evaluate deployments in a user interface or notebook</li>
+            <li>Custom evaluations and metrics</li>
+            <li>View details about evaluations in model factsheets</li>
+          </ul>
+          <p>This table describes the differences in features between the Watson OpenScale service on the as-a-service and software deployment environments, differences between offering plans, and whether additional services are required.</p>
+          <table>
+            <caption caption-side="top">Differences IBM Watson OpenScale</caption>
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>As a service</th>
+                <th>Software</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Upload pre-scored test data</td>
+                <td>Not available</td>
+                <td>Available</td>
+              </tr>
+              <tr>
+                <td>IBM SPSS Collaboration and Deployment Services</td>
+                <td>Not available</td>
+                <td>Available</td>
+              </tr>
+              <tr>
+                <td>Batch processing</td>
+                <td>Not available</td>
+                <td>Available</td>
+              </tr>
+              <tr>
+                <td>Support access control by user groups</td>
+                <td>Not available</td>
+                <td>Available</td>
+              </tr>
+              <tr>
+                <td>Free database and Postgres plans</td>
+                <td>Available</td>
+                <td>Postgres available starting in 4.8</td>
+              </tr>
+              <tr>
+                <td>Set up multiple instances</td>
+                <td>Not available</td>
+                <td>Available</td>
+              </tr>
+              <tr>
+                <td>Integration with OpenPages</td>
+                <td>Not available</td>
+                <td>Available</td>
+              </tr>
+              <tr>
+                <td>Evaluation of foundation model assets</td>
+                <td>Available</td>
+                <td>Not available</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="../../svc-welcome/cloud-services.html">Services for IBM watsonx</a></li>
+            <li><a href="https://www.ibm.com/docs/SSQNUZ_4.8.x/svc-nav/head/services.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Services for Cloud Pak for Data 4.8</a></li>
+            <li><a href="https://www.ibm.com/docs/SSQNUZ_4.8.x/cpd/plan/deployment-environments.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Cloud deployment environment options for Cloud Pak for Data 4.8</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="overview-wx.html">Overview of watsonx</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

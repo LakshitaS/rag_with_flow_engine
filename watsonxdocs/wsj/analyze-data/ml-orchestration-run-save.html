@@ -1,0 +1,160 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Learn how to run pipelines in real time or on a schedule, and how to preserve your pipeline versions.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Running a pipeline</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=pipelines-running-saving"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="running-a-pipeline" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <p>Learn how to run pipelines in real time or on a schedule, and how to preserve your pipeline versions.</p>
+      <p>You can do the following tasks:</p>
+      <ul>
+        <li><a href="#running-a-pipeline">Running a pipeline</a></li>
+        <li><a href="#creating-a-pipeline-job">Creating a pipeline job</a></li>
+        <li><a href="#saving-a-version-of-a-pipeline">Saving a version of a pipeline</a></li>
+        <li><a href="#exporting-pipeline-assets-for-deployment">Exporting pipeline assets for deployment</a></li>
+      </ul>
+      <section id="section-running-a-pipeline">
+        <h2 id="running-a-pipeline">Running a pipeline</h2>
+        <p>You can run a pipeline in real time to test a flow as you work. When you are satisfied with a pipeline, you can then define a job to run a pipeline with parameters or to run on a schedule.</p>
+        <p>To run a pipeline:</p>
+        <ol>
+          <li>Click <strong>Run pipeline</strong> on the toolbar.</li>
+          <li>Choose an option:
+            <ul>
+              <li><strong>Trial run</strong> runs the pipeline without creating a job. Use this to test a pipeline.</li>
+              <li><strong>Create a job</strong> presents you with an interface for configuring and scheduling a job to run the pipeline. You can save and reuse run details, such as pipeline parameters, for a version of your pipeline.</li>
+              <li><strong>View history</strong> compares all of your runs over time.</li>
+            </ul>
+          </li>
+        </ol>
+        <p>You must make sure requirements are met when you run a pipeline. For example, you might need a deployment space or an API key to run some of your nodes before you can begin.</p>
+        <section id="section-setting-a-job-run-name">
+          <h3 id="setting-a-job-run-name">Setting a job run name</h3>
+          <p>You can optionally specify a job run name when running a pipeline flow or a pipeline job and see the different job runs in the <strong>Job details</strong> dashboard. Otherwise, you can also assign a local parameter <code>DSJobInvocationId</code>            to either a <strong>Run pipeline job</strong> node or <strong>Run DataStage job</strong> node (the latter is not available for watsonx).</p>
+          <p>If both the parameter <code>DSJobInvocationId</code> and job run name of the node are set, <code>DSJobInvocationId</code> will be used. If neither are set, the default value "job run" is used.</p>
+          <!--AZ: add screenshot-->
+        </section>
+      </section>
+      <section id="section-creating-a-pipeline-job">
+        <h2 id="creating-a-pipeline-job">Creating a pipeline job</h2>
+        <p>The following are all the configuration options for defining a job to run the pipeline.</p>
+        <ol>
+          <li>Name your pipeline job and choose a version.</li>
+          <li>Input your IBM API key.</li>
+          <li><strong>(Optional)</strong> Schedule your job by toggling the <strong>Schedule</strong> button.
+            <ol>
+              <li>Choose the start date and fine tune your schedule to repeat by any minute, hour, day, week, month.</li>
+              <li>Add exception days to prevent the job from running on certain days.</li>
+              <li>Add a time for terminating the job.</li>
+            </ol>
+          </li>
+          <li><strong>(Optional)</strong> Enter the pipeline parameters needed for your job, for example assigning a space to a deployment node. To see how to create a pipeline parameter, see <strong>Defining pipeline parameters</strong> in <a href="ml-orchestration-create.html">Creating a pipeline</a>.</li>
+          <li><strong>(Optional)</strong> Choose if you want to be notified of pipeline job status after running.</li>
+        </ol>
+      </section>
+      <section id="section-viewing-pipeline-results">
+        <h2 id="viewing-pipeline-results">Viewing pipeline results</h2>
+        <p>After you run a pipeline from a trial run or a job, you can view the status and other details of the run such as parameter results in the <strong>Run tracker</strong>.</p>
+        <p>Open each tab to view details of the pipeline run.</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Tab</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Node inspector</td>
+              <td>Select a node first, and then click the node inspector to view the details of each node's run operation after running, such as logs, input and output.</td>
+            </tr>
+            <tr>
+              <td>Node output</td>
+              <td>View the results of each node in one consolidated list. If the run fails, error messages and logs are provided to help you correct issues.</td>
+            </tr>
+            <tr>
+              <td>Run details</td>
+              <td>If they are available, you can view a list of parameters that are the result of the pipeline run or multiple pipeline runs. If the pipeline is associated with DataStage jobs, they will also appear.</td>
+            </tr>
+          </tbody>
+        </table>
+        <section id="section-notes-on-running-a-pipeline">
+          <h3 id="notes-on-running-a-pipeline">Notes on running a pipeline</h3>
+          <ul>
+            <li>Errors in the pipeline are flagged with an error badge. Open the node or condition with an error to change or complete the configuration.</li>
+            <li>View the consolidated logs to review operations or identify issues with the pipeline.</li>
+          </ul>
+        </section>
+      </section>
+      <section id="section-saving-a-version-of-a-pipeline">
+        <h2 id="saving-a-version-of-a-pipeline">Saving a version of a pipeline</h2>
+        <p>You can save a version of a pipeline and revert to it at a later time. For example, if you want to preserve a particular configuration before you make changes, save a version. You can revert the pipeline to a previous version. When you share a
+          pipeline, the latest version is used.</p>
+        <p>To save a version:</p>
+        <ol>
+          <li>Click the Versions icon on the toolbar.</li>
+          <li>In the Versions pane, click <strong>Save version</strong> to create a new version with a version number incremented by 1.</li>
+        </ol>
+        <p>When you run the pipeline, you can choose from available saved versions.</p>
+        <div class="note note"><span class="notetitle">Note:</span> You cannot delete a saved version.</div>
+      </section>
+      <section id="section-exporting-pipeline-assets-for-deployment">
+        <h2 id="exporting-pipeline-assets-for-deployment">Exporting pipeline assets for deployment spaces</h2>
+        <p>Watson Pipelines does not support quick deployment or promotion of pipelines like other assets. Instead, you can export a project's or space's assets and import them into a deployment space. When you export, include pipelines in the list of assets
+          that is exported to a zip file and then import into a project or space.</p>
+        <p>Importing a pipeline into a space extends your MLOps capabilities to run jobs for various assets from a space, or to move all jobs from a pre-production to a production space. Note these considerations for working with pipelines in a space:</p>
+        <ul>
+          <li>Pipelines in a space are read-only. You cannot edit the pipeline. You must edit the pipeline from the project, then export the updated pipeline and import it into the space.</li>
+          <li>Although you cannot edit the pipeline in a space, you can create new jobs to run the pipeline. You can also use parameters to assign values for jobs so you can have different values for each job you configure.</li>
+          <li>If there is already a pipeline in the space with the same name, the pipeline import will fail.</li>
+          <li>If there is no pipeline in the space with the same name, a pipeline with version 1 is created in the space.</li>
+          <li>Any supporting assets or references required to run a pipeline job must also be part of the import package or the job will fail.</li>
+          <li>If your pipeline contains assets or tools not supported in a space, such as an SPSS modeler job, the pipeline job will fail.</li>
+          <li>You can automate export import with a CLI tool such as <a href="https://github.com/ibm/cpdctl">CPDCTL</a>.</li>
+        </ul>
+        <div class="note attention"><span class="attentiontitle">Attention:</span> When you import a pipeline into a deployment space, dependencies cannot be identified and automatically deployed. You must ensure that all dependencies are deployed for the pipeline.</div>
+        <p><strong>Parent topic:</strong> <a href="ml-orchestration-overview.html">IBM Watson Pipelines</a></p>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Follow these rules when you are specifying input details for batch deployments of Python functions.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Batch deployment input details for Python functions</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=framework-python-functions"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="batch-deployment-input-details-for-python-functions" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-batch-deployment-input-details-for-python-functions">
+        <h1 id="batch-deployment-input-details-for-python-functions">Batch deployment input details for Python functions</h1>
+        <p>Follow these rules when you are specifying input details for batch deployments of Python functions.</p>
+        <p>Data type summary table:</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Type</td>
+              <td>inline</td>
+            </tr>
+            <tr>
+              <td>File formats</td>
+              <td>N/A</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>You can deploy Python functions in Watson Machine Learning the same way that you can deploy models. Your tools and apps can use the Watson Machine Learning Python client or REST API to send data to your deployed functions in the same way that
+          they send data to deployed models. Deploying functions gives you the ability to:</p>
+        <ul>
+          <li>Hide details (such as credentials)</li>
+          <li>Preprocess data before you pass it to models</li>
+          <li>Handle errors</li>
+          <li>Include calls to multiple models All of these actions take place within the deployed function, instead of in your application.</li>
+        </ul>
+        <section id="section-data-sources">
+          <h2 id="data-sources">Data sources</h2>
+          <p>If you are specifying input/output data references programmatically:</p>
+          <ul>
+            <li>Data source reference <code>type</code> depends on the asset type. Refer to the <strong>Data source reference types</strong> section in <a href="../analyze-data/ml-space-add-assets.html">Adding data assets to a deployment space</a>.</li>
+          </ul>
+          <p><strong>Notes:</strong></p>
+          <ul>
+            <li>For connections of type <a href="../manage-data/conn-cos.html">Cloud Object Storage</a> or <a href="../manage-data/conn-cos-infra.html">Cloud Object Storage (infrastructure)</a>, you must configure <strong>Access key</strong> and <strong>Secret key</strong>,
+              also known as <a href="https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-uhc-hmac-credentials-main" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">HMAC credentials</a>.</li>
+            <li>The environment variables parameter of deployment jobs is not applicable.</li>
+            <li>Make sure that the output is structured to match the output schema that is described in <a href="https://cloud.ibm.com/apidocs/machine-learning#deployments-compute-predictions" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Execute a synchronous deployment prediction</a>.</li>
+          </ul>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p><a href="../analyze-data/ml-deploy-py-function.html">Deploying Python functions</a>.</p>
+          <p><strong>Parent topic:</strong> <a href="../analyze-data/deploy-batch-input-by-framework.html">Batch deployment input details by framework</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

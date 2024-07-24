@@ -1,0 +1,213 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Use these guidelines when you are updating assets that refer to outdated software specifications or frameworks.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Managing outdated software specifications or frameworks</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=specifications-managing-outdated-software-frameworks"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="managing-outdated-software-specifications-or-frameworks" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-managing-outdated-software-specifications-or-frameworks">
+        <h1 id="managing-outdated-software-specifications-or-frameworks">Managing outdated software specifications or frameworks</h1>
+        <p>Use these guidelines when you are updating assets that refer to outdated software specifications or frameworks.</p>
+        <p>In some cases, asset update is seamless. In other cases, you must retrain or redeploy the assets. For general guidelines, refer to <a href="#discont-soft-spec">Migrating assets that refer to discontinued software specifications</a> or <a href="#discont-framewrk">Migrating assets that refer to discontinued framework versions</a>.</p>
+        <p>For more information, see the following sections:</p>
+        <ul>
+          <li>
+            <p><a href="#update-soft-specs">Updating software specifications</a></p>
+          </li>
+          <li>
+            <p><a href="#upgrade-model">Updating a machine learning model</a></p>
+          </li>
+          <li>
+            <p><a href="#upgr-function">Updating a Python function</a></p>
+          </li>
+          <li>
+            <p><a href="#retrain-spss">Retraining an SPSS Modeler flow</a></p>
+          </li>
+        </ul>
+        <section id="section-discont-soft-spec">
+          <h2 id="discont-soft-spec">Managing assets that refer to discontinued software specifications</h2>
+          <ul>
+            <li>During migration, assets that refer to the discontinued software specification are mapped to a comparable-supported default software specification (only in cases where the model type is still supported).</li>
+            <li>When you create new deployments of the migrated assets, the updated software specification in the asset metadata is used.</li>
+            <li>Existing deployments of the migrated assets are updated to use the new software specification. If deployment or scoring fails due to framework or library version incompatibilities, follow the instructions in <a href="#update-soft-specs">Updating software specifications</a>.
+              If the problem persists, follow the steps that are listed in <a href="#upgrade-model">Updating a machine learning model</a>.</li>
+          </ul>
+        </section>
+        <section id="section-discont-framewrk">
+          <h2 id="discont-framewrk">Migrating assets that refer to discontinued framework versions</h2>
+          <ul>
+            <li>During migration, model types are not be updated. You must manually update this data. For more information, see <a href="#upgrade-model">Updating a machine learning model</a>.</li>
+            <li>After migration, the existing deployments are removed and new deployments for the deprecated framework are not allowed.</li>
+          </ul>
+        </section>
+        <section id="section-update-soft-specs">
+          <h2 id="update-soft-specs">Updating software specifications</h2>
+          <p>You can update software specifications from the UI or by using the API. For more information, see the following sections:</p>
+          <ul>
+            <li><a href="#update-soft-specs-ui">Updating software specifications from the UI</a></li>
+            <li><a href="#update-soft-specs-api">Updating software specifications by using the API</a></li>
+          </ul>
+          <section id="section-update-soft-specs-ui">
+            <h3 id="update-soft-specs-ui">Updating software specifications from the UI</h3>
+            <ol>
+              <li>From the deployment space, click the model (make sure it does not have any active deployments.)</li>
+              <li>Click the <code>i</code> symbol to check model details.</li>
+              <li>Use the dropdown list to update the software specification.</li>
+            </ol>
+            <p>Refer to the example image:</p>
+            <p><img src="images/update-software-spec-via-ui.png" alt="Updating software specifications through the UI" title="Updating software specifications through the UI"></p>
+          </section>
+          <section id="section-update-soft-specs-api">
+            <h3 id="update-soft-specs-api">Updating software specifications by using the API</h3>
+            <p>You can update a software specification by using the API Patch command:</p>
+            <p>For <code>software_spec</code> field, type <code>/software_spec</code>. For <code>value</code> field, use either the ID or the name of the new software specification.</p>
+            <p>Refer to this example:</p>
+            <pre class="codeblock"><code class="lang-bash hljs">curl -X PATCH <span class="hljs-string">'&lt;deployment endpoint url&gt;/ml/v4/models/6f01d512-fe0f-41cd-9a52-1e200c525c84?space_id=f2ddb8ce-7b10-4846-9ab0-62454a449802&amp;project_id=&lt;project_id&gt;&amp;version=&lt;YYYY-MM-DD&gt;'</span> \n--data-raw <span class="hljs-string">'[
+   {
+      "op":"replace",
+      "path":"/software_spec",
+      "value":{
+         "id":"6f01d512-fe0f-41cd-9a52-1e200c525c84"   // or "name":"tensorflow_rt22.1-py3.9"
+      }
+   }
+]'</span>
+</code></pre>
+            <p>For more information, see <a href="../analyze-data/ml-deploy-update.html#update-asset-api">Updating an asset by using the Patch API command</a>.</p>
+          </section>
+        </section>
+        <section id="section-upgrade-model">
+          <h2 id="upgrade-model">Updating a machine learning model</h2>
+          <p>Follow these steps to update a model built with a deprecated framework.</p>
+          <section id="section-option-1-save-the-model-with-a-compatible-framework">
+            <h3 id="option-1-save-the-model-with-a-compatible-framework">Option 1: Save the model with a compatible framework</h3>
+            <ol>
+              <li>
+                <p>Download the model by using either the Watson Machine Learning <a href="https://cloud.ibm.com/apidocs/machine-learning">REST API</a> or the Watson Machine Learning <a href="https://ibm.github.io/watson-machine-learning-sdk/">Python client library</a>.</p>
+                <p>The following example shows how to download your model:</p>
+                <pre class="codeblock"><code class="lang-python hljs">client.repository.download(&lt;model-<span class="hljs-built_in">id</span>&gt;, filename=<span class="hljs-string">"xyz.tar.gz"</span>)
+</code></pre>
+              </li>
+              <li>
+                <p>Edit model metadata with the model type and version that is supported in the current release. For more information, see <a href="pm_service_supported_frameworks.html">Software specifications and hardware specifications for deployments</a>.</p>
+                <p>The following example shows how to edit model metadata:</p>
+                <pre class="codeblock"><code class="lang-python hljs">model_metadata = {
+   client.repository.ModelMetaNames.NAME: <span class="hljs-string">"example model"</span>,
+   client.repository.ModelMetaNames.DESCRIPTION: <span class="hljs-string">"example description"</span>,
+   client.repository.ModelMetaNames.TYPE: <span class="hljs-string">"&lt;new model type&gt;"</span>,
+   client.repository.ModelMetaNames.SOFTWARE_SPEC_UID:
+   client.software_specifications.get_uid_by_name(<span class="hljs-string">"&lt;new software specification name&gt;"</span>)
+}
+</code></pre>
+              </li>
+              <li>
+                <p>Save the model to the Watson Machine Learning repository. The following example shows how to save the model to the repository:</p>
+                <pre class="codeblock"><code class="lang-python hljs">model_details = client.repository.store_model(model=<span class="hljs-string">"xyz.tar.gz"</span>, meta_props=model_metadata)
+</code></pre>
+              </li>
+              <li>
+                <p>Deploy the model.</p>
+              </li>
+              <li>
+                <p>Score the model to generate predictions.</p>
+              </li>
+            </ol>
+            <p>If deployment or scoring fails, the model is not compatible with the new version that was used for saving the model. In this case, use <a href="#retrain-option2">Option 2</a>.</p>
+          </section>
+          <section id="section-retrain-option2">
+            <h3 id="retrain-option2">Option 2: Retrain the model with a compatible framework</h3>
+            <ol>
+              <li>Retrain the model with a model type and version that is supported in the current version.</li>
+              <li>Save the model with the supported model type and version.</li>
+              <li>Deploy and score the model.</li>
+            </ol>
+            <p>It is also possible to update a model by using the API. For more information, see <a href="../analyze-data/ml-deploy-update.html#update-asset-api">Updating an asset by using the Patch API command</a>.</p>
+          </section>
+        </section>
+        <section id="section-upgr-function">
+          <h2 id="upgr-function">Updating a Python function</h2>
+          <p>Follow these steps to update a Python function built with a deprecated framework.</p>
+          <section id="section-option-1-save-the-python-function-with-a-compatible-runtime-or-software-specification">
+            <h3 id="option-1-save-the-python-function-with-a-compatible-runtime-or-software-specification">Option 1: Save the Python function with a compatible runtime or software specification</h3>
+            <ol>
+              <li>Download the Python function by using either the Watson Machine Learning <a href="https://cloud.ibm.com/apidocs/machine-learning">REST API</a> or the Watson Machine Learning <a href="https://ibm.github.io/watson-machine-learning-sdk/">Python client library</a>.</li>
+              <li>Save the Python function with a supported runtime or software specification version. For more information, see <a href="pm_service_supported_frameworks.html">Software specifications and hardware specifications for deployments</a>.</li>
+              <li>Deploy the Python function.</li>
+              <li>Score the Python function to generate predictions.</li>
+            </ol>
+            <p>If your Python function fails during scoring, the function is not compatible with the new runtime or software specification version that was used for saving the Python function. In this case, use <a href="#modify-option2">Option 2</a>.</p>
+          </section>
+          <section id="section-modify-option2">
+            <h3 id="modify-option2">Option 2: Modify the function code and save it with a compatible runtime or software specification</h3>
+            <ol>
+              <li>Modify the Python function code to make it compatible with the new runtime or software specification version. In some cases, you must update dependent libraries that are installed within the Python function code.</li>
+              <li>Save the Python function with the new runtime or software specification version.</li>
+              <li>Deploy and score the Python function.</li>
+            </ol>
+            <p>It is also possible to update a function by using the API. For more information, see <a href="../analyze-data/ml-deploy-update.html#update-asset-api">Updating an asset by using the Patch API command</a>.</p>
+          </section>
+        </section>
+        <section id="section-retrain-spss">
+          <h2 id="retrain-spss">Retraining an SPSS Modeler flow</h2>
+          <p>Some models that were built with SPSS Modeler in IBM Watson Studio Cloud before 1 September 2020 can no longer be deployed by using Watson Machine Learning. This problem is caused by an upgrade of the Python version in supported SPSS Modeler
+            runtimes. If you're using one of the following six nodes in your SPSS Modeler flow, you must rebuild and redeploy your models with SPSS Modeler and Watson Machine Learning:</p>
+          <ul>
+            <li>XGBoost Tree</li>
+            <li>XGBoost Linear</li>
+            <li>One-Class SVM</li>
+            <li>HDBSCAN</li>
+            <li>KDE Modeling</li>
+            <li>Gaussian Mixture</li>
+          </ul>
+          <p>To retrain your SPSS Modeler flow, follow these steps:</p>
+          <ul>
+            <li>If you're using the Watson Studio user interface, open the SPSS Modeler flow in Watson Studio, retrain, and save the model to Watson Machine Learning. After you save the model to the project, you can promote it to a deployment space and create
+              a new deployment.</li>
+            <li>If you're using <a href="https://cloud.ibm.com/apidocs/machine-learning">REST API</a> or <a href="https://ibm.github.io/watson-machine-learning-sdk/">Python client</a>, retrain the model by using SPSS Modeler and save the model to the Watson
+              Machine Learning repository with the model type <code>spss-modeler-18.2</code>.</li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="../analyze-data/ml-manage-frame-and-specs.html">Frameworks and software specifications</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

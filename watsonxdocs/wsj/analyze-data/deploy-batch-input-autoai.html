@@ -1,0 +1,107 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Follow these rules when you are specifying input details for batch deployments of AutoAI models.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Batch deployment input details for AutoAI models</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=framework-autoai-models"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="batch-deployment-input-details-for-autoai-models" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-batch-deployment-input-details-for-autoai-models">
+        <h1 id="batch-deployment-input-details-for-autoai-models">Batch deployment input details for AutoAI models</h1>
+        <p>Follow these rules when you are specifying input details for batch deployments of AutoAI models.</p>
+        <p>Data type summary table:</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Type</td>
+              <td>inline, data references</td>
+            </tr>
+            <tr>
+              <td>File formats</td>
+              <td>CSV</td>
+            </tr>
+          </tbody>
+        </table>
+        <section id="section-data-sources">
+          <h2 id="data-sources">Data Sources</h2>
+          <p>Input/output data references:</p>
+          <ul>
+            <li>Local/managed assets from the space</li>
+            <li>Connected (remote) assets: Cloud Object Storage</li>
+          </ul>
+          <p><strong>Notes:</strong></p>
+          <ul>
+            <li target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">For connections of type <a href="../manage-data/conn-cos.html">Cloud Object Storage</a> , you must configure <strong>Access key</strong> and <strong>Secret key</strong>, also known as <a href="https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-uhc-hmac-credentials-main">HMAC credentials</a>.</li>
+            <li>Your training data source can differ from your deployment data source, but the schema of the data must match or the deployment will fail. For example, you can train an experiment by using data from a Snowflake database and deploy by using
+              input data from a Db2 database if the schema is an exact match.</li>
+            <li>The environment variables parameter of deployment jobs is not applicable.</li>
+          </ul>
+          <p>If you are specifying input/output data references programmatically:</p>
+          <ul>
+            <li>Data source reference <code>type</code> depends on the asset type. Refer to the <strong>Data source reference types</strong> section in <a href="../analyze-data/ml-space-add-assets.html">Adding data assets to a deployment space</a>.</li>
+            <li>For AutoAI assets, if the input or output data reference is of type <code>connection_asset</code> and the remote data source is a database then <code>location.table_name</code> and <code>location.schema_name</code> are required parameters.
+              For example:</li>
+          </ul>
+          <pre class="codeblock"><code class="lang-python hljs"> <span class="hljs-string">"input_data_references"</span>: [{
+                    <span class="hljs-string">"type"</span>: <span class="hljs-string">"connection_asset"</span>,
+                    <span class="hljs-string">"connection"</span>: {
+                            <span class="hljs-string">"id"</span>: &lt;connection_guid&gt;
+                    },
+                    <span class="hljs-string">"location"</span>: {
+                            <span class="hljs-string">"table_name"</span>: &lt;table name&gt;,
+                            <span class="hljs-string">"schema_name"</span>: &lt;schema name&gt;
+                            &lt;other wdp-properties supported by runtimes&gt;
+                    }
+            }]
+</code></pre>
+          <p><strong>Parent topic:</strong> <a href="../analyze-data/deploy-batch-input-by-framework.html">Batch deployment input details by framework</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

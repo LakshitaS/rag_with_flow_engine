@@ -1,0 +1,138 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="If you have the Admin role or Editor in a project, you can perform management tasks for environments.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Managing compute resources</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=projects-managing-compute-resources"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="managing-compute-resources" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-managing-compute-resources">
+        <h2 id="managing-compute-resources">Managing compute resources</h2>
+        <p>If you have the <strong>Admin</strong> role or <strong>Editor</strong> in a project, you can perform management tasks for environments.</p>
+        <ul>
+          <li><a href="create-customize-env-definition.html">Create an environment template</a></li>
+          <li><a href="customize-envs.html">Customize an environment template</a></li>
+          <li><a href="#stop-active-runtimes">Stop active runtimes</a></li>
+          <li><a href="promote-envs.html">Promote an environment template to a space</a></li>
+          <li><a href="track-runtime-usage.html">Track capacity unit consumption of runtimes</a></li>
+        </ul>
+      </section>
+      <section id="section-stop-active-runtimes">
+        <h2 id="stop-active-runtimes">Stop active runtimes</h2>
+        <p>You should stop all active runtimes when you no longer need them to prevent consuming extra capacity unit hours (CUHs).</p>
+        <p>Jupyter notebook runtimes are started per user and not per notebook. Stopping a notebook kernel doesn't stop the environment runtime in which the kernel is started because you could have started other notebooks in the same environment. You should
+          only stop a notebook runtime if you are sure that no other notebook kernels are active.</p>
+        <p>Only runtimes that are started for jobs are automatically shut down after the scheduled job has completed. For example, if you schedule to run a notebook once a day for 2 months, the runtime instance will be activated every day for the duration
+          of the scheduled job and deactivated again after the job has finished.</p>
+        <p>Project users with <strong>Admin</strong> role can stop all runtimes in the project. Users added to the project with <strong>Editor</strong> role can stop the runtimes they started, but can't stop other project users' runtimes. Users added to
+          the project with the viewer role can't see the runtimes in the project.</p>
+        <p>You can stop runtimes from:</p>
+        <ul>
+          <li>The <strong>Environment Runtimes</strong> page, which lists all active runtimes across all projects for your account, by clicking <strong>Administration &gt; Environment runtimes</strong> from the Watson Studio navigation menu.</li>
+          <li>Under <strong>Tool runtimes</strong> on the <strong>Environments</strong> page on the <strong>Manage</strong> tab of your project, which lists the active runtimes for a specific project.</li>
+          <li>The <strong>Environments</strong> page when you click the Notebook Info icon (<img src="../console/images/get-information_32.png" alt="Notebook Info icon" height="20" style="vertical-align:text-bottom">) from the notebook toolbar in the notebook
+            editor. You can stop the runtime under <strong>Runtime status</strong>.</li>
+        </ul>
+        <p>Idle timeouts for:</p>
+        <ul>
+          <li><a href="#cpu">Jupyter notebook runtimes</a></li>
+          <li><a href="#spark">Spark runtimes for notebooks and Data Refinery</a></li>
+          <li><a href="#gpu">Notebook with GPU runtimes</a></li>
+          <li><a href="#rstudio">RStudio runtimes</a></li>
+        </ul>
+        <section id="section-cpu">
+          <h3 id="cpu">Jupyter notebook idle timeout</h3>
+          <p>Runtime idle times differ for the Jupyter notebook runtimes depending on your Watson Studio plan.</p>
+          <table>
+            <caption caption-side="top">Idle timeout for default CPU runtimes</caption>
+            <thead>
+              <tr>
+                <th>Plan</th>
+                <th>Idle timeout</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Lite</td>
+                <td>- Idle stop time: 1 hour <br>- CUH limit: 10 CUHs</td>
+              </tr>
+              <tr>
+                <td>Professional</td>
+                <td>- Idle stop time: 1 hour <br>- CUH limit: no limit</td>
+              </tr>
+              <tr>
+                <td>Standard (Legacy)</td>
+                <td>- Idle stop time: 1 hour <br>- CUH limit: no limit</td>
+              </tr>
+              <tr>
+                <td>Enterprise (Legacy)</td>
+                <td>- Idle stop time: 3 hours <br>- CUH limit: no limit</td>
+              </tr>
+              <tr>
+                <td>All plans <br> Free runtime</td>
+                <td>- Idle stop time: 1 hour <br>- Maximum lifetime: 12 hours</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>&nbsp;</p>
+          <div class="note important"><span class="importanttitle">Important:</span> A runtime is started per user and not per notebook. Stopping a notebook kernel doesn't stop the environment runtime in which the kernel is started because you could have started other notebooks
+            in the same environment. Only stop a runtime if you are sure that no kernels are active.</div>
+        </section>
+        <section id="section-spark">
+          <h3 id="spark">Spark idle timeout</h3>
+          <p>All Spark runtimes, for example for notebook and Data Refinery, are stopped after 3 hours of inactivity. The <code>Default Data Refinery XS runtime</code> that is used when you refine data in Data Refinery is stopped after an idle time of 1
+            hour.</p>
+          <p>Spark runtimes that are started when a job is started, for example to run a Data Refinery flow or a notebook, are stopped when the job finishes.</p>
+        </section>
+        <section id="section-gpu">
+          <h3 id="gpu">GPU idle timeout</h3>
+          <p>All GPU runtimes are automatically stopped after 3 hours of inactivity for Enterprise plan users and after 1 hour of inactivity for other paid plan users.</p>
+        </section>
+        <section id="section-rstudio">
+          <h3 id="rstudio">RStudio idle timeout</h3>
+          <p>An RStudio is stopped for you after an idle time of 2 hour. During this idle time, you will continue to consume CUHs for which you are billed. Long compute-intensive jobs are hard stopped after 24 hours.</p>
+          <p><strong>Parent topic:</strong> <a href="../manage-data/manage-projects.html">Projects</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

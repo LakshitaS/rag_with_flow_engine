@@ -1,0 +1,225 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="The Watson OpenScale service supports the computation of the following fairness metrics and explanation algorithms:">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Metrics computation with the Python SDK</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=tutorials-metrics-computation-using-python-sdk"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="metrics-computation-with-the-python-sdk" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-metrics-computation-with-the-python-sdk">
+        <h1 id="metrics-computation-with-the-python-sdk">Metrics computation with the Python SDK</h1>
+        <p>The Watson OpenScale service supports the computation of the following fairness metrics and explanation algorithms:</p>
+        <div class="note note"><span class="notetitle">Note:</span>
+          <md-block>
+            <p>The following metrics and algorithms can be computed in a notebook runtime environment or offloaded as Spark jobs against IBM Analytics Engine.</p>
+            <p></p>
+          </md-block>
+        </div>
+        <p></p>
+        <!-- FairScore transformer -->
+        <hr id="accordion01">
+        <details>
+          <summary>FairScore transformer</summary>
+          <md-block>
+            <p>You can use the FairScore transformer as a post-processing bias mitigation technique. This technique transforms probability estimates or the scores of probabilistic binary classification models regarding fairness goals. To use FairScore Transformer
+              in Watson OpenScale, you must train a Fair score transformer.
+            </p>
+          </md-block>
+          <p></p>
+        </details>
+        <hr>
+        <!-- Individual fairness post-processor -->
+        <hr id="accordion02">
+        <details>
+          <summary>Individual fairness post-processor</summary>
+          <md-block>
+            <p>The individual fairness post-processor is a post-processing transformer algorithm that transforms individual scores to achieve individual fairness. You can use it with the Python SDK to support multi-class text classification. You must train
+              this algorithm before you can use it to transform model outputs.</p>
+          </md-block>
+        </details>
+        <hr>
+        <!-- Input reduction -->
+        <hr id="accordion03">
+        <details>
+          <summary>Input reduction</summary>
+          <md-block>
+            <p>You can use the input reduction algorithm to calculate the minimum set of features that you must specify to keep model predictions consistent. The algorithm excludes the features that do not affect model predictions.</p>
+          </md-block>
+        </details>
+        <hr>
+        <!-- Likelihood compensation -->
+        <hr id="accordion04">
+        <details>
+          <summary>Likelihood compensation</summary>
+          <md-block>
+            <p>The likelihood compensation (LC) is a framework for explaining the deviations of the prediction of a black box model from the ground truth. With test data and the predict function of a black box model, LC can identify the anomalies in the
+              test data and explain what caused the sample to become an anomaly. The LC explanation is provided as deltas, which when added to the original test data or anomaly, converges the prediction of the model to the ground truth. LC provides local
+              explanations and is supported only for regression models.</p>
+          </md-block>
+        </details>
+        <hr>
+        <!-- Local Interpretable Model-Agnostic Explanations (LIME) -->
+        <hr id="accordion05">
+        <details>
+          <summary>Local Interpretable Model-Agnostic Explanations (LIME)</summary>
+          <md-block>
+            <p>LIME identifies which features are most important for a specific data point by analyzing up to 5000 other close-by data points. In an ideal setting, the features with high importance in LIME are the features that are most important for that
+              specific data point.</p>
+          </md-block>
+        </details>
+        <hr>
+        <!-- Mean individual disparity -->
+        <hr id="accordion06">
+        <details>
+          <summary>Mean individual disparity</summary>
+          <md-block>
+            <p>You can use the mean individual disparity to verify whether your model generates similar predictions or scores for similar samples. This metric calculates the difference in probability estimates of multi-class classification models for similar
+              samples.</p>
+          </md-block>
+        </details>
+        <hr>
+        <!-- Multidimensional subset scanning -->
+        <hr id="accordion07">
+        <details>
+          <summary>Multidimensional subset scanning</summary>
+          <md-block>
+            <p>You can use the multidimensional subset scanning algorithm as a general bias scan method. This method detects and identifies which subgroups of features have statistically significant predictive bias for a probabilistic binary classifier.
+              This algorithm helps you decide which features are the protected attributes and which values of these features are the privileged group for monitor evaluations.</p>
+          </md-block>
+        </details>
+        <hr>
+        <!-- Performance measures -->
+        <hr id="accordion08">
+        <details>
+          <summary>Performance measures</summary>
+          <md-block>
+            <p>You can use the following performance measure metrics to evaluate models with a confusion matrix that is calculated using ground truth data and model predictions from sample data:</p>
+            <ul>
+              <li>average_odds_difference</li>
+              <li>average_abs_odds_difference</li>
+              <li>error_rate_difference</li>
+              <li>error_rate_ratio</li>
+              <li>false_negative_rate_difference</li>
+              <li>false_negative_rate_ratio</li>
+              <li>false_positive_rate_difference</li>
+              <li>false_positive_rate_ratio</li>
+              <li>false_discovery_rate_difference</li>
+              <li>false_discovery_rate_ratio</li>
+              <li>false_omission_rate_difference</li>
+              <li>false_omission_rate_ratio</li>
+            </ul>
+          </md-block>
+        </details>
+        <hr>
+        <!-- Protected attributes extraction -->
+        <hr id="accordion09">
+        <details>
+          <summary>Protected attributes extraction</summary>
+          <md-block>
+            <p>The protected attribute extraction algorithm transforms text data sets to structured data sets. The algorithm tokenizes the text data, compares the data to patterns that you specify, and extracts the protected attribute from the text to create
+              structured data. You can use this structured data to detect bias against the protected attribute with a Watson OpenScale bias detection algorithm. The protected attribute extraction algorithm only supports gender as a protected attribute.</p>
+          </md-block>
+        </details>
+        <hr>
+        <!-- Protected attributes perturbation -->
+        <hr id="accordion10">
+        <details>
+          <summary>Protected attributes perturbation</summary>
+          <md-block>
+            <p>The protected attribute perturbation algorithm generates counterfactual statements by identifying protected attribute patterns in text data sets. It also tokenizes the text and perturbs the keywords in the text data to generate statements.
+              You can use the original and perturbed data sets to detect bias against the protect attribute with a Watson OpenScale bias detection algorithm. The protected attribute perturbation algorithm only supports gender as a protected attribute.</p>
+          </md-block>
+        </details>
+        <hr>
+        <!-- Protodash explainer -->
+        <hr id="accordion11">
+        <details>
+          <summary>Protodash explainer</summary>
+          <md-block>
+            <p>The protodash explainer identifies input data from a reference set that need explanations. This method minimizes the maximum mean discrepancy (MMD) between the reference datapoints and a number of instances that are selected from the training
+              data. To help you better understand your model predictions, the training data instances mimic a similar distribution as the reference datapoints.</p>
+            <div class="note note"><span class="notetitle">Note:</span> Protodash explainer is supported only for structured classification models.</div>
+          </md-block>
+        </details>
+        <hr>
+        <!-- Shapley Additive explainer (SHAP) -->
+        <hr id="accordion12">
+        <details>
+          <summary>Shapley Additive explainer (SHAP)</summary>
+          <md-block>
+            <p>SHAP is a game-theoretic approach that explains the output of machine learning models. It connects optimal credit allocation with local explanations by using Shapley values and their related extensions.</p>
+            <p>SHAP assigns each model feature an importance value for a particular prediction, which is called a <em>Shapley value</em>. The Shapley value is the average marginal contribution of a feature value across all possible groups of features. The
+              SHAP values of the input features are the sums of the difference between baseline or expected model output and the current model output for the prediction that is being explained. The baseline model output can be based on the summary of
+              the training data or any subset of data that explanations must be generated for.</p>
+            <p>The Shapley values of a set of transactions can be combined to get global explanations that provide an overview of which features of a model are most important.</p>
+          </md-block>
+        </details>
+        <hr>
+        <!-- Smoothed empirical differential (SED) -->
+        <hr id="accordion13">
+        <details>
+          <summary>Smoothed empirical differential (SED)</summary>
+          <md-block>
+            <p>The SED is fairness metric that you can use to describe fairness for your model predictions. SED quantifies the differential in the probability of favorable and unfavorable outcomes between intersecting groups that are divided by features.
+              All intersecting groups are equal, so there are no unprivileged or privileged groups. This calculation produces a SED value that is the minimum ratio of Dirichlet smoothed probability for favorable and unfavorable outcomes between intersecting
+              groups in the data set. The value is in the range 0-1, excluding 0 and 1, and a larger value specifies a better outcome.</p>
+          </md-block>
+        </details>
+        <hr>
+        <!-- Statistical parity difference -->
+        <hr id="accordion14">
+        <details>
+          <summary>Statistical parity difference</summary>
+          <md-block>
+            <p>Statistical parity difference is a fairness metric that you can use to describe fairness for your model predictions. It is the difference between the ratio of favorable outcomes in unprivileged and privileged groups. This metric can be computed
+              from either the input data set or the output of the data set from a classifier or predicted data set. A value of 0 implies that both groups receive equal benefit. A value less than 0 implies higher benefit for the privileged group. A value
+              greater than 0 implies higher benefit for the unprivileged group.</p>
+          </md-block>
+        </details>
+        <hr>
+        <p>You can compute these metrics and algorithms with Watson OpenScale Python SDK version 3.0.14 or later. For more information, see the <a href="https://client-docs.aiopenscale.cloud.ibm.com/html/index.html" target="_blank" class="external">Watson OpenScale Python SDK documentation</a>.</p>
+        <p>You can also use sample notebooks to compute <a href="https://github.com/IBM/watson-openscale-samples/blob/main/Cloud%20Pak%20for%20Data/metrics/fairness" target="_blank" class="external">fairness metrics</a> and <a href="https://github.com/IBM/watson-openscale-samples/blob/main/Cloud%20Pak%20for%20Data/metrics/explainability" target="_blank" class="external">explainability</a>.</p>
+        <p><strong>Parent topic:</strong> <a href="wos-addl-rsc.html">APIs, SDKs, and tutorials</a></p>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

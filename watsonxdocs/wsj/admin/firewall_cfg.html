@@ -1,0 +1,69 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="If a data source resides behind a firewall, then IBM watsonx requires inbound access through the firewall in order to make a connection. Inbound firewall access is required whether the data source resides on a third-party cloud provider or in an  data center. The method for configuring inbound access varies for different vendor's firewalls. In general, you configure inbound access rules by entering the IP addresses for the IBM watsonx cluster to allow for access by IBM watsonx.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Firewall access for the platform</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=access-firewall-platform"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="data" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-data">
+        <h1 id="data">Firewall access for the platform</h1>
+        <p>If a data source resides behind a firewall, then IBM watsonx requires inbound access through the firewall in order to make a connection. Inbound firewall access is required whether the data source resides on a third-party cloud provider or in
+          an data center. The method for configuring inbound access varies for different vendor's firewalls. In general, you configure inbound access rules by entering the IP addresses for the IBM watsonx cluster to allow for access by IBM watsonx.</p>
+        <p>You can enter the IP addresses using the starting and ending addresses for a range or by using CIDR notation. Classless Inter-Domain Routing (CIDR) notation is a compact representation of an IP address and its associated network mask. For start
+          and end addresses, copy each address and enter them in the inbound rules for your firewall. Alternately, copy the addresses in CIDR notation.</p>
+        <p>The IBM watsonx IP addresses vary by region. The user interface lists the IP addresses for the current region. The IP addresses apply to the base infrastructure for IBM watsonx.</p>
+        <p>Follow these steps to look up the IP addresses for IBM watsonx cluster:</p>
+        <ol>
+          <li>Go to the <strong>Administration &gt; Cloud integrations</strong> page.</li>
+          <li>Click the <strong>Firewall configuration</strong> link to view the list of IP ranges used by IBM watsonx in your region.</li>
+          <li>View the IP ranges for the IBM watsonx cluster in either CIDR notation or as Start and End addresses.</li>
+          <li>Choose <strong>Include private IPs</strong> to view the private IP addresses. The private IP addresses allow connections to IBM Cloud Object Storage buckets that are behind a firewall. See <a href="firewall-cfg-private-cos.html">Firewall access for Cloud Object Storage</a>.</li>
+          <li>Copy each of the IP ranges listed and paste them into the appropriate security configuration or inbound firewall rules area for your cloud provider.</li>
+        </ol>
+        <p>For example, if your data source resides on AWS, open the <strong>Create Security Group</strong> dialog for your AWS Management Console. Paste the IP ranges into the <strong>Inbound</strong> section for the security group rules.</p>
+        <p><strong>Parent topic:</strong>
+          <a href="firewall_ovrvw.html">Configuring firewall access</a></p>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

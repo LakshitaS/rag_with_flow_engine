@@ -1,0 +1,73 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Review these considerations as you plan for how you will connect to resources, add assets, and manage resources to your pipeline.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Accessing the components in your pipeline</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=pipelines-planning-pipeline"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="accessing-the-components-in-your-pipeline" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <p>Review these considerations as you plan for how you will connect to resources, add assets, and manage resources to your pipeline.</p>
+      <section id="section-accessing-the-components-in-your-pipeline">
+        <h2 id="accessing-the-components-in-your-pipeline">Accessing the components in your pipeline</h2>
+        <p>When you use a pipeline to automate a flow, you must have access to all of the elements in the pipeline. Make sure that you create and run pipelines with the proper access to all assets, projects, and spaces used in the pipeline. Collaborators
+          who run the pipeline must also be able to access the pipeline components.</p>
+        <section id="section-managing-pipeline-credentials">
+          <h3 id="managing-pipeline-credentials">Managing pipeline credentials</h3>
+          <p>To run a job, the pipeline must have access to IBM Cloud credentials. Typically, a pipeline uses your personal IBM Cloud API key to execute long-running operations in the pipeline without disruption. If credentials are not available when you
+            create the job, you are prompted to supply an API key or create a new one.</p>
+          <p>To generate an API key from your IBM Cloud user account, go to <a href="https://cloud.ibm.com/iam/apikeys">Manage access and users - API Keys</a> and create or select an API key for your user account.</p>
+          <p>You can also generate and rotate API keys from <strong>Profile and settings &gt; User API key</strong>. For more information, see <a href="../admin/admin-apikeys.html">Managing the user API key</a>.</p>
+          <p>Alternatively, you can request that a key is generated for the pipeline. In either scenario, name and copy the key, protecting it as you would a password.</p>
+        </section>
+      </section>
+      <section id="section-adding-assets-to-a-pipeline">
+        <h2 id="adding-assets-to-a-pipeline">Adding assets to a pipeline</h2>
+        <p>When you create a pipeline, you add assets, such as data, notebooks, deployment jobs, or Data Refinery jobs to the pipeline to orchestrate a sequential process. The <em><strong>strongly recommended</strong></em> method for adding assets to a pipeline
+          is to collect the assets in the project containing the pipeline and use the asset browser to select project assets for the pipeline.</p>
+        <div class="note attention"><span class="attentiontitle">Attention:</span> Although you can include assets from other projects, doing so can introduce complexities and potential problems in your pipeline and could be prohibited in a future release. The recommended practice
+          is to use assets from the current project.</div>
+        <p>You cannot access the file's object key directly, only within the pipeline's UI. You can generally access any file within a project, space, or catalog by either browsing for the file or referring to its path. For example <code>My Project/foo.txt</code>          means the file "foo.txt" is stored in a project called "My Project".</p>
+        <p><strong>Parent topic:</strong> <a href="ml-orchestration-get-started.html">Getting started with Watson Pipelines</a></p>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

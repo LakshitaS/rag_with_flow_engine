@@ -1,0 +1,131 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Lazy evaluation is an evaluation strategy that delays the evaluation of an expression until its value is needed. When combined with memoization, lazy evaluation strategy avoids repeated evaluations and can reduce the running time of certain functions by a significant factor.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Time series lazy evaluation</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=analysis-time-series-lazy-evaluation"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="time-series-lazy-evaluation" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-time-series-lazy-evaluation">
+        <h1 id="time-series-lazy-evaluation">Time series lazy evaluation</h1>
+        <p>Lazy evaluation is an evaluation strategy that delays the evaluation of an expression until its value is needed. When combined with memoization, lazy evaluation strategy avoids repeated evaluations and can reduce the running time of certain functions
+          by a significant factor.</p>
+        <p>The time series library uses lazy evaluation to process data. Notionally an execution graph is constructed on time series data whose evaluation is triggered only when its output is materialized. Assuming an object is moving in a one dimensional
+          space, whose location is captured by x(t). You can determine the harsh acceleration/braking (<code>h(t)</code>) of this object by using its velocity (<code>v(t)</code>) and acceleration (<code>a(t)</code>) time series as follows:</p>
+        <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-comment"># 1d location timeseries</span>
+x(t) = <span class="hljs-built_in">input</span> location timeseries
+
+<span class="hljs-comment"># velocity - first derivative of x(t)</span>
+v(t) = x(t) - x(t-<span class="hljs-number">1</span>)
+
+<span class="hljs-comment"># acceleration - second derivative of x(t)</span>
+a(t) = v(t) - v(t-<span class="hljs-number">1</span>)
+
+<span class="hljs-comment"># harsh acceleration/braking using thresholds on acceleration</span>
+h(t) = +<span class="hljs-number">1</span> <span class="hljs-keyword">if</span> a(t) &gt; threshold_acceleration
+     = -<span class="hljs-number">1</span> <span class="hljs-keyword">if</span> a(t) &lt; threshold_deceleration
+     = <span class="hljs-number">0</span> otherwise
+</code></pre>
+        <p>This results in a simple execution graph of the form:</p>
+        <pre class="codeblock"><code class="hljs">x(t) --&gt; v(t) --&gt; a(t) --&gt; h(t)
+</code></pre>
+        <p>Evaluations are triggered only when an action is performed, such as <code>compute h(5...10)</code>, i.e. <code>compute h(5), ..., h(10)</code>. The library captures narrow temporal dependencies between time series. In this example, <code>h(5...10)</code>          requires <code>a(5...10)</code>, which in turn requires <code>v(4...10)</code>, which then requires <code>x(3...10)</code>. Only the relevant portions of <code>a(t)</code>, <code>v(t)</code> and <code>x(t)</code> are evaluated.</p>
+        <pre class="codeblock"><code class="hljs">h(5...10) &lt;-- a(5...10) &lt;-- v(4...10) &lt;-- x(3...10)
+</code></pre>
+        <p>Furthermore, evaluations are memoized and can thus be reused in subsequent actions on <code>h</code>. For example, when a request for <code>h(7...12)</code> follows a request for <code>h(5...10)</code>, the memoized values <code>h(7...10)</code>          would be leveraged; further, <code>h(11...12)</code> would be evaluated using <code>a(11...12), v(10...12)</code> and <code>x(9...12)</code>, which would in turn leverage <code>v(10)</code> and <code>x(9...10)</code> memoized from the prior
+          computation.</p>
+        <p>In a more general example, you could define a smoothened velocity timeseries as follows:</p>
+        <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-comment"># 1d location timeseries</span>
+x(t) = <span class="hljs-built_in">input</span> location timeseries
+
+<span class="hljs-comment"># velocity - first derivative of x(t)</span>
+v(t) = x(t) - x(t-<span class="hljs-number">1</span>)
+
+<span class="hljs-comment"># smoothened velocity</span>
+<span class="hljs-comment"># alpha is the smoothing factor</span>
+<span class="hljs-comment"># n is a smoothing history</span>
+v_smooth(t) =  (v(t)*<span class="hljs-number">1.0</span> + v(t-<span class="hljs-number">1</span>)*alpha + ... + v(t-n)*alpha^n) / (<span class="hljs-number">1</span> + alpha + ... + alpha^n)
+
+<span class="hljs-comment"># acceleration - second derivative of x(t)</span>
+a(t) = v_smooth(t) - v_smooth(t-<span class="hljs-number">1</span>)
+</code></pre>
+        <p>In this example <code>h(l...u)</code> has the following temporal dependency. Evaluation of <code>h(l...u)</code> would strictly adhere to this temporal dependency with memoization.</p>
+        <pre class="codeblock"><code class="hljs">h(l...u) &lt;-- a(l...u) &lt;-- v_smooth(l-1...u) &lt;-- v(l-n-1...u) &lt;-- x(l-n-2...u)
+</code></pre>
+        <section id="section-time-series-example">
+          <h2 id="time-series-example">An Example</h2>
+          <p>The following example shows a python code snippet that implements harsh acceleration on a simple in-memory time series. The library includes several built-in transforms. In this example the difference transform is applied twice to the location
+            time series to compute acceleration time series. A map operation is applied to the acceleration time series using a harsh lambda function, which is defined after the code sample, that maps acceleration to either <code>+1</code> (harsh acceleration),
+            <code>-1</code> (harsh braking) and <code>0</code> (otherwise). The filter operation selects only instances wherein either harsh acceleration or harsh braking is observed. Prior to calling <code>get_values</code>, an execution graph is created,
+            but no computations are performed. On calling <code>get_values(5, 10)</code>, the evaluation is performed with memoization on the narrowest possible temporal dependency in the execution graph.</p>
+          <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">import</span> tspy
+<span class="hljs-keyword">from</span> tspy.builders.functions <span class="hljs-keyword">import</span> transformers
+
+x = tspy.time_series([<span class="hljs-number">1.0</span>, <span class="hljs-number">2.0</span>, <span class="hljs-number">4.0</span>, <span class="hljs-number">7.0</span>, <span class="hljs-number">11.0</span>, <span class="hljs-number">16.0</span>, <span class="hljs-number">22.0</span>, <span class="hljs-number">29.0</span>, <span class="hljs-number">28.0</span>, <span class="hljs-number">30.0</span>, <span class="hljs-number">29.0</span>, <span class="hljs-number">30.0</span>, <span class="hljs-number">30.0</span>])
+v = x.transform(transformers.difference())
+a = v.transform(transformers.difference())
+h = a.<span class="hljs-built_in">map</span>(harsh).<span class="hljs-built_in">filter</span>(<span class="hljs-keyword">lambda</span> h: h != <span class="hljs-number">0</span>)
+
+<span class="hljs-built_in">print</span>(h[<span class="hljs-number">5</span>, <span class="hljs-number">10</span>])
+</code></pre>
+          <p>The harsh lambda is defined as follows:</p>
+          <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">def</span> <span class="hljs-title function_">harsh</span>(<span class="hljs-params">a</span>):
+    threshold_acceleration = <span class="hljs-number">2.0</span>
+    threshold_braking = -<span class="hljs-number">2.0</span>
+
+    <span class="hljs-keyword">if</span> (a &gt; threshold_acceleration):
+        <span class="hljs-keyword">return</span> +<span class="hljs-number">1</span>
+    <span class="hljs-keyword">elif</span> (a &lt; threshold_braking):
+        <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>
+</code></pre>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p>To use the <code>tspy</code> Python SDK, see the <a href="https://ibm-cloud.github.io/tspy-docs/"><code>tspy</code> Python SDK documentation</a>.</p>
+          <p><strong>Parent topic:</strong> <a href="../spark/time-series-lib.html">Time series analysis</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

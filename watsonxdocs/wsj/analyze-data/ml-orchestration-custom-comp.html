@@ -1,0 +1,154 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="A Watson Pipelines custom component runs a script that you write. You can use custom components to share reusable scripts between pipelines.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Creating a custom component for use in the pipeline</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=pipeline-creating-custom-components"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="creating-a-custom-component-for-use-in-the-pipeline" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-creating-a-custom-component-for-use-in-the-pipeline">
+        <h1 id="creating-a-custom-component-for-use-in-the-pipeline">Creating a custom component for use in the pipeline</h1>
+        <p>A Watson Pipelines custom component runs a script that you write. You can use custom components to share reusable scripts between pipelines.</p>
+        <p>You create custom components as project assets. You can then use the components in pipelines you create in that project. You can create as many custom components for pipelines as needed. Currently, you must create a custom component programmatically,
+          by using a Python function.</p>
+        <section id="section-creating-a-component-as-a-project-asset">
+          <h2 id="creating-a-component-as-a-project-asset">Creating a component as a project asset</h2>
+          <p>To create a custom component, use the Python client to authenticate with IBM Watson Pipelines, code the component, then publish the component to the specified project. After it is available in the project, you can assign the component to a node
+            in a pipeline and run it as part of a pipeline flow.</p>
+          <p>This example demonstrates the process of publishing a component that adds two numbers together, then assigns the component to a pipeline node.</p>
+          <ol>
+            <li>
+              <p>Publish a function as a component with the Python client. Run the following code in a Jupyter Notebook in a project of IBM watsonx.</p>
+              <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-comment"># Install libraries</span>
+! pip install ibm-watson-pipelines
+
+<span class="hljs-comment"># Authentication</span>
+<span class="hljs-keyword">from</span> ibm_watson_pipelines <span class="hljs-keyword">import</span> WatsonPipelines
+
+apikey = <span class="hljs-string">''</span>
+project_id = <span class="hljs-string">'your_project_id'</span>
+
+client = WatsonPipelines.from_apikey(apikey)
+
+<span class="hljs-comment"># Define the function of the component</span>
+
+<span class="hljs-comment"># If you define the input parameters, users are required to </span>
+<span class="hljs-comment"># input them in the UI</span>
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">add_two_numbers</span>(<span class="hljs-params">a: <span class="hljs-built_in">int</span>, b: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">int</span>:
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">'Adding numbers: {} + {}.'</span>.<span class="hljs-built_in">format</span>(a, b))
+    <span class="hljs-keyword">return</span> a + b + <span class="hljs-number">10</span>
+
+<span class="hljs-comment"># Other possible functions might be sending a Slack message,</span>
+<span class="hljs-comment"># or listing directories in a storage volume, and so on.</span>
+
+<span class="hljs-comment"># Publish the component    </span>
+client.publish_component(
+    name=<span class="hljs-string">'Add numbers'</span>, <span class="hljs-comment"># Appears in UI as component name </span>
+    func=add_two_numbers,
+    description=<span class="hljs-string">'Custom component adding numbers'</span>, <span class="hljs-comment"># Appears in UI as component description </span>
+    project_id=project_id,
+    overwrite=<span class="hljs-literal">True</span>, <span class="hljs-comment"># Overwrites an existing component with the same name </span>
+)
+</code></pre>
+              <p>To generate a new API key:</p>
+              <ol>
+                <li>Go to the <a href="https://cloud.ibm.com/">IBM Cloud home page</a></li>
+                <li>Click Manage &gt; Access (IAM)</li>
+                <li>Click API keys</li>
+                <li>Click Create</li>
+              </ol>
+            </li>
+            <li>
+              <p>Drag the node called <em>Run Pipelines component</em> under <strong>Run</strong> to the canvas. <br>
+                <img src="images/ml-orch-custom-comp-1.png" alt="Retrieving the custom component node" height="50%" width="50%"></p>
+            </li>
+            <li>
+              <p>Choose the name of the component that you want to use. <br>
+                <img src="images/ml-orch-custom-comp-2.png" alt="Choosing the actual component function" height="50%" width="50%"></p>
+            </li>
+            <li>
+              <p>Connect and run the node as part of a pipeline job.<br>
+                <img src="images/ml-orch-custom-comp-3.png" alt="Connecting the component" height="50%" width="50%"><br></p>
+            </li>
+          </ol>
+        </section>
+        <section id="section-manage-pipeline-components">
+          <h2 id="manage-pipeline-components">Manage pipeline components</h2>
+          <p>Use these Python client methods to manage custom pipeline components.</p>
+          <table>
+            <caption caption-side="top">Table 1. Manage pipeline components</caption>
+            <thead>
+              <tr>
+                <th>Method</th>
+                <th>Function</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>client.get_components(project_id=project_id)</code></td>
+                <td>List components from a project</td>
+              </tr>
+              <tr>
+                <td><code>client.get_component(project_id=project_id, component_id=component_id)</code></td>
+                <td>Get a component by ID</td>
+              </tr>
+              <tr>
+                <td><code>client.get_component(project_id=project_id, name=component_name)</code></td>
+                <td>Get a component by name</td>
+              </tr>
+              <tr>
+                <td><code>client.publish_component(component name)</code></td>
+                <td>Publish a new component</td>
+              </tr>
+              <tr>
+                <td><code>client.delete_component(project_id=project_id, component_id=component_id)</code></td>
+                <td>Delete a component by ID</td>
+              </tr>
+            </tbody>
+          </table>
+          <p><strong>Parent topic:</strong> <a href="ml-orchestration-create.html">Creating a pipeline</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

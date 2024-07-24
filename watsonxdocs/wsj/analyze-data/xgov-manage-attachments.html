@@ -1,0 +1,102 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Create attachment groups and define attachment slots for an AI use case or factsheet.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Managing attachments for AI use cases</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=inventories-managing-attachments"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="managing-attachments-for-ai-use-cases" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-managing-attachments-for-ai-use-cases">
+        <h1 id="managing-attachments-for-ai-use-cases">Managing attachments for AI use cases</h1>
+        <p>Create attachment groups and define attachment slots for an AI use case or factsheet.</p>
+        <section id="section-adding-attachment-groups">
+          <h2 id="adding-attachment-groups">Adding attachment groups</h2>
+          <p>If you have the manage_catalog role for an inventory, you can define attachment groups and manage attachment definitions for the AI use cases or factsheets in the inventory. Use an attachment group to organize a set of related attachment facts
+            and render them together. Attachments can provide supporting information and extra details for a use case. Data scientists might want to attach visualizations from their model. Model requesters might want to attach a file of requirements to
+            describe a business need.</p>
+          <section id="section-supported-attachment-types">
+            <h3 id="supported-attachment-types">Supported attachment types</h3>
+            <p>The following file types are supported for file attachments:</p>
+            <p>Image file types:</p>
+            <ul>
+              <li>png</li>
+              <li>jpg</li>
+              <li>jpeg</li>
+            </ul>
+            <p>Other file types:</p>
+            <ul>
+              <li>html</li>
+              <li>csv</li>
+              <li>docx</li>
+              <li>pdf</li>
+              <li>zip</li>
+              <li>text file</li>
+              <li>Markdown</li>
+            </ul>
+          </section>
+          <section id="section-creating-an-attachment-group">
+            <h3 id="creating-an-attachment-group">Creating an attachment group</h3>
+            <ol>
+              <li>Open the AI uses cases settings and click the <strong>Attachments</strong> tab. If you do not see this tab, you might have insufficient access.</li>
+              <li>Choose whether to add an attachment group to an AI use case or to the factsheet template.</li>
+              <li>Click <strong>Add group</strong>.</li>
+              <li>Enter a name and an optional description.</li>
+              <li>When you define the attachment group, an identifier is created from the name of the group. The identifier can be used for programmatic access to the group. Click <strong>Show identifier</strong> to view and edit the ID.</li>
+              <li>Save your changes to create the attachment group.</li>
+            </ol>
+          </section>
+          <section id="section-adding-attachment-facts-to-a-group">
+            <h3 id="adding-attachment-facts-to-a-group">Adding attachment facts to a group</h3>
+            <p>From an attachment group, add attachment fact definitions that specify how a user can add an attachment to a factsheet. Attachment definitions display as available slots in the attachment section for a use case or factsheet.</p>
+            <p>Use the up and down arrow keys to reorder attachments in the list.</p>
+            <p>In this example, an attachment group for approvals defines attachment facts for approvals from risk and compliance and from the model validator.</p>
+            <p><img src="images/xgov-attach-group.png" alt="Defining an attachment group and attachment facts" style="max-width:90%;height:auto;width:auto"></p>
+            <p>When you save your attachment fact definitions, an attachment slot and description display on the use case or factsheet for attaching a file. A pin icon indicates an available attachment slot. Any user with at least edit access to the use
+              case or factsheet can upload attachments.</p>
+            <p><img src="images/xgov-attach-group2.png" alt="Defining an attachment group and attachment facts" style="max-width:90%;height:auto;width:auto"></p>
+            <p><strong>Parent topic:</strong> <a href="xgov-inventory-manage.html">Managing AI use cases</a></p>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

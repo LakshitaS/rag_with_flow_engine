@@ -1,0 +1,135 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="To access the IBM Watson OpenScale REST APIs, you must have an API key and a data mart ID, also known as a service instance. The Platform API key gives an individual user the ability to access resources in the IBM Cloud.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Creating credentials for Watson OpenScale</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=tutorials-creating-credentials-watson-openscale"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="creating-credentials-for-watson-openscale" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-creating-credentials-for-watson-openscale">
+        <h1 id="creating-credentials-for-watson-openscale">Creating credentials for Watson OpenScale</h1>
+        <p>To access the IBM Watson OpenScale REST APIs, you must have an API key and a data mart ID, also known as a service instance. The Platform API key gives an individual user the ability to access resources in the IBM Cloud.</p>
+        <p>For enterprise accounts, an administrator can create the data mart, invite users into the account, and give those users access to a specific Watson OpenScale data mart. A user can then create their own API key, and can access the same Watson OpenScale
+          data mart without conflict or security risk.</p>
+        <section id="section-cred-create-apikey">
+          <h2 id="cred-create-apikey">Creating the API key</h2>
+          <p>To create an IBM Cloud API key, complete the following steps:</p>
+          <ul>
+            <li>Log in to <a href="https://cloud.ibm.com/" target="_blank" class="external">IBM Cloud</a>.</li>
+            <li>Select <strong>Manage</strong> &gt; <strong>Access (IAM)</strong> &gt; <strong>IBM Cloud API Keys</strong></li>
+            <li>Click <strong>Create an IBM Cloud API key</strong>.</li>
+            <li>Give your key a name and description and click <strong>Create</strong>.</li>
+          </ul>
+        </section>
+        <section id="section-cred-find-datamart-id">
+          <h2 id="cred-find-datamart-id">Finding service IDs:</h2>
+          <p>Find your data mart, deployment, subscription, or binding IDs, on the Watson OpenScale <strong>Payload logging</strong> page, which is shown when you select <strong>Configure monitors</strong> for a deployment.</p>
+          <ol>
+            <li>Click the model deployment tile.</li>
+            <li>Click <strong>Configure monitors</strong> <img src="images/wos-configure-deployment-button.png" alt="the configure icon">.</li>
+            <li>Click <strong>Endpoints</strong>.</li>
+            <li>On the Watson OpenScale <strong>Model information</strong> tab, in the <strong>Integration details</strong> pane, find an ID, such as the <strong>Datamart ID</strong>.</li>
+          </ol>
+        </section>
+        <section id="section-cred-creds">
+          <h2 id="cred-creds">Creating service instance credentials by using the command console</h2>
+          <p>To create credentials for Watson OpenScale, complete the following steps by using the IBM Cloud <a href="https://cloud.ibm.com/docs/cli?" target="_blank" class="external">command console</a>:</p>
+          <ol>
+            <li>
+              <p>Retrieve your API key by running the following command:</p>
+              <pre class="codeblock" curl=""><code class="lang-shell hljs">ibmcloud login --sso
+ibmcloud iam api-key-create 'my_key'
+</code></pre>
+              <p>The following information displays:</p>
+              <pre class="codeblock"><code class="lang-bash hljs">Name         my_key
+Created At   2018-10-09T14:04+0000
+API Key      Tg4Gxxxxxxxxxxxxxxxxx_xxxxxxxxxxxxxxxxxQU-nE
+Locked       <span class="hljs-literal">false</span>
+UUID         ApiKey-xxxxxxxxx-afd7-xxxxx-b0e1-xxxxxxxxxxx
+</code></pre>
+            </li>
+            <li>
+              <p>Verify the Resource Group that you are using in your IBM Cloud account.</p>
+              <ol>
+                <li>Go to the Dashboard.</li>
+                <li>From the navigation menu, click <strong>Resource list</strong>.</li>
+                <li>From the <strong>Group</strong> column, click the <strong>Filter by group or organization</strong> drop-down selection and set the <strong>Default</strong> checkbox.</li>
+              </ol>
+              <p><img src="images/cloud-resource.png" alt="Resource Group in Cloud"></p>
+              <p>If you are not using the <code>Default</code> resource group, then run the following command to get your credential for Watson OpenScale:</p>
+              <pre class="codeblock"><code class="lang-bash hljs">ibmcloud target -g myResourceGroup
+</code></pre>
+              <p>Where <code>myResourceGroup</code> is the name of the resource group that is associated with your Watson OpenScale instance.</p>
+            </li>
+            <li>
+              <p>Retrieve your Watson OpenScale instance ID by running the following command:</p>
+              <pre class="codeblock"><code class="lang-bash hljs">ibmcloud resource service-instance <span class="hljs-string">'&lt;Your_Watson_OpenScale_instance_name&gt;'</span>
+</code></pre>
+              <p>If you are using the IBM Cloud command console on Windows, replace the single quotation marks (') in the preceding commands with double quotation marks (").</p>
+              <p>The following information displays:</p>
+              <pre class="codeblock"><code class="lang-bash hljs">Name:                  AI OpenScale-my_instance
+ID:                    crn:v1:ibmcloud:public:aiopenscale:us-south:a/c2f2xxxxxxxxxxxx867::
+GUID:                  03daxxxx-xxxx-xxxx-xxxx-xxxxxxxx38a7
+Location:              us-south
+Service Name:          aiopenscale
+Service Plan Name:     lite
+Resource Group Name:   Default
+State:                 active
+Type:                  service_instance
+Sub Type:
+Tags:
+Created at:            2018-09-17T13:58:43Z
+Updated at:
+</code></pre>
+              <p>The <code>GUID</code> value is your Watson OpenScale instance ID.</p>
+            </li>
+          </ol>
+        </section>
+        <section id="section-next-steps">
+          <h2 id="next-steps">Next steps</h2>
+          <p><a href="wos-schema-definition.html">Defining the input and output schema by using the Python Client or REST API</a></p>
+          <p><strong>Parent topic:</strong></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

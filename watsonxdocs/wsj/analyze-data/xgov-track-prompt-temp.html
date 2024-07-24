@@ -1,0 +1,148 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Track a prompt template in an AI use case to capture and share facts about the asset to help you meet governance and compliance goals.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Tracking prompt templates</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=case-tracking-prompt-templates"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="tracking-prompt-templates" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-tracking-prompt-templates">
+        <h1 id="tracking-prompt-templates">Tracking prompt templates</h1>
+        <p>Track a prompt template in an AI use case to capture and share facts about the asset to help you meet governance and compliance goals.</p>
+        <section id="section-tracking-prompt-templates-2">
+          <h2 id="tracking-prompt-templates-2">Tracking prompt templates</h2>
+          <p>A prompt template is the saved prompt input for a foundation model. A prompt template can include variables so that it can be run with different options. For example, if you have a prompt that summarizes meeting notes for project-X, you can
+            define a variable so that the same prompt can run for project-Y.</p>
+          <p>You can add a saved prompt template to an AI use case to track the details for the prompt template. In addition to recording details about the prompt template creation information and source model details, the factsheet tracks information from
+            prompt template evaluations to capture performance metrics. You can evaluate prompt templates before or after you start tracking a prompt template.</p>
+          <div class="note important"><span class="importanttitle">Important:</span> Before you start tracking a prompt template in an AI use case, make sure the prompt template is stable. After you enable tracking, the prompt template is locked, and you can no longer update it.
+            This is to preserve the integrity of the prompt template so that all of the facts collected in the factsheet apply to a single version of the prompt template. If you are still experimenting with a prompt template, do not start tracking it
+            in an AI use case.</div>
+          <section id="section-before-you-begin">
+            <h3 id="before-you-begin">Before you begin</h3>
+            <p>Before you can track a prompt template, these conditions must be met.</p>
+            <ul>
+              <li>Be an administrator or editor for the project that contains the prompt template.</li>
+              <li>The prompt template must include at least one variable. For more information, see <a href="fm-prompt-variables.html">Building reusable prompts</a>.</li>
+            </ul>
+            <p>Watch this video to see how to track a prompt template in an AI use case.</p>
+            <div>
+              <p style="font-size:smaller">This video provides a visual method to learn the concepts and tasks in this documentation.</p><iframe id="wm-wx-gov-track-prompt" src="https://video.ibm.com/embed/channel/23952663/video/wx-gov-track-prompt" lang="en-US" style="border: 0;" webkitallowfullscreen="" allowfullscreen="" frameborder="no" width="560" height="315" title="This video shows you how to track a prompt template in an AI use case." alt="This video shows you how to track a prompt template in an AI use case."></iframe></div>
+          </section>
+          <section id="section-tracking-a-prompt-template-or-machine-learning-model-in-an-ai-use-case">
+            <h3 id="tracking-a-prompt-template-or-machine-learning-model-in-an-ai-use-case">Tracking a prompt template or machine learning model in an AI use case</h3>
+            <p>You can add a prompt template to an AI use case from a project or space.</p>
+            <ol>
+              <li>Open the project or space that contains the prompt template that you want to govern.</li>
+              <li>From the action menu for the asset, click <strong>View AI use case</strong>.
+                <img src="images/xgov-track-prompt1.png" alt="Tracking a prompt template" style="max-width:90%;height:auto;width:auto"><br></li>
+              <li>If this prompt template is not already part of an AI use case, you are prompted to <strong>Track in AI use case.</strong> When you start tracking a prompt template, it is locked and you can no longer edit it. To make changes, you must create
+                a new prompt template.
+                <img src="images/xgov-prompt-temp-track.png" alt="Starting to track a prompt template" style="max-width:90%;height:auto;width:auto"><br></li>
+              <li>Select an existing AI use case or follow the prompts to create a new one.</li>
+              <li>Choose an existing approach or create a new approach. An approach represents one facet of a complete solution. Each approach creates a version set for all assets in the same approach.</li>
+              <li>Choose a version numbering scheme. All the assets in an approach share a common version. Choose from:
+                <ul>
+                  <li><em>Experimental</em> if you plan to update frequently.</li>
+                  <li><em>Stable</em> if the assets are not changing rapidly.</li>
+                  <li><em>Custom</em> if you want to start a new version number. Version numbering must follow a schema of major.minor.patch.</li>
+                </ul>
+              </li>
+            </ol>
+            <p>When tracking is enabled, all collaborators for the use case can review details for the prompt template.</p>
+            <p><img src="images/xgov-track-prompt2.png" alt="Viewing a tracked prompt template in an AI use case" style="max-width:90%;height:auto;width:auto"><br></p>
+            <p>Details are captured for each lifecycle stage for a prompt template.</p>
+            <ul>
+              <li><strong>Develop</strong> provides information about how the prompt is defined, including the prompt itself, creation date, foundation model that is used, prompt parameters set, and variables defined.</li>
+              <li><strong>Evaluate</strong> displays the dimension metrics from evaluating your prompt template.</li>
+              <li><strong>Operate</strong> provides details that are related to how the prompt template is deployed for productive use.</li>
+            </ul>
+            <p><img src="images/xgov-track-prompt3.png" alt="Viewing the lifecycle for a tracked prompt template in an AI use case" style="max-width:90%;height:auto;width:auto"><br></p>
+          </section>
+        </section>
+        <section id="section-viewing-the-factsheet-for-a-tracked-prompt-template">
+          <h2 id="viewing-the-factsheet-for-a-tracked-prompt-template">Viewing the factsheet for a tracked prompt template</h2>
+          <p>Click the name of the prompt template in an AI use case to view the associated factsheet.</p>
+          <p><img src="images/xgov-prompt-factsheet1.png" alt="Viewing the factsheet for a tracked prompt template in an AI use case" style="max-width:90%;height:auto;width:auto"><br></p>
+          <p>The factsheet for a prompt template collects this type of data:</p>
+          <ul>
+            <li><strong>Governance</strong> collects basic information such as the name of the AI use case, the description, and the approach name and version data.</li>
+            <li><strong>Foundation model</strong> displays the name of the foundation model, the license ID, and the model publisher.</li>
+            <li><strong>Prompt template</strong> shows the prompt name, ID, prompt input, and variables.</li>
+            <li><strong>Prompt parameters</strong> collect the configuration options for the prompt template, including the decoding method and stopping criteria.</li>
+            <li><strong>Evaluation</strong> displays the data from evaluation, including alerts, and metric data from the evaluation. For example, this prompt template shows the metrics data for quality evaluations on the prompt template. One threshold alert
+              was triggered by the evaluation:
+              <img src="images/xgov-prompt-factsheet2.png" alt="Viewing evaluation metrics for a prompt template in an AI use case" style="max-width:90%;height:auto;width:auto"></li>
+            <li><strong>Validate</strong> shows the data for how the prompt template was evaluated, including the data set used for the validation, alerts triggered, and evaluation metric data.</li>
+            <li><strong>Attachments</strong> shows information about attachments that support the use case.</li>
+          </ul>
+          <div class="note note"><span class="notetitle">Note:</span> As the prompt template moves from one stage of the lifecycle to the next, facts are added to the factsheet for the prompt template. The factsheet always represents the latest state of the prompt template.
+            For example, if you validate a prompt template in a pre-production deployment space, and then again in a production deployment space, the details from the production phase are recorded in the factsheet, overwriting previous evaluation results.</div>
+        </section>
+        <section id="section-moving-a-prompt-template-through-lifecycle-stages">
+          <h2 id="moving-a-prompt-template-through-lifecycle-stages">Moving a prompt template through lifecycle stages</h2>
+          <p>When a prompt template is tracked, you can see details from creating the prompt template, and evaluating performance against appropriate metrics. The next stage in the lifecycle is to _<em>validate</em> the prompt template. This involves testing
+            the prompt template with new data. If you are the prompt engineer who is tasked with validating the asset, follow these steps to validate the prompt template and capture the validation data in the associated factsheet.</p>
+          <ol>
+            <li>From the project containing the prompt template, export the project to a compressed ZIP file.</li>
+            <li>Create a new project and populate it with the exported ZIP file.</li>
+            <li>Upload validation data, evaluate the prompt template, and save the results to the validation project.</li>
+            <li>From the project, promote the prompt template to a new or existing deployment space that is designated as a <strong>Production</strong> stage. The stage is assigned when the space is created and cannot be updated, so create a new space if
+              you do not have a production space available.
+              <img src="images/xgov-space-prod.png" alt="Create or select a deployment space with Production stage"></li>
+            <li>After you promote the prompt template to a deployment space, you can configure continuous monitoring.</li>
+            <li>Details from monitoring the prompt template in a production space are displayed in the <strong>Operate</strong> lifecycle stage of the AI use case.</li>
+          </ol>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li>Follow the tutorial <a href="../getting-started/get-started-evaluate-prompt.html">Quick start: Evaluate and track a prompt template</a> to evaluate and track a sample prompt template.</li>
+            <li>See <a href="prompt-template-deploy.html">Deploying a prompt template</a> for details on preparing a prompt template for production.</li>
+            <li>See <a href="../model/wos-eval-prompt.html">Evaluating prompt templates</a> for details on evaluating a prompt template for dimensions such as accuracy or to test for the presence of hateful or abusive speech.</li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="xgov-tracking-overview.html">Tracking assets in an AI use case</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

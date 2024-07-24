@@ -1,0 +1,149 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can set up watsonx.governance to monitor model assets in your IBM watsonx projects or deployment spaces. To set up watsonx.governance, you can manage users and roles for your organization to control access to your projects or deployment spaces.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Setting up watsonx.governance</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=administrators-setting-up-watsonxgovernance"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="setting-up-watsonxgovernance" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-setting-up-watsonxgovernance">
+        <h1 id="setting-up-watsonxgovernance">Setting up watsonx.governance</h1>
+        <p>You can set up watsonx.governance to monitor model assets in your IBM watsonx projects or deployment spaces. To set up watsonx.governance, you can manage users and roles for your organization to control access to your projects or deployment spaces.</p>
+        <p>To set up watsonx.governance, complete the following tasks:</p>
+        <ul>
+          <li><a href="#wos-access-policies">Creating access policies</a></li>
+          <li><a href="#wos-users-wx">Managing users and roles</a></li>
+        </ul>
+        <section id="section-wos-access-policies">
+          <h2 id="wos-access-policies">Creating access policies</h2>
+          <p>You can complete the following steps to invite users to an IBM Cloud account that has a watsonx.governance instance installed and assign service access.</p>
+          <dl>
+            <dt><strong>Required roles</strong></dt>
+            <dd>Users must have the <strong>Reader</strong>, <strong>Writer</strong>, or higher IBM Cloud IAM Platform roles for service access. Users that are assigned the <strong>Writer</strong> role or higher can access information across projects and
+              deployment spaces in watsonx.governance.</dd>
+          </dl>
+          <ol>
+            <li>From the IBM Cloud homepage, click <strong>Manage &gt; Access (IAM)</strong>.</li>
+            <li>From the IAM dashboard, click <strong>Users</strong> and select <strong>Invite user</strong>.</li>
+            <li>Complete the following fields:
+              <ul>
+                <li><em>How do you want to assign access?</em> : <code>Access policy</code>.</li>
+                <li><em>Which service do you want to assign access to?</em> : <code>watsonx.governance</code> and click <strong>Next</strong>.</li>
+                <li><em>How do you want to scope the access</em> : Select the scope of access for users and click <strong>Next</strong>.
+                  <ul>
+                    <li>If you select <strong>Specific resources</strong>, select an attribute type and specify a value for each condition that you add.</li>
+                    <li>If you select <strong>Service instance</strong> in the <em>Attribute type</em> list, specify your instance in the <em>Value</em> field.</li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li>If you have multiple instances, you must find the data mart ID to specify the instance that you want to assign users access to. You can use one of the following methods to find the data mart ID:
+              <ul>
+                <li>On the <strong>Insights</strong> dashboard, click a model deployment tile and go to <strong>Actions &gt; View model information</strong> to find the data mart ID.</li>
+                <li>On the <strong>Insights</strong> dashboard, click the navigation menu on a model deployment tile and select <strong>Configure monitors</strong>. Then, go to the <strong>Endpoints</strong> tab and find the data mart ID in the <strong>Integration details</strong>                  section of the <strong>Model information</strong> tab.</li>
+              </ul>
+            </li>
+            <li>Select the <strong>Reader</strong> role in the <strong>Service access</strong> list.</li>
+            <li>Assign access to users.
+              <ul>
+                <li>If you are assigning access to new users, click <strong>Add</strong>, and then click <strong>Invite</strong> in the <em>Access summary</em> pane.</li>
+                <li>If you are assigning access to existing users, click <strong>Add</strong>, and then click <strong>Assign</strong> in the <em>Access summary</em> pane.</li>
+              </ul>
+            </li>
+          </ol>
+        </section>
+        <section id="section-wos-users-wx">
+          <h2 id="wos-users-wx">IBM watsonx.governance users and roles</h2>
+          <p>You can assign roles to watsonx.governance users to collaborate on model evaluations in <a href="../getting-started/collaborate.html#add-collaborators">projects</a> and <a href="../analyze-data/collaborator-permissions-wml.html#adding-collaborators">deployment spaces</a>.</p>
+          <p>The following table lists permissions for roles that you can assign for access to evaluations. The <strong>Operator</strong> and <strong>Viewer</strong> roles are equivalent.</p>
+          <table class="comparison-table" aria-describedby="tableSummary-856e741fca82865b333e6096d4a2f0cd">
+            <caption caption-side="top">
+              Table 1. Operations by role<br>
+              <span class="table-summary" id="tableSummary-856e741fca82865b333e6096d4a2f0cd">The first row of the table describes separate roles that you can choose from when creating a user. Each column provides a checkmark in the role category for the capability associated with that role.</span>
+            </caption>
+            <thead>
+              <tr>
+                <th style="text-align:left" scope="col">Operations</th>
+                <th style="text-align:center" scope="col">Admin role</th>
+                <th style="text-align:center" scope="col">Editor role</th>
+                <th style="text-align:center" scope="col">Viewer/Operator role</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th style="text-align:left" scope="row">Evaluation</th>
+                <td style="text-align:center">✔</td>
+                <td style="text-align:center">✔</td>
+                <td style="text-align:center"></td>
+              </tr>
+              <tr>
+                <th style="text-align:left" scope="row">View evaluation result</th>
+                <td style="text-align:center">✔</td>
+                <td style="text-align:center">✔</td>
+                <td style="text-align:center">✔</td>
+              </tr>
+              <tr>
+                <th style="text-align:left" scope="row">Configure monitoring condition</th>
+                <td style="text-align:center">✔</td>
+                <td style="text-align:center">✔</td>
+                <td style="text-align:center"></td>
+              </tr>
+              <tr>
+                <th style="text-align:left" scope="row">View monitoring condition</th>
+                <td style="text-align:center">✔</td>
+                <td style="text-align:center">✔</td>
+                <td style="text-align:center">✔</td>
+              </tr>
+              <tr>
+                <th style="text-align:left" scope="row">Upload training data CSV file in model risk management</th>
+                <td style="text-align:center">✔</td>
+                <td style="text-align:center">✔</td>
+                <td style="text-align:center"></td>
+              </tr>
+            </tbody>
+          </table>
+          <p><strong>Parent topic:</strong> <a href="../getting-started/setup-platform.html">Setting up the platform for administrators</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

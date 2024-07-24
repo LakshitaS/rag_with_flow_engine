@@ -1,0 +1,150 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Use these solutions to resolve issues you might experience when using Cloud Object Storage with projects in IBM watsonx. Many errors that occur when creating projects can be resolved by correctly configuring Cloud Object Storage. For instructions, see Setting up Cloud Object Storage.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Troubleshooting Cloud Object Storage for projects</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=troubleshooting-cloud-object-storage-projects"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="troubleshooting-cloud-object-storage-for-projects" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-troubleshooting-cloud-object-storage-for-projects">
+        <h1 id="troubleshooting-cloud-object-storage-for-projects">Troubleshooting Cloud Object Storage for projects</h1>
+        <p>Use these solutions to resolve issues you might experience when using Cloud Object Storage with projects in IBM watsonx. Many errors that occur when creating projects can be resolved by correctly configuring Cloud Object Storage. For instructions,
+          see <a href="../console/wdp_admin_cos.html">Setting up Cloud Object Storage</a>.</p>
+        <p>Possible error messages:</p>
+        <ul>
+          <li><a href="#key-token">Error retrieving Administrator API key token for your Cloud Object Storage instance</a></li>
+          <li><a href="#credentials">Unable to configure credentials for your project in the selected Cloud Object Storage instance</a></li>
+          <li><a href="#restricted-ip">User login from given IP address is not permitted</a></li>
+          <li><a href="#project-failed">Project cannot be created</a></li>
+        </ul>
+        <section id="section-key-token">
+          <h2 id="key-token">Cannot retrieve API key</h2>
+          <section id="section-symptoms">
+            <h3 id="symptoms">Symptoms</h3>
+            <p>When you create a project, the following error occurs:</p>
+            <pre class="codeblock"><code class="lang-txt hljs">Error retrieving Administrator API key token for your Cloud Object Storage instance
+</code></pre>
+          </section>
+          <section id="section-possible-causes">
+            <h3 id="possible-causes">Possible Causes</h3>
+            <ul>
+              <li>You have not been assigned the <strong>Editor</strong> role in the IBM Cloud account.</li>
+            </ul>
+          </section>
+          <section id="section-possible-resolutions">
+            <h3 id="possible-resolutions">Possible Resolutions</h3>
+            <p>The account administrator must complete the following tasks:</p>
+            <ul>
+              <li>Invite users to the IBM Cloud account and assign the <strong>Editor</strong> role. See <a href="../getting-started/setup-addl-users.html#users">Add non-administrative users to your IBM Cloud account</a>.</li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-credentials">
+          <h2 id="credentials">Unable to configure credentials</h2>
+          <section id="section-symptoms-2">
+            <h3 id="symptoms-2">Symptoms</h3>
+            <p>When you create a project and associate it to a Cloud Object Storage instance, the following error occurs:</p>
+            <pre class="codeblock"><code class="lang-txt hljs">Unable to configure credentials for your project in the selected Cloud Object Storage instance.
+</code></pre>
+          </section>
+          <section id="section-possible-causes-2">
+            <h3 id="possible-causes-2">Possible Causes</h3>
+            <ul>
+              <li>You have exceeded the access policy limit for the account.</li>
+              <li>For a Lite account, you have exceeded the 25 GB limit for the Cloud Object Storage instance.</li>
+            </ul>
+          </section>
+          <section id="section-possible-resolutions-2">
+            <h3 id="possible-resolutions-2">Possible Resolutions</h3>
+            <p><strong>For exceeding access policies:</strong></p>
+            <ol>
+              <li>Verify that you are the owner of the Cloud Object Storage instance or that the owner has granted you <strong>Administrator</strong> and <strong>Manager</strong> roles for this service instance. Otherwise, ask your IBM Cloud administrator
+                to fix this problem.</li>
+              <li>Check the total number of access policies to determine whether you have reached a limit. See <a href="https://cloud.ibm.com/docs/account?topic=account-known-issues#iam_limits" target="_blank" rel="noopener noreferrer">IBM Cloud IAM limits</a>                for the limit information.</li>
+              <li>Delete at least 4 or more unused access policies for the service ID.</li>
+            </ol>
+            <p>See <a href="https://cloud.ibm.com/docs/account?topic=account-account_setup#limit-policies" target="_blank" rel="noopener noreferrer">Reducing time and effort managing access</a> for strategies that you can use to ensure that you don't reach
+              the limit.</p>
+            <p><strong>For exceeding 25 GB limit for a Lite account:</strong></p>
+            <p>For a Lite account, you have exceeded the 25 GB limit for the Cloud Object Storage instance. Possible resolutions are to upgrade to a billable account, delete stored assets for the current account, or wait until the first of the month when
+              the limit resets. See <a href="../getting-started/setup-account.html#paid-account">Set up a billable account</a>.</p>
+          </section>
+        </section>
+        <section id="section-restricted-ip">
+          <h2 id="restricted-ip">Login not permitted from IP address</h2>
+          <section id="section-symptoms-3">
+            <h3 id="symptoms-3">Symptoms</h3>
+            <p>When you create or work with a project, the following error occurs:</p>
+            <pre class="codeblock"><code class="lang-txt hljs">User login from given IP address is not permitted. The user has configured IP address restriction for login. The given IP address 'XX.XXX.XXX.XX' is not contained in the list of allowed IP addresses.
+</code></pre>
+          </section>
+          <section id="section-possible-causes-3">
+            <h3 id="possible-causes-3">Possible Causes</h3>
+            <p><strong>Restrict IP address access</strong> has been configured to allow specific IP addresses access to Watson Studio. The IP address of the computer you are using is not allowed.</p>
+          </section>
+          <section id="section-possible-resolutions-3">
+            <h3 id="possible-resolutions-3">Possible Resolutions</h3>
+            <p>Add the IP address to the allowed IP addresses, if your security qualifications allow it. See <a href="../getting-started/security-network.html#allow-specific-ip-addresses">Allow specific IP addresses</a>.</p>
+          </section>
+        </section>
+        <section id="section-project-failed">
+          <h2 id="project-failed">Project cannot be created</h2>
+          <section id="section-symptoms-4">
+            <h3 id="symptoms-4">Symptoms</h3>
+            <p>When you create a project, the following error occurs:</p>
+            <pre class="codeblock"><code class="lang-txt hljs">Project cannot be created.
+</code></pre>
+          </section>
+          <section id="section-possible-causes-4">
+            <h3 id="possible-causes-4">Possible Causes</h3>
+            <p>The Cloud Object Storage instance is not available, due to the <strong>Global</strong> location is not enabled for your services. Cloud Object Storage requires the <strong>Global</strong> location.</p>
+          </section>
+          <section id="section-possible-resolutions-4">
+            <h3 id="possible-resolutions-4">Possible Resolutions</h3>
+            <p>Enable the <strong>Global</strong> location in your account profile. From your account, click your avatar and select <strong>Profile and settings</strong> to open your IBM watsonx profile. Under <strong>Service Filters &gt; Locations</strong>,
+              check the <strong>Global</strong> location as well as other locations where services are present. See <a href="../admin/personal-settings.html#profile">Manage your profile</a>.</p>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

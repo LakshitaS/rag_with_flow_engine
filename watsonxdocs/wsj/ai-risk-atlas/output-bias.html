@@ -1,0 +1,234 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Generated content might unfairly represent certain groups or individuals.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Output bias risk for AI</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=atlas-output-bias"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="output-bias-risk-for-ai" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-output-bias-risk-for-ai">
+        <h1 id="output-bias-risk-for-ai">Output bias risk for AI</h1>
+        <style type="text/css" keep="true">
+          .risk-detail-heading {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start;
+          }
+          
+          .risk-detail-heading .tags {
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 8px;
+          }
+          
+          .risk-detail-heading .tags .bx--tag {
+            line-height: normal;
+            font-size: 12px;
+          }
+        </style>
+        <div class="risk-detail-heading">
+          <div class="tags">
+            <div>
+              <svg class="risk-group-icon" version="1.1" id="risk-icon-fairness-" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" width="32" height="32" xml:space="preserve">
+<path xmlns="http://www.w3.org/2000/svg" id="risk-icon-path-fairness-" d="M26,29.36H6v-0.72h6.659c0.167-1.565,1.415-2.813,2.981-2.98V11.333c-1.131-0.174-2-1.154-2-2.333s0.869-2.159,2-2.333V3.36H6.136l4.173,6.955c0.034,0.056,0.051,0.12,0.051,0.185c0,2.68-2.18,4.86-4.86,4.86s-4.86-2.18-4.86-4.86c0-0.065,0.018-0.129,0.051-0.185l4.5-7.5C5.256,2.707,5.374,2.64,5.5,2.64h21c0.126,0,0.243,0.066,0.309,0.175l4.5,7.5c0.033,0.056,0.052,0.12,0.052,0.185c0,2.68-2.181,4.86-4.86,4.86s-4.86-2.18-4.86-4.86c0-0.065,0.019-0.129,0.052-0.185l4.173-6.955H16.36v3.308c1.131,0.174,2,1.154,2,2.333s-0.869,2.159-2,2.333v14.327c1.566,0.167,2.814,1.415,2.981,2.98H26V29.36zM13.384,28.64h5.231c-0.176-1.286-1.281-2.28-2.615-2.28C14.667,26.36,13.561,27.354,13.384,28.64z M22.376,10.86c0.183,2.115,1.963,3.78,4.124,3.78s3.941-1.665,4.124-3.78H22.376z M1.375,10.86c0.183,2.115,1.963,3.78,4.125,3.78s3.941-1.665,4.125-3.78H1.375z M16,7.36c-0.904,0-1.64,0.736-1.64,1.64s0.736,1.64,1.64,1.64c0.904,0,1.64-0.736,1.64-1.64S16.904,7.36,16,7.36z M22.636,10.14h7.729L26.5,3.7L22.636,10.14z M1.636,10.14h7.729L5.5,3.7L1.636,10.14z"></path>
+<rect id="risk-icon-rect-fairness-" style="fill:none;" width="32" height="32"></rect>
+</svg>
+            </div>
+            <div class="bx--tag bx--tag--blue">
+              Risks associated with output
+            </div>
+            <div class="bx--tag bx--tag--blue">Fairness</div>
+            <div class="bx--tag bx--tag--green">New to generative AI</div>
+          </div>
+        </div>
+        <section id="section-description">
+          <h3 id="description">Description</h3>
+          <p>Generated content might unfairly represent certain groups or individuals.</p>
+          <style type="text/css" keep="true">
+            .content h3 {
+              margin-bottom: 8px !important;
+            }
+            
+            .risk-group-icon {
+              width: 24px;
+              height: 24px;
+            }
+            
+            .example {
+              border-radius: 8px;
+              background-color: #f4f4f4;
+              margin: 1rem 0;
+            }
+            
+            .example .heading {
+              position: relative;
+              overflow: hidden;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              padding: 48px 1.5rem;
+              border-radius: 8px 8px 0 0;
+              background: #393939;
+              background-position: center top;
+              background-repeat: no-repeat;
+              background-size: cover;
+            }
+            
+            .example .heading .overlay {
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              top: 0;
+              left: 0;
+              background: linear-gradient(90deg, rgba(244, 244, 244, 1) 45%, rgba(244, 244, 244, 0.2) 65%, rgba(244, 244, 244, 0.4) 70%, rgba(244, 244, 244, 0) 85%);
+            }
+            
+            .example .heading img {
+              position: absolute;
+              top: 0;
+              left: 0;
+            }
+            
+            .example .heading .bx--label {
+              line-height: 14px;
+              margin-bottom: 0;
+              z-index: 0;
+              font-weight: 500;
+              color: #000;
+            }
+            
+            .example .heading .example-title {
+              font-size: 20px;
+              z-index: 0;
+            }
+            
+            .example .heading.input {
+              background-image: url(images/bg_input.png);
+              background-color: #005D5D;
+            }
+            
+            .example .heading.output {
+              background-image: url(images/bg_output.png);
+              background-color: #00539A;
+            }
+            
+            .example .heading.challenges {
+              background-image: url(images/bg_challenges.png);
+              background-color: #6929C4;
+            }
+            
+            .example .example-content {
+              padding: 1.5rem;
+            }
+            
+            .example .sources {
+              display: flex;
+            }
+            
+            .example .sources p {
+              display: flex;
+              flex-wrap: wrap;
+              list-style: none;
+              padding-left: 8px;
+            }
+            
+            .example .sources p:first-child {
+              margin-top: unset;
+            }
+            
+            .example .sources a {
+              vertical-align: middle;
+              margin: 0;
+            }
+            
+            .bullet {
+              margin: 6px 1ch;
+              width: 3px;
+              height: 3px;
+              border-radius: 50%;
+              background-color: black;
+            }
+            
+            .example .sources,
+            .example .sources p,
+            .example .sources a {
+              line-height: normal;
+              font-size: 12px;
+              margin: 0;
+            }
+          </style>
+          <div>
+            <div class="content">
+              <!-- <h3>Description</h3>
+<p>Generated content might unfairly represent certain groups or individuals.</p> -->
+              <h3>Why is output bias a concern for foundation models?</h3>
+              <p>Bias can harm users of the AI models and magnify existing discriminatory behaviors. Business entities might face reputational harms, disruption to operations, and other consequences.</p>
+              <div class="example">
+                <div class="heading output">
+                  <img src="images/background-output-example.jpg" alt="Background image for risks associated with input">
+                  <div class="overlay"></div>
+                  <div class="bx--label">Example</div>
+                  <p class="bx--type-productive-heading-03 example-title">Biased Generated Images</p>
+                </div>
+                <div class="example-content">
+                  <p class="example-p">Lensa AI is a mobile app with generative features that are trained on Stable Diffusion that can generate “Magic Avatars” based on images that users upload of themselves. According to the source report, some users discovered that generated
+                    avatars are sexualized and racialized.</p>
+                  <div class="sources">
+                    Sources:
+                    <p>
+                    </p>
+                    <p><a href="https://www.businessinsider.com/lensa-ai-raises-serious-concerns-sexualization-art-theft-data-2023-1" target="_blank" rel="noreferrer" class="label">Business Insider, January 2023</a></p>
+                    <p></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p><strong>Parent topic:</strong> <a href="../ai-risk-atlas/ai-risk-atlas.html">AI risk atlas</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

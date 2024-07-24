@@ -1,0 +1,1239 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="The Watson Natural Language Processing Entity extraction models extract entities from input text.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Entity extraction</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=catalog-entity-extraction"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="entity-extraction" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-entity-extraction">
+        <h1 id="entity-extraction">Entity extraction</h1>
+        <p>The Watson Natural Language Processing Entity extraction models extract entities from input text.</p>
+        <p>For details, on available extraction types, refer to these sections:</p>
+        <ul>
+          <li><a href="#machine-learning-general">Machine-learning-based extraction for general entities</a></li>
+          <li><a href="#machine-learning-pii">Machine-learning-based extraction for PII entities</a></li>
+          <li><a href="#rule-based-general">Rule-based extraction for general entities</a></li>
+          <li><a href="#rule-based-pii">Rule-based extraction for PII entities</a></li>
+        </ul>
+        <section id="section-machine-learning-general">
+          <h2 id="machine-learning-general">Machine-learning-based extraction for general entities</h2>
+          <p>The machine-learning-based extraction models are trained on labeled data for the more complex entity types such as person, organization and location.</p>
+          <p><strong>Capabilities</strong></p>
+          <p>The entity models extract entities from the input text. The following types of entities are recognized:</p>
+          <ul>
+            <li>Date</li>
+            <li>Duration</li>
+            <li>Facility</li>
+            <li>Geographic feature</li>
+            <li>Job title</li>
+            <li>Location</li>
+            <li>Measure</li>
+            <li>Money</li>
+            <li>Ordinal</li>
+            <li>Organization</li>
+            <li>Person</li>
+            <li>Time</li>
+          </ul>
+          <table>
+            <caption>Capabilities of machine-learning-based extraction based on an example</caption>
+            <thead>
+              <tr>
+                <th>Capabilities</th>
+                <th>Examples</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Extracts entities from the input text.</td>
+                <td><code>IBM's CEO Arvind Krishna is based in the US</code> -&gt; <code>IBM\Organization</code> , <code>CEO\JobTitle</code>, <code>Arvind Krishna\Person</code>, <code>US\Location</code></td>
+              </tr>
+            </tbody>
+          </table>
+          <p>Available workflows and blocks differ, depending on the runtime used.</p>
+          <table>
+            <caption>Blocks and workflows for handling general entities with their corresponding runtimes</caption>
+            <thead>
+              <tr>
+                <th>Block or workflow name</th>
+                <th>Available in runtime</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>entity-mentions_transformer-workflow_multilingual_slate.153m.distilled</code></td>
+                <td><a href="#runtime-231">Runtime 23.1</a></td>
+              </tr>
+              <tr>
+                <td><code>entity-mentions_transformer-workflow_multilingual_slate.153m.distilled-cpu</code></td>
+                <td><a href="#runtime-231">Runtime 23.1</a></td>
+              </tr>
+            </tbody>
+          </table>
+          <section id="section-runtime-231">
+            <h3 id="runtime-231">Machine-learning-based workflows for general entities in Runtime 23.1</h3>
+            <p><strong>Workflow names</strong></p>
+            <ul>
+              <li><code>entity-mentions_transformer-workflow_multilingual_slate.153m.distilled</code>: this workflow can be used on both CPUs and GPUs.</li>
+              <li><code>entity-mentions_transformer-workflow_multilingual_slate.153m.distilled-cpu</code>: this workflow is optimized for CPU-based runtimes.</li>
+            </ul>
+            <p><strong>Supported languages</strong></p>
+            <p>Entity extraction is available for the following languages.</p>
+            <p>For a list of the language codes and the corresponding language, see <a href="watson-nlp-block-catalog.html#lang-codes">Language codes</a>:</p>
+            <p>ar, cs, da, de, en, es, fi, fr, he, hi, it, ja, ko, nb, nl, nn, pt, ro, ru, sk, sv, tr, zh-cn</p>
+            <p><strong>Code sample</strong></p>
+            <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">import</span> watson_nlp
+<span class="hljs-comment"># Load the workflow model</span>
+entities_workflow = watson_nlp.load(<span class="hljs-string">'entity-mentions_transformer-workflow_multilingual_slate.153m.distilled'</span>)
+<span class="hljs-comment"># Run the entity extraction workflow on the input text</span>
+entities = entities_workflow.run(<span class="hljs-string">'IBM\'s CEO Arvind Krishna is based in the US'</span>, language_code=<span class="hljs-string">"en"</span>)
+<span class="hljs-built_in">print</span>(entities.get_mention_pairs())
+</code></pre>
+            <p><strong>Output of the code sample:</strong></p>
+            <pre class="codeblock"><code class="lang-text hljs">[('IBM', 'Organization'), ('CEO', 'JobTitle'), ('Arvind Krishna', 'Person'), ('US', 'Location')]
+</code></pre>
+            <br>
+          </section>
+        </section>
+        <section id="section-machine-learning-pii">
+          <h2 id="machine-learning-pii">Machine-learning-based extraction for PII entities</h2>
+          <p><strong>Block names</strong>
+            <code>entity-mentions_bilstm_en_pii</code></p>
+          <table>
+            <caption>Blocks for handling Personal Identifiable Information (PII) entities with their corresponding runtimes</caption>
+            <thead>
+              <tr>
+                <th>Block name</th>
+                <th>Available in runtime</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>entity-mentions_bilstm_en_pii</code></td>
+                <td>Runtime 23.1</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>The <code>entity-mentions_bilstm_en_pii</code> machine-learning based extraction model is trained on labeled data for types <em>person</em> and <em>location</em>.</p>
+          <p><strong>Capabilities</strong></p>
+          <p>The <code>entity-mentions_bilstm_en_pii</code> block recognizes the following types of entities:</p>
+          <table>
+            <caption>Entities extracted by the entity-mentions_bilstm_en_pii block</caption>
+            <thead>
+              <tr>
+                <th>Entity type name</th>
+                <th>Description</th>
+                <th>Supported languages</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Location</td>
+                <td>All geo-political regions, continents, countries, and street names, states, provinces, cities, towns or islands.</td>
+                <td>en</td>
+              </tr>
+              <tr>
+                <td>Person</td>
+                <td>Any being; living, nonliving, fictional or real.</td>
+                <td>en</td>
+              </tr>
+            </tbody>
+          </table>
+          <p><strong>Dependencies on other blocks</strong></p>
+          <p>The following block must run before you can run the <code>entity-mentions_bilstm_en_pii</code> block:</p>
+          <ul>
+            <li><code>syntax_izumo_en_stock</code></li>
+          </ul>
+          <p><strong>Code sample</strong></p>
+          <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">import</span> os
+
+<span class="hljs-keyword">import</span> watson_nlp
+
+<span class="hljs-comment"># Load Syntax and a Entity Mention BiLSTM model for English</span>
+
+syntax_model = watson_nlp.load(<span class="hljs-string">'syntax_izumo_en_stock'</span>)
+
+entity_model = watson_nlp.load(<span class="hljs-string">'entity-mentions_bilstm_en_pii'</span>)
+
+text = <span class="hljs-string">'Denver is the capital of Colorado. The total estimated government spending in Colorado in fiscal year 2016 was $36.0 billion. IBM office is located in downtown Denver. Michael Hancock is the mayor of Denver.'</span>
+
+<span class="hljs-comment"># Run the syntax model on the input text</span>
+
+syntax_prediction = syntax_model.run(text)
+
+<span class="hljs-comment"># Run the entity mention model on the result of the syntax analysis</span>
+
+entity_mentions = entity_model.run(syntax_prediction)
+
+<span class="hljs-built_in">print</span>(entity_mentions)
+</code></pre>
+          <p><strong>Output of the code sample:</strong></p>
+          <pre class="codeblock"><code class="lang-json hljs"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"mentions"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"span"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"begin"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"end"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">6</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"text"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Denver"</span>
+      <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Location"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"producer_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"BiLSTM Entity Mentions"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"version"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"1.0.0"</span>
+      <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"confidence"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.6885626912117004</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"mention_type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"MENTT_UNSET"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"mention_class"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"MENTC_UNSET"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"role"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">""</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"span"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"begin"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">25</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"end"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">33</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"text"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Colorado"</span>
+      <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Location"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"producer_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"BiLSTM Entity Mentions"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"version"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"1.0.0"</span>
+      <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"confidence"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.8509215116500854</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"mention_type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"MENTT_UNSET"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"mention_class"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"MENTC_UNSET"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"role"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">""</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"span"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"begin"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">78</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"end"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">86</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"text"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Colorado"</span>
+      <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Location"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"producer_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"BiLSTM Entity Mentions"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"version"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"1.0.0"</span>
+      <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"confidence"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.9928259253501892</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"mention_type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"MENTT_UNSET"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"mention_class"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"MENTC_UNSET"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"role"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">""</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"span"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"begin"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">151</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"end"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">166</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"text"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"downtown Denver"</span>
+      <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Location"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"producer_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"BiLSTM Entity Mentions"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"version"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"1.0.0"</span>
+      <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"confidence"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.48378944396972656</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"mention_type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"MENTT_UNSET"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"mention_class"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"MENTC_UNSET"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"role"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">""</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"span"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"begin"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">168</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"end"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">183</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"text"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Michael Hancock"</span>
+      <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Person"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"producer_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"BiLSTM Entity Mentions"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"version"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"1.0.0"</span>
+      <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"confidence"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.9972871541976929</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"mention_type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"MENTT_UNSET"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"mention_class"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"MENTC_UNSET"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"role"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">""</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"producer_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"BiLSTM Entity Mentions"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"version"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"1.0.0"</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+          <br>
+        </section>
+        <section id="section-rule-based-general">
+          <h2 id="rule-based-general">Rule-based extraction for general entities</h2>
+          <p>The rule-based model <code>entity-mentions_rbr_xx_stock</code> identifies syntactically regular entities.</p>
+          <p><strong>Block name</strong>
+            <code>entity-mentions_rbr_xx_stock</code></p>
+          <p><strong>Capabilities</strong></p>
+          <p>Rule-based extraction handles syntactically regular entity types. The entity block extract entities from the input text. The following types of entities are recognized:</p>
+          <ul>
+            <li>PhoneNumber</li>
+            <li>EmailAddress</li>
+            <li>Number</li>
+            <li>Percent</li>
+            <li>IPAddress</li>
+            <li>HashTag</li>
+            <li>TwitterHandle</li>
+            <li>URLDate</li>
+          </ul>
+          <table>
+            <caption>Capabilities of rule-based extraction based on an example</caption>
+            <thead>
+              <tr>
+                <th>Capabilities</th>
+                <th>Examples</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Extracts syntactically regular entity types from the input text.</td>
+                <td><code>My email is john@us.ibm.com</code> -&gt; <code>john@us.ibm.com\EmailAddress</code></td>
+              </tr>
+            </tbody>
+          </table>
+          <p><strong>Supported languages</strong></p>
+          <p>Entity extraction is available for the following languages. For a list of the language codes and the corresponding language, see <a href="watson-nlp-block-catalog.html#lang-codes">Language codes</a>.</p>
+          <p>ar, cs, da, de, en, es, fi, fr, he, hi, it, ja, ko, nb, nl, nn, pt, ro, ru, sk, sv, tr, zh-cn, zh-tw</p>
+          <p><strong>Dependencies on other blocks</strong></p>
+          <p>None</p>
+          <p><strong>Code sample</strong></p>
+          <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">import</span> watson_nlp
+
+<span class="hljs-comment"># Load a rule-based Entity Mention model for English</span>
+rbr_entity_model = watson_nlp.load(<span class="hljs-string">'entity-mentions_rbr_en_stock'</span>)
+
+<span class="hljs-comment"># Run the entity model on the input text</span>
+rbr_entity_mentions = rbr_entity_model.run(<span class="hljs-string">'My email is john@us.ibm.com'</span>)
+<span class="hljs-built_in">print</span>(rbr_entity_mentions)
+</code></pre>
+          <p>Output of the code sample:</p>
+          <pre class="codeblock"><code class="lang-text hljs">{
+  "mentions": [
+    {
+      "span": {
+        "begin": 12,
+        "end": 27,
+        "text": "john@us.ibm.com"
+      },
+      "type": "EmailAddress",
+      "producer_id": {
+        "name": "RBR mentions",
+        "version": "0.0.1"
+      },
+      "confidence": 0.8,
+      "mention_type": "MENTT_UNSET",
+      "mention_class": "MENTC_UNSET",
+      "role": ""
+    }
+  ],
+  "producer_id": {
+    "name": "RBR mentions",
+    "version": "0.0.1"
+  }
+}
+</code></pre>
+        </section>
+        <section id="section-rule-based-pii">
+          <h2 id="rule-based-pii">Rule-based extraction for PII entities</h2>
+          <p>The rule-based model <code>entity-mentions_rbr_multi_pii</code> handles the majority of the types by identifying common formats of PII entities and performing possible checksum or validations as appropriate for each entity type. For example,
+            credit card number candidates are validated using the Luhn algorithm.</p>
+          <p><strong>Block name</strong>
+            <code>entity-mentions_rbr_multi_pii</code></p>
+          <p><strong>Capabilities</strong></p>
+          <p>The entity block <code>entity-mentions_rbr_multi_pii</code> recognizes the following types of entities:</p>
+          <table>
+            <caption>Entities extracted by the entity-mentions_rbr_multi_pii block</caption>
+            <thead>
+              <tr>
+                <th>Entity type name</th>
+                <th>Description</th>
+                <th>Supported languages</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>BankAccountNumber.CreditCardNumber.Amex</td>
+                <td>Credit card number for card types AMEX (15 digits). Checked through the Luhn algorithm.</td>
+                <td>All</td>
+              </tr>
+              <tr>
+                <td>BankAccountNumber.CreditCardNumber.Master</td>
+                <td>Credit card number for card types Master card (16 digits). Checked through the Luhn algorithm.</td>
+                <td>All</td>
+              </tr>
+              <tr>
+                <td>BankAccountNumber.CreditCardNumber.Other</td>
+                <td>Credit card number for left-over category of other types. Checked through the Luhn algorithm.</td>
+                <td>All</td>
+              </tr>
+              <tr>
+                <td>BankAccountNumber.CreditCardNumber.Visa</td>
+                <td>Credit card number for card types VISA (16 to 19 digits). Checked through the Luhn algorithm.</td>
+                <td>All</td>
+              </tr>
+              <tr>
+                <td>EmailAddress</td>
+                <td>Email addresses, for example: <a href="mailto:john@gmail.com">john@gmail.com</a></td>
+                <td>ar, cs, da, de, en, es, fi, fr, he, hi, it, ja, ko, nb, nl, nn, pl, pt, ro, ru, sk, sv, tr, zh-cn</td>
+              </tr>
+              <tr>
+                <td>IPAddress</td>
+                <td>IPv4 and IPv6 addresses, for example, <code>10.142.250.123</code></td>
+                <td>ar, cs, da, de, en, es, fi, fr, he, hi, it, ja, ko, nb, nl, nn, pl, pt, ro, ru, sk, sv, tr, zh-cn</td>
+              </tr>
+              <tr>
+                <td><code>PhoneNumber</code></td>
+                <td>Any specific phone number, for example, 0511-123-456</td>
+                <td>ar, cs, da, de, en, es, fi, fr, he, hi, it, ja, ko, nb, nl, nn, pl, pt, ro, ru, sk, sv, tr, zh-cn</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>Some PII entity type names are country-specific. The <code>_</code> in the following entity types is a placeholder for a country code.</p>
+          <ul>
+            <li><code>BankAccountNumber.BBAN._</code> : These are more variable national bank account numbers and the extraction is mostly language-specific without a general checksum algorithm.</li>
+            <li><code>BankAccountNumber.IBAN._</code> : Highly standardized IBANs are supported in a language-independent way and with a checksum algorithm.</li>
+            <li><code>NationalNumber.NationalID._</code>: These national IDs don’t have a (published) checksum algorithm, and are being extracted on a language-specific basis.</li>
+            <li><code>NationalNumber.Passport._</code> : Checksums are implemented only for the countries where a checksum algorithm exists. These are specifically extracted language with additional context restrictions.</li>
+            <li><code>NationalNumber.TaxID._</code> : These IDs don't have a (published) checksum algorithm, and are being extracted on a language-specific basis.</li>
+          </ul>
+          <p>Which entity types are available for which languages and which country code to use is listed in the following table.</p>
+          <table>
+            <caption caption-side="top">Country-specific PII entity types</caption>
+            <thead>
+              <tr>
+                <th>Country</th>
+                <th>Entity Type Name</th>
+                <th>Description</th>
+                <th>Supported Languages</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Austria</td>
+                <td><code>BankAccountNumber.BBAN.AT</code></td>
+                <td>Basic bank account number</td>
+                <td>de</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>BankAccountNumber.IBAN.AT</code></td>
+                <td>International bank account number</td>
+                <td>all</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.Passport.AT</code></td>
+                <td>Passport number</td>
+                <td>de</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.TaxID.AT</code></td>
+                <td>Tax identification number</td>
+                <td>de</td>
+              </tr>
+              <tr>
+                <td>Belgium</td>
+                <td><code>BankAccountNumber.BBAN.BE</code></td>
+                <td>Basic bank account number</td>
+                <td>fr, nl</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>BankAccountNumber.IBAN.BE</code></td>
+                <td>International bank account number</td>
+                <td>all</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.NationalID.BE</code></td>
+                <td>National identification number</td>
+                <td>fr, nl</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.Passport.BE</code></td>
+                <td>Passport number</td>
+                <td>fr, nl</td>
+              </tr>
+              <tr>
+                <td>Bulgaria</td>
+                <td><code>BankAccountNumber.BBAN.BG</code></td>
+                <td>Basic bank account number</td>
+                <td>bg</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>BankAccountNumber.IBAN.BG</code></td>
+                <td>International bank account number</td>
+                <td>all</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.NationalID.BG</code></td>
+                <td>National identification number</td>
+                <td>bg</td>
+              </tr>
+              <tr>
+                <td>Canada</td>
+                <td><code>NationalNumber.SocialInsuranceNumber.CA</code></td>
+                <td>Social insurance number. Checksum algorithm is implemented.</td>
+                <td>en, fr</td>
+              </tr>
+              <tr>
+                <td>Croatia</td>
+                <td><code>BankAccountNumber.BBAN.HR</code></td>
+                <td>Basic bank account number</td>
+                <td>hr</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>BankAccountNumber.IBAN.HR</code></td>
+                <td>International bank account number</td>
+                <td>all</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.NationalID.HR</code></td>
+                <td>National identification number</td>
+                <td>hr</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.TaxID.HR</code></td>
+                <td>Tax identification number</td>
+                <td>hr</td>
+              </tr>
+              <tr>
+                <td>Cyprus</td>
+                <td><code>BankAccountNumber.BBAN.CY</code></td>
+                <td>Basic bank account number</td>
+                <td>el</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>BankAccountNumber.IBAN.CY</code></td>
+                <td>International bank account number</td>
+                <td>all</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.TaxID.CY</code></td>
+                <td>Tax identification number</td>
+                <td>el</td>
+              </tr>
+              <tr>
+                <td>Czechia</td>
+                <td><code>BankAccountNumber.BBAN.CZ</code></td>
+                <td>Basic bank account number</td>
+                <td>cs</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>BankAccountNumber.IBAN.CZ</code></td>
+                <td>International bank account number</td>
+                <td>cs</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.NationalID.CZ</code></td>
+                <td>National identification number</td>
+                <td>cs</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.TaxID.CZ</code></td>
+                <td>Tax identification number</td>
+                <td>cs</td>
+              </tr>
+              <tr>
+                <td>Denmark</td>
+                <td><code>BankAccountNumber.BBAN.DK</code></td>
+                <td>Basic bank account number</td>
+                <td>da</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>BankAccountNumber.IBAN.DK</code></td>
+                <td>International bank account number</td>
+                <td>all</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.NationalID.DK</code></td>
+                <td>National identification number</td>
+                <td>da</td>
+              </tr>
+              <tr>
+                <td>Estonia</td>
+                <td><code>BankAccountNumber.BBAN.EE</code></td>
+                <td>Basic bank account number</td>
+                <td>et</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>BankAccountNumber.IBAN.EE</code></td>
+                <td>International bank account number</td>
+                <td>all</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.NationalID.EE</code></td>
+                <td>National identification number</td>
+                <td>et</td>
+              </tr>
+              <tr>
+                <td>Finland</td>
+                <td><code>BankAccountNumber.BBAN.FI</code></td>
+                <td>Basic bank account number</td>
+                <td>fi</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>BankAccountNumber.IBAN.FI</code></td>
+                <td>International bank account number</td>
+                <td>all</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.NationalID.FI</code></td>
+                <td>National identification number</td>
+                <td>fi</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.Passport.FI</code></td>
+                <td>Passport number</td>
+                <td>fi</td>
+              </tr>
+              <tr>
+                <td>France</td>
+                <td><code>BankAccountNumber.BBAN.FR</code></td>
+                <td>Basic bank account number</td>
+                <td>fr</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>BankAccountNumber.IBAN.FR</code></td>
+                <td>International bank account number</td>
+                <td>all</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.Passport.FR</code></td>
+                <td>Passport number</td>
+                <td>fr</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.SocialInsuranceNumber.FR</code></td>
+                <td>Social insurance number. Checksum algorithm is implemented.</td>
+                <td>fr</td>
+              </tr>
+              <tr>
+                <td>Germany</td>
+                <td><code>BankAccountNumber.BBAN.DE</code></td>
+                <td>Basic bank aAccount number</td>
+                <td>de</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>BankAccountNumber.IBAN.DE</code></td>
+                <td>International bank account number</td>
+                <td>all</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.Passport.DE</code></td>
+                <td>Passport number</td>
+                <td>de</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.SocialInsuranceNumber.DE</code></td>
+                <td>Social insurance number. Checksum algorithm is implemented.</td>
+                <td>de</td>
+              </tr>
+              <tr>
+                <td>Greece</td>
+                <td><code>BankAccountNumber.BBAN.GR</code></td>
+                <td>Basic bank account number</td>
+                <td>el</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>BankAccountNumber.IBAN.GR</code></td>
+                <td>International bank account number</td>
+                <td>all</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.Passport.GR</code></td>
+                <td>Passport number</td>
+                <td>el</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.TaxID.GR</code></td>
+                <td>Tax identification number</td>
+                <td>el</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.NationalID.GR</code></td>
+                <td>National ID number</td>
+                <td>el</td>
+              </tr>
+              <tr>
+                <td>Hungary</td>
+                <td><code>BankAccountNumber.BBAN.HU</code></td>
+                <td>Basic bank account number</td>
+                <td>hu</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>BankAccountNumber.IBAN.HU</code></td>
+                <td>International bank account number</td>
+                <td>all</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.NationalID.HU</code></td>
+                <td>National identification number</td>
+                <td>hu</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.TaxID.HU</code></td>
+                <td>Tax identification number</td>
+                <td>hu</td>
+              </tr>
+              <tr>
+                <td>Iceland</td>
+                <td><code>BankAccountNumber.BBAN.IS</code></td>
+                <td>Basic bank account number</td>
+                <td>is</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>BankAccountNumber.IBAN.IS</code></td>
+                <td>International bank account number</td>
+                <td>all</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.NationalID.IS</code></td>
+                <td>National identification number</td>
+                <td>is</td>
+              </tr>
+              <tr>
+                <td>Ireland</td>
+                <td><code>BankAccountNumber.BBAN.IE</code></td>
+                <td>Basic bank account number</td>
+                <td>en</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>BankAccountNumber.IBAN.IE</code></td>
+                <td>International bank account number</td>
+                <td>all</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.NationalID.IE</code></td>
+                <td>National identification number</td>
+                <td>en</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.Passport.IE</code></td>
+                <td>Passport number</td>
+                <td>en</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.TaxID.IE</code></td>
+                <td>Tax identification number</td>
+                <td>en</td>
+              </tr>
+              <tr>
+                <td>Italy</td>
+                <td><code>BankAccountNumber.BBAN.IT</code></td>
+                <td>Basic bank account number</td>
+                <td>it</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>BankAccountNumber.IBAN.IT</code></td>
+                <td>International bank account number</td>
+                <td>all</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.NationalID.IT</code></td>
+                <td>National identification number</td>
+                <td>it</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.Passport.IT</code></td>
+                <td>Passport number</td>
+                <td>it</td>
+              </tr>
+              <tr>
+                <td>Latvia</td>
+                <td><code>BankAccountNumber.BBAN.LV</code></td>
+                <td>Basic bank account number</td>
+                <td>lv</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>BankAccountNumber.IBAN.LV</code></td>
+                <td>International bank account number</td>
+                <td>all</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.NationalID.LV</code></td>
+                <td>National identification number</td>
+                <td>lv</td>
+              </tr>
+              <tr>
+                <td>Liechtenstein</td>
+                <td><code>BankAccountNumber.BBAN.LI</code></td>
+                <td>Basic bank account number</td>
+                <td>de</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>BankAccountNumber.IBAN.LI</code></td>
+                <td>International bank account number</td>
+                <td>all</td>
+              </tr>
+              <tr>
+                <td>Lithuania</td>
+                <td><code>BankAccountNumber.BBAN.LT</code></td>
+                <td>Basic bank account number</td>
+                <td>lt</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>BankAccountNumber.IBAN.LT</code></td>
+                <td>International bank account number</td>
+                <td>all</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.NationalID.LT</code></td>
+                <td>National identification number</td>
+                <td>lt</td>
+              </tr>
+              <tr>
+                <td>Luxembourg</td>
+                <td><code>BankAccountNumber.BBAN.LU</code></td>
+                <td>Basic bank account number</td>
+                <td>de, fr</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>BankAccountNumber.IBAN.LU</code></td>
+                <td>International bank account number</td>
+                <td>all</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.TaxID.LU</code></td>
+                <td>Tax identification number</td>
+                <td>de, fr</td>
+              </tr>
+              <tr>
+                <td>Malta</td>
+                <td><code>BankAccountNumber.BBAN.MT</code></td>
+                <td>Basic bank account number</td>
+                <td>mt</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>BankAccountNumber.IBAN.MT</code></td>
+                <td>International bank account number</td>
+                <td>all</td>
+              </tr>
+              <tr>
+                <td>Netherlands</td>
+                <td><code>BankAccountNumber.BBAN.NL</code></td>
+                <td>Basic bank account number</td>
+                <td>nl</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>BankAccountNumber.IBAN.NL</code></td>
+                <td>International bank account number</td>
+                <td>all</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.NationalID.NL</code></td>
+                <td>National identification number</td>
+                <td>nl</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.Passport.NL</code></td>
+                <td>Passport number</td>
+                <td>nl</td>
+              </tr>
+              <tr>
+                <td>Norway</td>
+                <td><code>BankAccountNumber.BBAN.NO</code></td>
+                <td>Basic bank account number</td>
+                <td>no</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>BankAccountNumber.IBAN.NO</code></td>
+                <td>International bank account number</td>
+                <td>all</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.NationalID.NO</code></td>
+                <td>National identification number</td>
+                <td>no</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.NationalID.NO.Old</code></td>
+                <td>National identification number old</td>
+                <td>no</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.Passport.NO</code></td>
+                <td>Passport number</td>
+                <td>no</td>
+              </tr>
+              <tr>
+                <td>Poland</td>
+                <td><code>BankAccountNumber.BBAN.PL</code></td>
+                <td>Basic bank account number</td>
+                <td>pl</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>BankAccountNumber.IBAN.PL</code></td>
+                <td>International bank account number</td>
+                <td>all</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.NationalID.PL</code></td>
+                <td>National identification number</td>
+                <td>pl</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.Passport.PL</code></td>
+                <td>Passport number</td>
+                <td>pl</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.TaxID.PL</code></td>
+                <td>Tax identification number</td>
+                <td>pl</td>
+              </tr>
+              <tr>
+                <td>Portugal</td>
+                <td><code>BankAccountNumber.IBAN.PT</code></td>
+                <td>International bank account number</td>
+                <td>all</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>BankAccountNumber.BBAN.PT</code></td>
+                <td>Basic bank account number</td>
+                <td>pt</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.NationalID.PT</code></td>
+                <td>National identification number</td>
+                <td>pt</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.NationalID.PT.Old</code></td>
+                <td>National identification number, obsolete format</td>
+                <td>pt</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.TaxID.PT</code></td>
+                <td>Tax identification number</td>
+                <td>pt</td>
+              </tr>
+              <tr>
+                <td>Romania</td>
+                <td><code>BankAccountNumber.BBAN.RO</code></td>
+                <td>Basic bank account number</td>
+                <td>ro</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>BankAccountNumber.IBAN.RO</code></td>
+                <td>International bank account number</td>
+                <td>all</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.NationalID.RO</code></td>
+                <td>National identification number</td>
+                <td>ro</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.TaxID.RO</code></td>
+                <td>Tax identification number</td>
+                <td>ro</td>
+              </tr>
+              <tr>
+                <td>Slovakia</td>
+                <td><code>BankAccountNumber.IBAN.SK</code></td>
+                <td>International bank account number</td>
+                <td>all</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>BankAccountNumber.BBAN.SK</code></td>
+                <td>Basic bank account number</td>
+                <td>sk</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.TaxID.SK</code></td>
+                <td>Tax identification number</td>
+                <td>sk</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.NationalID.SK</code></td>
+                <td>National identification number</td>
+                <td>sk</td>
+              </tr>
+              <tr>
+                <td>Slovenia</td>
+                <td><code>BankAccountNumber.IBAN.SI</code></td>
+                <td>International bank account number</td>
+                <td>all</td>
+              </tr>
+              <tr>
+                <td>Spain</td>
+                <td><code>BankAccountNumber.IBAN.ES</code></td>
+                <td>International bank account number</td>
+                <td>all</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>BankAccountNumber.BBAN.ES</code></td>
+                <td>Basic bank account number</td>
+                <td>es</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.NationalID.ES</code></td>
+                <td>National identification number</td>
+                <td>es</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.Passport.ES</code></td>
+                <td>Passport number</td>
+                <td>es</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.TaxID.ES</code></td>
+                <td>Tax identification number</td>
+                <td>es</td>
+              </tr>
+              <tr>
+                <td>Sweden</td>
+                <td><code>BankAccountNumber.IBAN.SE</code></td>
+                <td>International bank account number</td>
+                <td>all</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>BankAccountNumber.BBAN.SE</code></td>
+                <td>Basic bank account number</td>
+                <td>sv</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.NationalID.SE</code></td>
+                <td>National identification number</td>
+                <td>sv</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.Passport.SE</code></td>
+                <td>Passport number</td>
+                <td>sv</td>
+              </tr>
+              <tr>
+                <td>Switzerland</td>
+                <td><code>BankAccountNumber.IBAN.CH</code></td>
+                <td>International bank account number</td>
+                <td>all</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>BankAccountNumber.BBAN.CH</code></td>
+                <td>Basic bank account number</td>
+                <td>de, fr, it</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.NationalID.CH</code></td>
+                <td>National identification number</td>
+                <td>de, fr, it</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.Passport.CH</code></td>
+                <td>Passport number</td>
+                <td>de, fr, it</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.NationalID.CH.Old</code></td>
+                <td>National identification number, obsolete format</td>
+                <td>de, fr, it</td>
+              </tr>
+              <tr>
+                <td>United Kingdom of Great Britain and Northern Ireland</td>
+                <td><code>BankAccountNumber.IBAN.GB</code></td>
+                <td>International bank account number</td>
+                <td>all</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.SocialSecurityNumber.GB.NHS</code></td>
+                <td>National Health Service number</td>
+                <td>all</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.SocialSecurityNumber.GB.NINO</code></td>
+                <td>National Social Security Insurance number</td>
+                <td>all</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.NationalID.GB.Old</code></td>
+                <td>National ID number, obsolete format</td>
+                <td>all</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.Passport.GB</code></td>
+                <td>Passport Number. Checksum algorithm is not implemented and hence come with additional context restrictions.</td>
+                <td>all</td>
+              </tr>
+              <tr>
+                <td>United States</td>
+                <td><code>NationalNumber.SocialSecurityNumber.US</code></td>
+                <td>Social Security number. Checksum algorithm is not implemented and hence come with additional context restrictions.</td>
+                <td>en</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><code>NationalNumber.Passport.US</code></td>
+                <td>Passport Number. Checksum algorithm is not implemented and hence come with additional context restrictions.</td>
+                <td>en</td>
+              </tr>
+            </tbody>
+          </table>
+          <p><strong>Dependencies on other blocks</strong></p>
+          <p>None</p>
+          <p><strong>Code sample</strong></p>
+          <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">import</span> watson_nlp
+
+<span class="hljs-comment"># Load the RBR PII model. Note that this is a multilingual model supporting multiple languages.</span>
+rbr_entity_model = watson_nlp.load(<span class="hljs-string">'entity-mentions_rbr_multi_pii'</span>)
+
+<span class="hljs-comment"># Run the RBR model. Note that language code of the input text is passed as a parameter to the run method.</span>
+rbr_entity_mentions = rbr_entity_model.run(<span class="hljs-string">'Please find my credit card number here: 378282246310005. Thanks for the payment.'</span>, language_code=<span class="hljs-string">'en'</span>)
+<span class="hljs-built_in">print</span>(rbr_entity_mentions)
+</code></pre>
+          <p>Output of the code sample:</p>
+          <pre class="codeblock"><code class="lang-text hljs">{
+  "mentions": [
+    {
+      "span": {
+        "begin": 40,
+        "end": 55,
+        "text": "378282246310005"
+      },
+      "type": "BankAccountNumber.CreditCardNumber.Amex",
+      "producer_id": {
+        "name": "RBR mentions",
+        "version": "0.0.1"
+      },
+      "confidence": 0.8,
+      "mention_type": "MENTT_UNSET",
+      "mention_class": "MENTC_UNSET",
+      "role": ""
+    }
+  ],
+  "producer_id": {
+    "name": "RBR mentions",
+    "version": "0.0.1"
+  }
+}
+</code></pre>
+          <p><strong>Parent topic:</strong> <a href="watson-nlp-block-catalog.html">Watson Natural Language Processing task catalog</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Understand the concepts that Watson OpenScale uses to calculate fairness evaluations">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Calculating fairness in Watson OpenScale</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=evaluations-calculating-fairness"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="calculating-fairness-in-watson-openscale" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-calculating-fairness-in-watson-openscale">
+        <h1 id="calculating-fairness-in-watson-openscale">Calculating fairness in Watson OpenScale</h1>
+        <p>Understand the concepts that Watson OpenScale uses to calculate fairness evaluations</p>
+        <ul>
+          <li><a href="#mf-bias-math">How bias is computed</a></li>
+          <li><a href="#mf-works-perfect-equality">Balanced data and perfect equality</a></li>
+          <li><a href="#mf-calc-perfect-equality">Calculating perfect equality</a></li>
+          <li><a href="#wos-faqs-convert-data-types">Converting the data type of a prediction column</a></li>
+          <li><a href="#fairness-score-over100">Interpreting a fairness score that is greater than 100 percent</a></li>
+        </ul>
+        <!-- - [Reviewing data for debiased values](#review-debiased-data) -->
+        <section id="section-mf-bias-math">
+          <h2 id="mf-bias-math">How bias is computed</h2>
+          <p>The Watson OpenScale algorithm for the fairness monitor computes bias on an hourly basis by using the last <code>N</code> records that are present in the payload logging table and the value of <code>N</code> is specified when you configure the
+            fairness monitor. The algorithm applies a method called perturbation to evaluate differences in expected outcomes in the data.</p>
+          <p>The perturbation changes the values of the feature from the reference group to the monitored group, or vice-versa. The perturbed data is then sent to the model to evaluate its behavior. The algorithm looks at the last <code>N</code> records
+            in the payload table, and the behavior of the model on the perturbed data, to decide whether the model results indicate the presence of bias.</p>
+          <p>A model is biased if the percentage of favorable outcomes for the monitored group is less than the percentage of favorable outcomes for the reference group, by a threshold value you specify when you configure the fairness monitor.</p>
+          <p>Note that fairness values can be more than 100%. This calculation means that the monitored group received more favorable outcomes than the reference group. In addition, if no new scoring requests are sent, then the fairness value remains constant.</p>
+        </section>
+        <section id="section-mf-works-perfect-equality">
+          <h2 id="mf-works-perfect-equality">Balanced data and perfect equality</h2>
+          <p>For balanced data sets, the following concepts apply:</p>
+          <ul>
+            <li>To determine the perfect equality value, reference group transactions are synthesized by changing the monitored feature value of every monitored group transaction to all reference group values. These new synthesized transactions are added
+              to the set of reference group transactions and evaluated by the model.</li>
+          </ul>
+          <p>For example, if the monitored feature is <code>SEX</code> and the monitored group is <code>FEMALE</code>, all <code>FEMALE</code> transactions are duplicated as <code>MALE</code> transactions. Other features values remain unchanged. These new
+            synthesized <code>MALE</code> transactions are added to the set of original <code>MALE</code> reference group transactions.</p>
+          <ul>
+            <li>The percentage of favorable outcomes is determined from the new reference group. This percentage represents perfect fairness for the monitored group.</li>
+            <li>The monitored group transactions are also synthesized by changing the reference feature value of every reference group transaction to the monitored group value. These new synthesized transactions are added to the set of monitored group transactions
+              and evaluated by the model.</li>
+          </ul>
+          <p>If the monitored feature is <code>SEX</code> and the monitored group is <code>FEMALE</code>, all <code>MALE</code> transactions are duplicated as <code>FEMALE</code> transactions. Other features values remain unchanged. These new synthesized
+            <code>FEMALE</code> transactions are added to the set of original <code>FEMALE</code> monitored group transactions.</p>
+          <section id="section-mf-calc-perfect-equality">
+            <h3 id="mf-calc-perfect-equality">Calculating perfect equality</h3>
+            <p>The following mathematical formula is used for calculating perfect equality:</p>
+            <pre class="codeblock"><code class="hljs">Perfect equality =   Percentage of favorable outcomes for all reference transactions, 
+                     including the synthesized transactions from the monitored group
+</code></pre>
+            <p>For example, if the monitored feature is <code>SEX</code> and the monitored group is <code>FEMALE</code>, the following formula shows the equation for perfect equality:</p>
+            <pre class="codeblock"><code class="hljs">Perfect equality for `SEX` =  Percentage of favorable outcomes for `MALE` transactions, 
+                                 including the synthesized transactions that were initially `FEMALE` but changed to `MALE`
+</code></pre>
+            <p>When you configure fairness evaluations in IBM Watson OpenScale, you can generate a set of metrics to evaluate the fairness of your model. You can use the fairness metrics to determine if your model produces biased outcomes.</p>
+          </section>
+        </section>
+        <section id="section-wos-faqs-convert-data-types">
+          <h2 id="wos-faqs-convert-data-types">Converting the data type of a prediction column</h2>
+          <p>For fairness monitoring, the prediction column allows only an integer numerical value even though the prediction label is categorical. Conversion of the prediction column data type is possible.</p>
+          <p>For example, the training data might have class labels such as “Loan Denied”, “Loan Granted”. The prediction value that is returned by IBM Watson Machine Learning scoring end point has values such as “0.0”, “1.0". The scoring end point
+            also has an optional column that contains the text representation of prediction. For example, if prediction=1.0, the predictionLabel column might have a value “Loan Granted”. If such a column is available, when you configure the favorable
+            and unfavorable outcome for the model, specify the string values “Loan Granted” and “Loan Denied”. If such a column is not available, then you need to specify the integer and double values of 1.0, 0.0 for the favorable, and unfavorable classes.</p>
+          <p>IBM Watson Machine Learning has a concept of output schema that defines the schema of the output of IBM Watson Machine Learning scoring end point and the role for the different columns. The roles are used to identify which column contains the
+            prediction value, which column contains the prediction probability, and the class label value, etc. The output schema is automatically set for models that are created by using model builder. It can also be set by using the IBM Watson Machine
+            Learning Python client. Users can use the output schema to define a column that contains the string representation of the prediction. Set the <code>modeling_role</code> for the column to ‘decoded-target’. The documentation for the IBM Watson
+            Machine Learning Python client is available at: <a href="https://ibm.github.io/watson-machine-learning-sdk/core_api.html#repository">https://ibm.github.io/watson-machine-learning-sdk/core_api.html#repository</a>. Search for “OUTPUT_DATA_SCHEMA”
+            to understand the output schema. The API call to use is the <code>store_model</code> call that accepts the OUTPUT_DATA_SCHEMA as a parameter.</p>
+        </section>
+        <section id="section-fairness-score-over100">
+          <h2 id="fairness-score-over100">Interpreting a fairness score that is greater than 100 percent</h2>
+          <p>Depending on your fairness configuration, your fairness score can exceed 100 percent. It means that your monitored group is getting relatively more “fair” outcomes as compared to the reference group. Technically, it means that the model is unfair
+            in the opposite direction.</p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p><a href="wos-indirect-bias.html">Configuring the Fairness monitor for indirect bias</a></p>
+          <p><a href="wos-insight-overview.html">Reviewing model insights with Watson OpenScale</a></p>
+          <p><strong>Parent topic:</strong> <a href="wos-monitor-fairness.html">Configuring the Fairness monitor</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

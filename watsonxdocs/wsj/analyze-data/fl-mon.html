@@ -1,0 +1,92 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Any party or admin with collaborator access to the experiment can monitor the experiment and save a copy of the model.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Monitoring the experiment and saving the model</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=experiment-monitoring-saving-model"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="monitoring-the-experiment-and-saving-the-model" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <!--AZ - Topic ready for 4.5 review-->
+      <section id="section-monitoring-the-experiment-and-saving-the-model">
+        <h1 id="monitoring-the-experiment-and-saving-the-model">Monitoring the experiment and saving the model</h1>
+        <p>Any party or admin with collaborator access to the experiment can monitor the experiment and save a copy of the model.</p>
+        <p>As the experiment runs, you can check the progress of the experiment. After the training is complete, you can view your results, save and deploy the model, and then test the model with new data.</p>
+        <section id="section-monitoring-the-experiment">
+          <h2 id="monitoring-the-experiment">Monitoring the experiment</h2>
+          <p>When all parties run the party connector script, the experiment starts training automatically. As the training runs, you can view a dynamic diagram of the training progress. For each round of training, you can view the four stages of a training
+            round:</p>
+          <ul>
+            <li><strong>Sending model</strong>: Federated Learning sends the model metrics to each party.</li>
+            <li><strong>Training</strong>: The process of training the data locally. Each party trains to produce a local model that is fused. No data is exchanged between parties.</li>
+            <li><strong>Receiving models</strong>: After training is complete, each party sends its local model to the aggregator. The data is not sent and remains private.</li>
+            <li><strong>Aggregating</strong>: The aggregator combines the models that are sent by each of the remote parties to create an aggregated model.</li>
+          </ul>
+        </section>
+        <section id="section-saving-your-model">
+          <h2 id="saving-your-model">Saving your model</h2>
+          <p>When the training is complete, a chart that displays the model accuracy over each round of training is drawn. Hover over the points on the chart for more information on a single point's exact metrics.</p>
+          <p>A <strong>Training rounds</strong> table shows details for each training round. The table displays the participating parties' average accuracy of their model training for each round.</p>
+          <p><img src="../analyze-data/images/fl-display.png" alt="Screenshot of View Setup Information" height="70%" width="70%"></p>
+          <p>When you are done with the viewing, click <strong>Save model to project</strong> to save the Federated Learning model to your project.</p>
+          <section id="section-rerun-the-experiment">
+            <h3 id="rerun-the-experiment">Rerun the experiment</h3>
+            <p>You can rerun the experiment as many times as you need in your project.</p>
+            <div class="note note"><span class="notetitle">Note:</span>
+              <md-block>
+                <p>If you encounter errors when rerunning an experiment, see
+                  <!--AZ insert links --><a href="fl-troubleshoot.html">Troubleshoot</a> for more details.</p>
+                <p></p>
+              </md-block>
+            </div>
+            <p></p>
+          </section>
+          <section id="section-deploying-your-model">
+            <h3 id="deploying-your-model">Deploying your model</h3>
+            <p>After you save your Federated Learning model, you can deploy and score the model like other machine learning models in a Watson Studio platform.</p>
+            <p>See <a href="../wmls/wmls-deploy-overview.html">Deploying models</a> for more details.</p>
+            <p><strong>Parent topic:</strong> <a href="fl-start.html">Creating a Federated Learning experiment</a></p>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

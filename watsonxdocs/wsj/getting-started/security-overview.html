@@ -1,0 +1,94 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Security mechanisms in IBM watsonx provide protection for data, applications, identity, and resources. You can configure security mechanisms on five levels for IBM Cloud security functions.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Security for IBM watsonx</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=administration-security"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="security-for-ibm-watsonx" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-security-for-ibm-watsonx">
+        <h1 id="security-for-ibm-watsonx">Security for IBM watsonx</h1>
+        <p>Security mechanisms in IBM watsonx provide protection for data, applications, identity, and resources. You can configure security mechanisms on five levels for IBM Cloud security functions.</p>
+        <section id="section-security-levels-in-ibm-watsonx">
+          <h2 id="security-levels-in-ibm-watsonx">Security levels in IBM watsonx</h2>
+          <p>Security for IBM watsonx is configured on levels to ensure that your data, application endpoints, and identity are protected on any cloud. The security levels are:</p>
+          <ol>
+            <li><a href="security-network.html">Network security</a> – Network security protects the network infrastructure and the points where your database or applications interact with the cloud. For example, you can protect your network by allowing IP
+              addresses, by connecting securely to databases and third-party clouds, and by securing endpoints.</li>
+            <li><a href="security-enterprise.html">Enterprise security</a> – Enterprises are multiple IBM Cloud accounts in a hierarchy. For example, your company might have many teams that require one or more separate accounts for development, testing, and
+              production environments. Or, you can configure an enterprise to isolate workloads in separate accounts to meet compliance guidelines.</li>
+            <li><a href="security-account.html">Account security</a> – Account security includes IAM and Access group roles, Service IDs, monitoring, and other security mechanisms that are configured on IBM Cloud for your IBM Cloud account.</li>
+            <li><a href="security-data.html">Data security</a> – Data security protects the IBM Cloud Object Storage service instance, provides data encryption for at-rest and in-motion data, and other security mechanisms related to data.</li>
+            <li><a href="security-collab.html">Collaborator security</a> – Protect your workspaces by assigning role-based access controls to collaborators in IBM watsonx.</li>
+          </ol>
+          <p>IBM watsonx conforms to IBM Cloud security requirements. See <a href="https://cloud.ibm.com/docs/overview?topic=overview-security" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud docs: How do I know that my data is safe?</a>.</p>
+        </section>
+        <section id="section-resiliency">
+          <h2 id="resiliency">Resiliency</h2>
+          <p>IBM watsonx is disaster resistant:</p>
+          <ul>
+            <li>The metadata for your projects and catalogs is stored in a three-node dedicated Cloudant Enterprise cluster that spans multiple geographic locations.</li>
+            <li>The files that are associated with projects and catalogs are protected by the level of resiliency that is specified by the IBM Cloud Object Storage plan.</li>
+          </ul>
+        </section>
+        <section id="section-compliance">
+          <h2 id="compliance">Compliance</h2>
+          <p>See <a href="security.html">Keep your data secure and compliant</a>.</p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="https://www.ibm.com/support/customer/csol/terms/?id=i126-9640&amp;lc=en#detail-document" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">watsonx terms</a></li>
+            <li><a href="http://www.ibm.com/support/customer/csol/terms/?id=i126-6883" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Watson Machine Learning terms</a></li>
+            <li><a href="https://www.ibm.com/support/customer/csol/terms/?id=i126-7747" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Watson Studio terms</a></li>
+            <li><a href="https://www.ibm.com/software/sla/sladb.nsf/sla/bm-7857-03" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud Object Storage terms</a></li>
+            <li><a href="https://cloud.ibm.com/docs/overview?topic=overview-manage-security-compliance" target="_blank" rel="noopener noreferrer">Managing security and compliance in IBM Cloud</a></li>
+            <li><a href="https://www.ibm.com/software/reports/compatibility/clarity-reports/report/html/softwareReqsForProduct?deliverableId=95E9BEA0B35711E7A9EB066095601ABB" target="_blank" rel="noopener noreferrer">Software Product Compatibility Reports: IBM Watson Studio</a>.</li>
+            <li><a href="https://www.ibm.com/software/reports/compatibility/clarity-reports/report/html/softwareReqsForProduct?deliverableId=850D9360405711E5B2E4A36A7B0C4479" target="_blank" rel="noopener noreferrer">Software Product Compatibility Reports: IBM Watson Machine Learning service</a>.</li>
+          </ul>
+          <p><strong>Parent topic:</strong>
+            <a href="../admin/administer-accounts.html">Administering your accounts and services</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="An enterprise is a hierarchy of IBM Cloud accounts that contains a parent account at the highest level with child account groups as the middle level and optional individual accounts that you can add at the lowest level. To provide security between the levels of accounts, enterprises isolate user and access management between the enterprise account and its child accounts.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Enterprise security</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=security-enterprise"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="enterprise-security" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-enterprise-security">
+        <h1 id="enterprise-security">Enterprise security</h1>
+        <p>An enterprise is a hierarchy of IBM Cloud accounts that contains a parent account at the highest level with child account groups as the middle level and optional individual accounts that you can add at the lowest level. To provide security between
+          the levels of accounts, enterprises isolate user and access management between the enterprise account and its child accounts.</p>
+        <p>The users and their assigned access in the enterprise account are entirely separate from users in the child accounts, and no access is inherited between the two types of accounts. User and access management in each enterprise and each account
+          is entirely separate and must be managed by the account owner or a user given the Administrator role in the specific account.</p>
+        <p>Resources and services within an enterprise function the same as in stand-alone accounts. Each account in an enterprise can contain resource groups that manage access to multiple resources. For account security and how to use resource groups,
+          see <a href="security-account.html">IBM Cloud account security</a>.</p>
+        <section id="section-use-cases">
+          <h2 id="use-cases">Use cases</h2>
+          <p>The user lists for each account are only visible to the users who are invited to that account. Just because a user is invited and given access to manage the entire enterprise, it doesn't mean that they can view the users who are invited to each
+            child account.</p>
+          <p>Both user management and access management are entirely separate in each account and in the enterprise itself. This separation means that users who manage your enterprise can't access account resources within the child accounts unless you specifically
+            enable them to. For example, your financial officer can have the Administrator role on the Billing account management service within the enterprise account. The financial officer must be invited to a child account with the appropriate access
+            rights to view offers or update spending limits for the child account.</p>
+          <p><img src="images/enterprise_role_hierarchy.svg" alt="Role inheritance for enterprises" title="Role inheritance for enterprises"></p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p>For an overview of enterprise accounts, see <a href="https://cloud.ibm.com/docs/account?topic=account-what-is-enterprise" target="_blank" rel="noopener noreferrer">IBM Cloud docs: What is an enterprise?</a></p>
+          <p>For step-by-step instructions for setting up an enterprise hierarchy of accounts, see <a href="https://cloud.ibm.com/docs/account?topic=account-enterprise-tutorial" target="_blank" rel="noopener noreferrer">IBM Cloud docs: Setting up an enterprise</a></p>
+          <p>For tips for setting up an enterprise, see <a href="https://cloud.ibm.com/docs/account?topic=account-enterprise-best-practices" target="_blank" rel="noopener noreferrer">IBM Cloud docs: Best practices for setting up an enterprise</a></p>
+          <p><strong>Parent topic:</strong>
+            <a href="../getting-started/security-overview.html">Security</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

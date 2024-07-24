@@ -1,0 +1,116 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Learn to create a script asset with the CPDCTL command line interface.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Creating a script asset with CPDCTL in Watson Machine Learning</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=cpdctl-example-creating-script-asset"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="creating-a-script-asset-with-cpdctl-in-watson-machine-learning" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-creating-a-script-asset-with-cpdctl-in-watson-machine-learning">
+        <h1 id="creating-a-script-asset-with-cpdctl-in-watson-machine-learning">Creating a script asset with CPDCTL in Watson Machine Learning</h1>
+        <p>Learn to create a script asset with the CPDCTL command line interface.</p>
+        <ol>
+          <li>
+            <p>Install the CPDCTL library.</p>
+            <pre class="codeblock"><code class="lang-bash hljs">CPDCTL_VERSION = <span class="hljs-string">""</span>
+
+! curl -L https://github.com/IBM/cpdctl/releases/download/{CPDCTL_VERSION}/cpdctl_linux_amd64.tar.gz --output cpdctl_linux_amd64.tar.gz
+</code></pre>
+            <p>Check for the available versions on the <a href="https://github.com/IBM/cpdctl/releases">GitHub releases</a> page.</p>
+          </li>
+          <li>
+            <p>Extract the downloaded archive.</p>
+            <pre class="codeblock"><code class="lang-bash hljs">! tar xzf cpdctl_linux_amd64.tar.gz
+</code></pre>
+          </li>
+          <li>
+            <p>Ensure that the <code>cpdctl</code> archive is in the current working directory and the system PATH.</p>
+            <pre class="codeblock"><code class="lang-bash hljs">%%capture
+%env PATH={CWD}:{PATH}
+</code></pre>
+          </li>
+          <li>
+            <p>Check that the CLI is accessible.</p>
+            <pre class="codeblock"><code class="lang-bash hljs">! cpdctl version
+</code></pre>
+          </li>
+          <li>
+            <p><em>Optional:</em> The following steps are not required if you are running the script in a Cloud Pak for Data environment runtime.</p>
+            <pre class="codeblock"><code class="lang-python hljs">URL = <span class="hljs-string">"&lt;&lt;CPD URL&gt;&gt;"</span>
+USERNAME = <span class="hljs-string">"&lt;&lt;CPD user name&gt;&gt;"</span>
+APIKEY = <span class="hljs-string">"&lt;&lt;CPD user API key&gt;&gt;"</span>
+
+! cpdctl config context cpd-demo --url {URL} --username {USERNAME} --apikey {APIKEY}
+
+project_id = os.getenv(<span class="hljs-string">'PROJECT_ID'</span>)
+</code></pre>
+          </li>
+          <li>
+            <p>Open your script.</p>
+            <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">'&lt;test_script&gt;'</span>, <span class="hljs-string">'w'</span>) <span class="hljs-keyword">as</span> f:
+    f.write(<span class="hljs-string">"echo OK"</span>)
+</code></pre>
+          </li>
+          <li>
+            <p>Create script asset.</p>
+            <pre class="codeblock"><code class="lang-python hljs">! cpdctl asset script create --file &lt;test_script&gt; --project-<span class="hljs-built_in">id</span> {project_id}
+</code></pre>
+            <p>When you run this line of code, you receive the asset ID in its output.</p>
+          </li>
+          <li>
+            <p>List the script assets in the project.</p>
+            <pre class="codeblock"><code class="lang-bash hljs">! cpdctl asset search --type-name script --query <span class="hljs-string">'test.sh'</span> --project-id {project_id}
+</code></pre>
+          </li>
+          <li>
+            <p><em>Optional:</em> You can delete the script with the following code.</p>
+            <pre class="codeblock"><code class="lang-python hljs">SCRIPT_ASSET_ID = <span class="hljs-string">""</span>
+
+! cpdctl asset delete --asset-<span class="hljs-built_in">id</span> {SCRIPT_ASSET_ID} --project-<span class="hljs-built_in">id</span> {project_id}
+</code></pre>
+          </li>
+        </ol>
+        <p><strong>Parent topic:</strong> <a href="../analyze-data/cpdctl-overview.html">Managing AI lifecycle with CPDCTL</a></p>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

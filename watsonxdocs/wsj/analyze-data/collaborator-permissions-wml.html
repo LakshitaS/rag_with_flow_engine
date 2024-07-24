@@ -1,0 +1,197 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="When you add collaborators to a deployment space, you can specify which actions they can do by assigning them access levels. Learn how to add collaborators to your deployment spaces and the differences between access levels.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Deployment space collaborator roles and permissions</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=spaces-deployment-space-collaborator-roles"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="deployment-space-collaborator-roles-and-permissions" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-deployment-space-collaborator-roles-and-permissions">
+        <h1 id="deployment-space-collaborator-roles-and-permissions">Deployment space collaborator roles and permissions</h1>
+        <p>When you add collaborators to a deployment space, you can specify which actions they can do by assigning them access levels. Learn how to add collaborators to your deployment spaces and the differences between access levels.</p>
+        <section id="section-roles-permissions">
+          <h2 id="roles-permissions">User roles and permissions in deployment spaces</h2>
+          <p>You can assign the following roles to collaborators based on the access level that you want to provide:</p>
+          <ul>
+            <li><strong>Admin</strong>:&nbsp;Administrators can control your deployment space assets, users, and settings.</li>
+            <li><strong>Editor</strong>:&nbsp;Editors can control your space assets.</li>
+            <li><strong>Viewer</strong>:&nbsp;Viewers can view your deployment space.</li>
+          </ul>
+          <p>The following table provides details on permissions based on user access level:</p>
+          <table>
+            <caption caption-side="top">Deployment space permissions</caption>
+            <thead>
+              <tr>
+                <th>Enabled permission</th>
+                <th>Viewer</th>
+                <th>Editor</th>
+                <th>Admin</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>View assets and deployments</td>
+                <td>✓</td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>Comment</td>
+                <td>✓</td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>Monitor</td>
+                <td>✓</td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>Test model deployment API</td>
+                <td>✓</td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>Find implementation details</td>
+                <td>✓</td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>Configure deployments</td>
+                <td></td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>Batch deployment score</td>
+                <td></td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>Online deployment score</td>
+                <td>✓</td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>Update assets</td>
+                <td></td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>Import assets</td>
+                <td></td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>Download assets</td>
+                <td></td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>Deploy assets</td>
+                <td></td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>Remove assets</td>
+                <td></td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>Remove deployments</td>
+                <td></td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>View spaces/members</td>
+                <td>✓</td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>Delete space</td>
+                <td></td>
+                <td></td>
+                <td>✓</td>
+              </tr>
+            </tbody>
+          </table>
+          <section id="section-serviceids">
+            <h3 id="serviceids">Service IDs</h3>
+            <p>You can create service IDs in IBM Cloud to enable an application outside of IBM Cloud access to your IBM Cloud services. Service IDs are not tied to a specific user. Therefore, if a user leaves an organization and is deleted from the account,
+              the service ID remains. Thus, your application or service stays up and running. For more information, see <a href="https://cloud.ibm.com/docs/account?topic=account-serviceids
+" target="_blank" rel="noopener noreferrer">Creating and working with service IDs</a>.</p>
+            <p>To learn more about assigning space access by using a service ID, see <a href="#adding-collaborators">Adding collaborators to your deployment space</a>.</p>
+          </section>
+        </section>
+        <section id="section-adding-collaborators">
+          <h2 id="adding-collaborators">Adding collaborators to your deployment space</h2>
+          <p><strong>Prerequisites:</strong><br> All users in your IBM Cloud account with the <strong>Admin</strong> IAM platform access role for all IAM enabled services can manage space collaborators. For more information, see <a href="../getting-started/roles.html#platform">IAM Platform access roles</a>.</p>
+          <p><strong>Restriction:</strong><br> You can add collaborators to your deployment space only if they are a part of your organization and if they provisioned Watson Studio.</p>
+          <p>To add one or more collaborators to a deployment space:</p>
+          <ol>
+            <li>From your deployment space, go to the <strong>Manage</strong> tab and click <strong>Access Control</strong>.</li>
+            <li>Click <strong>Add collaborators</strong> and choose one of the following options:
+              <ul>
+                <li>If you want to add a user, click <strong>Add users</strong>. Assign a role that applies to the user.</li>
+                <li>If you want to add pre-defined user groups, click . Assign a role that applies to all members of the group.</li>
+              </ul>
+            </li>
+            <li>Add the user or user groups that you want to have the same access level and click <strong>Add</strong>.</li>
+          </ol>
+          <p><strong>Parent topic:</strong> <a href="../analyze-data/ml-spaces_local.html">Deployment spaces</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

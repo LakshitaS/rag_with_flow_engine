@@ -1,0 +1,245 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="A Data Refinery flow is an ordered set of steps to cleanse, shape, and enhance data. As you refine your data by applying operations to a data set, you dynamically build a customized Data Refinery flow that you can modify in real time and save for future use.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Managing Data Refinery flows</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=data-managing-refinery-flows"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="managing-data-refinery-flows" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-managing-data-refinery-flows">
+        <h1 id="managing-data-refinery-flows">Managing Data Refinery flows</h1>
+        <p>A Data Refinery flow is an ordered set of steps to cleanse, shape, and enhance data. As you <a href="refining_data.html#refine">refine your data</a> by <a href="gui_operations.html">applying operations</a> to a data set, you dynamically build
+          a customized Data Refinery flow that you can modify in real time and save for future use.</p>
+        <p>These are actions that you can do while you refine your data:</p>
+        <p><strong>Working with the Data Refinery flow</strong></p>
+        <ul>
+          <li><a href="#save">Save a Data Refinery flow</a></li>
+          <li><a href="#jobs">Run or schedule a job for Data Refinery flow</a></li>
+          <li><a href="#rename">Rename a Data Refinery flow</a></li>
+        </ul>
+        <p><strong>Steps</strong></p>
+        <ul>
+          <li><a href="#undo">Undo or redo a step</a></li>
+          <li><a href="#edit-duplicate">Edit, duplicate, insert, or delete a step</a></li>
+          <li><a href="#snapshot">View the Data Refinery flow steps in a "snapshot view"</a></li>
+          <li><a href="#export">Export the Data Refinery flow data to a CSV file</a></li>
+        </ul>
+        <p><strong>Working with the data sets</strong></p>
+        <ul>
+          <li><a href="#change">Change the source of a Data Refinery flow</a></li>
+          <li><a href="#sample">Edit the sample size</a></li>
+          <li><a href="#edit-source">Edit the source properties </a></li>
+          <li><a href="#output">Change the target of a Data Refinery flow</a></li>
+          <li><a href="#edit-target">Edit the target properties</a></li>
+          <li><a href="#change-name">Change the name of the Data Refinery flow target</a></li>
+        </ul>
+        <p><strong>Actions on the project page</strong></p>
+        <ul>
+          <li><a href="#reopen">Reopen a Data Refinery flow to continue working</a></li>
+          <li><a href="#clone">Duplicate a Data Refinery flow</a></li>
+          <li><a href="#remove">Delete a Data Refinery flow</a></li>
+          <li><a href="#promote">Promote a Data Refinery flow to a space</a></li>
+        </ul>
+        <section id="section-working-with-the-data-refinery-flow">
+          <h2 id="working-with-the-data-refinery-flow">Working with the Data Refinery flow</h2>
+          <section id="section-save">
+            <h3 id="save">Save a Data Refinery flow</h3>
+            <p>Save a Data Refinery flow by clicking the Save Data Refinery flow icon <img src="images/save.png" alt="Save icon" height="20" style="vertical-align:text-bottom"> in the Data Refinery toolbar. Data Refinery flows are saved to the project that
+              you're working in. Save a Data Refinery flow so that you can continue refining a data set later.</p>
+            <p>The default output of the Data Refinery flow is saved as a data asset <em>source-file-name</em>_shaped.csv. For example, if the source file is <code>mydata.csv</code>, the default name and output for the Data Refinery flow is <code>mydata_csv_shaped</code>.
+              You can edit the name and add an extension by <a href="#output">changing the target of a Data Refinery flow</a>.</p>
+          </section>
+          <section id="section-jobs">
+            <h3 id="jobs">Run or schedule a job for a Data Refinery flow</h3>
+            <p>Data Refinery supports large data sets, which can be time-consuming and unwieldy to refine. So that you can work quickly and efficiently, Data Refinery operates on a sample subset of rows in the data set. The sample size is 1 MB or 10,000
+              rows, whichever comes first. When you run a job for the Data Refinery flow, the entire data set is processed. When you run the job, you select the runtime and you can add a one-time or repeating schedule.</p>
+            <p>In Data Refinery, from the Data Refinery toolbar click the Jobs icon <img src="../manage-data/images/Run-schedule_Blue.png" alt="the run or schedule a job icon" height="20" style="vertical-align:text-bottom">, and then select <strong>Save and create a job</strong>              or <strong>Save and view jobs</strong>.</p>
+            <p>After you save a Data Refinery flow, you can also create a job for it from the Project page. Go to the <strong>Assets</strong> tab, select the Data Refinery flow, choose <strong>New job</strong> from the overflow menu (<img src="images/actions.png" alt="overflow menu" title="Three vertical dots that represent the overflow menu" height="20" style="vertical-align:text-bottom">).</p>
+            <p>You must have the <strong>Admin</strong> or <strong>Editor</strong> role to view the job details or to edit or run the job. With the <strong>Viewer</strong> role for the project, you can view only the job details.</p>
+            <p>For more information about jobs, see <a href="../manage-data/create-job-dr.html">Creating jobs in Data Refinery</a>.</p>
+          </section>
+          <section id="section-rename">
+            <h3 id="rename">Rename a Data Refinery flow</h3>
+            <p>On the Data Refinery toolbar, open the Info pane <img src="images/info-pane.png" alt="info icon" height="20" style="vertical-align:text-bottom">. Or open the Flow settings <img src="images/settings.png" alt="settings icon" height="20" style="vertical-align:text-bottom">              and go to the <strong>General</strong> tab.</p>
+          </section>
+        </section>
+        <section id="section-steps">
+          <h2 id="steps">Steps</h2>
+          <section id="section-undo">
+            <h3 id="undo">Undo or redo a step</h3>
+            <p>Click the undo (<img src="images/undo.png" alt="undo icon" title="undo icon" height="20" style="vertical-align:text-bottom">) icon or the redo (<img src="images/redo.png" alt="redo icon" title="redo icon" height="20" style="vertical-align:text-bottom">)
+              icon on the toolbar.</p>
+          </section>
+          <section id="section-edit-duplicate">
+            <h3 id="edit-duplicate">Edit, duplicate, insert, or delete a step</h3>
+            <p>In the Steps pane, click the overflow menu (<img src="images/actions.png" alt="overflow menu" title="Three vertical dots that represent the overflow menu" height="20" style="vertical-align:text-bottom">) on the step for the operation that
+              you want to change. Select the action (<strong>Edit</strong>, <strong>Duplicate</strong>, <strong>Insert step before</strong>, <strong>Insert step after</strong>, or <strong>Delete</strong>).</p>
+            <ul>
+              <li>
+                <p>If you select <strong>Edit</strong>, Data Refinery goes into edit mode and either displays the operation to be edited on the command line or in the Operation pane. Apply the edited operation.</p>
+              </li>
+              <li>
+                <p>If you select <strong>Duplicate</strong>, the duplicated step is inserted after the selected step.</p>
+              </li>
+            </ul>
+            <div class="note note"><span class="notetitle">Note:</span>
+              <md-block>
+                <p>The <strong>Duplicate</strong> action is not available for the <em>Join</em> or <em>Union</em> operations.</p>
+                <p></p>
+              </md-block>
+            </div>
+            <p></p>
+            <p>Data Refinery updates the Data Refinery flow to reflect the changes and reruns all the operations.</p>
+          </section>
+          <section id="section-snapshot">
+            <h3 id="snapshot">View the Data Refinery flow steps in a "snapshot view"</h3>
+            <p>To see what your data looked like at any point in time, click a previous step to put Data Refinery into snapshot view. For example, if you click <strong>Data source</strong>, you see what your data looked like before you started refining it.
+              Click any operation step to see what your data looked like after that operation was applied. To leave snapshot view, click <strong>Viewing step x of y</strong> or click the same step that you selected to get into snapshot view.</p>
+          </section>
+          <section id="section-export">
+            <h3 id="export">Export the Data Refinery flow data to a CSV file</h3>
+            <p>Click Export (<img src="images/export.png" alt="export icon" title="export icon" height="20" style="vertical-align:text-bottom">) on the toolbar to export the data at the current step in your Data Refinery flow to a CSV file without saving
+              or running a Data Refinery flow job. Use this option, for example, if you want quick output of a Data Refinery flow that is in progress. When you export the data, a CSV file is created and downloaded to your computer's <strong>Downloads</strong>              folder (or the user-specified download location) at the current step in the Data Refinery flow. If you are in <a href="#snapshot">snapshot view</a>, the output of the CSV file is at the step that you clicked. If you are viewing a sample
+              (subset) of the data, only the sample data will be in the output.</p>
+          </section>
+        </section>
+        <section id="section-working-with-the-data-sets">
+          <h2 id="working-with-the-data-sets">Working with the data sets</h2>
+          <section id="section-change">
+            <h3 id="change">Change the source of a Data Refinery flow</h3>
+            <p>Change the source of a Data Refinery flow. Run the same Data Refinery flow but with a different source data set. There are two ways that you can change the source:</p>
+            <ul>
+              <li>
+                <p>In the <strong>Steps</strong> pane: Click the overflow menu (<img src="images/actions.png" alt="overflow menu" title="Three vertical dots that represent the overflow menu" height="20" style="vertical-align:text-bottom">) next to <strong>Data source</strong>,
+                  select <strong>Edit</strong>, and then choose a different source data set. <br>
+                  <img src="images/edit-source.png" alt="Edit source" title="Edit source"></p>
+              </li>
+              <li>
+                <p>In the Flow settings: You can use this method if you want to change more than one data source in the same place. For example, for a Join or a Union operation. On the toolbar, open the Flow settings <img src="images/settings.png" alt="settings icon" height="20" style="vertical-align:text-bottom">. Go to the <strong>Source data sets</strong> tab and click the overflow menu (<img src="images/actions.png" alt="overflow menu" title="Three vertical dots that represent the overflow menu" height="20" style="vertical-align:text-bottom">) next to the data source. Select <strong>Replace data source</strong>, and then choose a different source data set.</p>
+              </li>
+            </ul>
+            <p>For best results, the new data set should have a schema that is compatible to the original data set (for example, column names, number of columns, and data types). If the new data set has a different schema, operations that won't work with
+              the schema will show errors. You can edit or delete the operations, or change the source to one that has a more compatible schema.</p>
+          </section>
+          <section id="section-sample">
+            <h3 id="sample">Edit the sample size</h3>
+            <p>When you run the job for the Data Refinery flow, the operations are performed on the full data set. However, when you apply the operations interactively in Data Refinery, depending on the size of the data set, you view only a sample of the
+              data.</p>
+            <p>Increase the sample size to see results that will be closer to the results of the Data Refinery flow job, but be aware that it might take longer to view the results in Data Refinery. The maximum is a top-row count of 10,000 rows or 1 MB, whichever
+              comes first. Decrease the sample size to view faster results. Depending on the size of the data and the number and complexity of the operations, you might want to experiment with the sample size to see what works best for the data set.</p>
+            <p>On the toolbar, open the Flow settings <img src="images/settings.png" alt="settings icon" height="20" style="vertical-align:text-bottom">. Go to the <strong>Source data sets</strong> tab and click the overflow menu (<img src="images/actions.png" alt="overflow menu" title="Three vertical dots that represent the overflow menu" height="20" style="vertical-align:text-bottom">) next to the data source, and select <strong>Edit sample</strong>.</p>
+          </section>
+          <section id="section-edit-source">
+            <h3 id="edit-source">Edit the source properties</h3>
+            <p>The available properties depend on the data source. Different properties are available for data assets and for data from different kinds of connections. Change the file format only if the inferred file format is incorrect. If you change the
+              file format, the source is read with the new format, but the source file remains unchanged. Changing the format source properties might be an iterative process. Inspect your data after you apply an option.</p>
+            <p>On the toolbar, open the Flow settings <img src="images/settings.png" alt="settings icon" height="20" style="vertical-align:text-bottom">. Go to the <strong>Source data sets</strong> tab and click the overflow menu (<img src="images/actions.png" alt="overflow menu" title="Three vertical dots that represent the overflow menu" height="20" style="vertical-align:text-bottom">) next to the data source, and select <strong>Edit format</strong>.</p>
+            <div class="note important"><span class="importanttitle">Important:</span> Use caution if you edit the source properties. Incorrect selections might produce unexpected results when the data is read or impair the Data Refinery flow job. Inspect the results of the Data
+              Refinery flow carefully.
+            </div>
+          </section>
+          <section id="section-output">
+            <h3 id="output">Change the target of a Data Refinery flow</h3>
+            <p>By default, the target of the Data Refinery is saved as a data asset in the project that you're working in.</p>
+            <p>To change the <em>target location</em>, open Flow settings <img src="images/settings.png" alt="settings icon" height="20" style="vertical-align:text-bottom"> from the toolbar. Go to the <strong>Target data set</strong> tab, click <strong>Select target</strong>,
+              and select a different target location.</p>
+          </section>
+          <section id="section-edit-target">
+            <h3 id="edit-target">Edit the target properties</h3>
+            <p>The available properties depend on the data source. Different properties are available for data assets and for data from different kinds of connections.</p>
+            <p>To change the target data set's properties, open the Flow settings <img src="images/settings.png" alt="settings icon" height="20" style="vertical-align:text-bottom"> from the toolbar. Go to the <strong>Target data set</strong> tab, and click
+              <strong>Edit properties</strong>.</p>
+            <section id="section-change-name">
+              <h4 id="change-name">Change the name of the Data Refinery flow target</h4>
+              <p>The name of the target data set is included in the fields that you can change when you edit the target properties.</p>
+              <p>By default, the target of the Data Refinery is saved as a data asset <em>source-file-name</em>_shaped.csv in the project. For example, if the source is <code>mydata.csv</code>, the default name and output for the Data Refinery flow is the
+                data asset <code>mydata_csv_shaped</code>.</p>
+              <p>Different properties and naming conventions apply to a target data set from a connection. For example, if the data set is in Cloud Object Storage, the data set is identified in the <strong>Bucket</strong> and <strong>File name</strong> fields.
+                If the data set is in a Db2 database, the data set is identified in the <strong>Schema name</strong> and <strong>Table name</strong> fields.</p>
+              <div class="note important"><span class="importanttitle">Important:</span> Use caution if you edit the target properties. Incorrect selections might produce unexpected results or impair the Data Refinery flow job. Inspect the results of the Data Refinery flow carefully.
+              </div>
+            </section>
+          </section>
+        </section>
+        <section id="section-actions-on-the-project-page">
+          <h2 id="actions-on-the-project-page">Actions on the project page</h2>
+          <section id="section-reopen">
+            <h3 id="reopen">Reopen a Data Refinery flow to continue working</h3>
+            <p>To reopen a Data Refinery flow and continue refining your data, go to the project’s <strong>Assets</strong> tab. Under <strong>Asset types</strong>, expand <strong>Flows</strong>, click <strong>Data Refinery flow</strong>. Click the Data Refinery
+              flow name.</p>
+          </section>
+          <section id="section-clone">
+            <h3 id="clone">Duplicate a Data Refinery flow</h3>
+            <p>To create a copy of a Data Refinery flow, go to the project's <strong>Assets</strong> tab, expand <strong>Flows</strong>, click <strong>Data Refinery flow</strong>. Select the Data Refinery flow, and then select <strong>Duplicate</strong>              from the overflow menu (<img src="images/actions.png" alt="overflow menu" title="Three vertical dots that represent the overflow menu" height="20" style="vertical-align:text-bottom">). The Data Refinery flow is added to the Data Refinery
+              flows list as "<em>original-name</em> copy 1".</p>
+          </section>
+          <section id="section-remove">
+            <h3 id="remove">Delete a Data Refinery flow</h3>
+            <p>To delete a Data Refinery flow, go to the project's <strong>Assets</strong> tab, expand <strong>Flows</strong>, click <strong>Data Refinery flow</strong>. Select the Data Refinery flow, and then select <strong>Delete</strong> from the overflow
+              menu (<img src="images/actions.png" alt="overflow menu" title="Three vertical dots that represent the overflow menu" height="20" style="vertical-align:text-bottom">).</p>
+          </section>
+          <section id="section-promote">
+            <h3 id="promote">Promote a Data Refinery flow to a space</h3>
+            <p>Deployment spaces are used to manage a set of related assets in a separate environment from your projects. You use a space to prepare data for a deployment job for Watson Machine Learning. You can promote Data Refinery flows from multiple
+              projects to a single space. Complete the steps in the Data Refinery flow before you promote it because the Data Refinery flow is not editable in a space.</p>
+            <p>To promote a Data Refinery flow to a space, go to the project's <strong>Assets</strong> tab, expand <strong>Flows</strong>, click <strong>Data Refinery flow</strong>. Select the Data Refinery flow. Click the overflow menu (<img src="images/actions.png" alt="overflow menu" title="Three vertical dots that represent the overflow menu" height="20" style="vertical-align:text-bottom">) for the Data Refinery flow, and then select <strong>Promote</strong>. The source file for the Data Refinery
+              flow and any other dependent data will be promoted as well.</p>
+            <p>To create or run a job for the Data Refinery flow in a space, go the space’s <strong>Assets</strong> tab, scroll down to the Data Refinery flow, and select <strong>New job</strong> (<img src="../manage-data/images/Run-schedule_Blue.png" alt="the run or schedule a job icon" height="20" style="vertical-align:text-bottom">) from the overflow menu (<img src="images/actions.png" alt="overflow menu" title="Three vertical dots that represent the overflow menu" height="20" style="vertical-align:text-bottom">). If
+              you've already created the job, go to the <strong>Jobs</strong> tab to edit the job or view the job run details. The shaped output of the Data Refinery flow job will be available on the space’s <strong>Assets</strong> tab. You must have
+              the <strong>Admin</strong> or <strong>Editor</strong> role to view the job details or to edit or run the job. With the <strong>Viewer</strong> role for the project, you can only view the job details. You can use the shaped output as input
+              data for a job in Watson Machine Learning.</p>
+            <div class="note restriction"><span class="restrictiontitle">Restriction:</span>
+              <md-block>
+                <p>When you promote a Data Refinery flow from a project to a space and the target of the Data Refinery flow is a <em>connected data asset</em>, you must manually promote the connected data asset. This action ensures that the connected data
+                  asset's data is updated when you run the Data Refinery flow job in the space. Otherwise, a successful run of the Data Refinery flow job will create a new data asset in the space.</p>
+                <p></p>
+              </md-block>
+            </div>
+            <p></p>
+            <p>For information about spaces, see <a href="../analyze-data/ml-spaces_local.html">Deployment spaces</a>.</p>
+            <p><strong>Parent topic:</strong> <a href="../refinery/refining_data.html">Refining data</a></p>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

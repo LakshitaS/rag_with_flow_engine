@@ -1,0 +1,173 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Customer data security is paramount. The following information outlines some of the ways that customer data is protected when using IBM watsonx and what you are expected to do to help in these efforts.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Keeping your data secure and compliant</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=security-keeping-your-data-secure-compliant"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="keeping-your-data-secure-and-compliant" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-keeping-your-data-secure-and-compliant">
+        <h1 id="keeping-your-data-secure-and-compliant">Keeping your data secure and compliant</h1>
+        <p>Customer data security is paramount. The following information outlines some of the ways that customer data is protected when using IBM watsonx and what you are expected to do to help in these efforts.</p>
+        <ul>
+          <li><a href="#customer-responsibility">Customer responsibility</a></li>
+          <li><a href="#hipaa">HIPAA readiness</a></li>
+          <li><a href="#gdpr">IBM's commitment to GDPR</a></li>
+          <li><a href="#content-and-data-protection">Content and Data Protection</a></li>
+          <li><a href="#logfiles">GDPR statement that applies to IBM Watson Machine Learning log files</a></li>
+          <li><a href="#secure-deletion">Secure deletion from the IBM Watson Machine Learning service</a></li>
+        </ul>
+        <section id="section-customer-responsibility">
+          <h2 id="customer-responsibility">Customer responsibility</h2>
+          <p>Clients are responsible for ensuring their own compliance with various laws and regulations, including the European Union General Data Protection Regulation (GDPR). Clients are solely responsible for obtaining advice of competent legal counsel
+            as to the identification and interpretation of any relevant laws and regulations that may affect the clients’ business and any actions the clients may need to take to comply with such laws and regulations. The products, services, and other
+            capabilities described herein are not suitable for all customer situations and may have restricted availability. IBM does not provide legal, accounting, or auditing advice or represent or warrant that its services or products will ensure that
+            clients are in compliance with any law or regulation.</p>
+        </section>
+        <section id="section-hipaa">
+          <h2 id="hipaa">HIPAA readiness</h2>
+          <p>Watson Studio and Watson Machine Learning meet the required IBM controls that are commensurate with the Health Insurance Portability and Accountability Act of 1996 (HIPAA) Security and Privacy Rule requirements.</p>
+          <p>These requirements include the appropriate administrative, physical, and technical safeguards required of Business Associates in 45 CFR Part 160 and Subparts A and C of Part 164. HIPAA readiness applies to the following plans:</p>
+          <ul>
+            <li>The Watson Studio Professional plan in the Dallas (US South) region</li>
+            <li>The Watson Machine Learning Standard plan in the Dallas (US South) region</li>
+          </ul>
+          <p>For other services, you must check the plan page in IBM Cloud for each to determine if it is HIPAA ready and whether you need to reprovision the service after you enable HIPAA support.</p>
+          <p>HIPAA support from IBM requires that you agree to the terms of the <a href="https://www.ibm.com/support/customer/csol/terms/?ref=i126-7356-04-12-2019-zz-en" target="_blank" rel="noopener noreferrer">Business Associate Addendum (BAA) agreement</a>            with IBM for your IBM Cloud account. The BAA outlines IBM responsibilities, but also your responsibilities to maintain HIPAA compliance. After you enable HIPAA support in your IBM Cloud account, you cannot disable it. See <a href="https://cloud.ibm.com/docs/account?topic=account-enabling-hipaa" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud Docs: Enabling HIPAA support for your account</a>..</p>
+          <p>To enable HIPAA support for your IBM Cloud account:</p>
+          <ol>
+            <li>Log in to your IBM Cloud account.</li>
+            <li>Click <strong>Manage &gt; Account</strong> and then <strong>Account settings</strong>.</li>
+            <li>In the <strong>HIPAA Supported</strong> section, click <strong>On</strong>.</li>
+            <li>Read the BAA and then select <strong>Accept</strong> and click <strong>Submit</strong>.</li>
+          </ol>
+        </section>
+        <section id="section-gdpr">
+          <h2 id="gdpr">IBM's commitment to GDPR</h2>
+          <p>Learn more about IBM’s own <a href="https://www.ibm.com/data-responsibility/gdpr/" target="_blank" rel="noopener noreferrer">GDPR readiness journey and our GDPR capabilities</a> and offerings to support your compliance journey.</p>
+        </section>
+        <section id="section-content-and-data-protection">
+          <h2 id="content-and-data-protection">Content and Data Protection</h2>
+          <p>The Data Processing and Protection data sheet (Data Sheet) provides information specific to the IBM Cloud Service regarding the type of Content enabled to be processed, the processing activities involved, the data protection features, and specifics
+            on retention and return of Content. Any details or clarifications and terms, including customer responsibilities, around use of the Cloud Service and data protection features, if any, are set forth in this section. There may be more than one
+            Data Sheet applicable to a customer's use of the IBM Cloud Service based upon options selected by customer. The Data Sheet may only be available in English and not available in local languages. Despite any practices of local law or custom,
+            the parties agree that they understand English and it is an appropriate language regarding acquisition and use of the IBM Cloud Services. The following Data Sheets apply to the IBM Cloud Service and its available options. Customer acknowledges
+            that i) IBM may modify Data Sheets from time to time at IBM's sole discretion and ii) such modifications will supersede prior versions. The intent of any modification to Data Sheet(s) will be to</p>
+          <ol>
+            <li>improve or clarify existing commitments,</li>
+            <li>maintain alignment to current adopted standards and applicable laws, or</li>
+            <li>provide additional commitments. No modification to Data Sheets will materially degrade the data protection of a IBM Cloud Service.</li>
+          </ol>
+          <p>See the <a href="#learn-more">Learn more</a> section for links to some of the data sheets that you can view.</p>
+          <p>You, the customer, are responsible to take necessary actions to order, enable, or use available data protection features for a IBM Cloud Service and accept responsibility for use of the IBM Cloud Services if you fail to take such actions, including
+            meeting any data protection or other legal requirements regarding Content. <a href="http://ibm.com/dpa" target="_blank" rel="noopener noreferrer">IBM's Data Processing Addendum</a> (DPA) and DPA Exhibits apply and are referenced in as part
+            of the Agreement, if and to the extent the European General Data Protection Regulation (EU/2016/679) (GDPR) applies to personal data contained in Content. The applicable Data Sheets for this IBM Cloud Service will serve as the DPA Exhibits.
+            If the DPA applies, IBM's obligation to provide notice of changes to Subprocessors and Customer's right to object to such changes will apply as set out in DPA.</p>
+        </section>
+        <section id="section-logfiles">
+          <h2 id="logfiles">GDPR statement that applies to IBM Watson Machine Learning log files</h2>
+          <div class="note Disclaimer"><span class="Disclaimertitle">Disclaimer:</span> Client’s use of the deep learning training process includes the ability to write to the training log files. Personal data must not be written to these training log files as they are accessible
+            to other users within Client’s Enterprise as well as to IBM as necessary to support the Cloud Service.</div>
+          <p>Please pay close attention to data privacy principals when selecting a dataset for training data. Processing of PI is governed by vigorous legal requirements and is only allowed if it is based on an explicit legal basis. These regulations mandate
+            that PI is processed only for the purpose it was collected for. No other processing in a manner that is incompatible with this initial purpose is permissible. For these and other constrains these regulations place on your use of PI, we highly
+            recommend that you do not use "real" PI in your training dataset unless it is allowed or permissible. You may substitute real PI using test data that is available on the public sphere.</p>
+        </section>
+        <section id="section-secure-deletion">
+          <h2 id="secure-deletion">Secure deletion from the IBM Watson Machine Learning service</h2>
+          <p>Anyone that has personally identifiable information and data (PII) stored as part of using the IBM Watson Machine Learning service, has the right to obtain from the controller the erasure of that data without undue delay. The controller has
+            the obligation to erase personal data without undue delay where one of the following conditions exist:</p>
+          <ul>
+            <li>
+              <p>There is PII data stored in the IBM Watson Machine Learning service</p>
+            </li>
+            <li>
+              <p>User email address and full name are stored as metadata related to the Machine Learning repository assets.</p>
+            </li>
+            <li>
+              <p>User provided service credentials.</p>
+            </li>
+            <li>
+              <p>Repository asset content, which is usually out of Machine Learning service control and potentially can contain any type of PII data in it. In this case, when users want to track PII data stored in assets, such as a model, they must:</p>
+              <ul>
+                <li>Get training data reference from the model metadata.</li>
+                <li>Scan training data for occurrence of PII data of particular user.</li>
+                <li>If such data can be found in the training data set, the model should be considered as potentially holding this data in its content.</li>
+              </ul>
+            </li>
+          </ul>
+          <p>Repository asset content, such as models, can be securely deleted by performing one of the methods <a href="#options-for-permanently-deleting-personal-data">for permanently deleting personal data</a>.</p>
+          <section id="section-options-for-permanently-deleting-personal-data">
+            <h3 id="options-for-permanently-deleting-personal-data">Options for permanently deleting personal data</h3>
+            <p>There are several options that users can choose to delete their personal data permanently:</p>
+            <ul>
+              <li>
+                <p>Remove the entire IBM Watson Machine Learning service instance from IBM Cloud. This is possible by sending an un-provisioning request via different channels, such as the IBM Cloud UI, CLI, or REST API.</p>
+              </li>
+              <li>
+                <p>Use the <a href="https://cloud.ibm.com/apidocs/machine-learning-cp">Watson Machine Learning REST </a> to delete models or model deployments.</p>
+              </li>
+            </ul>
+            <p>For the IBM Watson Machine Learning service, personally identifiable information and data is removed completely from all data sources, including backups, after 30 days.</p>
+          </section>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="https://www.ibm.com/support/customer/csol/terms/?id=i126-9640&amp;lc=en#detail-document" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">watsonx terms</a></li>
+            <li><a href="http://www.ibm.com/support/customer/csol/terms/?id=i126-6883" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Watson Machine Learning terms</a></li>
+            <li><a href="https://www.ibm.com/support/customer/csol/terms/?id=i126-7747" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Watson Studio terms</a></li>
+            <li><a href="https://www.ibm.com/software/sla/sladb.nsf/sla/bm-7857-03" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud Object Storage terms</a></li>
+            <li><a href="https://cloud.ibm.com/docs/overview?topic=overview-security" target="_blank" rel="noopener noreferrer">How do I know that my data is safe?</a></li>
+            <li><a href="https://www-03.ibm.com/software/sla/sladb.nsf/pdf/7745WW2/$file/Z126-7745-WW-2_05-2017_en_US.pdf" target="_blank" rel="noopener noreferrer">Data Security and Privacy Principles for IBM Cloud Services</a></li>
+            <li><a href="https://www.ibm.com/data-responsibility/gdpr/" target="_blank" rel="noopener noreferrer">IBM and GDPR</a></li>
+            <li><a href="https://www.ibm.com/software/reports/compatibility/clarity-reports/report/html/softwareReqsForProduct?deliverableId=95E9BEA0B35711E7A9EB066095601ABB" target="_blank" rel="noopener noreferrer">Software Product Compatibility Reports: IBM Watson Studio</a></li>
+            <li><a href="https://www.ibm.com/software/reports/compatibility/clarity-reports/report/html/softwareReqsForProduct?deliverableId=6B5148E0537F11E6865BC3F213DB63F7" target="_blank" rel="noopener noreferrer">Software Product Compatibility Reports: IBM Watson Machine Learning</a></li>
+            <li><a href="https://www.ibm.com/software/reports/compatibility/clarity-reports/report/html/softwareReqsForProduct?deliverableId=850D9360405711E5B2E4A36A7B0C4479" target="_blank" rel="noopener noreferrer">Software Product Compatibility Reports: IBM Watson Machine Learning Service</a></li>
+          </ul>
+          <!--comment-->
+          <p><strong>Parent topic:</strong>
+            <a href="../getting-started/security-overview.html">Security</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

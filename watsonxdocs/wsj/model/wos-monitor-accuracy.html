@@ -1,0 +1,228 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Watsonx.governance quality evaluations measure your model's ability to provide correct outcomes">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Configuring quality evaluations in watsonx.governance</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=evaluations-configuring-quality"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="configuring-quality-evaluations-in-watsonxgovernance" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-configuring-quality-evaluations-in-watsonxgovernance">
+        <h1 id="configuring-quality-evaluations-in-watsonxgovernance">Configuring quality evaluations in watsonx.governance</h1>
+        <p>Watsonx.governance quality evaluations measure your model's ability to provide correct outcomes</p>
+        <p>When you <a href="wos-eval-prompt.html">evaluate prompt templates</a>, you can review a summary of quality evaluation results for the text classification task type.</p>
+        <p>The summary displays scores and violations for metrics that are calculated with default settings.</p>
+        <p>To configure quality evaluations with your own settings, you can set a minimum sample size and set threshold values for each metric. The minimum sample size indicates the minimum number of model transaction records that you want to evaluate and
+          the threshold values create alerts when your metric scores violate your thresholds. The metric scores must be higher than the threshold values to avoid violations. Higher metric values indicate better scores.</p>
+        <section id="section-supported-quality-metrics">
+          <h2 id="supported-quality-metrics">Supported quality metrics</h2>
+          <p>When you enable quality evaluations in watsonx.governance, you can generate metrics that help you determine how well your foundation model predicts outcomes.</p>
+          <p>Watsonx.governance supports the following quality metrics:</p>
+          <!--Accuracy -->
+          <hr id="accordion01">
+          <details>
+            <summary>Accuracy</summary>
+            <md-block>
+              <ul>
+                <li><strong>Description</strong>: The proportion of correct predictions</li>
+                <li><strong>Default thresholds</strong>: Lower limit = 80%</li>
+                <li><strong>Problem types</strong>: Multiclass classification</li>
+                <li><strong>Chart values</strong>: Last value in the timeframe</li>
+                <li><strong>Metrics details available</strong>: Confusion matrix</li>
+                <li><strong>Understanding accuracy</strong>: Accuracy can mean different things depending on the type of algorithm;
+                  <ul>
+                    <li><strong>Multi-class classification</strong>: Accuracy measures the number of times any class was predicted correctly, normalized by the number of data points. For more details, see <a href="https://spark.apache.org/docs/2.1.0/mllib-evaluation-metrics.html#multiclass-classification" target="_blank" class="external">Multi-class classification</a> in the Apache Spark documentation.</li>
+                  </ul>
+                </li>
+              </ul>
+            </md-block>
+          </details>
+          <hr>
+          <!--Weighted True Positive Rate -->
+          <hr id="accordion02">
+          <details>
+            <summary>Weighted true positive rate</summary>
+            <md-block>
+              <ul>
+                <li><strong>Description</strong>: Weighted mean of class TPR with weights equal to class probability</li>
+                <li><strong>Default thresholds</strong>: Lower limit = 80%</li>
+                <li><strong>Problem type</strong>: Multiclass classification</li>
+                <li><strong>Chart values</strong>: Last value in the timeframe</li>
+                <li><strong>Metrics details available</strong>: Confusion matrix</li>
+                <li><strong>Do the math</strong>:</li>
+              </ul>
+              <p>The True positive rate is calculated by the following formula:</p>
+              <pre class="codeblock"><code class="lang-txt hljs">                  number of true positives
+TPR =  _________________________________________________________
+
+        number of true positives + number of false negatives
+</code></pre>
+            </md-block>
+          </details>
+          <hr>
+          <!--Weighted False Positive Rate -->
+          <hr id="accordion03">
+          <details>
+            <summary>Weighted false positive rate</summary>
+            <md-block>
+              <ul>
+                <li><strong>Description</strong>: Weighted mean of class FPR with weights equal to class probability. For more details, see <a href="https://spark.apache.org/docs/2.1.0/mllib-evaluation-metrics.html#multiclass-classification" target="_blank" class="external">Multi-class classification</a> in the Apache Spark documentation.</li>
+                <li><strong>Default thresholds</strong>: Lower limit = 80%</li>
+                <li><strong>Problem type</strong>: Multiclass classification</li>
+                <li><strong>Chart values</strong>: Last value in the timeframe</li>
+                <li><strong>Metrics details available</strong>: Confusion matrix</li>
+                <li><strong>Do the math</strong>:</li>
+              </ul>
+              <p>The Weighted False Positive Rate is the application of the FPR with weighted data.</p>
+              <pre class="codeblock"><code class="lang-txt hljs">                   number of false positives
+FPR =  ______________________________________________________
+
+       (number of false positives + number of true negatives)
+</code></pre>
+            </md-block>
+          </details>
+          <hr>
+          <!--Weighted recall -->
+          <hr id="accordion04">
+          <details>
+            <summary>Weighted recall</summary>
+            <md-block>
+              <ul>
+                <li><strong>Description</strong>: Weighted mean of recall with weights equal to class probability</li>
+                <li><strong>Default thresholds</strong>: Lower limit = 80%</li>
+                <li><strong>Problem type</strong>: Multiclass classification</li>
+                <li><strong>Chart values</strong>: Last value in the timeframe</li>
+                <li><strong>Metrics details available</strong>: Confusion matrix</li>
+                <li><strong>Do the math</strong>:</li>
+              </ul>
+              <p>Weighted recall (wR) is defined as the number of true positives (Tp) over the number of true positives plus the number of false negatives (Fn) used with weighted data.</p>
+              <pre class="codeblock"><code class="hljs">                          number of true positives
+Recall =   ______________________________________________________
+
+           number of true positives + number of false negatives
+</code></pre>
+            </md-block>
+          </details>
+          <hr>
+          <!--Weighted precision -->
+          <hr id="accordion05">
+          <details>
+            <summary>Weighted precision</summary>
+            <md-block>
+              <ul>
+                <li><strong>Description</strong>: Weighted mean of precision with weights equal to class probability</li>
+                <li><strong>Default thresholds</strong>: Lower limit = 80%</li>
+                <li><strong>Problem type</strong>: Multiclass classification</li>
+                <li><strong>Chart values</strong>: Last value in the timeframe</li>
+                <li><strong>Metrics details available</strong>: Confusion matrix</li>
+                <li><strong>Do the math</strong>:</li>
+              </ul>
+              <p>Precision (P) is defined as the number of true positives (Tp) over the number of true positives plus the number of false positives (Fp).</p>
+              <pre class="codeblock"><code class="hljs">                            number of true positives
+Precision =  ________________________________________________________
+
+             number of true positives + the number of false positives
+</code></pre>
+            </md-block>
+          </details>
+          <hr>
+          <!--Weighted F1-Measure -->
+          <hr id="accordion06">
+          <details>
+            <summary>Weighted F1-Measure</summary>
+            <md-block>
+              <ul>
+                <li><strong>Description</strong>: Weighted mean of F1-measure with weights equal to class probability</li>
+                <li><strong>Default thresholds</strong>: Lower limit = 80%</li>
+                <li><strong>Problem type</strong>: Multiclass classification</li>
+                <li><strong>Chart values</strong>: Last value in the timeframe</li>
+                <li><strong>Metrics details available</strong>: Confusion matrix</li>
+                <li><strong>Do the math</strong>:</li>
+              </ul>
+              <p>The Weighted F1-Measure is the result of using weighted data.</p>
+              <pre class="codeblock"><code class="hljs">           precision * recall
+F1 = 2 *  ____________________
+
+           precision + recall
+</code></pre>
+            </md-block>
+          </details>
+          <hr>
+          <!--Matthews correlation coefficient -->
+          <hr id="accordion07">
+          <details>
+            <summary>Matthews correlation coefficient</summary>
+            <md-block>
+              <ul>
+                <li><strong>Description</strong>: Measures the quality of binary and multiclass classifications by accounting for true and false positives and negatives. Balanced measure that can be used even if the classes are different sizes. A correlation
+                  coefficient value between -1 and +1. A coefficient of +1 represents a perfect prediction, 0 an average random prediction and -1 and inverse prediction.</li>
+                <li><strong>Default thresholds</strong>: Lower limit = 80</li>
+                <li><strong>Chart values</strong>: Last value in the timeframe</li>
+                <li><strong>Metrics details available</strong>: Confusion matrix</li>
+              </ul>
+            </md-block>
+          </details>
+          <hr>
+          <!--Label skew -->
+          <hr id="accordion08">
+          <details>
+            <summary>Label skew</summary>
+            <md-block>
+              <ul>
+                <li><strong>Description</strong>: Measures the asymmetry of label distributions. If skewness is 0, the dataset is perfectly balanced, it if is less than -1 or greater than 1, the distribution is highly skewed, anything in between is moderately
+                  skewed.</li>
+                <li><strong>Default thresholds</strong>:
+                  <ul>
+                    <li>Lower limit = -0.5</li>
+                    <li>Upper limit = 0.5</li>
+                  </ul>
+                </li>
+                <li><strong>Chart values</strong>: Last value in the timeframe</li>
+              </ul>
+            </md-block>
+          </details>
+          <hr>
+          <p><strong>Parent topic:</strong> <a href="wos-monitors-overview.html">Configuring model evaluations</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

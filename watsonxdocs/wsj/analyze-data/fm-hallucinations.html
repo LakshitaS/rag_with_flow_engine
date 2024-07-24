@@ -1,0 +1,181 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Every foundation model has the potential to generate output that includes incorrect or even harmful content. Understand the types of undesirable output that can be generated, the reasons for the undesirable output, and steps that you can take to reduce the risk of harm.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Techniques for avoiding undesirable output</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=tips-avoiding-undesirable-output"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="techniques-for-avoiding-undesirable-output" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-techniques-for-avoiding-undesirable-output">
+        <h1 id="techniques-for-avoiding-undesirable-output">Techniques for avoiding undesirable output</h1>
+        <p>Every foundation model has the potential to generate output that includes incorrect or even harmful content. Understand the types of undesirable output that can be generated, the reasons for the undesirable output, and steps that you can take
+          to reduce the risk of harm.</p>
+        <p>The foundation models that are available in IBM watsonx.ai can generate output that contains hallucinations, personal information, hate speech, abuse, profanity, and bias. The following techniques can help reduce the risk, but do not guarantee
+          that generated output will be free of undesirable content.</p>
+        <p>Find techniques to help you avoid the following types of undesirable content in foundation model output:</p>
+        <ul>
+          <li><a href="#hallucinations">Hallucinations</a></li>
+          <li><a href="#personal-info">Personal information</a></li>
+          <li><a href="#hap">Hate speech, abuse, and profanity</a></li>
+          <li><a href="#bias">Bias</a></li>
+        </ul>
+        <section id="section-hallucinations">
+          <h2 id="hallucinations">Hallucinations</h2>
+          <p>When a foundation model generates off-topic, repetitive, or incorrect content or fabricates details, that behavior is sometimes called <em>hallucination</em>.</p>
+          <p>Off-topic hallucinations can happen because of pseudo-randomness in the decoding of the generated output. In the best cases, that randomness can result in wonderfully creative output. But randomness can also result in nonsense output that is
+            not useful.</p>
+          <p>The model might return hallucinations in the form of fabricated details when it is prompted to generate text, but is not given enough related text to draw upon. If you include correct details in the prompt, for example, the model is less likely
+            to hallucinate and make up details.</p>
+          <section id="section-techniques-for-avoiding-hallucinations">
+            <h3 id="techniques-for-avoiding-hallucinations">Techniques for avoiding hallucinations</h3>
+            <p>To avoid hallucinations, test one or more of these techniques:</p>
+            <ul>
+              <li>
+                <p>Choose a model with pretraining and fine-tuning that matches your domain and the task you are doing.</p>
+              </li>
+              <li>
+                <p>Provide context in your prompt.</p>
+                <p>If you instruct a foundation model to generate text on a subject that is not common in its pretraining data and you don't add information about the subject to the prompt, the model is more likely to hallucinate.</p>
+              </li>
+              <li>
+                <p>Specify conservative values for the Min tokens and Max tokens parameters and specify one or more stop sequences.</p>
+                <p>When you specify a high value for the Min tokens parameter, you can force the model to generate a longer response than the model would naturally return for a prompt. The model is more likely to hallucinate as it adds words to the output
+                  to reach the required limit.</p>
+              </li>
+              <li>
+                <p>For use cases that don't require much creativity in the generated output, use greedy decoding. If you prefer to use sampling decoding, be sure to specify conservative values for the temperature, top-p, and top-k parameters.</p>
+              </li>
+              <li>
+                <p>To reduce repetitive text in the generated output, try increasing the repetition penalty parameter.</p>
+              </li>
+              <li>
+                <p>If you see repetitive text in the generated output when you use greedy decoding, and if some creativity is acceptable for your use case, then try using sampling decoding instead. Be sure to set moderately low values for the temperature,
+                  top-p, and top-k parameters.</p>
+              </li>
+              <li>
+                <p>In your prompt, instruct the model what to do when it has no confident or high-probability answer.</p>
+                <p>For example, in a question-answering scenario, you can include the instruction: <code>If the answer is not in the article, say “I don't know”.</code></p>
+              </li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-personal-info">
+          <h2 id="personal-info">Personal information</h2>
+          <p>A foundation model's vocabulary is formed from words in its pretraining data. If pretraining data includes web pages that are scraped from the internet, the model's vocabulary might contain the following types of information:</p>
+          <ul>
+            <li>Names of article authors</li>
+            <li>Contact information from company websites</li>
+            <li>Personal information from questions and comments that are posted in open community forums</li>
+          </ul>
+          <p>If you use a foundation model to generate text for part of an advertising email, the generated content might include contact information for another company!</p>
+          <p>If you ask a foundation model to write a paper with citations, the model might include references that look legitimate but aren't. It might even attribute those made-up references to real authors from the correct field. A foundation model is
+            likely to generate imitation citations, correct in form but not grounded in facts, because the models are good at stringing together words (including names) that have a high probability of appearing together. The fact that the model lends
+            the output a touch of legitimacy, by including the names of real people as authors in citations, makes this form of hallucination compelling and believable. It also makes this form of hallucination dangerous. People can get into trouble if
+            they believe that the citations are real. Not to mention the harm that can come to people who are listed as authors of works they did not write.</p>
+          <section id="section-techniques-for-excluding-personal-information">
+            <h3 id="techniques-for-excluding-personal-information">Techniques for excluding personal information</h3>
+            <p>To exclude personal information, try these techniques:</p>
+            <ul>
+              <li>
+                <p>In your prompt, instruct the model to refrain from mentioning names, contact details, or personal information.</p>
+                <p>For example, when you prompt a model to generate an advertising email, instruct the model to include your company name and phone number. Also, instruct the model to “include no other company or personal information”.</p>
+              </li>
+              <li>
+                <p>From the watsonx.ai API, you can enable the PII filter in the <code>moderations</code> field when you submit an inference request. For more information, see <a href="https://cloud.ibm.com/apidocs/watsonx-ai" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">API reference documentation</a>.</p>
+              </li>
+              <li>
+                <p>In your larger application, pipeline, or solution, post-process the content that is generated by the foundation model to find and remove personal information.</p>
+              </li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-hap">
+          <h2 id="hap">Hate speech, abuse, and profanity</h2>
+          <p>As with personal information, when pretraining data includes hateful or abusive terms or profanity, a foundation model that is trained on that data has those problematic terms in its vocabulary. If inappropriate language is in the model's vocabulary,
+            the foundation model might generate text that includes undesirable content.</p>
+          <p>When you use foundation models to generate content for your business, you must do the following things:</p>
+          <ul>
+            <li>Recognize that this kind of output is always possible.</li>
+            <li>Take steps to reduce the likelihood of triggering the model to produce this kind of harmful output.</li>
+            <li>Build human review and verification processes into your solutions.</li>
+          </ul>
+          <section id="section-techniques-for-reducing-the-risk-of-hate-speech-abuse-and-profanity">
+            <h3 id="techniques-for-reducing-the-risk-of-hate-speech-abuse-and-profanity">Techniques for reducing the risk of hate speech, abuse, and profanity</h3>
+            <p>To avoid hate speech, abuse, and profanity, test one or more of these techniques:</p>
+            <ul>
+              <li>
+                <p>In the Prompt Lab, set the <strong>AI guardrails</strong> switch to On. When this feature is enabled, any sentence in the input prompt or generated output that contains harmful language is replaced with a message that says that potentially
+                  harmful text was removed.</p>
+              </li>
+              <li>
+                <p>Do not include hate speech, abuse, or profanity in your prompt to prevent the model from responding in kind.</p>
+              </li>
+              <li>
+                <p>In your prompt, instruct the model to use clean language.</p>
+                <p>For example, depending on the tone you need for the output, instruct the model to use “formal”, “professional”, “PG”, or “friendly” language.</p>
+              </li>
+              <li>
+                <p>From the watsonx.ai API, you can enable the HAP filter in the <code>moderations</code> field when you submit an inference request. For more information, see <a href="https://cloud.ibm.com/apidocs/watsonx-ai" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">API reference documentation</a>.</p>
+              </li>
+              <li>
+                <p>In your larger application, pipeline, or solution, post-process the content that is generated by the foundation model to remove undesirable content.</p>
+              </li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-bias">
+          <h2 id="bias">Reducing the risk of bias in model output</h2>
+          <p>During pretraining, a foundation model learns the statistical probability that certain words follow other words based on how those words appear in the training data. Any bias in the training data is trained into the model.</p>
+          <p>For example, if the training data more frequently refers to doctors as men and nurses as women, that bias is likely to be reflected in the statistical relationships between those words in the model. As a result, the model is likely to generate
+            output that more frequently refers to doctors as men and nurses as women. Sometimes, people believe that algorithms can be more fair and unbiased than humans because the algorithms are “just using math to decide”. But bias in training data
+            is reflected in content that is generated by foundation models that are trained on that data.</p>
+          <section id="section-techniques-for-reducing-bias">
+            <h3 id="techniques-for-reducing-bias">Techniques for reducing bias</h3>
+            <p>It is difficult to debias output that is generated by a foundation model that was pretrained on biased data. However, you might improve results by including content in your prompt to counter bias that might apply to your use case.</p>
+            <p>For example, instead of instructing a model to “list heart attack symptoms”, you might instruct the model to “list heart attack symptoms, including symptoms that are common for men and symptoms that are common for women”.</p>
+            <p><strong>Parent topic:</strong> <a href="fm-prompt-tips.html">Prompt tips</a></p>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Descriptives provides efficient computation of the univariate and
+bivariate statistics and automatic data preparation features on large
+scale data. It can be used widely in data profiling, data exploration,
+and data preparation for subsequent modeling analyses.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>SPSS predictive analytics data preparation algorithms in notebooks</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=algorithms-data-preparation"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="spss-predictive-analytics-data-preparation-algorithms-in-notebooks" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-spss-predictive-analytics-data-preparation-algorithms-in-notebooks">
+        <h1 id="spss-predictive-analytics-data-preparation-algorithms-in-notebooks">SPSS predictive analytics data preparation algorithms in notebooks</h1>
+        <p>Descriptives provides efficient computation of the univariate and bivariate statistics and automatic data preparation features on large scale data. It can be used widely in data profiling, data exploration, and data preparation for subsequent
+          modeling analyses.</p>
+        <p>The core statistical features include essential univariate and bivariate statistical summaries, univariate order statistics, metadata information creation from raw data, statistics for visualization of single fields and field pairs, data preparation
+          features, and data interestingness score and data quality assessment. It can efficiently support the functionality required for automated data processing, user interactivity, and obtaining data insights for single fields or the relationships
+          between the pairs of fields inclusive with a specified target.
+        </p>
+        <p><strong>Python example code:</strong></p>
+        <pre class="codeblock"><code class="hljs">from spss.ml.datapreparation.descriptives import Descriptives
+
+de = Descriptives(). \
+    setInputFieldsList(["Field1", "Field2"]). \
+    setTargetFieldList(["Field3"]). \
+    setTrimBlanks("TRIM_BOTH")
+
+deModel = de.fit(df)
+
+PMML = deModel.toPMML()
+statXML = deModel.statXML()
+
+predictions = deModel.transform(df)
+predictions.show()
+</code></pre>
+        <section id="section-descriptives-selection-strategy">
+          <h2 id="descriptives-selection-strategy">Descriptives Selection Strategy</h2>
+          <p>When the number of field pairs is too large (for example, larger than the default of 1000), SelectionStrategy is used to limit the number of pairs for which bivariate statistics will be computed. The strategy involves 2 steps:</p>
+          <ol>
+            <li>Limit the number of pairs based on the univariate statistics.</li>
+            <li>Limit the number of pairs based on the core association bivariate statistics.
+            </li>
+          </ol>
+          <p>Notice that the pair will always be included under the following conditions:
+          </p>
+          <ol>
+            <li>The pair consists of a predictor field and a target field.</li>
+            <li>The pair of predictors or targets is enforced.</li>
+          </ol>
+        </section>
+        <section id="section-smart-data-preprocessing">
+          <h2 id="smart-data-preprocessing">Smart Data Preprocessing</h2>
+          <p>The Smart Data Preprocessing (SDP) engine is an analytic component for data preparation. It consists of three separate modules: relevance analysis, relevance and redundancy analysis, and smart metadata (SMD) integration.
+          </p>
+          <p>Given the data with regular fields, list fields, and map fields, relevance analysis evaluates the associations of input fields with targets, and selects a specified number of fields for subsequent analysis. Meanwhile, it expands list fields
+            and map fields, and extracts the selected fields into regular column-based format.</p>
+          <p>Due to the efficiency of relevance analysis, it's also used to reduce the large number of fields in wide data to a moderate level where traditional analytics can work.</p>
+          <p>SmartDataPreprocessingRelevanceAnalysis exports these outputs:</p>
+          <ul>
+            <li>JSON file, containing model information</li>
+            <li>new column-based data</li>
+            <li>the related data model</li>
+          </ul>
+          <p><strong>Python example code:</strong></p>
+          <pre class="codeblock"><code class="hljs">from spss.ml.datapreparation.smartdatapreprocessing import SmartDataPreprocessingRelevanceAnalysis
+
+sdpRA = SmartDataPreprocessingRelevanceAnalysis(). \
+    setInputFieldList(["holderage", "vehicleage", "claimamt"]). \
+    setTargetFieldList(["vehiclegroup", "nclaims"]). \
+    setMaxNumTarget(3). \
+    setInvalidPairsThresEnabled(True). \
+    setRMSSEThresEnabled(True). \
+    setAbsVariCoefThresEnabled(True). \
+    setInvalidPairsThreshold(0.7). \
+    setRMSSEThreshold(0.7). \
+    setAbsVariCoefThreshold(0.05). \
+    setMaxNumSelFields(2). \
+    setConCatRatio(0.3). \
+    setFilterSelFields(True)
+
+predictions = sdpRA.transform(data)
+predictions.show()
+</code></pre>
+        </section>
+        <section id="section-sparse-data-convertor">
+          <h2 id="sparse-data-convertor">Sparse Data Convertor</h2>
+          <p>Sparse Data Convertor (SDC) converts regular data fields into list fields. You just need to specify the fields that you want to convert into list fields, then SDC will merge the fields according to their measurement level. It will generate,
+            at most, three kinds of list fields: continuous list field, categorical list field, and map field.</p>
+          <p><strong>Python example code:</strong></p>
+          <pre class="codeblock"><code class="hljs">from spss.ml.datapreparation.sparsedataconverter import SparseDataConverter
+
+sdc = SparseDataConverter(). \
+    setInputFieldList(["Age", "Sex", "Marriage", "BP", "Cholesterol", "Na", "K", "Drug"])
+predictions = sdc.transform(data)
+predictions.show()
+</code></pre>
+        </section>
+        <section id="section-binning">
+          <h2 id="binning">Binning</h2>
+          <p>You can use this function to derive one or more new binned fields or to obtain the bin definitions used to determine the bin values.</p>
+          <p><strong>Python example code:</strong></p>
+          <pre class="codeblock"><code class="hljs">from spss.ml.datapreparation.binning.binning import Binning
+
+binDefinition = BinDefinitions(1, False, True, True, [CutPoint(50.0, False)])
+binField = BinRequest("integer_field", "integer_bin", binDefinition, None)
+
+params = [binField]
+bining = Binning().setBinRequestsParam(params)
+
+outputDF = bining.transform(inputDF)
+</code></pre>
+        </section>
+        <section id="section-hex-binning">
+          <h2 id="hex-binning">Hex Binning</h2>
+          <p>You can use this function to calculate and assign hexagonal bins to two fields.
+          </p>
+          <p><strong>Python example code:</strong></p>
+          <pre class="codeblock"><code class="hljs">from spss.ml.datapreparation.binning.hexbinning import HexBinning
+from spss.ml.param.binningsettings import HexBinningSetting
+
+params = [HexBinningSetting("field1_out", "field1", 5, -1.0, 25.0, 5.0),
+          HexBinningSetting("field2_out", "field2", 5, -1.0, 25.0, 5.0)]
+
+hexBinning = HexBinning().setHexBinRequestsParam(params)
+outputDF = hexBinning.transform(inputDF)
+</code></pre>
+        </section>
+        <section id="section-complex-sampling">
+          <h2 id="complex-sampling">Complex Sampling</h2>
+          <p>The complexSampling function selects a pseudo-random sample of records from a data source.</p>
+          <p>The complexSampling function performs stratified sampling of incoming data using simple exact sampling and simple proportional sampling. The stratifying fields are specified as input and the sampling counts or sampling ratio for each of the
+            strata to be sampled must also be provided. Optionally, the record counts for each strata may be provided to improve performance.</p>
+          <p><strong>Python example code:</strong></p>
+          <pre class="codeblock"><code class="hljs">from spss.ml.datapreparation.sampling.complexsampling import ComplexSampling
+from spss.ml.datapreparation.params.sampling import RealStrata, Strata, Stratification
+
+transformer = ComplexSampling(). \
+    setRandomSeed(123444). \
+    setRepeatable(True). \
+    setStratification(Stratification(["real_field"], [
+    Strata(key=[RealStrata(11.1)], samplingCount=25),
+    Strata(key=[RealStrata(2.4)], samplingCount=40),
+    Strata(key=[RealStrata(12.9)], samplingRatio=0.5)])). \
+    setFrequencyField("frequency_field")
+
+sampled = transformer.transform(unionDF)
+</code></pre>
+        </section>
+        <section id="section-count-and-sample">
+          <h2 id="count-and-sample">Count and Sample</h2>
+          <p>The countAndSample function produces a pseudo-random sample having a size approximately equal to the 'samplingCount' input.</p>
+          <p>The sampling is accomplished by calling the SamplingComponent with a sampling ratio that's computed as 'samplingCount / totalRecords' where 'totalRecords' is the record count of the incoming data.</p>
+          <p><strong>Python example code:</strong></p>
+          <pre class="codeblock"><code class="hljs">from spss.ml.datapreparation.sampling.countandsample import CountAndSample
+
+transformer = CountAndSample().setSamplingCount(20000).setRandomSeed(123)
+sampled = transformer.transform(unionDF)
+</code></pre>
+        </section>
+        <section id="section-mr-sampling">
+          <h2 id="mr-sampling">MR Sampling</h2>
+          <p>The mrsampling function selects a pseudo-random sample of records from a data source at a specified sampling ratio. The size of the sample will be approximately the specified proportion of the total number of records subject to an optional maximum.
+            The set of records and their total number will vary with random seed. Every record in the data source has the same probability of being selected.</p>
+          <p><strong>Python example code:</strong></p>
+          <pre class="codeblock"><code class="hljs">from spss.ml.datapreparation.sampling.mrsampling import MRSampling
+
+transformer = MRSampling().setSamplingRatio(0.5).setRandomSeed(123).setDiscard(True)
+sampled  = transformer.transform(unionDF)
+</code></pre>
+        </section>
+        <section id="section-sampling-model">
+          <h2 id="sampling-model">Sampling Model</h2>
+          <p>The samplingModel function selects a pseudo-random percentage of the subsequence of input records defined by every Nth record for a given step size N. The total sample size may be optionally limited by a maximum.
+          </p>
+          <p>When the step size is 1, the subsequence is the entire sequence of input records. When the sampling ratio is 1.0, selection becomes deterministic, not pseudo-random.</p>
+          <p>Note that with distributed data, the samplingModel function applies the selection criteria independently to each data split. The maximum sample size, if any, applies independently to each split and not to the entire data source; the subsequence
+            is started fresh at the start of each split.
+          </p>
+          <p><strong>Python example code:</strong></p>
+          <pre class="codeblock"><code class="hljs">from spss.ml.datapreparation.sampling.samplingcomponent import SamplingModel
+
+transformer = SamplingModel().setSamplingRatio(1.0).setSamplingStep(2).setRandomSeed(123).setDiscard(False)
+sampled = transformer.transform(unionDF)
+</code></pre>
+        </section>
+        <section id="section-sequential-sampling">
+          <h2 id="sequential-sampling">Sequential Sampling</h2>
+          <p>The sequentialSampling function is similar to the samplingModel function. It also selects a pseudo-random percentage of the subsequence of input records defined by every Nth record for a given step size N. The total sample size may be optionally
+            limited by a maximum.</p>
+          <p>When the step size is 1, the subsequence is the entire sequence of input records. When the sampling ratio is 1.0, selection becomes deterministic, not pseudo-random. The main difference between sequentialSampling and samplingModel is that with
+            distributed data, the sequentialSampling function applies the selection criteria to the entire data source, while the samplingModel function applies the selection criteria independently to each data split.</p>
+          <p><strong>Python example code:</strong></p>
+          <pre class="codeblock"><code class="hljs">from spss.ml.datapreparation.sampling.samplingcomponent import SequentialSampling
+
+transformer = SequentialSampling().setSamplingRatio(1.0).setSamplingStep(2).setRandomSeed(123).setDiscard(False)
+sampled = transformer.transform(unionDF)
+</code></pre>
+          <p><strong>Parent topic:</strong> <a href="../analyze-data/spss-algorithms.html">SPSS predictive analytics algorithms</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Follow these rules when you are specifying input details for batch deployments of SPSS models.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Batch deployment input details for SPSS models</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=framework-spss-models"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="batch-deployment-input-details-for-spss-models" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-batch-deployment-input-details-for-spss-models">
+        <h1 id="batch-deployment-input-details-for-spss-models">Batch deployment input details for SPSS models</h1>
+        <p>Follow these rules when you are specifying input details for batch deployments of SPSS models.</p>
+        <p>Data type summary table:</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Type</td>
+              <td>inline, data references</td>
+            </tr>
+            <tr>
+              <td>File formats</td>
+              <td>CSV</td>
+            </tr>
+          </tbody>
+        </table>
+        <section id="section-data-sources">
+          <h2 id="data-sources">Data sources</h2>
+          <p>Input or output data references:</p>
+          <ul>
+            <li>Local or managed assets from the space</li>
+            <li>Connected (remote) assets from these sources:
+              <ul>
+                <li><a href="../manage-data/conn-cos.html">Cloud Object Storage</a></li>
+                <li><a href="../manage-data/conn-db2-wh.html">Db2 Warehouse</a></li>
+                <li><a href="../manage-data/conn-db2.html">Db2</a></li>
+                <li><a href="../manage-data/conn-bigquery.html">Google Big-Query (googlebq)</a></li>
+                <li><a href="../manage-data/conn-mysql.html">MySQL</a></li>
+                <li><a href="../manage-data/conn-sql-server.html">Microsoft SQL Server</a></li>
+                <li><a href="../manage-data/conn-teradata.html">Teradata (teradata)</a></li>
+                <li><a href="../manage-data/conn-postgresql.html">PostgreSQL</a></li>
+                <li><a href="../manage-data/conn-oracle.html">Oracle</a></li>
+                <li><a href="../manage-data/conn-snowflake.html">Snowflake</a></li>
+                <li><a href="../manage-data/conn-informix.html">Informix</a></li>
+                <li><a href="../manage-data/conn-puredata.html">Netezza Performance Server</a></li>
+              </ul>
+            </li>
+          </ul>
+          <p><strong>Notes:</strong></p>
+          <ul>
+            <li>For connections of type <a href="../manage-data/conn-cos.html">Cloud Object Storage</a> or <a href="../manage-data/conn-cos-infra.html">Cloud Object Storage (infrastructure)</a>, you must configure <strong>Access key</strong> and <strong>Secret key</strong>,
+              also known as <a href="https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-uhc-hmac-credentials-main" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">HMAC credentials</a>.</li>
+            <li>For SPSS deployments, these data sources are not compliant with Federal Information Processing Standard (FIPS):
+              <ul>
+                <li>Cloud Object Storage</li>
+                <li>Cloud Object Storage (infrastructure)</li>
+                <li>Storage volumes</li>
+              </ul>
+            </li>
+          </ul>
+          <p>If you are specifying input/output data references programmatically:</p>
+          <ul>
+            <li>Data source reference <code>type</code> depends on the asset type. Refer to the <strong>Data source reference types</strong> section in <a href="../analyze-data/ml-space-add-assets.html">Adding data assets to a deployment space</a>.</li>
+            <li>SPSS jobs support multiple data source inputs and a single output. If the schema is not provided in the model metadata at the time of saving the model, you must enter <code>id</code> manually and select a data asset for each connection. If
+              the schema is provided in model metadata, <code>id</code> names are populated automatically by using metadata. You select the data asset for the corresponding <code>id</code>s in Watson Studio. For more information, see <a href="ml-deploy-SPSS-multiple-input.html">Using multiple data sources for an SPSS job</a>.</li>
+            <li>To create a local or managed asset as an output data reference, the <code>name</code> field must be specified for <code>output_data_reference</code> so that a data asset is created with the specified name. Specifying an <code>href</code> that
+              refers to an existing local data asset is not supported.</li>
+          </ul>
+          <div class="note note"><span class="notetitle">Note:</span>
+            <md-block>
+              <p>Connected data assets that refer to supported databases can be created in the <code>output_data_references</code> only when the <code>input_data_references</code> also refers to one of these sources.</p>
+              <p></p>
+            </md-block>
+          </div>
+          <p></p>
+          <ul>
+            <li>
+              <p>Table names that are provided in input and output data references are ignored. Table names that are referred in the SPSS model stream are used during the batch deployment.</p>
+            </li>
+            <li>
+              <p>Use SQL PushBack to generate SQL statements for IBM SPSS Modeler operations that can be “pushed back” to or run in the database to improve performance. SQL Pushback is only supported by:</p>
+              <ul>
+                <li>Db2</li>
+                <li>SQL Server</li>
+                <li>Netezza Performance Server</li>
+              </ul>
+            </li>
+            <li>
+              <p>If you are creating a job by using the Python client, you must provide the connection name that is referred in the data nodes of the SPSS model stream in the <code>id</code> field, and the data asset href in <code>location.href</code> for
+                input/output data references of the deployment jobs payload. For example, you can construct the job payload like this:</p>
+              <pre class="codeblock"><code class="lang-python hljs">job_payload_ref = {
+    client.deployments.ScoringMetaNames.INPUT_DATA_REFERENCES: [{
+        <span class="hljs-string">"id"</span>: <span class="hljs-string">"DB2Connection"</span>,
+        <span class="hljs-string">"name"</span>: <span class="hljs-string">"drug_ref_input1"</span>,
+        <span class="hljs-string">"type"</span>: <span class="hljs-string">"data_asset"</span>,
+        <span class="hljs-string">"connection"</span>: {},
+        <span class="hljs-string">"location"</span>: {
+            <span class="hljs-string">"href"</span>: &lt;input_asset_href1&gt;
+        }
+    },{
+        <span class="hljs-string">"id"</span>: <span class="hljs-string">"Db2 WarehouseConn"</span>,
+        <span class="hljs-string">"name"</span>: <span class="hljs-string">"drug_ref_input2"</span>,
+        <span class="hljs-string">"type"</span>: <span class="hljs-string">"data_asset"</span>,
+        <span class="hljs-string">"connection"</span>: {},
+        <span class="hljs-string">"location"</span>: {
+            <span class="hljs-string">"href"</span>: &lt;input_asset_href2&gt;
+        }
+    }],
+    client.deployments.ScoringMetaNames.OUTPUT_DATA_REFERENCE: {
+            <span class="hljs-string">"type"</span>: <span class="hljs-string">"data_asset"</span>,
+            <span class="hljs-string">"connection"</span>: {},
+            <span class="hljs-string">"location"</span>: {
+                <span class="hljs-string">"href"</span>: &lt;output_asset_href&gt;
+            }
+        }
+    }
+</code></pre>
+            </li>
+          </ul>
+          <section id="section-using-connected-data-for-an-spss-modeler-flow-job">
+            <h4 id="using-connected-data-for-an-spss-modeler-flow-job">Using connected data for an SPSS Modeler flow job</h4>
+            <p>An SPSS Modeler flow can have a number of input and output data nodes. When you connect to a supported database as an input and output data source, the connection details are selected from the input and output data reference, but the input
+              and output table names are selected from the SPSS model stream file.</p>
+            <p>For batch deployment of an SPSS model that uses a database connection, make sure that the modeler stream Input and Output nodes are Data Asset nodes. In SPSS Modeler, the Data Asset nodes must be configured with the table names that are used
+              later for job predictions. Set the nodes and table names before you save the model to Watson Machine Learning. When you are configuring the Data Asset nodes, choose the table name from the Connections; choosing a Data Asset that is created
+              in your project is not supported.</p>
+            <p>When you are creating the deployment job for an SPSS model, make sure that the types of data sources are the same for input and output. The configured table names from the model stream are passed to the batch deployment and the input/output
+              table names that are provided in the connected data are ignored.</p>
+            <p>For batch deployment of an SPSS model that uses a Cloud Object Storage connection, make sure that the SPSS model stream has single input and output data asset nodes.</p>
+          </section>
+          <section id="section-supported-combinations-of-input-and-output-sources">
+            <h4 id="supported-combinations-of-input-and-output-sources">Supported combinations of input and output sources</h4>
+            <p>You must specify compatible sources for the SPSS Modeler flow input, the batch job input, and the output. If you specify an incompatible combination of types of data sources, you get an error when you try to run the batch job.</p>
+            <p>These combinations are supported for batch jobs:</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>SPSS model stream input/output</th>
+                  <th>Batch deployment job input</th>
+                  <th>Batch deployment job output</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>File</td>
+                  <td>Local, managed, or referenced data asset or connection asset (file)</td>
+                  <td>Remote data asset or connection asset (file) or name</td>
+                </tr>
+                <tr>
+                  <td>Database</td>
+                  <td>Remote data asset or connection asset (database)</td>
+                  <td>Remote data asset or connection asset (database)</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="section-specifying-multiple-inputs">
+            <h4 id="specifying-multiple-inputs">Specifying multiple inputs</h4>
+            <p>If you are specifying multiple inputs for an SPSS model stream deployment with no schema, specify an ID for each element in <code>input_data_references</code>.</p>
+            <p>For more information, see <a href="ml-deploy-SPSS-multiple-input.html">Using multiple data sources for an SPSS job</a>.</p>
+            <p>In this example, when you create the job, provide three input entries with IDs: <code>sample_db2_conn</code>, <code>sample_teradata_conn</code>, and <code>sample_googlequery_conn</code> and select the required connected data for each input.</p>
+            <pre class="codeblock"><code class="lang-python hljs">{
+<span class="hljs-string">"deployment"</span>: {
+    <span class="hljs-string">"href"</span>: <span class="hljs-string">"/v4/deployments/&lt;deploymentID&gt;"</span>
+  },
+  <span class="hljs-string">"scoring"</span>: {
+  	  <span class="hljs-string">"input_data_references"</span>: [{
+               <span class="hljs-string">"id"</span>: <span class="hljs-string">"sample_db2_conn"</span>,
+               <span class="hljs-string">"name"</span>: <span class="hljs-string">"DB2 connection"</span>,
+               <span class="hljs-string">"type"</span>: <span class="hljs-string">"data_asset"</span>,
+               <span class="hljs-string">"connection"</span>: {},
+               <span class="hljs-string">"location"</span>: {
+                     <span class="hljs-string">"href"</span>: <span class="hljs-string">"/v2/assets/&lt;asset_id&gt;?space_id=&lt;space_id&gt;"</span>
+               },
+           },
+           {
+               <span class="hljs-string">"id"</span>: <span class="hljs-string">"sample_teradata_conn"</span>,
+               <span class="hljs-string">"name"</span>: <span class="hljs-string">"Teradata connection"</span>,
+               <span class="hljs-string">"type"</span>: <span class="hljs-string">"data_asset"</span>,
+               <span class="hljs-string">"connection"</span>: {},
+               <span class="hljs-string">"location"</span>: {
+                     <span class="hljs-string">"href"</span>: <span class="hljs-string">"/v2/assets/&lt;asset_id&gt;?space_id=&lt;space_id&gt;"</span>
+               },
+           },
+           {
+               <span class="hljs-string">"id"</span>: <span class="hljs-string">"sample_googlequery_conn"</span>,
+               <span class="hljs-string">"name"</span>: <span class="hljs-string">"Google bigquery connection"</span>,
+               <span class="hljs-string">"type"</span>: <span class="hljs-string">"data_asset"</span>,
+               <span class="hljs-string">"connection"</span>: {},
+               <span class="hljs-string">"location"</span>: {
+                     <span class="hljs-string">"href"</span>: <span class="hljs-string">"/v2/assets/&lt;asset_id&gt;?space_id=&lt;space_id&gt;"</span>
+               },
+           }],
+  	  <span class="hljs-string">"output_data_references"</span>: {
+  	  	        <span class="hljs-string">"id"</span>: <span class="hljs-string">"sample_db2_conn"</span>,
+                <span class="hljs-string">"type"</span>: <span class="hljs-string">"data_asset"</span>,
+                <span class="hljs-string">"connection"</span>: {},
+                <span class="hljs-string">"location"</span>: {
+                    <span class="hljs-string">"href"</span>: <span class="hljs-string">"/v2/assets/&lt;asset_id&gt;?space_id=&lt;space_id&gt;"</span>
+                },
+          }
+}
+</code></pre>
+            <div class="note note"><span class="notetitle">Note:</span> The environment variables parameter of deployment jobs is not applicable.</div>
+            <p><strong>Parent topic:</strong> <a href="../analyze-data/deploy-batch-input-by-framework.html">Batch deployment input details by framework</a></p>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

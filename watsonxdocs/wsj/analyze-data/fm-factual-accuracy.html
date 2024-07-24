@@ -1,0 +1,150 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Foundation models sometimes generate output that is not factually accurate.  If factual accuracy is important for your project, set yourself up for success by learning how and why these models might sometimes get facts wrong and how you can ground generated output in correct facts.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Generating accurate output</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=tips-generating-accurate-output"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="generating-accurate-output" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-generating-accurate-output">
+        <h1 id="generating-accurate-output">Generating accurate output</h1>
+        <p>Foundation models sometimes generate output that is not factually accurate. If factual accuracy is important for your project, set yourself up for success by learning how and why these models might sometimes get facts wrong and how you can ground
+          generated output in correct facts.</p>
+        <section id="section-why-foundation-models-get-facts-wrong">
+          <h2 id="why-foundation-models-get-facts-wrong">Why foundation models get facts wrong</h2>
+          <p>Foundation models can get facts wrong for a few reasons:</p>
+          <ul>
+            <li>Pre-training builds word associations, not facts</li>
+            <li>Pre-training data sets contain out-of-date facts</li>
+            <li>Pre-training data sets do not contain esoteric or domain-specific facts and jargon</li>
+            <li>Sampling decoding is more likely to stray from the facts</li>
+          </ul>
+          <section id="section-pre-training-builds-word-associations-not-facts">
+            <h3 id="pre-training-builds-word-associations-not-facts">Pre-training builds word associations, not facts</h3>
+            <p>During pre-training, a foundation model builds up a vocabulary of words (<a href="fm-tokens.html">tokens</a>) encountered in the pre-training data sets. Also during pre-training, statistical relationships between those words become encoded
+              in the model weights.</p>
+            <p>For example, "Mount Everest" often appears near "tallest mountain in the world" in many articles, books, speeches, and other common pre-training sources. As a result, a pre-trained model will probably correctly complete
+              the prompt "The tallest mountain in the world is " with the output "Mount Everest."</p>
+            <p>These word associations can make it seem that facts have been encoded into these models too. For very common knowledge and immutable facts, you might have good luck generating factually accurate output using pre-trained foundation models with
+              simple prompts like the tallest-mountain example. However, it is a risky strategy to rely on only pre-trained word associations when using foundation models in applications where accuracy matters.</p>
+          </section>
+          <section id="section-pre-training-data-sets-contain-out-of-date-facts">
+            <h3 id="pre-training-data-sets-contain-out-of-date-facts">Pre-training data sets contain out-of-date facts</h3>
+            <p>Collecting pre-training data sets and performing pre-training runs can take a significant amount of time, sometimes months. If a model was pre-trained on a data set from several years ago, the model vocabulary and word associations encoded
+              in the model weights won't reflect current world events or newly popular themes. For this reason, if you submit the prompt "The most recent winner of the world cup of football (soccer) is " to a model pre-trained on information
+              a few years old, the generated output will be out of date.</p>
+          </section>
+          <section id="section-pre-training-data-sets-do-not-contain-esoteric-or-domain-specific-facts-and-jargon">
+            <h3 id="pre-training-data-sets-do-not-contain-esoteric-or-domain-specific-facts-and-jargon">Pre-training data sets do not contain esoteric or domain-specific facts and jargon</h3>
+            <p>Common foundation model pre-training data sets, such as <a href="https://en.wikipedia.org/wiki/The_Pile_%28dataset%29" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">The Pile (Wikipedia)</a>, contain hundreds of
+              millions of documents. Given how famous Mount Everest is, it's reasonable to expect a foundation model to have encoded a relationship between "tallest mountain in the world" and "Mount Everest". However, if a phenomenon,
+              person, or concept is mentioned in only a handful of articles, chances are slim that a foundation model would have any word associations about that topic encoded in its weights. Prompting a pre-trained model about information that was not
+              in its pre-training data sets is unlikely to produce factually accurate generated output.</p>
+          </section>
+          <section id="section-sampling-decoding-is-more-likely-to-stray-from-the-facts">
+            <h3 id="sampling-decoding-is-more-likely-to-stray-from-the-facts">Sampling decoding is more likely to stray from the facts</h3>
+            <p>Decoding is the process a model uses to choose the words (tokens) in the generated output:</p>
+            <ul>
+              <li>Greedy decoding always selects the token with the highest probability</li>
+              <li>Sampling decoding selects tokens pseudo-randomly from a probability distribution</li>
+            </ul>
+            <p>Greedy decoding generates output that is more predictable and more repetitive. Sampling decoding is more random, which feels "creative". If, based on pre-training data sets, the most likely words to follow "The tallest mountain
+              is " are "Mount Everest", then greedy decoding could reliably generate that factually correct output, whereas sampling decoding might sometimes generate the name of some other mountain or something that's not even a mountain.</p>
+          </section>
+        </section>
+        <section id="section-how-to-ground-generated-output-in-correct-facts">
+          <h2 id="how-to-ground-generated-output-in-correct-facts">How to ground generated output in correct facts</h2>
+          <p>Rather than relying on only pre-trained word associations for factual accuracy, provide context in your prompt text.</p>
+          <section id="section-use-context-in-your-prompt-text-to-establish-facts">
+            <h3 id="use-context-in-your-prompt-text-to-establish-facts">Use context in your prompt text to establish facts</h3>
+            <p>When you prompt a foundation model to generate output, the words (tokens) in the generated output are influenced by the words in the model vocabulary and the words in the prompt text. You can use your prompt text to boost factually accurate
+              word associations.</p>
+            <section id="section-example-1">
+              <h4 id="example-1">Example 1</h4>
+              <p>Here's a prompt to cause a model to complete a sentence declaring your favorite color:</p>
+              <pre class="codeblock"><code class="lang-txt hljs">My favorite color is 
+</code></pre>
+              <p>Given that only you know what your favorite color is, there's no way the model could reliably generate the correct output.</p>
+              <p>Instead, a color will be selected from colors mentioned in the model's pre-training data:</p>
+              <ul>
+                <li>If greedy decoding is used, whichever color appears most frequently with statements about favorite colors in pre-training content will be selected.</li>
+                <li>If sampling decoding is used, a color will be selected randomly from colors mentioned most often as favorites in the pre-training content.</li>
+              </ul>
+            </section>
+            <section id="section-example-2">
+              <h4 id="example-2">Example 2</h4>
+              <p>Here's a prompt that includes context to establish the facts:</p>
+              <pre class="codeblock"><code class="lang-txt hljs">I recently painted my kitchen yellow, which is my favorite color.
+
+My favorite color is 
+</code></pre>
+              <p>If you prompt a model with text that includes factually accurate context like this, then the output the model generates will be more likely to be accurate.</p>
+              <p>For more examples of including context in your prompt, see these samples:</p>
+              <ul>
+                <li><a href="fm-prompt-samples.html#sample4a">Sample 4a - Answer a question based on an article</a></li>
+                <li><a href="fm-prompt-samples.html#sample4b">Sample 4b - Answer a question based on an article</a></li>
+              </ul>
+            </section>
+          </section>
+          <section id="section-use-less-creative-decoding">
+            <h3 id="use-less-creative-decoding">Use less "creative" decoding</h3>
+            <p>When you include context with the needed facts in your prompt, using greedy decoding is likely to generate accurate output. If you need some variety in the output, you can experiment with sampling decoding with low values for parameters like
+              <code>Temperature</code>, <code>Top P</code>, and <code>Top K</code>. However, using sampling decoding increases the risk of inaccurate output.</p>
+          </section>
+        </section>
+        <section id="section-retrieval-augmented-generation">
+          <h2 id="retrieval-augmented-generation">Retrieval-augmented generation</h2>
+          <p>The retrieval-augmented generation pattern scales out the technique of pulling context into prompts. If you have a knowledge base, such as process documentation in web pages, legal contracts in PDF files, a database of products for sale, a GitHub
+            repository of C++ code files, or any other collection of information, you can use the retrieval-augmented generation pattern to generate factually accurate output based on the information in that knowledge base.</p>
+          <p>Retrieval-augmented generation involves three basic steps:</p>
+          <ol>
+            <li>Search for relevant content in your knowledge base</li>
+            <li>Pull the most relevant content into your prompt as context</li>
+            <li>Send the combined prompt text to the model to generate output</li>
+          </ol>
+          <p>For more information, see: <a href="fm-rag.html">Retrieval-augmented generation</a></p>
+          <p><strong>Parent topic:</strong> <a href="fm-prompt-tips.html">Prompt tips</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

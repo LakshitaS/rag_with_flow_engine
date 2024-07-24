@@ -1,0 +1,172 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="AutoAI offers experiment settings that you can use to configure and customize your classification or regression experiments.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Configuring a classification or regression experiment</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=experiment-configuring-settings"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="configuring-a-classification-or-regression-experiment" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-configuring-a-classification-or-regression-experiment">
+        <h1 id="configuring-a-classification-or-regression-experiment">Configuring a classification or regression experiment</h1>
+        <p>AutoAI offers experiment settings that you can use to configure and customize your classification or regression experiments.</p>
+        <section id="section-experiment-settings-overview">
+          <h2 id="experiment-settings-overview">Experiment settings overview</h2>
+          <p>After you upload the experiment data and select your experiment type and what to predict, AutoAI establishes default configurations and metrics for your experiment. You can accept these defaults and proceed with the experiment or click <strong>Experiment settings</strong>            to customize configurations. By customizing configurations, you can precisely control how the experiment builds the candidate model pipelines.</p>
+          <p>Use the following tables as a guide to experiment settings for classification and regression experiments. For details on configuring a time series experiment, see <a href="autoai-timeseries.html">Building a time series experiment</a>.</p>
+        </section>
+        <section id="section-prediction-settings">
+          <h2 id="prediction-settings">Prediction settings</h2>
+          <p>Most of the prediction settings are on the main <strong>General</strong> page. Review or update the following settings.</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Setting</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Prediction type</td>
+                <td>You can change or override the prediction type. For example, if AutoAI only detects two data classes and configures a binary classification experiment but you know that there are three data classes, you can change the type to <em>multiclass</em>.</td>
+              </tr>
+              <tr>
+                <td>Positive class</td>
+                <td>For binary classification experiments optimized for <em>Precision</em>, <em>Average Precision</em>, <em>Recall</em>, or <em>F1</em>, a positive class is required. Confirm that the Positive Class is correct or the experiment might generate
+                  inaccurate results.</td>
+              </tr>
+              <tr>
+                <td>Optimized metric</td>
+                <td>Change the metric for optimizing and ranking the model candidate pipelines.</td>
+              </tr>
+              <tr>
+                <td>Optimized algorithm selection</td>
+                <td>Choose how AutoAI selects the algorithms to use for generating the model candidate pipelines. You can optimize for the alorithms with the best score, or optimize for the algorithms with the highest score in the shortest run time.</td>
+              </tr>
+              <tr>
+                <td>Algorithms to include</td>
+                <td>Select which of the available algorithms to evaluate when the experiment is run. The list of algorithms are based on the selected prediction type.</td>
+              </tr>
+              <tr>
+                <td>Algorithms to use</td>
+                <td>AutoAI tests the specified algorithms and use the best performers to create model pipelines. Choose how many of the best algorithms to apply. Each algorithm generates 4-5 pipelines, which means that if you select 3 algorithms to use, your
+                  experiment results will include 12 - 15 ranked pipelines. More algorithms increase the runtime for the experiment.</td>
+              </tr>
+            </tbody>
+          </table>
+          <section id="section-data-fairness-settings">
+            <h3 id="data-fairness-settings">Data fairness settings</h3>
+            <p>Click the <em>Fairness</em> tab to evaluate your experiment for fairness in predicted outcomes. For details on configuring fairness detection, see <a href="autoai-fairness.html">Applying fairness testing to AutoAI experiments</a>.</p>
+          </section>
+        </section>
+        <section id="section-data-source-settings">
+          <h2 id="data-source-settings">Data source settings</h2>
+          <p>The <em>General</em> tab of data source settings provides options for configuring how the experiment consumes and processes the data for training and evaluating the experiment.</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Setting</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Ordered data</td>
+                <td>Specify if your training data is ordered sequentially, according to a row index. When input data is sequential, model performance is evaluated on newest records instead of a random sampling, and holdout data uses the last <em>n</em> records
+                  of the set rather than <em>n</em> random records. Sequential data is required for time series experiments but optional for classification and regression experiments.</td>
+              </tr>
+              <tr>
+                <td>Duplicate rows</td>
+                <td>To accelerate training, you can opt to skip duplicate rows in your training data.</td>
+              </tr>
+              <tr>
+                <td>Pipeline selection subsample method</td>
+                <td>For a large data set, use a subset of data to train the experiment. This option speeds up results but might affect accuracy.</td>
+              </tr>
+              <tr>
+                <td>Feature refinement</td>
+                <td>Specify how to handle features with no impact on the model. The choices are to always remove the feature, remove them when it improves the model quality, or do not remove them. For details on how feature significance is calculated, see
+                  <a href="autoai-details.html#feature-sig">AutoAI implementation details</a>.</td>
+              </tr>
+              <tr>
+                <td>Data imputation</td>
+                <td>Interpolate missing values in your data source. For details on managing data imputation, see <a href="autoai-imputation.html">Data imputation in AutoAI experiments</a>.</td>
+              </tr>
+              <tr>
+                <td>Text feature engineering</td>
+                <td>When enabled, columns that are detected as text are transformed into vectors to better analyze semantic similarity between strings. Enabling this setting might increase run time. For details, see <a href="autoai-text-analysis.html">Creating a text analysis experiment</a>.</td>
+              </tr>
+              <tr>
+                <td>Final training data set</td>
+                <td>Select what data to use for training the final pipelines. If you choose to include training data only, the generated notebooks include a cell for retrieving the holdout data that is used to evaluate each pipeline.</td>
+              </tr>
+              <tr>
+                <td>Outlier handling</td>
+                <td>Choose whether AutoAI excludes outlier values from the target column to improve training accuracy. If enabled, AutoAI uses the interquartile range (IQR) method to detect and exclude outliers from the final training data, whether that is
+                  training data only or training plus holdout data.</td>
+              </tr>
+              <tr>
+                <td>Training and holdout method</td>
+                <td>Training data is used to train the model, and holdout data is withheld from training the model and used to measure the performance of the model. You can either split a singe data source into training and testing (holdout) data, or you
+                  can use a second data file specifically for the testing data. If you split your training data, specify the percentages to use for training data and holdout data. You can also specify the number of folds, from the default of three folds
+                  to a maximum of 10. Cross validation divides training data into folds, or groups, for testing model performance.</td>
+              </tr>
+              <tr>
+                <td>Select features to include</td>
+                <td>Select columns from your data source that contain data that supports the prediction column. Excluding extraneous columns can improve run time.</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section id="section-runtime-settings">
+          <h2 id="runtime-settings">Runtime settings</h2>
+          <p>Review experiment settings or change the compute resources that are allocated for running the experiment.</p>
+        </section>
+        <section id="section-next-steps">
+          <h2 id="next-steps">Next steps</h2>
+          <p><a href="autoai-text-analysis.html">Configure a text analysis experiment</a></p>
+          <p><strong>Parent topic:</strong>
+            <a href="autoai-build.html">Building an AutoAI model</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

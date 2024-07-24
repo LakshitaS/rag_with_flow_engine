@@ -1,0 +1,162 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can add connections to a broad array of data sources for working with data in watsonx.ai. Source connections can be used to read data; target connections can be used to load (save) data. When you create a target connection, be sure to use credentials that have Write permission or you won't be able to save data to the target.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Connectors for watsonx.ai</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=data-connectors"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="connectors-for-watsonxai" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-connectors-for-watsonxai">
+        <h1 id="connectors-for-watsonxai">Connectors for watsonx.ai</h1>
+        <p>You can add connections to a broad array of data sources for working with data in watsonx.ai. Source connections can be used to read data; target connections can be used to load (save) data. When you create a target connection, be sure to use
+          credentials that have Write permission or you won't be able to save data to the target.</p>
+        <p>From a project, you must <a href="create-conn.html">create a connection</a> to a data source before you can read data from it or load data to it.</p>
+        <ul>
+          <li>
+            <p><a href="#ibm">IBM services</a></p>
+          </li>
+          <li>
+            <p><a href="#third">Third-party services</a></p>
+          </li>
+          <li>
+            <p><a href="#st">Supported connectors by tool</a></p>
+          </li>
+        </ul>
+        <section id="section-ibm">
+          <h2 id="ibm">IBM services</h2>
+          <ul>
+            <li><a href="conn-sqlquery.html">IBM Cloud Data Engine</a>. <em>Supports source connections only</em>.</li>
+            <li><a href="conn-mongodb.html">IBM Cloud Databases for MongoDB</a>. <em>Supports source connections only</em>.</li>
+            <li><a href="conn-compose-mysql.html">IBM Cloud Databases for MySQL</a></li>
+            <li><a href="conn-dbase-postgresql.html">IBM Cloud Databases for PostgreSQL</a></li>
+            <li><a href="conn-cos.html">IBM Cloud Object Storage</a></li>
+            <li><a href="conn-cos-infra.html">IBM Cloud Object Storage (infrastructure)</a></li>
+            <li><a href="conn-cloudant.html">IBM Cloudant</a></li>
+            <li><a href="conn-cognos.html">IBM Cognos Analytics</a>. <em>Supports source connections only</em>.</li>
+            <li><a href="conn-datavirt-z.html">IBM Data Virtualization Manager for z/OS</a></li>
+            <li><a href="conn-db2.html">IBM Db2</a></li>
+            <li><a href="conn-db2-bigsql.html">IBM Db2 Big SQL</a></li>
+            <li><a href="conn-db2i.html">IBM Db2 for i</a></li>
+            <li><a href="conn-db2zos.html">IBM Db2 for z/OS</a></li>
+            <li><a href="conn-db2-cloud.html">IBM Db2 on Cloud</a></li>
+            <li><a href="conn-db2-wh.html">IBM Db2 Warehouse</a></li>
+            <li><a href="conn-informix.html">IBM Informix</a></li>
+            <li><a href="conn-puredata.html">IBM Netezza Performance Server</a></li>
+            <li><a href="conn-plananalytics.html">IBM Planning Analytics</a></li>
+            <li><a href="conn-watsonxd.html">IBM watsonx.data</a>. <em>Supports source connections only</em>.</li>
+          </ul>
+        </section>
+        <section id="section-third">
+          <h2 id="third">Third-party services</h2>
+          <p>Many of the third-party services, data sources for working with data in watsonx.ai, are part of the ecosystem of watsonx technology partners. For information about watsonx integrations, see <a href="https://www.ibm.com/watsonx/partners" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">watsonx technology partners</a>.</p>
+          <ul>
+            <li><a href="conn-azrds-mysql.html">Amazon RDS for MySQL</a></li>
+            <li><a href="conn-azrds-oracle.html">Amazon RDS for Oracle</a></li>
+            <li><a href="conn-azrds-postresql.html">Amazon RDS for PostgreSQL</a></li>
+            <li><a href="conn-redshift.html">Amazon Redshift</a></li>
+            <li><a href="conn-amazon-s3.html">Amazon S3</a></li>
+            <li><a href="conn-cassandra.html">Apache Cassandra</a></li>
+            <li><a href="conn-derby.html">Apache Derby</a></li>
+            <li><a href="conn-hdfs.html">Apache HDFS</a></li>
+            <li><a href="conn-hive.html">Apache Hive</a>. <em>Supports source connections only</em>.</li>
+            <li><a href="conn-box.html">Box</a></li>
+            <li><a href="conn-cloudera.html">Cloudera Impala</a>. <em>Supports source connections only</em>.</li>
+            <li><a href="conn-datastax-op.html">DataStax Enterprise</a></li>
+            <li><a href="conn-dremio.html">Dremio</a>. <em>Supports source connections only</em>.</li>
+            <li><a href="conn-dropbox.html">Dropbox</a></li>
+            <li><a href="conn-elastic.html">Elasticsearch</a></li>
+            <li><a href="conn-ftp.html">FTP</a></li>
+            <li><a href="conn-generics3.html">Generic S3</a></li>
+            <li><a href="conn-bigquery.html">Google BigQuery</a></li>
+            <li><a href="conn-cloud-storage.html">Google Cloud Storage</a></li>
+            <li><a href="conn-greenplum.html">Greenplum</a></li>
+            <li><a href="conn-http.html">HTTP</a>. <em>Supports source connections only</em>.</li>
+            <li><a href="conn-looker.html">Looker</a>. <em>Supports source connections only</em>.</li>
+            <li><a href="conn-mariadb.html">MariaDB</a></li>
+            <li><a href="conn-azureblob.html">Microsoft Azure Blob Storage</a></li>
+            <li><a href="conn-cosmosdb.html">Microsoft Azure Cosmos DB</a></li>
+            <li><a href="conn-azuredls.html">Microsoft Azure Data Lake Storage</a></li>
+            <li><a href="conn-azurefs.html">Microsoft Azure File Storage</a></li>
+            <li><a href="conn-azure-sql.html">Microsoft Azure SQL Database</a></li>
+            <li><a href="conn-sql-server.html">Microsoft SQL Server</a></li>
+            <li><a href="conn-mongo.html">MongoDB</a>. <em>Supports source connections only</em>.</li>
+            <li><a href="conn-mysql.html">MySQL</a></li>
+            <li><a href="conn-odata.html">OData</a></li>
+            <li><a href="conn-oracle.html">Oracle</a></li>
+            <li><a href="conn-postgresql.html">PostgreSQL</a></li>
+            <li><a href="conn-presto.html">Presto</a>. <em>Supports source connections only</em>.</li>
+            <li><a href="conn-salesforce.html">Salesforce.com</a>. <em>Supports source connections only</em>.</li>
+            <li><a href="conn-sap-ase.html">SAP ASE</a></li>
+            <li><a href="conn-sap-iq.html">SAP IQ</a>. <em>Supports source connections only</em>.</li>
+            <li><a href="conn-sapodata.html">SAP OData</a></li>
+            <li><a href="conn-singlestore.html">SingleStoreDB</a></li>
+            <li><a href="conn-snowflake.html">Snowflake</a></li>
+            <li><a href="conn-tableau.html">Tableau</a>. <em>Supports source connections only</em>.</li>
+            <li><a href="conn-teradata.html">Teradata</a><br>
+              <em>Teradata JDBC Driver 17.00.00.03 Copyright (C) 2024 by Teradata. All rights reserved. IBM provides embedded usage of the Teradata JDBC Driver under license from Teradata solely for use as part of the IBM Watson service offering.</em>.</li>
+          </ul>
+        </section>
+        <section id="section-st">
+          <h2 id="st">Supported connectors by tool</h2>
+          <p>The following tools support connections:</p>
+          <ul>
+            <li><a href="../analyze-data/autoai-overview.html">AutoAI</a></li>
+            <li><a href="../refinery/refinery-datasources.html">Data Refinery</a></li>
+            <li><a href="../../do/DODS_Introduction/DOconnections.html">Decision Optimization</a></li>
+            <li><a href="../analyze-data/data-load-support.html">Notebooks</a></li>
+            <li><a href="../../wsd/spss-connections.html">SPSS Modeler</a></li>
+            <li><a href="../synthetic/import_data_sd.html">Synthetic Data Generator</a></li>
+          </ul>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="../getting-started/previews.html">Asset previews</a></li>
+            <li><a href="../getting-started/profile.html">Profiles of assets</a></li>
+            <li><a href="../troubleshoot/troubleshoot-conn.html">Troubleshooting connections</a></li>
+          </ul>
+          <p><strong>Parent topic</strong>: <a href="get-data.html">Preparing data</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

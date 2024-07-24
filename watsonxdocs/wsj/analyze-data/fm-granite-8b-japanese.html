@@ -1,0 +1,299 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Model Version (1.0.0): Released 2/29/2024">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>IBM granite-8b-japanese model card</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=models-granite-8b-japanese-model-card"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="ibm-granite-8b-japanese-model-card" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-ibm-granite-8b-japanese-model-card">
+        <h1 id="ibm-granite-8b-japanese-model-card">IBM granite-8b-japanese model card</h1>
+        <p>Model Version (1.0.0): Released 2/29/2024</p>
+        <p>The Granite 8 Billion Japanese (<code>granite-8b-japanese</code>) model is an instruct variant initialized from the pre-trained Granite Base 8 Billion Japanese model. Pre-training went through 1.0T tokens of English, 0.5T tokens of Japanese, and
+          0.1T tokens of code. This model is designed to work with Japanese text. IBM Generative AI Large Language Foundation Models are Enterprise-level Multilingual models trained with large volumes of data that has been subjected to intensive pre-processing
+          and careful analysis.</p>
+        <ul>
+          <li>Person or organization developing the model:
+            <ul>
+              <li><code>granite-8b-japanese</code> was developed by IBM Research.</li>
+            </ul>
+          </li>
+          <li>Model release date and version:
+            <ul>
+              <li><code>granite-8b-japanese</code> version 1.0 was released on 2/29/2024.</li>
+            </ul>
+          </li>
+          <li>Model type:
+            <ul>
+              <li><code>granite-8b-japanese</code> is a decoder-only transformer model.</li>
+              <li>The following features were used in the design of the model:
+                <ol>
+                  <li>Decoder-only model</li>
+                  <li><a href="https://arxiv.org/pdf/2305.13245.pdf" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Group-Query Attention</a></li>
+                  <li>IBM Japanese/English Trained Tokenizer</li>
+                  <li>4096 context length</li>
+                  <li><a href="https://arxiv.org/abs/2104.09864" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Rotary Position Embedding(RoPE)</a></li>
+                  <li><a href="https://arxiv.org/abs/2002.05202" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">SwiGLU Activations</a></li>
+                  <li><a href="https://arxiv.org/abs/1910.07467" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Root Mean Square Layer Normalization</a></li>
+                </ol>
+              </li>
+            </ul>
+          </li>
+          <li>Information about training algorithms, parameters, fairness constraints or other applied approaches, and features:
+            <ul>
+              <li>Model was trained using 4x Tensor Parallel + 4x Pipeline Parallel + Megatron distributed optimizer Megatron-LM.</li>
+              <li>GPUs: 448x A100 80GB</li>
+              <li>Interconnect: 1600 gigabit Infiniband</li>
+            </ul>
+          </li>
+          <li>License:
+            <ul>
+              <li>Available only through IBM products and offerings. Contact IBM for licensing terms.</li>
+            </ul>
+          </li>
+        </ul>
+        <section id="section-intended-use">
+          <h2 id="intended-use">Intended Use</h2>
+          <ul>
+            <li>Primary intended uses:
+              <ul>
+                <li><code>granite-8b-japanese</code> is used for text generation, summarization, question and answer, classification, and extraction in Japanese.</li>
+              </ul>
+            </li>
+            <li>Primary intended users:
+              <ul>
+                <li>The primary users are IBM Enterprise clients looking to bolster their portfolios with Enterprise-level generative AI models.</li>
+              </ul>
+            </li>
+            <li>Out-of-scope use cases:
+              <ul>
+                <li><code>granite-8b-japanese</code> is not designed, tested, or supported, for code use cases of any kind.</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section id="section-factors">
+          <h2 id="factors">Factors</h2>
+          <ul>
+            <li>Relevant factors: <code>granite-8b-japanese</code> works with Japanese text. All datasets have been cleansed of any type of tagging (e.g., HTML), and all media has been removed as well.</li>
+          </ul>
+        </section>
+        <section id="section-metrics">
+          <h2 id="metrics">Metrics</h2>
+          <p><code>granite-8b-japanese</code> was evaluated using the following eight well known datasets from <a href="https://github.com/Stability-AI/lm-evaluation-harness/tree/jp-stable" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Stability-AI/lm-evaluation-harness</a>:</p>
+          <ul>
+            <li>
+              <p>JCommonsenseQA is a Japanese version of <a href="https://www.tau-nlp.org/commonsenseqa" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">CommonsenseQA</a> (Talmor+, 2019), which is a multiple-choice question answering
+                dataset that requires commonsense reasoning ability. It is built using crowdsourcing with seeds extracted from the knowledge base <a href="https://conceptnet.io/" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">ConceptNet</a>.</p>
+            </li>
+            <li>
+              <p>JNLI is a Japanese version of the NLI (Natural Language Inference) dataset. NLI is a task to recognize the inference relation that a premise sentence has to a hypothesis sentence. The inference relations are <code>含意</code>, <code>矛盾</code>,
+                and <code>中立</code>.</p>
+            </li>
+            <li>
+              <p>MARC-ja is a dataset of the text classification task. This dataset is based on the Japanese portion of <a href="https://docs.opendata.aws/amazon-reviews-ml/readme.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Multilingual Amazon Reviews Corpus (MARC)</a>                (Keung+, 2020).</p>
+            </li>
+            <li>
+              <p>JSQuAD is a Japanese version of <a href="https://rajpurkar.github.io/SQuAD-explorer/" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">SQuAD</a> (Rajpurkar+, 2016), one of the datasets of reading comprehension.
+                Each instance in the dataset consists of a question regarding a given context (Wikipedia article) and its answer. JSQuAD is based on SQuAD 1.1 (there are no unanswerable questions). We used <a href="https://dumps.wikimedia.org/jawiki/" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">the Japanese Wikipedia dump</a> as of 20211101.</p>
+            </li>
+            <li>
+              <p>Japanese Questions on Knowledge of Entity (JAQKET) is a Japanese open-domain question answering dataset where the answers are Wikipedia article titles.</p>
+            </li>
+            <li>
+              <p><a href="https://huggingface.co/datasets/csebuetnlp/xlsum" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">XLSum-ja</a> This is a filtered Japanese subset of <a href="https://huggingface.co/datasets/csebuetnlp/xlsum" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">XLSum</a> based on ROUGE-2, which <a href="https://arxiv.org/abs/2305.10403" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">PaLM 2</a>                uses. It is composed of filtered data based on 15-gram overlap as PaLM 2 did.</p>
+            </li>
+            <li>
+              <p><a href="https://huggingface.co/datasets/Muennighoff/xwinograd" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">XWinograd</a> - XWinograd is a set of Winograd Schema sentence pairs. For example:</p>
+              <ul>
+                <li>ボブはトムに尋ねた。トムはお金をいくらか貸してくれるかと。</li>
+                <li>ボブはトムに尋ねた。ボブはお金をいくらか貸してくれるかと。</li>
+              </ul>
+              <p>In this case the first sentence is correct, because it doesn't make sense for Bob to ask Tom how much money Bob himself will loan. The task is for the model to assign the higher log likelihood to the reasonable sentence. Because of the way
+                the task is defined, it's always zero-shot with no prompt. While XWinograd is a multilingual task, this only uses the Japanese subset, which has 959 pairs.</p>
+            </li>
+            <li>
+              <p><a href="https://arxiv.org/pdf/2210.03057.pdf" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Multilingual Grade School Math</a> is a set of 250 math word problems in Japanese, and the task is to get the right
+                integer solution to the problem.</p>
+            </li>
+          </ul>
+          <section id="section-zero-shot-results">
+            <h4 id="zero-shot-results">Zero-shot results</h4>
+            <table>
+              <thead>
+                <tr>
+                  <th><strong>Task</strong></th>
+                  <th><strong>Version</strong></th>
+                  <th><strong>Metric</strong></th>
+                  <th><strong>Performance</strong></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>jcommonsenseqa-1.1-0.3</td>
+                  <td>1.1</td>
+                  <td>acc</td>
+                  <td>0.7078</td>
+                </tr>
+                <tr>
+                  <td>jnli-1.3-0.3</td>
+                  <td>1.3</td>
+                  <td>balanced_acc</td>
+                  <td>0.5032</td>
+                </tr>
+                <tr>
+                  <td>marc_ja-1.1-0.3</td>
+                  <td>1.1</td>
+                  <td>balanced_acc</td>
+                  <td>0.6442</td>
+                </tr>
+                <tr>
+                  <td>jsquad-1.1-0.3</td>
+                  <td>1.1</td>
+                  <td>f1</td>
+                  <td>59.3862</td>
+                </tr>
+                <tr>
+                  <td>jaqket_v2-0.2-0.3</td>
+                  <td>0.2</td>
+                  <td>f1</td>
+                  <td>60.3066</td>
+                </tr>
+                <tr>
+                  <td>xlsum_ja-1.0-0.3</td>
+                  <td>1</td>
+                  <td>rouge2</td>
+                  <td>7.2561</td>
+                </tr>
+                <tr>
+                  <td>xwinograd_ja</td>
+                  <td>1</td>
+                  <td>acc</td>
+                  <td>0.683</td>
+                </tr>
+                <tr>
+                  <td>mgsm-1.0-0.3</td>
+                  <td>1</td>
+                  <td>acc</td>
+                  <td>0.028</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="section-n-shot-results">
+            <h4 id="n-shot-results">N-shot results</h4>
+            <table>
+              <thead>
+                <tr>
+                  <th><strong>Task</strong></th>
+                  <th><strong>Version</strong></th>
+                  <th><strong>Metric</strong></th>
+                  <th><strong>Performance</strong></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>jcommonsenseqa-1.1-0.3</td>
+                  <td>1.1</td>
+                  <td>acc</td>
+                  <td>0.807</td>
+                </tr>
+                <tr>
+                  <td>jnli-1.3-0.3</td>
+                  <td>1.3</td>
+                  <td>balanced_acc</td>
+                  <td>0.5935</td>
+                </tr>
+                <tr>
+                  <td>marc_ja-1.1-0.3</td>
+                  <td>1.1</td>
+                  <td>balanced_acc</td>
+                  <td>0.9461</td>
+                </tr>
+                <tr>
+                  <td>jsquad-1.1-0.3</td>
+                  <td>1.1</td>
+                  <td>f1</td>
+                  <td>80.9671</td>
+                </tr>
+                <tr>
+                  <td>jaqket_v2-0.2-0.3</td>
+                  <td>0.2</td>
+                  <td>f1</td>
+                  <td>74.9605</td>
+                </tr>
+                <tr>
+                  <td>xlsum_ja-1.0-0.3</td>
+                  <td>1</td>
+                  <td>rouge2</td>
+                  <td>9.4874</td>
+                </tr>
+                <tr>
+                  <td>xwinograd_ja</td>
+                  <td>1</td>
+                  <td>acc</td>
+                  <td>0.683</td>
+                </tr>
+                <tr>
+                  <td>mgsm-1.0-0.3</td>
+                  <td>1</td>
+                  <td>acc</td>
+                  <td>0.116</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </section>
+        <section id="section-data-limitations-and-recommendations">
+          <h2 id="data-limitations-and-recommendations">Data, Limitations, and Recommendations</h2>
+          <ul>
+            <li>Data selection for training:
+              <ul>
+                <li>The <code>granite-8b-japanese</code> underwent pre-training using 1.0T tokens of English, 0.5T tokens of Japanese, and 0.1T tokens of code.</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can manage assets in a project by adding them, editing them, or deleting them.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Managing assets in projects</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=projects-managing-assets-in"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="managing-assets-in-projects" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-managing-assets-in-projects">
+        <h1 id="managing-assets-in-projects">Managing assets in projects</h1>
+        <p>You can manage assets in a project by adding them, editing them, or deleting them.</p>
+        <ul>
+          <li><a href="add-data-project.html">Add data assets</a></li>
+          <li>You can add other types of assets by clicking <strong>New asset</strong> or <strong>Import assets</strong> on the project's <em>Assets</em> page.</li>
+          <li><a href="#editassets">Edit assets</a></li>
+          <li><a href="download.html">Download assets</a></li>
+          <li><a href="#remove-asset">Delete assets</a></li>
+        </ul>
+        <section id="section-editassets">
+          <h2 id="editassets">Edit assets</h2>
+          <p>You can edit the properties of all types of assets, such as the asset name, description, and tags. See <a href="../getting-started/assets.html">Asset types and properties</a>.</p>
+          <p>The role you need to edit an asset depends on the asset type. See <a href="../getting-started/collaborator-permissions.html">Project collaborator roles</a>.</p>
+          <dl>
+            <dt><strong>Data assets from files, connected data assets, or imported data assets</strong></dt>
+            <dd>
+              <ul>
+                <li>Click the data asset name to open the asset. For some types of data, you can see an <a href="../getting-started/previews.html">asset preview</a>.</li>
+              </ul>
+            </dd>
+            <dd>
+              <ul>
+                <li>To edit the data asset properties, such as its name and description, click the corresponding edit icon (<img src="../console/images/edit.svg" alt="edit icon" height="20" style="vertical-align:text-bottom">) on the information pane.</li>
+              </ul>
+            </dd>
+            <dd>
+              <ul>
+                <li>To add or delete tags, click + (plus sign).</li>
+              </ul>
+            </dd>
+            <dd>
+              <ul>
+                <li>To create or update a <a href="../getting-started/profile.html">profile</a> of relational data, click the <strong>Profile</strong> tab.</li>
+              </ul>
+            </dd>
+            <dd>
+              <ul>
+                <li>To cleanse and shape relational data, click <strong>Prepare data</strong> to open the data asset in Data Refinery.</li>
+              </ul>
+            </dd>
+            <dd>
+              <p>When you change the name of data assets with file attachments that you uploaded into the project, the file attachments are also renamed. You must update any references to the data asset in code-based assets, like notebooks, to the new data
+                asset name, otherwise, the code-based asset won't run.</p>
+            </dd>
+            <dt><strong>Connection assets</strong></dt>
+            <dd>
+              <p>Click the connection asset name to edit the connection properties, such as the name, description, and connection details.</p>
+            </dd>
+            <dt><strong>Assets that you create with tools</strong></dt>
+            <dd>
+              <p>Click the name of the asset on the <strong>Assets</strong> page to open it in its tool.</p>
+            </dd>
+          </dl>
+          <p>On the <strong>Assets</strong> page of a project, the lock icon <img src="images/lockicon-new.png" alt="Lock icon" title="Lock icon" height="20" style="vertical-align:text-bottom"> indicates that another collaborator is editing the asset or
+            locked the asset to prevent editing by other users.</p>
+          <ul>
+            <li>Enabled lock: You can unlock the asset if you locked it or if you have the <strong>Admin</strong> role in the project.</li>
+            <li>Disabled lock: You can't unlock a locked asset if you didn't lock it and you have the <strong>Editor</strong> or <strong>Viewer</strong> role in the project.</li>
+          </ul>
+          <p>When you unlock an asset that another collaborator is editing, you take control of the asset. The other collaborator is not notified and any changes made by that collaborator are overwritten by your edits.</p>
+        </section>
+        <section id="section-remove-asset">
+          <h2 id="remove-asset">Delete an asset from a project</h2>
+          <dl>
+            <dt><strong>Required permissions</strong></dt>
+            <dd>You must have the <strong>Admin</strong> or <strong>Editor</strong> role to delete assets from the project.</dd>
+          </dl>
+          <p>To delete an asset from a project, choose the <strong>Delete</strong> or the <strong>Remove</strong> option from the action menu next to the asset on the project <strong>Assets</strong> page. When you delete an asset, its associated file, if
+            it has one, is also deleted. However, when you delete a connected data asset, the data in the associated data source is not affected.</p>
+          <p>Depending on the type of asset, other related assets might also be deleted.</p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="../getting-started/assets.html">Asset types and properties</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="../manage-data/manage-projects.html">Projects </a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

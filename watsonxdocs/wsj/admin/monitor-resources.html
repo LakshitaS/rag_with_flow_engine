@@ -1,0 +1,230 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Some service plans charge for compute usage and other types of resource usage. If you are the IBM Cloud account owner or administrator, you can monitor the resources usage to ensure the limits are not exceeded.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Monitoring account resource usage</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=platform-monitoring-account-resource-usage"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="monitoring-account-resource-usage" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-monitoring-account-resource-usage">
+        <h1 id="monitoring-account-resource-usage">Monitoring account resource usage</h1>
+        <p>Some service plans charge for compute usage and other types of resource usage. If you are the IBM Cloud account owner or administrator, you can monitor the resources usage to ensure the limits are not exceeded.</p>
+        <p>For Lite plans, you cannot exceed the limits of the plan. You must wait until the start of your next billing month to use resources that are calculated monthly. Alternatively, you can <a href="upgrade.html">upgrade to a paid plan</a>.</p>
+        <p>For most paid plans, you pay for the resources that the tools and processes that are provided by the service consume each month.</p>
+        <p>To see the costs of your plan, log in to IBM Cloud, open your service instance from your IBM Cloud dashboard, and click <strong>Plan</strong>.</p>
+        <ul>
+          <li><a href="#compute">Capacity unit hours (CUH) for compute usage</a></li>
+          <li><a href="#rus">Resource units for foundation model inferencing</a></li>
+          <li><a href="#billing">Monitor monthly billing</a></li>
+        </ul>
+        <section id="section-compute">
+          <h2 id="compute">Capacity unit hours (CUH) for compute usage</h2>
+          <p>Many tools consume compute usage that is measured in capacity unit hours (CUH). A capacity unit hour is a specific amount of compute capability with a set cost.</p>
+          <section id="section-processing">
+            <h3 id="processing">How compute usage is calculated</h3>
+            <p>Different types of processes and different levels of compute power are billed at different rates of capacity units per hour. For example, the hourly rate for a data profiling process is 6 capacity units.</p>
+            <p>Compute usage for Watson Studio is charged by the minute, with a minimum charge of 10 minutes (0.16 hours). Compute usage for Watson Machine Learning is charged by the minute with a minimum charge of one minute.</p>
+            <p>Compute usage is calculated by adding the minimum number of minutes billed for each process plus the number of minutes the process runs beyond the minimum minutes, then multiplying the total by the capacity unit rate for the process.</p>
+            <p>The following table shows examples of how the billed CUH is calculated.</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Rate</th>
+                  <th>Usage time</th>
+                  <th>Calculation</th>
+                  <th>Total CUH billed</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1 CUH/hour</td>
+                  <td>1 hour</td>
+                  <td>1 hour * 1 CUH/hour</td>
+                  <td>1 CUH</td>
+                </tr>
+                <tr>
+                  <td>2 CUH/hour</td>
+                  <td>45 minutes</td>
+                  <td>0.75 hours * 2 CUH/hour</td>
+                  <td>1.5 CUH</td>
+                </tr>
+                <tr>
+                  <td>6 CUH/hour</td>
+                  <td>5 minutes</td>
+                  <td>0.16 hours * 6 CUH/hour</td>
+                  <td>0.96 CUH. The minimum charge for Watson Studio applies.</td>
+                </tr>
+                <tr>
+                  <td>6 CUH/hour</td>
+                  <td>30 minutes</td>
+                  <td>0.5 hours * 6 CUH/hour</td>
+                  <td>3 CUH</td>
+                </tr>
+                <tr>
+                  <td>6 CUH/hour</td>
+                  <td>1 hour</td>
+                  <td>1 hour * 6 CUH/hour</td>
+                  <td>6 CUH</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="section-processes">
+            <h3 id="processes">Processes that consume capacity unit hours</h3>
+            <p>Some types of processes, such as AutoAI and Federated Learning, have a single compute rate for the runtime. However, with many tools you have a choice of compute resources for the runtime. The notebook editor, Data Refinery, SPSS Modeler,
+              and other tools have different rates that reflect the memory and compute power for the environment. Environments with more memory and compute power consume capacity unit hours at a higher rate.</p>
+            <p>This table shows each process that consumes CUH, where it runs, and against which service CUH is billed, and whether you can choose from more than one environment. Follow the links to view the available CUH rates for each process.</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Tool or Process</th>
+                  <th>Workspace</th>
+                  <th>Service that provides CUH</th>
+                  <th>Multiple CUH rates?</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><a href="../analyze-data/notebook-environments.html">Notebook editor</a></td>
+                  <td>Project</td>
+                  <td>Watson Studio, Analytics Engine (Spark)</td>
+                  <td>Multiple rates</td>
+                </tr>
+                <tr>
+                  <td><a href="../analyze-data/notebook-environments.html#wml">Invoking the machine learning API from a notebook</a></td>
+                  <td>Project</td>
+                  <td>Watson Machine Learning</td>
+                  <td>Multiple rates</td>
+                </tr>
+                <tr>
+                  <td><a href="../analyze-data/spark-dr-envs.html">Data Refinery</a></td>
+                  <td>Project</td>
+                  <td>Watson Studio</td>
+                  <td>Multiple rates</td>
+                </tr>
+                <tr>
+                  <td><a href="../analyze-data/spss-envs.html">SPSS Modeler</a></td>
+                  <td>Project</td>
+                  <td>Watson Studio</td>
+                  <td>Multiple rates</td>
+                </tr>
+                <tr>
+                  <td><a href="../analyze-data/rstudio-envs.html">RStudio IDE</a></td>
+                  <td>Project</td>
+                  <td>Watson Studio</td>
+                  <td>Multiple rates</td>
+                </tr>
+                <tr>
+                  <td><a href="../analyze-data/run-autoai.html">AutoAI experiments</a></td>
+                  <td>Project</td>
+                  <td>Watson Machine Learning</td>
+                  <td>Multiple rates</td>
+                </tr>
+                <tr>
+                  <td><a href="../analyze-data/run-decisionopt.html">Decision Optimization experiments</a></td>
+                  <td>Spaces</td>
+                  <td>Watson Machine Learning</td>
+                  <td>Multiple rates</td>
+                </tr>
+                <tr>
+                  <td><a href="../analyze-data/run-cuh-deploy-spaces.html">Running deployments</a></td>
+                  <td>Spaces</td>
+                  <td>Watson Machine Learning</td>
+                  <td>Multiple rates</td>
+                </tr>
+                <tr>
+                  <td><a href="../analyze-data/environments-parent.html#profiling">Profiling</a></td>
+                  <td>Project</td>
+                  <td>Watson Studio</td>
+                  <td>One rate</td>
+                </tr>
+                <tr>
+                  <td><a href="../analyze-data/synthetic-envs.html">Synthetic Data Generator</a></td>
+                  <td>Project</td>
+                  <td>Watson Studio</td>
+                  <td>One rate</td>
+                </tr>
+              </tbody>
+            </table>
+            <p caption="Table 1. CUH usage" caption-side="top">|<a href="../analyze-data/run-pipelines-options.html">Watson Pipelines</a> | Project and Space| Watson Studio |Multiple rates|</p>
+          </section>
+          <section id="section-monitor-cuh">
+            <h3 id="monitor-cuh">Monitoring compute usage</h3>
+            <p>You can monitor compute usage for all services at the account level. To view the monthly CUH usage for a service, open the service instance from your IBM Cloud dashboard and click <strong>Plan</strong>.</p>
+            <p>You can also monitor compute usage in a project on the <strong>Environments</strong> page on the <strong>Manage</strong> tab.</p>
+            <p>To see the total amount of capacity unit hours that are used and that are remaining for Watson Studio and Watson Machine Learning, look at the <strong>Environment Runtimes</strong> page. From the navigation menu, select <strong>Administration &gt; Environment runtimes</strong>.
+              The <strong>Environment Runtimes</strong> page shows details of the <a href="../analyze-data/track-runtime-usage.html#track-account">CUH used by environments</a>. You can calculate the amount of CUH you use for data flows and profiling by
+              subtracting the amount used by environments from the total amount used.</p>
+          </section>
+        </section>
+        <section id="section-rus">
+          <h2 id="rus">Resource units for foundation model inferencing</h2>
+          <p>Calling a foundation model to generate output in response to a prompt is known as inferencing. Foundation model inferencing is measure in resource units (RU). Each RU equals 1,000 tokens. A token is a basic unit of text (typically 4 characters
+            or 0.75 words) used in the input or output for a foundation model prompt. For details on tokens, see <a href="../analyze-data/fm-tokens.html">Tokens</a>.</p>
+          <p>Resource unit billing is based on the rate of the foundation model class multipled by the number of tokens. Foundation models are classified into three classes. See <a href="../getting-started/wml-plans.html#ru-metering">Resource unit metering</a>.</p>
+          <div class="note note"><span class="notetitle">Note:</span> You do not consume tokens when you use the generative AI search and answer app for this documentation site.</div>
+          <section id="section-monitor">
+            <h3 id="monitor">Monitoring token usage for foundation model inferencing</h3>
+            <p>You can monitor foundation model token usage in a project on the <strong>Environments</strong> page on the <strong>Manage</strong> tab.</p>
+          </section>
+        </section>
+        <section id="section-billing">
+          <h2 id="billing">Monitor monthly billing</h2>
+          <p>You must be an IBM Cloud account owner or administrator to see resource usage information.</p>
+          <p>To view a summary of your monthly billing, from the navigation menu, choose <strong>Administration &gt; Account and billing &gt; Billing and usage</strong>. The IBM Cloud usage dashboard opens. To view the usage for each service, in the <strong>Usage summary</strong>            section, click <strong>View usage</strong>.</p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="../analyze-data/environments-parent.html">Choosing compute resources for running tools in projects</a></li>
+            <li><a href="upgrade.html">Upgrade services</a></li>
+            <li><a href="../analyze-data/track-runtime-usage.html#track-account">Environments compute usage</a></li>
+            <li><a href="../getting-started/ws-plans.html">Watson Studio offering plans</a></li>
+            <li><a href="../getting-started/wml-plans.html">Watson Machine Learning plans and compute usage</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong>
+            <a href="../console/wdp_admin_console.html">Managing the platform</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

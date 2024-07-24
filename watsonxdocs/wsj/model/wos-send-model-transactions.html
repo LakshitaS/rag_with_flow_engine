@@ -1,0 +1,71 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You must send model transactions from your deployment to watsonx.governance to enable model evaluations.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Sending model transactions in watsonx.governance</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=evaluations-sending-model-transactions"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="sending-model-transactions-in-watsonxgovernance" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-sending-model-transactions-in-watsonxgovernance">
+        <h1 id="sending-model-transactions-in-watsonxgovernance">Sending model transactions in watsonx.governance</h1>
+        <p>You must send model transactions from your deployment to watsonx.governance to enable model evaluations.</p>
+        <p>To generate accurate results for your model evaluations constantly, watsonx.governance must continue to receive new data from your deployment. watsonx.governance provides different methods that you can use to send transactions for model evaluations.</p>
+        <section id="section-importing-data">
+          <h2 id="importing-data">Importing data</h2>
+          <p>When you review evaluation results in watsonx.governance, you can import data by selecting <strong>Evaluate now</strong> in the <strong>Actions</strong> menu to import payload and feedback data for your model evaluations.</p>
+          <p><img src="images/wos-eval-results-prod-spaces.png" alt="Analyze prompt template evaluation results"></p>
+          <p>For pre-production models, you must upload a CSV file that contains examples of input and output data. To run evaluations with imported data, you must map prompt variables to the associated columns in your CSV file and select <strong>Upload and evaluate</strong>            as shown in the following example:</p>
+          <p><img src="images/wos-map-prompt-variables-preprod.png" alt="Upload CSV file"></p>
+          <p>For production models, you can select <strong>Upload payload data</strong> or <strong>Upload feedback data</strong> in the <strong>Import test data</strong> window to upload a CSV file as shown in the following example:</p>
+          <p><img src="images/wos-import-test-data-prod-space.png" alt="Import test data"></p>
+          <p>The CSV file must contain labeled columns that match the columns in your payload and feedback schemas. When your upload completes successfully, you can select <strong>Evaluate now</strong> to run your evaluations with your imported data.</p>
+        </section>
+        <section id="section-using-endpoints">
+          <h2 id="using-endpoints">Using endpoints</h2>
+          <p>For production models, Watson OpenScale supports endpoints that you can use to provide data in formats that enable evaluations. You can use the payload logging endpoint to send scoring requests for drift evaluations and use the feedback logging
+            endpoint to provide feedback data for quality evaluations. For more information about the data formats, see <a href="wos-manage-data.html#it-dbo-active">Managing data for model evaluations</a>.</p>
+          <p><strong>Parent topic:</strong> <a href="wos-manage-data.html">Managing data for model evaluations in Watson OpenScale</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

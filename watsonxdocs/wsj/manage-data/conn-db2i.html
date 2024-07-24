@@ -1,0 +1,159 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="To access your data in IBM Db2 for i, create a connection asset for it.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>IBM Db2 for i connection</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=connectors-db2-i-connection"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="ibm-db2-for-i-connection" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-ibm-db2-for-i-connection">
+        <h1 id="ibm-db2-for-i-connection">IBM Db2 for i connection</h1>
+        <p>To access your data in IBM Db2 for i, create a connection asset for it.</p>
+        <p>Db2 for i is the relational database manager that is fully integrated on your system. Because it is integrated on the system, Db2 for i is easy to use and manage.</p>
+        <section id="section-supported-versions">
+          <h2 id="supported-versions">Supported versions</h2>
+          <p>IBM DB2 for i 7.2+</p>
+        </section>
+        <section id="section-prerequisites">
+          <h2 id="prerequisites">Prerequisites</h2>
+          <section id="section-obtain-the-certificate-file">
+            <h3 id="obtain-the-certificate-file">Obtain the certificate file</h3>
+            <p>A certificate file on the Db2 for i server is required to use this connection. To obtain an IBM Db2 Connect Unlimited Edition license certificate file, go to <a href="https://www.ibm.com/products/db2-connect/pricing" target="_blank" rel="noopener noreferrer">IBM Db2 Connect: Pricing</a>              and <a href="https://www.ibm.com/docs/SSEPGG_11.5.0/com.ibm.db2.luw.apdv.gs.doc/doc/t0010264.html" target="_blank" rel="noopener noreferrer">Installing the IBM Data Server Driver for JDBC and SQLJ</a>. For installation instructions, see
+              <a href="https://www.ibm.com/docs/SSEPGG_11.5.0/com.ibm.db2.luw.licensing.doc/doc/t0057375.html" target="_blank" rel="noopener noreferrer">Activating the license certificate file for Db2 Connect Unlimited Edition</a>.</p>
+          </section>
+          <section id="section-run-the-bind-command">
+            <h3 id="run-the-bind-command">Run the bind command</h3>
+            <p>Run the following commands from the Db2 client that is configured to access the Db2 for i server. <br> You need to run the bind command only once per remote database per Db2 client version.</p>
+            <pre class="codeblock"><code class="lang-txt hljs">db2 connect to DBALIAS user USERID using PASSWORD
+db2 bind path@ddcs400.lst blocking all sqlerror continue messages ddcs400.msg grant public
+db2 connect reset
+</code></pre>
+            <p>For information about bind commands, see <a href="https://www.ibm.com/docs/SSEPGG_11.5.0/com.ibm.db2.luw.qb.dbconn.doc/doc/c0005595.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Binding applications and utilities</a>.</p>
+          </section>
+          <section id="section-run-catalog-commands">
+            <h3 id="run-catalog-commands">Run catalog commands</h3>
+            <p>Run the following catalog commands from the Db2 client that is configured to access the Db2 for i server:</p>
+            <ol>
+              <li>
+                <pre><code class="lang-txt hljs">db2 catalog tcpip node node_name remote hostname_or_address server port_no_or_service_name
+</code></pre>
+                <p class="codeblock"></p>
+                <p>Example: <br>
+                  <code>db2 catalog tcpip node db2i123 remote 192.0.2.0 server 446</code> <br><br></p>
+              </li>
+              <li>
+                <pre><code class="lang-txt hljs"> db2 catalog dcs database local_name as real_db_name
+</code></pre>
+                <p class="codeblock"></p>
+                <p>Example: <br>
+                  <code>db2 catalog dcs database db2i123 as db2i123</code> <br><br></p>
+              </li>
+              <li>
+                <pre><code class="lang-txt hljs">db2 catalog database local_name as alias at node node_name authentication server
+</code></pre>
+                <p class="codeblock"></p>
+                <p>Example: <br>
+                  <code>db2 catalog database db2i123 as db2i123 at node db2i123 authentication server</code> <br><br></p>
+              </li>
+            </ol>
+            <p>For information about catalog commands, see <a href="https://www.ibm.com/docs/SSEPGG_11.5.0/com.ibm.db2.luw.admin.cmd.doc/doc/r0001944.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">CATALOG TCPIP NODE</a>              and <a href="https://www.ibm.com/docs/SSEPGG_11.5.0/com.ibm.db2.luw.admin.cmd.doc/doc/r0001937.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">CATALOG DCS DATABASE</a>.</p>
+          </section>
+        </section>
+        <section id="section-create-a-connection-to-db2-for-i">
+          <h2 id="create-a-connection-to-db2-for-i">Create a connection to Db2 for i</h2>
+          <p>To create the connection asset, you need these connection details:</p>
+          <ul>
+            <li>Hostname or IP address</li>
+            <li>Port number</li>
+            <li>Location: The unique name of the Db2 location you want to access</li>
+            <li>Username and password</li>
+            <li>SSL certificate (if required by the database server)</li>
+          </ul>
+          <p>For <strong>Private connectivity</strong>, to connect to a database that is not externalized to the internet (for example, behind a firewall), you must set up a <a href="securingconn.html">secure connection</a>.</p>
+          <section id="section-choose-the-method-for-creating-a-connection-based-on-where-you-are-in-the-platform">
+            <h3 id="choose-the-method-for-creating-a-connection-based-on-where-you-are-in-the-platform">Choose the method for creating a connection based on where you are in the platform</h3>
+            <dl>
+              <dt><strong>In a project</strong></dt>
+              <dd>Click <strong>Assets &gt; New asset &gt; Connect to a data source</strong>. See <a href="create-conn.html">Adding a connection to a project</a>.</dd>
+              <dt><strong>In a deployment space</strong></dt>
+              <dd>Click <strong>Add to space &gt; Connection</strong>. See <a href="../analyze-data/ml-space-add-assets.html">Adding connections to a deployment space</a>.</dd>
+              <dt><strong>In the Platform assets catalog</strong></dt>
+              <dd>Click <strong>New connection</strong>. See <a href="platform-conn.html">Adding platform connections</a>.</dd>
+            </dl>
+          </section>
+          <section id="section-next-step-add-data-assets-from-the-connection">
+            <h3 id="next-step-add-data-assets-from-the-connection">Next step: Add data assets from the connection</h3>
+            <ul>
+              <li>See <a href="connected-data.html">Add data from a connection in a project</a>.</li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-where-you-can-use-this-connection">
+          <h2 id="where-you-can-use-this-connection">Where you can use this connection</h2>
+          <p>You can use Db2 for i connections in the following workspaces and tools:</p>
+          <p><strong>Projects</strong></p>
+          <ul>
+            <li>SPSS Modeler</li>
+            <li>Synthetic Data Generator</li>
+          </ul>
+          <p><strong>Catalogs</strong></p>
+          <ul>
+            <li>Platform assets catalog</li>
+          </ul>
+        </section>
+        <section id="section-restriction">
+          <h2 id="restriction">Restriction</h2>
+          <p>For SPSS Modeler, you can use this connection only to import data. You cannot export data to this connection or to a Db2 for i connection connected data asset.</p>
+          <section id="section-running-sql-statements">
+            <h3 id="running-sql-statements">Running SQL statements</h3>
+            <p>To ensure that your SQL statements run correctly, refer to the <a href="https://www.ibm.com/docs/ssw_ibm_i_72/db2/rbafzintro.htm" target="_blank" rel="noopener noreferrer"> Db2 for i SQL reference</a> for the correct syntax.</p>
+          </section>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p><a href="https://www.ibm.com/docs/i" target="_blank" rel="noopener noreferrer">IBM Db2 for i documentation</a></p>
+          <p><strong>Parent topic:</strong> <a href="conn_types.html">Supported connections</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

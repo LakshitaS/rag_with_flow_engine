@@ -1,0 +1,183 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Each party follows these steps to connect to a started aggregator.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Connecting to the aggregator (Party)</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=experiment-connecting-aggregator-party"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="connecting-to-the-aggregator-party" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <!--AZ - Topic ready for 4.5 review-->
+      <section id="section-connecting-to-the-aggregator-party">
+        <h1 id="connecting-to-the-aggregator-party">Connecting to the aggregator (Party)</h1>
+        <p>Each party follows these steps to connect to a started aggregator.</p>
+        <ol>
+          <li>
+            <p>Open the project and click the Federated Learning experiment.</p>
+          </li>
+          <li>
+            <p>Click <strong>View setup information</strong> and click the download icon to download the party connector script.
+              <img src="../analyze-data/images/fl-view-setup-info.png" alt="Screen capture of View Setup Information" height="70%" width="70%"></p>
+          </li>
+          <li>
+            <p>Each party must configure the party connector script and provide valid credentials to run the script. This is what a sample completed party connector script looks like:</p>
+            <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">from</span> ibm_watson_machine_learning <span class="hljs-keyword">import</span> APIClient
+
+wml_credentials = {
+<span class="hljs-string">"url"</span>: <span class="hljs-string">"https://us-south.ml.cloud.ibm.com"</span>,
+<span class="hljs-string">"apikey"</span>: <span class="hljs-string">"&lt;API KEY&gt;"</span>
+}
+
+wml_client = APIClient(wml_credentials)
+
+wml_client.<span class="hljs-built_in">set</span>.default_project(<span class="hljs-string">"XXX-XXX-XXX-XXX-XXX"</span>)
+
+party_metadata = {
+
+        wml_client.remote_training_systems.ConfigurationMetaNames.DATA_HANDLER: {
+
+        <span class="hljs-string">"name"</span>: <span class="hljs-string">"MnistSklearnDataHandler"</span>,
+
+        <span class="hljs-string">"path"</span>: <span class="hljs-string">"example.mnist_sklearn_data_handler"</span>,
+
+        <span class="hljs-string">"info"</span>: {
+
+        <span class="hljs-string">"npz_file"</span>:<span class="hljs-string">"./example_data/example_data.npz"</span>
+
+}
+
+party = wml_client.remote_training_systems.create_party(<span class="hljs-string">"XXX-XXX-XXX-XXX-XXX"</span>, party_metadata)
+
+party.monitor_logs()
+party.run(aggregator_id=<span class="hljs-string">"XXX-XXX-XXX-XXX-XXX"</span>, asynchronous=<span class="hljs-literal">False</span>)
+</code></pre>
+            <p><strong>Parameters</strong>:</p>
+            <ul>
+              <li><em><code>api_key</code>:</em> <br>Your IAM API key. To create a new API key, go to the <a href="https://cloud.ibm.com/" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud website</a>, and click <strong>Create an IBM Cloud Pak for Data API key</strong>                under <strong>Manage &gt; Access(IAM) &gt; API keys</strong>.</li>
+            </ul>
+            <p><em>Optional:</em> If you're reusing a script from a different project, you can copy the updated <code>project_id</code>, <code>aggregator_id</code> and <code>experiment_id</code> from the setup information window and copy them into the script.</p>
+          </li>
+          <li>
+            <p>Install Watson Machine Learning with the latest Federated Learning package if you have not yet done so:</p>
+            <ul>
+              <li>If you are using M-series on a Mac, install the latest package with the following script:</li>
+            </ul>
+            <pre class="codeblock"><code class="lang-bash hljs"><span class="hljs-comment">#  -----------------------------------------------------------------------------------------</span>
+<span class="hljs-comment">#  (C) Copyright IBM Corp. 2023.</span>
+<span class="hljs-comment">#  https://opensource.org/licenses/BSD-3-Clause</span>
+<span class="hljs-comment">#  -----------------------------------------------------------------------------------------</span>
+<span class="hljs-comment">#</span>
+<span class="hljs-comment">#</span>
+<span class="hljs-comment"># Script to create a conda environment and install ibm-watson-machine-learning with</span>
+<span class="hljs-comment"># the dependencies required for Federated Learning on MacOS.</span>
+<span class="hljs-comment"># The name of the conda environment to be created is passed as the first argument.</span>
+<span class="hljs-comment">#</span>
+<span class="hljs-comment"># Note: This script requires miniforge to be installed for conda.</span>
+<span class="hljs-comment">#</span>
+
+usage=<span class="hljs-string">". install_fl_rt22.2_macos.sh conda_env_name"</span>
+
+arch=$(uname -m)
+os=$(uname -s)
+
+<span class="hljs-keyword">if</span> ((<span class="hljs-variable">$#</span> &lt; 1))
+<span class="hljs-keyword">then</span>
+<span class="hljs-built_in">echo</span> <span class="hljs-variable">$usage</span>
+<span class="hljs-built_in">exit</span>
+<span class="hljs-keyword">fi</span>
+
+ENAME=<span class="hljs-variable">$1</span>
+
+conda create -y -n <span class="hljs-variable">${ENAME}</span> python=3.10
+conda activate <span class="hljs-variable">${ENAME}</span>
+pip install ibm-watson-machine-learning
+
+<span class="hljs-keyword">if</span> [ <span class="hljs-string">"<span class="hljs-variable">$os</span>"</span> == <span class="hljs-string">"Darwin"</span> -a <span class="hljs-string">"<span class="hljs-variable">$arch</span>"</span> == <span class="hljs-string">"arm64"</span> ]
+<span class="hljs-keyword">then</span>
+conda install -y -c apple tensorflow-deps
+<span class="hljs-keyword">fi</span>
+
+python - &lt;&lt;<span class="hljs-string">EOF
+import pkg_resources
+import platform
+import subprocess
+
+package = 'ibm-watson-machine-learning'
+extra   = 'fl-rt22.2-py3.10'
+extra_  = extra.replace('.','-')
+extra_s = '; extra == "{}"'
+remove  = None
+add     = []
+
+if platform.system() == "Darwin" and platform.processor() == "arm":
+    remove  = 'tensorflow'
+    add     = ['tensorflow-macos==2.9.2']
+
+pkgs = pkg_resources.working_set.by_key[package].requires(extras=[extra])
+pkgs = [ p.__str__().removesuffix(extra_s.format(extra)).removesuffix(extra_s.format(extra_)) for p in pkgs if ( extra in p.__str__() or extra_ in p.__str__() ) and ( not remove or remove not in p.__str__() )]
+
+print( "Installing standard packages for {}[{}]:{}".format(package,extra,pkgs) )
+print( "Installing additional packages:{}".format(add) )
+
+cmd = [ 'pip', 'install'] + add + pkgs
+
+subprocess.run( cmd )
+EOF</span>
+</code></pre>
+            <ul>
+              <li>Otherwise install with the following command:<br><code>pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ 'ibm-watson-machine-learning[fl-rt22.2-py3.10]'</code></li>
+            </ul>
+          </li>
+          <li>
+            <p>When your configuration is complete and you save the party connector script, enter this command in a command line to run the script:</p>
+            <pre class="codeblock"><code class="lang-bash hljs">python3 rts_&lt;RTS Name&gt;_&lt;RTS ID&gt;.py
+</code></pre>
+          </li>
+        </ol>
+        <section id="section-more-resources">
+          <h2 id="more-resources">More resources</h2>
+          <p><a href="https://ibm.github.io/watson-machine-learning-sdk/" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Federated Learning library functions</a></p>
+          <p><strong>Parent topic:</strong> <a href="fl-start.html">Creating a Federated Learning experiment</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

@@ -1,0 +1,377 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="These implementation details describe the stages and processing that are specific to an AutoAI time series experiment.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Time series implementation details</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=experiment-time-series-implementation-details"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="time-series-implementation-details" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-time-series-implementation-details">
+        <h1 id="time-series-implementation-details">Time series implementation details</h1>
+        <p>These implementation details describe the stages and processing that are specific to an AutoAI time series experiment.</p>
+        <section id="section-implementation-details">
+          <h2 id="implementation-details">Implementation details</h2>
+          <p>Refer to these implementation and configuration details for your time series experiment.</p>
+          <ul>
+            <li><a href="#ts-stages">Time series stages</a> for processing an experiment.</li>
+            <li><a href="#ts-metrics">Time series optimizing metrics</a> for tuning your pipelines.</li>
+            <li><a href="#ts-algorithms">Time series algorithms</a> for building the pipelines.</li>
+            <li><a href="#ts-date-time">Supported date and time formats</a>.</li>
+          </ul>
+        </section>
+        <section id="section-ts-stages">
+          <h2 id="ts-stages">Time series stages</h2>
+          <p>An AutoAI time series experiment includes these stages when an experiment runs:</p>
+          <ol>
+            <li><a href="#initialization">Initialization</a></li>
+            <li><a href="#pipeline-selection">Pipeline selection</a></li>
+            <li><a href="#model-eval">Model evaluation</a></li>
+            <li><a href="#final-pipeline">Final pipeline generation</a></li>
+            <li><a href="#backtest">Backtest</a></li>
+          </ol>
+          <section id="section-initialization">
+            <h3 id="initialization">Stage 1: Initialization</h3>
+            <p>The initialization stage processes the training data, in this sequence:</p>
+            <ul>
+              <li>Load the data</li>
+              <li>Split the data set <em>L</em> into training data <em>T</em> and holdout data <em>H</em></li>
+              <li>Set the validation, timestamp column handling, and lookback window generation.
+                <strong>Notes:</strong>
+                <ul>
+                  <li>The training data (<em>T</em>) is equal to the data set (<em>L</em>) minus the holdout (<em>H</em>). When you configure the experiment, you can adjust the size of the holdout data. By default, the size of the holdout data is 20 steps.</li>
+                  <li>You can optionally specify the timestamp column.</li>
+                  <li>By default, a lookback window is generated automatically by detecting the seasonal period by using signal processing method. However, if you have an idea of an appropriate lookback window, you can specify the value directly.</li>
+                </ul>
+              </li>
+            </ul>
+          </section>
+          <section id="section-pipeline-selection">
+            <h3 id="pipeline-selection">Stage 2: Pipeline selection</h3>
+            <p>The pipeline selection step uses an efficient method called <em>T-Daub</em> (Time Series Data Allocation Using Upper Bounds). The method selects pipelines by allocating more training data to the most promising pipelines, while allocating less
+              training data to unpromising pipelines. In this way, not all pipelines see the complete set of data, and the selection process is typically faster. The following steps describe the process overview:</p>
+            <ol>
+              <li>All pipelines are sequentially allocated several small subsets of training data. The latest data is allocated first.</li>
+              <li>Each pipeline is trained on every allocated subset of training data and evaluated with testing data (holdout data).</li>
+              <li>A linear regression model is applied to each pipeline by using the data set described in the previous step.</li>
+              <li>The accuracy score of the pipeline is projected on the entire training data set. This method results in a data set containing the accuracy and size of allocated data for each pipeline.</li>
+              <li>The best pipeline is selected according to the projected accuracy and allotted rank 1.</li>
+              <li>More data is allocated to the best pipeline. Then, the projected accuracy is updated for the other pipelines.</li>
+              <li>The prior two steps are repeated until the top <em>N</em> pipelines are trained on all the data.</li>
+            </ol>
+          </section>
+          <section id="section-model-eval">
+            <h3 id="model-eval">Stage 3: Model evaluation</h3>
+            <p>In this step, the winning pipelines <em>N</em> are retrained on the entire training data set <em>T</em>. Further, they are evaluated with the holdout data <em>H</em>.</p>
+          </section>
+          <section id="section-final-pipeline">
+            <h3 id="final-pipeline">Stage 4: Final pipeline generation</h3>
+            <p>In this step, the winning pipelines are retrained on the entire data set (<em>L</em>) and generated as the final pipelines.</p>
+            <p>As the retraining of each pipeline completes, the pipeline is posted to the leaderboard. You can select to inspect the pipeline details or save the pipeline as a model.</p>
+          </section>
+          <section id="section-backtest">
+            <h3 id="backtest">Stage 5: Backtest</h3>
+            <p>In the final step, the winning pipelines are retrained and evaluated by using the backtest method. The following steps describe the backtest method:</p>
+            <ol>
+              <li>The training data length is determined based on the number of backtests, gap length, and holdout size. To learn more about these parameters, see <a href="autoai-timeseries.html">Building a time series experiment</a>.</li>
+              <li>Starting from the oldest data, the experiment is trained by using the training data.</li>
+              <li>Further, the experiment is evaluated on the first validation data set. If the gap length is non-zero, any data in the gap is skipped over.</li>
+              <li>The training data window is advanced by increasing the holdout size and gap length to form a new training set.</li>
+              <li>A fresh experiment is trained with this new data and evaluated with the next validation data set.</li>
+              <li>The prior two steps are repeated for the remaining backtesting periods.</li>
+            </ol>
+          </section>
+        </section>
+        <section id="section-ts-metrics">
+          <h2 id="ts-metrics">Time series optimization metrics</h2>
+          <p>Accept the default metric, or choose a metric to optimize for your experiment.</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Symmetric Mean Absolute Percentage Error (SMAPE)</td>
+                <td>At each fitted point, the absolute difference between actual value and predicted value is divided by half the sum of absolute actual value and predicted value. Then, the average is calculated for all such values across all the fitted points.</td>
+              </tr>
+              <tr>
+                <td>Mean Absolute Error (MAE)</td>
+                <td>Average of absolute differences between the actual values and predicted values.</td>
+              </tr>
+              <tr>
+                <td>Root Mean Squared Error (RMSE)</td>
+                <td>Square root of the mean of the squared differences between the actual values and predicted values.</td>
+              </tr>
+              <tr>
+                <td>R<sup>2</sup></td>
+                <td>Measure of how the model performance compares to the baseline model, or mean model. The R<sup>2</sup> must be equal or less than 1. Negative R<sup>2</sup> value means that the model under consideration is worse than the mean model. Zero
+                  R<sup>2</sup> value means that the model under consideration is as good or bad as the mean model. Positive R<sup>2</sup> value means that the model under consideration is better than the mean model.</td>
+              </tr>
+            </tbody>
+          </table>
+          <section id="section-reviewing-the-metrics-for-an-experiment">
+            <h3 id="reviewing-the-metrics-for-an-experiment">Reviewing the metrics for an experiment</h3>
+            <p>When you view the results for a time series experiment, you see the values for metrics used to train the experiment in the pipeline leaderboard:</p>
+            <p><img src="images/autoai-ts-results.png" alt="Reviewing experiment results" style="max-width:90%;height:auto;width:auto"></p>
+            <p>You can see that the accuracy measures for time-series experiments may vary widely, depending on the experiment data evaluated.</p>
+            <ul>
+              <li>Validation is the score calculated on training data.</li>
+              <li>Holdout is the score calculated on the reserved holdout data.</li>
+              <li>Backtest is the mean score from all backtests scores.</li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-ts-algorithms">
+          <h2 id="ts-algorithms">Time series algorithms</h2>
+          <p>These algorithms are available for your time series experiment. You can use the algorithms that are selected by default, or you can configure your experiment to include or exclude specific algorithms.</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Algorithm</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>ARIMA</td>
+                <td>Autoregressive Integrated Moving Average (ARIMA) model is a typical time series model, which can transform non-stationary data to stationary data through differencing, and then forecast the next value by using the past values, including
+                  the lagged values and lagged forecast errors</td>
+              </tr>
+              <tr>
+                <td>BATS</td>
+                <td>The BATS algorithm combines Box-Cox Transformation, ARMA residuals, Trend, and Seasonality factors to forecast future values.</td>
+              </tr>
+              <tr>
+                <td>Ensembler</td>
+                <td>Ensembler combines multiple forecast methods to overcome accuracy of simple prediction and to avoid possible overfit.</td>
+              </tr>
+              <tr>
+                <td>Holt-Winters</td>
+                <td>Uses triple exponential smoothing to forecast data points in a series, if the series is repetitive over time (seasonal). Two types of Holt-Winters models are provided: additive Holt-Winters, and multiplicative Holt-Winters</td>
+              </tr>
+              <tr>
+                <td>Random Forest</td>
+                <td>Tree-based regression model where each tree in the ensemble is built from a sample that is drawn with replacement (for example, a bootstrap sample) from the training set.</td>
+              </tr>
+              <tr>
+                <td>Support Vector Machine (SVM)</td>
+                <td>SVMs are a type of machine learning models that can be used for both regression and classification. SVMs use a hyperplane to divide the data into separate classes.</td>
+              </tr>
+              <tr>
+                <td>Linear regression</td>
+                <td>Builds a linear relationship between time series variable and the date/time or time index with residuals that follow the AR process.</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section id="section-ts-date-time">
+          <h2 id="ts-date-time">Supported date and time formats</h2>
+          <p>The date/time formats supported in time series experiments are based on the definitions that are provided by <a href="https://dateutil.readthedocs.io/en/stable/parser.html">dateutil</a>.</p>
+          <p>Supported date formats are:</p>
+          <p>Common:</p>
+          <pre class="codeblock"><code class="hljs">    YYYY
+    YYYY-MM, YYYY/MM, or YYYYMM
+    YYYY-MM-DD or YYYYMMDD
+    mm/dd/yyyy
+    mm-dd-yyyy
+    JAN YYYY
+</code></pre>
+          <p>Uncommon:</p>
+          <pre class="codeblock"><code class="hljs">    YYYY-Www or YYYYWww - ISO week (day defaults to 0)
+    YYYY-Www-D or YYYYWwwD - ISO week and day
+</code></pre>
+          <p>Numberng for the ISO week and day values follows the same logic as datetime.date.isocalendar().</p>
+          <p>Supported time formats are:</p>
+          <pre class="codeblock"><code class="hljs">    hh
+    hh:mm or hhmm
+    hh:mm:ss or hhmmss
+    hh:mm:ss.ssssss (Up to 6 sub-second digits)
+    dd-MMM 
+    yyyy/mm 
+</code></pre>
+          <p><strong>Notes:</strong></p>
+          <ul>
+            <li>Midnight can be represented as 00:00 or 24:00. The decimal separator can be either a period or a comma.</li>
+            <li>Dates can be submitted as strings, with double quotation marks, such as "1958-01-16".</li>
+          </ul>
+        </section>
+        <section id="section-supporting-features">
+          <h2 id="supporting-features">Supporting features</h2>
+          <p>Supporting features, also known as exogenous features, are input features that can influence the prediction target. You can use supporting features to include additional columns from your data set to improve the prediction and increase your
+            model’s accuracy. For example, in a time series experiment to predict prices over time, a supporting feature might be data on sales and promotions. Or, in a model that forecasts energy consumption, including daily temperature makes the forecast
+            more accurate.</p>
+          <section id="section-algorithms-and-pipelines-that-use-supporting-features">
+            <h3 id="algorithms-and-pipelines-that-use-supporting-features">Algorithms and pipelines that use Supporting features</h3>
+            <p>Only a subset of algorithms allow supporting features. For example, Holt-winters and BATS do not support the use of supporting features. Algorithms that do not support supporting features ignore your selection for supporting features when
+              you run the experiment.</p>
+            <p>Some algorithms use supporting features for certain variations of the algorithm, but not for others. For example, you can generate two different pipelines with the Random Forest algorithm, <em>RandomForestRegressor</em> and <em>ExogenousRandomForestRegressor</em>.
+              The <em>ExogenousRandomForestRegressor</em> variation provides support for supporting features, whereas <em>RandomForestRegressor</em> does not.</p>
+            <p>This table details whether an algorithm provides support for Supporting features in a time series experiment:</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Algorithm</th>
+                  <th>Pipeline</th>
+                  <th>Provide support for Supporting features</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Random forest</td>
+                  <td>RandomForestRegressor</td>
+                  <td>No</td>
+                </tr>
+                <tr>
+                  <td>Random forest</td>
+                  <td>ExogenousRandomForestRegressor</td>
+                  <td>Yes</td>
+                </tr>
+                <tr>
+                  <td>SVM</td>
+                  <td>SVM</td>
+                  <td>No</td>
+                </tr>
+                <tr>
+                  <td>SVM</td>
+                  <td>ExogenousSVM</td>
+                  <td>Yes</td>
+                </tr>
+                <tr>
+                  <td>Ensembler</td>
+                  <td>LocalizedFlattenEnsembler</td>
+                  <td>Yes</td>
+                </tr>
+                <tr>
+                  <td>Ensembler</td>
+                  <td>DifferenceFlattenEnsembler</td>
+                  <td>No</td>
+                </tr>
+                <tr>
+                  <td>Ensembler</td>
+                  <td>FlattenEnsembler</td>
+                  <td>No</td>
+                </tr>
+                <tr>
+                  <td>Ensembler</td>
+                  <td>ExogenousLocalizedFlattenEnsembler</td>
+                  <td>Yes</td>
+                </tr>
+                <tr>
+                  <td>Ensembler</td>
+                  <td>ExogenousDifferenceFlattenEnsembler</td>
+                  <td>Yes</td>
+                </tr>
+                <tr>
+                  <td>Ensembler</td>
+                  <td>ExogenousFlattenEnsembler</td>
+                  <td>Yes</td>
+                </tr>
+                <tr>
+                  <td>Regression</td>
+                  <td>MT2RForecaster</td>
+                  <td>No</td>
+                </tr>
+                <tr>
+                  <td>Regression</td>
+                  <td>ExogenousMT2RForecaster</td>
+                  <td>Yes</td>
+                </tr>
+                <tr>
+                  <td>Holt-winters</td>
+                  <td>HoltWinterAdditive</td>
+                  <td>No</td>
+                </tr>
+                <tr>
+                  <td>Holt-winters</td>
+                  <td>HoltWinterMultiplicative</td>
+                  <td>No</td>
+                </tr>
+                <tr>
+                  <td>BATS</td>
+                  <td>BATS</td>
+                  <td>No</td>
+                </tr>
+                <tr>
+                  <td>ARIMA</td>
+                  <td>ARIMA</td>
+                  <td>No</td>
+                </tr>
+                <tr>
+                  <td>ARIMA</td>
+                  <td>ARIMAX</td>
+                  <td>Yes</td>
+                </tr>
+                <tr>
+                  <td>ARIMA</td>
+                  <td>ARIMAX_RSAR</td>
+                  <td>Yes</td>
+                </tr>
+                <tr>
+                  <td>ARIMA</td>
+                  <td>ARIMAX_PALR</td>
+                  <td>Yes</td>
+                </tr>
+                <tr>
+                  <td>ARIMA</td>
+                  <td>ARIMAX_RAR</td>
+                  <td>Yes</td>
+                </tr>
+                <tr>
+                  <td>ARIMA</td>
+                  <td>ARIMAX_DMLR</td>
+                  <td>Yes</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p><a href="autoai-ts-score.html">Scoring a time series model</a></p>
+          <p><strong>Parent topic:</strong> <a href="autoai-timeseries.html">Building a time series experiment</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="The Tone model in the Watson Natural Language Processing classification workflow classifies the tone in the input text.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Tone classification</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=catalog-tone-classification"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="tone-classification" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-tone-classification">
+        <h1 id="tone-classification">Tone classification</h1>
+        <p>The Tone model in the Watson Natural Language Processing classification workflow classifies the tone in the input text.</p>
+        <p><strong>Workflow name</strong></p>
+        <p><code>ensemble_classification-workflow_en_tone-stock</code></p>
+        <p><strong>Supported languages</strong></p>
+        <ul>
+          <li>English and French</li>
+        </ul>
+        <p><strong>Capabilities</strong></p>
+        <p>The Tone classification model is a pre-trained document classification model for the task of classifying the tone in the input document. The model identifies the tone of the input document and classifies it as:</p>
+        <ul>
+          <li>Excited</li>
+          <li>Frustrated</li>
+          <li>Impolite</li>
+          <li>Polite</li>
+          <li>Sad</li>
+          <li>Satisfied</li>
+          <li>Sympathetic</li>
+        </ul>
+        <p>Unlike the Sentiment model, which classifies each individual sentence, the Tone model classifies the entire input document. As such, the Tone model works optimally when the input text to classify is no longer than 1000 characters. If you would
+          like to classify texts longer than 1000 characters, split the text into sentences or paragraphs for example and apply the Tone model on each sentence or paragraph.</p>
+        <p>A document may be classified into multiple categories or into no category.</p>
+        <table>
+          <caption>Capabilities of tone classification</caption>
+          <thead>
+            <tr>
+              <th>Capabilities</th>
+              <th>Example</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Identifies the tone of a document and classifies it</td>
+              <td>"I'm really happy with how this was handled, thank you!" --&gt; excited, satisfied</td>
+            </tr>
+          </tbody>
+        </table>
+        <p><strong>Dependencies on other blocks</strong></p>
+        <p>None</p>
+        <p><strong>Code sample</strong></p>
+        <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">import</span> watson_nlp
+
+<span class="hljs-comment"># Load the Tone workflow model for English</span>
+tone_model = watson_nlp.load(<span class="hljs-string">'ensemble_classification-workflow_en_tone-stock'</span>)
+
+<span class="hljs-comment"># Run the Tone model&nbsp;</span>
+tone_result = tone_model.run(<span class="hljs-string">"I'm really happy with how this was handled, thank you!"</span>)
+<span class="hljs-built_in">print</span>(tone_result)
+</code></pre>
+        <p>Output of the code sample:</p>
+        <pre class="codeblock"><code class="lang-json hljs"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"classes"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"class_name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"excited"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"confidence"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.6896854620082722</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"class_name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"satisfied"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"confidence"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.6570277557333078</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"class_name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"polite"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"confidence"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.33628806679460566</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"class_name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"sympathetic"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"confidence"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.17089694967744093</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"class_name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"sad"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"confidence"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.06880583874412932</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"class_name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"frustrated"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"confidence"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.010365418217209686</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"class_name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"impolite"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"confidence"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.002470793624966174</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"producer_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Voting based Ensemble"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"version"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"0.0.1"</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+        <p><strong>Parent topic:</strong> <a href="watson-nlp-block-catalog.html">Watson Natural Language Processing task catalog</a></p>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="To enable model evaluations in watsonx.governance, you must prepare your data for logging to generate insights.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Managing data for model evaluations in watsonx.governance</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=models-managing-data-model-evaluations"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="managing-data-for-model-evaluations-in-watsonxgovernance" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-managing-data-for-model-evaluations-in-watsonxgovernance">
+        <h1 id="managing-data-for-model-evaluations-in-watsonxgovernance">Managing data for model evaluations in watsonx.governance</h1>
+        <p>To enable model evaluations in watsonx.governance, you must prepare your data for logging to generate insights.</p>
+        <p>You must provide your model data to watsonx.governance in a format that it supports to enable model evaluations. Watsonx.governance processes your model transactions and logs the data in the watsonx.governance data mart. The data mart is the logging
+          database that stores the data that is used for model evaluations. The following sections describe the different types of data that watsonx.governance logs for model evaluations:</p>
+        <section id="section-payload-data-wx">
+          <h2 id="payload-data-wx">Payload data</h2>
+          <p>Payload data contains the input and output transactions for your deployment. watsonx.governance must receive payload data from your model that it stores in a payload logging table. The table includes timestamp and ID columns to identify each
+            scoring request that you send to watsonx.governance as shown in the following example:</p>
+          <p><img src="images/wos-ntbok.png" alt="Python SDK sample output of payload logging table"></p>
+          <p>You must send scoring requests to provide watsonx.governance with a log of your model transactions. For more information, see <a href="wos-payload-logging.html">Managing payload data</a>.</p>
+        </section>
+        <section id="section-feedback-data-wx">
+          <h2 id="feedback-data-wx">Feedback data</h2>
+          <p>Feedback data is labeled data that matches the structure of training data and includes known model outcomes that are compared to your model predictions to measure the accuracy of your model. Watsonx.governance uses feedback data to enable you
+            to configure quality evaluations. You must upload feedback data regularly to watsonx.governance to continuously measure the accuracy of your model predictions. For more information, see <a href="wos-manage-feedback-data.html">Managing feedback data</a>.</p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="wos-manage-payload-data.html">Managing payload data</a></li>
+            <li><a href="wos-manage-feedback-data.html">Managing feedback data</a></li>
+            <li><a href="wos-send-model-transactions.html">Sending model transactions</a></li>
+          </ul>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

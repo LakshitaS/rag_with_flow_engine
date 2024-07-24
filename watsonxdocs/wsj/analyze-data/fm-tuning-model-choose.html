@@ -1,0 +1,113 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Find the right foundation model to customize for your task.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Choosing a foundation model to tune</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=studio-choosing-model-tune"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="choosing-a-foundation-model-to-tune" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-choosing-a-foundation-model-to-tune">
+        <h1 id="choosing-a-foundation-model-to-tune">Choosing a foundation model to tune</h1>
+        <p>Find the right foundation model to customize for your task.</p>
+        <p>The following models are available for prompt tuning from the Tuning Studio in watsonx.ai:</p>
+        <ul>
+          <li><strong>flan-t5-xl-3b</strong></li>
+          <li><strong>granite-13b-instruct-v2</strong></li>
+          <li><strong>llama-2-13b-chat</strong></li>
+        </ul>
+        <p><strong>Note</strong>: The foundation models that are available for tuning in the Tuning Studio can differ by data center. For more information, see <a href="../getting-started/regional-datactr.html">Regional availability for services and features</a>.</p>
+        <p>To help you choose the best model, follow these steps:</p>
+        <ol>
+          <li>
+            <p>Consider whether any measures were taken to curate the data that was used to train the foundation model to improve the integrity of the foundation model output.</p>
+          </li>
+          <li>
+            <p>Review other general considerations for choosing a model.</p>
+            <p>For more information, see <a href="fm-model-choose.html">Choosing a foundation model</a>.</p>
+          </li>
+          <li>
+            <p>Consider the costs that are associated with the foundation model, both at inference time and at tuning time. A smaller model, such as a 3 billion parameter model, costs less to tune and is a good place to start.</p>
+            <p>Tuning incurs compute resource consumption costs that are measured in capacity unit hours (CUH). The larger the model, the longer it takes to tune the model. A foundation model that is four times the size takes four times as long to tune.</p>
+            <p>For example, on the same data set (10,000 examples and 1.25 MB in size), the time it takes to tune the supported foundation models is as follows:</p>
+            <ul>
+              <li>flan-t5-xl-3b: 3 hours 25 minutes</li>
+              <li>llama-2-13b-chat: 11 hours 45 minutes</li>
+            </ul>
+            <p>For more information about CUH costs, see <a href="../getting-started/wml-plans.html#cuh-metering">Watson Machine Learning plans and compute usage</a>.</p>
+          </li>
+          <li>
+            <p>Experiment with the models in the Prompt Lab.</p>
+            <p>Use the largest version (meaning the version with the most parameters) of the model in the same model family for testing purposes. By testing with a larger, more powerful model you can establish the best prompt pattern for getting the output
+              you want. Then, you can tune a smaller version of the same model type to save costs. A prompt-tuned version of a smaller model can generate similar, if not better results and costs less to inference.</p>
+            <p>Craft and try prompts until you find the input pattern that generates the best results from the large foundation model.</p>
+            <p>For more information, see <a href="fm-prompt-lab.html">Prompt Lab</a>.</p>
+          </li>
+        </ol>
+        <p>The following table shows the foundation models to experiment with before you choose a foundation model to tune.</p>
+        <table>
+          <caption caption-side="top">Table 1. Models to experiment with before tuning</caption>
+          <thead>
+            <tr>
+              <th>Model for prompt engineering</th>
+              <th>Model for tuning</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>flan-t5-xxl-11b<br>flan-ul2-20b</td>
+              <td>flan-t5-xl-3b</td>
+            </tr>
+            <tr>
+              <td>granite-13b-instruct-v2</td>
+              <td>granite-13b-instruct-v2</td>
+            </tr>
+            <tr>
+              <td>llama-2-70b-chat</td>
+              <td>llama-2-13b-chat</td>
+            </tr>
+          </tbody>
+        </table>
+        <p><strong>Parent topic:</strong> <a href="fm-tuning-studio.html">Tuning Studio</a></p>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

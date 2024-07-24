@@ -1,0 +1,244 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Tuning parameters configure the tuning experiments that you use to tune the model.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Parameters for tuning foundation models</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=model-tuning-parameters"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="tuning-parameters" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-tuning-parameters">
+        <h1 id="tuning-parameters">Parameters for tuning foundation models</h1>
+        <p>Tuning parameters configure the tuning experiments that you use to tune the model.</p>
+        <p>During the experiment, the tuning model repeatedly adjusts the structure of the prompt so that its predictions can get better over time.</p>
+        <p>The following diagram illustrates the steps that occur during a tuning training experiment run. The parts of the experiment flow that you can configure are highlighted. These decision points correspond with experiment tuning parameters that you
+          control.</p>
+        <p>You can click the diagram to expand the image.</p>
+        <p><img src="images/fm-tuning-training-experiment.svg" alt="Tuning experiment run process" width="75%" data-tearsheet="this"></p>
+        <p>The diagram shows the following steps of the experiment:</p>
+        <ol>
+          <li>
+            <p>Starts from the initialization method that you choose to use to initialize the prompt.</p>
+            <p>If the <em>initialization method</em> parameter is set to <code>text</code>, then you must add the initialization text.</p>
+          </li>
+          <li>
+            <p>If specified, tokenizes the initialization text and converts it into a prompt vector.</p>
+          </li>
+          <li>
+            <p>Reads the training data, tokenizes it, and converts it into batches.</p>
+            <p>The size of the batches is determined by the <em>batch size</em> parameter.</p>
+          </li>
+          <li>
+            <p>Sends input from the examples in the batch to the foundation model for the model to process and generate output.</p>
+          </li>
+          <li>
+            <p>Compares the model's output to the output from the training data that corresponds to the training data input that was submitted. Then, computes the loss gradient, which is the difference between the predicted output and the actual output from
+              the training data.</p>
+            <p>At some point, the experiment adjusts the prompt vector that is added to the input based on the performance of the model. When this adjustment occurs depends on how the <em>Accumulation steps</em> parameter is configured.</p>
+          </li>
+          <li>
+            <p>Adjustments are applied to the prompt vector that was initialized in Step 2. The degree to which the vector is changed is controlled by the <em>Learning rate</em> parameter. The edited prompt vector is added as a prefix to the input from the
+              next example in the training data, and is submitted to the model as input.</p>
+          </li>
+          <li>
+            <p>The process repeats until all of the examples in all of the batches are processed.</p>
+          </li>
+          <li>
+            <p>The entire set of batches are processed again as many times as is specified in the <em>Number of epochs</em> parameter.</p>
+          </li>
+        </ol>
+        <div class="note note"><span class="notetitle">Note:</span> No layer of the base foundation model is changed during this process.</div>
+        <section id="section-defaults">
+          <h2 id="defaults">Parameter details</h2>
+          <p>The parameters that you change when you tune a model are related to the tuning experiment, not to the underlying foundation model.</p>
+          <p>The following table captures the default parameters for each open source foundation model.</p>
+          <table>
+            <caption caption-side="top">Table 1: Tuning parameter values for open source foundation models</caption>
+            <thead>
+              <tr>
+                <th>Parameter name</th>
+                <th>Value options</th>
+                <th>Default value for flan-t5-xl-3b</th>
+                <th>Default value for llama-2-13b-chat</th>
+                <th>Learn more</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Initialization method</td>
+                <td>Random, Text</td>
+                <td>Random</td>
+                <td>Random</td>
+                <td><a href="#initialize">Initializing prompt tuning</a></td>
+              </tr>
+              <tr>
+                <td>Initialization text</td>
+                <td>None</td>
+                <td>None</td>
+                <td>None</td>
+                <td><a href="#initialize">Initializing prompt tuning</a></td>
+              </tr>
+              <tr>
+                <td>batch_size</td>
+                <td>1 - 16</td>
+                <td>16</td>
+                <td>8</td>
+                <td><a href="#segment">Segmenting the training data</a></td>
+              </tr>
+              <tr>
+                <td>accumulate_steps</td>
+                <td>1 - 128</td>
+                <td>16</td>
+                <td>16</td>
+                <td><a href="#segment">Segmenting the training data</a></td>
+              </tr>
+              <tr>
+                <td>learning_rate</td>
+                <td>0.00001 - 0.5</td>
+                <td>0.3</td>
+                <td>0.002</td>
+                <td><a href="#learning-rate">Managing the learning rate</a></td>
+              </tr>
+              <tr>
+                <td>num_epochs (number of training cycles)</td>
+                <td>1 - 50</td>
+                <td>20</td>
+                <td>20</td>
+                <td><a href="#runs">Choosing the number of training runs to complete</a></td>
+              </tr>
+            </tbody>
+          </table>
+          <p>The default parameters that are used for tuning the granite-13b-instruct-v2 foundation model are adjusted based on the type of task you want the tuned model to do.</p>
+          <p>The following table captures the default parameters per supported task type for the granite-13b-instruct-v2 foundation model.</p>
+          <table>
+            <caption caption-side="top">Table 2: Tuning parameter values for IBM foundation models</caption>
+            <thead>
+              <tr>
+                <th>Parameter name</th>
+                <th>Value options</th>
+                <th>Default value for classification</th>
+                <th>Default value for generation</th>
+                <th>Default value for summarization</th>
+                <th>Learn more</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>batch_size</td>
+                <td>1 - 16</td>
+                <td>8</td>
+                <td>16</td>
+                <td>8</td>
+                <td><a href="#segment">Segmenting the training data</a></td>
+              </tr>
+              <tr>
+                <td>accumulate_steps</td>
+                <td>1 - 128</td>
+                <td>32</td>
+                <td>16</td>
+                <td>1</td>
+                <td><a href="#segment">Segmenting the training data</a></td>
+              </tr>
+              <tr>
+                <td>learning_rate</td>
+                <td>0.00001 - 0.5</td>
+                <td>0.0006</td>
+                <td>0.0002</td>
+                <td>0.0002</td>
+                <td><a href="#learning-rate">Managing the learning rate</a></td>
+              </tr>
+              <tr>
+                <td>num_epochs (number of training cycles)</td>
+                <td>1 - 50</td>
+                <td>20</td>
+                <td>20</td>
+                <td>40</td>
+                <td><a href="#runs">Choosing the number of training runs to complete</a></td>
+              </tr>
+            </tbody>
+          </table>
+          <section id="section-segment">
+            <h3 id="segment">Segmenting the training data</h3>
+            <p>When an experiment runs, the experiment first breaks the training data into smaller batches, and then trains on one batch at a time. Each batch must fit in GPU memory to be processed. To reduce the amount of GPU memory that is needed, you
+              can configure the tuning experiment to postpone making adjustments until more than one batch is processed. Tuning runs on a batch and its performance metrics are calculated, but the prompt vector isn't changed. Instead, the performance information
+              is collected over some number of batches before the cumulative performance metrics are evaluated.</p>
+            <p>Use the following parameters to control how the training data is segmented:</p>
+            <p><strong>Batch size</strong> Number of labeled examples (also known as <em>samples</em>) to process at one time.</p>
+            <p>For example, for a data set with 1,000 examples and a batch size of 10, the data set is divided into 100 batches of 10 examples each.</p>
+            <p>If the training data set is small, specify a smaller batch size to ensure that each batch has enough examples in it.</p>
+            <p><strong>Accumulation steps</strong>: Number of batches to process before the prompt vector is adjusted.</p>
+            <p>For example, if the data set is divided into 100 batches and you set the accumulation steps value to 10, then the prompt vector is adjusted 10 times instead of 100 times.</p>
+          </section>
+          <section id="section-initialize">
+            <h3 id="initialize">Initializing prompt tuning</h3>
+            <p>When you create an experiment, you can choose whether to specify your own text to serve as the initial prompt vector or let the experiment generate it for you. These new tokens start the training process either in random positions, or based
+              on the embedding of a vocabulary or instruction that you specify in text. Studies show that as the size of the underlying model grows beyond 10 billion parameters, the initialization method that is used becomes less important.</p>
+            <p>The choice that you make when you create the tuning experiment customizes how the prompt is initialized.</p>
+            <p><strong>Initialization method</strong>: Choose a method from the following options:</p>
+            <ul>
+              <li>Text: The Prompt Tuning method is used where you specify the initialization text of the prompt yourself.</li>
+              <li>Random: The Prompt Tuning method is used that allows the experiment to add values that are chosen at random to include with the prompt.</li>
+            </ul>
+            <p><strong>Initialization text</strong>: The text that you want to add. Specify a task description or instructions similar to what you use for zero-shot prompting.</p>
+          </section>
+          <section id="section-learning-rate">
+            <h3 id="learning-rate">Managing the learning rate</h3>
+            <p>The <strong>learning rate</strong> parameter determines how much to change the prompt vector when it is adjusted. The higher the number, the greater the change to the vector.</p>
+          </section>
+          <section id="section-runs">
+            <h3 id="runs">Choosing the number of training runs to complete</h3>
+            <p>The <strong>Number of epochs</strong> parameter specifies the number of times to cycle through the training data.</p>
+            <p>For example, with a batch size of 10 and a data set with 1,000 examples, one epoch must process 100 batches and update the prompt vector 100 times. If you set the number of epochs to 20, the model is passed through the data set 20 times, which
+              means it processes a total of 2,000 batches during the tuning process.</p>
+            <p>The higher the number of epochs and bigger your training data, the longer it takes to tune a model.</p>
+          </section>
+          <section id="section-learn-more">
+            <h3 id="learn-more">Learn more</h3>
+            <ul>
+              <li><a href="fm-tuning-data.html">Data formats</a></li>
+            </ul>
+            <p><strong>Parent topic:</strong> <a href="fm-tuning-tune.html">Tuning a model</a></p>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

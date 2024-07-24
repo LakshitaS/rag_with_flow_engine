@@ -1,0 +1,619 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="The ibm-watson-studio-lib library for Python provides access to assets.  It can be used in notebooks that are created in the notebook editor.  ibm-watson-studio-lib provides support for working with data assets and connections, as well as browsing functionality for all other asset types.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>ibm-watson-studio-lib for Python</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=lib-watson-studio-python"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="ibm-watson-studio-lib-for-python" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-ibm-watson-studio-lib-for-python">
+        <h1 id="ibm-watson-studio-lib-for-python">ibm-watson-studio-lib for Python</h1>
+        <p>The <code>ibm-watson-studio-lib</code> library for Python provides access to assets. It can be used in notebooks that are created in the notebook editor. <code>ibm-watson-studio-lib</code> provides support for working with data assets and connections,
+          as well as browsing functionality for all other asset types.</p>
+        <p>There are two kinds of data assets:</p>
+        <ul>
+          <li><em>Stored data assets</em> refer to files in the storage associated with the current project. The library can load and save these files. For data larger than one megabyte, this is not recommended. The library requires that the data is kept
+            in memory in its entirety, which might be inefficient when processing huge data sets.</li>
+          <li><em>Connected data assets</em> represent data that must be accessed through a connection. Using the library, you can retrieve the properties (metadata) of the connected data asset and its connection. The functions do not return the data of a
+            connected data asset. You can either use the code that is generated for you when you click <strong>Read data</strong> on the Code snippets pane to access the data or you must write your own code.</li>
+        </ul>
+        <div class="note note"><span class="notetitle">Note:</span> The <code>ibm-watson-studio-lib</code> functions do not encode or decode data when saving data to or getting data from a file. Additionally, the <code>ibm-watson-studio-lib</code> functions can't be used to
+          access connected folder assets (files on a path to the project storage).</div>
+        <section id="section-setting-up-the-ibm-watson-studio-lib-library">
+          <h2 id="setting-up-the-ibm-watson-studio-lib-library">Setting up the <code>ibm-watson-studio-lib</code> library</h2>
+          <p>The <code>ibm-watson-studio-lib</code> library for Python is pre-installed and can be imported directly in a notebook in the notebook editor. To use the <code>ibm-watson-studio-lib</code> library in your notebook, you need the ID of the project
+            and the project token.</p>
+          <p>To insert the project token to your notebook:</p>
+          <ol>
+            <li>
+              <p>Click the <strong>More</strong> icon on your notebook toolbar and then click <strong>Insert project token</strong>.</p>
+              <p>If a project token exists, a cell is added to your notebook with the following information:</p>
+              <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">from</span> ibm_watson_studio_lib <span class="hljs-keyword">import</span> access_project_or_space
+wslib = access_project_or_space({<span class="hljs-string">"token"</span>:<span class="hljs-string">"&lt;ProjectToken&gt;"</span>})
+</code></pre>
+              <p><code>&lt;ProjectToken&gt;</code> is the value of the project token.</p>
+              <p>If you are told in a message that no project token exists, click the link in the message to be redirected to the project's <strong>Access Control</strong> page where you can create a project token. You must be eligible to create a project
+                token. For details, see <a href="token.html">Manually adding the project token</a>.</p>
+              <p>To create a project token:</p>
+              <ol>
+                <li>From the <strong>Manage</strong> tab, select the <strong>Access Control</strong> page, and click <strong>New access token</strong> under <strong>Access tokens</strong>.</li>
+                <li>Enter a name, select <strong>Editor</strong> role for the project, and create a token.</li>
+                <li>Go back to your notebook, click the <strong>More</strong> icon on the notebook toolbar and then click <strong>Insert project token</strong>.</li>
+              </ol>
+            </li>
+          </ol>
+        </section>
+        <section id="section-helper-functions">
+          <h2 id="helper-functions">Helper functions</h2>
+          <p>You can get information about the supported functions in the <code>ibm-watson-studio-lib</code> library programmatically by using <code>help(wslib)</code>, or for an individual function by using <code>help(wslib.&lt;function_name&gt;</code>,
+            for example <code>help(wslib.get_connection)</code>.</p>
+          <p>You can use the helper function <code>wslib.show(...)</code> for formatted printing of Python dictionaries and lists of dictionaries, which are the common result output type of the <code>ibm-watson-studio-lib</code> functions.</p>
+        </section>
+        <section id="section-the-ibm-watson-studio-lib-functions">
+          <h2 id="the-ibm-watson-studio-lib-functions">The <code>ibm-watson-studio-lib</code> functions</h2>
+          <p>The <code>ibm-watson-studio-lib</code> library exposes a set of functions that are grouped in the following way:</p>
+          <ul>
+            <li>
+              <p><a href="#get-infos">Get project information</a></p>
+            </li>
+            <li>
+              <p><a href="#get-auth-token">Get authentication token</a></p>
+            </li>
+            <li>
+              <p><a href="#fetch-data">Fetch data</a></p>
+            </li>
+            <li>
+              <p><a href="#save-data">Save data</a></p>
+            </li>
+            <li>
+              <p><a href="#get-conn-info">Get connection information</a></p>
+            </li>
+            <li>
+              <p><a href="#get-conn-data-info">Get connected data information</a></p>
+            </li>
+            <li>
+              <p><a href="#access-by-id">Access assets by ID instead of name</a></p>
+            </li>
+            <li>
+              <p><a href="#direct-proj-storage">Access project storage directly</a></p>
+            </li>
+            <li>
+              <p><a href="#spark-support">Spark support</a></p>
+            </li>
+            <li>
+              <p><a href="#browse-assets">Browse project assets</a></p>
+            </li>
+          </ul>
+          <section id="section-get-infos">
+            <h3 id="get-infos">Get project information</h3>
+            <p>While developing code, you might not know the exact names of data assets or connections. The following functions provide lists of assets, from which you can pick the relevant ones. In all examples, you can use <code>wslib.show(assets)</code>              to pretty-print the list. The index of each item is printed in front of the item.</p>
+            <ul>
+              <li>
+                <p><code>list_connections()</code></p>
+                <p>This function returns a list of the connections. The list of returned connections is not sorted by any criterion and can change when you call the function again. You can pass a dictionary item instead of a name to the <code>get_connection</code>                  function.</p>
+                <p>For example:</p>
+                <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-comment"># Import the lib</span>
+<span class="hljs-keyword">from</span> ibm_watson_studio_lib <span class="hljs-keyword">import</span> access_project_or_space
+wslib = access_project_or_space({<span class="hljs-string">"token"</span>:<span class="hljs-string">"&lt;ProjectToken&gt;"</span>})
+
+assets = wslib.list_connections()
+wslib.show(assets)
+connprops = wslib.get_connection(assets[<span class="hljs-number">0</span>])
+wslib.show(connprops)
+</code></pre>
+              </li>
+              <li>
+                <p><code>list_connected_data()</code></p>
+                <p>This function returns the connected data assets. The list of returned connected data assets is not sorted by any criterion and can change when you call the function again. You can pass a dictionary item instead of a name to the <code>get_connected_data</code>                  function.</p>
+              </li>
+              <li>
+                <p><code>list_stored_data()</code></p>
+                <p>This function returns a list of the stored data assets (data files). The list of returned data assets is not sorted by any criterion and can change when you call the function again. You can pass a dictionary item instead of a name to the
+                  <code>load_data</code> and <code>save_data</code>functions.</p>
+                <div class="note note"><span class="notetitle">Note:</span> A heuristic is applied to distinguish between connected data assets and stored data assets. However, there may be cases where a data asset of the wrong kind appears in the returned lists.</div>
+              </li>
+              <li>
+                <p><code>wslib.here</code></p>
+                <p>By using this entry point, you can retrieve metadata about the project that the lib is working with. The entry point <code>wslib.here</code> provides the following functions:</p>
+                <ul>
+                  <li>
+                    <p><code>get_name()</code></p>
+                    <p>This function returns the name of the project.</p>
+                  </li>
+                  <li>
+                    <p><code>get_description()</code></p>
+                    <p>This function returns the description of the project.</p>
+                  </li>
+                  <li>
+                    <p><code>get_ID()</code></p>
+                    <p>This function returns the ID of the project.</p>
+                  </li>
+                  <li>
+                    <p><code>get_storage()</code></p>
+                    <p>This function returns storage information for the project.</p>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </section>
+          <section id="section-get-auth-token">
+            <h3 id="get-auth-token">Get authentication token</h3>
+            <p>Some tasks require an authentication token. For example, if you want to run your own requests against the <a href="https://cloud.ibm.com/apidocs/watson-data-api-cpd" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Watson Data API</a>,
+              you need an authentication token.</p>
+            <p>You can use the following function to get the bearer token:</p>
+            <ul>
+              <li><code>get_current_token()</code></li>
+            </ul>
+            <p>For example:</p>
+            <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">from</span> ibm_watson_studio_lib <span class="hljs-keyword">import</span> access_project_or_space
+wslib = access_project_or_space({<span class="hljs-string">"token"</span>:<span class="hljs-string">"&lt;ProjectToken&gt;"</span>})
+token = wslib.auth.get_current_token()
+</code></pre>
+            <p>This function returns the bearer token that is currently used by the <code>ibm-watson-studio-lib</code> library.</p>
+          </section>
+          <section id="section-fetch-data">
+            <h3 id="fetch-data">Fetch data</h3>
+            <p>You can use the following functions to fetch data from a stored data asset (a file) in your project.</p>
+            <ul>
+              <li>
+                <p><code>load_data(asset_name_or_item, attachment_type_or_item=None)</code></p>
+                <p>This function loads the data of a stored data asset into a BytesIO buffer. The function is not recommended for very large files.</p>
+                <p>The function takes the following parameters:</p>
+                <ul>
+                  <li>
+                    <p><code>asset_name_or_item</code>: (Required) Either a string with the name of a stored data asset or an item like those returned by <code>list_stored_data()</code>.</p>
+                  </li>
+                  <li>
+                    <p><code>attachment_type_or_item</code>: (Optional) Attachment type to load. A data asset can have more than one attachment with data. Without this parameter, the default attachment type, namely <code>data_asset</code> is loaded. Specify
+                      this parameter if the attachment type is not <code>data_asset</code>. For example, if a plain text data asset has an attached profile from Natural Language Analysis, this can be loaded as attachment type <code>data_profile_nlu</code>.</p>
+                    <p>Here is an example that shows you how to load the data of a data asset:</p>
+                    <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-comment"># Import the lib</span>
+<span class="hljs-keyword">from</span> ibm_watson_studio_lib <span class="hljs-keyword">import</span> access_project_or_space
+wslib = access_project_or_space({<span class="hljs-string">"token"</span>:<span class="hljs-string">"&lt;ProjectToken&gt;"</span>})
+
+<span class="hljs-comment"># Fetch the data from a file</span>
+my_file = wslib.load_data(<span class="hljs-string">"MyFile.csv"</span>)
+
+<span class="hljs-comment"># Read the CSV data file into a pandas DataFrame</span>
+my_file.seek(<span class="hljs-number">0</span>)
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+pd.read_csv(my_file, nrows=<span class="hljs-number">10</span>)
+</code></pre>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <p><code>download_file(asset_name_or_item, file_name=None, attachment_type_or_item=None)</code></p>
+                <p>This function downloads the data of a stored data asset and stores it in the specified file in the file system of your runtime. The file is overwritten if it already exists.</p>
+                <p>The function takes the following parameters:</p>
+                <ul>
+                  <li>
+                    <p><code>asset_name_or_item</code>: (Required) Either a string with the name of a stored data asset or an item like those returned by <code>list_stored_data()</code>.</p>
+                  </li>
+                  <li>
+                    <p><code>file_name</code>: (Optional) The name of the file that the downloaded data is stored to. It defaults to the asset's attachment name.</p>
+                  </li>
+                  <li>
+                    <p><code>attachment_type_or_item</code>: (Optional) The attachment type to download. A data asset can have more than one attachment with data. Without this parameter, the default attachment type, namely <code>data_asset</code> is downloaded.
+                      Specify this parameter if the attachment type is not <code>data_asset</code>. For example, if a plain text data asset has an attached profile from Natural Language Analysis, this can be downlaoded loaded as attachment type <code>data_profile_nlu</code>.</p>
+                    <p>Here is an example that shows you how to you can use <code>download_file</code> to make your custom Python script available in your notebook:</p>
+                    <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-comment"># Import the lib</span>
+<span class="hljs-keyword">from</span> ibm_watson_studio_lib <span class="hljs-keyword">import</span> access_project_or_space
+wslib = access_project_or_space({<span class="hljs-string">"token"</span>:<span class="hljs-string">"&lt;ProjectToken&gt;"</span>})
+
+<span class="hljs-comment"># Let's assume you have a Python script "helpers.py" with helper functions on your local machine.</span>
+<span class="hljs-comment"># Upload the script to your project using the Data Panel on the right of the opened notebook.</span>
+
+<span class="hljs-comment"># Download the script to the file system of your runtime</span>
+wslib.download_file(<span class="hljs-string">"helpers.py"</span>)
+
+<span class="hljs-comment"># import the required functions to use them in your notebook</span>
+<span class="hljs-keyword">from</span> helpers <span class="hljs-keyword">import</span> my_func
+my_func()
+</code></pre>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </section>
+          <section id="section-save-data">
+            <h3 id="save-data">Save data</h3>
+            <p>The functions to save data in your project storage do multiple things:</p>
+            <ul>
+              <li>Store the data in project storage</li>
+              <li>Add the data as a data asset (by creating an asset or overwriting an existing asset) to your project so you can see the data in the data assets list in your project.</li>
+              <li>Associate the asset with the file in the storage.</li>
+            </ul>
+            <p>You can use the following functions to save data:</p>
+            <ul>
+              <li>
+                <p><code>save_data(asset_name_or_item, data, overwrite=None, mime_type=None, file_name=None)</code></p>
+                <p>This function saves data in memory to the project storage.</p>
+                <p>The function takes the following parameters:</p>
+                <ul>
+                  <li>
+                    <p><code>asset_name_or_item</code>: (Required) The name of the created asset or list item that is returned by <code>list_stored_data()</code>. You can use the item if you like to overwrite an existing file.</p>
+                  </li>
+                  <li>
+                    <p><code>data</code>: (Required) The data to upload. This can be any object of type <code>bytes-like-object</code>, for example a byte buffer.</p>
+                  </li>
+                  <li>
+                    <p><code>overwrite</code>: (Optional) Overwrites the data of a stored data asset if it already exists. By default, this is set to false. If an asset item is passed instead of a name, the behavior is to overwrite the asset.</p>
+                  </li>
+                  <li>
+                    <p><code>mime_type</code>: (Optional) The MIME type for the created asset. By default the MIME type is determined from the asset name suffix. If you use asset names without a suffix, specify the MIME type here. For example <code>mime_type=application/text</code>                      for plain text data. This parameter is ignored when overwriting an asset.</p>
+                  </li>
+                  <li>
+                    <p><code>file_name</code>: (Optional) The file name to be used in the project storage. The data is saved in the storage associated with the project. When creating a new asset, the file name is derived from the asset name, but might be
+                      different. If you want to access the file directly, you can specify a file name. This parameter is ignored when overwriting an asset.</p>
+                    <p>Here is an example that shows you how to save data to a file:</p>
+                    <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-comment"># Import the lib</span>
+<span class="hljs-keyword">from</span> ibm_watson_studio_lib <span class="hljs-keyword">import</span> access_project_or_space
+wslib = access_project_or_space({<span class="hljs-string">"token"</span>:<span class="hljs-string">"&lt;ProjectToken&gt;"</span>})
+
+<span class="hljs-comment"># let's assume you have the pandas DataFrame pandas_df which contains the data</span>
+<span class="hljs-comment"># you want to save as a csv file</span>
+wslib.save_data(<span class="hljs-string">"my_asset_name.csv"</span>, pandas_df.to_csv(index=<span class="hljs-literal">False</span>).encode())
+
+<span class="hljs-comment"># the function returns a dict which contains the asset_name, asset_id, file_name and additional information upon successful saving of the data</span>
+</code></pre>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <p><code>upload_file(file_path, asset_name=None, file_name=None, overwrite=False, mime_type=None)</code> This function saves data in the file system in the runtime to a file associated with your project. The function takes the following parameters:</p>
+                <ul>
+                  <li>
+                    <p><code>file_path</code>: (Required) The path to the file in the file system.</p>
+                  </li>
+                  <li>
+                    <p><code>asset_name</code>: (Optional) The name of the data asset that is created. It defaults to the name of the file to be uploaded.</p>
+                  </li>
+                  <li>
+                    <p><code>file_name</code>: (Optional) The name of the file that is created in the storage associated with the project. It defaults to the name of the file to be uploaded.</p>
+                  </li>
+                  <li>
+                    <p><code>overwrite</code>: (Optional) Overwrites an existing file in storage. Defaults to false.</p>
+                  </li>
+                  <li>
+                    <p><code>mime_type</code>: (Optional) The MIME type for the created asset. By default the MIME type is determined from the asset name suffix. If you use asset names without a suffix, specify the MIME type here. For example <code>mime_type='application/text'</code>                      for plain text data. This parameter is ignored when overwriting an asset.</p>
+                    <p>Here is an example that shows you how you can upload a file to the project:</p>
+                    <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-comment"># Import the lib</span>
+<span class="hljs-keyword">from</span> ibm_watson_studio_lib <span class="hljs-keyword">import</span> access_project_or_space
+wslib = access_project_or_space({<span class="hljs-string">"token"</span>:<span class="hljs-string">"&lt;ProjectToken&gt;"</span>})
+
+<span class="hljs-comment"># Let's assume you have downloaded a file and want to save it</span>
+<span class="hljs-comment"># in your project.</span>
+<span class="hljs-keyword">import</span> urllib.request
+urllib.request.urlretrieve(<span class="hljs-string">"https://some/url/data_file.csv"</span>, <span class="hljs-string">"data_file.csv"</span>)
+wslib.upload_file(<span class="hljs-string">"data_file.csv"</span>)
+
+<span class="hljs-comment"># The function returns a dictionary which contains the asset_name, asset_id, file_name and additional information upon successful saving of the data.</span>
+</code></pre>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </section>
+          <section id="section-get-conn-info">
+            <h3 id="get-conn-info">Get connection information</h3>
+            <p>You can use the following function to access the connection metadata of a given connection.</p>
+            <ul>
+              <li>
+                <p><code>get_connection(name_or_item)</code></p>
+                <p>This function returns the properties (metadata) of a connection which you can use to fetch data from the connection data source. Use <code>wslib.show(connprops)</code> to view the properties. The special key <code>"."</code>                  in the returned dictionary provides information about the connection asset.</p>
+                <p>The function takes the following required parameter:</p>
+                <ul>
+                  <li><code>name_or_item</code>: Either a string with the name of a connection or an item like those returned by <code>list_connections()</code>.</li>
+                </ul>
+                <p>Note that when you work with notebooks, you can click <strong>Read data</strong> on the Code snippets pane to generate code to load data from a connection into a pandas DataFrame for example.</p>
+              </li>
+            </ul>
+          </section>
+          <section id="section-get-conn-data-info">
+            <h3 id="get-conn-data-info">Get connected data information</h3>
+            <p>You can use the following function to access the metadata of a connected data asset.</p>
+            <ul>
+              <li>
+                <p><code>get_connected_data(name_or_item)</code></p>
+                <p>This function returns the properties of a connected data asset, including the properties of the underlying connection. Use <code>wslib.show()</code> to view the properties. The special key <code>"."</code> in the returned dictionary
+                  provides information about the data and the connection assets.</p>
+                <p>The function takes the following required parameter:</p>
+                <ul>
+                  <li><code>name_or_item</code>: Either a string with the name of a connected data asset or an item like those returned by <code>list_connected_data()</code>.</li>
+                </ul>
+                <p>Note that when you work with notebooks, you can click <strong>Read data</strong> on the Code snippets pane to generate code to load data from a connected data asset into a pandas DataFrame for example.</p>
+              </li>
+            </ul>
+          </section>
+          <section id="section-access-by-id">
+            <h3 id="access-by-id">Access asset by ID instead of name</h3>
+            <p>You should preferably always access data assets and connections by a unique name. Asset names are not necessarily always unique and the <code>ibm-watson-studio-lib</code> functions will raise an exception when a name is ambiguous. You can
+              rename data assets in the UI to resolve the conflict.</p>
+            <p>Accessing assets by a unique ID is possible but is discouraged as IDs are valid only in the current project and will break code when transferred to a different project. This can happen for example, when projects are exported and re-imported.
+              You can get the ID of a connection, connected or stored data asset by using the corresponding list function, for example <code>list_connections()</code>.</p>
+            <p>The entry point <code>wslib.by_id</code> provides the following functions:</p>
+            <ul>
+              <li>
+                <p><code>get_connection(asset_id)</code></p>
+                <p>This function accesses a connection by the connection asset ID.</p>
+              </li>
+              <li>
+                <p><code>get_connected_data(asset_id)</code></p>
+                <p>This function accesses a connected data asset by the connected data asset ID.</p>
+              </li>
+              <li>
+                <p><code>load_data(asset_id, attachment_type_or_item=None)</code></p>
+                <p>This function loads the data of a stored data asset by passing the asset ID. See <a href="#fetch-data"><code>load_data()</code></a> for a description of the other parameters you can pass.</p>
+              </li>
+              <li>
+                <p><code>save_data(asset_id, data, overwrite=None, mime_type=None, file_name=None)</code></p>
+                <p>This function saves data to a stored data asset by passing the asset ID. This implies <code>overwrite=True</code>. See <a href="#save-data"><code>save_data()</code></a> for a description of the other parameters you can pass.</p>
+              </li>
+              <li>
+                <p><code>download_file(asset_id, file_name=None, attachment_type_or_item=None)</code></p>
+                <p>This function downloads the data of a stored data asset by passing the asset ID. See <a href="#fetch-data"><code>download_file()</code></a> for a description of the other parameters you can pass.</p>
+              </li>
+            </ul>
+          </section>
+          <section id="section-direct-proj-storage">
+            <h3 id="direct-proj-storage">Access project storage directly</h3>
+            <p>You can fetch data from project storage and store data in project storage without synchronizing the project assets using the entry point <code>wslib.storage</code>.</p>
+            <p>The entry point <code>wslib.storage</code> provides the following functions:</p>
+            <ul>
+              <li>
+                <p><code>fetch_data(filename)</code></p>
+                <p>This function returns the data in a file as a BytesIO buffer. The file does not need to be registered as a data asset.</p>
+                <p>The function takes the following required parameter:</p>
+                <ul>
+                  <li><code>filename</code>: The name of the file in the projectstorage.</li>
+                </ul>
+              </li>
+              <li>
+                <p><code>store_data(filename, data, overwrite=False)</code></p>
+                <p>This function saves data in memory to storage, but does not create a new data asset. The function returns a dictionary which contains the file name, file path and additional information. Use <code>wslib.show()</code> to print the information.</p>
+                <p>The function takes the following parameters:</p>
+                <ul>
+                  <li><code>filename</code>: (Required) The name of the file in the project storage.</li>
+                  <li><code>data</code>: (Required) The data to save as a bytes-like object.</li>
+                  <li><code>overwrite</code>: (Optional) Overwrites the data of a file in storage if it already exists. By default, this is set to false.</li>
+                </ul>
+              </li>
+              <li>
+                <p><code>download_file(storage_filename, local_filename=None)</code></p>
+                <p>This function downloads the data in a file in storage and stores it in the specified local file. The local file is overwritten if it already existed.</p>
+                <p>The function takes the following parameters:</p>
+                <ul>
+                  <li><code>storage_filename</code>: (Required) The name of the file in storage to download.</li>
+                  <li><code>local_filename</code>: (Optional) The name of the file in the local file system of your runtime to downloaded the file to. Omit this parameter to use the storage file name.</li>
+                </ul>
+              </li>
+              <li>
+                <p><code>register_asset(storage_path, asset_name=None, mime_type=None)</code></p>
+                <p>This function registers the file in storage as a data asset in your project. This operation fails if a data asset with the same name already exists.</p>
+                <p>You can use this function if you have very large files that you cannot upload via save_data(). You can upload large files directly to the IBM Cloud Object Storage bucket of your project, for example via the UI, and then register them as
+                  data assets using <code>register_asset()</code>.</p>
+                <p>The function takes the following parameters:</p>
+                <ul>
+                  <li><code>storage_path</code>: (Required) The path of the file in storage.</li>
+                  <li><code>asset_name</code>: (Optional) The name of the created asset. It defaults to the file name.</li>
+                  <li><code>mime_type</code>: (Optional) The MIME type for the created asset. By default the MIME type is determined from the asset name suffix. Use this parameter to specify a MIME type if your file name does not have a file extension or
+                    if you want to set a different MIME type.</li>
+                </ul>
+                <div class="note note"><span class="notetitle">Note:</span> You can register a file several times as a different data asset. Deleting one of those assets in the project also deletes the file in storage, which means that other asset references to the file might
+                  be broken.</div>
+              </li>
+            </ul>
+          </section>
+          <section id="section-spark-support">
+            <h3 id="spark-support">Spark support</h3>
+            <p>The entry point <code>wslib.spark</code> provides functions to access files in storage with Spark. To get help information about the available functions, use <code>help(wslib.spark.API)</code>.</p>
+            <p>The entry point <code>wslib.spark</code> provides the following functions:</p>
+            <ul>
+              <li>
+                <p><code>provide_spark_context(sc)</code></p>
+                <p>Use this function to enable Spark support.</p>
+                <p>The function takes the following required parameter:</p>
+                <ul>
+                  <li>sc: The SparkContext. It is provided in the notebook runtime.</li>
+                </ul>
+                <p>The following example shows you how to set up Spark support:</p>
+                <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">from</span> ibm_watson_studio_lib <span class="hljs-keyword">import</span> access_project_or_space
+wslib = access_project_or_space({<span class="hljs-string">"token"</span>:<span class="hljs-string">"&lt;ProjectToken&gt;"</span>})
+wslib.spark.provide_spark_context(sc)
+</code></pre>
+              </li>
+              <li>
+                <p><code>get_data_url(asset_name)</code></p>
+                <p>This function returns a URL to access a file in storage from Spark via Hadoop.</p>
+                <p>The function takes the following required parameter:</p>
+                <ul>
+                  <li><code>asset_name</code>: The name of the asset.</li>
+                </ul>
+              </li>
+              <li>
+                <p><code>storage.get_data_url(file_name)</code></p>
+                <p>This function returns a URL to access a file in storage from Spark via Hadoop. The function expects the file name and not the asset name.</p>
+                <p>The function takes the following required parameter:</p>
+                <ul>
+                  <li><code>file_name</code>: The name of a file in the project storage.</li>
+                </ul>
+              </li>
+            </ul>
+          </section>
+          <section id="section-browse-assets">
+            <h3 id="browse-assets">Browse project assets</h3>
+            <p>The entry point <code>wslib.assets</code> provides generic, read-only access to assets of any type. For selected asset types, there are dedicated functions that provide additional data. To get help on the available functions, use <code>help(wslib.assets.API)</code>.</p>
+            <p>The following naming conventions apply:</p>
+            <ul>
+              <li>Functions named <code>list_&lt;something&gt;</code> return a list of Python dictionaries. Each dictionary represents one asset and includes a small set of properties (metadata) that identifies the asset.</li>
+              <li>Functions named <code>get_&lt;something&gt;</code> return a single Python dictionary with the properties for the asset.</li>
+            </ul>
+            <p>To pretty-print a dictionary or list of dictionaries, use <code>wslib.show()</code>.</p>
+            <p>The functions expect either the name of an asset, or an item from a list as the parameter. By default, the functions return only a subset of the available asset properties. By setting the parameter <code>raw=True</code>, you can get the full
+              set of asset properties.</p>
+            <p>The entry point <code>wslib.assets</code> provides the following functions:</p>
+            <ul>
+              <li>
+                <p><code>list_assets(asset_type, name=None, query=None, selector=None, raw=False)</code></p>
+                <p>This function lists all assets for the given type with respect to the given constraints.</p>
+                <p>The function takes the following parameters:</p>
+                <ul>
+                  <li><code>asset_type</code>: (Required) The type of the assets to list, for example <code>data_asset</code>. See <code>list_asset_types()</code> for a list of the available asset types. Use asset type <code>asset</code> for the list of all
+                    available assets in the project.</li>
+                  <li><code>name</code>: (Optional) The name of the asset to list. Use this parameter if more than one asset with the same name exists. You can only specify either <code>name</code> and <code>query</code>.</li>
+                  <li><code>query</code>: (Optional) A query string that is passed to the Watson Data API to search for assets. You can only specify either <code>name</code> and <code>query</code>.</li>
+                  <li><code>selector</code>: (Optional) A custom filter function on the candidate asset dictionary items. If the selector function returns <code>True</code>, the asset is included in the returned asset list.</li>
+                  <li><code>raw</code>: (Optional) Returns all of the available metadata. By default, the parameter is set to <code>False</code> and only a subset of the properties is returned.</li>
+                </ul>
+                <p>Examples of using the <code>list_assets</code> function:</p>
+                <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-comment"># Import the lib</span>
+<span class="hljs-keyword">from</span> ibm_watson_studio_lib <span class="hljs-keyword">import</span> access_project_or_space
+wslib = access_project_or_space({<span class="hljs-string">"token"</span>:<span class="hljs-string">"&lt;ProjectToken&gt;"</span>})
+
+<span class="hljs-comment"># List all assets in the project</span>
+all_assets = wslib.assets.list_assets(<span class="hljs-string">"asset"</span>)
+wslib.show(all_assets)
+
+<span class="hljs-comment"># List all data assets with name 'MyFile.csv'</span>
+assets_by_name = wslib.assets.list_assets(<span class="hljs-string">"data_asset"</span>, name=<span class="hljs-string">"MyFile.csv"</span>)
+
+<span class="hljs-comment"># List all data assets whose name starts with "MyF"</span>
+assets_by_query = wslib.assets.list_assets(<span class="hljs-string">"data_asset"</span>, query=<span class="hljs-string">"asset.name:(MyF*)"</span>)
+
+<span class="hljs-comment"># List all data assets which are larger than 1MB</span>
+sizeFilter = <span class="hljs-keyword">lambda</span> x: x[<span class="hljs-string">'metadata'</span>][<span class="hljs-string">'size'</span>] &gt; <span class="hljs-number">1000000</span>
+large_assets = wslib.assets.list_assets(<span class="hljs-string">"data_asset"</span>, selector=sizeFilter, raw=<span class="hljs-literal">True</span>)
+
+<span class="hljs-comment"># List all notebooks</span>
+notebooks = wslib.assets.list_assets(<span class="hljs-string">"notebook"</span>)
+</code></pre>
+              </li>
+              <li>
+                <p><code>list_asset_types(raw=False)</code></p>
+                <p>This function lists all available asset types.</p>
+                <p>The function can take the following parameter:</p>
+                <ul>
+                  <li><code>raw</code>: (Optional) Returns the full set of metadata. By default, the parameter is <code>False</code> and only a subset of the properties is returned.</li>
+                </ul>
+              </li>
+              <li>
+                <p><code>list_datasource_types(raw=False)</code></p>
+                <p>This function lists all available data source types.</p>
+                <p>The function can take the following parameter:</p>
+                <ul>
+                  <li><code>raw</code>: (Optional) Returns the full set of metadata. By default, the parameter is <code>False</code> and only a subset of the properties is returned.</li>
+                </ul>
+              </li>
+              <li>
+                <p><code>get_asset(name_or_item, asset_type=None, raw=False)</code></p>
+                <p>The function returns the metadata of an asset.</p>
+                <p>The function takes the following parameters:</p>
+                <ul>
+                  <li><code>name_or_item</code>: (Required) The name of the asset or an item like those returned by <code>list_assets()</code></li>
+                  <li><code>asset_type</code>: (Optional) The type of the asset. If the parameter <code>name_or_item</code> contains a string for the name of the asset, setting <code>asset_type</code> is required.</li>
+                  <li><code>raw</code>: (Optional) Returns the full set of metadata. By default, the parameter is <code>False</code> and only a subset of the properties is returned.</li>
+                </ul>
+                <p>Example of using the <code>list_assets</code> and <code>get_asset</code> functions:</p>
+                <pre class="codeblock"><code class="lang-python hljs">notebooks = wslib.assets.list_assets(<span class="hljs-string">'notebook'</span>)
+wslib.show(notebooks)
+
+notebook = wslib.assets.get_asset(notebooks[<span class="hljs-number">0</span>])
+wslib.show(notebook)
+</code></pre>
+              </li>
+              <li>
+                <p><code>get_connection(name_or_item, with_datasourcetype=False, raw=False)</code></p>
+                <p>This function returns the metadata of a connection.</p>
+                <p>The function takes the following parameters:</p>
+                <ul>
+                  <li><code>name_or_item</code>: (Required) The name of the connection or an item like those returned by <code>list_connections()</code></li>
+                  <li><code>with_datasourcetype</code>: (Optional) Returns additional information about the data source type of the connection.</li>
+                  <li><code>raw</code>: (Optional) Returns the full set of metadata. By default, the parameter is <code>False</code> and only a subset of the properties is returned.</li>
+                </ul>
+              </li>
+              <li>
+                <p><code>get_connected_data(name_or_item, with_datasourcetype=False, raw=False)</code></p>
+                <p>This function returns the metadata of a connected data asset.</p>
+                <p>The function takes the following parameters:</p>
+                <ul>
+                  <li><code>name_or_item</code>: (Required) The name of the connected data asset or an item like those returned by <code>list_connected_data()</code></li>
+                  <li><code>with_datasourcetype</code>: (Optional) Returns additional information about the data source type of the associated connected data asset.</li>
+                  <li><code>raw</code>: (Optional) Returns the full set of metadata. By default, the parameter is <code>False</code> and only a subset of the properties is returned.</li>
+                </ul>
+              </li>
+              <li>
+                <p><code>get_stored_data(name_or_item, raw=False)</code></p>
+                <p>This function returns the metadata of a stored data asset.</p>
+                <p>The function takes the following parameters:</p>
+                <ul>
+                  <li><code>name_or_item</code>: (Required) The name of the stored data asset or an item like those returned by <code>list_stored_data()</code></li>
+                  <li><code>raw</code>: (Optional) Returns the full set of metadata. By default, the parameter is <code>False</code> and only a subset of the properties is returned.</li>
+                </ul>
+              </li>
+              <li>
+                <p><code>list_attachments(name_or_item_or_asset, asset_type=None, raw=False)</code></p>
+                <p>This function returns a list of the attachments of an asset.</p>
+                <p>The function takes the following parameters:</p>
+                <ul>
+                  <li><code>name_or_item_or_asset</code>: (Required) The name of the asset or an item like those returned by <code>list_stored_data()</code> or <code>get_asset()</code>.</li>
+                  <li><code>asset_type</code>: (Optional) The type of the asset. It defaults to type <code>data_asset</code>.</li>
+                  <li><code>raw</code>: (Optional) Returns the full set of metadata. By default, the parameter is <code>False</code> and only a subset of the properties is returned.</li>
+                </ul>
+                <p>Example of using the <code>list_attachments</code> function to read an attachment of a stored data asset:</p>
+                <pre class="codeblock"><code class="lang-python hljs">assets = wslib.list_stored_data()
+wslib.show(assets)
+
+asset = assets[<span class="hljs-number">0</span>]
+attachments = wslib.assets.list_attachments(asset)
+wslib.show(attachments)
+buffer = wslib.load_data(asset, attachments[<span class="hljs-number">0</span>])
+</code></pre>
+              </li>
+            </ul>
+            <p><strong>Parent topic:</strong> <a href="../analyze-data/using-ibm-ws-lib.html">Using ibm-watson-studio-lib</a></p>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

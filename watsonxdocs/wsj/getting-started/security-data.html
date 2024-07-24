@@ -1,0 +1,136 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="In IBM watsonx, data security mechanisms, such as encryption, protect sensitive customer and corporate data, both in transit and at rest. A secure , and other mechanisms protect your valuable corporate data. A secure IBM Cloud Object Storage instance stores data assets from projects, catalogs, and deployment spaces.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Data security</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=security-data"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="data-security" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-data-security">
+        <h1 id="data-security">Data security</h1>
+        <p>In IBM watsonx, data security mechanisms, such as encryption, protect sensitive customer and corporate data, both in transit and at rest. A secure , and other mechanisms protect your valuable corporate data. A secure IBM Cloud Object Storage instance
+          stores data assets from projects, catalogs, and deployment spaces.</p>
+        <table>
+          <caption caption-side="top">Table 1. Data security mechanisms for IBM watsonx</caption>
+          <thead>
+            <tr>
+              <th>Mechanism</th>
+              <th>Purpose</th>
+              <th>Responsibility</th>
+              <th>Configured on</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a href="#configuring-cloud-object-storage">Configuring Cloud Object Storage</a></td>
+              <td>IBM Cloud Object Storage is required to store assets</td>
+              <td>Customer</td>
+              <td>IBM Cloud</td>
+            </tr>
+            <tr>
+              <td><a href="#controlling-access-with-service-credentials">Controlling access with service credentials</a></td>
+              <td>Authorize a Cloud Object Storage instance for a specific project</td>
+              <td>Customer</td>
+              <td>IBM Cloud and IBM watsonx</td>
+            </tr>
+            <tr>
+              <td><a href="#encrypting-at-rest-data">Encrypting at rest data</a></td>
+              <td>Default encryption is provided. Use IBM Key Protect to manage your own keys.</td>
+              <td>Shared</td>
+              <td>IBM Cloud</td>
+            </tr>
+            <tr>
+              <td><a href="#encrypting-in-motion-data">Encrypting in motion data</a></td>
+              <td>Encryption methods such as HTTPS, SSL, and TLS are used to protect data in motion.</td>
+              <td>IBM, Third-party clouds</td>
+              <td>IBM Cloud, Cloud providers</td>
+            </tr>
+            <tr>
+              <td><a href="#backups">Backups</a></td>
+              <td>Use IBM Cloud Backup to manage backups for your data.</td>
+              <td>Shared</td>
+              <td>IBM Cloud</td>
+            </tr>
+          </tbody>
+        </table>
+        <section id="section-configuring-cloud-object-storage">
+          <h2 id="configuring-cloud-object-storage">Configuring Cloud Object Storage</h2>
+          <p>IBM Cloud Object Storage provides storage for projects, catalogs, and deployment spaces. You are required to associate an IBM Cloud Object Storage instance when you create projects, catalogs, or deployment spaces to store files for assets, such
+            as uploaded data files or notebook files. The Lite plan instance is free to use for storage capacity up to 25 GB per month.</p>
+          <p>You can also access data sources in an IBM Cloud Object Storage instance. To access data IBM Cloud Object Storage, you create an IBM Cloud Object Storage connection when you want to connect to data stored in IBM Cloud Object Storage. An IBM
+            Cloud Object Storage connection has a different purpose from the IBM Cloud Object Storage instance that you associate with a project, deployment space, or catalog.</p>
+          <p>The IBM Cloud Identity and Access Management (IAM) service securely authenticates users and controls access to IBM Cloud Object Storage. See <a href="https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-iam" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud docs: Getting started with IAM</a> for instructions on setting up access control for Cloud Object Storage on IBM Cloud.</p>
+          <p>See <a href="https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-getting-started-cloud-object-storage" target="_blank" rel="noopener noreferrer">IBM Cloud docs: Getting started with IBM Cloud Object Storage</a></p>
+        </section>
+        <section id="section-controlling-access-with-service-credentials">
+          <h2 id="controlling-access-with-service-credentials">Controlling access with service credentials</h2>
+          <p>Cloud Object Storage credentials consist of a service credential and a Service ID. Policies are assigned to Service IDs to control access. The credentials are used to create a secure connection to the Cloud Object Storage instance, with access
+            control as determined by the policy.</p>
+          <p>For more information, see <a href="../manage-data/cos_buckets.html">Controlling access to Cloud Object Storage buckets</a></p>
+        </section>
+        <section id="section-encrypting-at-rest-data">
+          <h2 id="encrypting-at-rest-data">Encrypting at rest data</h2>
+          <p>By default, at rest data is encrypted with randomly generated keys that are managed by IBM. If the default keys are sufficient protection for your data, no additional action is needed. To provide extra protection for at rest data, you can create
+            and manage your own keys with IBM® Key Protect for IBM Cloud™. Key Protect is a full-service encryption solution that allows data to be secured and stored in IBM Cloud Object Storage.</p>
+          <p>To encrypt your Cloud Object Storage instance with your own key, create an instance of the IBM Key Project service from the IBM Cloud catalog. Not all Watson Studio plans support customer-generated encryption keys.</p>
+          <ul>
+            <li>For instructions on encrypting your Cloud Object Storage instance with your own key, see <a href="../console/wdp_admin_cos.html">Setting up IBM Cloud Object Storage for use with IBM watsonx</a></li>
+            <li>For an overview of how to encrypt data with your own keys, see <a href="https://cloud.ibm.com/docs/overview?topic=overview-key-encryption" target="_blank" rel="noopener noreferrer">IBM Cloud docs: Encrypting data with your own keys</a></li>
+            <li>For the complete documentation for Key Protect, see <a href="https://cloud.ibm.com/docs/key-protect" target="_blank" rel="noopener noreferrer">IBM Cloud docs: IBM Key Protect</a></li>
+            <li>For an overview of how encryption works in the IBM Cloud Security Architecture, see <a href="https://www.ibm.com/cloud/architecture/architectures/data-security-arch" target="_blank" rel="noopener noreferrer">Data security architecture</a></li>
+          </ul>
+        </section>
+        <section id="section-encrypting-in-motion-data">
+          <h2 id="encrypting-in-motion-data">Encrypting in motion data</h2>
+          <p>Data is encrypted when transmitted by IBM on any public networks and within the Cloud Service's private data center network. Encryption methods such as HTTPS, SSL, and TLS are used to protect data in motion.</p>
+        </section>
+        <section id="section-backups">
+          <h2 id="backups">Backups</h2>
+          <p>To avoid loss of important data, create and properly store backups. You can use IBM Cloud Backup to securely back up your data between IBM Cloud servers in one or more IBM Cloud data centers. See <a href="https://cloud.ibm.com/docs/Backup?topic=Backup-getting-started" target="_blank" rel="noopener noreferrer">IBM Cloud docs: Getting started with IBM Cloud Backup</a></p>
+          <p><strong>Learn More</strong> For more information, see <a href="https://cloud.ibm.com/docs/security-compliance" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud docs: Getting started with Security and Compliance Center</a>.</p>
+          <p><strong>Parent topic:</strong>
+            <a href="../getting-started/security-overview.html">Security</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can use Microsoft Azure ML Studio with the IBM Watson OpenScale service to log payload or feedback data, and to measure performance accuracy, runtime bias detection, explainability, and auto-debias results for deployed models.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Microsoft Azure ML Studio frameworks</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=models-microsoft-azure-ml-studio-frameworks"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="microsoft-azure-ml-studio-frameworks" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-microsoft-azure-ml-studio-frameworks">
+        <h1 id="microsoft-azure-ml-studio-frameworks">Microsoft Azure ML Studio frameworks</h1>
+        <p>You can use Microsoft Azure ML Studio with the IBM Watson OpenScale service to log payload or feedback data, and to measure performance accuracy, runtime bias detection, explainability, and auto-debias results for deployed models.</p>
+        <p>IBM Watson OpenScale fully supports the following Microsoft Azure Machine Learning Studio frameworks:</p>
+        <p>Table 1. Framework support details</p>
+        <table>
+          <caption caption-side="top">Framework support details</caption>
+          <thead>
+            <tr>
+              <th style="text-align:left">Framework</th>
+              <th style="text-align:center">Problem type</th>
+              <th style="text-align:center">Data type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="text-align:left">Native</td>
+              <td style="text-align:center">Classification</td>
+              <td style="text-align:center">Structured</td>
+            </tr>
+            <tr>
+              <td style="text-align:left">Native</td>
+              <td style="text-align:center">Regression</td>
+              <td style="text-align:center">Structured</td>
+            </tr>
+          </tbody>
+        </table>
+        <section id="section-frmwrks-azure-add">
+          <h2 id="frmwrks-azure-add">Adding Microsoft Azure ML Studio to Watson OpenScale</h2>
+          <p>You can configure Watson OpenScale to work with Microsoft Azure ML Studio by using one of the following methods:</p>
+          <ul>
+            <li>For the first time that you add a machine learning provider to Watson OpenScale, you can use the configuration interface. For more information, see <a href="#connect-azure-studio">Specifying a Microsoft Azure ML Studio instance</a>.</li>
+            <li>You can also add your machine learning provider by using the Python SDK. You must use this method if you want to have more than one provider. For more information on performing this programmatically, see <a href="#cml-azbind">Add your Microsoft Azure machine learning engine</a>.</li>
+          </ul>
+        </section>
+        <section id="section-frmwrks-azure-studio-smpl-ntbks">
+          <h2 id="frmwrks-azure-studio-smpl-ntbks">Sample Notebooks</h2>
+          <p>The following Notebook shows how to work with Microsoft Azure ML Studio:</p>
+          <ul>
+            <li><a href="https://github.com/IBM/watson-openscale-samples/blob/main/IBM%20Cloud/Azure/notebooks/ML%20Studio/AI%20OpenScale%20and%20Azure%20ML%20Studio%20Engine.ipynb" target="_blank" class="external">Data mart creation, model deployment monitoring and data analysis</a></li>
+          </ul>
+        </section>
+        <section id="section-frmwrks-azure-stuido-mediumblogs">
+          <h2 id="frmwrks-azure-stuido-mediumblogs">Explore further</h2>
+          <ul>
+            <li><a href="https://developer.ibm.com/patterns/monitor-azure-machine-learning-studio-models-with-ai-openscale/" target="_blank" class="external">Monitor Azure machine learning with Watson OpenScale</a></li>
+            <li><a href="https://docs.microsoft.com/en-us/azure/machine-learning/v1/how-to-consume-web-service?tabs=python" target="_blank" class="external">Consume an Azure Machine Learning model that is deployed as a web service</a></li>
+          </ul>
+        </section>
+        <section id="section-connect-azure-studio">
+          <h2 id="connect-azure-studio">Specifying a Microsoft Azure ML Studio instance</h2>
+          <p>Your first step in the Watson OpenScale tool is to specify a Microsoft Azure ML Studio instance. Your Azure ML Studio instance is where you store your AI models and deployments.</p>
+          <p>You can also add your machine learning provider by using the Python SDK. For more information, see <a href="wos-frameworks-azure-ml-studio.html">Add your Microsoft Azure machine learning engine</a>.</p>
+        </section>
+        <section id="section-ca-connect-azure-stud-inst" help="" support="">
+          <h2 id="ca-connect-azure-stud-inst">Connect your Azure ML Studio instance</h2>
+          <p>Watson OpenScale connects to AI models and deployments in an Azure ML Studio instance. To connect your service to Watson OpenScale, go to the <strong>Configure</strong> <img src="images/wos-config-tab.png" alt="The configuration tab icon"> tab,
+            add a machine learning provider, and click the <strong>Edit</strong> <img src="images/wos-edit-icon.png" alt="The configuration tab icon"> icon. In addition to a name and description and whether the environment is a <strong>Pre-production</strong>            or <strong>Production</strong>, you must provide the following information:</p>
+          <ul note="">
+            <li>Client ID: The actual string value of your client ID, which verifies who you are and authenticates and authorizes calls that you make to Azure Studio.</li>
+            <li>Client Secret: The actual string value of the secret, which verifies who you are and authenticates and authorizes calls that you make to Azure Studio.</li>
+            <li>Tenant: Your tenant ID corresponds to your organization and is a dedicated instance of Azure AD. To find the tenant ID, hover over your account name to get the directory and tenant ID, or select Azure Active Directory &gt; Properties &gt;
+              Directory ID in the Azure portal.</li>
+            <li>Subscription ID: Subscription credentials that uniquely identify your Microsoft Azure subscription. The subscription IDforms part of the URI for every service call. See <a href="https://docs.microsoft.com/en-us/azure/" target="_blank" class="external">How to: Use the portal to create an Azure AD application and service principal that can access resources</a>              for instructions about how to get your Microsoft Azure credentials.</li>
+          </ul>
+        </section>
+        <section id="section-cml-azconfig">
+          <h2 id="cml-azconfig">Payload logging with the Microsoft Azure Machine Learning Studio engine</h2>
+          <section id="section-cml-azbind">
+            <h3 id="cml-azbind">Add your Microsoft Azure machine learning engine</h3>
+            <p>A non-IBM Watson Machine Learning engine is bound as Custom, meaning that this is just metadata; there is no direct integration with the non-IBM Watson Machine Learning service.</p>
+            <pre class="codeblock"><code class="lang-python hljs">AZURE_ENGINE_CREDENTIALS = {
+&nbsp;&nbsp;&nbsp; <span class="hljs-string">"client_id"</span>: <span class="hljs-string">""</span>,
+&nbsp;&nbsp;&nbsp; <span class="hljs-string">"client_secret"</span>: <span class="hljs-string">""</span>,
+&nbsp;&nbsp;&nbsp; <span class="hljs-string">"subscription_id"</span>: <span class="hljs-string">""</span>,
+&nbsp;&nbsp;&nbsp; <span class="hljs-string">"tenant"</span>: <span class="hljs-string">""</span>
+}
+&nbsp;
+wos_client.service_providers.add(
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; name=SERVICE_PROVIDER_NAME,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; description=SERVICE_PROVIDER_DESCRIPTION,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; service_type=ServiceTypes.AZURE_MACHINE_LEARNING,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-comment">#deployment_space_id = WML_SPACE_ID,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-comment">#operational_space_id = "production",</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; credentials=AzureCredentials(
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; subscription_id= AZURE_ENGINE_CREDENTIALS[<span class="hljs-string">'subscription_id'</span>],
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; client_id = AZURE_ENGINE_CREDENTIALS[<span class="hljs-string">'client_id'</span>],
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; client_secret= AZURE_ENGINE_CREDENTIALS[<span class="hljs-string">'client_secret'</span>],
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tenant = AZURE_ENGINE_CREDENTIALS[<span class="hljs-string">'tenant'</span>]
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ),
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; background_mode=<span class="hljs-literal">False</span>
+&nbsp;&nbsp;&nbsp; ).result
+</code></pre>
+            <p>To see your service subscription, run the following command:</p>
+            <pre class="codeblock"><code class="lang-python hljs">client.service_providers.<span class="hljs-built_in">list</span>()
+</code></pre>
+          </section>
+          <section id="section-cml-azsub">
+            <h3 id="cml-azsub">Add Microsoft Azure ML Studio subscription</h3>
+            <p>Add subscription by adapting the following code sample:</p>
+            <pre class="codeblock"><code class="lang-python hljs">asset_deployment_details = wos_client.service_providers.list_assets(data_mart_id=data_mart_id, service_provider_id=service_provider_id).result
+asset_deployment_details
+&nbsp;
+deployment_id=<span class="hljs-string">''</span>
+<span class="hljs-keyword">for</span> model_asset_details <span class="hljs-keyword">in</span> asset_deployment_details[<span class="hljs-string">'resources'</span>]:
+&nbsp;&nbsp;&nbsp; <span class="hljs-keyword">if</span> model_asset_details[<span class="hljs-string">'metadata'</span>][<span class="hljs-string">'guid'</span>]==deployment_id:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-keyword">break</span>
+&nbsp;
+azure_asset = Asset(
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; asset_id=model_asset_details[<span class="hljs-string">"entity"</span>][<span class="hljs-string">"asset"</span>][<span class="hljs-string">"asset_id"</span>],
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; name=model_asset_details[<span class="hljs-string">"entity"</span>][<span class="hljs-string">"asset"</span>][<span class="hljs-string">"name"</span>],
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; url=model_asset_details[<span class="hljs-string">"entity"</span>][<span class="hljs-string">"asset"</span>][<span class="hljs-string">"url"</span>],
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; asset_type=model_asset_details[<span class="hljs-string">'entity'</span>][<span class="hljs-string">'asset'</span>][<span class="hljs-string">'asset_type'</span>] <span class="hljs-keyword">if</span> <span class="hljs-string">'asset_type'</span> <span class="hljs-keyword">in</span> model_asset_details[<span class="hljs-string">'entity'</span>][<span class="hljs-string">'asset'</span>] <span class="hljs-keyword">else</span> <span class="hljs-string">'model'</span>,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; input_data_type=InputDataType.STRUCTURED,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; problem_type=ProblemType.BINARY_CLASSIFICATION
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )
+&nbsp;
+deployment_scoring_endpoint = model_asset_details[<span class="hljs-string">'entity'</span>][<span class="hljs-string">'scoring_endpoint'</span>]
+scoring_endpoint = ScoringEndpointRequest(url = model_asset_details[<span class="hljs-string">'entity'</span>][<span class="hljs-string">'scoring_endpoint'</span>][<span class="hljs-string">'url'</span>],request_headers = model_asset_details[<span class="hljs-string">'entity'</span>][<span class="hljs-string">'scoring_endpoint'</span>][<span class="hljs-string">'request_headers'</span>],
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; credentials = <span class="hljs-literal">None</span>)&nbsp;&nbsp;
+&nbsp;
+deployment = AssetDeploymentRequest(
+&nbsp;&nbsp;&nbsp; deployment_id=model_asset_details[<span class="hljs-string">'metadata'</span>][<span class="hljs-string">'guid'</span>],
+&nbsp;&nbsp;&nbsp; url=model_asset_details[<span class="hljs-string">'metadata'</span>][<span class="hljs-string">'url'</span>],
+&nbsp;&nbsp;&nbsp; name=model_asset_details[<span class="hljs-string">'entity'</span>][<span class="hljs-string">'name'</span>],
+&nbsp;&nbsp;&nbsp; description=model_asset_details[<span class="hljs-string">'entity'</span>][<span class="hljs-string">'description'</span>],
+&nbsp;&nbsp;&nbsp; deployment_type=model_asset_details[<span class="hljs-string">'entity'</span>][<span class="hljs-string">'type'</span>],
+&nbsp;&nbsp;&nbsp; scoring_endpoint = scoring_endpoint
+)
+&nbsp;
+asset_properties = AssetPropertiesRequest(
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; label_column=<span class="hljs-string">"Risk "</span>,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; prediction_field=<span class="hljs-string">'Scored Labels'</span>,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; probability_fields=[<span class="hljs-string">'Scored Probabilities'</span>],
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; training_data_reference=training_data_reference,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; training_data_schema=<span class="hljs-literal">None</span>,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; input_data_schema=<span class="hljs-literal">None</span>,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; output_data_schema=<span class="hljs-literal">None</span>,
+&nbsp;&nbsp;&nbsp; )
+&nbsp;
+subscription_details = wos_client.subscriptions.add(
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data_mart_id=data_mart_id,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; service_provider_id=service_provider_id,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; asset=azure_asset,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; deployment=deployment,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; asset_properties=asset_properties,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; background_mode=<span class="hljs-literal">False</span>
+).result
+</code></pre>
+            <p>To get the subscription list, run the following code:</p>
+            <pre class="codeblock"><code class="lang-python hljs">subscription_id = subscription_details.metadata.<span class="hljs-built_in">id</span>
+subscription_id
+&nbsp;
+details: wos_client.subscriptions.get(subscription_id).result.to_dict()
+</code></pre>
+          </section>
+          <section id="section-cml-azenlog">
+            <h3 id="cml-azenlog">Enable payload logging</h3>
+            <p>To enable payload logging, run the following code:</p>
+            <pre class="codeblock"><code class="lang-python hljs">payload_data_set_id = <span class="hljs-literal">None</span>
+payload_data_set_id = wos_client.data_sets.<span class="hljs-built_in">list</span>(<span class="hljs-built_in">type</span>=DataSetTypes.PAYLOAD_LOGGING,&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; target_target_id=subscription_id,&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; target_target_type=TargetTypes.SUBSCRIPTION).result.data_sets[<span class="hljs-number">0</span>].metadata.<span class="hljs-built_in">id</span>
+&nbsp;
+payload store:
+&nbsp;
+wos_client.data_sets.store_records(data_set_id=payload_data_set_id, request_body=[PayloadRecord(
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; scoring_id=<span class="hljs-built_in">str</span>(uuid.uuid4()),
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; request=request_data,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; response=response_data,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; response_time=<span class="hljs-number">460</span>
+)])
+</code></pre>
+            <p>To get the logging details, run the following command:</p>
+            <pre class="codeblock"><code class="lang-python hljs">subscription.payload_logging.get_details()
+</code></pre>
+          </section>
+          <section id="section-cml-azscore">
+            <h3 id="cml-azscore">Scoring and payload logging</h3>
+            <p>Score your model. For a full example, see the <a href="https://github.com/IBM/watson-openscale-samples/blob/main/IBM%20Cloud/Azure/notebooks/ML%20Studio/AI%20OpenScale%20and%20Azure%20ML%20Studio%20Engine.ipynb" target="_blank" class="external">Working with Azure Machine Learning Studio Engine Notebook</a>.</p>
+            <p>To store the request and response in the payload logging table, use the following code:</p>
+            <pre class="codeblock"><code class="lang-python hljs">records_list = [PayloadRecord(request=request_data, response=response_data, response_time=response_time),
+                PayloadRecord(request=request_data, response=response_data, response_time=response_time)]
+
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">10</span>):
+records_list.append(PayloadRecord(request=request_data, response=response_data, response_time=response_time))
+
+subscription.payload_logging.store(records=records_list)
+</code></pre>
+            <p note="">For languages other than Python, you can also log payload by using a REST API.</p>
+            <p><strong>Parent topic:</strong> <a href="wos-frameworks-ovr.html">Supported machine learning engines, frameworks, and models</a></p>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

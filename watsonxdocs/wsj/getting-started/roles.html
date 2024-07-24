@@ -1,0 +1,134 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Every user of IBM watsonx has multiple levels of roles with the corresponding permissions, or actions. The permissions determine what actions a user can perform on the platform or within a service. Some roles are set in IBM Cloud, and others are set in IBM watsonx.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Levels of user access roles in IBM watsonx</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=access-levels-user-roles"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="levels-of-user-access-roles-in-ibm-watsonx" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-levels-of-user-access-roles-in-ibm-watsonx">
+        <h1 id="levels-of-user-access-roles-in-ibm-watsonx">Levels of user access roles in IBM watsonx</h1>
+        <p>Every user of IBM watsonx has multiple levels of roles with the corresponding permissions, or actions. The permissions determine what actions a user can perform on the platform or within a service. Some roles are set in IBM Cloud, and others are
+          set in IBM watsonx.</p>
+        <p>The IBM Cloud account owner or administrator sets the Identity and Access (IAM) Platform and Service access roles in the IBM Cloud account. Workspace administrators in watsonx set the collaborator roles for workspaces, for example, projects and
+          deployment spaces.</p>
+        <p>Familiarity with the IBM Cloud IAM feature, Access groups, Platform roles, and Service roles is required to configure user access for IBM watsonx. See <a href="https://cloud.ibm.com/docs/account?topic=account-userroles" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud docs: IAM access</a> for a description of IBM Cloud IAM Platform and Service roles.</p>
+        <p>This illustration shows the different levels of roles assigned to each user so that they can work in IBM watsonx.</p>
+        <p>
+          </p><figure>
+            <figcaption>Levels of roles in IBM watsonx</figcaption>
+            <img src="images/roles_venn.svg" alt="Levels of roles in IBM watsonx" title="Levels of roles" width="500px" style="display:block;margin:0 auto">
+          </figure>
+        <p></p>
+        <p>The levels of roles are:</p>
+        <ul>
+          <li><a href="#platform">IAM Platform access roles</a> determine your permissions for the IBM Cloud account. At least the <strong>Viewer</strong> role is required to work with services.</li>
+          <li><a href="#service">IAM Service access roles</a> determine your permissions within services.</li>
+          <li><a href="#workspace">Workspace collaborator roles</a> determine what actions you have permission to perform within workspaces in IBM watsonx.</li>
+        </ul>
+        <section id="section-platform">
+          <h2 id="platform">IAM Platform access roles</h2>
+          <p>The IAM Platform access roles are assigned and managed in the IBM Cloud account.</p>
+          <p>IAM Platform access roles provide permissions to manage the IBM Cloud account and to access services within IBM watsonx. The Platform access roles are <strong>Viewer</strong>, <strong>Operator</strong>, <strong>Editor</strong>, and <strong>Administrator</strong>.
+            The Platform roles are available to all services on IBM Cloud.</p>
+          <p>The <strong>Viewer</strong> role has minimal, view-only permissions. Users need at least <strong>Viewer</strong> role to see the services in IBM watsonx. A <strong>Viewer</strong> can:</p>
+          <ul>
+            <li>View, but not modify, available service instances and assets</li>
+            <li>Associate services with projects.</li>
+            <li>Become collaborator in projects or deployment spaces.</li>
+            <li>Create projects and deployment spaces if assigned appropriate permissions for Cloud Object Storage.</li>
+          </ul>
+          <p>The <strong>Operator</strong> role has permissions to configure existing service instances.</p>
+          <p>The <strong>Editor</strong> role provides access to these actions:</p>
+          <ul>
+            <li>All Viewer role permissions.</li>
+            <li>Provision instances of services.</li>
+            <li>Update plans for service instances.</li>
+          </ul>
+          <p>The <strong>Administrator</strong> role provides the same permissions as the <strong>Owner</strong> role for the account. With <strong>Administrator</strong> role, you can:</p>
+          <ul>
+            <li>All Viewer, Operator, and Editor permissions.</li>
+            <li>Perform all management actions for services.</li>
+            <li>Add users to the <a href="setup-addl-users.html">IBM Cloud account and assign roles</a></li>
+            <li>Perform administrative tasks in IBM watsonx</li>
+            <li><a href="../console/wdp_admin_console.html">Manage services for IBM watsonx</a></li>
+          </ul>
+          <p>To understand IAM Platform access roles, see <a href="https://cloud.ibm.com/docs/account?topic=account-iamoverview" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud docs: What is IBM Cloud Identity and Access Management?</a>.</p>
+        </section>
+        <section id="section-service">
+          <h2 id="service">IAM Service access roles</h2>
+          <p>Service roles apply to individual services and define actions permitted within the service. IBM Cloud Object Storage has its own set of Service access roles. See <a href="../console/wdp_admin_cos.html">Setting up IBM Cloud Object Storage for use with IBM watsonx</a>.</p>
+        </section>
+        <section id="section-workspace">
+          <h2 id="workspace">Workspace collaborator roles</h2>
+          <p>Your role in a specific workspace determines what actions you can perform in that workspace. Your IAM roles do not affect your role within a workspace. For example, you can be the <strong>Administrator</strong> of the Cloud account, but this
+            does not automatically make you an administrator for a project or catalog. The <strong>Admin</strong> collaborator role for a project (or other workspace) must be explicitly assigned. Similarly, roles are specific to each project. You may
+            have <strong>Admin</strong> role in a project, which gives you full control of the contents of that project, including managing collaborators and assets. But you can have the <strong>Viewer</strong> role in another project, which allows you
+            to only view the contents of that project.</p>
+          <p>Projects and deployment spaces have these roles:</p>
+          <ul>
+            <li><strong>Admin</strong>: Control assets, collaborators, and settings in the workspace.</li>
+            <li><strong>Editor</strong>: Control assets in the workspace.</li>
+            <li><strong>Viewer</strong>: View the workspace and its contents.</li>
+          </ul>
+          <p>The permissions that are associated with each role are specific to the type of workspace:</p>
+          <ul>
+            <li><a href="collaborator-permissions.html">Project collaborator roles and permissions</a></li>
+            <li><a href="../analyze-data/collaborator-permissions-wml.html">Deployment space collaborator roles and permissions</a></li>
+          </ul>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="https://cloud.ibm.com/docs/account?topic=account-iamoverview" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud docs: What is IBM Cloud Identity and Access Management?</a></li>
+            <li><a href="https://cloud.ibm.com/docs/account?topic=account-userroles" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud docs: IAM access</a></li>
+            <li><a href="setup-platform.html">Setting up IBM watsonx for your organization</a></li>
+            <li><a href="../console/wdp_admin_console.html">Managing IBM watsonx</a></li>
+            <li><a href="faq.html#accountadmin">Find your IBM Cloud account owner or administrator</a></li>
+            <li><a href="../admin/your-roles.html">Determine your roles</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="../getting-started/setup-addl-users.html">Adding users to the account</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

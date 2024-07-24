@@ -1,0 +1,151 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Use the ModelOps tools to manage your AI assets from development to production.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Managing the AI Lifecycle with ModelOps</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=assets-managing-ai-lifecycle-modelops"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="managing-the-ai-lifecycle-with-modelops" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-managing-the-ai-lifecycle-with-modelops">
+        <h1 id="managing-the-ai-lifecycle-with-modelops">Managing the AI Lifecycle with ModelOps</h1>
+        <p>Use the ModelOps tools to manage your AI assets from development to production.</p>
+        <section id="section-modelops-explained">
+          <h2 id="modelops-explained">ModelOps explained</h2>
+          <p>MLOps synchronizes cadences between the application and model pipelines. It builds on these practices:</p>
+          <ul>
+            <li>DevOps for bringing a machine learning model from creation through training, to deployment, and to production.</li>
+            <li>ModelOps for managing the lifecycle of a traditional machine learning model, including evaluation and retraining.</li>
+          </ul>
+          <p>MLOps includes not just the routine deployment of machine learning models but also the continuous retraining, automated updating, and synchronized development and deployment of more complex machine learning models. Explore these resources for
+            more details on developing an MLOps strategy:</p>
+          <ul>
+            <li><a href="../getting-started/use-case-watsonx-ai.html">watsonx.ai use case</a> describes how to develop and deploy machine learning models and generative AI solutions.</li>
+            <li><a href="../getting-started/use-case-watsonx-gov.html">watsonx.governance use case</a> describes how to monitor, maintain, automate, and govern machine learning and generative AI models in production.</li>
+          </ul>
+        </section>
+        <section id="section-modelops-tools">
+          <h2 id="modelops-tools">ModelOps tools</h2>
+          <p>Depending on the platform you are using and the services you have enabled, you can design your ModelOps process using a combination of tools to help you manage assets.</p>
+          <ul>
+            <li><a href="#pipeline">Pipelines</a> for automating the end-to-end flow of a machine learning model through the AI lifecycle.</li>
+            <li><a href="#model-inventory">AI Governance</a> for creating a centralized repository of factsheets that track the lifecycle of a model, including request, building, deployment, and evaluation of aAI assets</li>
+            <li>The <a href="#cpdctl">cpdctl command-line interface tool</a> for managing and automating your machine learning assets that are hosted on Cloud Pak for Data as a Service by using the cpdctl command-line interface tool. Use automatic configuration
+              from IBM Cloud to easily connect with the cpdctl API commands.</li>
+          </ul>
+          <section id="section-managing-access-with-deployment-spaces">
+            <h3 id="managing-access-with-deployment-spaces">Managing access with deployment spaces</h3>
+            <p>Use deployment spaces to organize and manage access to assets as they move through the AI lifecycle. For example, you can manage access with deployment spaces in the following ways:</p>
+            <ul>
+              <li>Create a deployment space and assign it to <em>Development</em> as the deployment stage. If you are governing assets, deployments in this type of space display in the <strong>Develop</strong> stage of a use case. Assign access to the data
+                scientists to create the assets or DevOps users to create deployments.</li>
+              <li>Create a deployment space and assign it to <em>Testing</em> as the deployment stage. If you are governing assets, deployments in this type of space display in the <strong>Validate</strong> stage of a use case. Assign access to the model
+                validators to test the deployments.</li>
+              <li>Create a deployment space and assign it to <em>Production</em> as the deployment stage. If you are governing assets, deployments in this type of space display in the <strong>Operate</strong> stage of a use case. Limit access to this space
+                to ModelOps users who manage the assets that are deployed to a production environment.</li>
+            </ul>
+          </section>
+          <section id="section-feature-store">
+            <h3 id="feature-store">Sharing data assets in a feature store</h3>
+            <p>If your organization uses IBM Knowledge Catalog, a catalog can serve as a feature store. Data assets that are stored in a feature store contain features that you can use in machine learning models and later share them across your organization.
+              Data assets include metadata about where they are used in models. You can control access for Catalogs at the catalog and the data asset level.</p>
+          </section>
+          <section id="section-pipeline">
+            <h3 id="pipeline">Automating ModelOps by using Pipelines</h3>
+            <p>The IBM Watson Pipelines editor provides a graphical interface for orchestrating an end-to-end flow of assets from creation through deployment. Assemble and configure a pipeline to create, train, deploy, and update machine learning models
+              and Python scripts. Make your ModelOps process simpler and repeatable.</p>
+          </section>
+          <section id="section-model-inventory">
+            <h3 id="model-inventory">Tracking models with AI Factsheets</h3>
+            <p>AI Factsheets provides the capabilities for you to track data science models across the organization and store the details in a catalog. View at a glance which models are in production and which need development or validation. Use the governance
+              features to establish processes to manage the communication flow from data scientists to ModelOps administrators.</p>
+            <div class="note note"><span class="notetitle">Note:</span> A model inventory tracks only the models that you explicitly track by associating them with model use cases. You can control which models to track for an organization without tracking samples and other
+              models that are not significant to the organization.</div>
+          </section>
+          <section id="section-wos">
+            <h3 id="wos">Evaluating model deployments</h3>
+            <p>Use Watson OpenScale to analyze your AI with trust and transparency and understand how your AI models are involved in decision making. Detect and mitigate bias and drift. Increase the quality and accuracy of your predictions. Explain transactions
+              and perform what-if analysis.</p>
+          </section>
+          <section id="section-cpdctl">
+            <h3 id="cpdctl">Automate managing assets and lifecycle</h3>
+            <p>You can automate the AI Lifecycle in a notebook by using the Watson Machine Learning <a href="https://ibm.github.io/watson-machine-learning-sdk/">Python client</a>.</p>
+            <p>This <a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/8bddf7f7e5d004a009c643750b1c7b47?context=cpdaas">sample notebook</a> demonstrates how to:</p>
+            <ul>
+              <li>Download an externally trained scikit-learn model with data set</li>
+              <li>Persist an external model in the Watson Machine Learning repository</li>
+              <li>Deploy a model for online scoring by using the client library</li>
+              <li>Score sample records by using the client library</li>
+              <li>Update a previously persisted model</li>
+              <li>Redeploy a model in-place</li>
+              <li>Scale a deployment</li>
+            </ul>
+            <p>Alternatively, you can use IBM Cloud Pak for Data Command-Line Interface (IBM cpdctl) to manage configuration settings and automate an end-to-end flow. This end-to-end flow includes training a model, saving it, creating a deployment space,
+              and deploying the model. For more information, see <a href="https://github.com/IBM/cpdctl" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud Pak for Data Command-Line Interface</a> documentation.</p>
+          </section>
+        </section>
+        <section id="section-typical-modelops-scenario">
+          <h2 id="typical-modelops-scenario">Typical ModelOps scenario</h2>
+          <p>A typical ModelOps scenario in Cloud Pak for Data might be:</p>
+          <ol>
+            <li>Organize and curate data assets</li>
+            <li>Train a model by using AutoAI</li>
+            <li>Save and deploy the model</li>
+            <li>Track the model in a use case so that all collaborators can track the progress of the model through the lifecycle and make sure that it complies with organizational standards.</li>
+            <li>Evaluate the deployment for bias</li>
+            <li>Update the deployment with a better-performing model</li>
+            <li>Monitor deployments and jobs across the organization</li>
+          </ol>
+        </section>
+        <section id="section-more-resources">
+          <h2 id="more-resources">More resources</h2>
+          <ul>
+            <li><a href="https://en.wikipedia.org/wiki/ModelOps">ModelOps Wikipedia article</a></li>
+            <li>Read the <a href="https://www.ibm.com/blogs/journey-to-ai/2020/02/autoai-synchronize-modelops-and-devops-to-drive-digital-transformation/" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">ModelOps blog post</a>.</li>
+            <li><a href="https://www.ibm.com/blogs/journey-to-ai/2021/03/scale-modelops-to-drive-ai-value-from-edge-to-hybrid-clouds/">IBM Blog post on ModelOps</a> about using ModelOps to drive value from your AI investment.</li>
+            <li><a href="https://www.ibm.com/cloud/machine-learning/modelops">See how IBM is addressing ModelOps</a>.</li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="../wmls/wmls-deploy-overview.html">Deploying and managing assets</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

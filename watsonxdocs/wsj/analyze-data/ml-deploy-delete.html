@@ -1,0 +1,89 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Delete your deployment when you no longer need it to free up resources. You can delete a deployment from a deployment space, or programmatically, by using the Python client or Watson Machine Learning APIs.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Deleting a deployment</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=assets-deleting-deployment"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="deleting-a-deployment" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-deleting-a-deployment">
+        <h1 id="deleting-a-deployment">Deleting a deployment</h1>
+        <p>Delete your deployment when you no longer need it to free up resources. You can delete a deployment from a deployment space, or programmatically, by using the Python client or Watson Machine Learning APIs.</p>
+        <section id="section-deleting-a-deployment-from-a-space">
+          <h2 id="deleting-a-deployment-from-a-space">Deleting a deployment from a space</h2>
+          <p>To remove a deployment:</p>
+          <ol>
+            <li>Open the <strong>Deployments</strong> page of your deployment space.</li>
+            <li>Choose <strong>Delete</strong> from the action menu for the deployment name.
+              <br>
+              <img src="images/deploy-delete.png" alt="Deleting a deployment"></li>
+          </ol>
+        </section>
+        <section id="section-deleting-a-deployment-by-using-the-python-client">
+          <h2 id="deleting-a-deployment-by-using-the-python-client">Deleting a deployment by using the Python client</h2>
+          <p>Use the following method to delete the deployment.</p>
+          <pre class="codeblock"><code class="hljs">client.deployments.delete(deployment_uid)
+</code></pre>
+          <p>Returns a <code>SUCCESS</code> message. To check that the deployment was removed, you can list deployments and make sure that the deleted deployment is no longer listed.</p>
+          <pre class="codeblock"><code class="lang-python hljs">client.deployments.<span class="hljs-built_in">list</span>()
+</code></pre>
+          <p>Returns:</p>
+          <pre class="codeblock"><code class="lang-python hljs">----  ----  -----  -------  -------------
+GUID  NAME  STATE  CREATED  ARTIFACT_TYPE
+----  ----  -----  -------  -------------
+</code></pre>
+        </section>
+        <section id="section-deleting-a-deployment-by-using-the-rest-api">
+          <h2 id="deleting-a-deployment-by-using-the-rest-api">Deleting a deployment by using the REST API</h2>
+          <p>Use the <code>DELETE</code> method for deleting a deployment.</p>
+          <pre class="codeblock"><code class="lang-bash hljs">DELETE /ml/v4/deployments/{deployment_id}
+</code></pre>
+          <p>For more information, see <a href="https://cloud.ibm.com/apidocs/machine-learning#deployments-delete">Delete</a>.</p>
+          <p>For example, see the following code snippet:</p>
+          <pre class="codeblock"><code class="lang-bash hljs">curl --location --request DELETE <span class="hljs-string">'https://us-south.ml.cloud.ibm.com/ml/v4/deployments/:deployment_id?space_id=&lt;string&gt;&amp;version=2020-09-01'</span>
+</code></pre>
+          <p><strong>Parent topic:</strong> <a href="../analyze-data/ml-deploy-general.html">Managing predictive deployments</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

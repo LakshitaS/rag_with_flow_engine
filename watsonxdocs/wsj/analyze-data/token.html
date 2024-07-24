@@ -1,0 +1,75 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="All projects have an authorization token that is used to access data assets, for example files and connections, and is used by platform APIs. This token is called the project access token, or simply access token in the project user interface. This project access token must be set in notebooks so that project and platform functions can access the project resources.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Manually adding the project access token</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=notebook-manually-adding-project-access-token"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="manually-adding-the-project-access-token" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-manually-adding-the-project-access-token">
+        <h1 id="manually-adding-the-project-access-token">Manually adding the project access token</h1>
+        <p>All projects have an authorization token that is used to access data assets, for example files and connections, and is used by platform APIs. This token is called the project access token, or simply access token in the project user interface.
+          This project access token must be set in notebooks so that project and platform functions can access the project resources.</p>
+        <p>When you load data to your notebook by clicking <strong>Read data</strong> on the Code snippets pane, selecting the asset and the load option, the project access token is added for you, if the generated code that is inserted uses project functions.</p>
+        <p>However, when you use API functions in your notebook that require the project token, for example, if you're using <code>Wget</code> to access data by using the HTTP, HTTPS or FTP protocols, or the <code>ibm-watson-studio-lib</code> library, you
+          must add the project access token to the notebook yourself.</p>
+        <p>To add a project access token to a notebook if you are not using the generated code:</p>
+        <ol>
+          <li>
+            <p>From the <strong>Manage</strong> tab, select <strong>Access Control</strong> and click <strong>New access token</strong> under <strong>Access tokens</strong>. Only project administrators can create project access tokens.</p>
+            <p>Enter a name and select the access role. To enable using API functions in a notebook, the access token must have the Editor access role. An access token with Viewer access role enables read access only to a notebook.</p>
+          </li>
+          <li>
+            <p>Add the project access token to a notebook by clicking <strong>More &gt; Insert project token</strong> from the notebook action bar.</p>
+            <p>By running the inserted hidden code cell, a project object is created that you can use for functions in the <code>ibm-watson-studio-lib</code> library. For example to get the name of the current project run:</p>
+            <pre class="codeblock"><code class="lang-python hljs">project.get_name()
+</code></pre>
+            <p>For details on the available <code>ibm-watson-studio-lib</code> functions, see <a href="using-ibm-ws-lib.html">Accessing project assets with ibm-watson-studio-lib</a>.</p>
+            <p>Note that a project administrator can revoke a project access token at any time. An access token has no expiration date and is valid until it is revoked.</p>
+          </li>
+        </ol>
+        <p><strong>Parent topic:</strong>
+          <a href="../analyze-data/load-and-access-data.html">Loading and accessing data in a notebook</a></p>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

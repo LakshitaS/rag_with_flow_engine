@@ -1,0 +1,97 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="The sample notebooks demonstrate how to use the different Watson Natural Language Processing blocks and how to train your own models.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Watson Natural Language Processing library usage samples</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=processing-usage-samples"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="watson-natural-language-processing-library-usage-samples" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-watson-natural-language-processing-library-usage-samples">
+        <h1 id="watson-natural-language-processing-library-usage-samples">Watson Natural Language Processing library usage samples</h1>
+        <p>The sample notebooks demonstrate how to use the different Watson Natural Language Processing blocks and how to train your own models.</p>
+        <section id="section-sample-project-and-notebooks">
+          <h2 id="sample-project-and-notebooks">Sample project and notebooks</h2>
+          <p>To help you get started with the Watson Natural Language Processing library, you can download a sample project and notebooks from the Resource hub.</p>
+          <p>You can access the Resource hub by selecting <strong>Resource hub</strong> from the Cloud Pak for Data navigation menu.</p>
+          <p><strong>Sample notebooks</strong></p>
+          <ul>
+            <li>
+              <p><a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/39047aede50128e7cbc8ea19660fe1f6" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Financial complaint analysis</a></p>
+              <p>This notebook shows you how to analyze financial customer complaints using Watson Natural Language Processing. It uses data from the Consumer Complaint Database published by the Consumer Financial Protection Bureau (CFPB). The notebook teaches
+                you to use the Tone classification and Emotion classification models.</p>
+            </li>
+            <li>
+              <p><a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/4b8aa2c1ee67a6cd1172a1cf760f65f7" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Car complaint analysis</a></p>
+              <p>This notebook demonstrates how to analyze car complaints using Watson Natural Language Processing. It uses publicly available complaint records from car owners stored by the National Highway and Transit Association (NHTSA) of the US Department
+                of Transportation. This notebook shows you how use syntax analysis to extract the most frequently used nouns, which typically depict the problems that review authors talk about and combine these results with structured data using association
+                rule mining.</p>
+            </li>
+            <li>
+              <p><a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/636001e59902133a4a23fd89f011c232" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Complaint classification with Watson Natural Language Processing</a></p>
+              <p>This notebook demonstrates how to train different text classifiers using Watson Natural Language Processing. The classifiers predict the product group from the text of a customer complaint. This could be used, for example to route a complaint
+                to the appropriate staff member. The data that is used in this notebook is taken from the Consumer Complaint Database that is published by the Consumer Financial Protection Bureau (CFPB), a U.S. government agency and is publicly available.
+                You will learn how to train a custom CNN model and a VotingEnsemble model and evaluate their quality.</p>
+            </li>
+            <li>
+              <p><a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/636001e59902133a4a23fd89f0112100" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Entity extraction on Financial Complaints with Watson Natural Language Processing</a></p>
+              <p>This notebook demonstrates how to extract named entities from financial customer complaints using Watson Natural Language Processing. It uses data from the Consumer Complaint Database published by the Consumer Financial Protection Bureau
+                (CFPB). In the notebook you will learn how to do dictionary-based term extraction to train a custom extraction model based on given dictionaries and extract entities using the BERT or a transformer model.</p>
+            </li>
+          </ul>
+          <p><strong>Sample project</strong></p>
+          <p>If you don't want to download the sample notebooks to your project individually, you can download the entire sample project <a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/636001e59902133a4a23fd89f010e4cb" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Text Analysis with Watson Natural Language Processing</a> from the IBM watsonx Resource hub.</p>
+          <p>The sample project contains the sample notebooks listed in the previous section, including:</p>
+          <ul>
+            <li>
+              <p>Analyzing hotel reviews using Watson Natural Language Processing</p>
+              <p>This notebook shows you how to use syntax analysis to extract the most frequently used nouns from the hotel reviews, classify the sentiment of the reviews and use targets sentiment analysis. The data file that is used by this notebook is
+                included in the project as a data asset.</p>
+            </li>
+          </ul>
+          <p>You can run all of the sample notebooks with the <code>NLP + DO Runtime 23.1 on Python 3.10 XS</code> environment except for the <em>Analyzing hotel reviews using Watson Natural Language Processing</em> notebook. To run this notebook, you need
+            to create an environment template that is large enough to load the CPU-optimized models for sentiment and targets sentiment analysis.</p>
+          <p><strong>Parent topic:</strong> <a href="../analyze-data/watson-nlp.html">Watson Natural Language Processing library</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

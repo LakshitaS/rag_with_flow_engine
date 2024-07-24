@@ -1,0 +1,92 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can configure an integration with the Amazon Web Services (AWS) platform to allow IBM watsonx users access to data sources from AWS. Before proceeding, make sure you have proper permissions. For example, you'll need to be able to create services and credentials in the AWS account.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Integrating with AWS</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=platforms-integrating-aws"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="integrating-with-aws" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-integrating-with-aws">
+        <h1 id="integrating-with-aws">Integrating with AWS</h1>
+        <p>You can configure an integration with the Amazon Web Services (AWS) platform to allow IBM watsonx users access to data sources from AWS. Before proceeding, make sure you have proper permissions. For example, you'll need to be able to create services
+          and credentials in the AWS account.</p>
+        <p>After you configure an integration, you'll see it under <strong>Service instances</strong>. You'll see a new <strong>AWS</strong> tab that lists your instances of Redshift and S3.</p>
+        <p>To configure an integration with AWS:</p>
+        <ol>
+          <li>
+            <p>Log on to the <a href="https://aws.amazon.com/console/" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">AWS Console</a>.</p>
+          </li>
+          <li>
+            <p>From the account drop-down at the upper right, select <strong>My Security Credentials</strong>.</p>
+          </li>
+          <li>
+            <p>Under <strong>Access keys (access key ID and secret access key)</strong>, click <strong>Create New Access Key</strong>.</p>
+          </li>
+          <li>
+            <p>Copy the key ID and secret.</p>
+            <div class="note important"><span class="importanttitle">Important:</span> Write down your key ID and secret and store them in a safe place.</div>
+          </li>
+          <li>
+            <p>In IBM watsonx, under <strong>Administration &gt; Cloud integrations</strong>, go to the <strong>AWS</strong> tab, enable integration, and then paste the access key ID and access key secret into the appropriate fields.</p>
+          </li>
+          <li>
+            <p>If you need to access Redshift, <a href="firewall-redshift.html">configure firewall access</a>.</p>
+          </li>
+          <li>
+            <p>Confirm that you can see your AWS services. From the main menu, choose <strong>Administration &gt; Services &gt; Services instances</strong>. Click the <strong>AWS</strong> tab to see those services.</p>
+          </li>
+        </ol>
+        <p>Now users who have credentials to your AWS services can <a href="../manage-data/create-conn.html">create connections</a> to them by selecting them on the <strong>Add connection</strong> page. Then they can access data from those connections by
+          <a href="../manage-data/connected-data.html">creating connected data assets</a>.</p>
+        <section id="section-next-steps">
+          <h2 id="next-steps">Next steps</h2>
+          <ul>
+            <li><a href="../getting-started/projects.html">Set up a project</a></li>
+            <li><a href="../manage-data/create-conn.html">Create connections in a project</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong>
+            <a href="../admin/int-cloud.html">Integrations with other cloud platforms</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

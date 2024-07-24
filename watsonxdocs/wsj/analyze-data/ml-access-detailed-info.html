@@ -1,0 +1,96 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Display details about an asset and preview data assets in a deployment space.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Accessing asset details</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=spaces-accessing-asset-details"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="accessing-asset-details" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-accessing-asset-details">
+        <h1 id="accessing-asset-details">Accessing asset details</h1>
+        <p>Display details about an asset and preview data assets in a deployment space.</p>
+        <p>To display details about the asset, click the asset name. For example, click a model name to view details such as the associated software and hardware specifications, the model creation date, and more. Some details, such as the model name, description,
+          and tags, are editable.</p>
+        <p>For data assets, you can also preview the data.</p>
+        <section id="section-previewing-data-assets">
+          <h2 id="previewing-data-assets">Previewing data assets</h2>
+          <p>To preview a data asset, click the data asset name.</p>
+          <ul>
+            <li>User's access to the data is based on the API layer. This means that if user's bearer token allows for viewing data, the data preview is displayed.</li>
+            <li>For tabular data, only a subset of the data is displayed. Also, column names are displayed but their data types are not inferred.</li>
+            <li>For data in XLS files, only the first worksheet is displayed for preview.</li>
+            <li>All data from Cloud Object Storage connectors is assumed to be tabular data.</li>
+          </ul>
+          <p>MIME types supported for preview:</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Format</th>
+                <th>Mime types</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Image</td>
+                <td>image/bmp, image/cmu-raster, image/fif, image/florian, image/g3fax, image/gif, image/ief, image/jpeg, image/jutvision, image/naplps, image/pict, image/png, image/svg+xml, image/vnd.net-fpx, image/vnd.rn-realflash, image/vnd.rn-realpix,
+                  image/vnd.wap.wbmp, image/vnd.xiff, image/x-cmu-raster, image/x-dwg, image/x-icon, image/x-jg, image/x-jps, image/x-niff, image/x-pcx, image/x-pict, image/x-portable-anymap, image/x-portable-bitmap, image/x-portable-greymap, image/x-portable-pixmap,
+                  image/x-quicktime, image/x-rgb, image/x-tiff, image/x-windows-bmp, image/x-xwindowdump, image/xbm, image/xpm</td>
+              </tr>
+              <tr>
+                <td>Text</td>
+                <td>application/json, text/asp, text/css, text/csv, text/html, text/mcf, text/pascal, text/plain, text/richtext, text/scriplet, text/tab-separated-values, text/tab-separated-values, text/uri-list, text/vnd.abc, text/vnd.fmi.flexstor, text/vnd.rn-realtext,
+                  text/vnd.wap.wml, text/vnd.wap.wmlscript, text/webviewhtml, text/x-asm, text/x-audiosoft-intra, text/x-c, text/x-component, text/x-fortran, text/x-h, text/x-java-source, text/x-la-asf, text/x-m, text/x-pascal, text/x-script, text/x-script.csh,
+                  text/x-script.elisp, text/x-script.ksh, text/x-script.lisp, text/x-script.perl, text/x-script.perl-module, text/x-script.python, text/x-script.rexx, text/x-script.tcl, text/x-script.tcsh, text/x-script.zsh, text/x-server-parsed-html,
+                  text/x-setext, text/x-sgml, text/x-speech, text/x-uil, text/x-uuencode, text/x-vcalendar, text/xml</td>
+              </tr>
+              <tr>
+                <td>Tabular data</td>
+                <td>text/csv, application/excel, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, data from connections</td>
+              </tr>
+            </tbody>
+          </table>
+          <p><strong>Parent topic:</strong> <a href="../analyze-data/ml-space-add-assets-all.html">Assets in deployment spaces</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

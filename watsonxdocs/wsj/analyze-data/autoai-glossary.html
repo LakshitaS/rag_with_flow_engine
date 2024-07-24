@@ -1,0 +1,136 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Learn terms and concepts that are used in AutoAI for building and deploying machine learning models.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>AutoAI glossary</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=autoai-glossary"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="autoai-glossary" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-autoai-glossary">
+        <h1 id="autoai-glossary">AutoAI glossary</h1>
+        <p>Learn terms and concepts that are used in AutoAI for building and deploying machine learning models.</p>
+        <p><strong>aggregate score</strong>
+          <br>The aggregation of the four anomaly types: level shift, trend, localized extreme, variance. A higher score indicates a stronger score.</p>
+        <p><strong>algorithm</strong>
+          <br>A formula applied to data to determine optimal ways to solve analytical problems.</p>
+        <p><strong>anomaly prediction</strong>
+          <br>An AutoAI time-series model that can predict anomalies, or unexpected results, against new data.</p>
+        <p><strong>AutoAI experiment</strong>
+          <br>An automated training process that considers a series of training definitions and parameters to create a set of ranked pipelines as model candidates.</p>
+        <p><strong>batch employment</strong>
+          <br>Processes input data from a file, data connection, or connected data in a storage bucket and writes the output to a selected destination.</p>
+        <p><strong>bias detection (machine learning)</strong>
+          <br>To identify imbalances in the training data or prediction behavior of the model.</p>
+        <p><strong>binary classification</strong>
+          <br>A classification model with two classes and only assigns samples into one of the two classes.</p>
+        <p><strong>classification model</strong>
+          <br>A predictive model that predicts data in distinct categories.</p>
+        <p><strong>confusion matrix</strong>
+          <br>A performance measurement that determines the accuracy between a model’s positive and negative predicted outcomes to positive and negative actual outcomes.</p>
+        <p><strong>cross validation</strong>
+          <br>A technique that tests the effectiveness of machine learning models. It is also used as a resampling procedure for models with limited data.</p>
+        <p><strong>data imputation</strong>
+          <br>Substituting missing values in a data set with estimated values.</p>
+        <p><strong>exogenous features</strong>
+          <br>Features that can influence the prediction model but cannot be influenced in return. See also: Supporting features</p>
+        <p><strong>fairness</strong>
+          <br>Determines whether a model produces biased outcomes that favor a monitored group over a reference group. Fairness evaluations detect if the model shows a tendency to provide a favorable or preferable outcome more often for one group over
+          another. Typical categories to monitor are age, sex, and race.</p>
+        <p><strong>feature correlation</strong>
+          <br>The relationship between two features. For example, postal code might have a strong correlation with income in some models.</p>
+        <p><strong>feature encoding</strong>
+          <br>Transforming categorical values into numerical values.</p>
+        <p><strong>feature importance</strong>
+          <br>The relative impact a particular column or feature has on the model's prediction or forecast.</p>
+        <p><strong>feature scaling</strong>
+          <br>Normalizing the range of independent variables or features in a data set.</p>
+        <p><strong>feature selection</strong>
+          <br>Identifying the columns of data that best support an accurate prediction or score.</p>
+        <p><strong>feature transformation</strong>
+          <br>In AutoAI, a phase of pipeline creation that applies algorithms to transform and optimize the training data to achieve the best outcome for the model type.</p>
+        <p><strong>holdout data</strong>
+          <br>Data used to test or validate the model's performance. Holdout data can be a reserved portion of the training data, or it can be a separate file.</p>
+        <p><strong>hyperparameter optimization (HPO)</strong>
+          <br>The process for setting hyperparameter values to the settings that provide the most accurate model.</p>
+        <p><strong>incremental learning</strong>
+          <br>The process of training a model that uses data that is continually updated without forgetting data that is obtained from the preceding tasks.</p>
+        <p><strong>large tabular data</strong>
+          <br>Structured data that exceeds the limit on standard processing and must be processed in batches. See incremental learning.</p>
+        <p><strong>labeled data</strong>
+          <br>Data that is labeled to identify the appropriate data vectors to be pulled in for model training.</p>
+        <p><strong>monitored group</strong>
+          <br>A class of data monitored to determine whether the results differ significantly from the results of the reference group. For example, in a credit app, you might monitor applications in a particular age range and compare results to the age
+          range more likely to recieve a positive outcome to evaluate whether there might be bias in the results.</p>
+        <p><strong>multiclass classification model</strong>
+          <br>A classification task with more than two classes. For example, where a binary classification model predicts <em>yes</em> or <em>no</em> values, a multi-class model predicts <em>yes</em>, <em>no</em>, <em>maybe</em>, or <em>not applicable</em>.</p>
+        <p><strong>multivariate time series</strong>
+          <br>Time series experiment that contains two or more changing variables. For example, a time series model that forecasts the electricity usage of three clients.</p>
+        <p><strong>optimized metric</strong>
+          <br>The metric used to measure the performance of the model. For example, accuracy is the typical metric that is used to measure the performance of a binary classification model.</p>
+        <p><strong>pipeline (model candidate pipeline)</strong>
+          <br> End-to-end outline that illustrates the steos in a workflow.</p>
+        <p><strong>positive class</strong>
+          <br> The class that is related to your objective function.</p>
+        <p><strong>reference group</strong>
+          <br>A group that you identify as most likely to receive a positive result in a predictive model. You can then compare the results to a monitored group to look for potential bias in outcomes.</p>
+        <p><strong>regression model</strong>
+          <br>A model that relates a dependent variable to one or more independent variable.</p>
+        <p><strong>scoring</strong>
+          <br>In machine learning, the process of measuring the confidence of a predicted outcome.</p>
+        <p><strong>supporting features</strong>
+          <br> Input features that can influence the prediction target. See also: Exogenus features</p>
+        <p><strong>text classification</strong>
+          <br>A model that automatically identifies and classifies text into distinct categories.</p>
+        <p><strong>time series model (AutoAI)</strong>
+          <br>A model that tracks data over time.</p>
+        <p><strong>trained model</strong>
+          <br>A model that is ready to be deployed.</p>
+        <p><strong>training</strong>
+          <br>The initial stage of model building, involving a subset of the source data. The model can then be tested against a further, different subset for which the outcome is already known.</p>
+        <p><strong>training data</strong>
+          <br>Data used to teach and train a model's learning algorithm.</p>
+        <p><strong>univariate time series</strong>
+          <br>Time series experiment that contains only one changing variable. For example, a time series model that forecasts the temperature has a single prediction column of the temperature.</p>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

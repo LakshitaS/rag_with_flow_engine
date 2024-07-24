@@ -1,0 +1,201 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="To access your data in a database in IBM watsonx.data, create a connection asset for it.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>IBM watsonx.data connection</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=connectors-watsonxdata-connection"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="ibm-watsonxdata-connection" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-ibm-watsonxdata-connection">
+        <h1 id="ibm-watsonxdata-connection">IBM watsonx.data connection</h1>
+        <p>To access your data in a database in IBM watsonx.data, create a connection asset for it.</p>
+        <p>IBM watsonx.data is an open, hybrid, and governed data lakehouse that is optimized by a query engine for all data and AI workloads.</p>
+        <section id="section-prerequisite">
+          <h2 id="prerequisite">Prerequisite</h2>
+          <p>Set up an instance of watsonx.data. You can connect to an instance of watsonx.data on Cloud Pak for Data, IBM Cloud, or stand-alone watsonx.data:</p>
+          <ul>
+            <li>
+              <p><a href="https://www.ibm.com/docs/SSQNUZ_4.8.x/svc-watsonxdata/watsonxdata-cli-install.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Installing watsonx.data on Cloud Pak for Data</a></p>
+            </li>
+            <li>
+              <p><a href="https://cloud.ibm.com/docs/watsonxdata?topic=watsonxdata-getting-started" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Getting started with watsonx.data on IBM Cloud</a></p>
+            </li>
+            <li>
+              <p><a href="https://www.ibm.com/docs/SSDZ38_1.1.x/wxd/install/install.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Installing stand-alone watsonx.data</a></p>
+            </li>
+          </ul>
+        </section>
+        <section id="section-create-a-connection-to-watsonxdata">
+          <h2 id="create-a-connection-to-watsonxdata">Create a connection to watsonx.data</h2>
+          <section id="section-connection-details">
+            <h3 id="connection-details">Connection details</h3>
+            <p>To create the connection asset, you need these details for the watsonx.data instance:</p>
+            <p>Select <strong>Connect to watsonx.data on Cloud Pak for Data</strong> if you are connecting to an instance of watsonx.data that is deployed on Cloud Pak for Data.</p>
+            <ul>
+              <li>
+                <p><strong>Hostname or IP address</strong>: Find this information in the URL of the watsonx.data web console. <code>https://&lt;hostname-or-IPaddress&gt;/watsonx-data/#/home?instanceId=&lt;instance-id&gt;</code></p>
+              </li>
+              <li>
+                <p><strong>Port</strong>: The default port number is <code>443</code>. If the connection has a different port, you can find this number in the URL of the watsonx.data web console.</p>
+              </li>
+              <li>
+                <p><strong>Instance ID</strong>: Find this value in the watsonx.data console navigation menu. Click the <strong>Instance details</strong> link.</p>
+              </li>
+              <li>
+                <p><strong>Instance name</strong>:</p>
+                <ul>
+                  <li>Cloud Pak for Data: Find the instance name in the Cloud Pak for Data web client home page at <strong>Services &gt; Instances</strong>.</li>
+                  <li>IBM Cloud or stand-alone watsonx.data: The default value is <code>lh-default</code>.</li>
+                </ul>
+              </li>
+              <li>
+                <p><strong>CRN</strong>: Cloud resource name: This field is needed only for connections to IBM Cloud. Find this information in the <a href="https://cloud.ibm.com/resources" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud resource list</a>                  for the watsonx.data service.</p>
+              </li>
+            </ul>
+          </section>
+          <section id="section-credentials">
+            <h3 id="credentials">Credentials</h3>
+            <p>Username and password for the watsonx.data instance. The same credentials are used for the engine.</p>
+            <ul>
+              <li>For watsonx.data that is deployed on Cloud Pak for Data, use the username and password that is used to access Cloud Pak for Data.</li>
+              <li>For watsonx.data that is deployed on IBM Cloud, the default username is <code>ibmlhapikey_&lt;cloud-account-email-address&gt;</code>. For example: <code>ibmlhapikey_username@example.com</code>. The password is the user's API key.</li>
+            </ul>
+          </section>
+          <section id="section-certificates">
+            <h3 id="certificates">Certificates</h3>
+            <p>By default, <strong>SSL is enabled</strong> is selected. This setting is recommended for increased security. If you do not use SSL, the data might be subject to vulnerabilities such as data leakage. Although the database that is hosted in
+              watsonx.data can also have an SSL certificate, the connection goes through the engine.</p>
+            <p>If SSL is enabled on a watsonx.data instance on Cloud Pak for Data and the certificate is a self-signed certificate, you must enter the certificate in the <strong>SSL certificate</strong> field.</p>
+            <p>For an instance on IBM Cloud, the certificate is optional.</p>
+            <p>The SSL certificate must be in PEM format for both a watsonx.data instance on Cloud Pak for Data or IBM Cloud.</p>
+            <p>Ask your watsonx.data administrator if SSL is set up. To obtain the certificate of an IBM watsonx.data instance on Cloud Pak for Data, run this command:</p>
+            <p><code>openssl s_client -showcerts -connect &lt;cpd_hostname&gt;:&lt;cpd_port&gt;</code></p>
+            <p>For example: <br>
+              <code>openssl s_client -showcerts -connect cpd.myserver.example.com:443</code></p>
+          </section>
+          <section id="section-engine-connection-details">
+            <h3 id="engine-connection-details">Engine connection details</h3>
+            <ul>
+              <li>
+                <p><strong>Engine's hostname or IP address</strong>:</p>
+                <ul>
+                  <li>watsonx.data instance on Cloud Pak for Data:
+                    <ol>
+                      <li>Expose the secure route to Presto server. This task is done by the administrator. See <a href="https://www.ibm.com/docs/SSDZ38_1.1.x/wxd/admin/expose_secure_route.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Exposing secure route to Presto server</a>.</li>
+                      <li>In the watsonx.data console, open the <strong>Infrastructure manager</strong> and go to the <strong>Details</strong> page. Under <strong>Engine details</strong>, the hostname or IP address is the value of the <strong>External host</strong>.</li>
+                    </ol>
+                  </li>
+                  <li>watsonx.data instance on IBM Cloud: Find this information in the watsonx.data web console. Open the <strong>Infrastructure manager</strong> and go to the <strong>Details</strong> page. Under <strong>Engine details</strong>, the hostname
+                    or IP address is the value in the <strong>Host</strong> field before the colon (<code>:</code>).</li>
+                </ul>
+              </li>
+              <li>
+                <p><strong>Engine ID</strong>: Find this information in the watsonx.data web console. Go to the <strong>Infrastructure manager</strong> and click the engine's name.</p>
+              </li>
+              <li>
+                <p><strong>Engine's port</strong>:</p>
+                <ul>
+                  <li>watsonx.data instance on Cloud Pak for Data: The port number is determined by which port is exposed by the administrator. See <a href="https://www.ibm.com/docs/SSDZ38_1.1.x/wxd/admin/expose_secure_route.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Exposing secure route to Presto server</a>. The default port number is <code>443</code>.</li>
+                  <li>watsonx.data instance on IBM Cloud: Find this information in the watsonx.data web console. Open the <strong>Infrastructure manager</strong> and go to the <strong>Details</strong> page. Under <strong>Engine details</strong>, the port
+                    number is the value in the <strong>Host</strong> field after the colon (<code>:</code>).</li>
+                </ul>
+              </li>
+            </ul>
+          </section>
+          <section id="section-choose-the-method-for-creating-a-connection-based-on-where-you-are-in-the-platform">
+            <h3 id="choose-the-method-for-creating-a-connection-based-on-where-you-are-in-the-platform">Choose the method for creating a connection based on where you are in the platform</h3>
+            <dl>
+              <dt><strong>In a project</strong></dt>
+              <dd>Click <strong>Assets &gt; New asset &gt; Connect to a data source</strong>. See <a href="create-conn.html">Adding a connection to a project</a>.</dd>
+              <dt><strong>In the Platform assets catalog</strong></dt>
+              <dd>Click <strong>New connection</strong>. See <a href="platform-conn.html">Adding platform connections</a>.</dd>
+            </dl>
+          </section>
+          <section id="section-next-step-add-data-assets-from-the-connection">
+            <h3 id="next-step-add-data-assets-from-the-connection">Next step: Add data assets from the connection</h3>
+            <ul>
+              <li>See <a href="connected-data.html">Add data from a connection in a project</a>.</li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-where-you-can-use-this-connection">
+          <h2 id="where-you-can-use-this-connection">Where you can use this connection</h2>
+          <p>You can use the watsonx.data connection in the following workspaces and tools:</p>
+          <p><strong>Projects</strong></p>
+          <ul>
+            <li>Data Refinery</li>
+            <li>Decision Optimization</li>
+          </ul>
+          <p><strong>Catalogs</strong></p>
+          <ul>
+            <li>Platform assets catalog</li>
+          </ul>
+        </section>
+        <section id="section-restrictions">
+          <h2 id="restrictions">Restrictions</h2>
+          <ul>
+            <li>Only the Presto engine is supported.</li>
+            <li>You can use this connection only for source data. You cannot write to data or export data with this connection.</li>
+          </ul>
+        </section>
+        <section id="section-watsonxdata-web-console">
+          <h2 id="watsonxdata-web-console">watsonx.data web console</h2>
+          <ul>
+            <li><a href="https://www.ibm.com/docs/SSQNUZ_4.8.x/svc-watsonxdata/work-with-wxd.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Cloud Pak for Data</a></li>
+            <li><a href="https://cloud.ibm.com/docs/watsonxdata?topic=watsonxdata-getstarted-console" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud</a></li>
+            <li><a href="https://www.ibm.com/docs/SSDZ38_1.1.x/lh-console/topics/work-with-wxd.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Stand-alone watsonx.data</a></li>
+          </ul>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="https://www.ibm.com/docs/SSQNUZ_4.8.x/svc-welcome/watsonxdata.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">watsonx.data on Cloud Pak for Data</a></li>
+            <li><a href="https://www.ibm.com/products/watsonx-data" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">watsonx.data on IBM Cloud</a></li>
+            <li><a href="https://www.ibm.com/docs/SSDZ38_1.1.x/lh-over/topics/overview.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Stand-alone watsonx.data</a></li>
+          </ul>
+          <p><strong>Related connection</strong>: <a href="conn-presto.html">Presto connection </a></p>
+          <p><strong>Parent topic</strong>: <a href="conn_types.html">Supported connections</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Watson OpenScale drift evaluations estimate the drop in accuracy of your model at run time when compared to the training data. The model accuracy drops if there is an increase in transactions similar to those that the model did not evaluate correctly in the training data.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Drop in accuracy in Watson OpenScale drift metrics</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=metrics-drop-in-accuracy"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="drop-in-accuracy-in-watson-openscale-drift-metrics" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-drop-in-accuracy-in-watson-openscale-drift-metrics">
+        <h1 id="drop-in-accuracy-in-watson-openscale-drift-metrics">Drop in accuracy in Watson OpenScale drift metrics</h1>
+        <p>Watson OpenScale drift evaluations estimate the drop in accuracy of your model at run time when compared to the training data. The model accuracy drops if there is an increase in transactions similar to those that the model did not evaluate correctly
+          in the training data.</p>
+        <section id="section-behavior-drift-works">
+          <h3 id="behavior-drift-works">How it works</h3>
+          <p>The drift monitor works differently in pre-production and production environments.</p>
+          <p>In pre-production environments, when you upload labeled test data, the data is added to the feedback and payload tables. The labeled data is added as an annotation in the payload table. Accuracy is calculated with the labeled data column and
+            the prediction column from the payload table.</p>
+          <p>In production environments, Watson OpenScale creates a drift detection model by looking at the data that was used to train and test the model. For example, if the model has an accuracy of 90% on the test data, it means that it provides incorrect
+            predictions on 10% of the test data. Watson OpenScale builds a binary classification model that accepts a data point and predicts whether that data point is similar to the data that the model either incorrectly (10%) or accurately (90%) predicted.</p>
+          <p>After Watson OpenScale creates the drift detection model, at run time, it scores this model by using all of the data that the client model receives. For example, if the client model received 1000 records in the past 3 hours, Watson OpenScale
+            runs the drift detection model on those same 1000 data points. It calculates how many of the records are similar to the 10% of records on which the model made an error when training. If 200 of these records are similar to the 10%, then it
+            implies that the model accuracy is likely to be 80%. Because the model accuracy at training time was 90%, it means that there is an accuracy drift of 10% in the model.</p>
+          <p>To mitigate drift after it is detected by Watson OpenScale, you must build a new version of the model that fixes the problem. A good place to start is with the data points that are highlighted as reasons for the drift. Introduce the new data
+            to the predictive model after you manually label the drifted transactions and use them to retrain the model.</p>
+        </section>
+        <section id="section-behavior-drift-math">
+          <h3 id="behavior-drift-math">Do the math</h3>
+          <p>The drop in accuracy metric is calculated for structured binary and multi-class classification models only. Watson OpenScale analyzes each transaction to estimate if the model prediction is accurate. If the model prediction is inaccurate, the
+            transaction is marked as drifted. The estimated accuracy is then calculated as the fraction of nondrifted transactions to the total number of transactions analyzed. The base accuracy is the accuracy of the model on the test data. Watson OpenScale
+            calculates the extent of the drift in accuracy as the difference between Base accuracy and Estimated accuracy. Further, Watson OpenScale analyzes all the drifted transactions; and then, groups transactions based on the similarity of each feature's
+            contribution to the drift in accuracy. In each cluster, Watson OpenScale also estimates the important features that contributed to the drift in accuracy and classifies their feature impact as large, some, and small.</p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p><a href="wos-insight-timechart.html#analyze-drift">Reviewing drift results</a></p>
+          <p><strong>Parent topic:</strong> <a href="wos-behavior-overview.html">Drift detection overview</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can use the following techniques to work around problems you might encounter with Watson Studio on IBM Cloud.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Troubleshooting Watson Studio on IBM Cloud</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=troubleshooting-watson-studio"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="troubleshooting-watson-studio-on-ibm-cloud" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-troubleshooting-watson-studio-on-ibm-cloud">
+        <h1 id="troubleshooting-watson-studio-on-ibm-cloud">Troubleshooting Watson Studio on IBM Cloud</h1>
+        <p>You can use the following techniques to work around problems you might encounter with Watson Studio on IBM Cloud.</p>
+        <section id="section-limit">
+          <h2 id="limit">Project limit exceeded</h2>
+          <section id="section-symptoms">
+            <h3 id="symptoms">Symptoms</h3>
+            <p>When you create a project, the following error occurs:</p>
+            <pre class="codeblock"><code class="lang-txt hljs">The number of projects created by the authenticated user exceeds the designated limit.
+</code></pre>
+          </section>
+          <section id="section-possible-causes">
+            <h3 id="possible-causes">Possible Causes</h3>
+            <p>The number of projects an authenticated user can create per data center (region) is 100. The limit applies only to projects that a user creates. Projects for which the user is listed as a collaborator are not included in this limit.</p>
+          </section>
+          <section id="section-possible-resolutions">
+            <h3 id="possible-resolutions">Possible Resolutions</h3>
+            <p>Although most customers do not reach this limit, possible resolutions include:</p>
+            <ul>
+              <li>Delete projects.</li>
+              <li>Any authenticated user can request a project limit increase by contacting <a href="https://www.ibm.com/cloud/support">IBM Cloud Support</a>, provided that an adequate justification is specified.</li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-blank">
+          <h2 id="blank">Blank screen when loading</h2>
+          <section id="section-symptoms-2">
+            <h3 id="symptoms-2">Symptoms</h3>
+            <p>A blank screen appears when you open Watson Studio.</p>
+          </section>
+          <section id="section-possible-causes-2">
+            <h3 id="possible-causes-2">Possible Causes</h3>
+            <p>A cached version is loading.</p>
+          </section>
+          <section id="section-possible-resolutions-2">
+            <h3 id="possible-resolutions-2">Possible Resolutions</h3>
+            <ol>
+              <li>Clear the browser cache and cookies and re-open Watson Studio.</li>
+              <li>Try a different type of browser. For example, switch from Firefox to Chrome.</li>
+              <li>If the blank screen still occurs, <a href="https://cloud.ibm.com/unifiedsupport/supportcenter" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">open a support case</a>, generate a .har file, compress it, and upload
+                the compressed har file to the support case.</li>
+            </ol>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

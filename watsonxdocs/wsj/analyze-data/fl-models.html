@@ -1,0 +1,195 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Parties can create and save the initial model before training by following a set of examples.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Creating the initial model</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=experiment-creating-initial-model"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="creating-the-initial-model" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <!--AZ - Topic ready for 4.5 review-->
+      <section id="section-creating-the-initial-model">
+        <h1 id="creating-the-initial-model">Creating the initial model</h1>
+        <p>Parties can create and save the initial model before training by following a set of examples.</p>
+        <ul>
+          <li><a href="#tf-config">Save the Tensorflow model</a></li>
+          <li><a href="#sklearn-config">Save the Scikit-learn model</a></li>
+          <li><a href="#pytorch">Save the Pytorch model</a></li>
+        </ul>
+        <p>Consider the configuration examples that match your model type.
+          <br></p>
+        <section id="section-tf-config">
+          <h2 id="tf-config">Save the Tensorflow model</h2>
+          <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf
+<span class="hljs-keyword">from</span> tensorflow.keras <span class="hljs-keyword">import</span> *
+<span class="hljs-keyword">from</span> tensorflow.keras.layers <span class="hljs-keyword">import</span> *
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> os
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">MyModel</span>(<span class="hljs-title class_ inherited__">Model</span>):
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):
+        <span class="hljs-built_in">super</span>(MyModel, self).__init__()
+        self.conv1 = Conv2D(<span class="hljs-number">32</span>, <span class="hljs-number">3</span>, activation=<span class="hljs-string">'relu'</span>)
+        self.flatten = Flatten()
+        self.d1 = Dense(<span class="hljs-number">128</span>, activation=<span class="hljs-string">'relu'</span>)
+        self.d2 = Dense(<span class="hljs-number">10</span>)
+
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">call</span>(<span class="hljs-params">self, x</span>):
+        x = self.conv1(x)
+        x = self.flatten(x)
+        x = self.d1(x)
+        <span class="hljs-keyword">return</span> self.d2(x)
+
+<span class="hljs-comment"># Create an instance of the model</span>
+
+model = MyModel()
+loss_object = tf.keras.losses.SparseCategoricalCrossentropy(
+    from_logits=<span class="hljs-literal">True</span>)
+optimizer = tf.keras.optimizers.Adam()
+acc = tf.keras.metrics.SparseCategoricalAccuracy(name=<span class="hljs-string">'accuracy'</span>)
+model.<span class="hljs-built_in">compile</span>(optimizer=optimizer, loss=loss_object, metrics=[acc])
+img_rows, img_cols = <span class="hljs-number">28</span>, <span class="hljs-number">28</span>
+input_shape = (<span class="hljs-literal">None</span>, img_rows, img_cols, <span class="hljs-number">1</span>)
+model.compute_output_shape(input_shape=input_shape)
+
+<span class="hljs-built_in">dir</span> = <span class="hljs-string">"./model_architecture"</span>
+<span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> os.path.exists(<span class="hljs-built_in">dir</span>):
+    os.makedirs(<span class="hljs-built_in">dir</span>)
+
+model.save(<span class="hljs-built_in">dir</span>)
+</code></pre>
+          <p>If you choose Tensorflow as the model framework, you need to save a Keras model as the <code>SavedModel</code> format. A Keras model can be saved in <code>SavedModel</code> format by using <code>tf.keras.model.save()</code>.</p>
+          <p>To compress your files, run the command <code>zip -r mymodel.zip model_architecture</code>. The contents of your <code>.zip</code> file must contain:</p>
+          <pre class="codeblock"><code class="hljs">mymodel.zip
+└── model_architecture
+    ├── assets
+    ├── keras_metadata.pb
+    ├── saved_model.pb
+    └── variables
+        ├── variables.data-00000-of-00001
+        └── variables.index
+</code></pre>
+        </section>
+        <section id="section-sklearn-config">
+          <h2 id="sklearn-config">Save the Scikit-learn model</h2>
+          <ul>
+            <li><a href="#sk-class">SKLearn classification</a></li>
+            <li><a href="#sk-reg">SKLearn regression</a></li>
+            <li><a href="#sk-k">SKLearn Kmeans</a></li>
+          </ul>
+          <section id="section-sk-class">
+            <h3 id="sk-class">SKLearn classification</h3>
+            <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-comment"># SKLearn classification</span>
+
+<span class="hljs-keyword">from</span> sklearn.linear_model <span class="hljs-keyword">import</span> SGDClassifier
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> joblib
+
+model = SGDClassifier(loss=<span class="hljs-string">'log'</span>, penalty=<span class="hljs-string">'l2'</span>)
+model.classes_ = np.array([<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>])
+<span class="hljs-comment"># You must specify the class label for IBM Federated Learning using model.classes. Class labels must be contained in a numpy array.</span>
+<span class="hljs-comment"># In the example, there are 10 classes.</span>
+
+joblib.dump(model, <span class="hljs-string">"./model_architecture.pickle"</span>)
+</code></pre>
+          </section>
+          <section id="section-sk-reg">
+            <h3 id="sk-reg">SKLearn regression</h3>
+            <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-comment"># Sklearn regression</span>
+
+<span class="hljs-keyword">from</span> sklearn.linear_model <span class="hljs-keyword">import</span> SGDRegressor
+<span class="hljs-keyword">import</span> pickle
+
+
+model = SGDRegressor(loss=<span class="hljs-string">'huber'</span>, penalty=<span class="hljs-string">'l2'</span>)
+
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">"./model_architecture.pickle"</span>, <span class="hljs-string">'wb'</span>) <span class="hljs-keyword">as</span> f:
+    pickle.dump(model, f)
+</code></pre>
+          </section>
+          <section id="section-sk-k">
+            <h3 id="sk-k">SKLearn Kmeans</h3>
+            <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-comment"># SKLearn Kmeans</span>
+<span class="hljs-keyword">from</span> sklearn.cluster <span class="hljs-keyword">import</span> KMeans
+<span class="hljs-keyword">import</span> joblib
+
+model = KMeans()
+joblib.dump(model, <span class="hljs-string">"./model_architecture.pickle"</span>)
+</code></pre>
+            <p>You need to create a <code>.zip</code> file that contains your model in pickle format by running the command <code>zip mymodel.zip model_architecture.pickle</code>. The contents of your <code>.zip</code> file must contain:</p>
+            <pre class="codeblock"><code class="lang-bash hljs">mymodel.zip
+└── model_architecture.pickle
+</code></pre>
+          </section>
+        </section>
+        <section id="section-pytorch">
+          <h2 id="pytorch">Save the PyTorch model</h2>
+          <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">import</span> torch
+<span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn
+
+model = nn.Sequential(
+    nn.Flatten(start_dim=<span class="hljs-number">1</span>, end_dim=-<span class="hljs-number">1</span>),
+    nn.Linear(in_features=<span class="hljs-number">784</span>, out_features=<span class="hljs-number">256</span>, bias=<span class="hljs-literal">True</span>),
+    nn.ReLU(),
+    nn.Linear(in_features=<span class="hljs-number">256</span>, out_features=<span class="hljs-number">256</span>, bias=<span class="hljs-literal">True</span>),
+    nn.ReLU(),
+    nn.Linear(in_features=<span class="hljs-number">256</span>, out_features=<span class="hljs-number">256</span>, bias=<span class="hljs-literal">True</span>),
+    nn.ReLU(),
+    nn.Linear(in_features=<span class="hljs-number">256</span>, out_features=<span class="hljs-number">100</span>, bias=<span class="hljs-literal">True</span>),
+    nn.ReLU(),
+    nn.Linear(in_features=<span class="hljs-number">100</span>, out_features=<span class="hljs-number">50</span>, bias=<span class="hljs-literal">True</span>),
+    nn.ReLU(),
+    nn.Linear(in_features=<span class="hljs-number">50</span>, out_features=<span class="hljs-number">10</span>, bias=<span class="hljs-literal">True</span>),
+    nn.LogSoftmax(dim=<span class="hljs-number">1</span>),
+).double()
+
+torch.save(model, <span class="hljs-string">"./model_architecture.pt"</span>)
+</code></pre>
+          <p>You need to create a <code>.zip</code> file containing your model in pickle format. Run the command <code>zip mymodel.zip model_architecture.pt</code>. The contents of your <code>.zip</code> file should contain:</p>
+          <pre class="codeblock"><code class="lang-bash hljs">mymodel.zip
+└── model_architecture.pt
+</code></pre>
+          <p><strong>Parent topic:</strong> <a href="fl-start.html">Creating a Federated Learning experiment</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

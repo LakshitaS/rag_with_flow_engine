@@ -1,0 +1,103 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can create a connected folder asset based on a path within an IBM Cloud Object Storage system that is accessed through a connection. You can view the files and subfolders that share the path with the connected folder asset. The files that you can view within the connected folder asset are not themselves data assets. For example, you can create a connected folder asset for a path that contains news feeds that are continuously updated.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Adding a connected folder asset to a project</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=project-adding-connected-folder-asset-from-connection"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="adding-a-connected-folder-asset-to-a-project" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-adding-a-connected-folder-asset-to-a-project">
+        <h1 id="adding-a-connected-folder-asset-to-a-project">Adding a connected folder asset to a project</h1>
+        <p>You can create a connected folder asset based on a path within an IBM Cloud Object Storage system that is accessed through a connection. You can view the files and subfolders that share the path with the connected folder asset. The files that
+          you can view within the connected folder asset are not themselves data assets. For example, you can create a connected folder asset for a path that contains news feeds that are continuously updated.</p>
+        <dl>
+          <dt><strong>Required permissions</strong></dt>
+          <dd>You must have the <strong>Admin</strong> or <strong>Editor</strong> role in the project to add a connected folder asset.</dd>
+        </dl>
+        <p>Watch this video to see how to add a connected folder asset in a project, then follow the steps below the video.</p>
+        <div class="note Video disclaimer"><span class="Video disclaimertitle">Video disclaimer:</span> Some minor steps and graphical elements in this video might differ from your platform.</div>
+        <div>
+          <p style="font-size:smaller">This video provides a visual method to learn the concepts and tasks in this documentation.</p><iframe id="wm-ws-folder-asset-project" src="https://video.ibm.com/embed/channel/23952663/video/ws-folder-asset-project" lang="en-US" style="border: 0;" webkitallowfullscreen="" allowfullscreen="" frameborder="no" width="560" height="315" title="Create Folder Asset in a project" alt="Create Folder Asset in a project"></iframe></div>
+        <p>To add a connected folder asset from a connection to a project:</p>
+        <ol>
+          <li>
+            <p>If necessary, <a href="create-conn.html">create a connection asset</a>. Include an Access Key and a Secret Key to your IBM Cloud Object Storage connection to enable the downloading of files within the connected folder asset. If you're using
+              an existing IBM Cloud Object Storage connection asset that doesn't have an Access Key and Secret Key, edit the connection asset and add them.</p>
+          </li>
+          <li>
+            <p>Click <strong>Import assets &gt; Connected data</strong>.</p>
+          </li>
+          <li>
+            <p>Select an existing connection asset as the source of the data.</p>
+          </li>
+          <li>
+            <p>Select the folder you want and click <strong>Import</strong>.</p>
+          </li>
+          <li>
+            <p>Type a name and description.</p>
+          </li>
+          <li>
+            <p>Click <strong>Create</strong>. The connected folder asset appears on the project <strong>Assets</strong> page in the <strong>Data assets</strong> category.</p>
+          </li>
+        </ol>
+        <p>Click the connected folder asset name to view the contents of the connected folder asset. Click the eye <img src="../console/images/visibility-on.svg" alt="eye icon" height="20" style="vertical-align:text-bottom"> icon next to a file name to view
+          the contents of the files within the folder that have these formats:</p>
+        <ul>
+          <li>CSV</li>
+          <li>JSON</li>
+          <li>Parquet</li>
+        </ul>
+        <p>You can refine the files <em>within</em> a connected folder asset and then save the result as a data asset. While viewing the connected folder asset, select a file and then click <strong>Prepare data</strong>.</p>
+        <p>You can view the files within the connected folder asset if the IBM Cloud Object Storage connection asset that's associated with the connected folder asset has an Access Key and a Secret Key (also known as HMAC credentials). For more information
+          about HMAC credentials, see <a href="https://console.bluemix.net/docs/services/cloud-object-storage/iam/service-credentials.html#service-credentials" target="_blank" rel="noopener noreferrer">IBM Cloud Object Storage Service credentials</a>.</p>
+        <section id="section-next-steps">
+          <h2 id="next-steps">Next steps</h2>
+          <ul>
+            <li><a href="../refinery/refining_data.html">Refining a file within the folder</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong>
+            <a href="../manage-data/add-data-project.html">Adding data to a project</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

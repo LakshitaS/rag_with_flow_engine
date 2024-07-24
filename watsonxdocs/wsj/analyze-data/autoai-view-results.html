@@ -1,0 +1,112 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="AutoAI automatically prepares data, applies algorithms, and attempts to build model pipelines that are best suited for your data and use case.  Learn how to evaluate the model pipelines so that you can save one as a model.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Selecting an AutoAI model</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=autoai-selecting-model"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="selecting-an-autoai-model" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-selecting-an-autoai-model">
+        <h1 id="selecting-an-autoai-model">Selecting an AutoAI model</h1>
+        <p>AutoAI automatically prepares data, applies algorithms, and attempts to build model pipelines that are best suited for your data and use case. Learn how to evaluate the model pipelines so that you can save one as a model.</p>
+        <section id="section-reviewing-experiment-results">
+          <h2 id="reviewing-experiment-results">Reviewing experiment results</h2>
+          <p>During AutoAI training, your data set is split to a training part and a hold-out part. The training part is used by the AutoAI training stages to generate the AutoAI model pipelines and cross-validation scores that are used to rank them. After
+            AutoAI training, the hold-out part is used for the resulting pipeline model evaluation and computation of performance information such as ROC curves and confusion matrices, which are shown in the leaderboard. The training/hold-out split ratio&nbsp;is&nbsp;90/10.</p>
+          <p>As the training progresses, you are presented with a dynamic infographic and leaderboard. Hover over nodes in the infographic to explore the factors that pipelines share and their unique properties. For a guide to the data in the infographic,
+            click the Legend tab in the information panel. Or, to see a different view of the pipeline creation, click the Experiment details tab of the notification panel, then click <strong>Switch views</strong> to view the progress map. In either view,
+            click a pipeline node to view the associated pipeline in the leaderboard. The leaderboard contains model pipelines that are ranked by cross-validation scores.</p>
+        </section>
+        <section id="section-view-the-pipeline-transformations">
+          <h2 id="view-the-pipeline-transformations">View the pipeline transformations</h2>
+          <p>Hover over a node in the infographic to view the transformations for a pipeline. The sequence of data transformations consists of a pre-processing transformer and a sequence of data transformers, if feature engineering was performed for the
+            pipeline. The algorithm is determined by model selection and optimization steps during AutoAI training.</p>
+          <p><img src="images/autoai-bank-pipeline-transform.png" alt="Pipeline transformation for AutoAI models" title="Pipeline transformation" style="max-width:90%;height:auto;width:auto"></p>
+          <p>See <a href="autoai-details.html">Implementation details</a> to review the technical details for creating the pipelines.</p>
+        </section>
+        <section id="section-view-the-leaderboard">
+          <h2 id="view-the-leaderboard">View the leaderboard</h2>
+          <p>Each model pipeline is scored for various metrics and then ranked. The default ranking metric for binary classification models is the area under the ROC curve. For multi-class classification models the default metric is accuracy. For regression
+            models, the default metric is the root mean-squared error (RMSE). The highest-ranked pipelines display in a leaderboard, so you can view more information about them. The leaderboard also provides the option to save select model pipelines after
+            you review them.</p>
+          <p><img src="images/autoai-bank-leaderboard.png" alt="Leaderboard AutoAI models" title="AutoAI pipeline leaderboard" style="max-width:90%;height:auto;width:auto"></p>
+          <p>You can evaluate the pipelines as follows:</p>
+          <ul>
+            <li>Click a pipeline in the leaderboard to view more detail about the metrics and performance.</li>
+            <li>Click <strong>Compare</strong> to view how the top pipelines compare.</li>
+            <li>Sort the leaderboard by a different metric.</li>
+          </ul>
+          <p><img src="images/autoai-bank-pipeline-expand.png" alt="Expanding an AutoAI pipeline" title="AutoAI pipeline expanded" style="max-width:90%;height:auto;width:auto"></p>
+          <section id="section-viewing-the-confusion-matrix">
+            <h3 id="viewing-the-confusion-matrix">Viewing the confusion matrix</h3>
+            <p>One of the details you can view for a pipeline for a binary classification experiment is a <em>Confusion matrix.</em></p>
+            <p>The confusion matrix is based on the holdout data, which is the portion of the training dataset that is not used for training the model pipeline but only used to measure its performance on data that was not seen during training.</p>
+            <p>In a binary classification problem with a positive class and a negative class, the confusion matrix summarizes the pipeline model’s positive and negative predictions in four quadrants depending on their correctness regarding the positive or
+              negative class labels of the holdout data set.</p>
+            <p>For example, the Bank sample experiment seeks to identify customers that take promotions that are offered to them. The confusion matrix for the top-ranked pipeline is:
+              <br></p>
+            <p><img src="images/autoai-confusion-matrix.png" alt="Confusion matrix" style="max-width:90%;height:auto;width:auto"></p>
+            <br> The positive class is ‘yes’ (meaning a user takes the promotion). You can see that the measurement of true negatives, that is, customers the model predicted correctly they would refuse their promotions, is high.
+            <p>Click the items in the navigation menu to view other details about the selected pipeline. For example, <strong>Feature importance</strong> shows which data features contribute most to your prediction output.</p>
+          </section>
+        </section>
+        <section id="section-save-a-pipeline-as-a-model">
+          <h2 id="save-a-pipeline-as-a-model">Save a pipeline as a model</h2>
+          <p>When you are satisfied with a pipeline, save it using one of these methods:</p>
+          <ul>
+            <li>Click <strong>Save model</strong> to save the candidate pipeline as a model to your project so you can test and deploy it.</li>
+            <li>Click <a href="autoai-notebook.html"><strong>Save as notebook</strong></a> to create and save an auto-generated notebook to your project. You can review the code or run the experiment in the notebook.</li>
+          </ul>
+        </section>
+        <section id="section-next-steps">
+          <h2 id="next-steps">Next steps</h2>
+          <p>Promote the trained model to a deployment space so that you can test it with new data and generate predictions.</p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p><a href="autoai-details.html">AutoAI implementation details</a></p>
+          <p><strong>Parent topic:</strong> <a href="autoai-overview.html">AutoAI overview</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

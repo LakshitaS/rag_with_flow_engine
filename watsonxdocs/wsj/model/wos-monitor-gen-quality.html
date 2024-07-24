@@ -1,0 +1,384 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can use watsonx.governance generative AI quality evaluations to measure how well your foundation model performs tasks.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Configuring generative AI quality evaluations</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=evaluations-configuring-generative-ai-quality"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="configuring-generative-ai-quality-evaluations" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-configuring-generative-ai-quality-evaluations">
+        <h1 id="configuring-generative-ai-quality-evaluations">Configuring generative AI quality evaluations</h1>
+        <p>You can use watsonx.governance generative AI quality evaluations to measure how well your foundation model performs tasks.</p>
+        <p>When you <a href="wos-eval-prompt.html">evaluate prompt templates</a>, you can review a summary of generative AI quality evaluation results for the following task types:</p>
+        <ul>
+          <li>Text summarization</li>
+          <li>Content generation</li>
+          <li>Entity extraction</li>
+          <li>Question answering</li>
+        </ul>
+        <p>The summary displays scores and violations for metrics that are calculated with default settings.</p>
+        <p>To configure generative AI quality evaluations with your own settings, you can set a minimum sample size and set threshold values for each metric as shown in the following example:</p>
+        <p><img src="images/wos-config-eval-settings.png" alt="Configure generative AI quality evaluations"></p>
+        <p>The minimum sample size indicates the minimum number of model transaction records that you want to evaluate and the threshold values create alerts when your metric scores violate your thresholds. The metric scores must be higher than the lower
+          threshold values to avoid violations. Higher metric values indicate better scores.</p>
+        <section id="section-supported-generative-ai-quality-metrics">
+          <h2 id="supported-generative-ai-quality-metrics">Supported generative AI quality metrics</h2>
+          <p>The following generative AI quality metrics are supported by &nbsp;watsonx.governance:</p>
+          <!-- ROUGE -->
+          <hr id="accordion01">
+          <details>
+            <summary>ROUGE</summary>
+            <md-block>
+              <p><a href="https://github.com/huggingface/evaluate/tree/main/metrics/rouge">ROUGE</a> is a set of metrics that assess how well a generated summary or translation compares to one or more reference summaries or translations. The generative AI
+                quality evaluation calculates the rouge1, rouge2, and rougeLSum metrics.</p>
+              <ul>
+                <li>
+                  <p><strong>Task types</strong>:</p>
+                  <ul>
+                    <li>Text summarization</li>
+                    <li>Content generation</li>
+                    <li>Question answering</li>
+                    <li>Entity extraction</li>
+                  </ul>
+                </li>
+                <li>
+                  <p><strong>Parameters</strong>:</p>
+                  <ul>
+                    <li>Use stemmer: If true, users Porter stemmer to strip word suffixes. Defaults to false.</li>
+                  </ul>
+                </li>
+                <li>
+                  <p><strong>Thresholds</strong>:</p>
+                  <ul>
+                    <li>Lower bound: 0.8</li>
+                    <li>Upper boud: 1.0</li>
+                  </ul>
+                </li>
+              </ul>
+            </md-block>
+          </details>
+          <hr>
+          <!-- SARI -->
+          <hr id="accordion02">
+          <details>
+            <summary>SARI</summary>
+            <md-block>
+              <p><a href="https://github.com/huggingface/evaluate/tree/main/metrics/sari">SARI</a> compares the predicted simplified sentences against the reference and the source sentences and explicitly measures the goodness of words that are added, deleted,
+                and kept by the system.</p>
+              <ul>
+                <li>
+                  <p><strong>Task types</strong>:</p>
+                  <ul>
+                    <li>Text summarization</li>
+                  </ul>
+                </li>
+                <li>
+                  <p><strong>Thresholds</strong>:</p>
+                  <ul>
+                    <li>Lower bound: 0</li>
+                    <li>Upper bound: 100</li>
+                  </ul>
+                </li>
+              </ul>
+            </md-block>
+          </details>
+          <hr>
+          <!-- METEOR -->
+          <hr id="accordion03">
+          <details>
+            <summary>METEOR</summary>
+            <md-block>
+              <p><a href="https://github.com/huggingface/evaluate/tree/main/metrics/meteor">METEOR</a> is calculated with the harmonic mean of precision and recall to capture how well-ordered the matched words in machine translations are in relation to human-produced
+                reference translations.</p>
+              <ul>
+                <li>
+                  <p><strong>Task types</strong>:</p>
+                  <ul>
+                    <li>Text summarization</li>
+                    <li>Content generation</li>
+                  </ul>
+                </li>
+                <li>
+                  <p><strong>Parameters</strong>:</p>
+                  <ul>
+                    <li>Alpha: Controls relative weights of precision and recall</li>
+                    <li>Beta: Controls shape of penalty as a function of fragmentation.</li>
+                    <li>Gamma: The relative weight assigned to fragmentation penalty.</li>
+                  </ul>
+                </li>
+                <li>
+                  <p><strong>Thresholds</strong>:</p>
+                  <ul>
+                    <li>Lower bound: 0</li>
+                    <li>Upper bound: 1</li>
+                  </ul>
+                </li>
+              </ul>
+            </md-block>
+          </details>
+          <hr>
+          <!-- Text quality -->
+          <hr id="accordion04">
+          <details>
+            <summary>Text quality</summary>
+            <md-block>
+              <p>Text quality evaluates the output of a model against <a href="https://github.com/huggingface/evaluate/tree/af3c30561d840b83e54fc5f7150ea58046d6af69/metrics/super_glue">SuperGLUE</a> datasets by measuring the <a href="https://github.com/huggingface/evaluate/tree/main/metrics/f1">F1 score</a>,
+                <a href="https://github.com/huggingface/evaluate/tree/main/metrics/precision">precision</a>, and <a href="https://github.com/huggingface/evaluate/tree/main/metrics/recall">recall</a> against the model predictions and its ground truth data.
+                It is calculated by normalizing the input strings and checking the number of similar tokens between the predictions and references.</p>
+              <ul>
+                <li>
+                  <p><strong>Task types</strong>:</p>
+                  <ul>
+                    <li>Text summarization</li>
+                    <li>Content generation</li>
+                  </ul>
+                </li>
+                <li>
+                  <p><strong>Thresholds</strong>:</p>
+                  <ul>
+                    <li>Lower bound: 0.8</li>
+                    <li>Upper bound: 1</li>
+                  </ul>
+                </li>
+              </ul>
+            </md-block>
+          </details>
+          <hr>
+          <!-- BLEU -->
+          <hr id="accordion05">
+          <details>
+            <summary>BLEU</summary>
+            <md-block>
+              <p><a href="https://github.com/huggingface/evaluate/blob/main/metrics/bleu/README.md">BLEU</a> evaluates the quality of machine-translated text when translated from one natural language to another by comparing individual translated segments
+                to a set of reference translations.</p>
+              <ul>
+                <li>
+                  <p><strong>Task types</strong>:</p>
+                  <ul>
+                    <li>Text summarization</li>
+                    <li>Content generation</li>
+                    <li>Question answering</li>
+                  </ul>
+                </li>
+                <li>
+                  <p><strong>Parameters</strong>:</p>
+                  <ul>
+                    <li>Max order: Maximum n-gram order to use when completing BLEU score</li>
+                    <li>Smooth: Whether or not to apply Lin et al. 2004 smoothing</li>
+                  </ul>
+                </li>
+                <li>
+                  <p><strong>Thresholds</strong>:</p>
+                  <ul>
+                    <li>Lower bound: 0.8</li>
+                    <li>Upper bound: 1</li>
+                  </ul>
+                </li>
+              </ul>
+            </md-block>
+          </details>
+          <hr>
+          <!-- Sentence similarity -->
+          <hr id="accordion06">
+          <details>
+            <summary>Sentence similarity</summary>
+            <md-block>
+              <p><a href="https://huggingface.co/tasks/sentence-similarity#:~:text=Sentence%20Similarity%20is%20the%20task,similar%20they%20are%20between%20them">Sentence similarity</a> determines how similar two texts are by converting input texts into
+                vectors that capture semantic information and calculating their similarity. It measures Jaccard similarity and Cosine similarity.</p>
+              <ul>
+                <li>
+                  <p><strong>Task types</strong>: Text summarization</p>
+                </li>
+                <li>
+                  <p><strong>Thresholds</strong>:</p>
+                  <ul>
+                    <li>Lower limit: 0.8</li>
+                    <li>Upper limit: 1</li>
+                  </ul>
+                </li>
+              </ul>
+            </md-block>
+          </details>
+          <hr>
+          <!-- PII -->
+          <hr id="accordion07">
+          <details>
+            <summary>PII</summary>
+            <md-block>
+              <p><a href="../analyze-data/watson-nlp-block-entity-enhanced.html#rule-based-pii">PII</a> measures if the provided content contains any personally identifiable information in the input and output data by using the &nbsp;Watson Natural Language Processing
+                Entity extraction model.</p>
+              <ul>
+                <li>
+                  <p><strong>Task types</strong>:</p>
+                  <ul>
+                    <li>Text summarization</li>
+                    <li>Content generation</li>
+                    <li>Question answering</li>
+                  </ul>
+                </li>
+                <li>
+                  <p><strong>Thresholds</strong>:</p>
+                  <ul>
+                    <li>Upper limit: 0</li>
+                  </ul>
+                </li>
+              </ul>
+            </md-block>
+          </details>
+          <hr>
+          <!-- HAP -->
+          <hr id="accordion08">
+          <details>
+            <summary>HAP</summary>
+            <md-block>
+              <p>HAP measures if there is any toxic content in the input data provided to the model, and also any toxic content in the model generated output.</p>
+              <ul>
+                <li>
+                  <p><strong>Task types</strong>:</p>
+                  <ul>
+                    <li>Text summarization</li>
+                    <li>Content generation</li>
+                    <li>Question answering</li>
+                  </ul>
+                </li>
+                <li>
+                  <p><strong>Thesholds</strong></p>
+                  <ul>
+                    <li>Upper limit: 0</li>
+                  </ul>
+                </li>
+              </ul>
+            </md-block>
+          </details>
+          <hr>
+          <!-- Readability -->
+          <hr id="accordion10">
+          <details>
+            <summary>Readability</summary>
+            <md-block>
+              <p>The readability score determines the readability, complexity, and grade level of the model's output.</p>
+              <ul>
+                <li>
+                  <p><strong>Task types</strong>:</p>
+                  <ul>
+                    <li>Text summarization</li>
+                    <li>Content generation</li>
+                  </ul>
+                </li>
+                <li>
+                  <p><strong>Thresholds</strong>:</p>
+                  <ul>
+                    <li>Lower limit: 60</li>
+                  </ul>
+                </li>
+              </ul>
+            </md-block>
+          </details>
+          <hr>
+          <!-- Exact match -->
+          <hr id="accordion11">
+          <details>
+            <summary>Exact match</summary>
+            <md-block>
+              <p><a href="https://github.com/huggingface/evaluate/tree/main/metrics/exact_match">Exact match</a> returns the rate at which the input predicted strings exactly match their references.</p>
+              <ul>
+                <li>
+                  <p><strong>Task types</strong>:</p>
+                  <ul>
+                    <li>Question answering</li>
+                    <li>Entity extraction</li>
+                  </ul>
+                </li>
+                <li>
+                  <p><strong>Parameters</strong>:</p>
+                  <ul>
+                    <li>Regexes to ignore: Regex expressions of characters to ignore when calculating the exact matches.</li>
+                    <li>Ignore case: If&nbsp;True, turns everything to lowercase so that capitalization differences are ignored.</li>
+                    <li>Ignore punctuation: If&nbsp;True, removes punctuation before comparing strings.</li>
+                    <li>Ignore numbers: If&nbsp;True, removes all digits before comparing strings.</li>
+                  </ul>
+                </li>
+                <li>
+                  <p><strong>Thresholds</strong>:</p>
+                  <ul>
+                    <li>Lower limit: 0.8</li>
+                    <li>Upper limit: 1</li>
+                  </ul>
+                </li>
+              </ul>
+            </md-block>
+          </details>
+          <hr>
+          <!-- Multi-label/class metrics -->
+          <hr id="accordion12">
+          <details>
+            <summary>Multi-label/class metrics</summary>
+            <md-block>
+              <p>Multi-label/class metrics measure model performance for multi-label/multi-class predictions.</p>
+              <ul>
+                <li><strong>Metrics</strong>:
+                  <ul>
+                    <li>Micro F1 score</li>
+                    <li>Macro F1 score</li>
+                    <li>Micro precision</li>
+                    <li>Macro precision</li>
+                    <li>Micro recall</li>
+                    <li>Macro recall</li>
+                  </ul>
+                </li>
+                <li><strong>Task types</strong>: Entity extraction</li>
+                <li><strong>Thresholds</strong>:
+                  <ul>
+                    <li>Lower limit: 0.8</li>
+                    <li>Upper limit: 1</li>
+                  </ul>
+                </li>
+              </ul>
+            </md-block>
+          </details>
+          <hr>
+          <p><strong>Parent topic:</strong> <a href="wos-monitors-overview.html">Configuring model evaluations</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

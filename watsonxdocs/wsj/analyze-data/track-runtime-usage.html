@@ -1,0 +1,406 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Compute usage is calculated by the number of capacity unit hours (CUH) consumed by an active environment runtime in Watson Studio. Watson Studio plans govern how you are billed monthly for the resources you consume.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Watson Studio environments compute usage</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=resources-runtime-usage"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="watson-studio-environments-compute-usage" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-watson-studio-environments-compute-usage">
+        <h1 id="watson-studio-environments-compute-usage">Watson Studio environments compute usage</h1>
+        <p>Compute usage is calculated by the number of capacity unit hours (CUH) consumed by an active environment runtime in Watson Studio. Watson Studio plans govern how you are billed monthly for the resources you consume.</p>
+        <table>
+          <caption caption-side="top">Capacity units included in each plan per month</caption>
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Lite</th>
+              <th>Professional</th>
+              <th>Standard (legacy)</th>
+              <th>Enterprise (legacy)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Processing usage</td>
+              <td>10 CUH<br>per month</td>
+              <td>Unlimited CUH<br>billed for usage per month</td>
+              <td>10 CUH per month <br>+ pay for more</td>
+              <td>5000 CUH per month <br>+ pay for more</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>&nbsp;</p>
+        <table>
+          <caption caption-side="top">Capacity units included in each plan per month</caption>
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Lite</th>
+              <th>Professional</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Processing usage</td>
+              <td>10 CUH per month</td>
+              <td>Unlimited CUH<br>billed for usage per month</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>&nbsp;</p>
+        <section id="section-notebooks">
+          <h2 id="notebooks">Capacity units per hour for notebooks</h2>
+          <table>
+            <caption caption-side="top">Notebooks</caption>
+            <thead>
+              <tr>
+                <th>Capacity type</th>
+                <th>Language</th>
+                <th>Capacity units per hour</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1 vCPU and 4 GB RAM</td>
+                <td>Python <br> R</td>
+                <td>0.5</td>
+              </tr>
+              <tr>
+                <td>2 vCPU and 8 GB RAM</td>
+                <td>Python <br> R</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>4 vCPU and 16 GB RAM</td>
+                <td>Python <br> R</td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td>8 vCPU and 32 GB RAM</td>
+                <td>Python <br> R</td>
+                <td>4</td>
+              </tr>
+              <tr>
+                <td>16 vCPU and 64 GB RAM</td>
+                <td>Python <br> R</td>
+                <td>8</td>
+              </tr>
+              <tr>
+                <td>Driver: 1 vCPU and 4 GB RAM; 1 Executor: 1 vCPU and 4 GB RAM</td>
+                <td>Spark with Python <br> Spark with R</td>
+                <td>1 <br> CUH per additional executor is 0.5</td>
+              </tr>
+              <tr>
+                <td>Driver: 1 vCPU and 4 GB RAM; 1 Executor: 2 vCPU and 8 GB RAM</td>
+                <td>Spark with Python <br> Spark with R</td>
+                <td>1.5 <br> CUH per additional executor is 1</td>
+              </tr>
+              <tr>
+                <td>Driver: 2 vCPU and 8 GB RAM; 1 Executor: 1 vCPU and 4 GB RAM;</td>
+                <td>Spark with Python <br> Spark with R</td>
+                <td>1.5 <br> CUH per additional executor is 0.5</td>
+              </tr>
+              <tr>
+                <td>Driver: 2 vCPU and 8 GB RAM; 1 Executor: 2 vCPU and 8 GB RAM;</td>
+                <td>Spark with Python <br> Spark with R</td>
+                <td>2 <br> CUH per additional executor is 1</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>&nbsp;</p>
+          <p>The rate of capacity units per hour consumed is determined for:</p>
+          <ul>
+            <li>
+              <p>Default Python or R environments by the hardware size and the number of users in a project using one or more runtimes</p>
+              <p>For example: The <code>IBM Runtime 23.1 on Python 3.10 XS</code> with 2 vCPUs will consume 1 CUH if it runs for one hour. If you have a project with 7 users working on notebooks 8 hours a day, 5 days a week, all using the <code>IBM Runtime 23.1 on Python 3.10 XS</code>                environment, and everyone shuts down their runtimes when they leave in the evening, runtime consumption is <code>5 x 7 x 8 = 280 CUH per week</code>.</p>
+              <p>The CUH calculation becomes more complex when different environments are used to run notebooks in the same project and if users have multiple active runtimes, all consuming their own CUHs. Additionally, there might be notebooks, which are
+                scheduled to run during off-hours, and long-running jobs, likewise consuming CUHs.</p>
+            </li>
+            <li>
+              <p>Default Spark environments by the hardware configuration size of the driver, and the number of executors and their size.</p>
+            </li>
+          </ul>
+          <p>&nbsp;</p>
+        </section>
+        <section id="section-capacity-units-per-hour-for-notebooks-with-decision-optimization">
+          <h2 id="capacity-units-per-hour-for-notebooks-with-decision-optimization">Capacity units per hour for notebooks with Decision Optimization</h2>
+          <p>The rate of capacity units per hour consumed is determined by the hardware size and the price for Decision Optimization.</p>
+          <table>
+            <caption caption-side="top">Decision Optimization notebooks</caption>
+            <thead>
+              <tr>
+                <th>Capacity type</th>
+                <th>Language</th>
+                <th>Capacity units per hour</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1 vCPU and 4 GB RAM</td>
+                <td>Python + Decision Optimization</td>
+                <td>0.5 + 5 = 5.5</td>
+              </tr>
+              <tr>
+                <td>2 vCPU and 8 GB RAM</td>
+                <td>Python + Decision Optimization</td>
+                <td>1 + 5 = 6</td>
+              </tr>
+              <tr>
+                <td>4 vCPU and 16 GB RAM</td>
+                <td>Python + Decision Optimization</td>
+                <td>2 + 5 = 7</td>
+              </tr>
+              <tr>
+                <td>8 vCPU and 32 GB RAM</td>
+                <td>Python + Decision Optimization</td>
+                <td>4 + 5 = 9</td>
+              </tr>
+              <tr>
+                <td>16 vCPU and 64 GB RAM</td>
+                <td>Python + Decision Optimization</td>
+                <td>8 + 5 = 13</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>&nbsp;</p>
+        </section>
+        <section id="section-capacity-units-per-hour-for-notebooks-with-watson-natural-language-processing">
+          <h2 id="capacity-units-per-hour-for-notebooks-with-watson-natural-language-processing">Capacity units per hour for notebooks with Watson Natural Language Processing</h2>
+          <p>The rate of capacity units per hour consumed is determined by the hardware size and the price for Watson Natural Language Processing.</p>
+          <table>
+            <caption caption-side="top">Watson Natural Language Processing notebooks</caption>
+            <thead>
+              <tr>
+                <th>Capacity type</th>
+                <th>Language</th>
+                <th>Capacity units per hour</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1 vCPU and 4 GB RAM</td>
+                <td>Python + Watson Natural Language Processing</td>
+                <td>0.5 + 5 = 5.5</td>
+              </tr>
+              <tr>
+                <td>2 vCPU and 8 GB RAM</td>
+                <td>Python + Watson Natural Language Processing</td>
+                <td>1 + 5 = 6</td>
+              </tr>
+              <tr>
+                <td>4 vCPU and 16 GB RAM</td>
+                <td>Python + Watson Natural Language Processing</td>
+                <td>2 + 5 = 7</td>
+              </tr>
+              <tr>
+                <td>8 vCPU and 32 GB RAM</td>
+                <td>Python + Watson Natural Language Processing</td>
+                <td>4 + 5 = 9</td>
+              </tr>
+              <tr>
+                <td>16 vCPU and 64 GB RAM</td>
+                <td>Python + Watson Natural Language Processing</td>
+                <td>8 + 5 = 13</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>&nbsp;</p>
+        </section>
+        <section id="section-capacity-units-per-hour-for-synthetic-data-generator">
+          <h2 id="capacity-units-per-hour-for-synthetic-data-generator">Capacity units per hour for Synthetic Data Generator</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Capacity type</th>
+                <th>Capacity units per hour</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>2 vCPU and 8 GB RAM</td>
+                <td>7</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section id="section-spss">
+          <h2 id="spss">Capacity units per hour for SPSS Modeler flows</h2>
+          <table>
+            <caption caption-side="top">SPSS Modeler flows</caption>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Capacity type</th>
+                <th>Capacity units per hour</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Default SPSS XS</td>
+                <td>4 vCPU 16 GB RAM</td>
+                <td>2</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>&nbsp;</p>
+        </section>
+        <section id="section-data-refinery">
+          <h2 id="data-refinery">Capacity units per hour for Data Refinery and Data Refinery flows</h2>
+          <table>
+            <caption caption-side="top">Data Refinery and Data Refinery flows</caption>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Capacity type</th>
+                <th>Capacity units per hour</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Default Data Refinery XS runtime</td>
+                <td>3 vCPU and 12 GB RAM</td>
+                <td>1.5</td>
+              </tr>
+              <tr>
+                <td>Default Spark 3.3 &amp; R 4.2</td>
+                <td>2 Executors each: 1 vCPU and 4 GB RAM; Driver: 1 vCPU and 4 GB RAM</td>
+                <td>1.5</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>&nbsp;</p>
+        </section>
+        <section id="section-rstudio">
+          <h2 id="rstudio">Capacity units per hour for RStudio</h2>
+          <table>
+            <caption caption-side="top">RStudio</caption>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Capacity type</th>
+                <th>Capacity units per hour</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Default RStudio XS</td>
+                <td>2 vCPU and 8 GB RAM</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>Default RStudio M</td>
+                <td>8 vCPU and 32 GB RAM</td>
+                <td>4</td>
+              </tr>
+              <tr>
+                <td>Default RStudio L</td>
+                <td>16 vCPU and 64 GB RAM</td>
+                <td>8</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>&nbsp;</p>
+        </section>
+        <section id="section-gpu">
+          <h2 id="gpu">Capacity units per hour for GPU environments</h2>
+          <table>
+            <caption caption-side="top">GPU environments</caption>
+            <thead>
+              <tr>
+                <th>Capacity type</th>
+                <th>GPUs</th>
+                <th>Language</th>
+                <th>Capacity units per hour</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1 x NVIDIA Tesla V100</td>
+                <td>1</td>
+                <td>Python with GPU</td>
+                <td>68</td>
+              </tr>
+              <tr>
+                <td>2 x NVIDIA Tesla V100</td>
+                <td>2</td>
+                <td>Python with GPU</td>
+                <td>136</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section id="section-cap-limit">
+          <h2 id="cap-limit">Runtime capacity limit</h2>
+          <p>You are notified when you're about to reach the monthly runtime capacity limit for your Watson Studio service plan. When this happens, you can:</p>
+          <ul>
+            <li>Stop active runtimes you don't need.</li>
+            <li>Upgrade your service plan. For up-to-date information, see the<a href="https://dataplatform.cloud.ibm.com/data/catalog/data-science-experience?context=wx&amp;target=services" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Services catalog page for Watson Studio</a>.</li>
+          </ul>
+          <div class="note remember"><span class="remembertitle">Remember:</span> The CUH counter continues to increase while a runtime is active so stop the runtimes you aren't using. If you don't explicitly stop a runtime, the runtime is stopped after an idle timeout. During
+            the idle time, you will continue to consume CUHs for which you are billed.</div>
+        </section>
+        <section id="section-track-project">
+          <h2 id="track-project">Track runtime usage for a project</h2>
+          <p>You can view the environment runtimes that are currently active in a project, and monitor usage for the project from the project's <strong>Environments</strong> page.</p>
+        </section>
+        <section id="section-track-account">
+          <h2 id="track-account">Track runtime usage for an account</h2>
+          <p>The CUH consumed by the active runtimes in a project are billed to the account that the project creator has selected in his or her profile settings at the time the project is created. This account can be the account of the project creator, or
+            another account that the project creator has access to. If other users are added to the project and use runtimes, their usage is also billed against the account that the project creator chose at the time of project creation.</p>
+          <p>You can track the runtime usage for an account on the <strong>Environment Runtimes</strong> page if you are the IBM Cloud account owner or administrator.</p>
+          <p>To view the total runtime usage across all of the projects and see how much of your plan you have currently used, choose <strong>Administration &gt; Environment runtimes</strong>.</p>
+          <p>A list of the active runtimes billed to your account is displayed. You can see who created the runtimes, when, and for which projects, as well as the capacity units that were consumed by the active runtimes at the time you view the list.</p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="manage-envs-new.html#stop-active-runtimes">Idle runtime timeouts</a></li>
+            <li><a href="../admin/monitor-resources.html">Monitor account resource usage</a></li>
+            <li><a href="../admin/upgrade.html">Upgrade your service</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="../analyze-data/manage-envs-new.html">Managing compute resources</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="These are the available machine learning model frameworks and model fusion methods for the Federated Learning model. The software spec and frameworks are also compatible with specific Python versions.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Frameworks, fusion methods, and Python versions</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=learning-frameworks-fusion-methods-python-versions"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="frameworks-fusion-methods-and-python-versions" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <!--AZ - Topic ready for 4.5 review-->
+      <section id="section-frameworks-fusion-methods-and-python-versions">
+        <h1 id="frameworks-fusion-methods-and-python-versions">Frameworks, fusion methods, and Python versions</h1>
+        <p>These are the available machine learning model frameworks and model fusion methods for the Federated Learning model. The software spec and frameworks are also compatible with specific Python versions.</p>
+        <section id="section-frameworks-and-fusion-methods">
+          <h2 id="frameworks-and-fusion-methods">Frameworks and fusion methods</h2>
+          <p>This table lists supported software frameworks for building Federated Learning models. For each framework you can see the supported model types, fusion methods, and hyperparameter options.</p>
+          <table>
+            <caption caption-side="top">Table 1. Frameworks and fusion methods</caption>
+            <thead>
+              <tr>
+                <th>Frameworks</th>
+                <th>Model Type</th>
+                <th>Fusion Method</th>
+                <th>Description</th>
+                <th>Hyperparameters</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>TensorFlow</strong> <br>Used to build neural networks. <br>See <a href="fl-models.html#tf-config">Save the Tensorflow model</a>.</td>
+                <td>Any</td>
+                <td>Simple Avg</td>
+                <td>Simplest aggregation that is used as a baseline where all parties' model updates are equally weighted.</td>
+                <td>- Rounds <br> - Termination predicate <em>(Optional)</em> <br> - Quorum <em>(Optional)</em> <br> - Max Timeout <em>(Optional)</em></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>Weighted Avg</td>
+                <td>Weights the average of updates based on the number of each party sample. Use with training data sets of widely differing sizes.</td>
+                <td>- Rounds <br> - Termination predicate <em>(Optional)</em> <br> - Quorum <em>(Optional)</em> <br> - Max Timeout <em>(Optional)</em></td>
+              </tr>
+              <tr>
+                <td><strong>Scikit-learn</strong><br> Used for predictive data analysis. <br>See <a href="fl-models.html#sklearn-config">Save the Scikit-learn model</a>.</td>
+                <td>Classification</td>
+                <td>Simple Avg</td>
+                <td>Simplest aggregation that is used as a baseline where all parties' model updates are equally weighted.</td>
+                <td>- Rounds <br> - Termination predicate <em>(Optional)</em></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>Weighted Avg</td>
+                <td>Weights the average of updates based on the number of each party sample. Use with training data sets of widely differing sizes.</td>
+                <td>- Rounds <br> - Termination predicate <em>(Optional)</em></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Regression</td>
+                <td>Simple Avg</td>
+                <td>Simplest aggregation that is used as a baseline where all parties' model updates are equally weighted.</td>
+                <td>
+                  <ul>
+                    <li>Rounds</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>Weighted Avg</td>
+                <td>Weights the average of updates based on the number of each party sample. Use with training data sets of widely differing sizes.</td>
+                <td>
+                  <ul>
+                    <li>Rounds</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>XGBoost</td>
+                <td>XGBoost Classification</td>
+                <td>Use to build classification models that use XGBoost.</td>
+                <td>- Learning rate <br> - Loss <br> - Rounds<br> - Number of classes</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>XGBoost Regression</td>
+                <td>Use to build regression models that use XGBoost.</td>
+                <td>- Learning rate <br> - Rounds<br> - Loss</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>K-Means/SPAHM</td>
+                <td>Used to train KMeans (unsupervised learning) models when parties have heterogeneous data sets.</td>
+                <td>- Max Iter <br> - N cluster</td>
+              </tr>
+              <tr>
+                <td><strong>Pytorch</strong> <br> Used for training neural network models.<br> See <a href="fl-models.html#pytorch">Save the Pytorch model</a>.</td>
+                <td>Any</td>
+                <td>Simple Avg</td>
+                <td>Simplest aggregation that is used as a baseline where all parties' model updates are equally weighted.</td>
+                <td>- Rounds <br> - Epochs <br> - Quorum <em>(Optional)</em> <br> - Max Timeout <em>(Optional)</em></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Neural Networks</td>
+                <td>Probabilistic Federated Neural Matching (PFNM)</td>
+                <td>Communication-efficient method for fully connected neural networks when parties have heterogeneous data sets.</td>
+                <td>- Rounds <br> - Termination accuracy <em>(Optional)</em> <br> - Epochs <br> - sigma <br> - sigma0 <br> - gamma <br> - iters</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section id="section-fl-py-fmwk">
+          <h2 id="fl-py-fmwk">Software specifications and Python version by framework</h2>
+          <p>This table lists the software spec and Python versions available for each framework.</p>
+          <table>
+            <caption>Software specifications and Python version by framework</caption>
+            <thead>
+              <tr>
+                <th>Watson Studio frameworks</th>
+                <th>Python version</th>
+                <th>Software Spec</th>
+                <th>Python Client Extras</th>
+                <th>Framework package</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>scikit-learn</td>
+                <td>3.10</td>
+                <td>runtime-22.2-py3.10</td>
+                <td>fl-rt22.2-py3.10</td>
+                <td>scikit-learn 1.1.1</td>
+              </tr>
+              <tr>
+                <td>Tensorflow</td>
+                <td>3.10</td>
+                <td>runtime-22.2-py3.10</td>
+                <td>fl-rt22.2-py3.10</td>
+                <td>tensorflow 2.9.2</td>
+              </tr>
+              <tr>
+                <td>PyTorch</td>
+                <td>3.10</td>
+                <td>runtime-22.2-py3.10</td>
+                <td>fl-rt22.2-py3.10</td>
+                <td>torch 1.12.1</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p><a href="fl-param.html">Hyperparameter definitions</a></p>
+          <p><strong>Parent topic:</strong> <a href="fed-lea.html">IBM Federated Learning</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

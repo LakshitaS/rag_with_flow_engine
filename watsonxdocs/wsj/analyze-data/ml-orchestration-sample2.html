@@ -1,0 +1,173 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Download a pre-populated project with the assets that you need to run a sample pipeline. The pipeline compares two AutoAI experiments and compares the output, selecting the best model and deploying it as a web service.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Run a sample pipeline to compare models</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=pipelines-run-sample-pipeline-compare-models"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="run-a-sample-pipeline-to-compare-models" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-run-a-sample-pipeline-to-compare-models">
+        <h1 id="run-a-sample-pipeline-to-compare-models">Run a sample pipeline to compare models</h1>
+        <p>Download a pre-populated project with the assets that you need to run a sample pipeline. The pipeline compares two AutoAI experiments and compares the output, selecting the best model and deploying it as a web service.</p>
+        <p>The sample <em>Train AutoAI and reference model</em> creates a pre-populated project with the assets that you need to run a pre-built pipeline that trains models by using a sample data set. After the setup and configuration tasks, you can run
+          the sample pipeline to automate the following sequence:</p>
+        <ul>
+          <li>Copy sample assets into a space.</li>
+          <li>Run a notebook and an AutoAI experiment simultaneously, on a common training data set.</li>
+          <li>Run another notebook to compare the results from the previous nodes and select the best model, ranked for accuracy.</li>
+          <li>Copy the winning model to a space and create a web service deployment for the selected model.</li>
+        </ul>
+        <p>After the run completes, you can inspect the output in the pipeline editor, and then switch to the associated deployment space to <a href="#view-deploy">view and test the resulting deployment</a>.</p>
+        <section id="section-learning-goals">
+          <h2 id="learning-goals">Learning goals</h2>
+          <p>After running this sample, you will know how to:</p>
+          <ul>
+            <li>Configure a Watson Pipeline</li>
+            <li>Run a Watson Pipeline</li>
+          </ul>
+        </section>
+        <section id="section-downloading-the-sample">
+          <h2 id="downloading-the-sample">Downloading the sample</h2>
+          <p>Follow these steps to create the sample project from the Resource hub so you can test the capabilities of IBM Watson Pipelines:</p>
+          <ol>
+            <li>Open the <a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/496c1220779cbe5cccc063534600789f">Train AutoAI and reference model sample</a> from the Resource hub.</li>
+            <li>Click <strong>Create project</strong> to create the project.</li>
+            <li>Open the project and follow the instructions on the in the <em>Readme</em> file to set up the pipeline assets.</li>
+          </ol>
+        </section>
+        <section id="section-the-sample-pipeline-components">
+          <h2 id="the-sample-pipeline-components">The sample pipeline components</h2>
+          <p>The sample project includes:</p>
+          <ul>
+            <li>Pre-built sample Watson Pipeline</li>
+            <li>Data set called <code>german_credit_data_biased_training.csv</code> used for training a model to predict credit risk</li>
+            <li>Data set called <code>german_credit_test_data.csv</code> used to test the deployed model</li>
+            <li>Notebook called <code>reference-model-training-notebook</code> that trains an AutoAI experiment and saves the best pipeline as a model</li>
+            <li>Notebook called select-winning-model that compares the models and chooses the best to save to the designated deployment space</li>
+          </ul>
+        </section>
+        <section id="section-getting-started-with-the-sample">
+          <h2 id="getting-started-with-the-sample">Getting started with the sample</h2>
+          <p>To run the sample pipeline, you need to do these setup tasks:</p>
+          <ol>
+            <li>
+              <p>Create a deployment space, for example, <em>dev-space</em> which you need when you run the notebooks. From the navigation menu, select <strong>Deployments &gt; View All Spaces &gt; New deployment space</strong>. Complete the required fields.</p>
+              <div class="note note"><span class="notetitle">Note:</span>
+                <md-block>
+                  <p>Make sure you associate a Watson Machine Learning instance with the space or the pipeline run will fail.</p>
+                  <p></p>
+                </md-block>
+              </div>
+              <p></p>
+            </li>
+            <li>
+              <p>From the Assets page of the sample project, open the reference-model-training-notebook and follow the steps in the <em>Set up the environment</em> section to acquire and insert an api_key variable as your credentials.</p>
+            </li>
+            <li>
+              <p>After you insert your credentials, click <strong>File &gt; Save as version</strong> to save the updated notebook to your project.</p>
+            </li>
+            <li>
+              <p>Do the same for the select-winning-model notebook to add credentials and save the updated version of the notebook.</p>
+            </li>
+          </ol>
+        </section>
+        <section id="section-exploring-the-pipeline">
+          <h2 id="exploring-the-pipeline">Exploring the pipeline</h2>
+          <p>After you complete the set up tasks, open the sample pipeline <em>On-boarding - Train AutoAI and reference model and select the best</em> from the Assets page of the sample project.</p>
+          <p>You will see the sample pipeline:</p>
+          <p><img src="images/pipeline-sample1.png" alt="Sample pipeline from Resource hub"></p>
+          <section id="section-viewing-node-configuration">
+            <h3 id="viewing-node-configuration">Viewing node configuration</h3>
+            <p>As you explore the sample pipeline, double-click the various nodes to view their configuration. For example, if you click the first node for copying an asset, you will see this configuration:</p>
+            <p><img src="images/pipeline-sample1-config.png" alt="Creating assets configuration"></p>
+            <p>The node that copies the data asset to a deployment space is configured by using a pipeline parameter. The pipeline parameter creates a placeholder for the space that you created to use for this pipeline. When you run the pipeline, you are
+              prompted to choose the space.</p>
+          </section>
+          <section id="section-running-the-pipeline">
+            <h3 id="running-the-pipeline">Running the pipeline</h3>
+            <p>When you are ready to run the pipeline, click the <em>Run</em> icon and choose <strong>Trial job</strong>. You are prompted to choose the deployment space for the pipeline and create or supply an API key for the pipeline if one is not already
+              available.</p>
+            <p>As the pipeline runs, you will see status notifications about the progress of the run. Nodes that are processed successfully are marked with a checkmark.</p>
+            <p><img src="images/pipeline-sample1-run.png" alt="Running the pipeline"></p>
+          </section>
+          <section id="section-viewing-the-output">
+            <h3 id="viewing-the-output">Viewing the output</h3>
+            <p>When the job completes, click <strong>Pipeline output</strong> for the run to see a summary of pipeline processes. You can click to expand each section and view the details for each operation.</p>
+            <p><img src="images/pipeline-sample1-output.png" alt="Viewing the pipeline output"></p>
+          </section>
+        </section>
+        <section id="section-view-deploy">
+          <h2 id="view-deploy">Viewing the deployment in your space</h2>
+          <p>After you are done exploring the pipeline and its output, you can view the assets that were created in the space you designated for the pipeline.</p>
+          <p>Open the space. You can see that the models and training data were copied to the space. The winning model is tagged as <em>selected_model</em>.</p>
+          <p><img src="images/pipeline-sample1-space.png" alt="Viewing the associated space"></p>
+          <section id="section-viewing-the-deployment">
+            <h3 id="viewing-the-deployment">Viewing the deployment</h3>
+            <p>The last step of the pipeline created a web service deployment for the selected model. Click the <strong>Deployments</strong> tab to view the deployment.</p>
+            <p><img src="images/pipeline-sample1-deploy1.png" alt="Viewing the deployment"></p>
+          </section>
+          <section id="section-testing-the-deployment">
+            <h3 id="testing-the-deployment">Testing the deployment</h3>
+            <p>You can test the deployment to see the predictions that the model generates.</p>
+            <ol>
+              <li>Click the deployment name to view the details.</li>
+              <li>Click the <strong>Test</strong> tab.</li>
+              <li>Enter this JSON data into the Input form. The payload (input) must match the schema for the model but do not include the prediction column.</li>
+            </ol>
+            <pre class="codeblock"><code class="lang-json hljs"><span class="hljs-punctuation">{</span><span class="hljs-attr">"input_data"</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">[</span><span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"fields"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">"CheckingStatus"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"LoanDuration"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"CreditHistory"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"LoanPurpose"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"LoanAmount"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"ExistingSavings"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"EmploymentDuration"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"InstallmentPercent"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"Sex"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"OthersOnLoan"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"CurrentResidenceDuration"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"OwnsProperty"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"Age"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"InstallmentPlans"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"Housing"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"ExistingCreditsCount"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"Job"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"Dependents"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"Telephone"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"ForeignWorker"</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"values"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">[</span><span class="hljs-string">"no_checking"</span><span class="hljs-punctuation">,</span><span class="hljs-number">28</span><span class="hljs-punctuation">,</span><span class="hljs-string">"outstanding_credit"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"appliances"</span><span class="hljs-punctuation">,</span><span class="hljs-number">5990</span><span class="hljs-punctuation">,</span><span class="hljs-string">"500_to_1000"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"greater_7"</span><span class="hljs-punctuation">,</span><span class="hljs-number">5</span><span class="hljs-punctuation">,</span><span class="hljs-string">"male"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"co-applicant"</span><span class="hljs-punctuation">,</span><span class="hljs-number">3</span><span class="hljs-punctuation">,</span><span class="hljs-string">"car_other"</span><span class="hljs-punctuation">,</span><span class="hljs-number">55</span><span class="hljs-punctuation">,</span><span class="hljs-string">"none"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"free"</span><span class="hljs-punctuation">,</span><span class="hljs-number">2</span><span class="hljs-punctuation">,</span><span class="hljs-string">"skilled"</span><span class="hljs-punctuation">,</span><span class="hljs-number">2</span><span class="hljs-punctuation">,</span><span class="hljs-string">"yes"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"yes"</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">}</span>
+</code></pre>
+            <p>Clicking <strong>Predict</strong> returns this prediction, indicating a low credit risk for this customer.</p>
+            <p><img src="images/pipeline-sample1-predict.png" alt="Viewing the prediction"></p>
+          </section>
+        </section>
+        <section id="section-next-steps">
+          <h2 id="next-steps">Next steps</h2>
+          <p><a href="ml-orchestration-create.html">Create a pipeline</a> by using your own assets.</p>
+          <p><strong>Parent topic:</strong> <a href="../analyze-data/ml-orchestration-overview.html">Watson Pipelines</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

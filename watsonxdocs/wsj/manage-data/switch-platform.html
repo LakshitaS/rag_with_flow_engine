@@ -1,0 +1,169 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can switch the platform for some projects between the Cloud Pak for Data as a Service and the watsonx platform. When you switch the platform for a project, you can use the tools that are specific to that platform.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Switching the platform for a project</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=projects-switching-platform-project"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="switching-the-platform-for-a-project" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-switching-the-platform-for-a-project">
+        <h1 id="switching-the-platform-for-a-project">Switching the platform for a project</h1>
+        <p>You can switch the platform for some projects between the Cloud Pak for Data as a Service and the watsonx platform. When you switch the platform for a project, you can use the tools that are specific to that platform.</p>
+        <p>For example, you might switch an existing Cloud Pak for Data as a Service project to watsonx so that you can use the Prompt Lab tool and create prompt and prompt session assets. See <a href="../getting-started/compare-platforms.html">Comparison between watsonx and Cloud Pak for Data as a Service</a>.</p>
+        <div class="note important"><span class="importanttitle">Important:</span>
+          <md-block>
+            <p>Foundation model inferencing with the Prompt Lab is available in the Dallas and Frankfurt regions. Your Watson Studio and Watson Machine Learning service instances are shared between watsonx and Cloud Pak for Data as a Service. If your Watson
+              Studio and Watson Machine Learning service instances are provisioned in another region, you can't use foundation model inferencing or the Prompt Lab.</p>
+          </md-block>
+        </div>
+        <ul>
+          <li><a href="#requirements">Requirements</a></li>
+          <li><a href="#restrictions">Restrictions</a></li>
+          <li><a href="#consequences">What happens when you switch a project</a></li>
+          <li><a href="#move-one">Switch the platform for a project</a></li>
+          <li><a href="#move-many">Switching multiple projects to watsonx</a></li>
+        </ul>
+        <section id="section-requirements">
+          <h2 id="requirements">Requirements</h2>
+          <p>You can switch a project from one platform to the other if you have the required accounts and permissions.</p>
+          <dl>
+            <dt><strong>Required accounts</strong></dt>
+            <dd>You must be signed up for both Cloud Pak for Data as a Service and watsonx.</dd>
+            <dt><strong>Required permissions</strong></dt>
+            <dd>You must have the <strong>Admin</strong> role in the project that you want to switch.</dd>
+            <dt><strong>Required services</strong></dt>
+            <dd>The current account that you are working in must have both of these services provisioned:</dd>
+            <dd>
+              <ul>
+                <li>Watson Studio</li>
+              </ul>
+            </dd>
+            <dd>
+              <ul>
+                <li>Watson Machine Learning</li>
+              </ul>
+            </dd>
+            <dt><strong>Project settings</strong></dt>
+            <dd>The project must have the <strong>Restrict who can be a collaborator</strong> setting enabled. On Cloud Pak for Data as a Service, you can enable this setting during project creation. On watsonx, this setting is automatic.</dd>
+          </dl>
+        </section>
+        <section id="section-restrictions">
+          <h2 id="restrictions">Restrictions</h2>
+          <p>To switch a project from Cloud Pak for Data as a Service to watsonx, all the assets in the project must have asset types that are supported by both platforms.</p>
+          <p>Projects that contain any of the following asset types, but no other types of assets, are eligible to switch from Cloud Pak for Data as a Service to watsonx:</p>
+          <ul>
+            <li>AutoAI experiment</li>
+            <li>COBOL copybook</li>
+            <li>Connected data asset</li>
+            <li>Connection</li>
+            <li>Data asset from a file</li>
+            <li>Data Refinery flow</li>
+            <li>Decision Optimization experiment</li>
+            <li>Federated Learning experiment</li>
+            <li>Folder asset</li>
+            <li>Jupyter notebook</li>
+            <li>Model</li>
+            <li>Python function</li>
+            <li>Script</li>
+            <li>SPSS Modeler flow</li>
+            <li>Visualization</li>
+          </ul>
+          <p>You can’t switch a project that contains assets that are specific to Cloud Pak for Data as a Service. If you add any assets that you created with services other than Watson Studio and Watson Machine Learning to a project, you can't switch that
+            project to watsonx. Although Pipelines assets are supported in both Cloud Pak for Data as a Service and watsonx projects, you can't switch a project that contains pipeline assets because pipelines can reference unsupported assets.</p>
+          <p>You can switch a project that contains assets from watsonx to Cloud Pak for Data as a Service. However, assets that are only supported in watsonx are not available on Cloud Pak for Data as a Service. These assets include:</p>
+          <ul>
+            <li>Prompt Lab assets</li>
+            <li>Synthetic data flows</li>
+          </ul>
+          <p>For more information about asset types, see <a href="../getting-started/assets.html">Asset types and properties</a>.</p>
+        </section>
+        <section id="section-consequences">
+          <h2 id="consequences">What happens when you switch the platform for a project</h2>
+          <p>Switching a project between platforms has the following effects:</p>
+          <dl>
+            <dt><strong>Collaborators</strong></dt>
+            <dd>Collaborators in the project receive notifications of the switch on the original platform. If any collaborators do not have accounts for the destination platform, those collaborators can no longer access the project.</dd>
+            <dt><strong>Jobs</strong></dt>
+            <dd>Scheduled jobs are switched. Any jobs that are running at the time of the switch continue until completion on the original platform. Any jobs that are scheduled for times after the switch are run on the destination platform. Job history is
+              not retained.</dd>
+            <dt><strong>Environments</strong></dt>
+            <dd>Custom environment templates are retained.</dd>
+            <dt><strong>Project history</strong></dt>
+            <dd>Recent activity and asset activities are not retained.</dd>
+            <dt><strong>Resource usage</strong></dt>
+            <dd>Resource usage is cumulative because you continue to use the same service instances.</dd>
+            <dt><strong>Storage</strong></dt>
+            <dd>The project's IBM Cloud Object Storage bucket remains the same.</dd>
+          </dl>
+        </section>
+        <section id="section-move-one">
+          <h2 id="move-one">Switch the platform for a project</h2>
+          <p>You can switch the platform for a project from within the project on the original platform. You can switch between either Cloud Pak for Data as a Service and watsonx.</p>
+          <p>To switch the platform for a project:</p>
+          <ol>
+            <li>On the original platform, go to the project's <strong>Manage</strong> tab, select the <strong>General</strong> page, and in the <strong>Controls</strong> section, click <strong>Switch platform</strong>. If you don't see a <strong>Switch platform</strong>              button or the button is not active, you can't switch the project.</li>
+            <li>Select the destination platform and click <strong>Switch platform</strong>.</li>
+          </ol>
+        </section>
+        <section id="section-move-many">
+          <h2 id="move-many">Switching multiple projects to watsonx</h2>
+          <p>You can switch one or more eligible projects to watsonx from Cloud Pak for Data as a Service from the watsonx home page.</p>
+          <ol>
+            <li>On the watsonx home page, click the <strong>Switch projects</strong> icon (<img src="images/move-projects-icon.svg" alt="Switch projects icon" height="20" style="vertical-align:text-bottom">).</li>
+            <li>Select the projects that you want to switch. Only the projects that meet the requirements are listed.</li>
+            <li>Optional. You can view the projects that contain unsupported asset types and the projects for which you don't have the <strong>Admin</strong> role.</li>
+            <li>Click the <strong>Switch projects</strong> icon.</li>
+          </ol>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="../getting-started/compare-platforms.html">Comparison between watsonx and Cloud Pak for Data as a Service</a></li>
+            <li><a href="../getting-started/assets.html">Asset types and properties</a></li>
+            <li><a href="../analyze-data/switch-platform-space.html">Switching the platform for a deployment space</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="admin-project.html">Administering projects</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

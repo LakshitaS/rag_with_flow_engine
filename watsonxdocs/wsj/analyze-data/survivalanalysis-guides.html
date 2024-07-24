@@ -1,0 +1,147 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can use non-parametric distribution fitting, parametric distribution fitting, or parametric regression modeling SPSS predictive analytics algorithms in notebooks.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>SPSS predictive analytics survival analysis algorithms in notebooks</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=algorithms-survival-analysis"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="spss-predictive-analytics-survival-analysis-algorithms-in-notebooks" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-spss-predictive-analytics-survival-analysis-algorithms-in-notebooks">
+        <h1 id="spss-predictive-analytics-survival-analysis-algorithms-in-notebooks">SPSS predictive analytics survival analysis algorithms in notebooks</h1>
+        <p>You can use non-parametric distribution fitting, parametric distribution fitting, or parametric regression modeling SPSS predictive analytics algorithms in notebooks.</p>
+        <section id="section-non-parametric-distribution-fitting">
+          <h2 id="non-parametric-distribution-fitting">Non-Parametric Distribution Fitting</h2>
+          <p>Survival analysis analyzes data where the outcome variable is the time until the occurrence of an event of interest. The distribution of the event times is typically described by a survival function.</p>
+          <p>Non-parametric Distribution Fitting (NPDF) provides an estimate of the survival function without making any assumptions concerning the distribution of the data. NPDF includes Kaplan-Meier estimation, life tables, and specialized extension algorithms
+            to support left censored, interval censored, and recurrent event data.</p>
+          <p><strong>Python example code:</strong></p>
+          <pre class="codeblock"><code class="hljs">from spss.ml.survivalanalysis import NonParametricDistributionFitting
+from spss.ml.survivalanalysis.params import DefinedStatus, Points, StatusItem
+
+npdf = NonParametricDistributionFitting(). \
+    setAlgorithm("KM"). \
+    setBeginField("time"). \
+    setStatusField("status"). \
+    setStrataFields(["treatment"]). \
+    setGroupFields(["gender"]). \
+    setUndefinedStatus("INTERVALCENSORED"). \
+    setDefinedStatus(
+    DefinedStatus(
+        failure=StatusItem(points = Points("1")),
+        rightCensored=StatusItem(points = Points("0")))). \
+    setOutMeanSurvivalTime(True)
+
+npdfModel = npdf.fit(df)
+predictions = npdfModel.transform(data)
+predictions.show()
+</code></pre>
+        </section>
+        <section id="section-parametric-distribution-fitting">
+          <h2 id="parametric-distribution-fitting">Parametric Distribution Fitting</h2>
+          <p>Survival analysis analyzes data where the outcome variable is the time until the occurrence of an event of interest. The distribution of the event times is typically described by a survival function.</p>
+          <p>Parametric Distribution Fitting (PDF) provides an estimate of the survival function by comparing the functions for several known distributions (exponential, Weibull, log-normal, and log-logistic) to determine which, if any, describes the data
+            best. In addition, the distributions for two or more groups of cases can be compared.</p>
+          <p><strong>Python excample code:</strong></p>
+          <pre class="codeblock"><code class="hljs">from spss.ml.survivalanalysis import ParametricDistributionFitting
+from spss.ml.survivalanalysis.params import DefinedStatus, Points, StatusItem
+
+pdf = ParametricDistributionFitting(). \
+    setBeginField("begintime"). \
+    setEndField("endtime"). \
+    setStatusField("status"). \
+    setFreqField("frequency"). \
+    setDefinedStatus(
+        DefinedStatus(
+         failure=StatusItem(points=Points("F")),
+         rightCensored=StatusItem(points=Points("R")),
+         leftCensored=StatusItem(points=Points("L")))
+    ). \
+    setMedianRankEstimation("RRY"). \
+    setMedianRankObtainMethod("BetaFDistribution"). \
+    setStatusConflictTreatment("DERIVATION"). \
+    setEstimationMethod("MRR"). \
+    setDistribution("Weibull"). \
+    setOutProbDensityFunc(True). \
+    setOutCumDistFunc(True). \
+    setOutSurvivalFunc(True). \
+    setOutRegressionPlot(True). \
+    setOutMedianRankRegPlot(True). \
+    setComputeGroupComparison(True)
+
+pdfModel = pdf.fit(data)
+predictions = pdfModel.transform(data)
+predictions.show()
+</code></pre>
+        </section>
+        <section id="section-parametric-regression-modeling">
+          <h2 id="parametric-regression-modeling">Parametric regression modeling</h2>
+          <p>Parametric regression modeling (PRM) is a survival analysis technique that incorporates the effects of covariates on the survival times. PRM includes two model types: accelerated failure time and frailty. Accelerated failure time models assume
+            that the relationship of the logarithm of survival time and the covariates is linear. Frailty, or random effects, models are useful for analyzing recurrent events, correlated survival data, or when observations are clustered into groups.
+          </p>
+          <p>PRM automatically selects the survival time distribution (exponential, Weibull, log-normal, or log-logistic) that best describes the survival times.
+          </p>
+          <p><strong>Python example code:</strong></p>
+          <pre class="codeblock"><code class="hljs">from spss.ml.survivalanalysis import ParametricRegression
+from spss.ml.survivalanalysis.params import DefinedStatus, Points, StatusItem
+
+prm = ParametricRegression(). \
+    setBeginField("startTime"). \
+    setEndField("endTime"). \
+    setStatusField("status"). \
+    setPredictorFields(["age", "surgery", "transplant"]). \
+    setDefinedStatus(
+        DefinedStatus(
+         failure=StatusItem(points=Points("0.0")),
+         intervalCensored=StatusItem(points=Points("1.0"))))
+
+prmModel = prm.fit(data)
+PMML = prmModel.toPMML()
+statXML = prmModel.statXML()
+predictions = prmModel.transform(data)
+predictions.show()
+</code></pre>
+          <p><strong>Parent topic:</strong> <a href="../analyze-data/spss-algorithms.html">SPSS predictive analytics algorithms</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

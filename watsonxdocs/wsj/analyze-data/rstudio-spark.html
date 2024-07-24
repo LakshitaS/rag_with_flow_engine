@@ -1,0 +1,111 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Although the RStudio IDE cannot be started in a Spark with R environment runtime, you can use Spark in your R scripts and Shiny apps by accessing Spark kernels programmatically.
+RStudio uses the sparklyr package to connect to Spark from R. The sparklyr package includes a dplyr interface to Spark data frames as well as an R interface to Spark’s distributed machine learning pipelines.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Using Spark in RStudio</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=rstudio-using-spark-in"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="using-spark-in-rstudio" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-using-spark-in-rstudio">
+        <h1 id="using-spark-in-rstudio">Using Spark in RStudio</h1>
+        <p>Although the RStudio IDE cannot be started in a Spark with R environment runtime, you can use Spark in your R scripts and Shiny apps by accessing Spark kernels programmatically. RStudio uses the <code>sparklyr</code> package to connect to Spark
+          from R. The <code>sparklyr</code> package includes a <code>dplyr</code> interface to Spark data frames as well as an R interface to Spark’s distributed machine learning pipelines.</p>
+        <p>By default, RStudio is FIPS-compliant, but if you need to use <code>sparklyr</code> to connect to a Spark cluster, you must load the digest package from a library that is not FIPS-compliant. When you do that, RStudio will no longer be FIPS compliant.
+          For more information on FIPS, refer to <a href="../../cpd/plan/services_that_support_fips.html">Services that support FIPS</a>.</p>
+        <p>You can connect to Spark from RStudio:</p>
+        <ul>
+          <li>By connecting to a Spark kernel that runs locally in the RStudio container in IBM Watson Studio</li>
+        </ul>
+        <p>RStudio includes sample code snippets that show you how to connect to a Spark kernel in your applications for both methods.</p>
+        <p>To use Spark in RStudio after you have launched the IDE:</p>
+        <ol>
+          <li>
+            <p>Locate the <code>ibm_sparkaas_demos</code> directory under your home directory and open it. The directory contains the following R scripts:</p>
+            <ul>
+              <li>A readme with details on the included R sample scripts</li>
+              <li><code>spark_kernel_basic_local.R</code> includes sample code of how to connect to a local Spark kernel</li>
+              <li><code>spark_kernel_basic_remote.R</code> includes sample code of how to connect to a remote Spark kernel</li>
+              <li>The files <code>sparkaas_flights.R</code>and <code>sparkaas_mtcars.R</code> are two examples of how to use Spark in a small sample application</li>
+            </ul>
+          </li>
+          <li>
+            <p>Use the sample code snippets in your R scripts or applications to help you get started using Spark.</p>
+          </li>
+        </ol>
+        <section id="section-connecting-to-spark-from-rstudio">
+          <h2 id="connecting-to-spark-from-rstudio">Connecting to Spark from RStudio</h2>
+          <p>To connect to Spark from RStudio using the <code>Sparklyr</code> R package, you need a Spark with R environment. You can either use the default Spark with R environment that is provided or create a custom Spark with R environment. To create
+            a custom environment, see <a href="create-customize-env-definition.html">Creating environment templates</a>.</p>
+          <p>Follow these steps after you launch RStudio in an RStudio environment:</p>
+          <p>Use the following sample code to get a listing of the Spark environment details and to connect to a Spark kernel from your RStudio session:</p>
+          <pre class="codeblock"><code class="lang-r hljs"><span class="hljs-comment"># load spark R packages</span>
+library<span class="hljs-punctuation">(</span>ibmwsrspark<span class="hljs-punctuation">)</span>
+library<span class="hljs-punctuation">(</span>sparklyr<span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment"># load kernels</span>
+kernels <span class="hljs-operator">&lt;-</span> load_spark_kernels<span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment"># display kernels</span>
+display_spark_kernels<span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span>
+
+<span class="hljs-comment"># get spark kernel Configuration</span>
+
+conf <span class="hljs-operator">&lt;-</span> get_spark_config<span class="hljs-punctuation">(</span>kernels<span class="hljs-punctuation">[</span><span class="hljs-number">1</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">)</span>
+<span class="hljs-comment"># Set spark configuration</span>
+conf<span class="hljs-operator">$</span>spark.driver.maxResultSize <span class="hljs-operator">&lt;-</span> <span class="hljs-string">"1G"</span>
+<span class="hljs-comment"># connect to Spark kernel</span>
+
+sc <span class="hljs-operator">&lt;-</span> spark_connect<span class="hljs-punctuation">(</span>config <span class="hljs-operator">=</span> conf<span class="hljs-punctuation">)</span>
+</code></pre>
+          <p>Then to disconnect from Spark, use:</p>
+          <pre class="codeblock"><code class="lang-r hljs"><span class="hljs-comment"># disconnect</span>
+spark_disconnect<span class="hljs-punctuation">(</span>sc<span class="hljs-punctuation">)</span>
+</code></pre>
+          <p>Examples of these commands are provided in the readme under <code>/home/wsuser/ibm_sparkaas_demos</code>.</p>
+          <p><strong>Parent topic:</strong>
+            <a href="../analyze-data/rstudio-overview.html">RStudio</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

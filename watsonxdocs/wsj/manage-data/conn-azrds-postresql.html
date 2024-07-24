@@ -1,0 +1,123 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="To access your data in Amazon RDS for PostgreSQL, create a connection asset for it.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Amazon RDS for PostgreSQL connection</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=connectors-amazon-rds-postgresql-connection"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="amazon-rds-for-postgresql-connection" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-amazon-rds-for-postgresql-connection">
+        <h1 id="amazon-rds-for-postgresql-connection">Amazon RDS for PostgreSQL connection</h1>
+        <p>To access your data in Amazon RDS for PostgreSQL, create a connection asset for it.</p>
+        <p>Amazon RDS for PostgreSQL is a PostgreSQL relational database that runs on the Amazon Relational Database Service (RDS).</p>
+        <section id="section-supported-versions">
+          <h2 id="supported-versions">Supported versions</h2>
+          <p>PostgreSQL database versions 9.4, 9.5, 9.6, 10, 11 and 12</p>
+        </section>
+        <section id="section-create-a-connection-to-amazon-rds-for-postgresql">
+          <h2 id="create-a-connection-to-amazon-rds-for-postgresql">Create a connection to Amazon RDS for PostgreSQL</h2>
+          <p>To create the connection asset, you need these connection details:</p>
+          <ul>
+            <li>Database name</li>
+            <li>Hostname or IP address</li>
+            <li>Port number</li>
+            <li>Username and password</li>
+            <li>SSL certificate (if required by the database server)</li>
+          </ul>
+          <section id="section-choose-the-method-for-creating-a-connection-based-on-where-you-are-in-the-platform">
+            <h3 id="choose-the-method-for-creating-a-connection-based-on-where-you-are-in-the-platform">Choose the method for creating a connection based on where you are in the platform</h3>
+            <dl>
+              <dt><strong>In a project</strong></dt>
+              <dd>Click <strong>Assets &gt; New asset &gt; Connect to a data source</strong>. See <a href="create-conn.html">Adding a connection to a project</a>.</dd>
+              <dt><strong>In a deployment space</strong></dt>
+              <dd>Click <strong>Add to space &gt; Connection</strong>. See <a href="../analyze-data/ml-space-add-assets.html">Adding connections to a deployment space</a>.</dd>
+              <dt><strong>In the Platform assets catalog</strong></dt>
+              <dd>Click <strong>New connection</strong>. See <a href="platform-conn.html">Adding platform connections</a>.</dd>
+            </dl>
+          </section>
+          <section id="section-next-step-add-data-assets-from-the-connection">
+            <h3 id="next-step-add-data-assets-from-the-connection">Next step: Add data assets from the connection</h3>
+            <ul>
+              <li>See <a href="connected-data.html">Add data from a connection in a project</a>.</li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-where-you-can-use-this-connection">
+          <h2 id="where-you-can-use-this-connection">Where you can use this connection</h2>
+          <p>You can use Amazon RDS for PostgreSQL connections in the following workspaces and tools:</p>
+          <p><strong>Projects</strong></p>
+          <ul>
+            <li>Data Refinery</li>
+            <li>Decision Optimization</li>
+            <li>Notebooks. Click <strong>Read data</strong> on the <strong>Code snippets</strong> pane to get the connection credentials and load the data into a data structure. See <a href="../analyze-data/load-and-access-data.html#conns">Load data from data source connections</a>.</li>
+            <li>SPSS Modeler</li>
+            <li>Synthetic Data Generator</li>
+          </ul>
+          <p><strong>Catalogs</strong></p>
+          <ul>
+            <li>Platform assets catalog</li>
+          </ul>
+          <!-- * SPSS Modeler  -->
+          <!-- NLW: SPSS Modeler support in CPD 3.5: https://github.ibm.com/dap/dap-planning/issues/12062#issuecomment-23593984 -->
+        </section>
+        <section id="section-amazon-rds-for-postgresql-setup">
+          <h2 id="amazon-rds-for-postgresql-setup">Amazon RDS for PostgreSQL setup</h2>
+          <p>For setup instructions, see these topics:</p>
+          <ul>
+            <li><a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_CreateDBInstance.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Creating an Amazon RDS DB Instance</a></li>
+            <li><a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ConnectToPostgreSQLInstance.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Connecting to a DB Instance Running the PostgreSQL Database Engine</a></li>
+          </ul>
+          <section id="section-running-sql-statements">
+            <h3 id="running-sql-statements">Running SQL statements</h3>
+            <p>To ensure that your SQL statements run correctly, refer to the <a href="https://aws.amazon.com/rds/postgresql/" target="_blank" rel="noopener noreferrer"> Amazon RDS for PostgreSQL documentation</a> for the correct syntax.</p>
+            <!--## Known issues-->
+          </section>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p><a href="https://aws.amazon.com/rds/postgresql/" target="_blank" rel="noopener noreferrer">Amazon RDS for PostgreSQL</a></p>
+          <p><strong>Parent topic:</strong> <a href="conn_types.html">Supported connections</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

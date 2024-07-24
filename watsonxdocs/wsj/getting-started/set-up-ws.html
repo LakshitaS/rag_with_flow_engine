@@ -1,0 +1,103 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="The Watson Studio and Watson Machine Learning services are provisioned automatically with a Lite plan when you sign up for IBM watsonx. To set up Watson Studio and Watson Machine Learning for an organization, you upgrade the service plans. You allow the node IP addresses access through the firewall.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Setting up the Watson Studio and Watson Machine Learning services</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=administrators-setting-up-watson-studio-machine-learning"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="setting-up-the-watson-studio-and-watson-machine-learning-services" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-setting-up-the-watson-studio-and-watson-machine-learning-services">
+        <h1 id="setting-up-the-watson-studio-and-watson-machine-learning-services">Setting up the Watson Studio and Watson Machine Learning services</h1>
+        <p>The Watson Studio and Watson Machine Learning services are provisioned automatically with a Lite plan when you sign up for IBM watsonx. To set up Watson Studio and Watson Machine Learning for an organization, you upgrade the service plans. You
+          allow the node IP addresses access through the firewall.</p>
+        <p>To set up the Watson Studio and Watson Machine Learning services, complete these tasks:</p>
+        <ol>
+          <li><a href="#upgrade">Upgrade the services</a>.</li>
+          <li><a href="#node-ips">Allow IP addresses</a>.</li>
+        </ol>
+        <section id="section-upgrade">
+          <h2 id="upgrade">Step 1: Upgrade the services to the appropriate plans</h2>
+          <dl>
+            <dt><strong>Required roles</strong></dt>
+            <dd>You must be the IBM Cloud account <strong>Owner</strong> or <strong>Administrator</strong>.</dd>
+          </dl>
+          <p>To upgrade the services:</p>
+          <ol>
+            <li>Determine the Watson Studio service plan that you need. The features and compute resources of Watson Studio vary across the service plans. See <a href="../getting-started/ws-plans.html">Watson Studio service plans</a>.</li>
+            <li>While logged in to IBM watsonx, from the main menu, click <strong>Administration &gt; Services &gt; Service instances</strong>.</li>
+            <li>Click the menu next to the Watson Studio service and choose <strong>Upgrade service</strong>.</li>
+            <li>Choose the plan you want and click <strong>Upgrade</strong>.</li>
+            <li>Repeat the steps for the Watson Machine Learning service. The resources and number of deployment jobs vary across the Watson Machine Learning service plans. See <a href="../getting-started/wml-plans.html">Watson Machine Learning service plans</a>.</li>
+          </ol>
+          <p>Make sure that object storage is configured to allow these users to create catalogs and projects. See <a href="../console/wdp_admin_cos.html#cos-delegation">Setting up IBM Cloud Object Storage for use with IBM watsonx</a>.</p>
+          <p>All users in your IBM Cloud account with the <strong>Editor</strong> IAM platform access role for all IAM enabled services can now create projects and use all the Watson Studio and Watson Machine Learning tools.</p>
+        </section>
+        <section id="section-node-ips">
+          <h2 id="node-ips">Step 2: Allow IP addresses for Watson Studio for your region</h2>
+          <p>The IP addresses for the Watson Studio nodes in each region must be configured as allowed IP addresses for the IBM Cloud account. When allowing specific IP addresses for Watson Studio, you include the CIDR ranges for the Watson Studio nodes
+            in each region to allow a secure connection through the firewall.</p>
+          <dl>
+            <dt><strong>Required roles</strong></dt>
+            <dd>You must have the <strong>Editor</strong> or higher IBM Cloud IAM Platform role to allow IP addresses.</dd>
+          </dl>
+          <p>First look up the CIDR blocks in IBM watsonx, and then enter them into the <strong>Access(IAM) &gt; Settings</strong> screen in IBM Cloud. Follow these steps:</p>
+          <ol>
+            <li>From the IBM watsonx main menu, select <strong>Administration &gt; Cloud integrations</strong>.</li>
+            <li>Click <strong>Firewall configuration</strong> to display the IP addresses for the current region.</li>
+            <li>Checkmark <strong>Show IP ranges in CIDR notation</strong>.</li>
+            <li>Click the icon to copy a CIDR block to the clipboard.</li>
+            <li>Enter the CIDR block of IP addresses into the <strong>Access(IAM) &gt; Settings &gt; Restrict IP address access &gt; Allowed IP addresses</strong> for the IBM Cloud account.</li>
+            <li>Then click <strong>Save</strong>.</li>
+            <li>Repeat for each CIDR block until all are entered.</li>
+            <li>Repeat for each region.</li>
+          </ol>
+          <p>For step-by-step instructions, see <a href="https://cloud.ibm.com/docs/account?topic=account-ips" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud docs: Allowing specific IP addresses</a>.</p>
+        </section>
+        <section id="section-next-steps">
+          <h2 id="next-steps">Next steps</h2>
+          <p>Finish the remaining steps for <a href="setup-platform.html">setting up the platform</a>.</p>
+          <p><strong>Parent topic:</strong> <a href="../getting-started/setup-platform.html">Setting up the platform for administrators</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You must connect Watson OpenScale to your training data to configure model evaluations and explainability.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Managing training data for Watson OpenScale</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=evaluations-managing-training-data"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="managing-training-data-for-watson-openscale" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-managing-training-data-for-watson-openscale">
+        <h1 id="managing-training-data-for-watson-openscale">Managing training data for Watson OpenScale</h1>
+        <p>You must connect Watson OpenScale to your training data to configure model evaluations and explainability.</p>
+        <p>Watson OpenScale uses training data to calculate the metrics for your model evaluations and explainability methods. To configure model evaluations and explainability methods in Watson OpenScale, you must prepare and store your training data.</p>
+        <section id="section-prepare-training-data">
+          <h2 id="prepare-training-data">Preparing training data</h2>
+          <p>The format of your training data can determine the results of your model evaluations. To enable model evaluations, you must prepare to store your training data in a format that Watson OpenScale can process. Your training data must contain labeled
+            feature columns and a prediction column as shown in the following example:</p>
+          <p><img src="images/WOS_training_data.png" alt="CSV file of training data for Watson OpenScale"></p>
+          <p>Watson OpenScale uses the training data that you provide to create a training data schema to ensure that your training data corresponds with the format that it understands. The schema specifies the feature columns that you provide in your training
+            data and the type of data that the columns contain. The following example shows a training data schema for the <a href="wos-auto-setup.html#sample-overview">German Credit Risk dataset</a>:</p>
+          <p><img src="images/wos-training-data-schema.png" alt="Sample training data schema"></p>
+        </section>
+        <section id="section-store-training-data">
+          <h2 id="store-training-data">Storing training data</h2>
+          <p>You can also store your data in <a href="../manage-data/conn-cos.html">Cloud Object Storage</a>.</p>
+          <p>If you want to keep the details of your training data location private, you can also connect Watson OpenScale to your training data by running a <a href="https://github.com/IBM/watson-openscale-samples/blob/main/training%20statistics/4.8/training_statistics_notebook.ipynb">custom notebook</a>            to upload the configuration file that it generates.</p>
+        </section>
+        <section id="section-next-steps">
+          <h2 id="next-steps">Next steps</h2>
+          <p>You must <a href="wos-model-details.html#mo-work-model-dets-training-data">connect your training data</a> to Watson OpenScale so that it understands how to process your model.</p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p><a href="wos-send-model-transactions.html">Sending model transactions</a></p>
+          <p><strong>Parent topic:</strong> <a href="wos-manage-data.html">Managing data for model evaluations in Watson OpenScale</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

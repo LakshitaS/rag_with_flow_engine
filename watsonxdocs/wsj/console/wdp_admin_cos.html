@@ -1,0 +1,204 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="An IBM Cloud Object Storage service instance is provisioned automatically with a Lite plan when you join IBM watsonx. Workspaces, such as projects, require IBM Cloud Object Storage to store files that are related to assets, including uploaded data files or notebook files.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Setting up IBM Cloud Object Storage for use with IBM watsonx</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=administrators-setting-up-cloud-object-storage"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="setting-up-ibm-cloud-object-storage-for-use-with-ibm-watsonx" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-setting-up-ibm-cloud-object-storage-for-use-with-ibm-watsonx">
+        <h1 id="setting-up-ibm-cloud-object-storage-for-use-with-ibm-watsonx">Setting up IBM Cloud Object Storage for use with IBM watsonx</h1>
+        <p>An IBM Cloud Object Storage service instance is provisioned automatically with a Lite plan when you join IBM watsonx. Workspaces, such as projects, require IBM Cloud Object Storage to store files that are related to assets, including uploaded
+          data files or notebook files.</p>
+        <p>You can also connect to IBM Cloud Object Storage as a data source. See <a href="../manage-data/conn-cos.html">IBM Cloud Object Storage connection</a>.</p>
+        <section id="section-overview-of-setting-up-cloud-object-storage">
+          <h2 id="overview-of-setting-up-cloud-object-storage">Overview of setting up Cloud Object Storage</h2>
+          <p>To set up Cloud Object Storage, complete these tasks:</p>
+          <ol>
+            <li><a href="#gen-key">Generate an administrative key</a>.</li>
+            <li><a href="#global">Ensure that Global location is set in each user's profile</a>.</li>
+            <li><a href="#access">Provide access to Cloud Object Storage</a>.
+              <ul>
+                <li><a href="#assign">Assign roles to enable access</a>.</li>
+                <li><a href="#stor-del">Enable storage delegation</a>.</li>
+              </ul>
+            </li>
+            <li><a href="#protect">Optional: Protect sensitive data</a>.</li>
+            <li><a href="#byok">Optional: Encrypt your IBM Cloud Object Storage instance with your own key</a>.</li>
+          </ol>
+          <p>Watch the following video to see how administrators set up Cloud Object Storage for use with Cloud Pak for Data as a Service.</p>
+          <div>
+            <p style="font-size:smaller">This video provides a visual method to learn the concepts and tasks in this documentation.</p><iframe id="wm-cos-admins" src="https://video.ibm.com/embed/channel/23952663/video/cos-admins" lang="en-US" style="border: 0;" webkitallowfullscreen="" allowfullscreen="" frameborder="no" width="560" height="315" title="Watch the following video to see how administrators set up Cloud Object Storage for use with Cloud Pak for Data as a Service." alt="Watch the following video to see how administrators set up Cloud Object Storage for use with Cloud Pak for Data as a Service."></iframe></div>
+        </section>
+        <section id="section-gen-key">
+          <h2 id="gen-key">Generate an administrative key</h2>
+          <p>You generate an administrative key for Cloud Object Storage by creating an initial test project. The test project can be deleted after its creation. Its sole purpose is to generate the key.</p>
+          <p>To automatically generate the administrative key for your Cloud Object Storage instance:</p>
+          <ol>
+            <li>From the IBM watsonx main menu, select <strong>Projects &gt; View all projects</strong> and then click <strong>New project</strong>.</li>
+            <li>Specify to create an empty project.</li>
+            <li>Enter a project name, such as "Test Project".</li>
+            <li>Select your Cloud Object Storage instance.</li>
+            <li>Click <strong>Create</strong>. The administrative key is generated.</li>
+            <li>Delete the test project.</li>
+          </ol>
+        </section>
+        <section id="section-global">
+          <h2 id="global">Ensure that Global location is set for Cloud Object Storage in each user's profile</h2>
+          <p>Cloud Object Storage requires the Global location to be configured in each user's profile. The Global location is configured automatically, but it might be changed by mistake. An error occurs when a project is created if the Global location
+            is not enabled in the user's profile. Ask users to check that Global location is enabled.</p>
+          <p><a href="../admin/personal-settings.html">Check for the <strong>Global</strong> location in each user's profile</a>.</p>
+        </section>
+        <section id="section-access">
+          <h2 id="access">Provide access to Cloud Object Storage</h2>
+          <p>You can provide different levels of access to Cloud Object Storage for people who need to work in IBM watsonx. Using the storage delegation setting on the Cloud Object Storage instance, you can provide quick access to most users to create projects
+            and catalogs. However, another option is to provide targeted access by using IAM roles and access groups. Role-based access enacts stricter controls for viewing the Cloud Object Storage instance directly and for creating projects and catalogs.
+            If you decide to provide controlled access with IAM roles and access groups, you must disable storage delegation for the Cloud Object Storage instance.</p>
+          <p>You enable storage delegation for the Cloud Object Storage instance to provide access to nonadministrative users. Users with minimal IAM permissions can create projects and catalogs, which automatically create buckets in the Cloud Object Storage
+            instance. See <a href="#stor-del">Enable storage delegation for nonadministrative users</a>.</p>
+          <p>You provide more controlled access with IAM roles and access groups. For example, the Cloud Object Storage <strong>Manager</strong> role provides permissions to create projects and spaces together with the corresponding buckets in the Cloud
+            Object Storage instance. It also provides permissions to view all buckets and encryption root keys in the Cloud Object Storage instance, to view the metadata for a bucket and delete buckets, and to perform other administrative tasks that are
+            related to buckets. See <a href="#assign">Assign roles to enable access</a>.</p>
+          <p>No role assignments are needed for collaborators who work with the data in a project or catalog. Users who are given collaborator roles can work in the project or catalog without storage delegation or an IAM role. See <a href="../getting-started/collaborator-permissions.html">Project collaborator roles and permissions</a>.</p>
+          <section id="section-assign">
+            <h3 id="assign">Assign roles to enable access</h3>
+            <p>The IBM Cloud account owner or administrator assigns appropriate roles to users to provide access to Cloud Object Storage. Storage delegation must be disabled when using role-based access.</p>
+            <p>Rather than assigning each individual user a set of roles, you can create an access group. Access groups expedite role assignments by grouping permissions. For instructions on creating access groups, see <a href="https://cloud.ibm.com/docs/account?topic=account-groups&amp;interface=ui" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud docs: Setting up access groups</a>.</p>
+          </section>
+          <section id="section-stor-del">
+            <h3 id="stor-del">Enable storage delegation</h3>
+            <p>Storage delegation for the Cloud Object Storage instance allows nonadministrative users to create projects, the Platform assets catalog, and the corresponding Cloud Object Storage buckets. Storage delegation provides wide access to Cloud Object
+              Storage and allows users with minimal permissions to create projects. Storage delegation for projects also includes deployment spaces.</p>
+            <p>To enable storage delegation for the Cloud Object Storage instance:</p>
+            <ol>
+              <li>From the navigation menu, select <strong>Administration &gt; Configurations and settings &gt; Storage delegation</strong>.</li>
+              <li>Set storage delegation for Projects to on.</li>
+              <li>Optional. If you want a non-administrative user to create the Platform assets catalog, set storage delegation for Catalogs to on.</li>
+            </ol>
+            <p><img src="images/cos-delegation.png" alt="Storage delegation" title="Shows the Storage delegation screen with the switches that are enabled for projects and catalogs."></p>
+          </section>
+        </section>
+        <section id="section-byok">
+          <h2 id="byok">Optional: Encrypt your IBM Cloud Object Storage instance with your own key</h2>
+          <p>Encryption protects the data for your projects and catalogs. Data at rest in Cloud Object Storage is encrypted by default with randomly generated keys that are managed by IBM. For increased protection, you can create and manage your own encryption
+            keys with IBM Key Protect. IBM Key Protect for IBM Cloud is a centralized key management system for generating, managing, and deleting encryption keys used by IBM Cloud services.</p>
+          <p>For more information, see <a href="https://cloud.ibm.com/docs/services/key-protect?topic=key-protect-about#about" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud docs: IBM Key Protect for IBM Cloud</a>.</p>
+          <p>Not all <a href="../getting-started/ws-plans.html">Watson Studio service plans</a> support the use of your own encryption keys. Check your specific plan for details.</p>
+          <p>To encrypt your Cloud Object Storage instance with your own key, you need an instance of the IBM Key Project service. Although Key Protect is a paid service, each account is allowed five keys without charge.</p>
+          <p>In IBM Cloud, provision Key Protect and generate a key:</p>
+          <ol>
+            <li>Create an instance of Key Protect for your account from the IBM Cloud catalog. See <a href="https://cloud.ibm.com/docs/key-protect?topic=key-protect-provision&amp;interface=ui" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud docs: Provisioning the Key Protect service</a>.</li>
+            <li>Grant a service authorization between your Key Protect instance and your Cloud Object Storage instance. Do not associate a key with a bucket. If you don't grant the authorization, users cannot create projects and catalogs with the Cloud Object
+              Storage instance. For more information, see <a href="https://cloud.ibm.com/docs/account?topic=account-serviceauth&amp;interface=ui" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud docs: Using authorizations to grant access between services</a>.
+              You can also grant a service authorization for a root key from Watson Studio, by choosing <strong>Manage &gt; Access (IAM)</strong>.</li>
+            <li>Create a root key to protect your Cloud Object Storage instance. See <a href="https://cloud.ibm.com/docs/key-protect?topic=key-protect-create-root-keys&amp;interface=ui#create_root_keys" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud docs: Creating root keys</a>.</li>
+          </ol>
+          <p>In IBM watsonx, add the key to the Cloud Object Storage instance:</p>
+          <ol>
+            <li>Select <strong>Administration &gt; Configurations and settings &gt; Storage delegation</strong>.</li>
+            <li>Slide the toggle for <strong>Projects</strong>, <strong>Catalogs</strong>, or both to select data for encryption with your key.</li>
+            <li>Click <strong>Add...</strong> under <strong>Encryption keys</strong> to add an encryption key.</li>
+            <li>Select the <strong>Key Protect instance</strong> and the <strong>Key Protect key</strong>.</li>
+            <li>Click <strong>OK</strong> to add the encryption key.</li>
+          </ol>
+          <div class="note important"><span class="importanttitle">Important:</span> If you change or remove the key, you lose access to existing encrypted data in the Cloud Object Storage instance.
+          </div>
+        </section>
+        <section id="section-protect">
+          <h2 id="protect">Optional: Protect sensitive data stored on Cloud Object Storage</h2>
+          <p>When you join IBM watsonx, a single Cloud Object Storage instance is automatically provisioned for you. The Cloud Object Storage instance contains separate buckets for each project to store data assets and related files. The ability to create
+            projects and thus to add buckets to Cloud Object Storage is available only to users with the Platform <strong>Administrator</strong> role and the <strong>Manager</strong> role for the Cloud Object Storage Service. Although only users with
+            these roles can create projects and their accompanying buckets, any user with the <strong>Editor</strong> or <strong>Viewer</strong> role can see the data files. For some businesses, the data files contain sensitive information and require
+            stricter access controls.</p>
+          <section id="section-control-access-to-cloud-object-storage-with-multiple-instances">
+            <h3 id="control-access-to-cloud-object-storage-with-multiple-instances">Control access to Cloud Object Storage with multiple instances</h3>
+            <p>For paid plans, you can control access to sensitive data files by creating one or more Cloud Object Storage instances and assigning access to specific users. Project creators select the appropriate Cloud Object Storage instance when they create
+              a project. The data assets and files for the project are stored in a bucket in the selected instance. Users with <strong>Editor</strong> or <strong>Viewer</strong> roles can work in the projects, but they cannot see the assets directly in
+              the related Cloud Object Storage bucket. You can assign access to a specific Cloud Object Storage instance either to an individual user or to an access group. You must be the account owner or administrator to create service instances and
+              assign access.</p>
+            <p>Extra fees are not incurred by creating more than one Cloud Object Storage instances because charges are determined by overall storage utilization. The number of instances is not a factor for Cloud Object Storage fees.</p>
+            <p>Only one instance of Cloud Object Storage is allowed for the Lite plan. You can change your pricing plan from the IBM Cloud catalog.</p>
+            <p>To create a Cloud Object Storage instance and assign access:</p>
+            <ol>
+              <li>Select <strong>Services &gt; Services catalog</strong> from the navigation menu.</li>
+              <li>Select <strong>Storage &gt; Cloud Object Storage</strong>.</li>
+              <li>Click <strong>Create</strong>. A Service name is generated for you on IBM Cloud.</li>
+              <li>Select <strong>Manage &gt; Access(IAM)</strong>.</li>
+              <li>Select <strong>Users</strong> or <strong>Access groups</strong>.</li>
+              <li>Click <strong>Assign access</strong>.</li>
+              <li>In the <strong>Services</strong> list, choose Cloud Object Storage.</li>
+              <li>For <strong>Resources</strong>, choose:
+                <ul>
+                  <li>Scope = Specific resources</li>
+                  <li>Attribute type = Service instance</li>
+                  <li>Operator = string equals</li>
+                  <li>Value = name of Cloud Object Storage</li>
+                </ul>
+              </li>
+              <li><strong>For Roles and actions</strong>, choose:
+                <ul>
+                  <li>Service access = Manager</li>
+                  <li>Platform access = Administrator</li>
+                </ul>
+              </li>
+              <li>Click <strong>Add</strong> and <strong>Assign</strong>.</li>
+            </ol>
+            <p>The specified Cloud Object Storage instance can be accessed only by the user or access group with the Service role of Manager and the Platform role of Administrator. Other users can work in the projects but cannot create projects or view assets
+              directly in the bucket.</p>
+          </section>
+        </section>
+        <section id="section-next-step">
+          <h2 id="next-step">Next step</h2>
+          <p>Finish the remaining steps for <a href="../getting-started/setup-platform.html">setting up the platform</a>.</p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="../getting-started/security-overview.html">Security for IBM watsonx</a></li>
+            <li><a href="../getting-started/security-data.html">Data security</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="../getting-started/setup-platform.html">Setting up the platform</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

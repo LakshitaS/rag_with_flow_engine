@@ -1,0 +1,93 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="{{ shortdesc }}">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Scaling a deployment</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=assets-scaling-deployment"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="scaling-a-deployment" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-scaling-a-deployment">
+        <h1 id="scaling-a-deployment">Scaling a deployment</h1>
+        <p>When you create an online deployment for a model or function from a deployment space or programmatically, a single copy of the asset is deployed by default. To increase scalability and availability, you can increase the number of copies (replicas)
+          by editing the configuration of the deployment. More copies allow for a larger volume of scoring requests.</p>
+        <p></p>
+        <p>Deployments can be scaled in the following ways:</p>
+        <ul>
+          <li>Update the configuration for a deployment in a deployment space.</li>
+          <li>Programmatically, using the Watson Machine Learning Python client library, or the Watson Machine Learning REST APIs.</li>
+        </ul>
+        <section id="section-changing-the-number-of-copies-of-an-online-deployment-from-a-space">
+          <h2 id="changing-the-number-of-copies-of-an-online-deployment-from-a-space">Changing the number of copies of an online deployment from a space</h2>
+          <ol>
+            <li>Click the <strong>Deployment</strong> tab of your deployment space.</li>
+            <li>From the action menu for your deployment name, click <strong>Edit</strong>.</li>
+            <li>In the <strong>Edit deployment</strong> dialog box, change the number of copies and click <strong>Save</strong>.</li>
+          </ol>
+        </section>
+        <section id="section-scaling-programmatically">
+          <h2 id="scaling-programmatically">Increasing the number of replicas of a deployment programmatically</h2>
+          <p>To view or run a working sample of scaling a deployment programmatically, you can increase the number of replicas in the metadata for a deployment.</p>
+          <section id="section-python-example">
+            <h3 id="python-example">Python example</h3>
+            <p>This example uses the Python client to set the number of replicas to 3.</p>
+            <pre class="codeblock"><code class="lang-python hljs">change_meta = {
+                client.deployments.ConfigurationMetaNames.HARDWARE_SPEC: {
+                                       <span class="hljs-string">"name"</span>:<span class="hljs-string">"S"</span>,
+                                       <span class="hljs-string">"num_nodes"</span>:<span class="hljs-number">3</span>}
+            }
+
+client.deployments.update(&lt;deployment_id&gt;, change_meta)
+</code></pre>
+            <p>The <code>HARDWARE_SPEC</code> value includes a name because the API requires a name or an ID to be provided.</p>
+          </section>
+          <section id="section-rest-api-example">
+            <h3 id="rest-api-example">REST API example</h3>
+            <pre class="codeblock"><code class="lang-bash hljs">curl -k -X PATCH -d <span class="hljs-string">'[ { "op": "replace", "path": "/hardware_spec", "value": {  "name": "S", "num_nodes": 2  } } ]'</span> &lt;Deployment end-point URL&gt;
+</code></pre>
+            <p>You must specify a name for the <code>hardware_spec</code> value, but the argument is not applied for scaling.</p>
+            <p><strong>Parent topic:</strong> <a href="../analyze-data/ml-deploy-general.html">Managing predictive deployments</a></p>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="In IBM watsonx.ai, you can use IBM foundation models that are built with integrity and designed for business.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Foundation models built by IBM</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=models-foundation"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="foundation-models-built-by-ibm" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-foundation-models-built-by-ibm">
+        <h1 id="foundation-models-built-by-ibm">Foundation models built by IBM</h1>
+        <p>In IBM watsonx.ai, you can use IBM foundation models that are built with integrity and designed for business.</p>
+        <p>The following families of IBM foundation models are available in watsonx.ai:</p>
+        <ul>
+          <li><a href="#granite">Granite</a></li>
+          <li><a href="#slate">Slate</a></li>
+        </ul>
+        <section id="section-granite">
+          <h2 id="granite">Granite foundation models</h2>
+          <p>The Granite family of IBM foundation models includes decoder-only models that can efficiently predict and generate language.</p>
+          <p>The models were built with trusted data that has the following characteristics:</p>
+          <ul>
+            <li>Sourced from quality data sets in domains such as finance (SEC Filings), law (Free Law), technology (Stack Exchange), science (arXiv, DeepMind Mathematics), literature (Project Gutenberg (PG-19)), and more.</li>
+            <li>Compliant with rigorous IBM data clearance and governance standards.</li>
+            <li>Scrubbed of hate, abuse, and profanity, data duplication, and blocklisted URLs, among other things.</li>
+          </ul>
+          <p>IBM is committed to building AI that is open, trusted, targeted, and empowering. For more information about contractual protections related to IBM indemnification, see the <a href="https://www.ibm.com/support/customer/csol/terms/?id=Z126-6548&amp;cc=us&amp;lc=en" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Client Relationship Agreement</a> and <a href="https://www.ibm.com/support/customer/csol/terms/?id=i126-7747" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM watsonx.ai service description</a>.</p>
+          <p>The following Granite models are available in watsonx.ai today:</p>
+          <dl>
+            <dt><strong>granite-7b-lab</strong></dt>
+            <dd>General use model that is built with a novel alignment tuning method from IBM Research. Large-scale Alignment for chatBots, or LAB is a method for adding new skills to existing foundation models by generating synthetic data for the skills,
+              and then using that data to tune the foundation model.</dd>
+            <dt><strong>granite-13b-chat-v2</strong></dt>
+            <dd>General use model that is optimized for dialog use cases. This version of the model is able to generate longer, higher-quality responses with a professional tone. The model can recognize mentions of people and can detect tone and sentiment.</dd>
+            <dt><strong>granite-13b-instruct-v2</strong></dt>
+            <dd>General use model. This version of the model is optimized for classification, extraction, and summarization tasks. The model can recognize mentions of people and can summarize longer inputs.</dd>
+            <dt><strong>granite-8b-japanese</strong></dt>
+            <dd>General use model that supports the Japanese language. This version of the model is based on the Granite Instruct model and is optimized for classification, extraction, and question-answering tasks in Japanese. You can also use the model for
+              translation between English and Japanese.</dd>
+            <dt><strong>granite-20b-multilingual</strong></dt>
+            <dd>General use model that supports the English, German, Spanish, French, and Portuguese languages. This version of the model is based on the Granite Instruct model and is optimized for classification, extraction, and question-answering tasks
+              in multiple languages. You can also use the model for translation tasks.</dd>
+          </dl>
+          <section id="section-prompt-samples">
+            <h3 id="prompt-samples">Prompt samples</h3>
+            <p>To get started with the models, try these samples:</p>
+            <ul>
+              <li>
+                <p><a href="fm-prompt-samples.html#sample3c">Generative task sample: Generate a numbered list on a particular theme</a></p>
+              </li>
+              <li>
+                <p><a href="fm-prompt-samples.html#sample4c">Question-answering task sample: Answer a question based on a document</a></p>
+              </li>
+              <li>
+                <p><a href="fm-prompt-samples.html#sample7c">Chat sample: Converse in a dialog</a></p>
+              </li>
+              <li>
+                <p><a href="fm-prompt-samples.html#sample4e">Question-answering sample: Answer general knowledge questions in Japanese</a></p>
+              </li>
+              <li>
+                <p><a href="fm-prompt-samples.html#sample7d">Sample: Converse with granite-8b-japanese</a></p>
+              </li>
+              <li>
+                <p><a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/61c1e967-8d10-44bb-a846-cc1f27e9e69a?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Sample Python notebook: Use watsonx and a Granite model to analyze car rental customer satisfaction from text</a></p>
+              </li>
+            </ul>
+          </section>
+          <section id="section-related-resources">
+            <h3 id="related-resources">Related resources</h3>
+            <p>To learn more about the models, read the following resources:</p>
+            <ul>
+              <li>
+                <p><a href="https://www.ibm.com/blog/watsonx-tailored-generative-ai/" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model information</a></p>
+              </li>
+              <li>
+                <p><a href="https://www.ibm.com/downloads/cas/X9W4O6BM" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Research paper</a></p>
+              </li>
+              <li>
+                <p><a href="https://dataplatform.cloud.ibm.com/wx/samples/models/ibm/granite-13b-instruct-v2?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">granite-13b-instruct-v2 model card</a></p>
+              </li>
+              <li>
+                <p><a href="https://dataplatform.cloud.ibm.com/wx/samples/models/ibm/granite-13b-chat-v2?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">granite-13b-chat-v2 model card</a></p>
+              </li>
+              <li>
+                <p><a href="fm-granite-8b-japanese.html">granite-8b-japanese model card</a></p>
+              </li>
+              <li>
+                <p><a href="https://dataplatform.cloud.ibm.com/wx/samples/models/ibm/granite-20b-multilingual?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">granite-20b-multilingual model card</a></p>
+              </li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-slate">
+          <h2 id="slate">Slate foundation models</h2>
+          <p>The Slate family of IBM foundation models includes encoder-only models that specialize in natural language processing and text embedding tasks.</p>
+          <p>The following Slate embedding models are available in watsonx.ai today:</p>
+          <dl>
+            <dt><strong>slate-125m-english-rtrvr</strong></dt>
+            <dd>A 768-dimension embedding model that converts text into text embeddings.</dd>
+            <dt><strong>slate-30m-english-rtrvr</strong></dt>
+            <dd>A 384-dimension embedding model that converts text into text embeddings.</dd>
+          </dl>
+          <p>For more information about using Slate models to convert sentences and passages into text embeddings, see <a href="fm-embed-overview.html">Text embedding generation</a>.</p>
+          <p>IBM Slate models also power a set of libraries that you can use for common natural language processing (NLP) tasks, such as classification, entity extraction, sentiment analysis, and more.</p>
+          <p>For more information about how to use the NLP capabilities of the Slate models, see <a href="watson-nlp.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Watson NLP library</a>.</p>
+          <p><strong>Parent topic:</strong> <a href="fm-models.html">Supported foundation models</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

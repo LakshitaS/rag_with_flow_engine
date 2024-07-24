@@ -1,0 +1,372 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="As your data changes over time, the ability of your model to make accurate predictions might deteriorate. The Watson OpenScale drop in data consistency metric calculates the percentage of transactions at run time that are significantly different than the transactions in the training data.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Drop in data consistency in Watson OpenScale drift metrics</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=metrics-drop-in-data-consistency"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="drop-in-data-consistency-in-watson-openscale-drift-metrics" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-drop-in-data-consistency-in-watson-openscale-drift-metrics">
+        <h1 id="drop-in-data-consistency-in-watson-openscale-drift-metrics">Drop in data consistency in Watson OpenScale drift metrics</h1>
+        <p>As your data changes over time, the ability of your model to make accurate predictions might deteriorate. The Watson OpenScale drop in data consistency metric calculates the percentage of transactions at run time that are significantly different
+          than the transactions in the training data.</p>
+        <section id="section-how-it-works">
+          <h2 id="how-it-works">How it works</h2>
+          <p>Watson OpenScale analyzes each transaction for data inconsistency by comparing the run-time transactions with the patterns of the transactions in the training data. If a transaction violates one or more of the training data patterns, the transaction
+            is identified as inconsistent. To calculate the drop in data consistency, Watson OpenScale divides the total number of transactions by the number of transactions that are identified as inconsistent. For example, if 10 transactions are identified
+            as inconsistent from a set of 100 transactions, then the drop in data consistency is 10%.</p>
+        </section>
+        <section id="section-behavior-anomalies-math">
+          <h2 id="behavior-anomalies-math">Do the math</h2>
+          <p>To identify data inconsistency, Watson OpenScale generates a schema when you <a href="wos-monitor-drift.html">configure drift detection</a> by creating a <code>constraints.json</code> file to specify the rules that your input data must follow.
+            Watson OpenScale uses the schema to evaluate your data for drift by identifying outliers that do not fit within the constraints that are specified. The schema is specified as a JSON object with <code>columns</code> and <code>constraints</code>            arrays that describe the training data as shown in the following example:</p>
+          <pre class="codeblock"><code class="lang-json hljs"><span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"columns"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+        <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"CheckingStatus"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"dtype"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"categorical"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"count"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">5000</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"sparse"</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"skip_learning"</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span>
+        <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"constraints"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+        <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"categorical_distribution_constraint"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"f0476d40-d7df-4095-9be5-82564511432c"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"kind"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"single_column"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"columns"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+                <span class="hljs-string">"CheckingStatus"</span>
+            <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"content"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+                <span class="hljs-attr">"frequency_distribution"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+                    <span class="hljs-attr">"0_to_200"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1304</span><span class="hljs-punctuation">,</span>
+                    <span class="hljs-attr">"greater_200"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">305</span><span class="hljs-punctuation">,</span>
+                    <span class="hljs-attr">"less_0"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1398</span><span class="hljs-punctuation">,</span>
+                    <span class="hljs-attr">"no_checking"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1993</span>
+                <span class="hljs-punctuation">}</span>
+            <span class="hljs-punctuation">}</span>
+        <span class="hljs-punctuation">}</span>
+</code></pre>
+          <section id="section-behavior-anomalies-constraints-col-stat">
+            <h3 id="behavior-anomalies-constraints-col-stat">Columns</h3>
+            <p>Watson OpenScale specifies values for the <code>name</code>, <code>dtype</code>, <code>count</code>,<code>sparse</code>, and <code>skip_learning</code> keys to describe a column.</p>
+            <p>The <code>name</code> and <code>dtype</code> keys describe the label and the data type for a column. The following values that are specified with the <code>dtype</code> key describe the data type:</p>
+            <ul>
+              <li><code>categorical</code></li>
+              <li><code>numeric_discrete</code></li>
+              <li><code>numeric_continuous</code></li>
+            </ul>
+            <p>The data type that is specified determines if more statistical properties are described with keys, such as <code>min</code>, <code>max</code>, and <code>mean</code>. For example, when the <code>numeric_discrete</code> or the <code>numeric_continuous</code>              data type is specified, properties are described as shown in the following example:</p>
+            <pre class="codeblock"><code class="lang-json hljs"><span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"LoanDuration"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"dtype"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"numeric_discrete"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"count"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">5000</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"sparse"</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"skip_learning"</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"min"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"max"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">53</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"mean"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">21.28820697954272</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"std"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">10.999096037050032</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"percentiles"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+                <span class="hljs-number">13.0</span><span class="hljs-punctuation">,</span>
+                <span class="hljs-number">21.0</span><span class="hljs-punctuation">,</span>
+                <span class="hljs-number">29.0</span>
+            <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"count_actual"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4986</span>
+        <span class="hljs-punctuation">}</span>
+</code></pre>
+            <p>The <code>count</code> key specifies the number of rows for a column. Watson OpenScale specifies Boolean values to describe the <code>sparse</code> and <code>skip_learning</code> keys for a column. The <code>sparse</code> key specifies whether
+              a column is sparse and the <code>skip_learning</code> key specifies whether a column skips learning any of the rules that are described in the schema. A column is sparse if the 25th and 75th percentiles have the same value.</p>
+          </section>
+          <section id="section-behavior-anomalies-constraints-com-att">
+            <h3 id="behavior-anomalies-constraints-com-att">Constraints</h3>
+            <p>The <code>name</code> key specifies the constraint type. The following values are specified to describe the constraint type:</p>
+            <ul>
+              <li><code>categorical_distribution_constraint</code></li>
+              <li><code>numeric_range_constraint</code></li>
+              <li><code>numeric_distribution_constraint</code></li>
+              <li><code>catnum_range_constraint</code></li>
+              <li><code>catnum_distribution_constraint</code></li>
+              <li><code>catcat_distribution_constraint</code></li>
+            </ul>
+            <p>The <code>id</code> key identifies constraints with a universally unique identifier (UUID). The <code>kind</code> key specifies whether the constraint is a <code>single_column</code> or <code>two-column</code> constraint.</p>
+            <p>The <code>columns</code> key specifies an array of column names. When Watson OpenScale specifies a <code>single_column</code> constraint with the <code>kind</code> key, the array contains a value that correlates with the column that you want
+              to describe. When Watson OpenScale specifies a <code>two-column</code> constraint with the <code>kind</code> key, the array contains values that correlate with columns that contain related data.</p>
+            <p>The <code>content</code> key specifies attributes that describe the statistical characteristics of your data. The constraint type that is specified with the <code>name</code> key determines which attribute is specified in the <code>content</code>              key as shown in the following table:</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Attribute</th>
+                  <th>Constraints</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>frequency_distribution</td>
+                  <td>categorical_distribution_constraint</td>
+                </tr>
+                <tr>
+                  <td>ranges</td>
+                  <td>numeric_range_constraint, catnum_range_constraint</td>
+                </tr>
+                <tr>
+                  <td>distribution</td>
+                  <td>numeric_distribution_constraint, catnum_distribution_constraint</td>
+                </tr>
+                <tr>
+                  <td>rare_combinations</td>
+                  <td>catcat_distribution_constraint</td>
+                </tr>
+                <tr>
+                  <td>source_column</td>
+                  <td>catcat_distribution_constraint, catnum_range_constraint, catnum_distribution_constraint</td>
+                </tr>
+                <tr>
+                  <td>target_column</td>
+                  <td>catcat_distribution_constraint, catnum_range_constraint, catnum_distribution_constraint</td>
+                </tr>
+              </tbody>
+            </table>
+            <p>The following sections provide examples of how each constraint type is specified:</p>
+            <ul>
+              <li><a href="#categorical-distribution-constraint">Categorical distribution constraint</a></li>
+              <li><a href="#numeric-range-constraint">Numeric range constraint</a></li>
+              <li><a href="#numeric-distribution-constraint">Numeric distribution constraint</a></li>
+              <li><a href="#categorical-categorical-distribution-constraint">Categorical- categorical distribution constraint</a></li>
+              <li><a href="#categorical-numeric-range-constraint">Categorical- numeric range constraint</a></li>
+              <li><a href="#categorical-numeric-distribution-constraint">Categorical- numeric distribution constraint</a></li>
+            </ul>
+            <section id="section-categorical-distribution-constraint">
+              <h4 id="categorical-distribution-constraint">Categorical distribution constraint</h4>
+              <pre class="codeblock"><code class="lang-json hljs">        <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"categorical_distribution_constraint"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"f0476d40-d7df-4095-9be5-82564511432c"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"kind"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"single_column"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"columns"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+                <span class="hljs-string">"CheckingStatus"</span>
+            <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"content"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+                <span class="hljs-attr">"frequency_distribution"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+                    <span class="hljs-attr">"0_to_200"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1304</span><span class="hljs-punctuation">,</span>
+                    <span class="hljs-attr">"greater_200"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">305</span><span class="hljs-punctuation">,</span>
+                    <span class="hljs-attr">"less_0"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1398</span><span class="hljs-punctuation">,</span>
+                    <span class="hljs-attr">"no_checking"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1993</span>
+                <span class="hljs-punctuation">}</span>
+            <span class="hljs-punctuation">}</span>
+        <span class="hljs-punctuation">}</span>
+</code></pre>
+              <p>In the training data, the <code>CheckingStatus</code> column contains four values that are specified with the <code>frequency_distribution</code> attribute. The <code>frequency_distribution</code> attribute specifies the frequency counts
+                with values for categories, such as <code>0_to_200</code>. If Watson OpenScale finds records in the payload data that specifies values that are different than the <code>frequency_distribution</code> attribute values, the records are identified
+                as drift.</p>
+            </section>
+            <section id="section-numeric-range-constraint">
+              <h4 id="numeric-range-constraint">Numeric range constraint</h4>
+              <pre class="codeblock"><code class="lang-json hljs">   <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"numeric_range_constraint"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"79f3a1f5-30a1-4c7f-91a0-1613013ee802"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"kind"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"single_column"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"columns"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+                <span class="hljs-string">"LoanAmount"</span>
+            <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"content"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+                <span class="hljs-attr">"ranges"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+                    <span class="hljs-punctuation">{</span>
+                        <span class="hljs-attr">"min"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">250</span><span class="hljs-punctuation">,</span>
+                        <span class="hljs-attr">"max"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">11676</span><span class="hljs-punctuation">,</span>
+                        <span class="hljs-attr">"count"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">5000</span>
+                    <span class="hljs-punctuation">}</span>
+                <span class="hljs-punctuation">]</span>
+            <span class="hljs-punctuation">}</span>
+        <span class="hljs-punctuation">}</span>
+</code></pre>
+              <p>The <code>LoanAmount</code> column contains minimum and maximum values that are specified with the <code>ranges</code> attribute to set a range for the training data. The <code>ranges</code> attribute specifies the high-density regions of
+                the column. Any ranges that rarely occur in the training data aren't included. If Watson OpenScale finds records in the payload data that does not fit within the range and a pre-defined buffer, the records are identified as drift.</p>
+            </section>
+            <section id="section-numeric-distribution-constraint">
+              <h4 id="numeric-distribution-constraint">Numeric distribution constraint</h4>
+              <pre class="codeblock"><code class="lang-json hljs"><span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"numeric_distribution_constraint"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"3a97494b-0cd7-483e-a1c6-adb7755c1cb0"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"kind"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"single_column"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"columns"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+                <span class="hljs-string">"LoanAmount"</span>
+            <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"content"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+                <span class="hljs-attr">"distribution"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+                        <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"norm"</span><span class="hljs-punctuation">,</span>
+                        <span class="hljs-attr">"parameters"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+                            <span class="hljs-attr">"loc"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">3799.62</span><span class="hljs-punctuation">,</span>
+                            <span class="hljs-attr">"scale"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1920.0640064678398</span>
+                        <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+                        <span class="hljs-attr">"p-value"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.22617155797563282</span>
+                <span class="hljs-punctuation">}</span>
+            <span class="hljs-punctuation">}</span>
+        <span class="hljs-punctuation">}</span>
+</code></pre>
+              <p>The <code>LoanAmount</code> column contains values that are specified with the <code>distribution</code> attribute to set a normal distribution for the training data. If Watson OpenScale finds records in the payload data that does not fit
+                within the normal distribution, the records are identified as drift. The distributions that Watson OpenScale tries to fit within are uniform, exponential, or normal distributions. If Watson OpenScale doesn't find records that fit within
+                these distributions, this constraint is not learned.</p>
+            </section>
+            <section id="section-categorical-categorical-distribution-constraint">
+              <h4 id="categorical-categorical-distribution-constraint">Categorical- categorical distribution constraint</h4>
+              <pre class="codeblock"><code class="lang-json hljs">    <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"catcat_distribution_constraint"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"99468600-1924-44d9-852c-1727c9c414ee"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"kind"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"two_column"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"columns"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+                <span class="hljs-string">"CheckingStatus"</span><span class="hljs-punctuation">,</span>
+                <span class="hljs-string">"CreditHistory"</span>
+            <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"content"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+                <span class="hljs-attr">"source_column"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"CheckingStatus"</span><span class="hljs-punctuation">,</span>
+                <span class="hljs-attr">"target_column"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"CreditHistory"</span><span class="hljs-punctuation">,</span>
+                <span class="hljs-attr">"rare_combinations"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+                    <span class="hljs-punctuation">{</span>
+                        <span class="hljs-attr">"source_value"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"no_checking"</span><span class="hljs-punctuation">,</span>
+                        <span class="hljs-attr">"target_values"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+                            <span class="hljs-string">"no_credits"</span>
+                        <span class="hljs-punctuation">]</span>
+                    <span class="hljs-punctuation">}</span>
+                <span class="hljs-punctuation">]</span>
+            <span class="hljs-punctuation">}</span>
+        <span class="hljs-punctuation">}</span>
+</code></pre>
+              <p>For the <code>CheckingStatus</code> and <code>CreditHistory</code> columns, the <code>rare_combinations</code> attributes specifies a combination of values that rarely occur in the training data. If Watson OpenScale finds records in the
+                payload data that contains the combination, the records are identified as drift.</p>
+            </section>
+            <section id="section-categorical-numeric-range-constraint">
+              <h4 id="categorical-numeric-range-constraint">Categorical- numeric range constraint</h4>
+              <pre class="codeblock"><code class="lang-json hljs">        <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"catnum_range_constraint"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"f252033c-1635-4974-8976-3f7904d0c37d"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"kind"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"two_column"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"columns"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+                <span class="hljs-string">"CheckingStatus"</span><span class="hljs-punctuation">,</span>
+                <span class="hljs-string">"LoanAmount"</span>
+            <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"content"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+                <span class="hljs-attr">"source_column"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"CheckingStatus"</span><span class="hljs-punctuation">,</span>
+                <span class="hljs-attr">"target_column"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"LoanAmount"</span><span class="hljs-punctuation">,</span>
+                <span class="hljs-attr">"ranges"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+                    <span class="hljs-attr">"no_checking"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+                        <span class="hljs-punctuation">{</span>
+                            <span class="hljs-attr">"min"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">250</span><span class="hljs-punctuation">,</span>
+                            <span class="hljs-attr">"max"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">11676</span><span class="hljs-punctuation">,</span>
+                            <span class="hljs-attr">"count"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1993</span>
+                        <span class="hljs-punctuation">}</span>
+                    <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+                    <span class="hljs-attr">"less_0"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+                        <span class="hljs-punctuation">{</span>
+                            <span class="hljs-attr">"min"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">250</span><span class="hljs-punctuation">,</span>
+                            <span class="hljs-attr">"max"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">7200</span><span class="hljs-punctuation">,</span>
+                            <span class="hljs-attr">"count"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1398</span>
+                        <span class="hljs-punctuation">}</span>
+                    <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+                    <span class="hljs-attr">"0_to_200"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+                        <span class="hljs-punctuation">{</span>
+                            <span class="hljs-attr">"min"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">250</span><span class="hljs-punctuation">,</span>
+                            <span class="hljs-attr">"max"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">9076</span><span class="hljs-punctuation">,</span>
+                            <span class="hljs-attr">"count"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1304</span>
+                        <span class="hljs-punctuation">}</span>
+                    <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+                    <span class="hljs-attr">"greater_200"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+                        <span class="hljs-punctuation">{</span>
+                            <span class="hljs-attr">"min"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">250</span><span class="hljs-punctuation">,</span>
+                            <span class="hljs-attr">"max"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">9772</span><span class="hljs-punctuation">,</span>
+                            <span class="hljs-attr">"count"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">305</span>
+                        <span class="hljs-punctuation">}</span>
+                    <span class="hljs-punctuation">]</span>
+                <span class="hljs-punctuation">}</span>
+            <span class="hljs-punctuation">}</span>
+        <span class="hljs-punctuation">}</span>
+</code></pre>
+              <p>The <code>ranges</code> attribute specifies minimum and maximum values for the <code>CheckingStatus</code> and <code>LoanAmount</code> columns that set a range for the training data. If Watson OpenScale finds records in the payload data
+                that don't contain <code>LoanAmount</code> and <code>CheckingStatus</code> column values that fit within the range and a pre-defined buffer, the records are identified as drift.</p>
+            </section>
+            <section id="section-categorical-numeric-distribution-constraint">
+              <h4 id="categorical-numeric-distribution-constraint">Categorical- numeric distribution constraint</h4>
+              <pre class="codeblock"><code class="lang-json hljs">        <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"catnum_distribution_constraint"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"3a97494b-0cd7-483e-a1c6-adb7755c1cb0"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"kind"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"two_column"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"columns"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+                <span class="hljs-string">"CheckingStatus"</span><span class="hljs-punctuation">,</span>
+                <span class="hljs-string">"LoanAmount"</span>
+            <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"content"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+                <span class="hljs-attr">"source_column"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"CheckingStatus"</span><span class="hljs-punctuation">,</span>
+                <span class="hljs-attr">"target_column"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"LoanAmount"</span><span class="hljs-punctuation">,</span>
+                <span class="hljs-attr">"distribution"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+                    <span class="hljs-attr">"greater_200"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+                        <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"norm"</span><span class="hljs-punctuation">,</span>
+                        <span class="hljs-attr">"parameters"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+                            <span class="hljs-attr">"loc"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">3799.62</span><span class="hljs-punctuation">,</span>
+                            <span class="hljs-attr">"scale"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1920.0640064678398</span>
+                        <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+                        <span class="hljs-attr">"p-value"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.22617155797563282</span>
+                    <span class="hljs-punctuation">}</span>
+                <span class="hljs-punctuation">}</span>
+            <span class="hljs-punctuation">}</span>
+        <span class="hljs-punctuation">}</span>
+</code></pre>
+              <p>The <code>LoanAmount</code> and <code>CheckingStatus</code> columns contain values that are specified with the <code>distribution</code> attribute to set a normal distribution for the training data. If Watson OpenScale finds records in the
+                payload data that don't contain <code>LoanAmount</code> and <code>CheckingStatus</code> column values that fit within the normal distribution, the records are identified as drift.</p>
+              <div class="note note"><span class="notetitle">Note:</span>
+                <md-block>
+                  <p>To mitigate drift after it is detected by Watson OpenScale, you must build a new version of the model that fixes the problem. A good place to start is with the data points that are highlighted as reasons for the drift. Introduce the
+                    new data to the predictive model after you manually label the drifted transactions and use them to retrain the model.</p>
+                  <p></p>
+                </md-block>
+              </div>
+              <p></p>
+            </section>
+          </section>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p><a href="wos-insight-timechart.html#analyze-drift">Reviewing drift results</a></p>
+          <p><strong>Parent topic:</strong> <a href="wos-behavior-overview.html">Drift detection overview</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

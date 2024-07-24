@@ -1,0 +1,93 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="At any time after you've added data to Data Refinery, you can validate your data. Typically, you'll want to do this at multiple points in the refinement process. ">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Validating your data in Data Refinery</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=data-validating-your"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="validating-your-data-in-data-refinery" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-validating-your-data-in-data-refinery">
+        <h1 id="validating-your-data-in-data-refinery">Validating your data in Data Refinery</h1>
+        <p>At any time after you've added data to Data Refinery, you can validate
+          <!--assess the structure, content, and quality of-->your data. Typically, you'll want to do this at multiple points in the refinement process.
+          <!--For example, you can determine the number of null values and distinct values in a column, recognize or infer a column's data type or classification, and identify the most frequent patterns in a column's values. By examining your data's metrics and then acting on the information, you can increase the quality of your data and subsequently improve the analytics that use your data.-->
+        </p>
+        <p>To validate your data:</p>
+        <ol>
+          <li>
+            <p>From Data Refinery, click the <strong>Profile</strong> tab.</p>
+          </li>
+          <li>
+            <p>Review the metrics
+              <!-- for the selected scope-->for each column.</p>
+          </li>
+          <li>
+            <p>Take appropriate actions, as described in the following sections, depending on what you learn.</p>
+          </li>
+        </ol>
+        <!--## Data quality
+Data quality is the degree to which the data fits its intended use.-->
+        <!--* **Matches** - The percent of data that matches the classifier-->
+        <!--* **Mismatches** - The percent of data that doesn't match the classifier-->
+        <!--* **Missing** - The percent of data that is missing-->
+        <!--Use this metric to find missing data and data that might not be in a usable form for its intended purpose.-->
+        <section id="section-frequency">
+          <h2 id="frequency">Frequency</h2>
+          <p>Frequency is the number of times that a value, or a value in a specified range, occurs. Each frequency distribution (bar) shows the count of unique values in a column.</p>
+          <p>Review the frequency distribution to find anomalies in your data. If you want to cleanse your data of those anomalies, simply remove the values.</p>
+          <p>For Integer and Date/Time columns, you can customize the number of bins (groupings) that you want to see. In the default multi-column view, the maximum is 20. If you expand the frequency chart row, the maximum is 50.</p>
+        </section>
+        <section id="section-statistics">
+          <h2 id="statistics">Statistics</h2>
+          <p>Statistics are a collection of quantitative data. The statistics for each column show the minimum, maximum, mean, and number of unique values in that column.</p>
+          <p>Depending on a column's data type, the statistics for each column will vary slightly. For example, statistics for a column of data type integer have minimum, maximum, and mean values while statistics for a column of data type string have minimum
+            length, maximum length, and mean length values.</p>
+          <!--Outliers are values that fall far beyond the scope of other values in the column. If you decide that the outliers are abnormal, you can remove them.-->
+          <!--## Patterns
+Patterns are the formats represented in the column's data.-->
+          <!--For example, the patterns found in a date column might be 'mm/dd/yyyy', 'dd/month/yyyy', and 'dd/mm/yy'. Use this metric to improve the format consistency of your data.-->
+          <p><strong>Parent topic:</strong> <a href="../refinery/refining_data.html">Refining data</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

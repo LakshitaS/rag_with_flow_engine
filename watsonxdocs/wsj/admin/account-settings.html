@@ -1,0 +1,134 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="From the Account window you can view information about your IBM Cloud account and set the Resource scope, Credentials for connections, and Regional project storage settings for IBM watsonx.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Managing your account settings</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=platform-managing-account-settings"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="managing-your-account-settings" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-managing-your-account-settings">
+        <h1 id="managing-your-account-settings">Managing your account settings</h1>
+        <p>From the Account window you can view information about your IBM Cloud account and set the <strong>Resource scope</strong>, <strong>Credentials for connections</strong>, and <strong>Regional project storage</strong> settings for IBM watsonx.</p>
+        <ul>
+          <li><a href="#view-account-information">View account information</a></li>
+          <li><a href="#set-the-scope-for-resources">Set the scope for resources</a></li>
+          <li><a href="#set-the-credentials-for-connections">Set the type of credentials for connections</a></li>
+          <li><a href="#set-expiration">Set the login session expiration</a></li>
+        </ul>
+        <p>You must be the IBM Cloud account owner or administrator to manage the account settings.</p>
+        <section id="section-view-account-information">
+          <h2 id="view-account-information">View account information</h2>
+          <p>You can see the account name, ID and type.</p>
+          <ol>
+            <li>Select <strong>Administration &gt; Account and billing &gt; Account</strong> to open the account window.</li>
+            <li>If you need to manage your Cloud account, click the <strong>Manage in IBM Cloud</strong> link to navigate to the Account page on IBM Cloud.</li>
+          </ol>
+        </section>
+        <section id="section-set-the-scope-for-resources">
+          <h2 id="set-the-scope-for-resources">Set the scope for resources</h2>
+          <p>By default, account users see resources based on membership. You can restrict the resource scope to the current account to control access. By setting the resource scope to the current account, users cannot access resources outside of their account,
+            regardless of membership. The scope applies to projects, catalogs, and spaces.</p>
+          <p>To restrict resources to current account:</p>
+          <ol>
+            <li>Select <strong>Administration &gt; Account and billing &gt; Account</strong> to open the account settings window.</li>
+            <li>Set <strong>Resource scope</strong> to <strong>On</strong>. Access is updated immediately to be restricted to the current account.</li>
+          </ol>
+        </section>
+        <section id="section-set-the-credentials-for-connections">
+          <h2 id="set-the-credentials-for-connections">Set the credentials for connections</h2>
+          <p>The credentials for connections setting determines the type of credentials users must specify when creating a new connection. This setting applies only when new connections are created; existing connections are not affected.</p>
+          <section id="section-either-personal-or-shared-credentials">
+            <h3 id="either-personal-or-shared-credentials">Either personal or shared credentials</h3>
+            <p>You can allow users the ability to specify personal or shared credentials when creating a new connection. Radio buttons will appear on the new connection form, allowing the user to select personal or shared.</p>
+            <p>To allow the credential type to be chosen on the new connection form:</p>
+            <ol>
+              <li>Select <strong>Administration &gt; Account and billing &gt; Account</strong> to open the account settings window.</li>
+              <li>Set both <strong>Shared credentials</strong> and <strong>Personal credentials</strong> to <strong>Enabled</strong>.</li>
+            </ol>
+          </section>
+          <section id="section-personal-credentials">
+            <h3 id="personal-credentials">Personal credentials</h3>
+            <p>When personal credentials are specified, each user enters their own credentials when creating a new connection or when using a connection to access data.</p>
+            <p>To require personal credentials for all new connections:</p>
+            <ol>
+              <li>Select <strong>Administration &gt; Account and billing &gt; Account</strong> to open the account settings window.</li>
+              <li>Set <strong>Personal credentials</strong> to <strong>Enabled</strong>.</li>
+              <li>Set <strong>Shared credentials</strong> to <strong>Disabled</strong>.</li>
+            </ol>
+          </section>
+          <section id="section-shared-credentials">
+            <h3 id="shared-credentials">Shared credentials</h3>
+            <p>With shared credentials, the credentials that were entered by the creator of the connection are made available to all other users when accessing data with the connection.</p>
+            <p>To require shared credentials for all new connections:</p>
+            <ol>
+              <li>Select <strong>Administration &gt; Account and billing &gt; Account</strong> to open the account settings window.</li>
+              <li>Set <strong>Shared credentials</strong> to <strong>Enabled</strong>.</li>
+              <li>Set <strong>Personal credentials</strong> to <strong>Disabled</strong>.</li>
+            </ol>
+          </section>
+        </section>
+        <section id="section-set-expiration">
+          <h2 id="set-expiration">Set the login session expiration</h2>
+          <p>Active and inactive session durations are managed through IBM Cloud. You are notified of a session expiration 5 minutes before the session expires. Unless your service supports autosaving, your work is not saved when your session expires.</p>
+          <p>You can change the default durations for active and inactive sessions. For more information on required permissions and duration limits, see <a href="https://cloud.ibm.com/docs/account?topic=account-iam-work-sessions&amp;interface=ui">Setting limits for login sessions</a>.</p>
+          <p>To change the default durations:</p>
+          <ol>
+            <li>From the watsonx navigation menu, select <strong>Administration &gt; Access (IAM)</strong>.</li>
+            <li>In IBM Cloud, select <strong>Manage &gt; Access (IAM) &gt; Settings</strong>.</li>
+            <li>Select the <strong>Login session</strong> tab.</li>
+            <li>For each expiration time that you want to change, edit the time and click <strong>Save</strong>.</li>
+          </ol>
+          <p>The inactivity duration cannot be longer than the maximum session duration, and the token lifetime cannot be longer than the inactivity duration. IBM Cloud prevents you from inputing an invalid combination of settings.</p>
+          <section id="section-learn-more">
+            <h3 id="learn-more">Learn more</h3>
+            <ul>
+              <li><a href="admin-manage-projects.html">Managing all projects in the account</a></li>
+              <li><a href="../manage-data/create-conn.html">Adding connections to projects</a></li>
+            </ul>
+            <p><strong>Parent topic:</strong>
+              <a href="../console/wdp_admin_console.html">Managing IBM watsonx</a></p>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

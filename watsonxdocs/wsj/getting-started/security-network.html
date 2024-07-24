@@ -1,0 +1,326 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="IBM watsonx provides network security mechanisms to protect infrastructure, data, and applications from potential threats and unauthorized access. Network security mechanisms provide secure connections to data sources and control traffic across both the public internet and internal networks.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Network security</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=security-network"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="network-security" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-network-security">
+        <h1 id="network-security">Network security</h1>
+        <p>IBM watsonx provides network security mechanisms to protect infrastructure, data, and applications from potential threats and unauthorized access. Network security mechanisms provide secure connections to data sources and control traffic across
+          both the public internet and internal networks.</p>
+        <table>
+          <caption caption-side="top">Table 1. Network security mechanisms for IBM watsonx</caption>
+          <thead>
+            <tr>
+              <th>Mechanism</th>
+              <th>Purpose</th>
+              <th>Responsibility</th>
+              <th>Configured on</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a href="#private-network-service-endpoints">Private network service endpoints</a></td>
+              <td>Access services through secure private network endpoints</td>
+              <td>Customer</td>
+              <td>IBM Cloud</td>
+            </tr>
+            <tr>
+              <td><a href="#access-to-private-data-sources">Access to private data sources</a></td>
+              <td>Connect to data sources that are protected by a firewall</td>
+              <td>Customer</td>
+              <td>IBM watsonx</td>
+            </tr>
+            <tr>
+              <td><a href="#integrations">Integrations</a></td>
+              <td>Secure connections to Third-party clouds through a firewall</td>
+              <td>Customer and Third-party clouds</td>
+              <td>IBM watsonx</td>
+            </tr>
+            <tr>
+              <td><a href="#connections">Connections</a></td>
+              <td>Secure connections to data sources</td>
+              <td>Customer</td>
+              <td>IBM watsonx</td>
+            </tr>
+            <tr>
+              <td><a href="#secure">Connections to data behind a firewall</a></td>
+              <td>The Satellite Connector and Satellite location provide secure connections to data sources in a hybrid environment</td>
+              <td>Customer</td>
+              <td>IBM Cloud and IBM watsonx</td>
+            </tr>
+            <tr>
+              <td><a href="#vpns">VPNs</a></td>
+              <td>Share data securely across public networks</td>
+              <td>Customer</td>
+              <td>IBM Cloud</td>
+            </tr>
+            <tr>
+              <td><a href="#allow-specific-ip-addresses">Allow specific IP addresses</a></td>
+              <td>Protect from access by unknown IP addresses</td>
+              <td>Customer</td>
+              <td>IBM Cloud</td>
+            </tr>
+            <tr>
+              <td><a href="#thirdpartyurls">Allow third party URLs</a></td>
+              <td>Allow third party URLs on an internal network</td>
+              <td>Customer</td>
+              <td>Customer firewall</td>
+            </tr>
+            <tr>
+              <td><a href="#multi-tenancy">Multi-tenancy</a></td>
+              <td>Provide isolation in a SaaS environment</td>
+              <td>IBM and Third-party clouds</td>
+              <td>IBM Cloud, Cloud providers</td>
+            </tr>
+          </tbody>
+        </table>
+        <section id="section-private-network-service-endpoints">
+          <h2 id="private-network-service-endpoints">Private network service endpoints</h2>
+          <p>Use private network service endpoints to securely connect to endpoints over IBM private cloud, rather than connecting to resources over the public network. With Private network service endpoints, services are no longer served on an internet
+            routable IP address and thus are more secure. Service endpoints require virtual routing and forwarding (VRF) to be enabled on your account. VRF is automatically enabled for Virtual Private Clouds (VPCs).</p>
+          <p>For more information about service endpoints, see:</p>
+          <ul>
+            <li><a href="../admin/endpoints-vrf.html?audience=wdp">Securing connections to services with private service endpoints</a></li>
+            <li><a href="https://www.ibm.com/cloud/blog/introducing-private-service-endpoints-in-ibm-cloud-databases?mhsrc=ibmsearch_a&amp;mhq=private%20cloud%20endpoints" target="_blank" rel="noopener noreferrer">Blog: Introducing Private Service Endpoints in IBM Cloud Databases</a></li>
+            <li><a href="https://cloud.ibm.com/docs/account?topic=account-service-endpoints-overview" target="_blank" rel="noopener noreferrer">IBM Cloud docs: Secure access to services using service endpoints</a></li>
+            <li><a href="https://cloud.ibm.com/docs/account?topic=account-vrf-service-endpoint" target="_blank" rel="noopener noreferrer">IBM Cloud docs: Enabling VRF and service endpoints</a></li>
+            <li><a href="https://cloud.ibm.com/docs/watson?topic=watson-public-private-endpoints&amp;mhsrc=ibmsearch_a&amp;mhq=public%20cloud%20endpoints" target="_blank" rel="noopener noreferrer">IBM Cloud docs: Public and private network endpoints</a></li>
+          </ul>
+        </section>
+        <section id="section-access-to-private-data-sources">
+          <h2 id="access-to-private-data-sources">Access to private data sources</h2>
+          <p>Private data sources are on-premises data sources that are protected by a firewall. IBM watsonx requires access through the firewall to reach the data sources. To provide secure access, you create inbound firewall rules to allow access for the
+            IP address ranges for IBM watsonx. The inbound rules are created in the configuration tool for your firewall.</p>
+          <p>See <a href="../admin/firewall_ovrvw.html">Configuring firewall access</a></p>
+        </section>
+        <section id="section-integrations">
+          <h2 id="integrations">Integrations</h2>
+          <p>You can configure integrations with third-party cloud platforms to allow IBM watsonx users to access data sources hosted on those clouds. The following security mechanisms apply to integrations with third-party clouds:</p>
+          <ol>
+            <li>An authorized account on the third-party cloud, with appropriate permissions to view account credentials</li>
+            <li>Permissions to allow secure connections through the firewall of the cloud provider (for specific IP ranges)</li>
+          </ol>
+          <p>For example, you have a data source on AWS that you are running notebooks on. You need to integrate with AWS and then generate a connection to the database. The integration and connection are secure. After you configure firewall access, you
+            can grant appropriate permissions to users and provide them with credentials to access data.</p>
+          <!-- check whether the flow is: integration, firewall, connection, add connection to a project or catalog, grant access to project/or catalog for a role -->
+          <p>See <a href="../admin/int-cloud.html">Integrations with other cloud platforms</a></p>
+        </section>
+        <section id="section-connections">
+          <h2 id="connections">Connections</h2>
+          <p>Connections require valid credentials to access data. The account owner or administrator configures the type of credentials that are required, either shared or personal, at the account level. Shared credentials make the data source and its credentials
+            accessible to all collaborators in the project. Personal credentials require each collaborator to provide their own credentials to use the data source.</p>
+          <p>Connections require valid credentials to access data. The account owner or administrator configures the type of credentials that are required at the account level. The connection creator enters a valid credential. The options are:</p>
+          <ul>
+            <li><strong>Either shared or personal</strong> allows users to specify personal or shared credentials when creating a new connection by selecting a radio button and entering the correct credential.</li>
+            <li><strong>Personal</strong> credentials require each collaborator to provide their own credentials to use the data source.</li>
+            <li><strong>Shared</strong> credentials make the data source and its credentials accessible to all collaborators in the project. Users enter a common credential which was created by the creator of the connection.</li>
+          </ul>
+          <p>For more information about connections, see:</p>
+          <ul>
+            <li><a href="../manage-data/create-conn.html">Adding connections to projects</a></li>
+            <li><a href="../manage-data/create-conn.html">Adding data from a connection to a project</a></li>
+            <li><a href="../manage-data/platform-conn.html">Adding platform connections</a></li>
+            <li><a href="../admin/account-settings.html#set-the-credentials-for-connections">Managing your account settings</a></li>
+          </ul>
+        </section>
+        <section id="section-secure">
+          <h2 id="secure">Connections to data behind a firewall</h2>
+          <p>Secure connections provide secure communication among resources in a hybrid cloud deployment, some of which might reside behind a firewall. You have the following options for secure connections between your environment and the cloud:</p>
+          <ul>
+            <li><a href="#link">Satellite Connector</a></li>
+            <li><a href="#location">Satellite location</a></li>
+          </ul>
+          <section id="section-link">
+            <h3 id="link">Satellite Connector</h3>
+            <p>A Satellite Connector uses a lightweight Docker-based communication that creates secure and auditable communications from your on-prem, cloud, or Edge environment back to IBM Cloud. Your infrastructure needs only a container host, such as
+              Docker. For more information, see <a href="https://cloud.ibm.com/docs/satellite?topic=satellite-understand-connectors&amp;interface=ui" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Satellite Connector overview</a>.</p>
+            <p>See <a href="../manage-data/securingconn.html##satctr">Connecting to data behind a firewall</a> for instructions on configuring a Satellite Connector.</p>
+            <p>Satellite Connector is the replacement for the deprecated Secure Gateway. For the Secure Gateway deprecation announcement, see <a href="https://cloud.ibm.com/docs/SecureGateway?topic=SecureGateway-dep-overview" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud docs: Secure Gateway Deprecation Overview</a></p>
+          </section>
+          <section id="section-location">
+            <h3 id="location">Satellite location</h3>
+            <p>A Satellite location provides the same secure communications to IBM Cloud as a Satellite Connector but adds high availability access by default plus the ability to communicate from IBM Cloud to your on-prem location. A Satellite location requires
+              at least three x86 hosts in your infrastructure for the HA control plane. A Satellite location is a superset of the capabilities of the Satellite Connector. If you need only client data communication, set up a Satellite Connector.</p>
+            <p>See <a href="../manage-data/securingconn.html#sl">Connecting to data behind a firewall</a> for instructions on configuring a Satellite location.</p>
+          </section>
+        </section>
+        <section id="section-vpns">
+          <h2 id="vpns">VPNs</h2>
+          <p>Virtual Private Networks (VPNs) create virtual point-to-point connections by using tunneling protocols, and encryption and dedicated connections. They provide a secure method for sharing data across public networks.</p>
+          <p>Following are the VPN technologies on IBM Cloud:</p>
+          <ul>
+            <li>
+              <p><a href="https://cloud.ibm.com/catalog/infrastructure/ipsec-vpn" target="_blank" rel="noopener noreferrer">IPSec VPN</a>: The VPN facilitates connectivity from your secure network to IBM IaaS platform’s private network. Any user on the account
+                can be given VPN access.</p>
+            </li>
+            <li>
+              <p><a href="https://cloud.ibm.com/vpc-ext/provision/vpngateway" target="_blank" rel="noopener noreferrer">VPN for VPC</a>: With Virtual Private Cloud (VPC), you can provision generation 2 virtual server instances for VPC with high network performance.</p>
+            </li>
+            <li>
+              <p>The Secure Gateway deprecation announcement provides information and scenarios for using VPNs as an alternative. See <a href="https://cloud.ibm.com/docs/SecureGateway?topic=SecureGateway-dep-migration-options#virtual-private-network" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud docs: Migration options</a>.</p>
+            </li>
+          </ul>
+        </section>
+        <section id="section-allow-specific-ip-addresses">
+          <h2 id="allow-specific-ip-addresses">Allow specific IP addresses</h2>
+          <p>Use this mechanism to control access to the IBM cloud console and to IBM watsonx. Access is allowed from the specified IP addresses only; access from all other IP addresses is denied. You can specify the allowed IP addresses for an individual
+            user or for an account.</p>
+          <p>When allowing specific IP addresses for Watson Studio, you must include the CIDR ranges for the Watson Studio nodes in each region (as well as the individual client system IPs that are allowed). You can include the CIDR ranges in IBM watsonx
+            by following these steps:</p>
+          <ol>
+            <li>From the main menu, choose <strong>Administration &gt; Cloud integrations</strong>.</li>
+            <li>Click <strong>Firewall configuration</strong> to display the IP addresses for the current region. Use CIDR notation.</li>
+            <li>Copy each CIDR range into the <strong>IP address restrictions</strong> for either a user or an account. Be sure to enter the allowed individual client IP addresses as well. Enter the IP addresses as a comma-separated list. Then, click <strong>Apply</strong>.</li>
+            <li>Repeat for each region to allow access for Watson Studio.</li>
+          </ol>
+          <p>For step-by-step instructions for both user and account restrictions, see <a href="https://cloud.ibm.com/docs/account?topic=account-ips" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud docs: Allowing specific IP addresses</a></p>
+        </section>
+        <section id="section-thirdpartyurls">
+          <h2 id="thirdpartyurls">Allow third party URLs on an internal network</h2>
+          <p>If you are running IBM watsonx behind a firewall, you must allowlist third party URLs to provide outbound browser access. The URLs include resources from IBM Cloud and other domains. IBM watsonx requires access to these domains for outbound
+            browser traffic through the firewall.</p>
+          <p>This list provides access only for core IBM watsonx functions. Specific services might require additional URLs. The list does not cover URLs required by the IBM Cloud console and its outbound requests.</p>
+          <table>
+            <caption caption-side="top">Table 2. Third party URLs allowlist for IBM watsonx</caption>
+            <thead>
+              <tr>
+                <th>Domain</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>*.bluemix.net</td>
+                <td>IBM legacy Cloud domain - still used in some flows</td>
+              </tr>
+              <tr>
+                <td>*.appdomain.cloud</td>
+                <td>IBM Cloud app domain</td>
+              </tr>
+              <tr>
+                <td>cloud.ibm.com</td>
+                <td>IBM Cloud global domain</td>
+              </tr>
+              <tr>
+                <td>*.cloud.ibm.com</td>
+                <td>Various IBM Cloud subdomains</td>
+              </tr>
+              <tr>
+                <td>dataplatform.cloud.ibm.com</td>
+                <td>IBM watsonx Dallas region</td>
+              </tr>
+              <tr>
+                <td>*.dataplatform.cloud.ibm.com</td>
+                <td>CIBM watsonx subdomains</td>
+              </tr>
+              <tr>
+                <td>eum.instana.io</td>
+                <td>Instana client side instrumentation</td>
+              </tr>
+              <tr>
+                <td>eum-orange-saas.instana.io</td>
+                <td>Instana client side instrumentation</td>
+              </tr>
+              <tr>
+                <td>cdnjs.cloudflare.com</td>
+                <td>Cloudflare CDN for some static resources</td>
+              </tr>
+              <tr>
+                <td>nebula-cdn.kampyle.com</td>
+                <td>Medallia NPS</td>
+              </tr>
+              <tr>
+                <td>resources.digital-cloud-ibm.medallia.eu</td>
+                <td>Medallia NPS</td>
+              </tr>
+              <tr>
+                <td>udc-neb.kampyle.com</td>
+                <td>Medallia NPS</td>
+              </tr>
+              <tr>
+                <td>ubt.digital-cloud-ibm.medallia.eu</td>
+                <td>Medallia NPS</td>
+              </tr>
+              <tr>
+                <td>cdn.segment.com</td>
+                <td>Segment JS</td>
+              </tr>
+              <tr>
+                <td>api.segment.io</td>
+                <td>Segment API</td>
+              </tr>
+              <tr>
+                <td>cdn.walkme.com</td>
+                <td>WalkMe static resources</td>
+              </tr>
+              <tr>
+                <td>papi.walkme.com</td>
+                <td>WalkMe API</td>
+              </tr>
+              <tr>
+                <td>ec.walkme.com</td>
+                <td>WalkMe API</td>
+              </tr>
+              <tr>
+                <td>playerserver.walkme.com</td>
+                <td>WalkMe player server</td>
+              </tr>
+              <tr>
+                <td>s3.walkmeusercontent.com</td>
+                <td>WalkMe static resources</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section id="section-multi-tenancy">
+          <h2 id="multi-tenancy">Multi-tenancy</h2>
+          <p>IBM watsonx is hosted as a secure and compliant multi-tenant solution on IBM Cloud. See <a href="https://www.ibm.com/cloud/learn/multi-tenant" target="_blank" rel="noopener noreferrer">Multi-Tenant</a></p>
+          <p><strong>Parent topic:</strong>
+            <a href="../getting-started/security-overview.html">Security</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

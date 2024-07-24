@@ -1,0 +1,101 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="AI guardrails removes potentially harmful content, such as hate speech, abuse, and profanity, from foundation model output and input.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Removing harmful language from model input and output</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=lab-removing-harmful-content"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="removing-harmful-language-from-model-input-and-output" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-removing-harmful-language-from-model-input-and-output">
+        <h1 id="removing-harmful-language-from-model-input-and-output">Removing harmful language from model input and output</h1>
+        <p>AI guardrails removes potentially harmful content, such as hate speech, abuse, and profanity, from foundation model output and input.</p>
+        <p>The <em>AI guardrails</em> feature in the Prompt Lab is powered by AI that applies a classification task to foundation model input and output text. The sentence classifier, which is also referred to as a <em>hate, abuse, and profanity (HAP) detector</em>          or <em>HAP filter</em>, was created by fine-tuning a large language model from the Slate family of encoder-only NLP models built by IBM Research.</p>
+        <p>The classifier breaks the model input and output text into sentences, and then reviews each sentence to find and flag harmful content. The classifier assesses each word, relationships among the words, and the context of the sentence to determine
+          whether a sentence contains harmful language. The classifier then assigns a score that represents the likelihood that inappropriate content is present.</p>
+        <p>AI guardrails in the Prompt Lab detects and flags the following types of language:</p>
+        <ul>
+          <li>
+            <p><strong>Hate speech</strong>: Expressions of hatred toward an individual or group based on attributes such as race, religion, ethnic origin, sexual orientation, disability, or gender. Hate speech shows an intent to hurt, humiliate, or insult
+              the members of a group or to promote violence or social disorder.</p>
+          </li>
+          <li>
+            <p><strong>Abusive language</strong>: Rude or hurtful language that is meant to bully, debase, or demean someone or something.</p>
+          </li>
+          <li>
+            <p><strong>Profanity</strong>: Toxic words such as expletives, insults, or sexually explicit language.</p>
+          </li>
+        </ul>
+        <p>The AI guardrails feature is supported when you inference natural-language foundation models and can detect harmful content in English text only. AI guardrails are not applicable to programmatic-language foundation models.</p>
+        <section id="section-hap-task">
+          <h2 id="hap-task">Removing harmful language from input and output in Prompt Lab</h2>
+          <p>To remove harmful content when you're working with foundation models in the Prompt Lab, set the <strong>AI guardrails</strong> switcher to <strong>On</strong>.</p>
+          <p>The AI guardrails feature is enabled automatically for all natural language foundation models in English.</p>
+          <p>After the feature is enabled, when you click <strong>Generate</strong>, the filter checks all model input and output text. Inappropriate text is handled in the following ways:</p>
+          <ul>
+            <li>
+              <p>Input text that is flagged as inappropriate is not submitted to the foundation model. The following message is displayed instead of the model output:</p>
+              <p><code>[The input was rejected as inappropriate]</code></p>
+            </li>
+            <li>
+              <p>Model output text that is flagged as inappropriate is replaced with the following message:</p>
+              <p><code>[Potentially harmful text removed]</code></p>
+            </li>
+          </ul>
+        </section>
+        <section id="section-programmatic-alternative">
+          <h2 id="programmatic-alternative">Programmatic alternative</h2>
+          <p>You have more options for filtering content when you inference foundation models by using the watsonx.ai API. For example, you can apply the HAP filter to only model output and control the sensitivity of the filter. You can also apply a PII
+            filter to flag content that might contain personally identifiable information. For more information, see the <code>moderations</code> field details in <a href="https://cloud.ibm.com/apidocs/watsonx-ai#text-generation">Text generation</a>.</p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="fm-hallucinations.html">Techniques for avoiding undesirable output</a></li>
+            <li><a href="../ai-risk-atlas/ai-risk-atlas.html">AI risk atlas</a></li>
+            <li><a href="fm-security.html">Security and privacy</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="fm-overview.html">Foundation models</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

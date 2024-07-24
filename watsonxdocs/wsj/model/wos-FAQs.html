@@ -1,0 +1,265 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Find answers to frequently asked questions about the Watson OpenScale service.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Frequently asked questions</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=models-faqs"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="frequently-asked-questions" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-frequently-asked-questions">
+        <h1 id="frequently-asked-questions">Frequently asked questions</h1>
+        <p>Find answers to frequently asked questions about the Watson OpenScale service.</p>
+        <section id="section-general">
+          <h2 id="general">General</h2>
+          <ul>
+            <li><a href="#faq-sizing">To run Watson OpenScale on my own servers, how much computer processing power is required?</a></li>
+            <li><a href="#trainingdata">Why does Watson OpenScale need access to training data?</a></li>
+            <li><a href="#in-mop">Is there a command-line tool to use?</a></li>
+            <li><a href="#in-pyc-vers">What version of Python can I use with Watson OpenScale?</a></li>
+            <li><a href="#browser-support">Which browsers can I use to run Watson OpenScale?</a></li>
+          </ul>
+        </section>
+        <section id="section-data-training-questions">
+          <h2 id="data-training-questions">Data training questions</h2>
+          <ul>
+            <li><a href="#configmodel">Configuring a model requires information about the location of the training data and the options are Cloud Object Storage and Db2. If the data is in Netezza, can Watson OpenScale use Netezza?</a></li>
+            <li><a href="#new-model-missing">Why doesn't Watson OpenScale see the updates that were made to the model?</a></li>
+            <li><a href="#wos-dashboard-email">Must I keep monitoring the Watson OpenScale dashboard to make sure that my models behave as expected?</a></li>
+          </ul>
+        </section>
+        <section id="section-risk-bias-fairness-and-explainability">
+          <h2 id="risk-bias-fairness-and-explainability">Risk, bias, fairness, and explainability</h2>
+          <ul>
+            <li><a href="#wos-risk">What are the various kinds of risks associated in using a machine learning model? </a></li>
+            <li><a href="#wos-001-bias">How is model bias mitigated by using Watson OpenScale?</a></li>
+            <li><a href="#wos-002-attrib">Is it possible to check for model bias on sensitive attributes, such as race and sex, even when the model is not trained on them?</a></li>
+            <li><a href="#wos-005-apiconfig">Can I configure model fairness through an API?</a></li>
+            <li><a href="#wos-explaintypes">What are the types of explanations shown in Watson OpenScale?</a></li>
+            <li><a href="#wos-what-if-analysis">What is what-if analysis in Watson OpenScale?</a></li>
+            <li><a href="#wos-limelocalsupport">In Watson OpenScale, for which models is Local/LIME explanation supported?</a></li>
+            <li><a href="#wos-contrastive-v-what-if">In Watson OpenScale, for which models is contrastive explanation and what-if analysis supported?</a></li>
+            <li><a href="#wos-controlledfeat">What are controllable features in Watson OpenScale explainability configuration?</a></li>
+          </ul>
+        </section>
+        <section id="section-drift">
+          <h2 id="drift">Drift</h2>
+          <ul>
+            <li><a href="#wos-faq-drifttypes">What are the different kinds of drift that IBM Watson OpenScale detects?</a></li>
+            <li><a href="#wos-typeofdriftdetect">Does Watson OpenScale detect drift in accuracy and drift in data?</a></li>
+            <li><a href="#wos-faq-dacc-v-v-dd">Why should one be concerned about model accuracy drift or data drift?</a></li>
+            <li><a href="#wos-faq-dropinacc">How is drop in accuracy that is, model accuracy drift calculated in IBM Watson OpenScale?</a></li>
+            <li><a href="#wos-faq-datacon">How is the drop in data consistency calculated in IBM Watson OpenScale?</a></li>
+            <li><a href="#wos-faq-drifttextcorpus">Can Watson OpenScale detect drift in my model that is trained on text corpus?</a></li>
+            <li><a href="#wos-faq-imagedrift">Can Watson OpenScale detect drift in my model that is trained on image data?</a></li>
+            <li><a href="#wos-faq-driftpythonfunc">Can Watson OpenScale detect drift in my Python function that is deployed on IBM Watson Machine Learning?</a></li>
+          </ul>
+        </section>
+        <section id="section-other">
+          <h2 id="other">Other</h2>
+          <p></p>
+          <ul>
+            <li><a href="#wos-preprodenv">In a pre-production environment that uses Watson OpenScale, after the model is evaluated for risk and approved for usage, do I must reconfigure all the monitors again in production environment?</a></li>
+            <li><a href="#wos-pre-prod-bench">In Watson OpenScale, can I compare my model deployments in pre-production with a benchmark model to see how good or bad it is?</a></li>
+            <li><a href="#wos-quality-data">In Watson OpenScale, what data is used for Quality metrics computation?</a></li>
+            <li><a href="#wos-thresholds">In Watson OpenScale, can the threshold be set for a metric other than 'Area under ROC' during configuration?</a></li>
+            <li><a href="#wos-configureroc">In Watson OpenScale, why are some of the configuration tabs disabled?</a></li>
+          </ul>
+          <section id="section-faq-sizing">
+            <h3 id="faq-sizing">To run Watson OpenScale on my own servers, how much computer processing power is required?</h3>
+            <p>There are specific guidelines for hardware configuration for three-node and six-node configurations. Your IBM Technical Sales team can also help you with sizing your specific configuration. Because Watson OpenScale runs as an add-on to IBM
+              Cloud Pak for Data, you need to consider the requirements for both software products.</p>
+          </section>
+          <section id="section-trainingdata">
+            <h3 id="trainingdata">Why does Watson OpenScale need access to training data?</h3>
+            <p>You must either provide Watson OpenScale access to training data that is stored in Db2 or IBM Cloud Object Storage, or you must run a Notebook to access the training data.</p>
+            <p>Watson OpenScale needs access to your training data for the following reasons:</p>
+            <ul>
+              <li>To generate Local Interpretable Model-Agnostic Explanations (LIME) and Contrastive explanations: To create explanations, access to statistics, such as median value, standard deviation, and distinct values from the training data is required.</li>
+              <li>To display training data statistics: To populate the bias details page, Watson OpenScale must have training data from which to generate statistics.</li>
+              <li>To build a drift detection model: The Drift monitor uses training data to create and calibrate drift detection.</li>
+            </ul>
+            <p>In the Notebook-based approach, you are expected to upload the statistics and other information when you configure a deployment in Watson OpenScale. Watson OpenScale no longer has access to the training data outside of the Notebook, which
+              is run in your environment. It has access only to the information uploaded during the configuration.</p>
+          </section>
+          <section id="section-in-mop">
+            <h3 id="in-mop">Is there a command-line tool to use? </h3>
+            <p>Yes! There is a ModelOps CLI tool, whose official name is the <a href="https://github.com/IBM-Watson/aiopenscale-modelops-cli" target="_blank" class="external">Watson OpenScale CLI model operations tool</a>. Use it to run tasks related to
+              the lifecycle management of machine learning models.</p>
+          </section>
+          <section id="section-in-pyc-vers">
+            <h3 id="in-pyc-vers">What version of Python can I use with Watson OpenScale?</h3>
+            <p>Because Watson OpenScale is independent of your model-creation process, it supports whatever Python versions your machine learning provider supports. The <a href="https://client-docs.aiopenscale.cloud.ibm.com/html/index.html" target="_blank" class="external">Watson OpenScale Python client</a> is a Python library that works directly with the Watson OpenScale service on IBM Cloud. For the most up-to-date version information, see <a href="https://client-docs.aiopenscale.cloud.ibm.com/html/index.html" target="_blank" class="external">the Requirements section</a>. You can use the Python client, instead of the Watson OpenScale client UI, to directly configure a logging database, bind your machine learning engine, and select and monitor
+              deployments. For examples of using the Python client in this way, see the <a href="https://github.com/IBM/watson-openscale-samples" target="_blank" class="external">Watson OpenScale sample Notebooks</a>.</p>
+          </section>
+          <section id="section-browser-support">
+            <h3 id="browser-support">Which browsers can I use to run Watson OpenScale? </h3>
+            <p>The Watson OpenScale service tooling requires the same level of browser software as is required by IBM Cloud. See the IBM Cloud <a href="https://cloud.ibm.com/docs/overview?topic=overview-prereqs-platform#browsers-platform">Prerequisites</a>              topic for details.</p>
+          </section>
+          <section id="section-configmodel">
+            <h3 id="configmodel">Configuring a model requires information about the location of the training data and the options are Cloud Object Storage and Db2. If the data is in Netezza, can Watson OpenScale use Netezza?</h3>
+            <p>Use this <a href="https://github.com/IBM/watson-openscale-samples/blob/main/Cloud%20Pak%20for%20Data/Batch%20Support/Configuration%20generation%20for%20OpenScale%20batch%20subscription.ipynb">Watson OpenScale Notebook</a> to read the data
+              from Netezza and generate the training statistics and also the drift detection model.</p>
+          </section>
+          <section id="section-new-model-missing">
+            <h3 id="new-model-missing">Why doesn't Watson OpenScale see the updates that were made to the model?</h3>
+            <p>Watson OpenScale works on a deployment of a model, not on the model itself. You must create a new deployment and then configure this new deployment as a new subscription in Watson OpenScale. With this arrangement, you are able to compare the
+              two versions of the model.</p>
+          </section>
+          <section id="section-wos-001-bias">
+            <h3 id="wos-001-bias">How is model bias mitigated by using Watson OpenScale?</h3>
+            <p>The debiasing capability in Watson OpenScale is enterprise grade. It is robust, scalable and can handle a wide variety of models. Debiasing in Watson OpenScale consists of a two-step process.</p>
+            <ol>
+              <li>Learning Phase: Learning customer model behavior to understand when it acts in a biased manner.</li>
+              <li>Application Phase: Identifying whether the customer’s model acts in a biased manner on a specific data point and, if needed, fixing the bias. For more information, see <a href="../model/wos-insight-debias.html">Reviewing debiased transactions</a>.</li>
+            </ol>
+          </section>
+          <section id="section-wos-002-attrib">
+            <h3 id="wos-002-attrib">Is it possible to check for model bias on sensitive attributes, such as race and sex, even when the model is not trained on them?</h3>
+            <p>Yes. Recently, Watson OpenScale delivered a ground-breaking feature called “Indirect Bias detection.” Use it to detect whether the model is exhibiting bias indirectly for sensitive attributes, even though the model is not trained on these
+              attributes. For more information, see <a href="../model/wos-insight-debias.html">Reviewing debiased transactions</a>.</p>
+          </section>
+          <section id="section-wos-005-apiconfig">
+            <h3 id="wos-005-apiconfig">Can I configure model fairness through an API?</h3>
+            <p>Yes, it is possible with the Watson OpenScale SDK. For more information, see <a href="https://client-docs.aiopenscale.cloud.ibm.com/html/index.html">IBM Watson OpenScale Python SDK documentation</a>.</p>
+          </section>
+          <section id="section-wos-risk">
+            <h3 id="wos-risk">What are the various kinds of risks associated in using a machine learning model? </h3>
+            <p>Multiple kinds of risks that are associated with machine learning models, such as any change in input data (also known as drift) can cause the model to make inaccurate decisions, impacting business predictions. Training data can be cleaned
+              to be free from bias but runtime data might induce biased behavior of the model.</p>
+            <p>Traditional statistical models are simpler to interpret and explain, but unable to explain the outcome of the machine learning model can pose a serious threat to the usage of the model.</p>
+          </section>
+          <section id="section-wos-typeofdriftdetect">
+            <h3 id="wos-typeofdriftdetect">Does Watson OpenScale detect drift in accuracy and drift in data?</h3>
+            <p>Watson OpenScale detects both drift in accuracy and drift in data:</p>
+            <ul>
+              <li>Drift in accuracy estimates the drop in accuracy of the model at run time. Model accuracy drops when there is an increase in transactions that are similar to those that the model did not evaluate correctly in the training data. This type
+                of drift is calculated for structured binary and multi-class classification models only.</li>
+              <li>Drift in data estimates the drop in consistency of the data at runtime as compared to the characteristics of the data at training time.</li>
+            </ul>
+          </section>
+          <section id="section-wos-explaintypes">
+            <h3 id="wos-explaintypes">What are the types of explanations shown in Watson OpenScale?</h3>
+            <p>Watson OpenScale provides Local explanation based on LIME, contrastive explanation, and SHAP explanations. For more information, see <a href="wos-insight-explain.html">Viewing explainability</a>.</p>
+          </section>
+          <section id="section-wos-what-if-analysis">
+            <h3 id="wos-what-if-analysis">What is what-if analysis in Watson OpenScale?</h3>
+            <p>The explanations UI also provides the ability to test what-if scenarios. For example, the user can change the feature values of the input datapoint and check its impact on the model prediction and probability.</p>
+          </section>
+          <section id="section-wos-limelocalsupport">
+            <h3 id="wos-limelocalsupport">Which models support LIME explanations?</h3>
+            <p>The following types of models support LIME explanations in Watson OpenScale:</p>
+            <ul>
+              <li>Structured regression and classification models</li>
+              <li>Unstructured text and image classification models</li>
+            </ul>
+          </section>
+          <section id="section-wos-contrastive-v-what-if">
+            <h3 id="wos-contrastive-v-what-if">Which models support contrastive explanations and what-if analysis?</h3>
+            <p>Contrastive explanations and what-if analyses are supported for models that use structured data and classification problems only.</p>
+          </section>
+          <section id="section-wos-controlledfeat">
+            <h3 id="wos-controlledfeat">What are controllable features in Watson OpenScale explainability configuration?</h3>
+            <p>Using controllable features some features of the input data point can be locked, so that they do not change when the contrastive explanation is generated and also they cannot be changed in what if analysis. The features that should not be
+              changed should be set as noncontrollable or NO in the explainability configuration.</p>
+          </section>
+          <section id="section-wos-dashboard-email">
+            <h3 id="wos-dashboard-email">Must I keep monitoring the Watson OpenScale dashboard to make sure that my models behave as expected?</h3>
+            <p>No, you can set up email alerts for your production model deployments in Watson OpenScale. Email alerts are sent whenever a risk evaluation test fails, and then you can come and check the issues and address them.</p>
+          </section>
+          <section id="section-wos-preprodenv">
+            <h3 id="wos-preprodenv">In a pre-production environment that uses Watson OpenScale after the model is evaluated for risk and approved for usage, do I have to reconfigure all the monitors again in production environment?</h3>
+            <p>No, Watson OpenScale provides a way to copy the configuration of pre-production subscription to production subscription. For more information, see <a href="wos-risk-wos-only.html">Manage model risk</a>.</p>
+          </section>
+          <section id="section-wos-pre-prod-bench">
+            <h3 id="wos-pre-prod-bench">In Watson OpenScale, can I compare my model deployments in pre-production with a benchmark model to see how good or bad it is?</h3>
+            <p>Yes, Watson OpenScale provides you with the option to compare two model deployments or subscriptions. You can see a side-by-side comparison of the behavior of the two models on each of the monitors configured. To compare go to the model summary
+              page on Watson OpenScale dashboard and select <code>Actions -&gt; Compare</code>. For more information, see <a href="wos-insight-timechart.html">Reviewing evaluation results</a>.</p>
+          </section>
+          <section id="section-wos-quality-data">
+            <h3 id="wos-quality-data">In Watson OpenScale, what data is used for Quality metrics computation?</h3>
+            <p>Quality metrics are calculated that use manually labeled feedback data and monitored deployment responses for this data.</p>
+          </section>
+          <section id="section-wos-thresholds">
+            <h3 id="wos-thresholds">In Watson OpenScale, can the threshold be set for a metric other than 'Area under ROC' during configuration?</h3>
+            <p>No, currently, the threshold can be set only for the 'Area under ROC' metric.</p>
+          </section>
+          <section id="section-wos-configureroc">
+            <h3 id="wos-configureroc">In Watson OpenScale, why are some of the configuration tabs disabled?</h3>
+            <p>Some conditions enable particular tabs. You can see the reason why that tab is not enabled, by hovering your mouse over the circle icon on the tab.</p>
+          </section>
+          <section id="section-wos-faq-dacc-v-v-dd">
+            <h3 id="wos-faq-dacc-v-v-dd">Why should one be concerned about model accuracy drift or data drift?</h3>
+            <p>A drop in either model accuracy or data consistency leads to a negative impact on the business outcomes that are associated with the model and must be addressed by retraining the model.</p>
+          </section>
+          <section id="section-wos-faq-drifttypes">
+            <h3 id="wos-faq-drifttypes">What are the different kinds of drift that IBM Watson OpenScale detects?</h3>
+            <p>Watson OpenScale detects both drift in model accuracy and drift in data.</p>
+          </section>
+          <section id="section-wos-faq-dropinacc">
+            <h3 id="wos-faq-dropinacc">How is drop in accuracy that is, model accuracy drift calculated in Watson OpenScale?</h3>
+            <p>Watson OpenScale learns the behavior of the model by creating a proxy model, also known as a drift detection model. It looks at the training data and how the model is making predictions on the training data.</p>
+            <p>For more information, see <a href="../model/wos-behavior-overview.html">Drift detection</a>.</p>
+          </section>
+          <section id="section-wos-faq-datacon">
+            <h3 id="wos-faq-datacon">How is the drop in data consistency calculated in IBM Watson OpenScale?</h3>
+            <p>IBM Watson OpenScale learns single and two-column constraints or boundaries on the training data at the time of configuration. It then analyzes all payload transactions to determine which transactions are causing drop in data consistency.
+              For more information, see <a href="../model/wos-behavior-anomalies.html">Drift in data</a>.</p>
+          </section>
+          <section id="section-wos-faq-drifttextcorpus">
+            <h3 id="wos-faq-drifttextcorpus">Can Watson OpenScale detect drift in my model that is trained on text corpus?</h3>
+            <p>Watson OpenScale cannot detect drift in text-based models as of now.</p>
+          </section>
+          <section id="section-wos-faq-imagedrift">
+            <h3 id="wos-faq-imagedrift">Can Watson OpenScale detect drift in my model that is trained on image data?</h3>
+            <p>Watson OpenScale cannot detect drift in image-based models as of now.</p>
+          </section>
+          <section id="section-wos-faq-driftpythonfunc">
+            <h3 id="wos-faq-driftpythonfunc">Can Watson OpenScale detect drift in my Python function that is deployed on IBM Watson Machine Learning?</h3>
+            <p>Watson OpenScale can detect drift for Python functions that are trained on structured datasets. The python functions that were trained on text or image datasets are not supported. The scoring output for the python functions must include prediction
+              columns and probability columns that contain all of the class probabilities for classification problems.</p>
+            <p><strong>Parent topic:</strong> <a href="getting-started.html">Evaluating AI models with Watson OpenScale</a></p>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

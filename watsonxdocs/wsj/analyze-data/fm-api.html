@@ -1,0 +1,275 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can inference and tune foundation models in IBM watsonx.ai programmatically by using the watsonx.ai API.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Using the API to work with foundation models</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=solutions-rest-api"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="using-the-api-to-work-with-foundation-models" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-using-the-api-to-work-with-foundation-models">
+        <h1 id="using-the-api-to-work-with-foundation-models">Using the API to work with foundation models</h1>
+        <p>You can inference and tune foundation models in IBM watsonx.ai programmatically by using the watsonx.ai API.</p>
+        <p>For more information, see <a href="https://cloud.ibm.com/apidocs/watsonx-ai" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">API reference documentation</a>.</p>
+        <section id="section-tasks-that-you-can-do-by-using-the-api">
+          <h2 id="tasks-that-you-can-do-by-using-the-api">Tasks that you can do by using the API</h2>
+          <p>You can use the watsonx.ai API to do the following things:</p>
+          <ul>
+            <li>Get useful details about the available foundation models, such as a model's maximum context length</li>
+            <li>Check how many tokens a model will calculate for your prompt input</li>
+            <li><a href="#inference">Inference foundation models</a></li>
+            <li><a href="#tuning">Prompt-tune a foundation model</a></li>
+          </ul>
+        </section>
+        <section id="section-prerequisites">
+          <h2 id="prerequisites">Prerequisites</h2>
+          <ul>
+            <li>
+              <p>To use the watsonx.ai API, you need an IBM Cloud Identity and Access Management (IAM) token. You also need to include the project ID or deployment space ID that is associated with the foundation model in the data payload for most of the
+                API methods.</p>
+              <p>For more information, see <a href="fm-credentials.html">Authenticating for programmatic access to a project or space</a>.</p>
+            </li>
+            <li>
+              <p>You must specify the <code>{model_id}</code> for the foundation model that you want to use.</p>
+              <p>You can use the <a href="https://cloud.ibm.com/apidocs/watsonx-ai#list-foundation-model-specs" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">List the available foundation models</a> method to get the ID for
+                a foundation model.</p>
+              <p>For a list of the model IDs for the foundation models that are included with watsonx.ai, see <a href="#model-ids">Foundation model IDs for APIs</a>.</p>
+              <p>To submit inference requests to a tuned foundation model, you use the inference API endpoint that includes the deployment ID or serving name for the model deployment. The <code>{model_id}</code> is not required with this type of request
+                because only one model is supported by the deployment.</p>
+            </li>
+            <li>
+              <p>Specify the date on which you created and tested your code in the version parameter that is required with each request. For example, <code>version=2024-03-14</code>.</p>
+            </li>
+          </ul>
+        </section>
+        <section id="section-inference">
+          <h2 id="inference">Inferencing a foundation model</h2>
+          <p>The method that you use to inference a foundation model differs depending on whether the foundation model is associated with a deployment.</p>
+          <ul>
+            <li>To inference a foundation model that is provided with watsonx.ai, use the <a href="https://cloud.ibm.com/apidocs/watsonx-ai#text-generation" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Text generation</a> method.</li>
+            <li>To inference a tuned foundation model or to send an inference by using a prompt template, use the <a href="https://cloud.ibm.com/apidocs/watsonx-ai#deployments-text-generation" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Deployments&gt;Infer text</a>              method.</li>
+          </ul>
+          <p>You can prompt a foundation model by using one of the following text generation methods:</p>
+          <ul>
+            <li>Infer text: Waits to return the output that is generated by the foundation model all at one time.</li>
+            <li>Infer text event stream: Returns the output as it is generated by the foundation model. This method is useful in conversational use cases, where you want a chatbot or virtual assistant to respond to a user in a fluid way that mimics a real
+              conversation.</li>
+          </ul>
+          <p>To stop an inference request that is in progress, close the HTTP connection.</p>
+          <p><strong>Tip</strong>: If you want help with formatting an inference request in the API, you can submit the same request from the Prompt Lab. Click the <strong>View code</strong> (<img src="images/code.svg" alt="</>" height="20" style="vertical-align:text-bottom">)
+            icon to see the cURL command that is used to submit your prompt input to the model. You can use the same formatting when you specify the prompt input and parameters for prompting in your API request.</p>
+          <section id="section-hap">
+            <h3 id="hap">Removing inappropriate language and personally identifiable information</h3>
+            <p>When you prompt a foundation model by using the API, you can use the <code>moderations</code> field to apply filters to foundation model input and output. The following types of filters are available:</p>
+            <ul>
+              <li>
+                <p>HAP filter: Identifies and flags hate speech, abuse, and profanity.</p>
+                <p>A threshold value from 0.0 to 1.0 controls the sensitivity of the HAP filter. When the threshold is lower, the classifier is likely to flag harmful content more often. However, the classifier might flag as harmful content that is not harmful.
+                  When the threshold is higher, the content that is flagged as harmful is more likely to be harmful, but other occurrences of harmful content can be missed.</p>
+                <p>The AI guardrails feature in the Prompt Lab uses the same HAP filter with a threshold score of 0.5 that cannot be changed. For more information about AI guardrails, see <a href="fm-hap.html">Removing harmful content</a>.</p>
+              </li>
+              <li>
+                <p>PII filter: Uses a natural language processing AI model to identify and flag mentions of personally identifiable information (PII) information, such as phone numbers and email addresses.</p>
+                <p>You can enable the PII filter to prevent personally identifiable information from being shown in content. The filter threshold value is 0.8 and cannot be changed currently.</p>
+                <p>For the full list of entity types that are flagged, see <a href="watson-nlp-block-entity-enhanced.html#rule-based-general">Rule-based extraction for general entities</a>.</p>
+              </li>
+            </ul>
+            <p>Sample notebooks are available that show you the steps to follow to inference a foundation model.</p>
+            <ul>
+              <li><a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/73243d67b49a6e05f4cdf351b4b35e21?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Use watsonx to generate advertising</a></li>
+              <li><a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/8d73c134-61aa-4588-a4bb-e6fa834fd09a?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Use watsonx and Google to extract entities</a></li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-tuning">
+          <h2 id="tuning">Prompt-tuning a foundation model</h2>
+          <p>To prompt-tune a foundation model, you run an experiment that uses training data provided by you. The experiment is a machine learning process that shows the foundation model the output you expect the model to return for your prompt input. The
+            tuning process is complex and involves a data asset, a training asset, and a deployment asset.</p>
+          <p>The python library has methods and helper classes for tuning foundation models. For more information about the library, see <a href="https://ibm.github.io/watsonx-ai-python-sdk/prompt_tuner.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Prompt tuning</a>.</p>
+          <p>Sample notebooks are also available that show you the steps to follow to use the Python library to tune a foundation model:</p>
+          <ul>
+            <li><a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/7695ce52-99b5-4e18-b3d5-de906b9c604a?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Use watsonx to tune Meta llama-2-13b-chat model with Consumer Financial Protection Bureau document</a></li>
+            <li><a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/bf57e8896f3e50c638b5a378780f7502?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Tune a model to classify CFPB documents in watsonx</a></li>
+          </ul>
+          <p>Prompt-tuning a foundation model by using the REST API involves the following steps:</p>
+          <ol>
+            <li>
+              <p>Create a training data file to use for tuning the foundation model.</p>
+              <p>For more information about the training data file requirements, see <a href="fm-tuning-data.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Data formats for tuning foundation models</a>.</p>
+            </li>
+            <li>
+              <p>Upload your training data file.</p>
+              <p>You can choose to add the file by creating one of the following asset types:</p>
+              <ul>
+                <li>
+                  <p><em>Connection asset</em></p>
+                  <p><strong>Note</strong>: Only a Cloud Object Storage connection type is supported for prompt tuning training currently.</p>
+                  <p>Use the Watson Data API to <a href="https://cloud.ibm.com/apidocs/watson-data-api#saveconnection" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">define a connection</a> to your data asset.</p>
+                  <p>You will use the connection ID and training data file details when you add the <code>training_data_references</code> section to the <code>request.json</code> file that you create in the next step.</p>
+                </li>
+                <li>
+                  <p><em>Data asset</em></p>
+                  <p>To create a data asset, use the Watson Data API to <a href="https://cloud.ibm.com/apidocs/watson-data-api#createdataassetv2" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">define a data asset</a>.</p>
+                  <p>You will use the asset ID and training data file details when you add the <code>training_data_references</code> section to the <code>request.json</code> file that you create in the next step.</p>
+                </li>
+              </ul>
+              <p>For more information about the supported ways to reference a training data file, see <a href="https://cloud.ibm.com/apidocs/watsonx-ai#datareferences" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Data references</a>.</p>
+            </li>
+            <li>
+              <p>Use the watsonx.ai API to create a training experiment.</p>
+              <p>See <a href="https://cloud.ibm.com/apidocs/watsonx-ai#trainings-create" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">create a training</a>.</p>
+              <p>You can specify parameters for the experiment in the <code>TrainingResource</code> payload. For more information about available parameters, see <a href="fm-tuning-parameters.html">Parameters for tuning foundation models</a>.</p>
+              <p>For the <code>task_id</code>, specify one of the tasks that are listed as being supported for the foundation model in the response to the <a href="https://cloud.ibm.com/apidocs/watsonx-ai#list-foundation-model-specs" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">List the available foundation models</a> method.</p>
+            </li>
+            <li>
+              <p>Save the tuned model to the repository service to generate an <code>asset_id</code> that points to the tuned model.</p>
+              <p>To save the tuned model, use the Watson Machine Learning API to <a href="https://cloud.ibm.com/apidocs/machine-learning#models-create" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">create a new model</a>.</p>
+            </li>
+            <li>
+              <p>Use the watsonx.ai API to create a deployment for the tuned model.</p>
+              <p>See <a href="https://cloud.ibm.com/apidocs/watsonx-ai#create-deployment" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">create a deployment</a></p>
+            </li>
+          </ol>
+          <p>To inference a tuned model, you must use the inference endpoint that includes the unique ID or serving name of the deployment that hosts the tuned model. For more information, see the <a href="https://cloud.ibm.com/apidocs/watsonx-ai#deployments-text-generation" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">inference methods</a> in the <em>Deployments</em> section.</p>
+        </section>
+        <section id="section-model-ids">
+          <h2 id="model-ids">Foundation model IDs for APIs</h2>
+          <p>The following list shows the values to use in the <code>{model_id}</code> parameter when you reference a foundation model from the API.</p>
+          <p>Alternatively, you can use the <a href="https://cloud.ibm.com/apidocs/watsonx-ai#list-foundation-model-specs" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">List the available foundation models</a> method to get
+            the <code>{model_id}</code> for a foundation model.</p>
+          <ul>
+            <li>
+              <p>codellama-34b-instruct-hf</p>
+              <pre class="codeblock"><code class="lang-txt hljs">codellama/codellama-34b-instruct-hf
+</code></pre>
+            </li>
+            <li>
+              <p>elyza-japanese-llama-2-7b-instruct</p>
+              <pre class="codeblock"><code class="lang-txt hljs">elyza/elyza-japanese-llama-2-7b-instruct
+</code></pre>
+            </li>
+            <li>
+              <p>flan-t5-xxl-11b</p>
+              <pre class="codeblock"><code class="lang-txt hljs">google/flan-t5-xxl
+</code></pre>
+            </li>
+            <li>
+              <p>flan-ul2-20b</p>
+              <pre class="codeblock"><code class="lang-txt hljs">google/flan-ul2
+</code></pre>
+            </li>
+            <li>
+              <p>granite-8b-japanese</p>
+              <pre class="codeblock"><code class="lang-txt hljs">ibm/granite-8b-japanese
+</code></pre>
+            </li>
+            <li>
+              <p>granite-13b-chat-v2</p>
+              <pre class="codeblock"><code class="lang-txt hljs">ibm/granite-13b-chat-v2
+</code></pre>
+            </li>
+            <li>
+              <p>granite-13b-instruct-v2</p>
+              <pre class="codeblock"><code class="lang-txt hljs">ibm/granite-13b-instruct-v2
+</code></pre>
+            </li>
+            <li>
+              <p>granite-20b-multilingual</p>
+              <pre class="codeblock"><code class="lang-txt hljs">ibm/granite-20b-multilingual
+</code></pre>
+            </li>
+            <li>
+              <p>jais-13b-chat</p>
+              <pre class="codeblock"><code class="lang-txt hljs">core42/jais-13b-chat
+</code></pre>
+            </li>
+            <li>
+              <p>llama-3-8b-instruct</p>
+              <pre class="codeblock"><code class="lang-txt hljs">meta-llama/llama-3-8b-instruct
+</code></pre>
+            </li>
+            <li>
+              <p>llama-3-70b-instruct</p>
+              <pre class="codeblock"><code class="lang-txt hljs">meta-llama/llama-3-70b-instruct
+</code></pre>
+            </li>
+            <li>
+              <p>llama-2-13b-chat</p>
+              <pre class="codeblock"><code class="lang-txt hljs">meta-llama/llama-2-13b-chat
+</code></pre>
+            </li>
+            <li>
+              <p>llama-2-70b-chat</p>
+              <pre class="codeblock"><code class="lang-txt hljs">meta-llama/llama-2-70b-chat
+</code></pre>
+            </li>
+            <li>
+              <p>llama2-13b-dpo-v7</p>
+              <pre class="codeblock"><code class="lang-txt hljs">mnci/llama2-13b-dpo-v7
+</code></pre>
+            </li>
+            <li>
+              <p>mixtral-8x7b-instruct-v01</p>
+              <pre class="codeblock"><code class="lang-txt hljs">mistralai/mixtral-8x7b-instruct-v01
+</code></pre>
+            </li>
+            <li>
+              <p>mixtral-8x7b-instruct-v01-q</p>
+              <pre class="codeblock"><code class="lang-txt hljs">ibm-mistralai/mixtral-8x7b-instruct-v01-q
+</code></pre>
+            </li>
+            <li>
+              <p>mt0-xxl-13b</p>
+              <pre class="codeblock"><code class="lang-txt hljs">bigscience/mt0-xxl
+</code></pre>
+            </li>
+            <li>
+              <p>starcoder-15.5b</p>
+              <pre class="codeblock"><code class="lang-txt hljs">bigcode/starcoder
+</code></pre>
+            </li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="fm-code.html">Coding generative AI solutions</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

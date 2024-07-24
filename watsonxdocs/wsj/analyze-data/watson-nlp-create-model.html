@@ -1,0 +1,176 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Certain algorithms in Watson Natural Language Processing can be trained with your own data, for example you can create custom models based on your own data for entity extraction, to classify data, to extract sentiments, and to extract target sentiments.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Creating your own models</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=processing-creating-your-own-models"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="creating-your-own-models" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-creating-your-own-models">
+        <h1 id="creating-your-own-models">Creating your own models</h1>
+        <p>Certain algorithms in Watson Natural Language Processing can be trained with your own data, for example you can create custom models based on your own data for entity extraction, to classify data, to extract sentiments, and to extract target sentiments.</p>
+        <p>Starting with Runtime 23.1 you can use the new built-in transformer-based IBM foundation model called Slate to create your own models. The Slate model has been trained on a very large data set that was preprocessed to filter hate, bias, and profanity.</p>
+        <p>To create your own classification, entity extraction model, or sentiment model you can fine-tune the Slate model on your own data. To train the model in reasonable time, it's recommended to use GPU-based environments.</p>
+        <ul>
+          <li><a href="watson-nlp-entities-dict.html">Detecting entities with a custom dictionary</a></li>
+          <li><a href="watson-nlp-entities-regex.html">Detecting entities with regular expressions</a></li>
+          <li><a href="watson-nlp-entities-transformer.html">Detecting entities with a custom transformer model</a></li>
+          <li><a href="watson-nlp-classify-text.html">Classifying text with a custom classification model</a></li>
+          <li><a href="watson-nlp-extract-sentiment.html">Extracting sentiment with a custom transformer model</a></li>
+          <li><a href="watson-nlp-target-sentiment.html">Extracting targets sentiment with a custom transformer model</a></li>
+        </ul>
+        <section id="section-language-support-for-custom-models">
+          <h2 id="language-support-for-custom-models">Language support for custom models</h2>
+          <p>You can create custom models and use the following pretrained dictionary and classification models for the shown languages. For a list of the language codes and the corresponding languages, see <a href="watson-nlp-block-catalog.html#lang-codes">Language codes</a>.</p>
+          <table>
+            <caption>Supported languages for out-of-the-box custom models</caption>
+            <thead>
+              <tr>
+                <th>Custom model</th>
+                <th>Supported language codes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Dictionary models</td>
+                <td>af, ar, bs, ca, cs, da, de, el, en, es, fi, fr, he, hi, hr, it, ja, ko, nb, nl, nn, pl, pt, ro, ru, sk, sr, sv, tr, zh_cn, zh_tw (all languages supported in the Syntax part of speech tagging)</td>
+              </tr>
+              <tr>
+                <td>Regexes</td>
+                <td>af, ar, bs, ca, cs, da, de, el, en, es, fi, fr, he, hi, hr, it, ja, ko, nb, nl, nn, pl, pt, ro, ru, sk, sr, sv, tr, zh_cn, zh_tw (all languages supported in the Syntax part of speech tagging)</td>
+              </tr>
+              <tr>
+                <td>SVM classification with TFIDF</td>
+                <td>af, ar, ca, cs, da, de, el, en, es, fi, fr, he, hi, hr, it, ja, ko, nb, nl, nn, pl, pt, ro, ru, sk, sr, sv, tr, zh_cn, zh_tw</td>
+              </tr>
+              <tr>
+                <td>SVM classification with USE</td>
+                <td>ar, de, en, es, fr, it, ja, ko, nl, pl, pt, ru, tr, zh_cn, zh_tw</td>
+              </tr>
+              <tr>
+                <td>CNN classification with GloVe</td>
+                <td>ar, de, en, es, fr, it, ja, ko, nl, pt, zh_cn</td>
+              </tr>
+              <tr>
+                <td>BERT Multilingual classification</td>
+                <td>af, ar, ca, cs, da, de, el, en, es, fi, fr, he, hi, hr, it, ja, ko, nb, nl, nn, pl, pt, ro, ru, sk, sr, sv, tr, zh_cn, zh_tw</td>
+              </tr>
+              <tr>
+                <td>Transformer model</td>
+                <td>af, ar, bs, ca, cs, da, de, el, en, es, fi, fr, he, hi, hr, it, ja, ko, nb, nl, nn, pl, pt, ro, ru, sk, sr, sv, tr, zh_cn, zh_tw</td>
+              </tr>
+              <tr>
+                <td>Stopword lists</td>
+                <td>ar, de, en, es, fr, it, ja, ko</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section id="section-saving-and-loading-custom-models">
+          <h2 id="saving-and-loading-custom-models">Saving and loading custom models</h2>
+          <p>If you want to use your custom model in another notebook, save it as a Data Asset to your project. This way, you can export the model as part of a project export.</p>
+          <p>Use the <code>ibm-watson-studio-lib</code> library to save and load custom models.</p>
+          <p>To save a custom model in your notebook as a data asset to export and use in another project:</p>
+          <ol>
+            <li>
+              <p>Ensure that you have an access token on the <strong>Access control</strong> page on the <strong>Manage</strong> tab of your project. Only project admins can create access tokens. The access token can have viewer or editor access permissions.
+                Only editors can inject the token into a notebook.</p>
+            </li>
+            <li>
+              <p>Add the project token to a notebook by clicking <strong>More &gt; Insert project token</strong> from the notebook action bar and then run the cell. When you run the inserted hidden code cell, a <code>wslib</code> object is created that you
+                can use for functions in the <code>ibm-waton-studio-lib</code> library. For details on the available <code>ibm-watson-studio-lib</code> functions, see <a href="ws-lib-python.html">Using <code>ibm-watson-studio-lib</code> for Python</a>.</p>
+            </li>
+            <li>
+              <p>Run the <code>train()</code> method to create a custom dictionary, regular expression, or classification model and assign this custom model to a variable. For example:</p>
+              <pre class="codeblock"><code class="lang-python hljs">custom_block = CNN.train(train_stream, embedding_model.embedding, verbose=<span class="hljs-number">2</span>)
+</code></pre>
+            </li>
+            <li>
+              <p>If you want to save a custom dictionary or regular expression model, convert it to a RBRGeneric block. Converting a custom dictionary or regular expression model to a RBRGeneric block is useful if you want to load and execute the model using
+                the <a href="https://www.ibm.com/docs/en/watson-libraries?topic=home-api-reference" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">API for Watson Natural Language Processing for Embed</a>. To date, Watson Natural
+                Language Processing for Embed supports running dictionary and regular expression models only as RBRGeneric blocks. To convert a model to a RBRGeneric block, run the following commands:</p>
+              <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-comment"># Create the custom regular expression model</span>
+custom_regex_block = watson_nlp.resources.feature_extractor.RBR.train(module_folder, language=<span class="hljs-string">'en'</span>, regexes=regexes)
+
+<span class="hljs-comment"># Save the model to the local file system</span>
+custom_regex_model_path = <span class="hljs-string">'some/path'</span>
+custom_regex_block.save(custom_regex_model_path)
+
+<span class="hljs-comment"># The model was saved in a file "executor.zip" in the provided path, in this case "some/path/executor.zip"</span>
+model_path = os.path.join(custom_regex_model_path, <span class="hljs-string">'executor.zip'</span>)
+
+<span class="hljs-comment"># Re-load the model as a RBRGeneric block</span>
+custom_block = watson_nlp.blocks.rules.RBRGeneric(watson_nlp.toolkit.rule_utils.RBRExecutor.load(model_path), language=<span class="hljs-string">'en'</span>)
+</code></pre>
+            </li>
+            <li>
+              <p>Save the model as a Data Asset to your project using <code>ibm-watson-studio-lib</code>:</p>
+              <pre class="codeblock"><code class="lang-python hljs">wslib.save_data(<span class="hljs-string">"&lt;model name&gt;"</span>, custom_block.as_bytes(), overwrite=<span class="hljs-literal">True</span>)
+</code></pre>
+              <p>When saving transformer models, you have the option to save the model in CPU format. If you plan to use the model only in CPU environments, using this format will make your custom model run more efficiently. To do that, set the CPU format
+                option as follows:</p>
+              <pre class="codeblock"><code class="lang-python hljs">wslib.save_data(<span class="hljs-string">'&lt;model name&gt;'</span>, data=custom_model.as_bytes(cpu_format=<span class="hljs-literal">True</span>), overwrite=<span class="hljs-literal">True</span>)
+</code></pre>
+            </li>
+          </ol>
+          <p>To load a custom model to a notebook that was imported from another project:</p>
+          <ol>
+            <li>
+              <p>Ensure that you have an access token on the <strong>Access control</strong> page on the <strong>Manage</strong> tab of your project. Only project admins can create access tokens. The access token can have viewer or editor access permissions.
+                Only editors can inject the token into a notebook.</p>
+            </li>
+            <li>
+              <p>Add the project token to a notebook by clicking <strong>More &gt; Insert project token</strong> from the notebook action bar and then run the cell. When you run the the inserted hidden code cell, a <code>wslib</code> object is created that
+                you can use for functions in the <code>ibm-watson-studio-lib</code> library. For details on the available <code>ibm-watson-studio-lib</code> functions, see <a href="ws-lib-python.html">Using <code>ibm-watson-studio-lib</code> for Python</a>.</p>
+            </li>
+            <li>
+              <p>Load the model using <code>ibm-watson-studio-lib</code> and <code>watson-nlp</code>:</p>
+              <pre class="codeblock"><code class="lang-python hljs">custom_block = watson_nlp.load(wslib.load_data(<span class="hljs-string">"&lt;model name&gt;"</span>))
+</code></pre>
+            </li>
+          </ol>
+          <p><strong>Parent topic:</strong> <a href="../analyze-data/watson-nlp.html">Watson Natural Language Processing library</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

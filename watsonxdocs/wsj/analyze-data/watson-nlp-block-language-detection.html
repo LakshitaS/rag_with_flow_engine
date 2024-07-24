@@ -1,0 +1,77 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="The Watson Natural Language Processing Language Detection identifies the language of input text.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Language detection</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=catalog-language-detection"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="language-detection" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-language-detection">
+        <h1 id="language-detection">Language detection</h1>
+        <p>The Watson Natural Language Processing Language Detection identifies the language of input text.</p>
+        <p><strong>Block name</strong>
+          <code>lang-detect_izumo_multi_stock </code></p>
+        <p><strong>Supported languages</strong></p>
+        <p>The Language Detection block is able to detect the following languages:</p>
+        <p>af, ar, bs, ca, cs, da, de, el, en, es, fi, fr, he, hi, hr, it, ja, ko, nb, nl, nn, pl, pt, ro, ru, sk, sr, sv, tr, zh_cn, zh_tw</p>
+        <p><strong>Capabilities</strong></p>
+        <p>Use this block to detect the language of an input text.</p>
+        <p><strong>Dependencies on other blocks</strong></p>
+        <p>None</p>
+        <p><strong>Code sample</strong></p>
+        <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-comment"># Load the language detection model</span>
+lang_detection_model = watson_nlp.load(<span class="hljs-string">'lang-detect_izumo_multi_stock'</span>)
+
+<span class="hljs-comment"># Run it on input text</span>
+detected_lang = lang_detection_model.run(<span class="hljs-string">'IBM announced new advances in quantum computing'</span>)
+
+<span class="hljs-comment"># Retrieve language ISO code</span>
+<span class="hljs-built_in">print</span>(detected_lang.to_iso_format())
+</code></pre>
+        <p>Output of the code sample:</p>
+        <pre class="codeblock"><code class="lang-text hljs">EN
+</code></pre>
+        <p><strong>Parent topic:</strong> <a href="watson-nlp-block-catalog.html">Watson Natural Language Processing task catalog</a></p>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Use IBM Watson Machine Learning to deploy and manage AI assets, including models and generative AI assets, and put them into pre-production and production environments. You can monitor the deployed assets for fairness and explainability. Further, you can orchestrate the end-to-end flow of assets from creation through deployment by using IBM Watson Pipelines.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Deploying and managing AI assets</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=deploying-models-other-assets"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="deploying-and-managing-ai-assets" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-deploying-and-managing-ai-assets">
+        <h1 id="deploying-and-managing-ai-assets">Deploying and managing AI assets</h1>
+        <p>Use IBM Watson Machine Learning to deploy and manage AI assets, including models and generative AI assets, and put them into pre-production and production environments. You can monitor the deployed assets for fairness and explainability. Further,
+          you can orchestrate the end-to-end flow of assets from creation through deployment by using IBM Watson Pipelines.</p>
+        <section id="section-deploying-ai-assets-and-orchestrating-pipelines">
+          <h2 id="deploying-ai-assets-and-orchestrating-pipelines">Deploying AI assets and orchestrating pipelines</h2>
+          <p>Deploying your model to the production environment is a crucial step that you must follow after building or importing your model.</p>
+          <p><img src="../analyze-data/images/deploying-orchestrating.svg" alt="AI lifecycle" style="max-width:90%;height:auto;width:auto"></p>
+          <p><strong>Deploy model</strong></p>
+          <p>You can use Watson Machine Learning to deploy, monitor, and manage your AI assets by promoting your assets to a deployment space. You can also use watsonx.ai to deploy tuned foundation models and prompt templates. After deploying your model,
+            you can evaluate your model within your deployment space for fairness, quality, and drift.</p>
+          <p>For more information, see <a href="../analyze-data/ml-overview.html">Deploying AI assets</a>.</p>
+          <p><strong>Automate pipeline</strong></p>
+          <p>You can automate the path to production by building a pipeline to automate parts of the AI lifecycle from building the model to deployment, and evaluate a model to shorten the time from conception to production by using Watson Pipelines.</p>
+          <p>For more information, see <a href="../analyze-data/ml-orchestration-overview.html">Orchestrating tasks with Pipelines</a>.</p>
+        </section>
+        <section id="section-tutorials-and-use-cases">
+          <h2 id="tutorials-and-use-cases">Tutorials and use cases</h2>
+          <p>The following resources demonstrate how to plan for managing machine learning assets and how to build key pieces of your solutions.</p>
+          <section id="section-related-quick-start-tutorials">
+            <h3 id="related-quick-start-tutorials">Related quick start tutorials</h3>
+            <p>Review quick start tutorials to learn how to build and deploy machine learning models:</p>
+            <table>
+              <caption caption-side="top">Quick start tutorials</caption>
+              <thead>
+                <tr>
+                  <th>Tutorial</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><a href="../getting-started/get-started-build.html">Build and deploy a machine learning model</a></td>
+                  <td>Build a machine learning model by using a no-code approach with an automated tool, AutoAI. Deploy the trained model by creating a batch deployment. Score your batch deployment by creating a batch job.</td>
+                </tr>
+                <tr>
+                  <td><a href="../getting-started/get-started-build-notebook.html">Build an deploy a machine learning model in Jupyter Notebook</a></td>
+                  <td>Build a machine learning model by using code in a Jupyter notebook to prepare data, build your model, and deploy your model.</td>
+                </tr>
+                <tr>
+                  <td><a href="../getting-started/get-started-build-notebook.html">Build and deploy a machine learning model with SPSS Modeler</a></td>
+                  <td>Build a machine learning model by using a no-code approach by using an SPSS Modeler flow. Deploy the trained model by creating an online deployment and test the model in real-time.</td>
+                </tr>
+                <tr>
+                  <td><a href="../getting-started/get-started-do.html">Build and deploy a Decision Optimization model</a></td>
+                  <td>Build a machine learning model by using Decision Optimization.</td>
+                </tr>
+                <tr>
+                  <td><a href="../getting-started/get-started-pipeline.html">Automate the lifecycle for a model with pipelines</a></td>
+                  <td>Create and run a pipeline to automate building and deploying a machine learning model.</td>
+                </tr>
+                <tr>
+                  <td><a href="../getting-started/get-started-openscale.html">Evaluate a machine learning model</a></td>
+                  <td>Deploy a model, configure monitors for the deployed model, and evaluate the model.</td>
+                </tr>
+                <tr>
+                  <td><a href="../getting-started/get-started-evaluate-prompt.html">Evaluate and track a prompt template</a></td>
+                  <td>Evaluate and track a prompt template.</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="section-related-use-cases">
+            <h3 id="related-use-cases">Related use cases</h3>
+            <p>The following tutorial uses the scenario for Golden Bank, that needs a model to perform stock anomalies analysis to boost productivity and increase the accuracy of a stock analyst's work in investment banking.</p>
+            <table>
+              <caption caption-side="top">watsonx.ai use cases</caption>
+              <thead>
+                <tr>
+                  <th>Use case</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><a href="../getting-started/get-started-watsonx-ai-e2e.html">End-to-end watsonx.ai tutorial</a></td>
+                  <td>Build your model using any of the tools, such as AutoAI, SPSS Modeler, or Jupyter notebooks, followed by deploying and testing your model. Further, transform your data and tune your foundation model by using watsonx.ai.</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li>
+              <p><a href="../analyze-data/ml-overview.html">Deploying AI assets</a></p>
+            </li>
+            <li>
+              <p><a href="../analyze-data/modelops-overview.html">Managing AI lifecycle with ModelOps</a></p>
+            </li>
+            <li>
+              <p><a href="../analyze-data/ml-orchestration-overview.html">Orchestrating tasks with Pipelines</a></p>
+            </li>
+          </ul>
+          <p><strong>Parent topic</strong>: <a href="../analyze-data/data-science.html">Analyzing data and working with models</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

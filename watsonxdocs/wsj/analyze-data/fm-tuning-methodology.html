@@ -1,0 +1,175 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Tuning a foundation model in watsonx.ai is an iterative process. You run a tuning experiment and then evaluate the results. If necessary, you change experiment variables and rerun the experiment repeatedly until you are satisfied with the output from the tuned foundation model.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Evaluating the results of a tuning experiment</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=studio-evaluating-tuning-experiment-results"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="evaluating-the-results-of-a-tuning-experiment" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-evaluating-the-results-of-a-tuning-experiment">
+        <h1 id="evaluating-the-results-of-a-tuning-experiment">Evaluating the results of a tuning experiment</h1>
+        <p>Tuning a foundation model in watsonx.ai is an iterative process. You run a tuning experiment and then evaluate the results. If necessary, you change experiment variables and rerun the experiment repeatedly until you are satisfied with the output
+          from the tuned foundation model.</p>
+        <p>Check your progress after each experiment run. Find any limitations in your tuning experiment configuration and address them before you assess your training data for potential problems.</p>
+        <p>A sample Python notebook named <em>Use watsonx.aito tune IBM granite-13b-instruct-v2 model with Car Rental Company customer satisfaction document</em> is available that contains code for prompt-tuning foundation models in watsonx.ai. The sample
+          notebook has sections for optimizing the experiment parameters and for inferencing the tuned model. For more information, see <a href="fm-tuning-notebook.html">Tuning a foundation model by using a Python notebook</a>.</p>
+        <section id="section-workflow-for-improving-tuning-experiment-results">
+          <h2 id="workflow-for-improving-tuning-experiment-results">Workflow for improving tuning experiment results</h2>
+          <p>There is no one right set of tuning parameters or training data examples to use. The best tuning parameter settings and data set sizes vary based on your data, the foundation model you use, and the type of task you want the model to do. Follow
+            these steps to save time and stay on track as you experiment.</p>
+          <p>You can use the Tuning Studio to complete these steps or use the sample notebook to do them programmatically.</p>
+          <ol>
+            <li>
+              <p>Before you begin your experimentation, create or preserve a subset of tuning training data to use as a test data set.</p>
+            </li>
+            <li>
+              <p>Run a tuning experiment with the default tuning parameters.</p>
+            </li>
+            <li>
+              <p>Check the loss function for the experiment run.</p>
+              <p>The tuned model is performing well when your loss function has a downward-sloping curve that levels off near zero.</p>
+              <p><img src="images/fm-notebook-loss-curve.png" alt="Shows a function loss graph that represents a successful experiment run. The graph has 10 data points, starting above five and ending close to zero."></p>
+            </li>
+            <li>
+              <p>If necessary, adjust parameter values and rerun the experiment until the loss function levels off to near zero. For more information, see <a href="#edit-tuning-parameters">Adjusting tuning parameters</a>.</p>
+            </li>
+            <li>
+              <p>Test the quality of the tuned model by submitting prompts from the test data set.</p>
+              <p>You can inference the tuned foundation model from the Prompt Lab or programmatically by using the sample notebook. For more information, see <a href="fm-tuning-notebook.html#notebook-evaluate">Using the notebook to evaluate the tuned model</a>.</p>
+            </li>
+            <li>
+              <p>If necessary, revise or augment the training data. For more information, see <a href="#edit-tuning-data">Addressing data quality problems in tuned model output</a>.</p>
+              <p>When new data is introduced, more tuning parameter optimizations might be possible. Rerun the experiment, and then repeat the steps in this workflow starting from Step 3.</p>
+            </li>
+          </ol>
+        </section>
+        <section id="section-edit-tuning-parameters">
+          <h2 id="edit-tuning-parameters">Adjusting tuning parameters</h2>
+          <p>When a tuning experiment run is finished, a loss function graph is displayed. A loss function measures the difference between predicted and actual results with each training run. A successful tuning experiment results in a loss function that
+            has a downward-sloping curve.</p>
+          <p>Where the measure of loss drops and levels off is called the <em>convergence</em>. You want the curve to drop, or <em>converge</em>, and the tail end of the curve to reach as close as possible to 0 because it means that the predicted results
+            are as similar as possible to results from the training data.</p>
+          <p>If the loss function for your experiment resembles a mountain range with multiple peaks, the loss never converges, or the loss converges but remains at a number much higher than zero, adjust your tuning parameters.</p>
+          <p>You can configure the parameter values in the Tuning Studio or use the sample notebook. The sample notebook has steps that help you find the best values to use for your tuning parameters, which is sometimes called <em>hyperparameter optimization</em>.
+            For more information, see <a href="fm-tuning-notebook.html#notebook-optimize">Using the notebook to optimize tuning parameter values</a>.</p>
+          <p>The following table describes common tuning experiment outcomes and lists actions that might improve the outcomes.</p>
+          <table>
+            <caption caption-side="top">Table 1: Actions for addressing common tuning experiment flaws</caption>
+            <thead>
+              <tr>
+                <th>Loss function graph</th>
+                <th>Cause</th>
+                <th>Actions to try</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><img src="images/fm-loss-no-convergence.png" alt="Loss curve is flat and never drops"><br>Loss curve is flat and never drops.</td>
+                <td>Tuning is not improving the results by much.</td>
+                <td>• Increase the learning rate (by 10x) so that the experiment makes more drastic adjustments to the prompt vector.</td>
+              </tr>
+              <tr>
+                <td><img src="images/fm-loss-too-high.png" alt="Loss curve drops but settles too high"><br>Loss curve drops but the tail settles at too-high a number.</td>
+                <td>Tuning is not improving the results by as much as it could.</td>
+                <td>• Increase the learning rate (by 5x) so that the experiment makes bigger adjustments to the prompt vector.</td>
+              </tr>
+              <tr>
+                <td><img src="images/fm-loss-cutoff.png" alt="Loss curve drops but doesn't get as close to zero as possible"><br>Loss curve drops, then decreases steadily but never levels off.</td>
+                <td>Training ended before the model was fully tuned.</td>
+                <td>• Increase the number of epochs to give the model more time to learn.</td>
+              </tr>
+              <tr>
+                <td><img src="images/fm-loss-humped.png" alt="Loss curve goes up and then back down but never goes low enough"><br>Loss curve goes up and then drops, but never gets low enough.</td>
+                <td>Training is unstable because the high learning rate is causing the prompt vector to change too much.</td>
+                <td>Decrease the learning rate (by 10x) to make smaller adjustments to the prompt vector.</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>For more information about how to change tuning parameters and rerun a tuning experiment, see <a href="fm-tuning-tune.html">Tuning a foundation model</a>.</p>
+        </section>
+        <section id="section-edit-tuning-data">
+          <h2 id="edit-tuning-data">Addressing data quality problems in tuned model output</h2>
+          <p>You know that you're done tuning a model when you can submit zero-shot prompts to the tuned model and get back outputs you expect.</p>
+          <p>The following table describes some common training data quality issues and lists actions that you can take to address them.</p>
+          <table>
+            <caption caption-side="top">Table 2: Actions for addressing training data flaws</caption>
+            <thead>
+              <tr>
+                <th>Outcome</th>
+                <th>Cause</th>
+                <th>Actions to try</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Tuned model outputs don't match the content and format of output examples from training data</td>
+                <td>Not enough training data examples</td>
+                <td>Increase the training data size.</td>
+              </tr>
+              <tr>
+                <td>Tuned model outputs are incomplete</td>
+                <td>The tuning process isn't using the examples that you think it's using</td>
+                <td>Watch the length of your training data input and output examples. The maximum input tokens allowed is 256 and the maximum output tokens allowed is 128. Examples that are longer than the maximum allowed length are truncated.</td>
+              </tr>
+              <tr>
+                <td>Missing classification labels in a classification task</td>
+                <td>Not enough examples of each class type for a classification task</td>
+                <td>Add more examples of each class type that you want the model to recognize.</td>
+              </tr>
+              <tr>
+                <td>Missing text extractions in an extraction task</td>
+                <td>Not enough examples of each entity type for an extraction task</td>
+                <td>Add more examples of each entity type that you want the model to recognize.</td>
+              </tr>
+              <tr>
+                <td>Inaccurate class labels or entity type text extractions</td>
+                <td>Insufficient context to choose the correct class or entity type</td>
+                <td>• Add an equal number of examples for each type.<br>• Review the classes or entities that you want the model to identify or extract to make sure that they are distinct from one another.</td>
+              </tr>
+            </tbody>
+          </table>
+          <p><strong>Parent topic:</strong> <a href="fm-tuning-studio.html">Tuning Studio</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

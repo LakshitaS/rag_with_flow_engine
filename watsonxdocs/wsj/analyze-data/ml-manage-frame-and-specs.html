@@ -1,0 +1,96 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can use popular tools, libraries, and frameworks to train and deploy your machine learning models and functions.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Frameworks and software specifications in Watson Machine Learning</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=assets-frameworks-software-specifications"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="frameworks-and-software-specifications-in-watson-machine-learning" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-frameworks-and-software-specifications-in-watson-machine-learning">
+        <h1 id="frameworks-and-software-specifications-in-watson-machine-learning">Frameworks and software specifications in Watson Machine Learning</h1>
+        <p>You can use popular tools, libraries, and frameworks to train and deploy your machine learning models and functions.</p>
+        <section id="section-overview-of-software-specifications">
+          <h2 id="overview-of-software-specifications">Overview of software specifications</h2>
+          <p>Software specifications define the programming language and version that you use for a building a model or a function. You can use software specifications to configure the software that is used for running your models and functions. You can
+            also define the software version to be used and include your own extensions. For example, you can use conda .yml files or custom libraries.</p>
+        </section>
+        <section id="section-supported-frameworks-and-software-specifications">
+          <h2 id="supported-frameworks-and-software-specifications">Supported frameworks and software specifications</h2>
+          <p>You can use predefined tools, libraries, and frameworks to train and deploy your machine learning models and functions. Examples of supported frameworks include Scikit-learn, Tensorflow, and more.</p>
+          <p>For more information, see <a href="../analyze-data/pm_service_supported_frameworks.html">Supported deployment frameworks and software specifications</a>.</p>
+          <p><img src="images/frameworks-software-specs.png" alt="Frameworks and software specifications for model delpoyments" style="max-width:90%;height:auto;width:auto"></p>
+        </section>
+        <section id="section-software-spec-lifecycle">
+          <h2 id="software-spec-lifecycle">Lifecycle of supported frameworks and software specifications</h2>
+          <p>Frameworks and software specifications that are supported when you install or upgrade to the latest version of Cloud Pak for Data go through deprecation, constriction, and discontinuation phases in future releases of Cloud Pak for Data, described
+            as follows:</p>
+          <ol>
+            <li>
+              <p><strong>Deprecated:</strong> The runtime environment corresponding to the software specification is supported when you install or upgrade to the latest version of Cloud Pak for Data, but will be removed in an upcoming release.</p>
+              <p>For example, the software specification <code>runtime-22.2-py3.10</code> is deprectaed in Cloud Pak for Data version 4.8.4. In this case, if you install or upgrade to a new Watson Machine Learning service instance, you can create or deploy
+                machine learning models that use <code>runtime-22.2-py3.10</code>. However, the support for <code>runtime-22.2-py3.10</code> will be discontinued in an upcoming release, so you must upgrade to the latest software specification to make
+                sure that your deployments are supported.</p>
+            </li>
+            <li>
+              <p><strong>Constricted:</strong> The runtime environment corresponding to the software specification is supported when you upgrade to the latest version of Cloud Pak for Data. However, the runtime environment is not supported when you install
+                the latest version of Cloud Pak for Data.</p>
+              <p>For example, the software specification <code>runtime-22.1-py3.9</code> is constricted in Cloud Pak for Data version 4.8.0. In this case, if you install a new Watson Machine Learning service instance, you cannot create or deploy machine
+                learning models that use <code>runtime-22.1-py3.9</code>. However, if you upgrade from Cloud Pak for Data version 4.7.0 to version 4.8.0, the existing models that you created and deployed with 4.7.0 are supported. You can also create new
+                deployments based on models that use constricted software specifications during an upgrade.</p>
+            </li>
+            <li>
+              <p><strong>Discontinued:</strong> The runtime environment corresponding to the software specification is not supported when you install or upgrade to the latest version of Cloud Pak for Data.</p>
+              <p>For example, the software specification <code>tensorflow_rt22.1-py3.9-nnpa</code> is discontinued for Cloud Pak for Data version 4.8.0. In this case, if you install or upgrade to a new Watson Machine Learning service instance, you cannot
+                create or deploy machine learning models that use <code>tensorflow_rt22.1-py3.9-nnpa</code>.</p>
+            </li>
+          </ol>
+        </section>
+        <section id="section-managing-outdated-frameworks-and-software-specifications">
+          <h2 id="managing-outdated-frameworks-and-software-specifications">Managing outdated frameworks and software specifications</h2>
+          <p>Update software specifications and frameworks in your models when they become outdated. Sometimes, you can seamlessly update your assets. In other cases, you must retrain or redeploy your assets.</p>
+          <p>For more information, see <a href="../analyze-data/ml-manage-outdated.html">Managing outdated software specifications or frameworks</a>.</p>
+          <p><strong>Parent topic:</strong> <a href="ml-overview.html">Deploying assets with Watson Machine Learning</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

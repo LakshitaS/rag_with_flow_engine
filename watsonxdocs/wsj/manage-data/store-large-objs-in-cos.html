@@ -1,0 +1,123 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="The amount of data you can load to a project's Cloud Object Storage at any one time depends on where you load the data from. If you are loading the data in the product UI, the limit is 5 GB. To add larger objects to a project's Cloud Object Storage, you can use an API or an FTP client.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Adding very large objects to a project's Cloud Object Storage</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=project-adding-very-large-files"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="adding-very-large-objects-to-a-projects-cloud-object-storage" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-adding-very-large-objects-to-a-projects-cloud-object-storage">
+        <h1 id="adding-very-large-objects-to-a-projects-cloud-object-storage">Adding very large objects to a project's Cloud Object Storage</h1>
+        <p>The amount of data you can load to a project's Cloud Object Storage at any one time depends on where you load the data from. If you are loading the data in the product UI, the limit is 5 GB. To add larger objects to a project's Cloud Object Storage,
+          you can use an API or an FTP client.</p>
+        <ul>
+          <li><a href="#api">The Cloud Object Storage API</a></li>
+          <li>An FTP client</li>
+          <li><a href="https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-python#python-examples" target="_blank" rel="noopener noreferrer">The IBM Cloud Object Storage Python SDK</a> (in case you can't use an FTP client)</li>
+        </ul>
+        <section id="section-api">
+          <h2 id="api">Load data in multiple parts by using the Cloud Object Storage API</h2>
+          <p>With the Cloud Object Storage API, you can load data objects as large as 5 GB in a single PUT, and objects as large as 10 TB by loading the data into object storage as a set of parts which can be loaded independently in any order and in parallel.
+            After all of the parts have been loaded, they are presented as a single object in Cloud Object Storage.</p>
+          <p>You can load files with these formats and mime types in multiple parts:</p>
+          <ul>
+            <li>application/xml</li>
+            <li>application/pdf</li>
+            <li>text/plain; charset=utf-8</li>
+          </ul>
+          <p>To load a data object in multiple parts:</p>
+          <ol>
+            <li>Initiate a <a href="https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-large-objects#large-objects-multipart-api-initiate" target="_blank" rel="noopener noreferrer">multipart upload</a>:</li>
+          </ol>
+          <pre class="codeblock"><code class="lang-shell hljs">curl -X "POST" "https://(endpoint)/(bucket-name)/(object-name)?uploads"
+ -H "Authorization: bearer (token)"
+</code></pre>
+          <p>The value for <code>bucket-name</code> can be found on your project's <strong>General</strong> page on the <strong>Manage</strong> tab. Click <strong>Manage in IBM Cloud</strong> on the Watson Studio for the <code>endpoint</code> value. The
+            value for the bearer <code>token</code> is retrieved via the <a href="https://cloud.ibm.com/apidocs/iam-identity-token-api">IBM Cloud IAM API</a>.</p>
+          <ol start="2">
+            <li>Load the parts by specifying arbitrary sequential part numbers and an UploadId for the object:</li>
+          </ol>
+          <pre class="codeblock"><code class="lang-shell hljs">curl -X "PUT" "https://(endpoint)/(bucket-name)/(object-name)?partNumber=(sequential-integer)&amp;uploadId=(upload-id)"
+ -H "Authorization: bearer (token)"
+ -H "Content-Type: (content-type)"
+</code></pre>
+          <p>Replace<code>content-type</code> with <code>application/xml</code>, <code>application/pdf</code> or <code>text/plain; charset=utf-8</code>.</p>
+          <ol start="3">
+            <li>Complete the multipart load:</li>
+          </ol>
+          <pre class="codeblock"><code class="lang-shell hljs">  curl -X "POST" "https://(endpoint)/(bucket-name)/(object-name)?uploadId=(upload-id)"
+ -H "Authorization: bearer (token)"
+ -H "Content-Type: text/plain; charset=utf-8"
+ -d \$'&lt;CompleteMultipartUpload&gt;
+         &lt;Part&gt;
+           &lt;PartNumber&gt;1&lt;/PartNumber&gt;
+           &lt;ETag&gt;(etag)&lt;/ETag&gt;
+         &lt;/Part&gt;
+         &lt;Part&gt;
+           &lt;PartNumber&gt;2&lt;/PartNumber&gt;
+           &lt;ETag&gt;(etag)&lt;/ETag&gt;
+         &lt;/Part&gt;
+</code></pre>
+          <ol start="4">
+            <li>Add your file to the project as an asset. From the <strong>Assets</strong> page of your project, click the <strong>Import assets</strong> button. Then from the <strong>Project</strong> files page, select the file you uploaded to your Cloud
+              Object Storage and click <strong>Import</strong>.</li>
+          </ol>
+        </section>
+        <section id="section-next-steps">
+          <h2 id="next-steps">Next steps</h2>
+          <ul>
+            <li><a href="../refinery/refining_data.html">Refining the data</a></li>
+            <li><a href="../analyze-data/data-science.html">Analyzing the data and building models</a></li>
+          </ul>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li>Storing large objects in <a href="https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-large-objects">Cloud Object Storage</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong>
+            <a href="../manage-data/create-conn.html">Adding connections to projects</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can tune foundation models in IBM watsonx.ai programmatically by using the Python library.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Tuning a foundation model by using a Python notebook</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=library-tuning-foundation-model-notebook"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="tuning-a-foundation-model-by-using-a-python-notebook" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-tuning-a-foundation-model-by-using-a-python-notebook">
+        <h1 id="tuning-a-foundation-model-by-using-a-python-notebook">Tuning a foundation model by using a Python notebook</h1>
+        <p>You can tune foundation models in IBM watsonx.ai programmatically by using the Python library.</p>
+        <p>For more information about the library and prerequisite steps, see <a href="fm-python-lib.html">Foundation models Python library</a>.</p>
+        <section id="section-sample-notebook">
+          <h2 id="sample-notebook">Sample notebook</h2>
+          <p>The <a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/a41b230d-b714-40ab-975f-1bec7435cfc4?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Use watsonx to tune IBM granite-13b-instruct-v2 model with Car Rental Company customer satisfaction document</a>            sample Python notebook contains code for prompt-tuning foundation models in watsonx.ai.</p>
+          <p>The sample notebook helps you with the two main phases of tuning:</p>
+          <ul>
+            <li><a href="#notebook-optimize">Finding the optimal tuning parameter values</a></li>
+            <li><a href="#notebook-evaluate">Prompting the tuned model to evaluate the quality of tuned model output</a></li>
+          </ul>
+          <p>The sample notebook is designed to prompt-tune the granite-13b-instruct-v2 model. But you can use it for tuning other foundation models also. To do so, replace the <code>base_model</code> references as follows:</p>
+          <ul>
+            <li><code>base_model='meta-llama/llama-2-13b-chat'</code></li>
+            <li><code>base_model='google/flan-t5-xl'</code></li>
+          </ul>
+          <p>If you change the foundation model, you must replace the training data also. Replace the file path in the <em>Data loading</em> section of the notebook.</p>
+          <pre class="codeblock"><code class="lang-json hljs">url = <span class="hljs-string">"{path to your file}"</span>
+if not os.path.isfile(filename)<span class="hljs-punctuation">:</span> 
+    wget.download(url)
+</code></pre>
+          <p>You can also use a sample notebook that tunes the other foundation models that can be prompt-tuned.</p>
+          <ul>
+            <li>
+              <p><a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/bf57e8896f3e50c638b5a378780f7502" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Tune a model to classify CFPB documents in watsonx</a></p>
+              <p>The flan-t5 notebook has steps to tune the foundation model, but does not include a step for hyperparameter optimization.</p>
+            </li>
+            <li>
+              <p><a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/7695ce52-99b5-4e18-b3d5-de906b9c604a?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Use watsonx.ai to tune Meta llama-2-13b-chat model with Consumer Financial Protection Bureau documents</a></p>
+            </li>
+          </ul>
+          <section id="section-notebook-optimize">
+            <h3 id="notebook-optimize">Using the sample notebook to optimize tuning parameter values</h3>
+            <p>The sample notebook has code that optimizes the <code>learning_rate</code> parameter value. The sample notebook systematically changes the learning rate value and reruns the experiment 10 times, so the loss can be compared across the 10 runs.
+              The sample notebook calculates the optimal learning rate value for you.</p>
+            <p>The sample notebook generates 10 separate experiments; it does not run the same experiment 10 times.</p>
+            <p>The parameter to optimize is defined in the <em>Search space and optimization</em> section of the notebook.</p>
+            <p>You can edit or add to the sample notebook to run automated code to optimize the following parameters in addition to learning rate:</p>
+            <ul>
+              <li><code>accumulate_steps</code></li>
+              <li><code>batch_size</code></li>
+              <li><code>num_epochs</code></li>
+            </ul>
+            <p>To check for the optimal values for many parameters at once, you can change the sample notebook to use code like this, for example:</p>
+            <pre class="codeblock"><code class="lang-python hljs">SPACE = [
+    skopt.space.Real(<span class="hljs-number">0.001</span>, <span class="hljs-number">0.09</span>, name=<span class="hljs-string">'learning_rate'</span>, prior=<span class="hljs-string">'log-uniform'</span>),
+    skopt.space.Integer(<span class="hljs-number">1</span>, <span class="hljs-number">50</span>, name=<span class="hljs-string">'num_epochs'</span>, prior=<span class="hljs-string">'uniform'</span>),
+    skopt.space.Integer(<span class="hljs-number">1</span>, <span class="hljs-number">16</span>, name=<span class="hljs-string">'batch_size'</span>, prior=<span class="hljs-string">'uniform'</span>)
+]
+</code></pre>
+            <p>Optimizing many parameters at once can save time because the parameters work together. Their values affect one another and the right balance of values among them leads to the best results.</p>
+            <p>The sample notebook uses methods from the scikit-optimize library. For more information, see the <a href="https://scikit-optimize.github.io/stable/modules/classes.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">scikit-optimize API reference</a>.</p>
+          </section>
+          <section id="section-notebook-evaluate">
+            <h3 id="notebook-evaluate">Using the sample notebook to evaluate the tuned model</h3>
+            <p>The sample notebook has code that deploys the tuned model, inferences the tuned model, and then calculates the accuracy of the tuned model output. It also inferences the underlying foundation model and calculates the accuracy of the base model
+              output, so that you can see a comparison.</p>
+            <p>If you want to use the sample notebook to tune and assess other models, you can replace the value of the <code>model_id</code> parameter in the following code.</p>
+            <pre class="codeblock"><code class="lang-python hljs">base_model = ModelInference(
+    model_id=<span class="hljs-string">'ibm/granite-13b-instruct-v2'</span>,
+    params=generate_params,
+    api_client=client
+)
+</code></pre>
+            <p>For example, specify <code>meta-llama/llama-2-13b-chat</code> or <code>google/flan-t5-xl</code>.</p>
+            <p>You must also replace the prompt text with a prompt from your own training data set.</p>
+            <pre class="codeblock"><code class="lang-python hljs">response = tuned_model.generate_text(prompt=<span class="hljs-string">"{your text here}"</span>)
+</code></pre>
+            <p>If the accuracy score for your tuned model is low, review some ideas for ways to improve your training data in <a href="fm-tuning-methodology.html#edit-tuning-data">Addressing data quality problems in tuned model output</a>.</p>
+            <p>Remember, optimization of the tuning parameters is specific to the model and training data that you are using. If you change either the model or the training data, you need to reassess the tuning experiment. Adjust the tuning parameters again
+              to optimize them for your augmented data set.</p>
+            <p><strong>Parent topic:</strong> <a href="fm-python-lib.html">Python library</a></p>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

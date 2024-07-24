@@ -1,0 +1,96 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="A token is a collection of characters that has semantic meaning for a model. Tokenization is the process of converting the words in your prompt into tokens.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Tokens and tokenization</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=solutions-tokens"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="tokens-and-tokenization" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-tokens-and-tokenization">
+        <h1 id="tokens-and-tokenization">Tokens and tokenization</h1>
+        <p>A <em>token</em> is a collection of characters that has semantic meaning for a model. Tokenization is the process of converting the words in your prompt into tokens.</p>
+        <p>You can monitor foundation model token usage in a project on the <strong>Environments</strong> page on the <strong>Resource usage</strong> tab.</p>
+        <section id="section-converting-words-to-tokens-and-back-again">
+          <h2 id="converting-words-to-tokens-and-back-again">Converting words to tokens and back again</h2>
+          <p>Prompt text is converted to tokens before the prompt is processed by foundation models.</p>
+          <p>The correlation between words and tokens is complex:</p>
+          <ul>
+            <li>Sometimes a single word is broken into multiple tokens</li>
+            <li>The same word might be broken into a different number of tokens, depending on context (such as: where the word appears, or surrounding words)</li>
+            <li>Spaces, newline characters, and punctuation are sometimes included in tokens and sometimes not</li>
+            <li>The way words are broken into tokens varies from language to language</li>
+            <li>The way words are broken into tokens varies from model to model</li>
+          </ul>
+          <p>For a rough idea, a sentence that has 10 words might be 15 to 20 tokens.</p>
+          <p>The raw output from a model is also tokens. In the Prompt Lab in IBM watsonx.ai, the output tokens from the model are converted to words to be displayed in the prompt editor.</p>
+          <section id="section-example">
+            <h3 id="example">Example</h3>
+            <p>The following image shows how this sample input might be tokenized:</p>
+            <blockquote>
+              <p>Tomatoes are one of the most popular plants for vegetable gardens. Tip for success: If you select varieties that are resistant to disease and pests, growing tomatoes can be quite easy. For experienced gardeners looking for a challenge, there
+                are endless heirloom and specialty varieties to cultivate. Tomato plants come in a range of sizes.</p>
+            </blockquote>
+            <p><img src="images/fm-tokenization.png" alt="Visualization of tokenization" style="width: 800px; max-width: 90%;" data-tearsheet="this"></p>
+            <p>Notice a few interesting points:</p>
+            <ul>
+              <li>Some words are broken into multiple tokens and some are not</li>
+              <li>The word "Tomatoes" is broken into multiple tokens at the beginning, but later "tomatoes" is all one token</li>
+              <li>Spaces are sometimes included at the beginning of a word-token and sometimes spaces are a token all by themselves</li>
+              <li>Punctuation marks are tokens</li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-token-limits">
+          <h2 id="token-limits">Token limits</h2>
+          <p>Every model has an upper limit to the number of tokens in the input prompt plus the number of tokens in the generated output from the model. This limit is sometimes called <em>context window length</em>, <em>context window</em>, <em>context length</em>,
+            or <em>maximum sequence length</em>. In the Prompt Lab, an informational message shows how many tokens are used in a prompt submission and the resulting generated output.</p>
+          <p>In the Prompt Lab, you use the <em>Max tokens</em> parameter to specify an upper limit on the number of output tokens for the model to generate. The maximum number of tokens that are allowed in the output differs by model. For more information,
+            see the <em>Maximum tokens</em> information in <a href="fm-models.html">Supported foundation models</a>.</p>
+          <p>If the prompts that you need to submit for your use case regularly exceed the context window limit, explore strategies for decreasing the size of your prompt. For more information, see <a href="fm-context-length.html">Techniques for overcoming context length limitations</a>.</p>
+          <p>You can use the watsonx.ai API to check how many tokens will be calculated for your prompt by a foundation model before you submit it. For more information, see <a href="https://cloud.ibm.com/apidocs/watsonx-ai#text-tokenization" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Text tokenization</a>.</p>
+          <p>For information about how tokens are measured for billing purposes, see <a href="../getting-started/wml-plans.html">Watson Machine Learning plans</a>.</p>
+          <p><strong>Parent topic:</strong> <a href="fm-overview.html">Developing generative AI solutions</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

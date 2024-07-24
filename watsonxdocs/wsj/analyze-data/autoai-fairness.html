@@ -1,0 +1,421 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Evaluate an experiment for fairness to ensure that your results are not biased in favor of one group over another.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Applying fairness testing to AutoAI experiments</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=autoai-evaluating-experiments-fairness"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="applying-fairness-testing-to-autoai-experiments" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-applying-fairness-testing-to-autoai-experiments">
+        <h1 id="applying-fairness-testing-to-autoai-experiments">Applying fairness testing to AutoAI experiments</h1>
+        <p>Evaluate an experiment for fairness to ensure that your results are not biased in favor of one group over another.</p>
+        <section id="section-limitations">
+          <h3 id="limitations">Limitations</h3>
+          <p>Fairness evaluations are not supported for time series experiments.</p>
+        </section>
+        <section id="section-evaluating-experiments-and-models-for-fairness">
+          <h2 id="evaluating-experiments-and-models-for-fairness">Evaluating experiments and models for fairness</h2>
+          <p>When you define an experiment and produce a machine learning model, you want to be sure that your results are reliable and unbiased. Bias in a machine learning model can result when the model learns the wrong lessons during training. This scenario
+            can result when insufficient data or poor data collection or management results in a poor outcome when the model generates predictions. It is important to evaluate an experiment for signs of bias to remediate them when necessary and build
+            confidence in the model results.</p>
+          <p>AutoAI includes the following tools, techniques, and features to help you evaluate and remediate an experiment for bias.</p>
+          <ul>
+            <li><a href="#terms">Definitions and terms</a></li>
+            <li><a href="#fairness-ui">Applying fairness test for an AutoAI experiment in the UI</a></li>
+            <li><a href="#fairness-api">Applying fairness test for an AutoAI experiment in a notebook</a></li>
+            <li><a href="#fairness-results">Evaluating results</a></li>
+            <li><a href="#bias-mitigation">Bias mitigation</a></li>
+          </ul>
+        </section>
+        <section id="section-terms">
+          <h2 id="terms">Definitions and terms</h2>
+          <p><strong>Fairness Attribute</strong> - Bias or Fairness is typically measured by using a fairness attribute such as gender, ethnicity, or age.</p>
+          <p><strong>Monitored/Reference Group</strong> - Monitored group are those values of fairness attribute for which you want to measure bias. Values in the monitored group are compared to values in the reference group. For example, if <code>Fairness Attribute=Gender</code>            is used to measure bias against females, then the monitored group value is “Female” and the reference group value is “Male”.</p>
+          <p><strong>Favourable/Unfavourable outcome</strong> - An important concept in bias detection is that of favorable and unfavorable outcome of the model. For example, <code>Claim approved</code> might be considered a favorable outcome and <code>Claim denied</code>            might be considered as an unfavorable outcome.</p>
+          <p><strong>Disparate impact</strong> - The metric used to measure bias (computed as the ratio of percentage of favorable outcome for the monitored group to the percentage of favorable outcome for the reference group). Bias is said to exist if the
+            disparate impact value is less than a specified threshold.</p>
+          <p>For example, if 80% of insurance claims that are made by males are approved but only 60% of claims that are made by females are approved, then the disparate impact is: 60/80 = 0.75. Typically, the threshold value for bias is 0.8. As this disparate
+            impact ratio is less than 0.8, the model is considered to be biased.</p>
+          <p>Note when the disparate impact ratio is greater than 1.25 [inverse value (1/disparate impact) is under the threshold 0.8] it is also considered as biased.</p>
+        </section>
+        <section id="section-video-preview">
+          <h2 id="video-preview">Watch a video about evaluating and improving fairness</h2>
+          <p>Watch this video to see how to evaluate a machine learning model for fairness to ensure that your results are not biased.</p>
+          <div class="note Video disclaimer"><span class="Video disclaimertitle">Video disclaimer:</span> Some minor steps and graphical elements in this video might differ from your platform.</div>
+          <p style="font-size:smaller">This video provides a visual method to learn the concepts and tasks in this documentation.</p>
+          <iframe id="wml-autoai-fairness" src="https://video.ibm.com/embed/channel/23952663/video/wml-autoai-fairness" onload="executeEmbedScript()" lang="en-US" style="border: 0;" webkitallowfullscreen="" allowfullscreen="" frameborder="no" width="560" height="315" title="Create a model that evaluates and improves fairness">
+</iframe>
+          <style type="text/css" keep="true">
+            .collapsibleList li>input+* {
+              display: none;
+            }
+            
+            .collapsibleList li>input:checked+* {
+              display: block;
+            }
+            
+            .collapsibleList li>input {
+              display: none;
+            }
+            
+            .collapsibleList label {
+              cursor: pointer;
+              color: #0062ff;
+              text-decoration: underline;
+            }
+            
+            .scrolling_table_div {
+              max-height: 300px;
+              overflow-y: auto;
+              padding-top: 20px;
+              margin-bottom: 30px;
+            }
+            
+            .transcript_sync_cb {
+              margin: 20px;
+            }
+            
+            .transcript_tbl {
+              border-collapse: collapse;
+              border: none;
+            }
+            
+            .transcript_tbl th,
+            .transcript_tbl td {
+              border: none;
+            }
+            
+            .clickable {
+              cursor: pointer;
+              color: #0062ff;
+              vertical-align: top;
+            }
+            
+            .clickable:hover {
+              text-decoration: underline;
+            }
+          </style>
+          <script keep="true" src="https://unpkg.com/ibm-video-streaming-web-player-api@1.1.0/dist/index.umd.min.js"></script>
+          <script keep="true">
+            var g_viewer = null;
+            var g_b_is_playing = false;
+            var g_b_do_retry = true;
+            var g_highlighted_row_num = -1;
+            var g_org_color = "";
+
+            var g_loop = setInterval(function() {
+              if (g_viewer && document.getElementById("sync_cb_wml-autoai-fairness").checked) {
+                synchronize();
+              }
+
+            }, 2 * 1000);
+
+            function executeEmbedScript() {
+              if (g_viewer) {
+                // Chrome is running this function twice??
+                return;
+              }
+
+              g_viewer = PlayerAPI("wml-autoai-fairness");
+
+              var url = window.location.href;
+              if (!url.match(/t\=\d+/i)) {
+                return;
+              }
+
+              g_viewer.addListener("playing", function(event_key, b_is_playing) {
+                g_b_is_playing = b_is_playing;
+
+                if (b_is_playing) {
+                  g_b_do_retry = false;
+                }
+
+              });
+
+              document.getElementById("transcript_btn_wml-autoai-fairness").click();
+              var seconds = url.replace(/^.*t\=(\d+).*$/i, "$1");
+              synchronize(seconds);
+              jumpToTimeRetry(seconds, 5);
+            }
+
+            function jumpTo(obj) {
+              var seconds = obj.parentNode.id;
+              jumpToTime(seconds);
+            }
+
+            function jumpToTime(seconds) {
+              g_viewer.callMethod("seek", seconds);
+              g_viewer.callMethod("play");
+            }
+
+            function jumpToTimeRetry(seconds, iteration) {
+              if (iteration < 1) {
+                // Give up
+                return;
+              }
+
+              g_viewer.callMethod("seek", seconds);
+              g_viewer.callMethod("play");
+
+              setTimeout(function() {
+                // Wait 1.5 seconds and then try again
+                if (g_b_do_retry) {
+                  jumpToTimeRetry(seconds, iteration - 1);
+                }
+
+              }, 1.5 * 1000);
+            }
+
+            function synchronize(seconds_in) {
+              if (seconds_in) {
+                scrollAndHighlight(seconds_in);
+                return;
+              }
+
+              g_viewer.getProperty("progress", function(seconds) {
+                scrollAndHighlight(seconds);
+
+              });
+
+            }
+
+            function scrollAndHighlight(seconds) {
+              var rows_arr = document.getElementsByClassName("video_tr");
+              for (var i = (rows_arr.length - 1); i >= 0; i--) {
+                if (parseInt(rows_arr[i].id) > seconds) {
+                  continue;
+                }
+
+                if (i == g_highlighted_row_num) {
+                  break;
+                }
+
+                if (-1 !== g_highlighted_row_num) {
+                  unhighlight(rows_arr[g_highlighted_row_num]);
+                }
+
+                g_highlighted_row_num = i;
+                highlight(rows_arr[g_highlighted_row_num]);
+                scrollToRow(rows_arr[g_highlighted_row_num]);
+
+                break;
+              }
+
+            }
+
+            function scrollToRow(row_obj) {
+              var row_top = row_obj.offsetTop;
+              var row_bottom = row_top + row_obj.clientHeight;
+
+              var scroller = document.getElementById("transcript_div_wml-autoai-fairness");
+              var scroll_top = scroller.scrollTop;
+              var scroll_bottom = scroll_top + scroller.clientHeight;
+
+              if ((row_top < scroll_top) && (row_bottom > scroll_bottom)) {
+                // Edge case: Row taller than div
+                // Don't do anything
+              } else if ((row_top < scroll_top) || (row_bottom > scroll_bottom)) {
+                scroller.scrollTop = row_top;
+              }
+            }
+
+            function highlight(row_obj) {
+              var obj_arr = row_obj.childNodes;
+              for (var i = 0; i < obj_arr.length; i++) {
+                if ("TD" == obj_arr[i].nodeName) {
+                  g_org_color = obj_arr[i].style.backgroundColor;
+                  obj_arr[i].style.backgroundColor = "#c6c6c6";
+                }
+              }
+            }
+
+            function unhighlight(row_obj) {
+              var obj_arr = row_obj.childNodes;
+              for (var i = 0; i < obj_arr.length; i++) {
+                if ("TD" == obj_arr[i].nodeName) {
+                  obj_arr[i].style.backgroundColor = g_org_color;
+                }
+              }
+            }
+
+            function toggleHighlighting() {
+              if (!document.getElementById("sync_cb_wml-autoai-fairness").checked && (-1 !== g_highlighted_row_num)) {
+                var rows_arr = document.getElementsByClassName("video_tr");
+                unhighlight(rows_arr[g_highlighted_row_num]);
+                g_highlighted_row_num = -1;
+              }
+            }
+          </script>
+        </section>
+        <section id="section-fairness-ui">
+          <h2 id="fairness-ui">Applying fairness test for an AutoAI experiment in the UI</h2>
+          <ol>
+            <li>
+              <p>Open <strong>Experiment Settings</strong>.</p>
+            </li>
+            <li>
+              <p>Click the <em>Fairness</em> tab.</p>
+            </li>
+            <li>
+              <p>Enable options for fairness. The options are as follows:</p>
+              <ul>
+                <li><em>Fairness evaluation:</em> Enable this option to check each pipeline for bias by calculating the disparate impact ration. This method tracks whether a pipeline shoes a tendency to provide a favorable (preferred) outcome for one group
+                  more often than another.</li>
+                <li><em>Fairness threshold:</em> Set a fairness threshold to determine whether bias exists in a pipeline based on the value of the disparate impact ration. The default is 80, which represents a disparate impact ratio less than 0.80.</li>
+                <li><em>Favorable outcomes:</em> Specify the value from your prediction column that would be considered favorable. For example, the value might be "approved", "accepted" or whatever fits your prediction type.</li>
+                <li><em>Automatic protected attribute method:</em> Choose how to evaluate features that are a potential source of bias. You can specify automatic detection, in which case AutoAI detects commonly protected attributes, including: sex, ethnicity,
+                  marital status, age, and zip or postal code. Within each category, AutoAI tries to determine a protected group. For example, for the <code>sex</code> category, the monitored group would be <code>female</code>.</li>
+              </ul>
+              <div class="note note"><span class="notetitle">Note:</span> In automatic mode, it is likely that a feature is not identified correctly as a protected attribute if it has untypical values, for example, being in a language other than English. Auto-detect is only
+                supported for English.</div>
+              <ul>
+                <li><em>Manual protected attribute method:</em> Manually specify an outcome and supply the protected attribute by choosing from a list of attributes. Note when you manually supply attributes, you must then define a group and specify whether
+                  it is likely to have the expected outcomes (the reference group) or should be reviewed to detect variance from the expected outcomes (the monitored group).</li>
+              </ul>
+            </li>
+          </ol>
+          <p>For example, this image shows a set of manually specified attribute groups for monitoring.</p>
+          <p><img src="images/autoai-fairness1.png" alt="Evaluating a group for potential bias"></p>
+          <p>Save the settings to apply and run the experiment to apply the fairness evaluation to your pipelines.</p>
+          <p><strong>Notes:</strong></p>
+          <ul>
+            <li>For multiclass models, you can select multiple values in the prediction column to classify as favorable or not.</li>
+            <li>For regression models, you can specify a range of outcomes that are considered to be favorable or not.</li>
+            <li>Fairness evaluations are not currently available for time series experiments.</li>
+          </ul>
+          <section id="section-list-of-automatically-detected-attributes-for-measuring-fairness">
+            <h3 id="list-of-automatically-detected-attributes-for-measuring-fairness">List of automatically detected attributes for measuring fairness</h3>
+            <p>When automatic detection is enabled, AutoAI will automatically detect the following attributes if they are present in the training data. The attributes must be in English.</p>
+            <ul>
+              <li>age</li>
+              <li>citizen_status</li>
+              <li>color</li>
+              <li>disability</li>
+              <li>ethnicity</li>
+              <li>gender</li>
+              <li>genetic_information</li>
+              <li>handicap</li>
+              <li>language</li>
+              <li>marital</li>
+              <li>political_belief</li>
+              <li>pregnancy</li>
+              <li>religion</li>
+              <li>veteran_status</li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-fairness-api">
+          <h2 id="fairness-api">Applying fairness test for an AutoAI experiment in a notebook</h2>
+          <p>You can perform fairness testing in an AutoAI experiment that is trained in a notebook and extend the capabilities beyond what is provided in the UI.</p>
+          <section id="section-bias-detection-example">
+            <h3 id="bias-detection-example">Bias detection example</h3>
+            <p>In this example, by using the Watson Machine Learning Python API (ibm-watson-machine-learning), the optimizer configuration for bias detection is configured with the following input, where:</p>
+            <ul>
+              <li>name - experiment name</li>
+              <li>prediction_type - type of the problem</li>
+              <li>prediction_column - target column name</li>
+              <li>fairness_info - bias detection configuration</li>
+            </ul>
+            <pre class="codeblock"><code class="lang-python hljs">fairness_info = {
+            <span class="hljs-string">"protected_attributes"</span>: [
+                {
+                    <span class="hljs-string">"feature"</span>: <span class="hljs-string">"personal_status"</span>, 
+                    <span class="hljs-string">"reference_group"</span>: [<span class="hljs-string">"male div/sep"</span>, <span class="hljs-string">"male mar/wid"</span>, <span class="hljs-string">"male single"</span>],
+                    <span class="hljs-string">"monitored_group"</span>: [<span class="hljs-string">"female div/dep/mar"</span>]
+                },
+                {
+                    <span class="hljs-string">"feature"</span>: <span class="hljs-string">"age"</span>, 
+                    <span class="hljs-string">"reference_group"</span>: [[<span class="hljs-number">26</span>, <span class="hljs-number">100</span>]],
+                    <span class="hljs-string">"monitored_group"</span>: [[<span class="hljs-number">1</span>, <span class="hljs-number">25</span>]]}
+            ],
+            <span class="hljs-string">"favorable_labels"</span>: [<span class="hljs-string">"good"</span>],
+            <span class="hljs-string">"unfavorable_labels"</span>: [<span class="hljs-string">"bad"</span>],
+}
+
+<span class="hljs-keyword">from</span> ibm_watson_machine_learning.experiment <span class="hljs-keyword">import</span> AutoAI
+
+experiment = AutoAI(wml_credentials, space_id=space_id)
+pipeline_optimizer = experiment.optimizer(
+    name=<span class="hljs-string">'Credit Risk Prediction and bias detection - AutoAI'</span>,
+    prediction_type=AutoAI.PredictionType.BINARY,
+    prediction_column=<span class="hljs-string">'class'</span>,
+    scoring=<span class="hljs-string">'accuracy'</span>,
+    fairness_info=fairness_info,
+    retrain_on_holdout=<span class="hljs-literal">False</span>
+   )
+</code></pre>
+          </section>
+        </section>
+        <section id="section-fairness-results">
+          <h2 id="fairness-results">Evaluating results</h2>
+          <p>You can view the evaluation results for each pipeline.</p>
+          <ol>
+            <li>From the <em>Experiment summary</em> page, click the filter icon for the Pipeline leaderboard.</li>
+            <li>Choose the Disparate impact metrics for your experiment. This option evaluates one general metric and one metric for each monitored group.</li>
+            <li>Review the pipeline metrics for disparate impact to determine whether you have a problem with bias or just to determine which pipeline performs better for a fairness evaluation.</li>
+          </ol>
+          <p>In this example, the pipeline that was ranked first for accuracy also has a disparate income score that is within the acceptable limits.</p>
+          <p><img src="images/autoai-fairness3.png" alt="Viewing the fairness results"></p>
+        </section>
+        <section id="section-bias-mitigation">
+          <h2 id="bias-mitigation">Bias mitigation</h2>
+          <p>If bias is detected in an experiment, you can mitigate it by optimizing your experiment by using "combined scorers": <a href="https://lale.readthedocs.io/en/latest/modules/lale.lib.aif360.util.html#lale.lib.aif360.util.accuracy_and_disparate_impact" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab"><code>accuracy_and_disparate_impact</code></a> or <a href="https://lale.readthedocs.io/en/latest/modules/lale.lib.aif360.util.html#lale.lib.aif360.util.r2_and_disparate_impact" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab"><code>r2_and_disparate_impact</code></a>, both defined by the open source <a href="https://lale.readthedocs.io/en/latest/index.html">LALE package</a>.</p>
+          <p>Combined scorers are used in the search and optimization process to return fair and accurate models.</p>
+          <p>For example, to optimize for bias detection for a classification experiment:</p>
+          <ol>
+            <li>Open <strong>Experiment Settings</strong>.</li>
+            <li>On the <em>Predictions</em> page, choose to optimize <strong>Accuracy and disparate impact</strong> in the experiment.</li>
+            <li>Rerun the experiment.</li>
+          </ol>
+          <p>The <em>Accuracy and disparate impact</em> metric creates a combined score for accuracy and fairness for classification experiments. A higher score indicates better performance and fairness measures. If the disparate impact score is between
+            0.9 and 1.11 (an acceptable level), the accuracy score is returned. Otherwise, a disparate impact value lower than the accuracy score is returned, with a lower (negative) value which indicates a fairness gap.</p>
+          <p>Read this <a href="https://lukasz-cmielowski.medium.com/bias-detection-and-mitigation-in-ibm-autoai-406db0e19181" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Medium blog post on Bias detection in AutoAI</a>.</p>
+          <section id="section-next-steps">
+            <h3 id="next-steps">Next steps</h3>
+            <p><a href="autoai-troubleshoot.html">Troubleshooting AutoAI experiments</a></p>
+            <p><strong>Parent topic</strong>: <a href="autoai-overview.html">AutoAI overview</a></p>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="The Watson OpenScale service can detect direct and indirect bias and uses two types of debiasing: active and passive. Passive debiasing reveals bias, while active debiasing prevents bias by changing the model in real time.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Reviewing debiased transactions</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=transactions-reviewing-debiased"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="reviewing-debiased-transactions" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-reviewing-debiased-transactions">
+        <h1 id="reviewing-debiased-transactions">Reviewing debiased transactions</h1>
+        <!-- Old title: Mitigating bias -->
+        <p>The Watson OpenScale service can detect direct and indirect bias and uses two types of debiasing: active and passive. Passive debiasing reveals bias, while active debiasing prevents bias by changing the model in real time.</p>
+        <p>The algorithm applies a method called <em>perturbation</em> to evaluate differences in expected outcomes in the data. For more information on how bias is computed, see <a href="wos-fairness-impl-det.html">Calculating fairness</a>.</p>
+        <p class="shortdesc">When you evaluate deployments for fairness, Watson OpenScale detects both direct and <a href="wos-indirect-bias.html">indirect bias</a> bias of the transactions from the payload logging table.</p>
+        <section id="section-it-dbo-passive">
+          <h2 id="it-dbo-passive">Passive debiasing</h2>
+          <p>Passive debiasing is the work that Watson OpenScale does by itself, automatically, every hour. It is considered passive because it happens without user intervention. When Watson OpenScale checks for bias, it also debiases the data. It analyzes
+            the behavior of the model, and identifies the data where the model acts in a biased manner.</p>
+          <p>Watson OpenScale then builds a machine learning model to predict whether the model is likely to act in a biased manner on a given, new data point. Watson OpenScale then analyzes the data that is received by the model, on an hourly basis, and
+            finds the data points that cause bias. For such data points, the fairness attribute is perturbed from minority to majority, and majority to minority, and the perturbed data is sent to the original model for prediction. The prediction of the
+            perturbed record, along with the original prediction is used to calculate the bias.</p>
+          <p>Watson OpenScale debiases the identified biased records that the model receives in the past hour. It also computes the fairness for the debiased output, and displays it in the <strong>Debiased model</strong> tab.</p>
+        </section>
+        <section id="section-it-dbo-active">
+          <h2 id="it-dbo-active">Active debiasing</h2>
+          <p>Active debiasing is a way for you to request and bring debiased results into your application through the REST API endpoint. You can actively invoke Watson OpenScale to know the debiased prediction of your model so that you can run your application
+            in a no bias way. In active debiasing, you can use a debiasing REST API endpoint from your application. This REST API endpoint internally calls your model, and checks its behavior.</p>
+          <p>If Watson OpenScale detects that the model is acting in a biased manner, it perturbs the data, and sends it back to the original model. After internal analysis on the perturbed data point, if Watson OpenScale detects that the model is behaving
+            in a biased manner on the data point, then the output of the original model on the perturbed data is returned as the debiased prediction.</p>
+          <p>If Watson OpenScale determines that the original model is not acting in a biased manner, then Watson OpenScale returns the original model's prediction as the debiased prediction. Thus, by using this REST API endpoint, you can ensure that your
+            application does not base decisions on biased output.</p>
+        </section>
+        <section id="section-review-debiased-data">
+          <h2 id="review-debiased-data">Reviewing data for debiased values</h2>
+          <p>When the fairness evaluation runs, Watson OpenScale stores the debiased values in the payload logging table of the model deployment. All scoring transactions done through this endpoint are automatically debiased, as applicable. You can access
+            the debiased scoring endpoint just as you would the normal scoring endpoint for your deployed model. In addition to returning the response of your deployed model, it also returns the <code>debiased_prediction</code> and <code>debiased_probability</code>            columns.</p>
+          <ul>
+            <li>
+              <p>The <code>debiased_prediction</code> column contains the debiased prediction value.</p>
+            </li>
+            <li>
+              <p>The <code>debiased_probability</code> column represents the probability of the debiased prediction. This array of double values represents the probability of the debiased prediction that belongs to one of the prediction classes.</p>
+            </li>
+          </ul>
+          <section id="section-enabling-the-debiasing-parameter">
+            <h3 id="enabling-the-debiasing-parameter">Enabling the debiasing parameter</h3>
+            <p>Debiasing is disabled by default when you configure new deployments in Watson OpenScale. You can also set the <code>perform_debias</code> parameter to <code>true</code> in the parameters section of the Python SDK or specify the <code>PERFORM_DEBIASING</code>              pod-level environment label to enable debiasingm, as shown in the following example:</p>
+            <pre class="codeblock"><code class="lang-python hljs">wos_client.monitor_instances.update(
+            monitor_instance_id=&lt;FAIRNESS_MONITOR_INSTANCE_ID&gt;,
+            patch_document=[JsonPatchOperation(
+                op=OperationTypes.ADD,
+                path=<span class="hljs-string">'/parameters/perform_debias'</span>,
+                value=<span class="hljs-literal">True</span>
+            )],update_metadata_only=<span class="hljs-literal">True</span>
+        )
+</code></pre>
+            <p>When you patch the monitor instance, the fairness monitor runs debiasing during the next evaluation.</p>
+            <p>For more information, see the <a href="https://client-docs.aiopenscale.cloud.ibm.com/html/index.html">Watson OpenScale Python SDK documentation</a>.</p>
+          </section>
+        </section>
+        <section id="section-mf-debias-steps">
+          <h2 id="mf-debias-steps">Reviewing debiased transactions</h2>
+          <p>You can use the debiased transactions endpoint to review debiased transactions for fairness evaluations. For more information, see <a href="wos-send-model-transactions.html">Sending model transactions in Watson OpenScale</a>.</p>
+          <div class="note note"><span class="notetitle">Note:</span> Ideally, you would directly call the debias endpoint from your production application instead of calling the scoring endpoint from the machine learning provider.</div>
+          <p>Because the debias endpoint deals with runtime bias, it continues to run background checks for the scoring data from the payload logging table. It also keeps updating the bias mitigation model, which debiases the scoring requests. In this way,
+            Watson OpenScale is always up to date with the incoming data, and with its behavior to detect and mitigate bias.</p>
+          <p>You can configure a fairness threshold in Watson OpenScale to indicate when data is acceptable and unbiased.</p>
+          <section id="section-mitigate-bias-with-a-new-version-of-the-model">
+            <h3 id="mitigate-bias-with-a-new-version-of-the-model">Mitigate bias with a new version of the model:</h3>
+            <ul>
+              <li>You must build a new version of the model that fixes the problem. Watson OpenScale stores biased records in the manual labeling table. These biased records must be manually labeled and then the model is retrained through the additional data
+                to build a new version of the model that is unbiased.</li>
+            </ul>
+          </section>
+          <section id="section-extract-a-list-of-the-individual-biased-records">
+            <h3 id="extract-a-list-of-the-individual-biased-records">Extract a list of the individual biased records:</h3>
+            <ul>
+              <li>Connect to the manual labeling table and read the records by using standard SQL queries.</li>
+            </ul>
+            <div class="note note"><span class="notetitle">Note:</span> Ideally, you would directly call the debias endpoint from your production application instead of calling the scoring endpoint from the machine learning provider.</div>
+            <!-- Added this last point from one of the removed F.A.Qs -->
+            <p><strong>Parent topic:</strong> <a href="wos-insight-explain.html">Reviewing model transactions</a></p>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

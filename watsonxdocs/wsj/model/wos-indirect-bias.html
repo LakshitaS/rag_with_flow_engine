@@ -1,0 +1,124 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Under certain conditions, you can configure Watson OpenScale fairness evaluations to consider indirect bias as well as direct bias for a model deployment.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Configuring fairness evaluations for indirect bias in Watson OpenScale</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=evaluations-configuring-indirect-bias"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="mf-debias-indirect" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-mf-debias-indirect">
+        <h1 id="mf-debias-indirect">Configuring fairness evaluations for indirect bias in Watson OpenScale</h1>
+        <p>Under certain conditions, you can configure Watson OpenScale fairness evaluations to consider indirect bias as well as direct bias for a model deployment.</p>
+        <p>Indirect bias occurs when one feature in a data set can be used to stand in for another. For example, in a data set where race is not a known feature, a feature such as postal-code can often track closely to race. Evaluating the postal-code feature
+          for bias is a way of detecting indirect bias. In another example, customer purchasing history might correspond closely with sex. Thus, even a predictive model that does not contain any of the typical protected attributes such as race, age, or
+          sex might indicate biased results.</p>
+        <p>Watson OpenScale analyzes indirect bias when the following conditions are met:</p>
+        <ul>
+          <li>To find correlations, the data set must be sufficiently large (more than 4000 records).</li>
+          <li>The training data must include the meta fields. You must train the model on a subset of data fields. These additional fields, the meta fields, are for determining indirect bias. (Include the meta fields, but don't use them in model training.)</li>
+          <li>Payload logging must contain meta fields and be run before the fairness monitor is configured. You must use this method to upload the meta fields to the Watson OpenScale service. Payload logging for indirect bias requires two types of input:
+            1) training features with values and 2) meta fields with values.</li>
+          <li>When you configure the fairness monitor, select the additional fields to monitor.</li>
+        </ul>
+        <section id="section-mf-debias-indirect-workflow">
+          <h3 id="mf-debias-indirect-workflow">Typical workflow for indirect bias</h3>
+          <p>However, you can determine indirect bias for preproduction and production models the models require different columns. The test data that is used to evaluate preproduction models and the feedback data that is used to evaluate either preproduction
+            or production models differ on the use of meta columns. Meta columns are required for the test data for preproduction and cannot be included in the feedback data that is used for preproduction or production models. A typical workflow, might
+            include the following steps:</p>
+          <ol>
+            <li>Create training data that contains both feature columns and meta columns. The meta columns contain data that is not used to train the model.</li>
+            <li>In Watson OpenScale, configure the fairness monitor with the meta columns.</li>
+            <li>During preproduction, upload test data that contains both the feature columns and the meta columns. This test data must be uploaded by using the <strong>Import test data</strong> CSV option.</li>
+            <li>During pre-production, you might interate on different versions of the model while using the indirect bias measures to ensure that your final model is free of bias.</li>
+            <li>After you send the model to production, the feedback data should not have any of the meta columns, only the feature columns that were used to train the model.</li>
+          </ol>
+        </section>
+        <section id="section-mf-debias-indirect-sample-json">
+          <h3 id="mf-debias-indirect-sample-json">Sample JSON payload file with meta fields</h3>
+          <p>The following sample file shows a JSON payload with the fields and values that are used to train the model. The meta fields and values that are used for the indirect bias analysis are also included. The meta fields are not used to train the
+            model, instead they are reserved for a different kind of analysis that attempts to correlate them to bias in the model. Although the meta fields can be any type of data, they are usually protected attributes, such as sex, race, or age.</p>
+          <pre class="codeblock"><code class="lang-json hljs"><span class="hljs-punctuation">[</span>request_data = <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"fields"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">"AGE"</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"SEX"</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"BP"</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"CHOLESTEROL"</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"NA"</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"K"</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"values"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">[</span><span class="hljs-number">28</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"F"</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"LOW"</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"HIGH"</span><span class="hljs-punctuation">,</span> <span class="hljs-number">0.61</span><span class="hljs-punctuation">,</span> <span class="hljs-number">0.026</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">]</span>
+  <span class="hljs-punctuation">}</span>
+
+response_data = <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"fields"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">"AGE"</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"SEX"</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"BP"</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"CHOLESTEROL"</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"NA"</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"K"</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"probability"</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"prediction"</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"DRUG"</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"values"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">[</span><span class="hljs-number">28</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"F"</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"LOW"</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"HIGH"</span><span class="hljs-punctuation">,</span> <span class="hljs-number">0.61</span><span class="hljs-punctuation">,</span> <span class="hljs-number">0.026</span><span class="hljs-punctuation">,</span> <span class="hljs-punctuation">[</span><span class="hljs-number">0.82</span><span class="hljs-punctuation">,</span> <span class="hljs-number">0.07</span><span class="hljs-punctuation">,</span> <span class="hljs-number">0.0</span><span class="hljs-punctuation">,</span> <span class="hljs-number">0.05</span><span class="hljs-punctuation">,</span> <span class="hljs-number">0.03</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span> <span class="hljs-number">0.0</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"drugY"</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">]</span>
+  <span class="hljs-punctuation">}</span>
+
+request_data = &lt;put your data here&gt;
+response_data = &lt;put your data here&gt;
+
+records = <span class="hljs-punctuation">[</span>PayloadRecord(request=request_data<span class="hljs-punctuation">,</span> response=response_data<span class="hljs-punctuation">,</span> response_time=<span class="hljs-number">18</span>)<span class="hljs-punctuation">,</span> 
+                PayloadRecord(request=request_data<span class="hljs-punctuation">,</span> response=response_data<span class="hljs-punctuation">,</span> response_time=<span class="hljs-number">12</span>)<span class="hljs-punctuation">]</span>
+
+subscription.payload_logging.store(records=records)
+</code></pre>
+          <p>Meta values must be in the format of an array of arrays:</p>
+          <pre class="codeblock"><code class="lang-json hljs"><span class="hljs-attr">"meta"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+<span class="hljs-attr">"fields"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">"age"</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"race"</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"sex"</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">"values"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+<span class="hljs-punctuation">[</span><span class="hljs-number">32</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"Black"</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"Male"</span><span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+        </section>
+        <section id="section-mf-debias-indirect-steps">
+          <h3 id="mf-debias-indirect-steps">Configuring the Watson OpenScale service for indirect bias</h3>
+          <p>When you set up the fairness monitor, select the fields to monitor. Include both training features and fields that are excluded from model training. If you select a field that is excluded from model training, Watson OpenScale finds correlations
+            between values in that field and values in the training features. The correlated features are used as proxies for the fields that were excluded from model training.</p>
+          <p><img src="images/wos-indirect-bias.png" alt="Indirect bias displays" height="500px"></p>
+          <p>Some fields are training features. Others fields that are not training features are identified as meta fields. For the selected meta fields, Watson OpenScale checks for indirect bias.</p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="wos-insight-debias.html">Debiasing options</a></li>
+            <li>For a notebook for indirect bias, <a href="https://github.com/IBM/watson-openscale-samples/blob/main/IBM%20Cloud/WML/notebooks/indirect_bias/OpenScale%20Indirect%20Bias%20and%20Watson%20ML.ipynb" target="_blank" class="external">Watson OpenScale Indirect Bias detection</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="wos-monitors-overview.html">Configuring model evaluations</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

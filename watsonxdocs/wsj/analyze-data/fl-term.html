@@ -1,0 +1,105 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Terminology that is used in IBM Federated Learning training processes.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Terminology</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=started-terminology"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="terminology" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <!--AZ - Topic ready for 4.5 review-->
+      <section id="section-terminology">
+        <h1 id="terminology">Terminology</h1>
+        <p>Terminology that is used in IBM Federated Learning training processes.</p>
+        <section id="section-term">
+          <h2 id="term">Terminology</h2>
+          <table>
+            <caption caption-side="top">Federated Learning terminology</caption>
+            <thead>
+              <tr>
+                <th>Term</th>
+                <th>Definition</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Party</td>
+                <td>Users that contribute different sources of data to train a model collaboratively. Federated Learning ensures that the training occurs with no data exposure risk across the different parties.<br>A party must have at least <em>Viewer</em>                  permission in the Watson Studio Federated Learning project.</td>
+              </tr>
+              <tr>
+                <td>Admin</td>
+                <td>A party member that configures the Federated Learning experiment to specify how many parties are allowed, which frameworks to use, and sets up the Remote Training Systems (RTS). They start the Federated Learning experiment and see it to
+                  the end.<br>An admin must have at least <em>Editor</em> permission in the Watson Studio Federated Learning project.</td>
+              </tr>
+              <tr>
+                <td>Remote Training System</td>
+                <td>An asset that is used to authenticate a party to the aggregator. Project members register in the Remote Training System (RTS) before training. Only one of the members can use one RTS to participate in an experiment as a party. Multiple
+                  contributing parties must each authenticate with one RTS for an experiment.</td>
+              </tr>
+              <tr>
+                <td>Aggregator</td>
+                <td>The aggregator fuses the model results between the parties to build one model.</td>
+              </tr>
+              <tr>
+                <td>Fusion method</td>
+                <td>The algorithm that is used to combine the results that the parties return to the aggregator.</td>
+              </tr>
+              <tr>
+                <td>Data handler</td>
+                <td>In IBM Federated Learning, data handler is a class that is used to load and pre-process data. It also helps to ensure that data that is collected from multiple sources are formatted uniformly to be trained. More details about the data
+                  handler can be found in <a href="fl-handler.html">Data Handler</a>.</td>
+              </tr>
+              <tr>
+                <td>Global model</td>
+                <td>The resulting model that is fused between different parties.</td>
+              </tr>
+              <tr>
+                <td>Training round</td>
+                <td>A training round is the process of local data training, global model fusion, and update. Training is iterative. The admin can choose the number of training rounds.</td>
+              </tr>
+            </tbody>
+          </table>
+          <p><strong>Parent topic:</strong> <a href="fl-get-started.html">Get started</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

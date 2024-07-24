@@ -1,0 +1,94 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can use the geospatio-temporal library to expand your data science analysis in Python notebooks to include location analytics by gathering, manipulating and displaying imagery, GPS, satellite photography and historical data.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Geospatial data analysis</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=scripts-geospatial-data-analysis"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="geospatial-data-analysis" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-geospatial-data-analysis">
+        <h1 id="geospatial-data-analysis">Geospatial data analysis</h1>
+        <p>You can use the geospatio-temporal library to expand your data science analysis in Python notebooks to include location analytics by gathering, manipulating and displaying imagery, GPS, satellite photography and historical data.</p>
+        <p>The gespatio-temporal library is available in all IBM Watson Studio Spark with Python runtime environments.</p>
+        <section id="section-key-functions">
+          <h2 id="key-functions">Key functions</h2>
+          <p>The geospatio-temporal library includes functions to read and write data, topological functions, geohashing, indexing, ellipsoidal and routing functions.</p>
+          <p>Key aspects of the library include:</p>
+          <ul>
+            <li>All calculated geometries are accurate without the need for projections.</li>
+            <li>The geospatial functions take advantage of the distributed processing capabilities provided by Spark.</li>
+            <li>The library includes native geohashing support for geometries used in simple aggregations and in indexing, thereby improving storage retrieval considerably.</li>
+            <li>The library supports extensions of Spark distributed joins.</li>
+            <li>The library supports the SQL/MM extensions to Spark SQL.</li>
+          </ul>
+        </section>
+        <section id="section-getting-started-with-the-library">
+          <h2 id="getting-started-with-the-library">Getting started with the library</h2>
+          <p>Before you can start using the library in a notebook, you must register <code>STContext</code> in your notebook to access the <code>st</code> functions.</p>
+          <p>To register <code>STContext</code>:</p>
+          <pre class="codeblock"><code class="lang-sh hljs">from pyst import STContext
+stc = STContext(spark.sparkContext._gateway)
+</code></pre>
+        </section>
+        <section id="section-geospatio-next-steps">
+          <h2 id="geospatio-next-steps">Next steps</h2>
+          <p>After you have registered <code>STContext</code> in your notebook, you can begin exploring the spatio-temporal library for:</p>
+          <ul>
+            <li>Functions to read and write data</li>
+            <li>Topological functions</li>
+            <li>Geohashing functions</li>
+            <li>Geospatial indexing functions</li>
+            <li>Ellipsoidal functions</li>
+            <li>Routing functions</li>
+          </ul>
+          <p>Check out the following sample Python notebooks to learn how to use these different functions in Python notebooks:</p>
+          <ul>
+            <li><a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/92c6ab6ea922d1da6a2cc9496a277005" target="_blank" class="external">Use the spatio-temporal library for location analytics</a></li>
+            <li><a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/a7432f0c29c5bda2fb42749f3628d981" target="_blank" class="external">Use spatial indexing to query spatial data</a></li>
+            <li><a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/27ecffa80bd3a386fffca1d8d1256ba7" target="_blank" class="external">Spatial queries in PySpark</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="notebooks-and-scripts.html">Notebooks and scripts</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

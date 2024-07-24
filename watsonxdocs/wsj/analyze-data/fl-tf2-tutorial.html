@@ -1,0 +1,353 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="This tutorial demonstrates the usage of Federated Learning with the goal of training a machine learning model with data from different users without having users share their data. The steps are done in a low code environment with the UI and with a Tensorflow framework.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Federated Learning Tensorflow tutorial</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=samples-tensorflow-tutorial"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="federated-learning-tensorflow-tutorial" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-federated-learning-tensorflow-tutorial">
+        <h1 id="federated-learning-tensorflow-tutorial">Federated Learning Tensorflow tutorial</h1>
+        <p>This tutorial demonstrates the usage of Federated Learning with the goal of training a machine learning model with data from different users without having users share their data. The steps are done in a low code environment with the UI and with
+          a Tensorflow framework.</p>
+        <div class="note note"><span class="notetitle">Note:</span>
+          <md-block>
+            <p>This is a step-by-step tutorial for running a UI driven Federated Learning experiment. To see a code sample for an API driven approach, see <a href="fl-tf2-samples.html">Federated Learning Tensorflow samples</a>.</p>
+            <p></p>
+          </md-block>
+        </div>
+        <p></p>
+        <div class="note tip"><span class="tiptitle">Tip:</span>
+          <md-block>
+            <p>In this tutorial, <em>admin</em> refers to the user that starts the Federated Learning experiment, and <em>party</em> refers to one or more users who send their model results after the experiment is started by the admin. While the tutorial
+              can be done by the admin and multiple parties, a single user can also complete a full runthrough as both the admin and the party. For a simpler demonstrative purpose, in the following tutorial only one data set is submitted by one party.
+              For more information on the admin and party, see <a href="fl-term.html">Terminology</a>.</p>
+            <p></p>
+          </md-block>
+        </div>
+        <p></p>
+        <br> Watch this short video tutorial of how to create a Federated Learning experiment with Watson Studio.
+        <div class="note Video disclaimer"><span class="Video disclaimertitle">Video disclaimer:</span> Some minor steps and graphical elements in this video might differ from your platform.</div>
+        <div>
+          <p style="font-size:smaller">This video provides a visual method to learn the concepts and tasks in this documentation.</p><iframe id="wm-fl-experiment" src="https://video.ibm.com/embed/channel/23952663/video/fl-experiment" lang="en-US" style="border: 0;" webkitallowfullscreen="" allowfullscreen="" frameborder="no" width="560" height="315" title="Create a Federated Learning Experiment in a project" alt="Create a Federated Learning Experiment in a project"></iframe></div>
+        <p>In this tutorial you will learn to:</p>
+        <ul>
+          <li><a href="#step-1">Step 1: Start Federated Learning as the admin</a></li>
+          <li><a href="#step-2">Step 2: Train model as a party</a></li>
+          <li><a href="#step-3">Step 3: Save and deploy the model online</a></li>
+        </ul>
+        <section id="section-step-1">
+          <h2 id="step-1">Step 1: Start Federated Learning as the admin</h2>
+          <p>In this tutorial, you train a Federated Learning experiment with a Tensorflow framework and the MNIST data set.</p>
+          <section id="section-before-you-begin">
+            <h3 id="before-you-begin">Before you begin</h3>
+            <ol>
+              <li>
+                <p>Log in to <a href="https://cloud.ibm.com/" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud</a>. If you don't have an account, create one with any email.</p>
+              </li>
+              <li>
+                <p><a href="https://cloud.ibm.com/catalog/services/machine-learning" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Create a Watson Machine Learning service instance</a> if you do not have it set up in your environment.</p>
+              </li>
+              <li>
+                <p>Log in to <a href="https://dataplatform.cloud.ibm.com/home2?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">watsonx</a>.</p>
+              </li>
+              <li>
+                <p>Use an existing <a href="../getting-started/projects.html">project</a> or create a new one. You must have at least admin permission.</p>
+              </li>
+              <li>
+                <p>Associate the Watson Machine Learning service with your project.</p>
+                <ol>
+                  <li>In your project, click the <strong>Manage &gt; Service &amp; integrations</strong>.</li>
+                  <li>Click <strong>Associate service</strong>.</li>
+                  <li>Select your Watson Machine Learning instance from the list, and click <strong>Associate</strong>; or click <strong>New service</strong> if you do not have one to set up an instance.</li>
+                </ol>
+                <p><img src="../analyze-data/images/fl_tut_add_wml_service.png" alt="Screenshot of associating the service" style="max-width:90%;height:auto;width:auto"></p>
+              </li>
+              <li>
+                <p>Log in to your Cloud Pak for Data cluster.</p>
+              </li>
+              <li>
+                <p><a href="https://www.ibm.com/docs/SSQNUZ_4.8.x/svc-wml/wml-install.html">Install the Watson Machine Learning image</a> if you do not have it set up in your environment.</p>
+              </li>
+              <li>
+                <p>Use an existing <a href="../getting-started/projects.html">project</a> or create a new one. You must have at least editor permission.</p>
+              </li>
+            </ol>
+          </section>
+          <section id="section-start-the-aggregator">
+            <h3 id="start-the-aggregator">Start the aggregator</h3>
+            <ol>
+              <li>
+                <p>Create the Federated learning experiment asset:</p>
+                <ol>
+                  <li>
+                    <p>Click the <strong>Assets</strong> tab in your project.</p>
+                  </li>
+                  <li>
+                    <p>Click <strong>New asset &gt; Train models on distributed data</strong>.</p>
+                  </li>
+                  <li>
+                    <p>Type a <em>Name</em> for your experiment and optionally a description.</p>
+                  </li>
+                  <li>
+                    <p>Verify the associated Watson Machine Learning instance under <em>Select a machine learning instance</em>. If you don't see a Watson Machine Learning instance associated, follow these steps:</p>
+                    <ol>
+                      <li>
+                        <p>Click <strong>Associate a Machine Learning Service Instance</strong>.</p>
+                      </li>
+                      <li>
+                        <p>Select an existing instance and click <strong>Associate</strong>, or create a <strong>New service</strong>.</p>
+                      </li>
+                      <li>
+                        <p>Click <strong>Reload</strong> to see the associated service.</p>
+                        <p><img src="../analyze-data/images/fl_demo_2.png" alt="Screenshot of associating the service" height="70%" width="70%"></p>
+                      </li>
+                      <li>
+                        <p>Click <strong>Next</strong>.</p>
+                      </li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+              <li>
+                <p>Configure the experiment.</p>
+                <ol>
+                  <li>
+                    <p>On the <em>Configure</em> page, select a <em>Hardware specification</em>.</p>
+                  </li>
+                  <li>
+                    <p>Under the <em>Machine learning framework</em> dropdown, select <strong>Tensorflow 2</strong>.</p>
+                  </li>
+                  <li>
+                    <p>Select a <em>Model type</em>.</p>
+                  </li>
+                  <li>
+                    <p>Download the <a href="https://github.com/IBMDataScience/sample-notebooks/raw/master/Files/tf_mnist_model.zip" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">untrained model</a>.</p>
+                  </li>
+                  <li>
+                    <p>Back in the Federated Learning experiment, click <strong>Select</strong> under <em>Model specification</em>.</p>
+                  </li>
+                  <li>
+                    <p>Drag the downloaded file named <code>tf_mnist_model.zip</code> onto the <em>Upload</em> file box.1. Select <code>runtime-22.2-py3.10</code> for the <strong>Software Specification</strong> dropdown.</p>
+                  </li>
+                  <li>
+                    <p>Give your model a name, and then click <strong>Add</strong>.</p>
+                    <p><img src="../analyze-data/images/fl_demo_3.png" alt="Screenshot of importing an initial model" height="70%" width="70%"></p>
+                  </li>
+                  <li>
+                    <p>Click <strong>Weighted average</strong> for the <em>Fusion method</em>, and click <strong>Next</strong>.</p>
+                    <p><img src="../analyze-data/images/fl_demo_4.png" alt="Screenshot of Fusion methods UI" height="70%" width="70%"></p>
+                  </li>
+                </ol>
+              </li>
+              <li>
+                <p>Define the hyperparameters.</p>
+                <ol>
+                  <li>
+                    <p>Accept the default hyperparameters or adjust as needed.</p>
+                  </li>
+                  <li>
+                    <p>When you are finished, click <strong>Next</strong>.</p>
+                  </li>
+                </ol>
+              </li>
+              <li>
+                <p>Select remote training systems.</p>
+                <ol>
+                  <li>Click <strong>Add new systems</strong>.</li>
+                </ol>
+                <p><img src="../analyze-data/images/fl_demo_7.png" alt="Screenshot of Add RTS UI" height="70%" width="70%"></p>
+                <ol>
+                  <li>
+                    <p>Give your Remote Training System a name.</p>
+                  </li>
+                  <li>
+                    <p>Under <strong>Allowed identities</strong>, choose the user that is your party, and then click <strong>Add</strong>. In this tutorial, you can add a dummy user or yourself, for demonstrative purposes.<br>This user must be added to your
+                      project as a collaborator with <em>Editor</em> or higher permissions. Add additional systems by repeating this step for each remote party you intent to use.</p>
+                  </li>
+                  <li>
+                    <p>When you are finished, click <strong>Add systems</strong>.</p>
+                    <p><img src="../analyze-data/images/fl_demo_8.png" alt="Screenshot of adding users" height="70%" width="70%"></p>
+                  </li>
+                  <li>
+                    <p>Return to the <em>Select remote training systems</em> page, verify that your system is selected, and then click <strong>Next</strong>.</p>
+                  </li>
+                </ol>
+              </li>
+              <li>
+                <p>Review your settings, and then click <strong>Create</strong>.</p>
+              </li>
+              <li>
+                <p>Watch the status. Your Federated Learning experiment status is <em>Pending</em> when it starts. When your experiment is ready for parties to connect, the status will change to <em>Setup – Waiting for remote systems</em>. This may take
+                  a few minutes.</p>
+              </li>
+              <li>
+                <p>Click <strong>View setup information</strong> to download the party configuration and the party connector script that can be run on the remote party.</p>
+              </li>
+              <li>
+                <p>Click the download icon besides each of the remote training systems that you created, and then click
+                  <!--NOTE: SUBJECT TO CHANGE--><strong>Party connector script</strong>. This gives you the party connector script. Save the script to a directory on your machine.</p>
+                <p><img src="../analyze-data/images/fl-demo_9_2.png" alt="Screenshot of Training UI" height="70%" width="70%"></p>
+              </li>
+            </ol>
+          </section>
+        </section>
+        <section id="section-step-2">
+          <h2 id="step-2">Step 2: Train model as the party</h2>
+          <p>Follow these steps to train the model as a party:</p>
+          <ol>
+            <li>
+              <p>Ensure that you are using the same Python version as the admin. Using a different Python version might cause compatibility issues. To see Python versions compatible with different frameworks, see <a href="fl-frames.html#fl-py-fmwk">Frameworks and Python version compatibility</a>.</p>
+            </li>
+            <li>
+              <p>Create a new local directory, and put your party connector script in it.</p>
+            </li>
+            <li>
+              <p><a href="https://raw.githubusercontent.com/IBMDataScience/sample-notebooks/master/Files/mnist_keras_data_handler.py" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Download the data handler mnist_keras_data_handler.py</a>                by right-clicking on it and click <strong>Save link as</strong>. Save it to the same directory as the party connector script.</p>
+            </li>
+            <li>
+              <p><a href="https://api.dataplatform.cloud.ibm.com/v2/gallery-assets/entries/903188bb984a30f38bb889102a1baae5/data" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Download the MNIST handwriting data set</a> from
+                our Resource hub. In the the same directory as the party connector script, data handler, and the rest of your files, unzip it by running the unzip command <code>unzip MNIST-pkl.zip</code>.</p>
+            </li>
+            <li>
+              <p>Install Watson Machine Learning.</p>
+              <ul>
+                <li>If you are using Linux, run <code>pip install 'ibm-watson-machine-learning[fl-rt22.2-py3.10]'</code>.</li>
+                <li>If you are using Mac OS with M-series CPU and Conda, download the <a href="https://raw.github.ibm.com/WML/federated-learning/master/docs/install_fl_rt22.2_macos.sh?token=AAAXW7VVQZF7LYMTX5VOW7DEDULLE">installation script</a> and then run
+                  <code>./install_fl_rt22.2_macos.sh &lt;name for new conda environment&gt;</code>.<br>You now have the party connector script, <code>mnist_keras_data_handler.py</code>, <code>mnist-keras-test.pkl</code> and <code>mnist-keras-train.pkl</code>,
+                  data handler in the same directory.</li>
+              </ul>
+            </li>
+            <li>
+              <p>Your party connector script looks similar to the following. Edit it by filling in the data file locations, the data handler, and API key for the user defined in the remote training system. To get your API key, go to <strong>Manage &gt; Access(IAM) &gt; API keys</strong>                in your <a href="https://cloud.ibm.com/iam/apikeys" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud account</a>. If you don't have one, click <strong>Create API key</strong>, fill out the fields, and
+                click <strong>Create</strong>.</p>
+              <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">from</span> ibm_watson_machine_learning <span class="hljs-keyword">import</span> APIClient
+wml_credentials = {
+    <span class="hljs-string">"url"</span>: <span class="hljs-string">"https://us-south.ml.cloud.ibm.com"</span>,
+    <span class="hljs-string">"apikey"</span>: <span class="hljs-string">"&lt;API KEY&gt;"</span>
+    }
+wml_client = APIClient(wml_credentials)
+wml_client.<span class="hljs-built_in">set</span>.default_project(<span class="hljs-string">"XXX-XXX-XXX-XXX-XXX"</span>)
+party_metadata = {
+            wml_client.remote_training_systems.ConfigurationMetaNames.DATA_HANDLER: {
+            <span class="hljs-comment"># Supply the name of the data handler class and path to it.</span>
+            <span class="hljs-comment"># The info section may be used to pass information to the</span>
+            <span class="hljs-comment"># data handler.</span>
+            <span class="hljs-comment"># For example,</span>
+            <span class="hljs-comment">#     "name": "MnistSklearnDataHandler",</span>
+            <span class="hljs-comment">#     "path": "example.mnist_sklearn_data_handler",</span>
+            <span class="hljs-comment">#     "info": {</span>
+            <span class="hljs-comment">#         "train_file": pwd + "/mnist-keras-train.pkl",</span>
+            <span class="hljs-comment">#         "test_file": pwd + "/mnist-keras-test.pkl"</span>
+            <span class="hljs-comment">#     }</span>
+                <span class="hljs-string">"name"</span>: <span class="hljs-string">"&lt;data handler&gt;"</span>,
+                <span class="hljs-string">"path"</span>: <span class="hljs-string">"&lt;path to data handler&gt;"</span>,
+                    <span class="hljs-string">"info"</span>: {
+                        <span class="hljs-string">"&lt;information to pass to data handler&gt;"</span>
+                    }
+                }
+            }
+party = wml_client.remote_training_systems.create_party(<span class="hljs-string">"XXX-XXX-XXX-XXX-XXX"</span>, party_metadata)
+party.monitor_logs()
+party.run(aggregator_id=<span class="hljs-string">"XXX-XXX-XXX-XXX-XXX"</span>, asynchronous=<span class="hljs-literal">False</span>)
+</code></pre>
+            </li>
+            <li>
+              <p>Run the party connector script: <code>python3 rts_&lt;RTS Name&gt;_&lt;RTS ID&gt;.py</code>.
+                <br>From the UI you can monitor the status of your Federated Learning experiment.</p>
+            </li>
+          </ol>
+        </section>
+        <section id="section-step-3">
+          <h2 id="step-3">Step 3: Save and deploy the model online</h2>
+          <p>In this section, you will learn to save and deploy the model that you trained.</p>
+          <ol>
+            <li>
+              <p>Save your model.</p>
+              <ol>
+                <li>In your completed Federated Learning experiment, click <strong>Save model to project</strong>.</li>
+                <li>Give your model a name and click <strong>Save</strong>.</li>
+                <li>Go to your project home.</li>
+              </ol>
+            </li>
+            <li>
+              <p>Create a deployment space, if you don't have one.</p>
+              <ol>
+                <li>From the navigation menu <img src="../getting-started/images/navigation-menu.svg" alt="Navigation menu" title="Navigation menu" height="20" style="vertical-align:text-bottom">, click <strong>Deployments</strong>.</li>
+                <li>Click <strong>New deployment space</strong>.</li>
+                <li>Fill in the fields, and click <strong>Create</strong>.</li>
+              </ol>
+            </li>
+            <li>
+              <p>Promote the model to a space.</p>
+              <ol>
+                <li>Return to your project, and click the <strong>Assets</strong> tab.</li>
+                <li>In the <em>Models</em> section, click the model to view its details page.</li>
+                <li>Click <strong>Promote to space</strong>.</li>
+                <li>Choose a deployment space for your trained model.</li>
+                <li>Select the <strong>Go to the model in the space after promoting it</strong> option.</li>
+                <li>Click <strong>Promote</strong>.</li>
+              </ol>
+            </li>
+            <li>
+              <p>When the model displays inside the deployment space, click <strong>New deployment</strong>.</p>
+              <ol>
+                <li>Select <strong>Online</strong> as the <em>Deployment type</em>.</li>
+                <li>Specify a name for the deployment.</li>
+                <li>Click <strong>Create</strong>.</li>
+              </ol>
+            </li>
+            <li>
+              <p>Click the <strong>Deployments</strong> tab to monitor your model's deployment status.</p>
+            </li>
+          </ol>
+          <section id="section-next-steps">
+            <h3 id="next-steps">Next steps</h3>
+            <p>Ready to create your own customized Federated Experiment? See the high level steps in <a href="fl-start.html">Creating your Federated Learning experiment</a>.</p>
+            <p><strong>Parent topic:</strong>
+              <a href="../analyze-data/fl-demo.html">Federated Learning tutorial and samples</a></p>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

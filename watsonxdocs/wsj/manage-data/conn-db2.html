@@ -1,0 +1,135 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="To access your data in an IBM Db2 database, create a connection asset for it.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>IBM Db2 connection</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=connectors-db2-connection"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="ibm-db2-connection" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-ibm-db2-connection">
+        <h1 id="ibm-db2-connection">IBM Db2 connection</h1>
+        <p>To access your data in an IBM Db2 database, create a connection asset for it.</p>
+        <p>IBM Db2 is a database that contains relational data.</p>
+        <section id="section-supported-versions">
+          <h2 id="supported-versions">Supported versions</h2>
+          <p>IBM Db2 10.1 and later</p>
+        </section>
+        <section id="section-create-a-connection-to-db2">
+          <h2 id="create-a-connection-to-db2">Create a connection to Db2</h2>
+          <p>To create the connection asset, you need the following connection details:</p>
+          <ul>
+            <li>
+              <p><strong>Database</strong></p>
+            </li>
+            <li>
+              <p><strong>Hostname or IP address</strong></p>
+            </li>
+            <li>
+              <p><strong>Username and password</strong></p>
+            </li>
+            <li>
+              <p><strong>Port</strong></p>
+            </li>
+            <li>
+              <p><strong>Application name</strong> (optional): The name of the application that is currently using the connection. For information, see <a href="https://www.ibm.com/docs/SSEPGG_11.5.0/Javadocs/src/tpc/imjcc_r0052001.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Client info properties support by the IBM Data Server Driver for JDBC and SQLJ</a>.</p>
+            </li>
+            <li>
+              <p><strong>Client accounting information</strong> (optional): The value of the accounting string from the client information that is specified for the connection. For information, see <a href="https://www.ibm.com/docs/SSEPGG_11.5.0/Javadocs/src/tpc/imjcc_r0052001.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Client info properties support by the IBM Data Server Driver for JDBC and SQLJ</a>.</p>
+            </li>
+            <li>
+              <p><strong>Client hostname</strong> (optional): The hostname of the machine on which the application that is using the connection is running. For information, see <a href="https://www.ibm.com/docs/SSEPGG_11.5.0/Javadocs/src/tpc/imjcc_r0052001.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Client info properties support by the IBM Data Server Driver for JDBC and SQLJ</a>.</p>
+            </li>
+            <li>
+              <p><strong>Client user</strong> (optional): The name of the user on whose behalf the application that is using the connection is running. For information, see <a href="https://www.ibm.com/docs/SSEPGG_11.5.0/Javadocs/src/tpc/imjcc_r0052001.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Client info properties support by the IBM Data Server Driver for JDBC and SQLJ</a>.</p>
+            </li>
+            <li>
+              <p><strong>SSL certificate</strong> (if required by your database server)</p>
+            </li>
+          </ul>
+          <p>For <strong>Private connectivity</strong>, to connect to a database that is not externalized to the internet (for example, behind a firewall), you must set up a <a href="securingconn.html">secure connection</a>.</p>
+          <section id="section-choose-the-method-for-creating-a-connection-based-on-where-you-are-in-the-platform">
+            <h3 id="choose-the-method-for-creating-a-connection-based-on-where-you-are-in-the-platform">Choose the method for creating a connection based on where you are in the platform</h3>
+            <dl>
+              <dt><strong>In a project</strong></dt>
+              <dd>Click <strong>Assets &gt; New asset &gt; Connect to a data source</strong>. See <a href="create-conn.html">Adding a connection to a project</a>.</dd>
+              <dt><strong>In a deployment space</strong></dt>
+              <dd>Click <strong>Add to space &gt; Connection</strong>. See <a href="../analyze-data/ml-space-add-assets.html">Adding connections to a deployment space</a>.</dd>
+              <dt><strong>In the Platform assets catalog</strong></dt>
+              <dd>Click <strong>New connection</strong>. See <a href="platform-conn.html">Adding platform connections</a>.</dd>
+            </dl>
+          </section>
+          <section id="section-next-step-add-data-assets-from-the-connection">
+            <h3 id="next-step-add-data-assets-from-the-connection">Next step: Add data assets from the connection</h3>
+            <ul>
+              <li>See <a href="connected-data.html">Add data from a connection in a project</a>.</li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-where-you-can-use-this-connection">
+          <h2 id="where-you-can-use-this-connection">Where you can use this connection</h2>
+          <p>You can use Db2 connections in the following workspaces and tools:</p>
+          <p><strong>Projects</strong></p>
+          <ul>
+            <li>Data Refinery</li>
+            <li>Decision Optimization</li>
+            <li>Notebooks. Click <strong>Read data</strong> on the <strong>Code snippets</strong> pane to get the connection credentials and load the data into a data structure. See <a href="../analyze-data/load-and-access-data.html#conns">Load data from data source connections</a>.</li>
+            <li>SPSS Modeler</li>
+            <li>Synthetic Data Generator</li>
+          </ul>
+          <p><strong>Catalogs</strong></p>
+          <ul>
+            <li>Platform assets catalog</li>
+          </ul>
+          <section id="section-running-sql-statements">
+            <h3 id="running-sql-statements">Running SQL statements</h3>
+            <p>To ensure that your SQL statements run correctly, refer to the <a href="https://www.ibm.com/docs/SSEPGG_11.5.0/com.ibm.db2.luw.sql.ref.doc/doc/c0004100.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Structured Query Language (SQL)</a>              topic in the IBM Db2 product documentation for the correct syntax.</p>
+          </section>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p><a href="https://www.ibm.com/docs/db2" target="_blank" rel="noopener noreferrer">IBM Db2 product documentation</a></p>
+          <p><strong>Parent topic:</strong> <a href="conn_types.html">Supported connections</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

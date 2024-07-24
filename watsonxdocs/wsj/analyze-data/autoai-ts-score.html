@@ -1,0 +1,311 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="After you save an AutoAI time series pipeline as a model, you can deploy and score the model to forecast new values.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Scoring a time series model</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=experiment-scoring-time-series-model"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="scoring-a-time-series-model" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-scoring-a-time-series-model">
+        <h1 id="scoring-a-time-series-model">Scoring a time series model</h1>
+        <p>After you save an AutoAI time series pipeline as a model, you can deploy and score the model to forecast new values.</p>
+        <section id="section-deploying-a-time-series-model">
+          <h2 id="deploying-a-time-series-model">Deploying a time series model</h2>
+          <p>After you save a model to a project, follow the steps to deploy the model:</p>
+          <ol>
+            <li>Find the model in the project asset list.</li>
+            <li>Promote the model to a deployment space.</li>
+            <li>Promote payload data to the deployment space.</li>
+            <li>From the deployment space, create a deployment.</li>
+          </ol>
+        </section>
+        <section id="section-scoring-considerations">
+          <h2 id="scoring-considerations">Scoring considerations</h2>
+          <p>To this point, deploying a time series model follows the same steps as deploying a classification or regression model. However, because of the way predictions are structured and generated in a time series model, your input must match your model
+            structure. For example, the way you structure your payload depends on whether you are predicting a single result (univariate) or multiple results (multivariate).</p>
+          <p>Note these high-level considerations:</p>
+          <ul>
+            <li>To get the first forecast window row or rows after the last row in your data, send an empty payload.</li>
+            <li>To get the next value, send the result from the empty payload request as your next scoring request, and so on.</li>
+            <li>You can send multiple rows as input, to build trends and predict the next value after a trend.</li>
+            <li>If you have multiple prediction columns, you need to include a value for each of them in your scoring request</li>
+          </ul>
+        </section>
+        <section id="section-scoring-an-online-deployment">
+          <h2 id="scoring-an-online-deployment">Scoring an online deployment</h2>
+          <p>If you create an online deployment, you can pass the payload data by using an input form or by submitting JSON code. This example shows how to structure the JSON code to generate predictions.</p>
+          <section id="section-predicting-a-single-value">
+            <h3 id="predicting-a-single-value">Predicting a single value</h3>
+            <p>In the simplest case, given this sample data, you are trying to forecast the next step of <code>value1</code> with a forecast window of 1, meaning each prediction will be a single step (row).</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>timestamp</th>
+                  <th>value1</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>2015-02026 21:42</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>2015-02026 21:47</td>
+                  <td>4</td>
+                </tr>
+                <tr>
+                  <td>2015-02026 21:52</td>
+                  <td>6</td>
+                </tr>
+                <tr>
+                  <td>2015-02026 21:57</td>
+                  <td>8</td>
+                </tr>
+                <tr>
+                  <td>2015-02026 22:02</td>
+                  <td>10</td>
+                </tr>
+              </tbody>
+            </table>
+            <p>You must pass a blank entry as the input data to request the first prediction, which is structured like this:</p>
+            <pre class="codeblock"><code class="lang-json hljs"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"input_data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"fields"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+        <span class="hljs-string">"value1"</span>
+      <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"values"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">]</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+            <p>The output that is returned predicts the next step in the model:</p>
+            <pre class="codeblock"><code class="lang-json hljs"><span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"predictions"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+        <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"fields"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+                <span class="hljs-string">"prediction"</span>
+            <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"values"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+                <span class="hljs-punctuation">[</span>
+                    <span class="hljs-number">12</span>
+                <span class="hljs-punctuation">]</span>
+            <span class="hljs-punctuation">]</span>
+        <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+            <p>The next input passes the result of the previous output to predict the next step:</p>
+            <pre class="codeblock"><code class="lang-json hljs"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"input_data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"fields"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+        <span class="hljs-string">"value1"</span>
+      <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"values"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+          <span class="hljs-punctuation">[</span><span class="hljs-number">12</span><span class="hljs-punctuation">]</span>
+          <span class="hljs-punctuation">]</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+          </section>
+          <section id="section-predicting-multiple-values">
+            <h3 id="predicting-multiple-values">Predicting multiple values</h3>
+            <p>In this case, you are predicting two targets, <code>value1</code> and <code>value2</code>.</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>timestamp</th>
+                  <th>value1</th>
+                  <th>value2</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>2015-02026 21:42</td>
+                  <td>2</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>2015-02026 21:47</td>
+                  <td>4</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>2015-02026 21:52</td>
+                  <td>6</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>2015-02026 21:57</td>
+                  <td>8</td>
+                  <td>7</td>
+                </tr>
+                <tr>
+                  <td>2015-02026 22:02</td>
+                  <td>10</td>
+                  <td>9</td>
+                </tr>
+              </tbody>
+            </table>
+            <p>The input data must still pass a blank entry to request the first prediction. The next input would be structured like this:</p>
+            <pre class="codeblock"><code class="lang-json hljs"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"input_data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"fields"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+        <span class="hljs-string">"value1"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-string">"value2"</span>
+      <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"values"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+          <span class="hljs-punctuation">[</span><span class="hljs-number">2</span><span class="hljs-punctuation">,</span> <span class="hljs-number">1</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-punctuation">]</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+          </section>
+        </section>
+        <section id="section-predicting-based-on-new-observations">
+          <h2 id="predicting-based-on-new-observations">Predicting based on new observations</h2>
+          <p>If instead of predicting the next row based on the prior step you want to enter new observations, enter the input data like this for a univariate model:</p>
+          <pre class="codeblock"><code class="lang-json hljs"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"input_data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"fields"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+        <span class="hljs-string">"value1"</span>
+      <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"values"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+          <span class="hljs-punctuation">[</span><span class="hljs-number">2</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-punctuation">[</span><span class="hljs-number">4</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-punctuation">[</span><span class="hljs-number">6</span><span class="hljs-punctuation">]</span>
+          <span class="hljs-punctuation">]</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+          <p>Enter new observations like this for a multivariate model:</p>
+          <pre class="codeblock"><code class="lang-json hljs"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"input_data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"fields"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+        <span class="hljs-string">"value1"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-string">"value2"</span>
+      <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"values"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+          <span class="hljs-punctuation">[</span><span class="hljs-number">2</span><span class="hljs-punctuation">,</span> <span class="hljs-number">1</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-punctuation">[</span><span class="hljs-number">4</span><span class="hljs-punctuation">,</span> <span class="hljs-number">3</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-punctuation">[</span><span class="hljs-number">6</span><span class="hljs-punctuation">,</span> <span class="hljs-number">5</span><span class="hljs-punctuation">]</span>
+          <span class="hljs-punctuation">]</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+          <p>Where 2, 4, and 6 are observations for <code>value1</code> and 1, 3, 5 are observations for <code>value2</code>.</p>
+        </section>
+        <section id="section-scoring-a-time-series-model-with-supporting-features">
+          <h2 id="scoring-a-time-series-model-with-supporting-features">Scoring a time series model with Supporting features</h2>
+          <p>After you deploy your model, you can go to the page detailing your deployment to get prediction values. Choose one of the following ways to test your deployment:</p>
+          <section id="section-using-existing-input-values">
+            <h3 id="using-existing-input-values">Using existing input values</h3>
+            <p>You can use existing input values in your data set to obtain prediction values. Click <strong>Predict</strong> to obtain a set of prediction values. The total number of prediction values in the output is defined by prediction horizon that
+              you previously set during the experiment configuration stage.</p>
+          </section>
+          <section id="section-using-new-input-values">
+            <h3 id="using-new-input-values">Using new input values</h3>
+            <p>You can choose to populate the spreadsheet with new input values or use JSON code to obtain a prediction.</p>
+            <section id="section-using-spreadsheet-to-provide-new-input-data-for-predicting-values">
+              <h4 id="using-spreadsheet-to-provide-new-input-data-for-predicting-values">Using spreadsheet to provide new input data for predicting values</h4>
+              <p>To add input data to the <strong>New observations (optional)</strong> spreadsheet, select the <strong>Input</strong> tab and do one of the following:</p>
+              <ul>
+                <li>Add pre-existing .csv file containing new observations from your local directory by clicking <strong>Browse local files</strong>.</li>
+                <li>Download the input file template by clicking <strong>Download CSV template</strong>, enter values, and upload the file.</li>
+                <li>Use an existing data asset from your project by clicking <strong>Search in space</strong>.</li>
+                <li>Manually enter input observations in the spreadsheet.</li>
+              </ul>
+              <p>You can also provide future values for Supporting features if you previously enabled your experiment to leverage these values during the experiment configuration stage. Make sure to add these values to the <em>Future supporting features (optional)</em>                spreadsheet.</p>
+            </section>
+            <section id="section-using-json-code-to-provide-input-data">
+              <h4 id="using-json-code-to-provide-input-data">Using JSON code to provide input data</h4>
+              <p>To add input data using JSON code, select the <strong>Paste JSON</strong> tab and do one of the following:</p>
+              <ul>
+                <li>Add pre-existing JSON file containing new observations from your local directory by clicking <strong>Browse local files</strong>.</li>
+                <li>Use an existing data asset from your project by clicking <strong>Search in space</strong>.</li>
+                <li>Manually enter or paste JSON code into the editor.</li>
+              </ul>
+              <p>In this code sample, the prediction column is <code>pollution</code>, and the supporting features are <code>temp</code> and <code>press</code>.</p>
+              <pre class="codeblock"><code class="lang-json hljs"><span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"input_data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+                <span class="hljs-punctuation">{</span>
+                        <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"observations"</span><span class="hljs-punctuation">,</span>
+                        <span class="hljs-attr">"values"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+                                <span class="hljs-punctuation">[</span>
+                                        <span class="hljs-number">96.125</span><span class="hljs-punctuation">,</span>
+                                        <span class="hljs-number">3.958</span><span class="hljs-punctuation">,</span>
+                                        <span class="hljs-number">1026.833</span>
+                                <span class="hljs-punctuation">]</span>
+                        <span class="hljs-punctuation">]</span>
+                <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+                <span class="hljs-punctuation">{</span>
+                        <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"supporting_features"</span><span class="hljs-punctuation">,</span>
+                        <span class="hljs-attr">"values"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+                                <span class="hljs-punctuation">[</span>
+                                        <span class="hljs-number">3.208</span><span class="hljs-punctuation">,</span>
+                                        <span class="hljs-number">1020.667</span>
+                                <span class="hljs-punctuation">]</span>
+                        <span class="hljs-punctuation">]</span>
+                <span class="hljs-punctuation">}</span>
+        <span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+            </section>
+          </section>
+        </section>
+        <section id="section-next-steps">
+          <h2 id="next-steps">Next steps</h2>
+          <p><a href="autoai-notebook.html">Saving an AutoAI generated notebook (Watson Machine Learning)</a></p>
+          <p><strong>Parent topic:</strong> <a href="autoai-timeseries.html">Building a time series experiment</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

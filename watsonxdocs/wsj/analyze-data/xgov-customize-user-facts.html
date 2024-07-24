@@ -1,0 +1,227 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can programmatically customize the information that is collected in factsheets for AI use cases. Use customized factsheets as part of your AI Governance strategy.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Customizing details for a use case or factsheet</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=cases-customizing-factsheet-user-details"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="customizing-details-for-a-use-case-or-factsheet" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-customizing-details-for-a-use-case-or-factsheet">
+        <h1 id="customizing-details-for-a-use-case-or-factsheet">Customizing details for a use case or factsheet</h1>
+        <p>You can programmatically customize the information that is collected in factsheets for AI use cases. Use customized factsheets as part of your AI Governance strategy.</p>
+        <section id="section-updating-a-model-or-model-use-case-programmatically">
+          <h2 id="updating-a-model-or-model-use-case-programmatically">Updating a model or model use case programmatically</h2>
+          <p>You might want to update a model use case or model factsheet with additional information. For example, some companies have a standard set of details they want to accompany a model use case or model facts.</p>
+          <p>Currently, you must update the tenant-level asset types by modifying the user attributes that uses the <a href="https://cloud.ibm.com/apidocs/watson-data-api#introduction" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Watson Data REST API</a>            to update the asset.</p>
+        </section>
+        <section id="section-updating-a-custom-asset-type">
+          <h2 id="updating-a-custom-asset-type">Updating a custom asset type</h2>
+          <p>Follow these steps to update a custom asset type:</p>
+          <ol>
+            <li>
+              <p>Provide the <code>bss_account_id</code> query parameter for the <a href="https://cloud.ibm.com/apidocs/watson-data-api#getcatalogtype" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab"><code>getcatalogtype</code> method</a>.</p>
+            </li>
+            <li>
+              <p>Provide <code>asset_type</code> as <code>model_entry_user</code> if you are updating attributes for <code>model_entry</code>. Provide <code>asset_type</code> as <code>modelfacts_user</code> if you are updating attributes for model facts.</p>
+            </li>
+            <li>
+              <p>Retrieve the current asset type definition by using the <a href="https://cloud.ibm.com/apidocs/watson-data-api#getcatalogtype" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab"><code>getcatalogtype</code> method</a>                where <code>asset_type</code> is either <code>modelfacts_user</code> or <code>model_entry_user</code>.</p>
+            </li>
+            <li>
+              <p>Update the current asset type definition with the custom attributes by adding them to properties JSON object following the schema that is defined in the API documentation. The following types of attributes are supported to view and edit
+                from the user interface of the model use case or model:</p>
+              <ul>
+                <li>string</li>
+                <li>date</li>
+                <li>integer</li>
+              </ul>
+            </li>
+            <li>
+              <p>After the JSON is updated with the new properties, start the changes by using the <a href="https://cloud.ibm.com/apidocs/watson-data-api#replaceassettype" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab"><code>replaceassettype</code> method</a>.
+                Provide the <code>asset_type</code> , <code>bss_account_id</code>, and request payload.</p>
+            </li>
+          </ol>
+          <p>When the update is complete, you can view the custom attributes in the AI use case details page and model details page.</p>
+        </section>
+        <section id="section-example-1-retrieving-and-updating-the-model_entry_user-asset-type">
+          <h2 id="example-1-retrieving-and-updating-the-model_entry_user-asset-type">Example 1: Retrieving and updating the <code>model_entry_user</code> asset type</h2>
+          <div class="note note"><span class="notetitle">Note:</span>
+            <md-block>
+              <p>This example updates the use case user data. You can use the same format but substitute <code>modelfacts_user</code> to retrieve and update details for the model factsheet.</p>
+              <p></p>
+            </md-block>
+          </div>
+          <p></p>
+          <p>This curl command retrieves the asset type <code>model_entry_user</code>:</p>
+          <pre class="codeblock"><code class="lang-shell hljs">curl -X GET --header 'Accept: application/json' --header "Authorization: ZenApiKey ${MY_TOKEN}"&nbsp; 'https://api.dataplatform.cloud.ibm.com:443/v2/asset_types/model_entry_user?bss_account_id=&lt;bss_account_id&gt;'
+</code></pre>
+          <p>This snippet is a sample response payload for model use case user details:</p>
+          <pre class="codeblock"><code class="lang-shell hljs">{
+&nbsp;&nbsp;&nbsp; "description": "The model use case to capture user defined attributes.",
+&nbsp;&nbsp;&nbsp; "fields": [],
+&nbsp;&nbsp;&nbsp; "relationships": [],
+&nbsp;&nbsp;&nbsp; "properties": {},
+&nbsp;&nbsp;&nbsp; "decorates": [{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "asset_type_name": "model_entry"
+&nbsp;&nbsp;&nbsp; }],
+&nbsp;&nbsp;&nbsp; "global_search_searchable": [],
+&nbsp;&nbsp;&nbsp; "localized_metadata_attributes": {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "name": {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "default": "Additional details",
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "en": "Additional details"
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+&nbsp;&nbsp;&nbsp; },
+&nbsp;&nbsp;&nbsp; "attribute_only": false,
+&nbsp;&nbsp;&nbsp; "name": "model_entry_user",
+&nbsp;&nbsp;&nbsp; "version": 1,
+&nbsp;&nbsp;&nbsp; "scope": "ACCOUNT"
+}
+</code></pre>
+          <p>This curl command updates the <code>model_entry_user</code> asset type:</p>
+          <pre class="codeblock"><code class="lang-shell hljs">curl -X PUT --header 'Content-Type: application/json' --header 'Accept: application/json' --header "Authorization: ZenApiKey ${MY_TOKEN}"&nbsp; -d '@requestbody.json' 'https://api.dataplatform.cloud.ibm.com:443/v2/asset_types/model_entry_user?bss_account_id=&lt;bss_account_id&gt;'
+</code></pre>
+          <p>The <code>requestbody.json</code> contents look like this:</p>
+          <pre class="codeblock"><code class="lang-json hljs"><span class="hljs-punctuation">{</span>
+&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"The model use case to capture user defined attributes."</span><span class="hljs-punctuation">,</span>
+&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"fields"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"relationships"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"properties"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"user_attribute1"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"string"</span><span class="hljs-punctuation">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"User attribute1"</span><span class="hljs-punctuation">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"placeholder"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"User attribute1"</span><span class="hljs-punctuation">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"is_array"</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"required"</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span><span class="hljs-punctuation">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"hidden"</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"readonly"</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"default_value"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"None"</span><span class="hljs-punctuation">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"label"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"default"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"User attribute1"</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-punctuation">}</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"user_attribute2"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"integer"</span><span class="hljs-punctuation">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"User attribute2"</span><span class="hljs-punctuation">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"placeholder"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"User attribute2"</span><span class="hljs-punctuation">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"is_array"</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"required"</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span><span class="hljs-punctuation">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"hidden"</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"readonly"</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"label"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"default"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"User attribute2"</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-punctuation">}</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"user_attribute3"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"date"</span><span class="hljs-punctuation">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"User attribute3"</span><span class="hljs-punctuation">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"placeholder"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"User attribute3"</span><span class="hljs-punctuation">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"is_array"</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"required"</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span><span class="hljs-punctuation">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"hidden"</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"readonly"</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"default_value"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"None"</span><span class="hljs-punctuation">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"label"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"default"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"User attribute3"</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-punctuation">}</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <span class="hljs-punctuation">}</span>
+&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"decorates"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"asset_type_name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"model_entry"</span>
+&nbsp;&nbsp;&nbsp; <span class="hljs-punctuation">}</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"global_search_searchable"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"attribute_only"</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span>
+&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"localized_metadata_attributes"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"default"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Additional details"</span><span class="hljs-punctuation">,</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"en"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Additional details"</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-punctuation">}</span>
+&nbsp;&nbsp;&nbsp; <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+        </section>
+        <section id="section-updating-user-details-by-using-the-python-client">
+          <h2 id="updating-user-details-by-using-the-python-client">Updating user details by using the Python client</h2>
+          <p>You can also update and replace an asset type with properties by using a Python script. For details, see <a href="https://s3.us.cloud-object-storage.appdomain.cloud/factsheets-client/index.html#factsheet-asset-elements" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">fact sheet elements description</a>.</p>
+          <p>After you update asset type definitions with custom attributes, you can provide values for those attributes from the model use case overview and model details pages. You can also update values to the custom attributes that use these Python API
+            client methods:</p>
+          <ul>
+            <li><a href="https://s3.us.cloud-object-storage.appdomain.cloud/factsheets-client/index.html#ibm_aigov_facts_client.factsheet.asset_utils_model.ModelAssetUtilities.set_custom_fact">Model Asset Utilities</a></li>
+            <li><a href="https://s3.us.cloud-object-storage.appdomain.cloud/factsheets-client/index.html#ibm_aigov_facts_client.factsheet.asset_utils_model.ModelEntryUtilities.set_custom_fact">Model Entry Utilities</a></li>
+          </ul>
+        </section>
+        <section id="section-capturing-cell-facts-for-a-model">
+          <h2 id="capturing-cell-facts-for-a-model">Capturing cell facts for a model</h2>
+          <p>When a data scientist develops a model in a notebook, they generate visualizations for key model details, such as ROC curve, confusion matrix, panda profiling report, or the output of any cell execution. To capture those facts as part of a model
+            use case, use the <a href="https://s3.us.cloud-object-storage.appdomain.cloud/factsheets-client/index.html#capture-cell-facts">'capture_cell_facts`</a> function in the AI Factsheets Python client library.</p>
+        </section>
+        <section id="section-troubleshooting-custom-fields">
+          <h2 id="troubleshooting-custom-fields">Troubleshooting custom fields</h2>
+          <p>After you customize fields and make them available to users, a user trying to update fields in the <strong>Additional details</strong> section of model details might get this error:</p>
+          <pre class="codeblock"><code class="lang-txt hljs">Update failed. To update an asset attribute, you must be a catalog Admin or an asset owner or member with the Editor role. Ask a catalog Admin to update your catalog role or ask an asset member with the Editor role to add you as a member.
+</code></pre>
+          <p>If the user already has edit permission on the model and is still getting the error message, follow these steps to resolve it.</p>
+          <ol>
+            <li>
+              <p>Invoke the API command for <a href="https://cloud.ibm.com/apidocs/watson-data-api-cpd#createassetattributenewv2" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">createassetattributenewv2</a>.</p>
+            </li>
+            <li>
+              <p>Use this payload with the command:</p>
+              <pre class="codeblock"><code class="lang-json hljs">
+<span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"modelfacts_system"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"entity"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+              <p>where <code>asset_id</code> is the <code>model_id</code>. Enter either <code>project_id</code> or <code>space_id</code> or <code>catalog_id</code> where the model exists.</p>
+            </li>
+          </ol>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p>Find out about working with an inventory programmatically, by using the <a href="https://s3.us.cloud-object-storage.appdomain.cloud/factsheets-client/index.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM_AIGOV_FACTS_CLIENT documentation</a>.</p>
+          <p><strong>Parent topic:</strong> <a href="xgov-overview.html">Governing AI assets</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

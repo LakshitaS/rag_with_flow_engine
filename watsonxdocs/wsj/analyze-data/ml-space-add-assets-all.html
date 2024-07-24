@@ -1,0 +1,150 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Learn about various ways of adding and promoting assets to a space. Find the list of asset types that you can add to a space.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Assets in deployment spaces</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=spaces-assets-in-deployment"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="assets-in-deployment-spaces" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-assets-in-deployment-spaces">
+        <h1 id="assets-in-deployment-spaces">Assets in deployment spaces</h1>
+        <p>Learn about various ways of adding and promoting assets to a space. Find the list of asset types that you can add to a space.</p>
+        <p>Note these considerations for importing assets into a space:</p>
+        <ul>
+          <li>Upon import, some assets are automatically assigned a version number, starting with version 1. This version numbering prevents overwriting existing assets if you import their updated versions later.</li>
+          <li>Assets or references that are required to run jobs in the space must be part of the import package, or must be added separately. If you don't add these supporting assets or references, jobs fail.</li>
+        </ul>
+        <p>The way to add an asset to a space depends on the asset type. You can add some assets directly to a space (for example a model that was created outside of watsonx). Other asset types originate in a project and must be transferred from a project
+          to a space. The third class includes asset types that you can add to a space only as a dependency of another asset. These asset types do not display in the <strong>Assets</strong> tab in the UI.</p>
+        <p>For more information, see:</p>
+        <ul>
+          <li><a href="#add_directly">Asset types that you can directly add to a space</a></li>
+          <li><a href="#add_transfer">Asset types that are created in projects and can be transferred into a space</a></li>
+          <li><a href="#add_dependency">Asset types that can be added to a space only as a dependency</a></li>
+        </ul>
+        <p>For more information about working with space assets, see:</p>
+        <ul>
+          <li><a href="../analyze-data/ml-access-detailed-info.html">Accessing asset details</a></li>
+          <li><a href="../analyze-data/ml-versions-spaces.html">Managing asset versions</a></li>
+          <li><a href="../analyze-data/cpdctl-overview.html">Managing AI lifecycle with CPDCTL</a></li>
+        </ul>
+        <section id="section-add_directly">
+          <h2 id="add_directly">Asset types that you can directly add to a space</h2>
+          <ul>
+            <li>Connection</li>
+            <li>Data asset (from a connection or an uploaded file)</li>
+            <li>Model</li>
+          </ul>
+          <p>For more information, see:</p>
+          <ul>
+            <li>For data assets and connections: <a href="../analyze-data/ml-space-add-assets.html">Adding data assets to a deployment space</a></li>
+            <li>For models: <a href="../analyze-data/ml-importing-model.html">Importing models into a deployment space</a></li>
+          </ul>
+        </section>
+        <section id="section-add_transfer">
+          <h2 id="add_transfer">Assets types that are created in projects and can be transferred into a space</h2>
+          <ul>
+            <li>Connection</li>
+            <li>Data Refinery flow</li>
+            <li>Environment</li>
+            <li>Function</li>
+            <li>Job</li>
+            <li>Model</li>
+            <li>Script</li>
+          </ul>
+          <p>If your asset is located in a standard Watson Studio project, you can transfer the asset to the deployment space by promoting it.</p>
+          <p>For more information, see <a href="../analyze-data/ml-space-promote-assets.html">Promoting assets to a deployment space</a>.</p>
+          <p>Alternatively, you can export the project and then import it into the deployment space. For more information, see:</p>
+          <ul>
+            <li><a href="../manage-data/export-project.html">Exporting a project</a></li>
+            <li><a href="../analyze-data/ml-space-import-to-space.html">Importing spaces and projects</a></li>
+          </ul>
+          <p>If you export the whole project, any matching custom environments are exported as well.</p>
+          <p>If your use case requires it, you can create a code package from some of the assets in your project by using <code>cpdcli</code> or <code>cpdctl</code> and then importing manually into the space.</p>
+          <section id="section-deprecated-git-project">
+            <h3 id="deprecated-git-project">Transferring assets from a deprecated Git-based project</h3>
+            <p>The available scenarios are the same as the ones that apply to transferring assets from a standard Watson Studio project.</p>
+            <div class="note note"><span class="notetitle">Note:</span>
+              <md-block>
+                <p>Before you move assets to a deployment space, you must synchronize your changes with the Git repository. If your asset depends on any other assets, like custom environments, you must synchronize them, too.</p>
+                <p></p>
+              </md-block>
+            </div>
+            <p></p>
+          </section>
+          <section id="section-git-project">
+            <h3 id="git-project">Transferring assets from a standard Git-based project</h3>
+            <p>Before you move assets to a deployment space, you must synchronize your changes with the Git repository. If your asset depends on any other assets, like custom environments, you must synchronize those assets as well. To transfer your assets
+              from a standard Git-based project, export the project and then import it into the deployment space. For more information, see:</p>
+            <ul>
+              <li><a href="../manage-data/export-project.html">Exporting a project</a></li>
+              <li><a href="../analyze-data/ml-space-import-to-space.html">Importing spaces and projects</a></li>
+            </ul>
+            <p>If you export the whole project, any matching custom environments are exported as well.</p>
+            <p>If your specific use case requires it, you can also create a code package from some of the assets in your project by using <code>cpdcli</code> or <code>cpdctl</code> and then import it manually into the space.</p>
+            <div class="note note"><span class="notetitle">Note:</span> When you work with a Git-based project, Notebooks, Scripts, and Shiny Apps are represented as files within your Git repository. When you import your Git archive file into a deployment space, all of these
+              file types are accessible within the Code Package asset that is created as part of the import.</div>
+          </section>
+        </section>
+        <section id="section-add_dependency">
+          <h2 id="add_dependency">Asset types that can be added to a space only as a dependency</h2>
+          <ul>
+            <li>Hardware Specification</li>
+            <li>Package Extension</li>
+            <li>Software Specification</li>
+            <li>Watson Machine Learning Experiment</li>
+            <li>Watson Machine Learning Model Definition</li>
+          </ul>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="../analyze-data/ml-deploy-general.html">Deploying assets</a></li>
+            <li><a href="../analyze-data/ml-versions-spaces.html">Managing asset versions</a></li>
+            <li><a href="../analyze-data/ml-samples-overview.html">Training and deploying machine learning models in notebooks</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="ml-spaces_local.html">Deployment spaces</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

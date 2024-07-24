@@ -1,0 +1,138 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can switch the platform for some spaces between the Cloud Pak for Data as a Service and the watsonx platform. When you switch a space to another platform, you can use the tools that are specific to that platform.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Switching the platform for a space</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=spaces-switching-platform-space"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="switching-the-platform-for-a-space" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-switching-the-platform-for-a-space">
+        <h1 id="switching-the-platform-for-a-space">Switching the platform for a space</h1>
+        <p>You can switch the platform for some spaces between the Cloud Pak for Data as a Service and the watsonx platform. When you switch a space to another platform, you can use the tools that are specific to that platform.</p>
+        <p>For example, you might switch an existing space from Cloud Pak for Data as a Service to watsonx to consolidate your collaborative work on one platform. See <a href="../getting-started/compare-platforms.html">Comparison between watsonx and Cloud Pak for Data as a Service</a>.</p>
+        <div class="note Note"><span class="Notetitle">Note:</span> You cannot promote Prompt Lab assets created with foundation model inferencing to a space.</div>
+        <ul>
+          <li><a href="#requirements">Requirements</a></li>
+          <li><a href="#restrictions">Restrictions</a></li>
+          <li><a href="#consequences">What happens when you switch a space</a></li>
+          <li><a href="#move-one">Switch the platform for a space</a></li>
+        </ul>
+        <section id="section-requirements">
+          <h2 id="requirements">Requirements</h2>
+          <p>You can switch a space from one platform to the other if you have the required accounts and permissions.</p>
+          <dl>
+            <dt><strong>Required accounts</strong></dt>
+            <dd>You must be signed up for both Cloud Pak for Data as a Service and watsonx.</dd>
+            <dt><strong>Required permissions</strong></dt>
+            <dd>You must have the <strong>Admin</strong> role in the space that you want to switch.</dd>
+            <dt><strong>Required services</strong></dt>
+            <dd>The current account that you are working in must have both of these services provisioned:</dd>
+            <dd>
+              <ul>
+                <li>Watson Studio</li>
+              </ul>
+            </dd>
+            <dd>
+              <ul>
+                <li>Watson Machine Learning</li>
+              </ul>
+            </dd>
+          </dl>
+        </section>
+        <section id="section-restrictions">
+          <h2 id="restrictions">Restrictions</h2>
+          <p>To switch a space from Cloud Pak for Data as a Service to watsonx, all the assets in the space must be supported by both platforms.</p>
+          <p>Spaces that contain any of the following asset types, but no other types of assets, are eligible to switch from Cloud Pak for Data as a Service to watsonx:</p>
+          <ul>
+            <li>Connected data asset</li>
+            <li>Connection</li>
+            <li>Data asset from a file</li>
+            <li>Deployment</li>
+            <li>Jupyter notebook</li>
+            <li>Model</li>
+            <li>Python function</li>
+            <li>Script</li>
+          </ul>
+          <p>You can’t switch a space that contains assets that are specific to Cloud Pak for Data as a Service. If you add any assets that you created with services other than Watson Studio and Watson Machine Learning to a project, you can't switch that
+            space to watsonx. Although Pipelines assets are supported in both Cloud Pak for Data as a Service and watsonx spaces, you can't switch a space that contains pipeline assets because pipelines can reference unsupported assets.</p>
+          <p>For more information about asset types, see <a href="../getting-started/assets.html">Asset types and properties</a>.</p>
+        </section>
+        <section id="section-consequences">
+          <h2 id="consequences">What happens when you switch the platform for a space</h2>
+          <p>Switching a space between platforms has the following effects:</p>
+          <dl>
+            <dt><strong>Collaborators</strong></dt>
+            <dd>Collaborators in the project receive notifications of the switch on the original platform. If any collaborators do not have accounts for the destination platform, those collaborators can no longer access the project.</dd>
+            <dt><strong>Jobs</strong></dt>
+            <dd>Scheduled jobs are retained. Any jobs that are running at the time of the switch continue until completion on the original platform. Any jobs that are scheduled for times after the switch are run on the destination platform. Job history is
+              not retained.</dd>
+            <dt><strong>Environments</strong></dt>
+            <dd>Custom hardware and software specifications are retained.</dd>
+            <dt><strong>Space history</strong></dt>
+            <dd>Recent activity and asset activities are not retained.</dd>
+            <dt><strong>Resource usage</strong></dt>
+            <dd>Resource usage is cumulative because you continue to use the same service instances.</dd>
+            <dt><strong>Storage</strong></dt>
+            <dd>The space's IBM Cloud Object Storage bucket remains the same.</dd>
+          </dl>
+        </section>
+        <section id="section-move-one">
+          <h2 id="move-one">Switch the platform for a space</h2>
+          <p>You can switch the platform for a space from within the space on the original platform. You can switch between Cloud Pak for Data as a Service and watsonx.</p>
+          <p>To switch the platform for a space:</p>
+          <ol>
+            <li>From the space you want to switch, open the <strong>Manage</strong> tab, select the <strong>General</strong> page, and in the <strong>Controls</strong> section, click <strong>Switch platform</strong>. If you don't see a <strong>Switch platform</strong>              button or the button is not active, you can't switch the space.</li>
+            <li>Select the destination platform and click <strong>Switch platform</strong>.</li>
+          </ol>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="../getting-started/compare-platforms.html">Comparison between watsonx and Cloud Pak for Data as a Service</a></li>
+            <li><a href="../getting-started/assets.html">Asset types and properties</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="ml-spaces_local.html">Deployment spaces</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

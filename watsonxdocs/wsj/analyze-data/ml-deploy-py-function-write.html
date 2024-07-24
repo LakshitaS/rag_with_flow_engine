@@ -1,0 +1,248 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Learn how to write a Python function and then store it as an asset that allows for deploying models.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Writing deployable Python functions</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=functions-writing-deployable-python"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="writing-deployable-python-functions" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-writing-deployable-python-functions">
+        <h1 id="writing-deployable-python-functions">Writing deployable Python functions</h1>
+        <p>Learn how to write a Python function and then store it as an asset that allows for deploying models.</p>
+        <p>For a list of general requirements for deployable functions refer to <a href="#reqs">General requirements for deployable functions</a>. For information on what happens during a function deployment, refer to <a href="#fundepro">Function deployment process</a></p>
+        <section id="section-reqs">
+          <h2 id="reqs">General requirements for deployable functions</h2>
+          <p>To be deployed successfully, a function must meet these requirements:</p>
+          <ul>
+            <li>The Python function file on import must have the <code>score</code> function object as part of its scope. Refer to <a href="#score">Score function requirements</a></li>
+            <li>Scoring input payload must meet the requirements that are listed in <a href="#scoinreq">Scoring input requirements</a></li>
+            <li>The output payload expected as output of <code>score</code> must include the schema of the <code>score_response</code> variable for status code 200. Note that the <code>prediction</code> parameter, with an array of JSON objects as its value,
+              is mandatory in the <code>score</code> output.</li>
+            <li>When you use the Python client to save a Python function that contains a reference to an outer function, only the code in the scope of the outer function (including its nested functions) is saved. Therefore, the code outside the outer function's
+              scope will not be saved and thus will not be available when you deploy the function.</li>
+          </ul>
+          <section id="section-score">
+            <h3 id="score">Score function requirements</h3>
+            <ul>
+              <li>Two ways to add the <code>score</code> function object exist:
+                <ul>
+                  <li>explicitly, by user</li>
+                  <li>implicitly, by the method that is used to save the Python function as an asset in the Watson Machine Learning repository</li>
+                </ul>
+              </li>
+              <li>The <code>score</code> function must accept a single, JSON input parameter.</li>
+              <li>The <code>score</code> function must return a JSON-serializable object (for example: dictionaries or lists)</li>
+            </ul>
+          </section>
+          <section id="section-scoinreq">
+            <h3 id="scoinreq">Scoring input requirements</h3>
+            <ul>
+              <li>
+                <p>The scoring input payload must include an array with the name <code>values</code>, as shown in this example schema.</p>
+                <pre class="codeblock"><code class="lang-python hljs">{<span class="hljs-string">"input_data"</span>: [{
+   <span class="hljs-string">"values"</span>: [[<span class="hljs-string">"Hello world!"</span>]]
+               }]
+}
+</code></pre>
+                <div class="note note"><span class="notetitle">Note:</span> <br>- The `input_data` parameter is mandatory in the payload.<br>- The `input_data` parameter can also include additional name-value pairs.</div>
+              </li>
+              <li>
+                <p>The scoring input payload must be passed as input parameter value for <code>score</code>. This way you can ensure that the value of the <code>score</code> input parameter is handled accordingly inside the <code>score</code>.</p>
+              </li>
+              <li>
+                <p>The scoring input payload must match the input requirements for the concerned Python function.</p>
+              </li>
+              <li>
+                <p>The scoring input payload must include an array that matches the <a href="#exschema">Example input data schema</a>.</p>
+              </li>
+            </ul>
+            <section id="section-exschema">
+              <h4 id="exschema">Example input data schema</h4>
+              <pre class="codeblock"><code class="lang-python hljs"> {<span class="hljs-string">"input_data"</span>: [{
+    <span class="hljs-string">"values"</span>: [[<span class="hljs-string">"Hello world!"</span>]]
+                }]
+ }
+</code></pre>
+            </section>
+          </section>
+          <section id="section-example-python-code">
+            <h3 id="example-python-code">Example Python code</h3>
+            <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-comment">#wml_python_function</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">my_deployable_function</span>():
+
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">score</span>(<span class="hljs-params"> payload </span>):
+
+        message_from_input_payload = payload.get(<span class="hljs-string">"input_data"</span>)[<span class="hljs-number">0</span>].get(<span class="hljs-string">"values"</span>)[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>]
+        response_message = <span class="hljs-string">"Received message - {0}"</span>.<span class="hljs-built_in">format</span>(message_from_input_payload)
+
+        <span class="hljs-comment"># Score using the pre-defined model</span>
+        score_response = {
+            <span class="hljs-string">'predictions'</span>: [{<span class="hljs-string">'fields'</span>: [<span class="hljs-string">'Response_message_field'</span>],
+                             <span class="hljs-string">'values'</span>: [[response_message]]
+                            }]
+        }
+        <span class="hljs-keyword">return</span> score_response
+
+    <span class="hljs-keyword">return</span> score
+
+score = my_deployable_function()
+</code></pre>
+            <br> You can test your function like this:
+            <pre class="codeblock"><code class="lang-python hljs">input_data = { <span class="hljs-string">"input_data"</span>: [{ <span class="hljs-string">"fields"</span>: [ <span class="hljs-string">"message"</span> ],
+                                <span class="hljs-string">"values"</span>: [[ <span class="hljs-string">"Hello world!"</span> ]]
+                               }
+                              ]
+             }
+function_result = score( input_data )
+<span class="hljs-built_in">print</span>( function_result )
+</code></pre>
+            <p>It returns the message "Hello world!".</p>
+          </section>
+        </section>
+        <section id="section-fundepro">
+          <h2 id="fundepro">Function deployment process</h2>
+          <p>The Python code of your Function asset gets loaded as a Python module by the Watson Machine Learning engine by using an <code>import</code> statement. This means that the code will be executed exactly once (when the function is deployed or each
+            time when the corresponding pod gets restarted). The <code>score</code> function that is defined by the Function asset is then called in every prediction request.</p>
+        </section>
+        <section id="section-handle">
+          <h2 id="handle">Handling deployable functions</h2>
+          <p>Use one of these methods to create a deployable Python function:</p>
+          <ul>
+            <li><a href="#rest">Creating deployable functions through REST API</a></li>
+            <li><a href="#py">Creating deployable functions through the Python client</a></li>
+          </ul>
+          <section id="section-rest">
+            <h3 id="rest">Creating deployable functions through REST API</h3>
+            <p>For REST APIs, because the Python function is uploaded directly through a file, the file must already contain the <code>score</code> function. Any one time import that needs to be done to be used later within the <code>score</code> function
+              can be done within the global scope of the file. When this file is deployed as a Python function, the one-time imports available in the global scope get executed during the deployment and later simply reused with every prediction request.</p>
+            <div class="note important"><span class="importanttitle">Important:</span>
+              <md-block>
+                <p>The function archive must be a <code>.gz</code> file.</p>
+                <p></p>
+              </md-block>
+            </div>
+            <p></p>
+            <p>Sample <code>score</code> function file:</p>
+            <pre class="codeblock"><code class="lang-python hljs">Score function.py
+---------------------
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">score</span>(<span class="hljs-params">input_data</span>):
+    <span class="hljs-keyword">return</span> {<span class="hljs-string">'predictions'</span>: [{<span class="hljs-string">'values'</span>: [[<span class="hljs-string">'Just a test'</span>]]}]}
+</code></pre>
+            <p>Sample <code>score</code> function with one time imports:</p>
+            <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">import</span> subprocess
+subprocess.check_output(<span class="hljs-string">'pip install gensim --user'</span>, shell=<span class="hljs-literal">True</span>)
+<span class="hljs-keyword">import</span> gensim
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">score</span>(<span class="hljs-params">input_data</span>):
+    <span class="hljs-keyword">return</span> {<span class="hljs-string">'predictions'</span>: [{<span class="hljs-string">'fields'</span>: [<span class="hljs-string">'gensim_version'</span>], <span class="hljs-string">'values'</span>: [[gensim.__version__]]}]}
+</code></pre>
+          </section>
+          <section id="section-py">
+            <h3 id="py">Creating deployable functions through the Python client</h3>
+            <p>To persist a Python function as an asset, the Python client uses the <code>wml_client.repository.store_function</code> method. You can do that in two ways:</p>
+            <ul>
+              <li><a href="#persfufile">Persisting a function through a file that contains the Python function</a></li>
+              <li><a href="#persfunob">Persisting a function through the function object</a></li>
+            </ul>
+            <section id="section-persfufile">
+              <h4 id="persfufile">Persisting a function through a file that contains the Python function</h4>
+              <p>This method is the same as persisting the Python function file through REST APIs (<code>score</code> must be defined in the scope of the Python source file). For details, refer to <a href="#rest">Creating deployable functions through REST API</a>.</p>
+              <div class="note important"><span class="importanttitle">Important:</span>
+                <md-block>
+                  <p>When you are calling the <code>wml_client.repository.store_function</code> method, pass the file name as the first argument.</p>
+                  <p></p>
+                </md-block>
+              </div>
+              <p></p>
+            </section>
+            <section id="section-persfunob">
+              <h4 id="persfunob">Persisting a function through the function object</h4>
+              <p>You can persist Python function objects by creating Python Closures with a nested function named <code>score</code>. The <code>score</code> function is returned by the outer function that is being stored as a function object, when called.
+                This <code>score</code> function must meet the requirements that are listed in <a href="#reqs">General requirements for deployable functions</a>. In this case, any one time imports and initial setup logic must be added in the outer nested
+                function so that they get executed during deployment and get used within the <code>score</code> function. Any recurring logic that is needed during the <code>prediction</code> request must be added within the nested <code>score</code>                function.</p>
+              <p>Sample Python function save by using the Python client:</p>
+              <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">def</span> <span class="hljs-title function_">my_deployable_function</span>():
+
+    <span class="hljs-keyword">import</span> subprocess
+    subprocess.check_output(<span class="hljs-string">'pip install gensim'</span>, shell=<span class="hljs-literal">True</span>)
+    <span class="hljs-keyword">import</span> gensim
+
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">score</span>(<span class="hljs-params">input_data</span>):
+        <span class="hljs-keyword">import</span>
+        message_from_input_payload = payload.get(<span class="hljs-string">"input_data"</span>)[<span class="hljs-number">0</span>].get(<span class="hljs-string">"values"</span>)[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>]
+        response_message = <span class="hljs-string">"Received message - {0}"</span>.<span class="hljs-built_in">format</span>(message_from_input_payload)
+
+        <span class="hljs-comment"># Score using the pre-defined model</span>
+        score_response = {
+            <span class="hljs-string">'predictions'</span>: [{<span class="hljs-string">'fields'</span>: [<span class="hljs-string">'Response_message_field'</span>, <span class="hljs-string">'installed_lib_version'</span>],
+                             <span class="hljs-string">'values'</span>: [[response_message, gensim.__version__]]
+                            }]
+        }
+        <span class="hljs-keyword">return</span> score_response
+
+    <span class="hljs-keyword">return</span> score
+
+function_meta = {
+    client.repository.FunctionMetaNames.NAME:<span class="hljs-string">"test_function"</span>,
+    client.repository.FunctionMetaNames.SOFTWARE_SPEC_ID: sw_spec_id
+}
+func_details = client.repository.store_function(my_deployable_function, function_meta)
+</code></pre>
+              <p>In this scenario, the Python function takes up the job of creating a Python file taht contains the <code>score</code> function and persisting the function file as an asset in the Watson Machine Learning repository:</p>
+              <pre class="codeblock"><code class="lang-python hljs">score = my_deployable_function()
+</code></pre>
+            </section>
+          </section>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="https://www.programiz.com/python-programming/closure" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Python Closures</a></li>
+            <li><a href="https://www.learnpython.org/en/Closures" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Closures</a></li>
+            <li><a href="https://www.codesdope.com/blog/article/nested-function-scope-of-variable-closures-in-pyth/" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Nested function, Scope of variable &amp; closures in Python</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="ml-deploy-py-function.html">Deploying Python functions</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

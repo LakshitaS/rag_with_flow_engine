@@ -1,0 +1,221 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="The Watson OpenScale service supports Watson Machine Learning as well as many third-party machine learning providers.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Supported machine learning providers</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=models-supported-machine-learning-engines-frameworks"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="supported-machine-learning-providers" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-supported-machine-learning-providers">
+        <h1 id="supported-machine-learning-providers">Supported machine learning providers</h1>
+        <p>The Watson OpenScale service supports Watson Machine Learning as well as many third-party machine learning providers.</p>
+        <p>Use one of these supported machine learning providers to perform payload logging, feedback logging, and to measure performance accuracy, runtime bias detection, explainability, and auto-debias function as part of your model evaluation.</p>
+        <ul>
+          <li><a href="wos-frameworks-wml-cloud.html#frmwrks-wml">Watson Machine Learning</a></li>
+          <li><a href="wos-frameworks-azure-ml-studio.html#frmwrks-azure">Azure ML Studio</a></li>
+          <li><a href="wos-frameworks-azure-ml-service.html#frmwrks-azureservice">Azure ML Service</a></li>
+          <li><a href="wos-frameworks-aws-sagemaker.html#frmwrks-aws-sage">AWS SageMaker</a></li>
+          <li><a href="wos-frameworks-custom.html#frmwrks-custom">Custom</a> (The custom machine learning framework must have equivalent functionality to Watson Machine Learning.)</li>
+        </ul>
+        <section id="section-fmrk-workaround-multmleng">
+          <h2 id="fmrk-workaround-multmleng">Support for multiple machine learning engines</h2>
+          <p>Watson OpenScale supports multiple machine learning engines within a single instance. You can provision them through the Watson OpenScale dashboard configuration or the <a href="https://client-docs.aiopenscale.cloud.ibm.com/html/index.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Python SDK</a>.</p>
+        </section>
+        <section id="section-fmrk-workaround-multmleng-dashboard">
+          <h2 id="fmrk-workaround-multmleng-dashboard">Adding providers using the Watson OpenScale dashboard</h2>
+          <ol>
+            <li>After you open Watson OpenScale, from the <strong>Configure</strong> <img src="images/wos-insight-config-tab.png" alt="configuration icon is shown"> tab, click <strong>Add machine learning provider</strong>.</li>
+            <li>Select the provider you want to add.</li>
+            <li>Enter the required information, such as credentials, and click <strong>Save</strong>.</li>
+          </ol>
+          <section id="section-fmrk-workaround-editingproviders-dashboard">
+            <h3 id="fmrk-workaround-editingproviders-dashboard">Changing or updating details for machine learning providers</h3>
+            <p>Click the tile menu <img src="images/wos-v-three-dots.png" alt="the tile menu icon"> icon and then click <strong>View &amp; edit details</strong>.</p>
+          </section>
+        </section>
+        <section id="section-fmrk-workaround-multmleng-binding">
+          <h2 id="fmrk-workaround-multmleng-binding">Adding machine learning providers by using the Python SDK</h2>
+          <p>You can add more than one machine learning engine to Watson OpenScale by using the Python API <code>wos_client.service_providers.add</code> method.</p>
+          <section id="section-fmrk-workaround-multmleng-binding-wml">
+            <h3 id="fmrk-workaround-multmleng-binding-wml">IBM Watson Machine Learning</h3>
+            <p>To add the IBM Watson Machine Learning machine learning engine, run the following command:</p>
+            <pre class="codeblock"><code class="hljs">WML_CREDENTIALS = {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "url": "https://us-south.ml.cloud.ibm.com",
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "apikey": IBM CLOUD_API_KEY
+}
+&nbsp;
+wos_client.service_providers.add(
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; name=SERVICE_PROVIDER_NAME,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; description=SERVICE_PROVIDER_DESCRIPTION,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; service_type=ServiceTypes.WATSON_MACHINE_LEARNING,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; deployment_space_id = WML_SPACE_ID,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; operational_space_id = "production",
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; credentials=WMLCredentialsCloud(
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; apikey=CLOUD_API_KEY,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ## use `apikey=IAM_TOKEN` if using IAM_TOKEN to initiate client
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; url=WML_CREDENTIALS["url"],
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; instance_id=None
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ),
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; background_mode=False
+&nbsp;&nbsp;&nbsp; ).result
+</code></pre>
+          </section>
+          <section id="section-fmrk-workaround-multmleng-binding-azurestudio">
+            <h3 id="fmrk-workaround-multmleng-binding-azurestudio">Microsoft Azure ML Studio</h3>
+            <p>To add the Azure ML Studio machine learning engine, run the following command:</p>
+            <pre class="codeblock"><code class="hljs">AZURE_ENGINE_CREDENTIALS = {
+&nbsp;&nbsp;&nbsp; "client_id": "",
+&nbsp;&nbsp;&nbsp; "client_secret": "",
+&nbsp;&nbsp;&nbsp; "subscription_id": "",
+&nbsp;&nbsp;&nbsp; "tenant": ""
+}
+&nbsp;
+wos_client.service_providers.add(
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; name=SERVICE_PROVIDER_NAME,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; description=SERVICE_PROVIDER_DESCRIPTION,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; service_type=ServiceTypes.AZURE_MACHINE_LEARNING,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #deployment_space_id = WML_SPACE_ID,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #operational_space_id = "production",
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; credentials=AzureCredentials(
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; subscription_id= AZURE_ENGINE_CREDENTIALS['subscription_id'],
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; client_id = AZURE_ENGINE_CREDENTIALS['client_id'],
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; client_secret= AZURE_ENGINE_CREDENTIALS['client_secret'],
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tenant = AZURE_ENGINE_CREDENTIALS['tenant']
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ),
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; background_mode=False
+&nbsp;&nbsp;&nbsp; ).result
+</code></pre>
+          </section>
+          <section id="section-fmrk-workaround-multmleng-binding-aws">
+            <h3 id="fmrk-workaround-multmleng-binding-aws">Amazon Sagemaker</h3>
+            <p>To add the AWS Sagemaker machine learning engine, run the following command:</p>
+            <pre class="codeblock"><code class="hljs">SAGEMAKER_ENGINE_CREDENTIALS = {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'access_key_id':””,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'secret_access_key':””,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'region': '}
+&nbsp;
+wos_client.service_providers.add(
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; name="AWS",
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; description="AWS Service Provider",
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; service_type=ServiceTypes.AMAZON_SAGEMAKER,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; credentials=SageMakerCredentials(
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; access_key_id=SAGEMAKER_ENGINE_CREDENTIALS['access_key_id'],
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; secret_access_key=SAGEMAKER_ENGINE_CREDENTIALS['secret_access_key'],
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; region=SAGEMAKER_ENGINE_CREDENTIALS['region']
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ),
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; background_mode=False
+&nbsp;&nbsp;&nbsp; ).result
+</code></pre>
+          </section>
+          <section id="section-fmrk-workaround-multmleng-binding-azureservice">
+            <h3 id="fmrk-workaround-multmleng-binding-azureservice">Microsoft Azure ML Service</h3>
+            <p>To add the Azure ML Service machine learning engine, run the following command:</p>
+            <pre class="codeblock"><code class="hljs">service_type = "azure_machine_learning_service"
+added_service_provider_result = wos_client.service_providers.add(
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; name=SERVICE_PROVIDER_NAME,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; description=SERVICE_PROVIDER_DESCRIPTION,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; service_type = service_type,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; credentials=AzureCredentials(
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; subscription_id= AZURE_ENGINE_CREDENTIALS['subscription_id'],
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; client_id = AZURE_ENGINE_CREDENTIALS['client_id'],
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; client_secret= AZURE_ENGINE_CREDENTIALS['client_secret'],
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tenant = AZURE_ENGINE_CREDENTIALS['tenant']
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ),
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; background_mode=False
+&nbsp;&nbsp;&nbsp; ).result
+</code></pre>
+          </section>
+          <section id="section-fmrk-workaround-multmleng-binding-list">
+            <h3 id="fmrk-workaround-multmleng-binding-list">Producing a list of machine learning providers</h3>
+            <p>To view a list of all the bindings, run the <code>list</code> method:</p>
+            <p><code>client.service_providers.list()</code></p>
+            <table>
+              <caption caption-side="top">Table 1. Service bindings</caption>
+              <thead>
+                <tr>
+                  <th style="text-align:left">uid</th>
+                  <th style="text-align:center">name</th>
+                  <th style="text-align:center">service_type</th>
+                  <th style="text-align:center">created</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="text-align:left">e88ms###-####-####-############</td>
+                  <td style="text-align:center">My Azure ML Service engine</td>
+                  <td style="text-align:center">azure_machine_learning</td>
+                  <td style="text-align:center">2019-04-04T09:50:33.189Z</td>
+                </tr>
+                <tr>
+                  <td style="text-align:left">e88sl###-####-####-############</td>
+                  <td style="text-align:center">My Azure ML Studio engine</td>
+                  <td style="text-align:center">azure_machine_learning</td>
+                  <td style="text-align:center">2019-04-04T09:50:33.186Z</td>
+                </tr>
+                <tr>
+                  <td style="text-align:left">e00sjl###-####-####-############</td>
+                  <td style="text-align:center">WML instance</td>
+                  <td style="text-align:center">watson_machine_learning</td>
+                  <td style="text-align:center">2019-03-04T09:50:33.338Z</td>
+                </tr>
+                <tr>
+                  <td style="text-align:left">e43kl###-####-####-############</td>
+                  <td style="text-align:center">My AWS SageMaker engine</td>
+                  <td style="text-align:center">sagemaker_machine_learning</td>
+                  <td style="text-align:center">2019-04-04T09:50:33.186Z</td>
+                </tr>
+              </tbody>
+            </table>
+            <p>For information about specific machine learning engines, see the following topics:</p>
+            <ul>
+              <li><a href="wos-frameworks-custom.html#cml-cusbind">Add your Custom machine learning engine</a>.</li>
+              <li><a href="wos-frameworks-azure-ml-studio.html">Add your Microsoft Azure machine learning studio engine</a></li>
+              <li><a href="wos-frameworks-azure-ml-service.html#cml-azsrvbind">Add your Microsoft Azure machine learning service engine</a></li>
+              <li><a href="wos-frameworks-aws-sagemaker.html">Add your Amazon SageMaker machine learning engine</a></li>
+            </ul>
+            <p>For a coding example, see <a href="https://github.com/IBM/watson-openscale-samples" target="_blank" class="external">the Watson OpenScale sample notebooks</a>.</p>
+            <p><strong>Parent topic:</strong> <a href="getting-started.html">Evaluating AI models with Watson OpenScale</a></p>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

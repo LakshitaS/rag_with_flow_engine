@@ -1,0 +1,127 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Deploy a prompt template so you can add it to a business workflow or so you can evaluate the prompt template to measure performance.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Deploying a prompt template</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=assets-deploying-prompt-template"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="deploying-a-prompt-template" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-deploying-a-prompt-template">
+        <h1 id="deploying-a-prompt-template">Deploying a prompt template</h1>
+        <p>Deploy a prompt template so you can add it to a business workflow or so you can evaluate the prompt template to measure performance.</p>
+        <section id="section-prompt">
+          <h2 id="prompt">Before you begin</h2>
+          <p>Save a prompt template that contains at least one variable as a project asset. See <a href="fm-prompt-variables.html">Building reusable prompts</a>.</p>
+        </section>
+        <section id="section-deploy-prompt">
+          <h2 id="deploy-prompt">Promote a prompt template to a deployment space</h2>
+          <p>To deploy a prompt template, complete the following steps:</p>
+          <ol>
+            <li>Open the project containing the prompt template.</li>
+            <li>Click <strong>Promote to space</strong> for the template.</li>
+          </ol>
+          <p><img src="images/xgov-deploy-prompt1.png" alt="Promoting a prompt template to a deployment space" style="max-width:90%;height:auto;width:auto"></p>
+          <ol>
+            <li>
+              <p>In the <em>Target deployment space</em> field, choose a deployment space or create a new space. Note the following:</p>
+              <p>The deployment space must be associated with a machine learning instance that is in the same account as the project where the prompt template was created.</p>
+              <p>If you don't have a deployment space, choose <strong>Create a new deployment space</strong>, and then follow the steps in <a href="ml-space-create.html">Creating deployment spaces</a>.</p>
+              <p>If you plan to evaluate the prompt template in the space, the recommended <strong>Deployment stage</strong> type for the space is <em>Production</em>. For more information on evaluating, see <a href="../model/wos-eval-prompt-spaces.html">Evaluating a prompt template in a deployment space</a>.
+                </p><div class="note note"><span class="notetitle">Note:</span> The deployment space stage cannot be changed after the space is created.</div>
+              <p></p>
+            </li>
+            <li>
+              <p><strong>Tip</strong>: Select <strong>View deployment in deployment space after creating</strong>. Otherwise, you need to take more steps to find your deployed asset.</p>
+            </li>
+            <li>
+              <p>From the <strong>Assets</strong> tab of the deployment space, click <strong>Deploy</strong>. You create an online deployment, which means you can send data to the endpoint and receive a response in real-time.</p>
+              <p><img src="images/xgov-deploy-prompt2.png" alt="Deploying a prompt template" style="max-width:90%;height:auto;width:auto"></p>
+            </li>
+            <li>
+              <p>Optional: In the <em>Deployment serving name</em> field, add a unique label for the deployment.</p>
+              <p>The serving name is used in the URL for the API endpoint that identifies your deployment. Adding a name is helpful because the human-readable name that you add replaces a long, system-generated unique ID that is assigned otherwise.</p>
+              <p>The serving name also abstracts the deployment from its service instance details. Applications refer to this name, which allows for the underlying service instance to be changed without impacting users.</p>
+              <p>The name can have up to 36 characters. The supported characters are [a-z,0-9,_].</p>
+              <p>The name must be unique across the IBM Cloud region. You might be prompted to change the serving name if the name you choose is already in use.</p>
+            </li>
+          </ol>
+        </section>
+        <section id="section-testing-the-deployed-prompt-template">
+          <h2 id="testing-the-deployed-prompt-template">Testing the deployed prompt template</h2>
+          <p>After the deployment successfully completes, click the deployment name to view the deployment.</p>
+          <p><img src="images/xgov-deploy-prompt3.png" alt="Deploying a prompt template" style="max-width:90%;height:auto;width:auto"></p>
+          <ul>
+            <li><strong>API reference</strong> tab includes the API endpoints and code snippets that you need to add this prompt template to an application.</li>
+            <li><strong>Test</strong> tab supports testing the prompt template. Enter test data as text, streamed text, or in a JSON file.</li>
+          </ul>
+          <p>If the watsonx.governance service is enabled, you also see these tabs:</p>
+          <ul>
+            <li><strong>Evaluate</strong> provides the tools for evaluating the prompt template in the space. Click <strong>Activate</strong> to choose the dimensions to evaluate. For details, see <a href="../model/wos-eval-prompt.html">Evaluating prompt templates</a>.</li>
+            <li><strong>AI Factsheets</strong> displays all of the metadata that is collected for the prompt template. Use these details for tracking the prompt template for governance and compliance goals. See <a href="xgov-track-prompt-temp.html">Tracking prompt templates</a>.</li>
+          </ul>
+          <p>For more information, see <a href="ml-spaces_local.html">Deployment spaces</a>.</p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li>
+              <p><a href="xgov-track-prompt-temp.html">Tracking prompt templates </a></p>
+            </li>
+            <li>
+              <p><a href="../model/wos-eval-prompt-spaces.html">Evaluating a prompt template in a deployment space</a></p>
+            </li>
+            <li>
+              <p><a href="fm-security.html">Security and privacy for foundation models</a></p>
+            </li>
+            <li>
+              <p>Follow the tutorial <a href="../getting-started/get-started-evaluate-prompt.html">Quick start: Evaluate and track a prompt template</a> to evaluate and track a sample prompt template</p>
+            </li>
+            <li>
+              <p>See the blog post <a href="https://medium.com/@shuvanker.ghosh/ibm-watsonx-governance-b16ca5ed95d2" target="_blank" class="external">IBM watsonx.governance for management and performance assurance of AI models — A prescriptive approach</a>                for tips on how to operationalize business applications and workflows with AI inference using the deployed prompt template in a notebook</p>
+            </li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="../wmls/wmls-deploy-overview.html">Deploying and managing assets</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

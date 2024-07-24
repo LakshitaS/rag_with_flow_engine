@@ -1,0 +1,118 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can deploy Python functions in Watson Machine Learning the same way that you can deploy models. Your tools and apps can use the Watson Machine Learning Python client or REST API to send data to your deployed functions the same way that they send data to deployed models. Deploying Python functions gives you the ability to hide details (such as credentials). You can also preprocess data before you pass it to models. Additionally, you can handle errors and include calls to multiple models, all within the deployed function instead of in your application.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Deploying Python functions in Watson Machine Learning</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=assets-deploying-python-functions"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="deploying-python-functions-in-watson-machine-learning" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-deploying-python-functions-in-watson-machine-learning">
+        <h1 id="deploying-python-functions-in-watson-machine-learning">Deploying Python functions in Watson Machine Learning</h1>
+        <p>You can deploy Python functions in Watson Machine Learning the same way that you can deploy models. Your tools and apps can use the Watson Machine Learning Python client or REST API to send data to your deployed functions the same way that they
+          send data to deployed models. Deploying Python functions gives you the ability to hide details (such as credentials). You can also preprocess data before you pass it to models. Additionally, you can handle errors and include calls to multiple
+          models, all within the deployed function instead of in your application.</p>
+        <section id="section-sample-notebooks-for-creating-and-deploying-python-functions">
+          <h2 id="sample-notebooks-for-creating-and-deploying-python-functions">Sample notebooks for creating and deploying Python functions</h2>
+          <p>For examples of how to create and deploy Python functions by using the Watson Machine Learning <a href="https://ibm.github.io/watson-machine-learning-sdk/">Python client library</a>, refer to these sample notebooks:</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Sample name</th>
+                <th>Framework</th>
+                <th>Techniques demonstrated</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/1eddc77b3a4340d68f762625d40b64f9">Use Python function to recognize hand-written digits</a></td>
+                <td>Python</td>
+                <td>Use a function to store a sample model and deploy it.</td>
+              </tr>
+              <tr>
+                <td><a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/61a8b600f1bb183e2c471e7a64299f0e">Predict business for cars</a></td>
+                <td>Hybrid(Tensorflow)</td>
+                <td>Set up an AI definition<br>Prepare the data<br>Create a Keras model by using Tensorflow<br>Deploy and score the model<br>Define, store, and deploy a Python function</td>
+              </tr>
+              <tr>
+                <td><a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/56825df5322b91daffd39426038808e9">Deploy Python function for software specification</a></td>
+                <td>Core</td>
+                <td>Create a Python function<br>Create a web service<br>Score the model</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>The notebooks demonstrate the six steps for creating and deploying a function:</p>
+          <ol>
+            <li>Define the function.</li>
+            <li>Authenticate and define a space.</li>
+            <li>Store the function in the repository.</li>
+            <li>Get the software specification.</li>
+            <li>Deploy the stored function.</li>
+            <li>Send data to the function for processing.</li>
+          </ol>
+          <p>For links to other sample notebooks that use the Watson Machine Learning <a href="https://ibm.github.io/watson-machine-learning-sdk/">Python client library</a>, refer to <a href="../analyze-data/ml-samples-overview.html">Using Watson Machine Learning in a notebook</a>.</p>
+        </section>
+        <section id="section-increasing-scalability-for-a-function">
+          <h2 id="increasing-scalability-for-a-function">Increasing scalability for a function</h2>
+          <p>When you deploy a function from a deployment space or programmatically, a single copy of the function is deployed by default. To increase scalability, you can increase the number of replicas by editing the configuration of the deployment. More
+            replicas allow for a larger volume of scoring requests.</p>
+          <p>The following example uses the Python client API to set the number of replicas to 3.</p>
+          <pre class="codeblock"><code class="lang-python hljs">change_meta = {
+                client.deployments.ConfigurationMetaNames.HARDWARE_SPEC: {
+                                       <span class="hljs-string">"name"</span>:<span class="hljs-string">"S"</span>,
+                                       <span class="hljs-string">"num_nodes"</span>:<span class="hljs-number">3</span>}
+            }
+
+client.deployments.update(&lt;deployment_id&gt;, change_meta)
+</code></pre>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li>To learn more about defining a deployable Python function, see <strong>General requirements for deployable functions</strong> section in <a href="../analyze-data/ml-deploy-py-function-write.html">Writing and storing deployable Python functions</a>.</li>
+            <li>You can deploy a function from a deployment space through the user interface. For more information, see <a href="../analyze-data/ml-spaces_local.html">Deployment spaces</a>.</li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="../analyze-data/ml-deploy-general.html">Managing predictive deployments</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

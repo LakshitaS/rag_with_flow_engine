@@ -1,0 +1,134 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="The Watson OpenScale service provides explanations for your model transactions to help you understand how predictions are determined.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Explaining model transactions</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=transactions-explaining-model"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="explaining-model-transactions" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-explaining-model-transactions">
+        <h1 id="explaining-model-transactions">Explaining model transactions</h1>
+        <p>The Watson OpenScale service provides explanations for your model transactions to help you understand how predictions are determined.</p>
+        <p>You can analyze local explanations to understand the impact of factors for specific transactions or analyze global explanations to understand the general factors that impact model outcomes. The type of model that you configure determines the type
+          of explanation that you can use to analyze your transactions.</p>
+        <p>Watson OpenScale supports explanations for structured, image, and unstructured text models. Structured models can use binary, multiclass, or regression classification problems. Image or unstructured text models can use binary or multiclass classification
+          problems.</p>
+        <p>When you configure explainability in Watson OpenScale, you can use Local Interpretable Model-Agnostic Explanations (LIME), contrastive explanations, or Shapley Additive explanations (SHAP) to analyze transactions.</p>
+        <p>LIME identifies which features are most important for a specific data point by analyzing up to 5000 other close-by data points. In an ideal setting, the features with high importance in LIME are the features that are most important for that specific
+          data point.</p>
+        <p>Contrastive explanations calculate how many values need to change to change the prediction or maintain the same prediction. The factors that need the maximum change are considered more important, so the features with the highest importance in
+          contrastive explanations are the features where the model is least sensitive. For contrastive explanations, Watson OpenScale displays the maximum changes for the same outcome and the minimum changes for a changed outcome. These categories are
+          also known as pertinent positive and pertinent negative values. These values help explain the behavior of the model in the vicinity of the data point for which an explanation is generated.</p>
+        <p>SHAP is a game-theoretic approach that explains the output of machine learning models. It connects optimal credit allocation with local explanations by using Shapley values and their related extensions. SHAP assigns each model feature an importance
+          value for a particular prediction, which is called a <em>Shapley value</em>. The Shapley value is the average marginal contribution of a feature value across all possible groups of features. The SHAP values of the input features are the sums
+          of the difference between baseline or expected model output and the current model output for the prediction that is being explained. The baseline model output can be based on the summary of the training data or any subset of data that explanations
+          must be generated for. The Shapley values of a set of transactions can be combined to get global explanations that provide an overview of which features of a model are most important.</p>
+        <div class="note note"><span class="notetitle">Note:</span>
+          <md-block id="note">
+            <p>Watson OpenScale only supports global explanations for online subscriptions. SHAP explanations only support tabular data.</p>
+            <p></p>
+          </md-block>
+        </div>
+        <p></p>
+        <section id="section-analyze-explain-local">
+          <h2 id="analyze-explain-local">Analyzing local explanations</h2>
+          <p>Watson OpenScale provides different methods that you can use to view local explanations.</p>
+          <p>When you <a href="wos-insight-timechart.html">review evaluation results</a>, you can select the <strong>Number of explanations</strong> link to open the <strong>Select an explanation</strong> window.</p>
+          <p><img src="images/wos-select-explanation.png" alt="Select an explanation window displays"></p>
+          <p>In the <strong>Action</strong> column select <strong>Explain</strong> to display the <strong>Transaction</strong> details page. The <strong>Transactions details</strong> provides different explanations, depending on which explanation methods
+            and model types that you use.</p>
+          <p>For categorical models, on the <strong>Explain</strong> tab, the <strong>Transaction details</strong> page provides an analysis of the features that influenced the outcome of the transaction with the local explanation method that you use. For
+            SHAP, you can select the background data that you use in the <strong>Background data</strong> menu to regenerate the explanation.</p>
+          <p><img src="images/wos-shap-explain-transactions.png" alt="Transaction details"></p>
+          <p>On the <strong>Inspect</strong> tab, Watson OpenScale generates advanced contrastive explanations for binary classification models that you can use to experiment with features by changing the values to see whether the outcome changes.</p>
+          <p><img src="images/wos-explainability-inspect.png" alt="Transaction details on the inspect tab show values that might produce a different outcome"></p>
+          <p>You can also view different explanations for the following type of transactions:</p>
+          <ul>
+            <li><a href="#ie-image">Explaining image transactions</a></li>
+            <li><a href="#ie-unstruct">Explaining unstructured text transactions</a></li>
+            <li><a href="#ie-tabular-xplan">Explaining tabular transactions</a></li>
+          </ul>
+          <section id="section-ie-image">
+            <h3 id="ie-image">Explaining image transactions</h3>
+            <p>For image models, you can view which parts of an image contribute positively and negatively to the predicted outcome. In the following example, the image in the positive panel shows the parts which impacted positively to the prediction. The
+              image in the negative panel shows the parts of images that had a negative impact on the outcome.</p>
+            <p><img src="images/wos-insight-explain-image.png" alt="Explainability image classification confidence detail displays with an image of a tree frog. Different parts of the picture are highlighted in separate frames. Each part shows the extent to which it did or did not help to determine that the image is a frog."></p>
+            <p>You can also use the following notebooks to generate explanations for image models:</p>
+            <ul>
+              <li><a href="https://github.com/IBM/watson-openscale-samples/blob/main/IBM%20Cloud/WML/notebooks/unstructured_image/keras/Watson%20OpenScale%20Explanation%20for%20Image%20Multiclass.ipynb" target="_blank" class="external">Tutorial on generating an explanation for an image-based multiclass classification model</a></li>
+              <li><a href="https://github.com/IBM/watson-openscale-samples/blob/main/IBM%20Cloud/WML/notebooks/unstructured_image/keras/Watson%20OpenScale%20Explanation%20for%20Image%20Binary%20Classification.ipynb" target="_blank" class="external">Tutorial on generating an explanation for an image-based binary classification model</a></li>
+            </ul>
+          </section>
+          <section id="section-ie-unstruct">
+            <h3 id="ie-unstruct">Explaining unstructured text transactions</h3>
+            <p>For unstructured text models, you can view which keywords had a positive or a negative impact on the model prediction. Unstructured text models explain the importance of words or tokens.</p>
+            <p><img src="images/wos-insight-explain-text.png" alt="Explainability image classification chart is displayed. It shows confidence levels for the unstructured text"></p>
+            <p>The explanation also shows the position of the identified keywords in the original text that was fed as input to the model. To change the language, select a different language from the list. The explanation runs again by using a different
+              tokenizer.</p>
+            <p>You can also use the following notebook to generate explanations for unstructured text models:</p>
+            <p><a href="https://github.com/IBM/watson-openscale-samples/blob/main/IBM%20Cloud/WML/notebooks/unstructured_text/spark/Watson%20OpenScale%20Explanation%20for%20Text%20Model.ipynb" target="_blank" class="external">Tutorial on generating an explanation for a text-based model</a></p>
+          </section>
+          <section id="section-ie-tabular-xplan">
+            <h3 id="ie-tabular-xplan">Explaining tabular transactions</h3>
+            <p>For tabular classification models, you can view the top three features that positively influence the model prediction and the top three features that negatively influence the prediction.</p>
+            <p><img src="images/wos-tabular-transactions.png" alt="Explainability image classification chart is displayed. It shows confidence levels for the tabular data model"></p>
+            <p>To view local explanations, you can also select the <strong>Explain a transaction</strong> tab <img src="images/wos-insight-transact-tab.png" alt="Explain a transaction" title="Explain a transaction"> to open the <strong>Recent transactions</strong>              page. The page displays all of the transactions that are processed by your model.</p>
+          </section>
+        </section>
+        <section id="section-analyze-explain-global">
+          <h2 id="analyze-explain-global">Analyzing global explanations</h2>
+          <p>If you enable the SHAP global explanation method when you configure explainability, you can view details for the <a href="wos-explainability-global-stability.html">global explanation stability</a> metric on your dashboard. The global explanation
+            metric calculates the degree of consistency in the global explanation over time.</p>
+          <p>When you review evaluation results for explainability, you can view the following details:</p>
+          <ul>
+            <li><strong>Feature influence</strong>: The most important features in descending order of the average absolute SHAP values</li>
+            <li><strong>Distribution</strong>: The SHAP values for distribution of each feature</li>
+            <li><strong>Comparison</strong>: The change in features influence between current global and baseline global explanation</li>
+          </ul>
+          <p><img src="images/wos-explainability-insights.png" alt="global explanation metrics display"></p>
+          <p>You can also test what-if scenarios by adjusting model transaction values to determine how different changes can affect your outcomes.</p>
+          <p><strong>Parent topic:</strong> <a href="wos-insight-explain.html">Reviewing model transactions</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

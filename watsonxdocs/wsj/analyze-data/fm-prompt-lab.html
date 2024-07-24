@@ -1,0 +1,272 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="In the Prompt Lab in IBM watsonx.ai, you can experiment with prompting different foundation models, explore sample prompts, and save and share your best prompts.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Prompt Lab</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=solutions-prompt-lab"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="prompt-lab" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-prompt-lab">
+        <h1 id="prompt-lab">Prompt Lab</h1>
+        <p>In the Prompt Lab in IBM watsonx.ai, you can experiment with prompting different foundation models, explore sample prompts, and save and share your best prompts.</p>
+        <p>You use the Prompt Lab to engineer effective prompts that you submit to deployed foundation models for inferencing. You do not use the Prompt Lab to create new foundation models.</p>
+        <div>
+          <p style="font-size:smaller">This video provides a visual method to learn the concepts and tasks in this documentation.</p><iframe id="wm-prompt-lab" src="https://video.ibm.com/embed/channel/23952663/video/prompt-lab" lang="en-US" style="border: 0;" webkitallowfullscreen="" allowfullscreen="" frameborder="no" width="560" height="315" title="This video shows you how to prompt foundation models by using the Prompt Lab." alt="This video shows you how to prompt foundation models by using the Prompt Lab."></iframe></div>
+        <section id="section-requirements">
+          <h2 id="requirements">Requirements</h2>
+          <p>If you signed up for watsonx.ai and you have a sandbox project, all requirements are met and you're ready to use the Prompt Lab.</p>
+          <p>You must meet these requirements to use the Prompt Lab:</p>
+          <ul>
+            <li>You must have a project.</li>
+            <li>You must have the <strong>Editor</strong> or <strong>Admin</strong> role in the project.</li>
+            <li>The project must have an associated Watson Machine Learning service instance. Otherwise, you might be prompted to associate the service when you open the Prompt Lab.</li>
+          </ul>
+        </section>
+        <section id="section-creating-and-running-a-prompt">
+          <h2 id="creating-and-running-a-prompt">Creating and running a prompt</h2>
+          <p>To create and run a new prompt, complete the following steps:</p>
+          <ol>
+            <li>
+              <p>From the <a href="https://dataplatform.cloud.ibm.com/wx/home?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">watsonx.ai home page</a>, choose a project, and then click <strong>Experiment with foundation models and build prompts</strong>.</p>
+            </li>
+            <li>
+              <p>Select a model.</p>
+            </li>
+            <li>
+              <p><em>Optional</em>: Choose a different edit mode to work in, such as <em>Freeform</em>.</p>
+            </li>
+            <li>
+              <p>If necessary, update model parameters or add prompt variables.</p>
+            </li>
+            <li>
+              <p>Enter a prompt.</p>
+            </li>
+            <li>
+              <p>Click the <strong>Send</strong> icon <img src="images/send.svg" alt="Send icon" title="Send icon" height="20" style="vertical-align:text-bottom">.</p>
+              <p>In <em>Structured</em> or <em>Freeform</em> mode, click <strong>Generate</strong>.</p>
+            </li>
+            <li>
+              <p>You can cancel an inference request at any time by clicking <strong>Stop</strong> icon <img src="images/stop-outline.svg" alt="Stop icon" title="Stop icon" height="20" style="vertical-align:text-bottom">.</p>
+              <p>Tokens in your input are counted as tokens used. Any tokens that were generated by the model as output before the request was canceled are also counted.</p>
+            </li>
+            <li>
+              <p>To preserve your work so that you can reuse or share a prompt with collaborators in the current project, save your work as a project asset. For more information, see <a href="fm-prompt-save.html">Saving prompts</a>.</p>
+            </li>
+          </ol>
+          <p>To run a sample prompt, complete the following steps:</p>
+          <ol>
+            <li>
+              <p>From the <em>Sample prompts</em> menu in the Prompt Lab, select a sample prompt.</p>
+              <p>The prompt is opened in the editor and an appropriate model is selected.</p>
+            </li>
+            <li>
+              <p>Click <strong>Generate</strong>.</p>
+            </li>
+          </ol>
+        </section>
+        <section id="section-prompt-editing-options">
+          <h2 id="prompt-editing-options">Prompt editing options</h2>
+          <p>You type your prompt in the prompt editor. The prompt editor has the following edit modes:</p>
+          <ul>
+            <li><a href="#chat-mode">Chat</a></li>
+            <li><a href="#structured-mode">Structured</a></li>
+            <li><a href="#freeform-mode">Freeform</a></li>
+          </ul>
+          <section id="section-chat-mode">
+            <h3 id="chat-mode">Chat mode</h3>
+            <p>You chat with the foundation model.</p>
+            <p>You start the chat by submitting a query or request for the foundation model to answer. Each subsequent turn in the conversation builds on information that was exchanged previously.</p>
+            <p><strong>Note</strong>: You cannot make changes while a chat is in progress. Click <strong>Clear chat</strong> <img src="images/reset.svg" alt="Clear chat icon" title="Clear chat icon" height="20" style="vertical-align:text-bottom"> to stop
+              and make changes.</p>
+            <p>Before starting a chat, review and adjust the model choice and parameter settings. To support long dialog exchanges, the <em>Max tokens</em> parameter is set to a high default value. You might want to add a stop sequence to prevent the model
+              from generating wordy outputs, for example.</p>
+            <p>Predefined text called a <em>system prompt</em> is included at the start of the chat to establish ground rules for the conversation. To review and customize the text, click <strong>Edit system prompt</strong> <img src="images/settings-edit.svg" alt="Edit system prompt" title="Edit system prompt" height="20" style="vertical-align:text-bottom">.</p>
+            <p>Some foundation models recommend specific templates that identify different segments of the prompt, such as the prompt instruction and user input. Chat mode adjusts the syntax of your prompt input to conform to each foundation model's recommended
+              format. You can click the text icon <img src="images/fm-txt.svg" alt="View full prompt text" title="View full prompt text" height="20" style="vertical-align:text-bottom"> to see the full prompt text that will be submitted to the foundation
+              model.</p>
+            <p>The following features are omitted from chat mode:</p>
+            <ul>
+              <li>
+                <p>The token usage count is not shown in chat mode.</p>
+                <p>Keep in mind that the chat history is sent with each new prompt that you submit which contributes to the overall token count.</p>
+                <p>You can check the token count yourself by using the API. Click the text icon <img src="images/fm-txt.svg" alt="View full prompt text" title="View full prompt text" height="20" style="vertical-align:text-bottom"> to open and copy the full
+                  prompt text, and then use the <a href="https://cloud.ibm.com/apidocs/watsonx-ai#text-tokenization" target="_blank" class="external">Text tokenization</a> method to count the tokens.</p>
+              </li>
+              <li>
+                <p>You cannot define prompt variables in chat mode. As a consequence, you cannot govern saved chat prompt templates.</p>
+              </li>
+            </ul>
+            <p>Watch this video showing Chat mode in the Prompt Lab.</p>
+            <div>
+              <p style="font-size:smaller">This video provides a visual method to learn the concepts and tasks in this documentation.</p><iframe id="wm-prompt-lab-chat" src="https://video.ibm.com/embed/channel/23952663/video/prompt-lab-chat" lang="en-US" style="border: 0;" webkitallowfullscreen="" allowfullscreen="" frameborder="no" width="560" height="315" title="This video shows Chat mode in the Prompt Lab." alt="This video shows Chat mode in the Prompt Lab."></iframe></div>
+          </section>
+          <section id="section-structured-mode">
+            <h3 id="structured-mode">Structured mode</h3>
+            <p>You add parts of your prompt into the appropriate fields:</p>
+            <ul>
+              <li><strong>Instruction</strong>: Add an instruction if it makes sense for your use case. An instruction is an imperative statement, such as <em>Summarize the following article</em>.</li>
+              <li><strong>Examples</strong>: Add one or more pairs of examples that contain the input and the corresponding output that you want. Providing a few example input-and-output pairs in your prompt is called <em>few-shot prompting</em>. If you need
+                a specific prefix to the input or the output, you can replace the default labels, "Input:" or "Output:", with the labels you want to use. A space is added between the example label and the example text.</li>
+              <li><strong>Test your input</strong>: In the <em>Try</em> area, enter the final input of your prompt.</li>
+            </ul>
+            <p>Structured mode is designed to help new users create effective prompts. Text from the fields is sent to the model in a template format.</p>
+          </section>
+          <section id="section-freeform-mode">
+            <h3 id="freeform-mode">Freeform mode</h3>
+            <p>You add your prompt in plain text. Your prompt text is sent to the model exactly as you typed it.</p>
+            <ul>
+              <li>Quotation marks in your text are escaped with a backslash (<code>\"</code>).</li>
+              <li>Newline characters are represented by <code>\n</code>.</li>
+              <li>Apostrophes are escaped (<code>it'\''s</code>) so that they can be handled properly in the cURL command.</li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-model-and-prompt-configuration-options">
+          <h2 id="model-and-prompt-configuration-options">Model and prompt configuration options</h2>
+          <p>You must specify which model to prompt and can optionally set parameters that control the generated result.</p>
+          <section id="section-model-choices">
+            <h3 id="model-choices">Model choices</h3>
+            <p>In the Prompt Lab, you can submit your prompt to any of the models that are supported by watsonx.ai. You can choose recently-used models from the drop-down list. Or you can click <strong>View all foundation models</strong> to view all the
+              supported models, filter them by task, and read high-level information about the models.</p>
+            <p>If you tuned a foundation model by using the Tuning Studio and deployed the tuned model, your tuned model is also available for prompting from the Prompt Lab.</p>
+          </section>
+          <section id="section-model-parameters">
+            <h3 id="model-parameters">Model parameters</h3>
+            <p>To control how the model generates output in response to your prompt, you can specify decoding parameters and stopping criteria. For more information, see <a href="fm-model-parameters.html">Model parameters for prompting</a>.</p>
+          </section>
+          <section id="section-prompt-variables">
+            <h3 id="prompt-variables">Prompt variables</h3>
+            <p>To add flexibility to your prompts, you can define prompt variables. A prompt variable is a placeholder keyword that you include in the static text of your prompt at creation time and replace with text dynamically at run time. For more information,
+              see <a href="fm-prompt-variables.html">Building reusable prompts</a>.</p>
+          </section>
+          <section id="section-view-full-prompt-text">
+            <h3 id="view-full-prompt-text">View full prompt text</h3>
+            <p>You might want to see the full prompt text that will be submitted to the foundation model in the following situations:</p>
+            <ul>
+              <li>When prompt variables are in use, to see resolved variable values in context.</li>
+              <li>In chat mode, where the recommended prompt formats for different foundation models are applied automatically.</li>
+              <li>In structured mode, where you add parts of the prompt into separate fields.</li>
+            </ul>
+          </section>
+          <section id="section-ai-guardrails">
+            <h3 id="ai-guardrails">AI guardrails</h3>
+            <p>When you set the <strong>AI guardrails</strong> switcher to <strong>On</strong>, harmful language is automatically removed from the input prompt text and from the output that is generated by the model. Specifically, any sentence in the input
+              or output that contains harmful language is replaced with a message that says that potentially harmful text was removed.</p>
+            <p><strong>Note</strong>: This feature is supported for English-language models only. If you're working with a non-English foundation model, disable <em>AI guardrails</em>.</p>
+            <p>For more information, see <a href="fm-hap.html">Removing harmful content</a>.</p>
+          </section>
+        </section>
+        <section id="section-prompt-code">
+          <h2 id="prompt-code">Prompt code</h2>
+          <p>If you want to run the prompt programmatically, you can view and copy the prompt code or use the Python library.</p>
+          <section id="section-view-code">
+            <h3 id="view-code">View code</h3>
+            <p>When you click the <strong>View code</strong> icon <img src="images/code.svg" alt="</>" height="20" style="vertical-align:text-bottom">), a cURL command is displayed that you can call from outside the Prompt Lab to submit the current
+              prompt and parameters to the selected model and get a generated response.</p>
+            <p>In the command, there is a placeholder for an IBM Cloud IAM token. For information about generating the access token, see <a href="https://cloud.ibm.com/docs/account?topic=account-iamtoken_from_apikey" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Generating an IBM Cloud IAM token</a>.</p>
+          </section>
+          <section id="section-programmatic-alternative-to-the-prompt-lab">
+            <h3 id="programmatic-alternative-to-the-prompt-lab">Programmatic alternative to the Prompt Lab</h3>
+            <p>The Prompt Lab graphical interface is a great place to experiment and iterate with your prompts. However, you can also prompt foundation models in watsonx.ai programmatically by using the Python library or REST API. For details, see <a href="fm-code.html">Coding generative AI solutions</a>.</p>
+          </section>
+        </section>
+        <section id="section-available-prompts">
+          <h2 id="available-prompts">Available prompts</h2>
+          <p>In the side panel, you can access sample prompts, your session history, and saved prompts.</p>
+          <section id="section-samples">
+            <h3 id="samples">Samples</h3>
+            <p>A collection of sample prompts are available in the Prompt Lab. The samples demonstrate effective prompt text and model parameters for different tasks, including classification, extraction, content generation, question answering, and summarization.</p>
+            <p>When you click a sample, the prompt text loads in the editor, an appropriate model is selected, and optimal parameters are configured automatically.</p>
+          </section>
+          <section id="section-history">
+            <h3 id="history">History</h3>
+            <p>As you experiment with different prompt text, model choices, and parameters, the details are captured in the session history each time you submit your prompt. To load a previous prompt, click the entry in the history and then click <strong>Restore</strong>.</p>
+          </section>
+          <section id="section-saved">
+            <h3 id="saved">Saved</h3>
+            <p>From the <em>Saved prompt templates</em> menu, you can load any prompts that you saved to the current project as a prompt template asset.</p>
+            <p>When watsonx.governance is provisioned, if your prompt template includes at least one prompt variable, you can evaluate the effectiveness of model responses. For more information, see <a href="../model/wos-eval-prompt.html">Evaluating prompt templates in projects</a>.</p>
+          </section>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li>
+              <p><a href="fm-prompt-variables.html">Building reusable prompts</a></p>
+            </li>
+            <li>
+              <p><a href="fm-prompt-save.html">Saving prompts</a></p>
+            </li>
+            <li>
+              <p><a href="fm-model-parameters.html">Model parameters for prompting</a></p>
+            </li>
+            <li>
+              <p><a href="fm-prompt-samples.html">Sample prompts</a></p>
+            </li>
+            <li>
+              <p><a href="fm-prompt-tips.html">Prompt tips</a></p>
+            </li>
+            <li>
+              <p><a href="../model/wos-eval-prompt.html">Evaluating prompt templates in projects</a></p>
+            </li>
+            <li>
+              <p><a href="fm-security.html">Security and privacy for foundation models</a></p>
+            </li>
+            <li>
+              <p>Try these tutorials:</p>
+              <ul>
+                <li><a href="../getting-started/get-started-prompt-lab.html">Prompt a foundation model using Prompt Lab</a></li>
+                <li><a href="../getting-started/get-started-fm-notebook.html">Prompt a foundation model with the retrieval-augmented generation pattern</a></li>
+              </ul>
+            </li>
+            <li>
+              <p>Watch these other prompt lab videos:</p>
+              <iframe src="https://www.kaltura.com/p/1773841/sp/177384100/embedIframeJs/uiconf_id/39954662/partner_id/1773841/widget_id/1_ue2soazv?iframeembed=true&amp;playerId=kaltura_player_&amp;flashvars[playlistAPI.kpl0Id]=1_541si317&amp;flashvars[ks]=&amp;&amp;flashvars[imageDefaultDuration]=30&amp;flashvars[akamaiHD.loadingPolicy]=preInitialize&amp;flashvars[akamaiHD.asyncInit]=true&amp;flashvars[twoPhaseManifest]=true&amp;flashvars[streamerType]=hdnetworkmanifest&amp;flashvars[localizationCode]=en&amp;flashvars[nextPrevBtn.plugin]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[playlistAPI.playlistUrl]=https://mediacenter.ibm.com/playlist/details/{playlistAPI.kpl0Id}" width="740" height="330" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen="" allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="IBM watsonx.ai"></iframe>
+            </li>
+          </ul>
+          <br>
+          <p><strong>Parent topic:</strong> <a href="fm-overview.html">Developing generative AI solutions</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

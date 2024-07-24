@@ -1,0 +1,260 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="If your data is stored in columnar format, you can use Parquet modular encryption to encrypt sensitive columns when writing Parquet files, and decrypt these columns when reading the encrypted files. Encrypting data at the column level, enables you to decide which columns to encrypt and how to control the column access.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Parquet modular encryption</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=scripts-parquet-encryption"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="parquet-encryption" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-parquet-encryption">
+        <h1 id="parquet-encryption">Parquet modular encryption</h1>
+        <p>If your data is stored in columnar format, you can use Parquet modular encryption to encrypt sensitive columns when writing Parquet files, and decrypt these columns when reading the encrypted files. Encrypting data at the column level, enables
+          you to decide which columns to encrypt and how to control the column access.</p>
+        <p>Besides ensuring privacy, Parquet modular encryption also protects the integrity of stored data. Any tampering with file contents is detected and triggers a reader-side exception.</p>
+        <p>Key features include:</p>
+        <ol>
+          <li>
+            <p>Parquet modular encryption and decryption is performed on the Spark cluster. Therefore, sensitive data and the encryption keys are not visible to the storage.</p>
+          </li>
+          <li>
+            <p>Standard Parquet features, such as encoding, compression, columnar projection and predicate push-down, continue to work as usual on files with Parquet modular encryption format.</p>
+          </li>
+          <li>
+            <p>You can choose one of two encryption algorithms that are defined in the Parquet specification. Both algorithms support column encryption, however:</p>
+            <ul>
+              <li>The default algorithm <code>AES-GCM</code> provides full protection against tampering with data and metadata parts in Parquet files.</li>
+              <li>The alternative algorithm <code>AES-GCM-CTR</code> supports partial integrity protection of Parquet files. Only metadata parts are protected against tampering, not data parts. An advantage of this algorithm is that it has a lower throughput
+                overhead compared to the <code>AES-GCM</code> algorithm.</li>
+            </ul>
+          </li>
+          <li>
+            <p>You can choose which columns to encrypt. Other columns won't be encrypted, reducing the throughput overhead.</p>
+          </li>
+          <li>
+            <p>Different columns can be encrypted with different keys.</p>
+          </li>
+          <li>
+            <p>By default, the main Parquet metadata module (the file footer) is encrypted to hide the file schema and list of sensitive columns. However, you can choose not to encrypt the file footers in order to enable legacy readers (such as other Spark
+              distributions that don't yet support Parquet modular encryption) to read the unencrypted columns in the encrypted files.</p>
+          </li>
+          <li>
+            <p>Encryption keys can be managed in one of two ways:</p>
+            <ul>
+              <li>Directly by your application. See <a href="key-management-by-application.html">Key management by application</a>.</li>
+              <li>By a key management system (KMS) that generates, stores and destroys encryption keys used by the Spark service. These keys never leave the KMS server, and therefore are invisible to other components, including the Spark service. See <a href="key-management-by-kms.html">Key management by KMS</a>.</li>
+            </ul>
+            <p>Note: Only master encryption keys (MEKs) need to be managed by your application or by a KMS.</p>
+            <p>For each sensitive column, you must specify which master key to use for encryption. Also, a master key must be specified for the footer of each encrypted file (data frame). By default, the footer key will be used for footer encryption. However,
+              if you choose a plain text footer mode, the footer won’t be encrypted, and the key will be used only for integrity verification of the footer.</p>
+            <p>The encryption parameters can be passed via the standard Spark Hadoop configuration, for example by setting configuration values in the Hadoop configuration of the application's SparkContext:</p>
+            <pre class="codeblock"><code class="lang-sh hljs">sc.hadoopConfiguration.set(<span class="hljs-string">"&lt;parameter name&gt;"</span> , <span class="hljs-string">"&lt;parameter value&gt;"</span>)
+</code></pre>
+            <p>Alternatively, you can pass parameter values through write options:</p>
+            <pre class="codeblock"><code class="lang-sh hljs">&lt;data frame name&gt;.write
+.option(<span class="hljs-string">"&lt;parameter name&gt;"</span> , <span class="hljs-string">"&lt;parameter value&gt;"</span>)
+.parquet(<span class="hljs-string">"&lt;write path&gt;"</span>)
+</code></pre>
+          </li>
+        </ol>
+        <section id="section-running-with-parquet-modular-encryption">
+          <h2 id="running-with-parquet-modular-encryption">Running with Parquet modular encryption</h2>
+          <p>Parquet modular encryption is available only in Spark notebooks that are run in an IBM Analytics Engine service instance. Parquet modular encryption is not supported in notebooks that run in a Spark environment.</p>
+          <p>To enable Parquet modular encryption, set the following Spark classpath properties to point to the Parquet jar files that implement Parquet modular encryption, and to the key management jar file:</p>
+          <ol>
+            <li>
+              <p>Navigate to <strong>Ambari &gt; Spark &gt; Config -&gt; Custom spark2-default</strong>.</p>
+            </li>
+            <li>
+              <p>Add the following two parameters to point explicitly to the location of the JAR files. Make sure that you edit the paths to use the actual version of jar files on the cluster.</p>
+              <pre class="codeblock"><code class="lang-bash hljs">spark.driver.extraClassPath=/home/common/lib/parquetEncryption/ibm-parquet-kms-&lt;latestversion&gt;-jar-with-dependencies.jar:/home/common/lib/parquetEncryption/parquet-format-&lt;latestversion&gt;.jar:/home/common/lib/parquetEncryption/parquet-hadoop-&lt;latestversion&gt;.jar
+
+spark.executor.extraClassPath=/home/common/lib/parquetEncryption/ibm-parquet-&lt;latestversion&gt;-jar-with-dependencies.jar:/home/common/lib/parquetEncryption/parquet-format-&lt;latestversion&gt;.jar:/home/common/lib/parquetEncryption/parquet-hadoop-&lt;latestversion&gt;.jar
+</code></pre>
+            </li>
+          </ol>
+        </section>
+        <section id="section-mandatory-parameters">
+          <h2 id="mandatory-parameters">Mandatory parameters</h2>
+          <p>The following parameters are required for writing encrypted data:</p>
+          <ul>
+            <li>
+              <p>List of columns to encrypt, with the master encryption keys:</p>
+              <pre class="codeblock"><code class="lang-bash hljs">parameter name: <span class="hljs-string">"encryption.column.keys"</span>
+parameter value: <span class="hljs-string">"&lt;master key ID&gt;:&lt;column&gt;,&lt;column&gt;;&lt;master key ID&gt;:&lt;column&gt;,.."</span>
+</code></pre>
+            </li>
+            <li>
+              <p>The footer key:</p>
+              <pre class="codeblock"><code class="lang-bash hljs">parameter name: <span class="hljs-string">"encryption.footer.key"</span>
+parameter value: <span class="hljs-string">"&lt;master key ID&gt;"</span>
+</code></pre>
+              <p>For example:</p>
+              <pre class="codeblock"><code class="lang-bash hljs">dataFrame.write
+.option(<span class="hljs-string">"encryption.footer.key"</span> , <span class="hljs-string">"k1"</span>)
+.option(<span class="hljs-string">"encryption.column.keys"</span> , <span class="hljs-string">"k2:SSN,Address;k3:CreditCard"</span>)
+.parquet(<span class="hljs-string">"&lt;path to encrypted files&gt;"</span>)
+</code></pre>
+              <div class="note important"><span class="importanttitle">Important:</span>
+                <md-block>
+                  <p>If neither the <code>encryption.column.keys</code> parameter nor the <code>encryption.footer.key</code> parameter is set, the file will not be encrypted. If only one of these parameters is set, an exception is thrown, because these parameters
+                    are mandatory for encrypted files.</p>
+                  <p></p>
+                </md-block>
+              </div>
+              <p></p>
+            </li>
+          </ul>
+        </section>
+        <section id="section-optional-parameters">
+          <h2 id="optional-parameters">Optional parameters</h2>
+          <p>The following optional parameters can be used when writing encrypted data:</p>
+          <ul>
+            <li>
+              <p>The encryption algorithm <code>AES-GCM-CTR</code></p>
+              <p>By default, Parquet modular encryption uses the <code>AES-GCM</code> algorithm that provides full protection against tampering with data and metadata in Parquet files. However, as Spark 2.3.0 runs on Java 8, which doesn’t support AES acceleration
+                in CPU hardware (this was only added in Java 9), the overhead of data integrity verification can affect workload throughput in certain situations.</p>
+              <p>To compensate this, you can switch off the data integrity verification support and write the encrypted files with the alternative algorithm <code>AES-GCM-CTR</code>, which verifies the integrity of the metadata parts only and not that of
+                the data parts, and has a lower throughput overhead compared to the <code>AES-GCM</code> algorithm.</p>
+              <pre class="codeblock"><code class="lang-bash hljs">parameter name: <span class="hljs-string">"encryption.algorithm"</span>
+parameter value: <span class="hljs-string">"AES_GCM_CTR_V1"</span>
+</code></pre>
+            </li>
+            <li>
+              <p>Plain text footer mode for legacy readers</p>
+              <p>By default, the main Parquet metadata module (the file footer) is encrypted to hide the file schema and list of sensitive columns. However, you can decide not to encrypt the file footers in order to enable other Spark and Parquet readers
+                (that don't yet support Parquet modular encryption) to read the unencrypted columns in the encrypted files. To switch off footer encryption, set the following parameter:</p>
+              <pre class="codeblock"><code class="lang-bash hljs">parameter name: <span class="hljs-string">"encryption.plaintext.footer"</span>
+parameter value: <span class="hljs-string">"true"</span>
+</code></pre>
+              <div class="note important"><span class="importanttitle">Important:</span>
+                <md-block>
+                  <p>The <code>encryption.footer.key</code> parameter must also be specified in the plain text footer mode. Although the footer is not encrypted, the key is used to sign the footer content, which means that new readers could verify its integrity.
+                    Legacy readers are not affected by the addition of the footer signature.</p>
+                  <p></p>
+                </md-block>
+              </div>
+              <p></p>
+            </li>
+          </ul>
+        </section>
+        <section id="section-usage-examples">
+          <h2 id="usage-examples">Usage examples</h2>
+          <p>The following sample code snippets for Python show how to create data frames, written to encrypted parquet files, and read from encrypted parquet files.</p>
+          <ul>
+            <li>
+              <p>Python: Writing encrypted data:</p>
+              <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">from</span> pyspark.sql <span class="hljs-keyword">import</span> Row
+
+squaresDF = spark.createDataFrame(
+    sc.parallelize(<span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">6</span>))
+    .<span class="hljs-built_in">map</span>(<span class="hljs-keyword">lambda</span> i: Row(int_column=i, square_int_column=i ** <span class="hljs-number">2</span>)))
+
+sc._jsc.hadoopConfiguration().<span class="hljs-built_in">set</span>(<span class="hljs-string">"encryption.key.list"</span>,
+    <span class="hljs-string">"key1: AAECAwQFBgcICQoLDA0ODw==, key2: AAECAAECAAECAAECAAECAA=="</span>)
+sc._jsc.hadoopConfiguration().<span class="hljs-built_in">set</span>(<span class="hljs-string">"encryption.column.keys"</span>,
+    <span class="hljs-string">"key1:square_int_column"</span>)
+sc._jsc.hadoopConfiguration().<span class="hljs-built_in">set</span>(<span class="hljs-string">"encryption.footer.key"</span>, <span class="hljs-string">"key2"</span>)
+
+encryptedParquetPath = <span class="hljs-string">"squares.parquet.encrypted"</span>
+squaresDF.write.parquet(encryptedParquetPath)
+</code></pre>
+            </li>
+            <li>
+              <p>Python: Reading encrypted data:</p>
+              <pre class="codeblock"><code class="lang-python hljs">sc._jsc.hadoopConfiguration().<span class="hljs-built_in">set</span>(<span class="hljs-string">"encryption.key.list"</span>,
+    <span class="hljs-string">"key1: AAECAwQFBgcICQoLDA0ODw==, key2: AAECAAECAAECAAECAAECAA=="</span>)
+
+encryptedParquetPath = <span class="hljs-string">"squares.parquet.encrypted"</span>
+parquetFile = spark.read.parquet(encryptedParquetPath)
+parquetFile.show()
+</code></pre>
+            </li>
+          </ul>
+          <p>The contents of the Python job file <code>InMemoryKMS.py</code> is as follows:</p>
+          <pre class="codeblock"><code class="lang-py hljs"><span class="hljs-keyword">from</span> pyspark.sql <span class="hljs-keyword">import</span> SparkSession
+<span class="hljs-keyword">from</span> pyspark <span class="hljs-keyword">import</span> SparkContext
+<span class="hljs-keyword">from</span> pyspark.sql <span class="hljs-keyword">import</span> Row
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">"__main__"</span>:
+    spark = SparkSession \
+        .builder \
+        .appName(<span class="hljs-string">"InMemoryKMS"</span>) \
+        .getOrCreate()
+    sc = spark.sparkContext
+    <span class="hljs-comment">##KMS operation</span>
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">"Setup InMemoryKMS"</span>)
+    hconf = sc._jsc.hadoopConfiguration()
+    encryptedParquetFullName = <span class="hljs-string">"testparquet.encrypted"</span>
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">"Write Encrypted Parquet file"</span>)
+    hconf.<span class="hljs-built_in">set</span>(<span class="hljs-string">"encryption.key.list"</span>, <span class="hljs-string">"key1: AAECAwQFBgcICQoLDA0ODw==, key2: AAECAAECAAECAAECAAECAA=="</span>)
+    btDF = spark.createDataFrame(sc.parallelize(<span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">6</span>)).<span class="hljs-built_in">map</span>(<span class="hljs-keyword">lambda</span> i: Row(ssn=i,  value=i ** <span class="hljs-number">2</span>)))
+    btDF.write.mode(<span class="hljs-string">"overwrite"</span>).option(<span class="hljs-string">"encryption.column.keys"</span>, <span class="hljs-string">"key1:ssn"</span>).option(<span class="hljs-string">"encryption.footer.key"</span>, <span class="hljs-string">"key2"</span>).parquet(encryptedParquetFullName)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">"Read Encrypted Parquet file"</span>)
+    encrDataDF = spark.read.parquet(encryptedParquetFullName)
+    encrDataDF.createOrReplaceTempView(<span class="hljs-string">"bloodtests"</span>)
+    queryResult = spark.sql(<span class="hljs-string">"SELECT ssn, value FROM bloodtests"</span>)
+    queryResult.show(<span class="hljs-number">10</span>)
+    sc.stop()
+    spark.stop()
+</code></pre>
+        </section>
+        <section id="section-internals-of-encryption-key-handling">
+          <h2 id="internals-of-encryption-key-handling">Internals of encryption key handling</h2>
+          <p>When writing a Parquet file, a random data encryption key (DEK) is generated for each encrypted column and for the footer. These keys are used to encrypt the data and the metadata modules in the Parquet file.</p>
+          <p>The data encryption key is then encrypted with a key encryption key (KEK), also generated inside Spark/Parquet for each master key. The key encryption key is encrypted with a master encryption key (MEK) locally.</p>
+          <p>Encrypted data encryption keys and key encryption keys are stored in the Parquet file metadata, along with the master key identity. Each key encryption key has a unique identity (generated locally as a secure random 16-byte value), also stored
+            in the file metadata.
+            <!--Key encryption keys are cached, so there is no need to interact with the KeyProtect service for each encrypted column or file if they use the same master encryption key. -->
+          </p>
+          <p>When reading a Parquet file, the identifier of the master encryption key (MEK) and the encrypted key encryption key (KEK) with its identifier, and the encrypted data encryption key (DEK) are extracted from the file metadata.</p>
+          <p>The key encryption key is decrypted with the master encryption key locally. Then the data encryption key (DEK) is decrypted locally, using the key encryption key (KEK).</p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="https://github.com/apache/parquet-format/blob/apache-parquet-format-2.7.0/Encryption.md" target="_blank" class="external">Parquet modular encryption</a></li>
+          </ul>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

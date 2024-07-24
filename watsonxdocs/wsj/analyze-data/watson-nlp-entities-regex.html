@@ -1,0 +1,226 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Similar to detecting entities with dictionaries, you can use regex pattern matches to detect entities.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Detecting entities with regular expressions</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=models-detecting-entities-regular-expressions"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="detecting-entities-with-regular-expressions" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-detecting-entities-with-regular-expressions">
+        <h1 id="detecting-entities-with-regular-expressions">Detecting entities with regular expressions</h1>
+        <p>Similar to detecting entities with dictionaries, you can use regex pattern matches to detect entities.</p>
+        <p>Regular expressions are not provided in files like dictionaries but in-memory within a regex configuration. You can use multiple regex configurations during the same extraction.</p>
+        <p>Regexes that you define with Watson Natural Language Processing can use token boundaries. This way, you can ensure that your regular expression matches within one or more tokens. This is a clear advantage over simpler regular expression engines,
+          especially when you work with a language that is not separated by whitespace, such as Chinese.</p>
+        <p>Regular expressions are processed by a dedicated component called Rule-Based Runtime, or RBR for short.</p>
+        <section id="section-creating-regex-configurations">
+          <h2 id="creating-regex-configurations">Creating regex configurations</h2>
+          <p>Begin by creating a module directory inside your notebook. This is a directory inside the notebook file system that is used temporarily to store the files created by the RBR training. This module directory can be the same directory that you
+            created and used for dictionary-based entity extraction. Dictionaries and regular expressions can be used in the same training run.</p>
+          <p>To create the module directory in your notebook, enter the following in a code cell. Note that the module directory can't contain a dash (-).</p>
+          <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">import</span> os
+<span class="hljs-keyword">import</span> watson_nlp
+module_folder = <span class="hljs-string">"NLP_RBR_Module_2"</span>
+os.makedirs(module_folder, exist_ok=<span class="hljs-literal">True</span>)
+</code></pre>
+          <br>
+          <p>A regex configuration is a Python dictionary, with the following attributes:</p>
+          <table>
+            <caption>Available attributes in regex configurations with their values, descriptions of use and indication if required or not</caption>
+            <thead>
+              <tr>
+                <th>Attribute</th>
+                <th>Value</th>
+                <th>Description</th>
+                <th>Required</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>name</code></td>
+                <td>string</td>
+                <td>The name of the regular expression. Matches of the regular expression in the input text are tagged with this name in the output.</td>
+                <td>Yes</td>
+              </tr>
+              <tr>
+                <td><code>regexes</code></td>
+                <td>list (string of perl based regex patterns)</td>
+                <td>Should be non-empty. Multiple regexes can be provided.</td>
+                <td>Yes</td>
+              </tr>
+              <tr>
+                <td><code>flags</code></td>
+                <td>Delimited string of valid flags</td>
+                <td>Flags such as UNICODE or CASE_INSENSITIVE control the matching. Can also be a combination of flags. For the supported flags, see <a href="https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html">Pattern (Java Platform SE 8)</a>.</td>
+                <td>No (defaults to DOTALL)</td>
+              </tr>
+              <tr>
+                <td><code>token_boundary.min</code></td>
+                <td>int</td>
+                <td><code>token_boundary</code> indicates whether to match the regular expression only on token boundaries. Specified as a dict object with <code>min</code> and <code>max</code> attributes.</td>
+                <td>No (returns the longest non-overlapping match at each character position in the input text)</td>
+              </tr>
+              <tr>
+                <td><code>token_boundary.max</code></td>
+                <td>int</td>
+                <td><code>max</code> is an optional attribute for <code>token_boundary</code> and needed when the boundary needs to extend for a range (between <code>min</code> and <code>max</code> tokens). <code>token_boundary.max</code> needs to be <code>&gt;= token_boundary.min</code></td>
+                <td>No (if <code>token_boundary</code> is specified, the <code>min</code> attribute can be specified alone)</td>
+              </tr>
+              <tr>
+                <td><code>groups</code></td>
+                <td>list (string labels for matching groups)</td>
+                <td>String index in list corresponds to matched group in pattern starting with 1 where 0 index corresponds to entire match. For example: <code>regex: (a)(b)</code> on <code>ab</code> with <code>group: ['full', 'first', 'second']</code> will
+                  yield <code>full: ab, first: a, second: b</code></td>
+                <td>No (defaults to label match on full match)</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>The regex configurations can be loaded using the following helper methods:</p>
+          <ul>
+            <li>To load a single regex configuration, use <code>watson_nlp.toolkit.RegexConfig.load(&lt;regex configuration&gt;)</code></li>
+            <li>To load multiple regex configurations, use <code>watson_nlp.toolkit.RegexConfig.load_all([&lt;regex configuration&gt;)])</code></li>
+          </ul>
+          <p><strong>Code sample</strong></p>
+          <p>This sample shows you how to load two different regex configurations. The first configuration detects person names. It uses the groups attribute to allow easy access to the full, first and last name at a later stage.</p>
+          <p>The second configuration detects acronyms as a sequence of all-uppercase characters. By using the token_boundary attribute, it prevents matches in words that contain both uppercase and lowercase characters.</p>
+          <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">from</span> watson_nlp.toolkit.rule_utils <span class="hljs-keyword">import</span> RegexConfig
+
+<span class="hljs-comment"># Load some regex configs, for instance to match First names or acronyms</span>
+regexes = RegexConfig.load_all([
+    {
+        <span class="hljs-string">'name'</span>: <span class="hljs-string">'full names'</span>,
+        <span class="hljs-string">'regexes'</span>: [<span class="hljs-string">'([A-Z][a-z]*) ([A-Z][a-z]*)'</span>],
+        <span class="hljs-string">'groups'</span>: [<span class="hljs-string">'full name'</span>, <span class="hljs-string">'first name'</span>, <span class="hljs-string">'last name'</span>]
+    },
+    {
+        <span class="hljs-string">'name'</span>: <span class="hljs-string">'acronyms'</span>,
+        <span class="hljs-string">'regexes'</span>: [<span class="hljs-string">'([A-Z]+)'</span>],
+        <span class="hljs-string">'groups'</span>: [<span class="hljs-string">'acronym'</span>],
+        <span class="hljs-string">'token_boundary'</span>: {
+            <span class="hljs-string">'min'</span>: <span class="hljs-number">1</span>,
+            <span class="hljs-string">'max'</span>: <span class="hljs-number">1</span>
+        }
+    }
+])
+</code></pre>
+        </section>
+        <section id="section-training-a-model-that-contains-regular-expressions">
+          <h2 id="training-a-model-that-contains-regular-expressions">Training a model that contains regular expressions</h2>
+          <p>After you have loaded the regex configurations, create an RBR model using the <code>RBR.train()</code> method. In the method, specify:</p>
+          <ul>
+            <li>The module directory</li>
+            <li>The language of the text</li>
+            <li>The regex configurations to use</li>
+          </ul>
+          <p>This is the same method that is used to train RBR with dictionary-based extraction. You can pass the dictionary configuration in the same method call.</p>
+          <p><strong>Code sample</strong></p>
+          <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-comment"># Train the RBR model</span>
+custom_regex_block = watson_nlp.resources.feature_extractor.RBR.train(module_path=module_folder, language=<span class="hljs-string">'en'</span>, regexes=regexes)
+</code></pre>
+        </section>
+        <section id="section-applying-the-model-on-new-data">
+          <h2 id="applying-the-model-on-new-data">Applying the model on new data</h2>
+          <p>After you have trained the dictionaries, apply the model on new data using the <code>run()</code> method, as you would use on any of the existing pre-trained blocks.</p>
+          <p><strong>Code sample</strong></p>
+          <pre class="codeblock"><code class="lang-python hljs">custom_regex_block.run(<span class="hljs-string">'Bruce Wayne works for NASA'</span>)
+</code></pre>
+          <br>
+          <p>Output of the code sample:</p>
+          <pre class="codeblock"><code class="lang-txt hljs">{(0, 11): ['regex::full names'], (0, 5): ['regex::full names'], (6, 11): ['regex::full names'], (22, 26): ['regex::acronyms']}
+</code></pre>
+          <br> To show the matching subgroups or the matched text:
+          <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">import</span> json
+<span class="hljs-comment"># Get the raw response including matching groups</span>
+full_regex_result = custom_regex_block.executor.get_raw_response(<span class="hljs-string">'Bruce Wayne works for NASA‘, language='</span>en<span class="hljs-string">')
+print(json.dumps(full_regex_result, indent=2))
+</span></code></pre>
+          <br> Output of the code sample:
+          <pre class="codeblock"><code class="lang-txt hljs">{
+  "annotations": {
+    "View_full names": [
+      {
+        "label": "regex::full names",
+        "fullname": {
+          "location": {
+            "begin": 0,
+            "end": 11
+          },
+          "text": "Bruce Wayne"
+        },
+        "firstname": {
+          "location": {
+            "begin": 0,
+            "end": 5
+          },
+          "text": "Bruce"
+        },
+        "lastname": {
+          "location": {
+            "begin": 6,
+            "end": 11
+          },
+          "text": "Wayne"
+        }
+      }
+    ],
+    "View_acronyms": [
+      {
+        "label": "regex::acronyms",
+        "acronym": {
+          "location": {
+            "begin": 22,
+            "end": 26
+          },
+          "text": "NASA"
+        }
+      }
+    ]
+  },
+...
+}
+</code></pre>
+          <p><strong>Parent topic:</strong> <a href="watson-nlp-create-model.html">Creating your own models</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

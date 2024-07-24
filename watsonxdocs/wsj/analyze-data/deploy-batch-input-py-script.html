@@ -1,0 +1,117 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Follow these rules when you specify input details for batch deployments of Python scripts.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Batch deployment input details for Python scripts</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=framework-python-scripts"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="batch-deployment-input-details-for-python-scripts" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-batch-deployment-input-details-for-python-scripts">
+        <h1 id="batch-deployment-input-details-for-python-scripts">Batch deployment input details for Python scripts</h1>
+        <p>Follow these rules when you specify input details for batch deployments of Python scripts.</p>
+        <p>Data type summary table:</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Type</td>
+              <td>Data references</td>
+            </tr>
+            <tr>
+              <td>File formats</td>
+              <td>Any</td>
+            </tr>
+          </tbody>
+        </table>
+        <section id="section-data-sources">
+          <h2 id="data-sources">Data sources</h2>
+          <p>Input or output data references:</p>
+          <ul>
+            <li>Local or managed assets from the space</li>
+            <li>Connected (remote) assets: Cloud Object Storage</li>
+          </ul>
+          <p><strong>Notes:</strong></p>
+          <ul>
+            <li>For connections of type <a href="../manage-data/conn-cos.html">Cloud Object Storage</a> or <a href="../manage-data/conn-cos-infra.html">Cloud Object Storage(infrastructure)</a>, you must configure <strong>Access key</strong> and <strong>Secret key</strong>,
+              also known as <a href="https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-uhc-hmac-credentials-main" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">HMAC credentials</a>.</li>
+          </ul>
+          <p>If you are specifying input/output data references programmatically:</p>
+          <ul>
+            <li>Data source reference <code>type</code> depends on the asset type. For more information, see <strong>Data source reference types</strong> section in <a href="../analyze-data/ml-space-add-assets.html">Adding data assets to a deployment space</a>.</li>
+            <li>You can specify the environment variables that are required for running the Python Script as <code>'key': 'value'</code> pairs in <code>scoring.environment_variables</code>. The <code>key</code> must be the name of an environment variable
+              and the <code>value</code> must be the corresponding value of the environment variable.</li>
+            <li>The deployment job's payload is saved as a JSON file in the deployment container where you run the Python script. The Python script can access the full path file name of the JSON file that uses the <code>JOBS_PAYLOAD_FILE</code> environment
+              variable.</li>
+            <li>If input data is referenced as a local or managed data asset, deployment service downloads the input data and places it in the deployment container where you run the Python script. You can access the location (path) of the downloaded input
+              data through the <code>BATCH_INPUT_DIR</code> environment variable.</li>
+            <li>For input data references (data asset or connection asset), downloading of the data must be handled by the Python script. If a connected data asset or a connection asset is present in the deployment jobs payload, you can access it using the
+              <code>JOBS_PAYLOAD_FILE</code> environment variable that contains the full path to the deployment job's payload that is saved as a JSON file.</li>
+            <li>If output data must be persisted as a local or managed data asset in a space, you can specify the name of the asset to be created in <code>scoring.output_data_reference.location.name</code>. As part of a Python script, output data can be placed
+              in the path that is specified by the <code>BATCH_OUTPUT_DIR</code> environment variable. The deployment service compresses the data to compressed file format and upload it in the location that is specified in <code>BATCH_OUTPUT_DIR</code>.</li>
+            <li>These environment variables are set internally. If you try to set them manually, your values are overridden:
+              <ul>
+                <li><code>BATCH_INPUT_DIR</code></li>
+                <li><code>BATCH_OUTPUT_DIR</code></li>
+                <li><code>JOBS_PAYLOAD_FILE</code></li>
+              </ul>
+            </li>
+            <li>If output data must be saved in a remote data store, you must specify the reference of the output data reference (for example, a data asset or a connected data asset) in <code>output_data_reference.location.href</code>. The Python script must
+              take care of uploading the output data to the remote data source. If a connected data asset or a connection asset reference is present in the deployment jobs payload, you can access it using the <code>JOBS_PAYLOAD_FILE</code> environment
+              variable, which contains the full path to the deployment job's payload that is saved as a JSON file.</li>
+            <li>If the Python script does not require any input or output data references to be specified in the deployment job payload, then do not provide the <code>scoring.input_data_references</code> and <code>scoring.output_data_references</code> objects
+              in the payload.</li>
+          </ul>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p><a href="../analyze-data/deploy-script.html">Deploying scripts in Watson Machine Learning</a>.</p>
+          <p><strong>Parent topic:</strong> <a href="../analyze-data/deploy-batch-input-by-framework.html">Batch deployment input details by framework</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can follow examples of how to add custom libraries through conda or pip using the provided templates for Python and R when you create an environment template.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Examples of environment template customizations</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=environments-examples-customizations"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="examples-of-environment-template-customizations" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-examples-of-environment-template-customizations">
+        <h1 id="examples-of-environment-template-customizations">Examples of environment template customizations</h1>
+        <p>You can follow examples of how to add custom libraries through conda or pip using the provided templates for Python and R when you create an environment template.</p>
+        <p>You can use mamba in place of conda in the following examples with conda. Remember to select the checkbox to install from mamba if you add channels or packages from mamba to the existing environment template.</p>
+        <p>Examples exist for:</p>
+        <ul>
+          <li><a href="#add-conda-package">Adding conda packages</a></li>
+          <li><a href="#add-pip-package">Adding pip packages</a></li>
+          <li><a href="#combine-conda-pip">Combining conda and pip packages</a></li>
+          <li><a href="#complex-packages">Adding complex packages with internal dependencies</a></li>
+          <li><a href="#conda-in-r">Adding conda packages for R notebooks</a></li>
+          <li><a href="#set-vars">Setting environment variables</a></li>
+        </ul>
+        <p>Hints and tips:</p>
+        <ul>
+          <li><a href="#best-practices">Best practices</a></li>
+        </ul>
+        <section id="section-add-conda-package">
+          <h2 id="add-conda-package">Adding conda packages</h2>
+          <p>To get latest versions of pandas-profiling:</p>
+          <pre class="codeblock"><code class="lang-shell hljs">dependencies:
+  - pandas-profiling
+</code></pre>
+          <p>This is equivalent to running <code>conda install pandas-profiling</code> in a notebook.</p>
+        </section>
+        <section id="section-add-pip-package">
+          <h2 id="add-pip-package">Adding pip packages</h2>
+          <p>You can also customize an environment using <code>pip</code> if a particular package is not available in conda channels:</p>
+          <pre class="codeblock"><code class="lang-shell hljs">dependencies:
+  - pip:
+    - ibm-watson-machine-learning
+</code></pre>
+          <p>This is equivalent to running <code>pip install ibm-watson-machine-learning</code> in a notebook.</p>
+          <p>The customization will actually do more than just install the specified <code>pip</code> package. The default behavior of <code>conda</code> is to also look for a new version of <code>pip</code> itself and then install it. Checking all the implicit
+            dependencies in <code>conda</code> often takes several minutes and also gigabytes of memory. The following customization will shortcut the installation of <code>pip</code>:</p>
+          <pre class="codeblock"><code class="lang-shell hljs">channels:
+  - empty
+  - nodefaults
+
+dependencies:
+  - pip:
+    - ibm-watson-machine-learning
+</code></pre>
+          <p>The conda channel <code>empty</code> does not provide any packages. There is no <code>pip</code> package in particular. <code>conda</code> won't try to install <code>pip</code> and will use the already pre-installed version instead. Note that
+            the keyword <code>nodefaults</code> in the list of channels needs at least one other channel in the list. Otherwise <code>conda</code> will silently ignore the keyword and use the default channels.</p>
+        </section>
+        <section id="section-combine-conda-pip">
+          <h2 id="combine-conda-pip">Combining conda and pip packages</h2>
+          <p>You can list multiple packages with one package per line. A single customization can have both conda packages and pip packages.</p>
+          <pre class="codeblock"><code class="lang-shell hljs">dependencies:
+  - pandas-profiling
+  - scikit-learn=0.20
+  - pip:
+    - watson-machine-learning-client-V4
+    - sklearn-pandas==1.8.0
+</code></pre>
+          <p>Note that the required template notation is sensitive to leading spaces. Each item in the list of conda packages must have two leading spaces. Each item in the list of pip packages must have four leading spaces. The version of a conda package
+            must be specified using a single equals symbol (<code>=</code>), while the version of a pip package must be added using two equals symbols (<code>==</code>).</p>
+        </section>
+        <section id="section-complex-packages">
+          <h2 id="complex-packages">Adding complex packages with internal dependencies</h2>
+          <p>When you add many packages or a complex package with many internal dependencies, the conda installation might take long or might even stop without you seeing any error message. To avoid this from happening:</p>
+          <ul>
+            <li>Specify the versions of the packages you want to add. This reduces the search space for conda to resolve dependencies.</li>
+            <li>Increase the memory size of the environment.</li>
+            <li>Use a specific channel instead of the default conda channels that are defined in the <code>.condarc</code> file. This avoids running lengthy searches through big channels.</li>
+          </ul>
+          <p>Example of a customization that doesn't use the default conda channels:</p>
+          <pre class="codeblock"><code class="lang-shell hljs"><span class="hljs-meta"># </span><span class="language-bash">get latest version of the prophet package from the conda-forge channel</span>
+channels:
+  - conda-forge
+  - nodefaults
+
+dependencies:
+  - prophet
+</code></pre>
+          <p>This customization corresponds to the following command in a notebook:</p>
+          <pre class="codeblock"><code class="lang-shell hljs">!conda install -c conda-forge --override-channels prophet -y
+</code></pre>
+        </section>
+        <section id="section-conda-in-r">
+          <h2 id="conda-in-r">Adding conda packages for R notebooks</h2>
+          <p>The following example shows you how to create a customization that adds conda packages to use in an R notebook:</p>
+          <pre class="codeblock"><code class="lang-shell hljs">channels:
+  - defaults
+
+dependencies:
+  - r-plotly
+</code></pre>
+          <p>This customization corresponds to the following command in a notebook:</p>
+          <pre class="codeblock"><code class="lang-shell hljs">print(system("conda install r-plotly", intern=TRUE))
+</code></pre>
+          <p>The names of R packages in conda generally start with the prefix <code>r-</code>. If you just use <code>plotly</code> in your customization, the installation would succeed but the Python package would be installed instead of the R package. If
+            you then try to use the package in your R code as in <code>library(plotly)</code>, this would return an error.</p>
+        </section>
+        <section id="section-set-vars">
+          <h2 id="set-vars">Setting environment variables</h2>
+          <p>You can set environment variables in your environment by adding a variables section to the software customization template as shown in the following example:</p>
+          <pre class="codeblock"><code class="lang-shell hljs">variables:
+  my_var: my_value
+  HTTP_PROXY: https://myproxy:3128
+  HTTPS_PROXY: https://myproxy:3128
+  NO_PROXY: cluster.local
+</code></pre>
+          <p>The example also shows that you can use the variables section to set a proxy server for an environment.</p>
+          <p><strong>Limitation</strong>: You cannot override existing environment variables, for example LD_LIBRARY_PATH, using this approach.</p>
+        </section>
+        <section id="section-best-practices">
+          <h2 id="best-practices">Best practices</h2>
+          <p>To avoid problems that can arise finding packages or resolving conflicting dependencies, start by installing the packages you need manually through a notebook in a test environment. This enables you to check interactively if packages can be
+            installed without errors. After you have verified that the packages were all correctly installed, create a customization for your development or production environment and add the packages to the customization template.</p>
+          <p><strong>Parent topic:</strong> <a href="../analyze-data/customize-envs.html">Customizing environments</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

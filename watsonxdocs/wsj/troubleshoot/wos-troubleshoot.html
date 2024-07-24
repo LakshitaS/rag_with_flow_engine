@@ -1,0 +1,202 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can use the following techniques to work around problems with IBM Watson OpenScale.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Troubleshooting Watson OpenScale</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=troubleshooting-watson-openscale"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="troubleshooting-watson-openscale" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-troubleshooting-watson-openscale">
+        <h1 id="troubleshooting-watson-openscale">Troubleshooting Watson OpenScale</h1>
+        <p>You can use the following techniques to work around problems with IBM Watson OpenScale.</p>
+        <ul>
+          <li><a href="#ts-trouble-common-autoai-binary">When I use AutoAI, why am I getting an error about mismatched data?</a></li>
+          <li><a href="#ts-trouble-common-xgboost-wml-model-details">Why am I getting errors during model configuration?</a></li>
+          <li><a href="#ts-trouble-common-xgboost-multiclass">Why are my class labels missing when I use XGBoost?</a></li>
+          <li><a href="#ts-trouble-common-payloadfileformat">Why are the payload analytics not displaying properly?</a></li>
+          <li><a href="#ts-trouble-wos-equals-sign-explainability">Error: An error occurred while computing feature importance</a></li>
+          <li><a href="#ts-trouble-common-payloadlogging-1000k-limit">Why are some of my active debias records missing?</a></li>
+          <li><a href="#ts-available-schemas">Watson OpenScale does not show any available schemas</a></li>
+          <li><a href="#ts-resources-exception">A monitor run fails with an <code>OutOfResources exception</code> error message</a></li>
+        </ul>
+        <section id="section-ts-trouble-common-autoai-binary" troubleshoot="" support="">
+          <h2 id="ts-trouble-common-autoai-binary">When I use AutoAI, why am I getting an error about mismatched data?</h2>
+          <p tssymptoms="">You receive an error message about mismatched data when using AutoAI for binary classification. Note that AutoAI is only supported in IBM Watson OpenScale for IBM Cloud Pak for Data.</p>
+          <p tscauses="">For binary classification type, AutoAI automatically sets the data type of the prediction column to boolean.</p>
+          <p tsresolve="">To fix this, implement one of the following solutions:</p>
+          <ul>
+            <li>Change the label column values in the training data to integer values, such as <code>0</code> or <code>1</code> depending on the outcome.</li>
+            <li>Change the label column values in the training data to string value, such as <code>A</code> and <code>B</code>.</li>
+          </ul>
+        </section>
+        <section id="section-ts-trouble-common-xgboost-wml-model-details" troubleshoot="" support="">
+          <h2 id="ts-trouble-common-xgboost-wml-model-details">Why am I getting errors during model configuration?</h2>
+          <p tssymptoms="">The following error messages appear when you are configuring model details: <strong>Field <code>feature_fields</code> references column <code>&lt;name&gt;</code>, which is missing in <code>input_schema</code> of the model. Feature not found in input schema.</strong></p>
+          <p tscauses="">The preceding messages while completing the <strong>Model details</strong> section during configuration indicate a mismatch between the model input schema and the model training data schema:</p>
+          <p tsresolve="">To fix the issue, you must determine which of the following conditions is causing the error and take corrective action: If you use IBM Watson Machine Learning as your machine learning provider and the model type is XGBoost/scikit-learn refer
+            to the Machine Learning <a href="https://ibm.github.io/watson-machine-learning-sdk/#repository" target="_blank" class="external">Python SDK documentation</a> for important information about how to store the model. To generate the drift detection
+            model, you must use scikit-learn version 0.20.2 in notebooks. For all other cases, you must ensure that the training data column names match with the input schema column names.</p>
+        </section>
+        <section id="section-ts-trouble-common-xgboost-multiclass" troubleshoot="" support="">
+          <h2 id="ts-trouble-common-xgboost-multiclass">Why are my class labels missing when I use XGBoost?</h2>
+          <p tssymptoms="">Native XGBoost multiclass classification does not return class labels.</p>
+          <p tscauses="">By default, for binary and multiple class models, the XGBoost framework does not return class labels.</p>
+          <p tsresolve="">For XGBoost binary and multiple class models, you must update the model to return class labels.</p>
+        </section>
+        <section id="section-ts-trouble-common-payloadfileformat" troubleshoot="" support="">
+          <h2 id="ts-trouble-common-payloadfileformat">Why are the payload analytics not displaying properly?</h2>
+          <p tssymptoms="">Payload analytics does not display properly and the following error message displays: <strong>AIQDT0044E Forbidden character <code>"</code> in column name <code>&lt;column name&gt;</code></strong></p>
+          <p tscauses="">For proper processing of payload analytics, Watson OpenScale does not support column names with double quotation marks (") in the payload. This affects both scoring payload and feedback data in CSV and JSON formats.</p>
+          <p tsresolve="">Remove double quotation marks (") from the column names of the payload file.</p>
+        </section>
+        <section id="section-ts-trouble-wos-equals-sign-explainability">
+          <h2 id="ts-trouble-wos-equals-sign-explainability">Error: An error occurred while computing feature importance</h2>
+          <p tssymptoms="">You receive the following error message during processing: <code>Error: An error occurred while computing feature importance</code>.</p>
+          <p tscauses="">Having an equals sign (=) in the column name of a dataset causes an issue with explainability.</p>
+          <p tsresolve="">Remove the equals sign (=) from the column name and send the dataset through processing again.</p>
+        </section>
+        <section id="section-ts-trouble-common-payloadlogging-1000k-limit" troubleshoot="" support="">
+          <h2 id="ts-trouble-common-payloadlogging-1000k-limit">Why are some of my active debias records missing?</h2>
+          <p tssymptoms="">Active debias records do not reach the payload logging table.</p>
+          <p tscauses="">When you use the active debias API, there is a limit of 1000 records that can be sent at one time for payload logging.</p>
+          <p tsresolve="">To avoid loss of data, you must use the active debias API to score in chunks of 1000 records or fewer.</p>
+          <p>For more information, see <a href="../model/wos-insight-timechart.html">Reviewing debiased transactions</a>.</p>
+        </section>
+        <section id="section-ts-available-schemas">
+          <h2 id="ts-available-schemas">Watson OpenScale does not show any available schemas</h2>
+          <p tssymptoms="">When a user attempts to retrieve schema information for Watson OpenScale, none are available. After attempting directly in DB2, without reference to Watson OpenScale, checking what schemas are available for the database userid also returns none.</p>
+          <p tscauses="">Insufficient permissions for the database userid is causing database connection issues for Watson OpenScale.</p>
+          <p tsresolve="">Make sure the database user has the correct permissions needed for Watson OpenScale.</p>
+        </section>
+        <section id="section-ts-resources-exception">
+          <h2 id="ts-resources-exception">A monitor run fails with an <code>OutOfResources exception</code> error message</h2>
+          <p tssymptoms="">You receive an <code>OutOfResources exception</code> error message.</p>
+          <p tscauses="">Although there's no longer a limit on the number of rows you can have in the feedback payload, scoring payload, or business payload tables. The 50,000 limit now applies to the number of records you can run through the quality and bias monitors
+            each billing period.</p>
+          <p tsresolve="">After you reach your limit, you must either upgrade to a Standard plan or wait for the next billing period.</p>
+        </section>
+        <section id="section-ts-trouble-icp4d-missing-deployment">
+          <h2 id="ts-trouble-icp4d-missing-deployment">Missing deployments</h2>
+          <p tssymptoms="">A deployed model does not show up as a deployment that can be selected to create a subscription.</p>
+          <p tscauses="">There are different reasons that a deployment does not show up in the list of available deployed models. If the model is not a supported type of model because it uses an unsupported algorithm or framework, it won't appear. Your machine learning
+            provider might not be configured properly. It could also be that there are issues with permissions.</p>
+          <p tsresolve="">Use the following steps to resolve this issue:</p>
+          <ol>
+            <li>Check that the model is a supported type. Not sure? For more information, see <a href="../model/wos-frameworks-ovr.html">Supported machine learning engines, frameworks, and models</a>.</li>
+            <li>Check that a machine learning provider exists in the Watson OpenScale configuration for the specific deployment space. For more information, see <a href="../analyze-data/ml-spaces_local.html">Deployment spaces</a>.</li>
+            <li>Check that the CP4D <code>admin</code> user has permission to access the deployment space.</li>
+          </ol>
+          <section id="section-wos-known-issues-eval-fail-subs">
+            <h3 id="wos-known-issues-eval-fail-subs">Watson OpenScale evaluation might fail due to large number of subscriptions</h3>
+            <p>If a Watson OpenScale instance contains too many subscriptions, such as 100 subscriptions, your quality evaluations might fail. You can view the details of the failure in the log for the data mart service pod that displays the following error
+              message:</p>
+            <pre class="codeblock"><code class="lang-txt hljs">"Failure converting response to expected model EntityStreamSizeException: actual entity size (Some(8644836)) exceeded content length limit (8388608 bytes)! You can configure this by setting akka.http.[server|client].parsing.max-content-length or calling HttpEntity.withSizeLimit before materializing the dataBytes stream".
+</code></pre>
+            <p>You can use the <code>oc get pod -l component=aios-datamart</code> command to find the name of the pod. You can also use the <code>oc logs &lt;pod name&gt;</code> command to the log for the pod.</p>
+            <p>To fix this error, you can use the following command to increase the maximum request body size by editing the <code>"ADDITIONAL_JVM_OPTIONS"</code> environment variable:</p>
+            <pre class="codeblock"><code class="lang-shell hljs">oc patch woservice &lt;release name&gt; -p '{"spec": {"datamart": {"additional_jvm_options":"-Dakka.http.client.parsing.max-content-length=100m"} }}' --type=merge
+</code></pre>
+            <p>The release name is <code>"aiopenscale"</code> if you don't customize the release name when you install Watson OpenScale.</p>
+          </section>
+          <section id="section-wos-common-issues-msazure">
+            <h3 id="wos-common-issues-msazure">Microsoft Azure ML Studio</h3>
+            <ul>
+              <li>
+                <p>Of the two types of Azure Machine Learning web services, only the <code>New</code> type is supported by Watson OpenScale. The <code>Classic</code> type is not supported.</p>
+              </li>
+              <li>
+                <p><em>Default input name must be used</em>: In the Azure web service, the default input name is <code>"input1"</code>. Currently, this field is mandated for Watson OpenScale and, if it is missing, Watson OpenScale will not work.</p>
+                <p>If your Azure web service does not use the default name, change the input field name to <code>"input1"</code>, then redeploy your web service and reconfigure your OpenScale machine learning provider settings.</p>
+              </li>
+              <li>
+                <p>If calls to Microsoft Azure ML Studio to list the machine learning models causes the response to time out, for example when you have many web services, you must increase timeout values. You may need to work around this issue by changing
+                  the <code>/etc/haproxy/haproxy.cfg</code> configuration setting:</p>
+                <ul>
+                  <li>
+                    <p>Log in to the load balancer node and update <code>/etc/haproxy/haproxy.cfg</code> to set the client and server timeout from <code>1m</code> to <code>5m</code>:</p>
+                    <pre class="codeblock"><code class="lang-bash hljs">timeout client           5m
+timeout server           5m
+</code></pre>
+                  </li>
+                  <li>
+                    <p>Run <code>systemctl restart haproxy</code> to restart the HAProxy load balancer.</p>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <p note="">If you are using a different load balancer, other than HAProxy, you may need to adjust timeout values in a similar fashion.</p>
+            <ul>
+              <li>Of the two types of Azure Machine Learning web services, only the <code>New</code> type is supported by Watson OpenScale. The <code>Classic</code> type is not supported.</li>
+            </ul>
+          </section>
+          <section id="section-icp4d-issues-feedback-data-fail">
+            <h3 id="icp4d-issues-feedback-data-fail">Uploading feedback data fails in production subscription after importing settings</h3>
+            <p>After importing the settings from your pre-production space to your production space you might have problems uploading feedback data. This happens when the datatypes do not match precisely. When you import settings, the feedback table references
+              the payload table for its column types. You can avoid this issue by making sure that the payload data has the most precise value type first. For example, you must prioritize a double datatype over an integer datatype.</p>
+          </section>
+          <section id="section-icp4d-azure-service-status403">
+            <h3 id="icp4d-azure-service-status403">Microsoft Azure Machine Learning Service</h3>
+            <p>When performing model evaluation, you may encounter issues where Watson OpenScale is not able to communicate with Azure Machine Learning Service, when it needs to invoke deployment scoring endpoints. Security tools that enforce your enterprise
+              security policies, such as Symantec Blue Coat may prevent such access.</p>
+          </section>
+          <section id="section-wos-knownissues-upgrade-create-table">
+            <h3 id="wos-knownissues-upgrade-create-table">Watson OpenScale fails to create a new Hive table for the batch deployment subscription</h3>
+            <p>When you choose to create a new Apache Hive table with the <code>Parquet</code> format during your Watson OpenScale batch deployment configuration, the following error might occur:</p>
+            <pre><code class="lang-txt hljs">Attribute name "table name" contains invalid character(s) among " ,;{}()\\n\\t=". Please use alias to rename it.;
+</code></pre>
+            <p>This error occurs if Watson OpenScale fails to run the <code>CREATE TABLE</code> SQL operation due to white space in a column name. To avoid this error, you can remove any white space from your column names or change the Apache Hive format
+              to <code>csv</code>.</p>
+          </section>
+          <section id="section-ts-setup-fail-db2">
+            <h3 id="ts-setup-fail-db2">Watson OpenScale setup might fail with default Db2 database</h3>
+            <p>When you set up Watson OpenScale and specify the default Db2 database, the setup might fail to complete.</p>
+            <p>To fix this issue, you must run the following command in Cloud Pak for Data to update Db2:</p>
+            <pre class="codeblock"><code class="lang-sql hljs">db2 <span class="hljs-keyword">update</span> db cfg <span class="hljs-keyword">using</span> DFT_EXTENT_SZ <span class="hljs-number">32</span>
+</code></pre>
+            <p>After you run the command, you must create a new Db2 database to set up Watson OpenScale.</p>
+            <p><strong>Parent topic:</strong> <a href="troubleshoot.html">Troubleshooting</a></p>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

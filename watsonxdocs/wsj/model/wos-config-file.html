@@ -1,0 +1,187 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Import a JSON file in the Watson OpenScale service to create and configure all deployments of your asset for monitoring purposes. Export the configuration file to configure other assets and their deployments.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Configure asset deployments using JSON configuration files</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=models-configure-asset-deployments-using-json-configuration-files"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="configure-asset-deployments-using-json-configuration-files" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-configure-asset-deployments-using-json-configuration-files">
+        <h1 id="configure-asset-deployments-using-json-configuration-files">Configure asset deployments using JSON configuration files</h1>
+        <p>Import a JSON file in the Watson OpenScale service to create and configure all deployments of your asset for monitoring purposes. Export the configuration file to configure other assets and their deployments.</p>
+        <div class="note note"><span class="notetitle">Note:</span>
+          <md-block>
+            <p>You can also import and export configurations to Watson OpenScale by using the <a href="https://cloud.ibm.com/apidocs/ai-openscale#import-subscription" target="_blank" class="external">import subscription</a> and <a href="https://cloud.ibm.com/apidocs/ai-openscale#export-subscription" target="_blank" class="external">export subscription</a> API methods.</p>
+            <p></p>
+          </md-block>
+        </div>
+        <p></p>
+        <section id="section-cf-load-as-dict">
+          <h2 id="cf-load-as-dict">Load the JSON file content as a Python dictionary</h2>
+          <p>For this example, the file <code>sagemaker_native_multiclass_breast-cancer_all_monitors_sub_configuration.json</code> defines configuration data for a model that predicts cancer type.</p>
+          <p>To load the file in Python, run the following command:</p>
+          <pre class="codeblock"><code class="lang-python hljs">configuration_file_path = <span class="hljs-string">'sagemaker_native_multiclass_breast-cancer_all_monitors_sub_configuration.json'</span>
+
+  <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(configuration_file_path, <span class="hljs-string">'r'</span>) <span class="hljs-keyword">as</span> fp:
+subscription_configuration = json.load(fp)
+</code></pre>
+          <p>The file contains configuration data. Refer to the following example. See the notebook for a complete example of the configuration content.</p>
+          <pre class="codeblock"><code class="lang-python hljs">{<span class="hljs-string">'asset'</span>: {<span class="hljs-string">'asset_id'</span>: <span class="hljs-string">'0530ab0cd4f4dd5486b19c08df8b6914'</span>,
+<span class="hljs-string">'asset_type'</span>: <span class="hljs-string">'model'</span>,
+<span class="hljs-string">'created_at'</span>: <span class="hljs-string">'2018-10-10T14:31:44.348Z'</span>,
+<span class="hljs-string">'name'</span>: <span class="hljs-string">'DEMO-multi-classification-2018-10-10-14-26-26'</span>,
+<span class="hljs-string">'url'</span>: <span class="hljs-string">'s3://sagemaker-us-east-1-014862798213/sagemaker/DEMO-breast-cancer-prediction/DEMO-multi-classification-2018-10-10-14-26-26/output/model.tar.gz'</span>},
+<span class="hljs-string">'asset_properties'</span>: {<span class="hljs-string">'categorical_fields'</span>: [],
+<span class="hljs-string">'feature_fields'</span>: [<span class="hljs-string">'radius_mean'</span>,
+  <span class="hljs-string">'texture_mean'</span>,
+  . . .
+
+<span class="hljs-string">'input_data_schema'</span>: {<span class="hljs-string">'fields'</span>: [{<span class="hljs-string">'metadata'</span>: {<span class="hljs-string">'modeling_role'</span>: <span class="hljs-string">'feature'</span>},
+    <span class="hljs-string">'name'</span>: <span class="hljs-string">'radius_mean'</span>,
+    <span class="hljs-string">'nullable'</span>: <span class="hljs-literal">True</span>,
+    <span class="hljs-string">'type'</span>: <span class="hljs-string">'double'</span>},
+  {<span class="hljs-string">'metadata'</span>: {<span class="hljs-string">'modeling_role'</span>: <span class="hljs-string">'feature'</span>},
+    <span class="hljs-string">'name'</span>: <span class="hljs-string">'texture_mean'</span>,
+    <span class="hljs-string">'nullable'</span>: <span class="hljs-literal">True</span>,
+    <span class="hljs-string">'type'</span>: <span class="hljs-string">'double'</span>},
+  . . .
+
+<span class="hljs-string">'input_data_type'</span>: <span class="hljs-string">'structured'</span>,
+<span class="hljs-string">'label_column'</span>: <span class="hljs-string">'diagnosis'</span>,
+<span class="hljs-string">'output_data_schema'</span>: {<span class="hljs-string">'fields'</span>: [{<span class="hljs-string">'metadata'</span>: {<span class="hljs-string">'modeling_role'</span>: <span class="hljs-string">'feature'</span>},
+    <span class="hljs-string">'name'</span>: <span class="hljs-string">'radius_mean'</span>,
+    <span class="hljs-string">'nullable'</span>: <span class="hljs-literal">True</span>,
+    <span class="hljs-string">'type'</span>: <span class="hljs-string">'double'</span>},
+  {<span class="hljs-string">'metadata'</span>: {<span class="hljs-string">'modeling_role'</span>: <span class="hljs-string">'feature'</span>},
+    <span class="hljs-string">'name'</span>: <span class="hljs-string">'texture_mean'</span>,
+    <span class="hljs-string">'nullable'</span>: <span class="hljs-literal">True</span>,
+    <span class="hljs-string">'type'</span>: <span class="hljs-string">'double'</span>},
+  . . .
+
+<span class="hljs-string">'prediction_field'</span>: <span class="hljs-string">'predicted_label'</span>,
+<span class="hljs-string">'prediction_probability_field'</span>: <span class="hljs-string">'score'</span>,
+<span class="hljs-string">'problem_type'</span>: <span class="hljs-string">'multiclass'</span>,
+<span class="hljs-string">'training_data_schema'</span>: {<span class="hljs-string">'fields'</span>: [{<span class="hljs-string">'metadata'</span>: {<span class="hljs-string">'modeling_role'</span>: <span class="hljs-string">'feature'</span>},
+    <span class="hljs-string">'name'</span>: <span class="hljs-string">'radius_mean'</span>,
+    <span class="hljs-string">'nullable'</span>: <span class="hljs-literal">True</span>,
+    <span class="hljs-string">'type'</span>: <span class="hljs-string">'double'</span>},
+  {<span class="hljs-string">'metadata'</span>: {<span class="hljs-string">'modeling_role'</span>: <span class="hljs-string">'feature'</span>},
+    <span class="hljs-string">'name'</span>: <span class="hljs-string">'texture_mean'</span>,
+    <span class="hljs-string">'nullable'</span>: <span class="hljs-literal">True</span>,
+    <span class="hljs-string">'type'</span>: <span class="hljs-string">'double'</span>},
+  . . .
+
+<span class="hljs-string">'configurations'</span>: {<span class="hljs-string">'explainability'</span>: {<span class="hljs-string">'training_statistics'</span>: {<span class="hljs-string">'base_values'</span>: {<span class="hljs-string">'0'</span>: <span class="hljs-number">13.37</span>,
+    <span class="hljs-string">'1'</span>: <span class="hljs-number">18.84</span>,
+    <span class="hljs-string">'10'</span>: <span class="hljs-number">0.3242</span>,
+  . . .
+
+<span class="hljs-string">'fairness_monitoring'</span>: {<span class="hljs-string">'class_label'</span>: <span class="hljs-string">'predicted_label'</span>,
+  <span class="hljs-string">'distributions'</span>: [{<span class="hljs-string">'attribute'</span>: <span class="hljs-string">'radius_mean'</span>,
+    <span class="hljs-string">'class_labels'</span>: [{<span class="hljs-string">'counts'</span>: [{<span class="hljs-string">'class_value'</span>: <span class="hljs-string">'B'</span>, <span class="hljs-string">'count'</span>: <span class="hljs-number">1</span>}],
+      <span class="hljs-string">'label'</span>: <span class="hljs-string">'[6.8, 7.2]'</span>},
+    {<span class="hljs-string">'counts'</span>: [{<span class="hljs-string">'class_value'</span>: <span class="hljs-string">'B'</span>, <span class="hljs-string">'count'</span>: <span class="hljs-number">3</span>}], <span class="hljs-string">'label'</span>: <span class="hljs-string">'[7.6, 8.0]'</span>},
+    {<span class="hljs-string">'counts'</span>: [{<span class="hljs-string">'class_value'</span>: <span class="hljs-string">'B'</span>, <span class="hljs-string">'count'</span>: <span class="hljs-number">2</span>}], <span class="hljs-string">'label'</span>: <span class="hljs-string">'[8.0, 8.4]'</span>},
+  . . .
+
+  <span class="hljs-string">'favourable_class'</span>: [<span class="hljs-string">'M'</span>],
+  <span class="hljs-string">'features'</span>: [{<span class="hljs-string">'feature'</span>: <span class="hljs-string">'radius_mean'</span>,
+    <span class="hljs-string">'majority'</span>: [[<span class="hljs-number">0.0</span>, <span class="hljs-number">10.0</span>], [<span class="hljs-number">19.0</span>, <span class="hljs-number">20.0</span>]],
+    <span class="hljs-string">'minority'</span>: [[<span class="hljs-number">15.0</span>, <span class="hljs-number">16.0</span>]],
+    <span class="hljs-string">'threshold'</span>: <span class="hljs-number">0.8</span>,
+    <span class="hljs-string">'type'</span>: <span class="hljs-string">'float'</span>}],
+  <span class="hljs-string">'min_records'</span>: <span class="hljs-number">5</span>,
+  <span class="hljs-string">'perform_debias'</span>: <span class="hljs-literal">True</span>,
+  <span class="hljs-string">'run_status'</span>: <span class="hljs-string">'INITIATED'</span>,
+  <span class="hljs-string">'training_data_class_label'</span>: <span class="hljs-literal">None</span>,
+  <span class="hljs-string">'unfavourable_class'</span>: [<span class="hljs-string">'B'</span>]},
+<span class="hljs-string">'payload_logging'</span>: {<span class="hljs-string">'dynamic_schema_update'</span>: <span class="hljs-literal">True</span>,
+  <span class="hljs-string">'output_data_schema'</span>: {<span class="hljs-string">'fields'</span>: [{<span class="hljs-string">'metadata'</span>: {<span class="hljs-string">'modeling_role'</span>: <span class="hljs-string">'feature'</span>},
+    <span class="hljs-string">'name'</span>: <span class="hljs-string">'radius_mean'</span>,
+    <span class="hljs-string">'nullable'</span>: <span class="hljs-literal">True</span>,
+    <span class="hljs-string">'type'</span>: <span class="hljs-string">'double'</span>},
+    {<span class="hljs-string">'metadata'</span>: {<span class="hljs-string">'modeling_role'</span>: <span class="hljs-string">'feature'</span>},
+    <span class="hljs-string">'name'</span>: <span class="hljs-string">'texture_mean'</span>,
+    <span class="hljs-string">'nullable'</span>: <span class="hljs-literal">True</span>,
+    <span class="hljs-string">'type'</span>: <span class="hljs-string">'double'</span>},
+  . . .
+
+<span class="hljs-string">'performance_monitoring'</span>: {},
+<span class="hljs-string">'quality_monitoring'</span>: {<span class="hljs-string">'evaluation_definition'</span>: {<span class="hljs-string">'method'</span>: <span class="hljs-string">'multiclass'</span>,
+  <span class="hljs-string">'threshold'</span>: <span class="hljs-number">0.8</span>},
+  <span class="hljs-string">'min_feedback_data_size'</span>: <span class="hljs-number">5</span>,
+  <span class="hljs-string">'scheduleId'</span>: <span class="hljs-string">'63c7f400-aa29-4539-91ad-8a4b9d2b9a51'</span>}},
+<span class="hljs-string">'deployments'</span>: [{<span class="hljs-string">'created_at'</span>: <span class="hljs-string">'2018-10-10T14:39:21.421Z'</span>,
+  <span class="hljs-string">'deployment_id'</span>: <span class="hljs-string">'37a83f399e6dc3b9d08d7d01fe690665'</span>,
+  <span class="hljs-string">'deployment_rn'</span>: <span class="hljs-string">'arn:aws:sagemaker:us-east-1:014862798213:endpoint/demo-multi-classification-endpoint-201810101439'</span>,
+  <span class="hljs-string">'deployment_type'</span>: <span class="hljs-string">'online'</span>,
+  <span class="hljs-string">'name'</span>: <span class="hljs-string">'DEMO-multi-classification-endpoint-201810101439'</span>,
+  <span class="hljs-string">'scoring_endpoint'</span>: {<span class="hljs-string">'request_headers'</span>: {<span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span>},
+  <span class="hljs-string">'url'</span>: <span class="hljs-string">'DEMO-multi-classification-endpoint-201810101439'</span>},
+  <span class="hljs-string">'url'</span>: <span class="hljs-string">'DEMO-multi-classification-endpoint-201810101439'</span>}],
+<span class="hljs-string">'export_info'</span>: {<span class="hljs-string">'api_version'</span>: <span class="hljs-string">'v1'</span>,
+<span class="hljs-string">'origin'</span>: <span class="hljs-string">'/v1/data_marts/b73545e6-0a6e-466c-8cd0-c47c044c5702/service_bindings/bf44cc7f-990d-4942-bfc6-cbcf71a1b78c/subscriptions/0530ab0cd4f4dd5486b19c08df8b6914'</span>,
+<span class="hljs-string">'timestamp'</span>: <span class="hljs-string">'2019-02-11T11:41:01.613Z'</span>}}
+</code></pre>
+        </section>
+        <section id="section-cf-subscribe">
+          <h2 id="cf-subscribe">Import from the configuration file</h2>
+          <p>Now, run the call to add and configure the asset deployment for the sample breast cancer prediction model deployment.</p>
+          <pre class="codeblock"><code class="lang-python hljs">subscription = client.data_mart.subscriptions.import_configuration(binding_uid=binding_uid, configuration_data=subscription_configuration)
+</code></pre>
+          <p note="">The <code>binding_uid</code> parameter is optional if only one ML engine is bound.</p>
+        </section>
+        <section id="section-cf-export">
+          <h2 id="cf-export">Exporting to the configuration file</h2>
+          <p>You can also export the configuration file as JSON:</p>
+          <pre class="codeblock"><code class="lang-python hljs">exported_configuration = client.data_mart.subscriptions.export_configuration(binding_uid=binding_uid, subscription_uid=subscription.uid)
+</code></pre>
+        </section>
+        <section id="section-cf-results">
+          <h2 id="cf-results">Results</h2>
+          <p>The asset deployment is created and configured for use by Watson OpenScale.</p>
+          <p><strong>Parent topic:</strong> <a href="wos-deploy-prepare.html">Preparing to evaluate a model</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

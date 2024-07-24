@@ -1,0 +1,160 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="A project is a collaborative workspace where you work with data and other assets to accomplish a particular goal.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Working in projects</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=projects"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="working-in-projects" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-working-in-projects">
+        <h1 id="working-in-projects">Working in projects</h1>
+        <p>A project is a collaborative workspace where you work with data and other assets to accomplish a particular goal.</p>
+        <p>By default, your <a href="sandbox.html">sandbox project</a> is created automatically when you sign up for watsonx.ai.</p>
+        <p>Your project can include these types of resources:</p>
+        <ul>
+          <li><a href="#collaboration">Collaborators</a> are the people who you work with in your project.</li>
+          <li><a href="#data">Data assets</a> are what you work with. Data assets often consist of raw data that you work with to refine.</li>
+          <li><a href="#tools">Tools and their associated assets</a> are how you work with data.</li>
+          <li><a href="#env">Environments</a> are how you configure compute resources for running assets in tools.</li>
+          <li><a href="#jobs">Jobs</a> are how you manage and schedule the running of assets in tools.</li>
+          <li><a href="#docs">Project documentation</a> and notifications are how you stay informed about what's happening in the project.</li>
+          <li><a href="#storage">Asset storage</a> is where project information and files are stored.</li>
+          <li><a href="#integ">Integrations</a> are how you incorporate external tools.</li>
+        </ul>
+        <p>You can customize projects to suit your goals. You can change the contents of your project and almost all of its properties at any time. However, you must make these choices when you create the project because you can't change them later:</p>
+        <ul>
+          <li>The instance of IBM Cloud Object Storage to use for project storage.</li>
+        </ul>
+        <p>You can view projects that you create and collaborate in by selecting <strong>Projects &gt; View all projects</strong> in the navigation menu, or by viewing the <strong>Projects</strong> pane on the main page.</p>
+        <section id="section-collaboration">
+          <h2 id="collaboration">Collaboration in projects</h2>
+          <p>As a project creator, you can add other collaborators and assign them roles that control which actions they can take. You automatically have the <strong>Admin</strong> role in the project, and if you give other collaborators the <strong>Admin</strong>            role, they can add collaborators too. See <a href="../getting-started/collaborate.html">Adding collaborators</a> and <a href="../getting-started/collaborator-permissions.html">Project collaborator roles</a>.</p>
+          <div class="note tip"><span class="tiptitle">Tip:</span> If appropriate, add at least one other user as a project administrator to ensure that someone is able to manage the project if you are unavailable.</div>
+          <section id="section-collab-assets">
+            <h3 id="collab-assets">Collaboration on assets</h3>
+            <p>All collaborators work with the same copy of each asset. Only one collaborator can edit an asset at a time. While a collaborator is editing an asset in a tool, that asset is locked. Other collaborators can view a locked asset, but not edit
+              it. See <a href="manage-assets.html">Managing assets</a>.</p>
+          </section>
+        </section>
+        <section id="section-data">
+          <h2 id="data">Data assets</h2>
+          <p>You can add these types of data assets to projects:</p>
+          <ul>
+            <li>Data assets from local files or the Resource hub</li>
+            <li>Connections to cloud and on-premises data sources</li>
+            <li>Connected data assets from an existing connection asset that provide read-only access to a table or file in an external data source</li>
+            <li>Folder data assets to view the files within a folder in a file system</li>
+          </ul>
+          <p>Learn more about data assets:</p>
+          <ul>
+            <li><a href="conn_types.html">Connectors</a></li>
+            <li><a href="add-data-project.html">Adding data to a project</a></li>
+            <li><a href="../getting-started/assets.html#data">Data asset types and their properties</a></li>
+          </ul>
+        </section>
+        <section id="section-tools">
+          <h2 id="tools">Tools and their associated assets</h2>
+          <p>When you run a tool, you create an asset that contains the information for a specific goal. For example, when you run the Data Refinery tool, you create a Data Refinery flow asset that defines the set of ordered operations to run on a specific
+            data asset. Each tool has one or more types of associated assets that run in the tool.</p>
+          <p>For a mapping of assets to the tools that you use to create them, see <a href="../getting-started/assets.html">Asset types and properties</a>.</p>
+        </section>
+        <section id="section-env">
+          <h2 id="env">Environments</h2>
+          <p>Environments control your compute resources. An environment template specifies hardware and software resources to instantiate the environment runtimes that run your assets in tools.</p>
+          <p>Some tools have an automatically selected environment template. However, for other tools, you can choose between multiple environments. When you create an asset in a tool, you assign an environment to it. You can change the environment for an
+            asset when you run it.</p>
+          <p>Watson Studio includes a set of default environment templates that vary by coding language, tool, and compute engine type. You can also create custom environment templates or add services that provide environment templates.</p>
+          <p>The compute resources that you consume in a project are tracked. Depending on your offering plan, you have a limit to your monthly compute resources or you pay for all compute resources.</p>
+          <p>See <a href="../analyze-data/environments-parent.html">Environments</a>.</p>
+        </section>
+        <section id="section-jobs">
+          <h2 id="jobs">Jobs</h2>
+          <p>A job is a single run of an asset in a tool with a specified environment runtime. You can schedule one or repeating jobs, monitor, edit, stop, or cancel jobs. See <a href="jobs.html">Jobs</a>.</p>
+        </section>
+        <section id="section-storage">
+          <h2 id="storage">Asset storage</h2>
+          <p>Each project has a dedicated, secure storage bucket that contains:</p>
+          <ul>
+            <li>Data assets that you upload to the project as files.</li>
+            <li>Data assets from files that you copy from another workspace.</li>
+            <li>Files that you save to the project with a tool.</li>
+            <li>Files for assets that run in tools, such as notebooks.</li>
+            <li>Saved models.</li>
+            <li>The project readme file and internal project files.</li>
+          </ul>
+          <p>When you create a project, you must select an instance of IBM Cloud Object Storage or create a new instance. You cannot change the IBM Cloud Object Storage instance after you create the workspace. See <a href="../admin/storage-options.html">Object storage</a>.</p>
+          <p>When you delete a project, its storage bucket is also deleted.</p>
+        </section>
+        <section id="section-integ">
+          <h2 id="integ">Integrations with external tools</h2>
+          <p>Integrations provide a method to interact with tools that are external to the project.</p>
+          <p>You can integrate with a Git repository to <a href="../analyze-data/github-integration.html">publish notebooks</a>.</p>
+        </section>
+        <section id="section-docs">
+          <h2 id="docs">Project documentation and notifications</h2>
+          <p>While you create a project, you can add a short description to document the purpose or goal of the project. You can edit the description later, on the project's <strong>Settings</strong> page.</p>
+          <p>You can mark the project as sensitive. When users open a project that is marked as sensitive, a notification is displayed stating that no data assets can be downloaded or exported from the project.</p>
+          <p>The <strong>Overview</strong> page of a project contains a readme file where you can document the status or results of the project. The readme file uses standard <a href="../analyze-data/markd-jupyter.html">Markdown formatting</a>. Collaborators
+            with the <strong>Admin</strong> or <strong>Editor</strong> role can edit the readme file.</p>
+          <p>You can view recent asset activity in the <strong>Assets</strong> pane on the <strong>Overview</strong> page, and filter the assets by selecting <strong>By you</strong> or <strong>By all</strong> using the dropdown. <strong>By you</strong> lists
+            assets that you edited, ordered by most recent. <strong>By all</strong> lists assets that are edited by others and also by you, ordered by most recent.</p>
+          <p>All collaborators in a project are notified when a collaborator changes an asset.</p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="sandbox.html">Your sandbox project</a></li>
+            <li><a href="../getting-started/projects.html">Creating a project</a></li>
+            <li><a href="admin-project.html">Administering a project</a></li>
+            <li><a href="../getting-started/collaborate.html">Adding collaborators</a></li>
+            <li><a href="manage-assets.html">Managing assets</a></li>
+            <li><a href="download.html">Downloading data assets</a></li>
+            <li><a href="../analyze-data/environments-parent.html">Environments</a></li>
+            <li><a href="jobs.html">Jobs</a></li>
+            <li><a href="add-data-project.html">Adding data</a></li>
+            <li><a href="mark-sensitive.html">Marking a project as sensitive</a></li>
+          </ul>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

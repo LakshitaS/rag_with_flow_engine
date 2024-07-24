@@ -1,0 +1,117 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="This topic describes how to manage column encryption keys by application. It explains how to provide master keys and how to write and read encrypted data using these master keys.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Key management by application</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=encryption-key-management-by-application"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="key-management-application" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-key-management-application">
+        <h1 id="key-management-application">Key management by application</h1>
+        <p>This topic describes how to manage column encryption keys by application. It explains how to provide master keys and how to write and read encrypted data using these master keys.</p>
+        <section id="section-providing-master-keys">
+          <h2 id="providing-master-keys">Providing master keys</h2>
+          <p>To provide master keys:</p>
+          <ol>
+            <li>
+              <p>Pass the explicit master keys, in the following format:</p>
+              <pre class="codeblock"><code class="lang-bash hljs">parameter name: <span class="hljs-string">"encryption.key.list"</span>
+parameter value: <span class="hljs-string">"&lt;master key ID&gt;:&lt;master key (base64)&gt; , &lt;master key ID&gt;:&lt;master key (base64)&gt;.."</span>
+</code></pre>
+              <p>For example:</p>
+              <pre class="codeblock"><code class="lang-bash hljs">sc.hadoopConfiguration.set(<span class="hljs-string">"encryption.key.list"</span> , <span class="hljs-string">"k1:iKwfmI5rDf7HwVBcqeNE6w== , k2:LjxH/aXxMduX6IQcwQgOlw== , k3:rnZHCxhUHr79Y6zvQnxSEQ=="</span>)
+</code></pre>
+              <p>The length of master keys before base64 encoding can be 16, 24 or 32 bytes (128, 192 or 256 bits).</p>
+            </li>
+          </ol>
+        </section>
+        <section id="section-writing-encrypted-data">
+          <h2 id="writing-encrypted-data">Writing encrypted data</h2>
+          <p>To write encrypted data:</p>
+          <ol>
+            <li>
+              <p>Specify which columns to encrypt, and which master keys to use:</p>
+              <pre class="codeblock"><code class="lang-bash hljs">parameter name:  <span class="hljs-string">"encryption.column.keys"</span>
+parameter value: <span class="hljs-string">"&lt;master key ID&gt;:&lt;column&gt;,&lt;column&gt;;&lt;master key ID&gt;:&lt;column&gt; .."</span>
+</code></pre>
+            </li>
+            <li>
+              <p>Specify the footer key:</p>
+              <pre class="codeblock"><code class="lang-bash hljs">parameter name:  <span class="hljs-string">"encryption.footer.key"</span>
+parameter value:  <span class="hljs-string">"&lt;master key ID&gt;"</span>
+</code></pre>
+              <p>For example:</p>
+              <pre class="codeblock"><code class="lang-bash hljs">dataFrame.write
+.option(<span class="hljs-string">"encryption.footer.key"</span> , <span class="hljs-string">"k1"</span>)
+.option(<span class="hljs-string">"encryption.column.keys"</span> , <span class="hljs-string">"k2:SSN,Address;k3:CreditCard"</span>)
+.parquet(<span class="hljs-string">"&lt;path to encrypted files&gt;"</span>)
+</code></pre>
+              <div class="note note"><span class="notetitle">Note:</span> `"
+                <path to="" encrypted="" files=""></path>"` must contain the string `.encrypted` in the URL, for example `/path/to/my_table.parquet.encrypted`. If either the `"encryption.column.keys"` parameter or the `"encryption.footer.key"` parameter is not set, an exception will be
+                thrown.</div>
+            </li>
+          </ol>
+        </section>
+        <section id="section-reading-encrypted-data">
+          <h2 id="reading-encrypted-data">Reading encrypted data</h2>
+          <p>The required metadata is stored in the encrypted Parquet files.</p>
+          <p>To read the encrypted data:</p>
+          <ol>
+            <li>
+              <p>Provide the encryption keys:</p>
+              <pre class="codeblock"><code class="lang-bash hljs">sc.hadoopConfiguration.set(<span class="hljs-string">"encryption.key.list"</span> , <span class="hljs-string">"k1:iKwfmI5rDf7HwVBcqeNE6w== , k2:LjxH/aXxMduX6IQcwQgOlw== , k3:rnZHCxhUHr79Y6zvQnxSEQ=="</span>)
+</code></pre>
+            </li>
+            <li>
+              <p>Call the regular parquet read commands, such as:</p>
+              <pre class="codeblock"><code class="lang-python hljs">val dataFrame = spark.read.parquet(<span class="hljs-string">"&lt;path to encrypted files&gt;"</span>)
+</code></pre>
+              <div class="note note"><span class="notetitle">Note:</span> `"
+                <path to="" encrypted="" files=""></path>"` must contain the string `.encrypted` in the URL, for example `/path/to/my_table.parquet.encrypted`.</div>
+            </li>
+          </ol>
+          <p><strong>Parent topic:</strong> <a href="../spark/parquet-encryption.html">Parquet encryption</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

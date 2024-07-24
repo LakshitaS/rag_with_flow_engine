@@ -1,0 +1,583 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="This tutorial demonstrates the usage of Federated Learning with the goal of training a machine learning model with data from different users without having users share their data. The steps are done in a low code environment with the UI and with an XGBoost framework.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Federated Learning XGBoost tutorial for UI</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=samples-xgboost-tutorial"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="federated-learning-xgboost-tutorial-for-ui" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-federated-learning-xgboost-tutorial-for-ui">
+        <h1 id="federated-learning-xgboost-tutorial-for-ui">Federated Learning XGBoost tutorial for UI</h1>
+        <p>This tutorial demonstrates the usage of Federated Learning with the goal of training a machine learning model with data from different users without having users share their data. The steps are done in a low code environment with the UI and with
+          an XGBoost framework.</p>
+        <p>In this tutorial you learn to:</p>
+        <ul>
+          <li><a href="#step-1">Step 1: Start Federated Learning as the admin</a>
+            <ul>
+              <li><a href="#before-you-begin">Before you begin</a></li>
+              <li><a href="#start-the-aggregator">Start the aggregator</a></li>
+            </ul>
+          </li>
+          <li><a href="#step-2">Step 2: Train model as a party</a>
+            <ul>
+              <li><a href="#step-3">Step 3: Save and deploy the model online</a></li>
+              <li><a href="#step-4">Step 4: Score the model</a></li>
+            </ul>
+          </li>
+        </ul>
+        <p><strong>Notes:</strong></p>
+        <ul>
+          <li>This is a step-by-step tutorial for running a UI driven Federated Learning experiment. To see a code sample for an API driven approach, go to <a href="fl-xg-samples.html">Federated Learning XGBoost samples</a>.</li>
+          <li>In this tutorial, <em>admin</em> refers to the user that starts the Federated Learning experiment, and <em>party</em> refers to one or more users who send their model results after the experiment is started by the admin. While the tutorial can
+            be done by the admin and multiple parties, a single user can also complete a full run through as both the admin and the party. For a simpler demonstrative purpose, in the following tutorial only one data set is submitted by one party.
+            <!--However steps under *Send data as the party* can be repeated to submit different datasets from different parties (without sharing raw data).-->For more information on the admin and party, see <a href="fl-term.html">Terminology</a>.</li>
+        </ul>
+        <section id="section-step-1">
+          <h2 id="step-1">Step 1: Start Federated Learning</h2>
+          <p>In this section, you learn to start the Federated Learning experiment.</p>
+          <section id="section-before-you-begin">
+            <h3 id="before-you-begin">Before you begin</h3>
+            <ol>
+              <li>
+                <p>Log in to <a href="https://cloud.ibm.com/" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud</a>. If you don't have an account, create one with any email.</p>
+              </li>
+              <li>
+                <p><a href="https://cloud.ibm.com/catalog/services/machine-learning" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Create a Watson Machine Learning service instance</a> if you do not have it set up in your environment.</p>
+              </li>
+              <li>
+                <p>Log in to <a href="https://dataplatform.cloud.ibm.com/home2?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">watsonx</a>.</p>
+              </li>
+              <li>
+                <p>Use an existing <a href="../getting-started/projects.html">project</a> or create a new one. You must have at least admin permission.</p>
+              </li>
+              <li>
+                <p>Associate the Watson Machine Learning service with your project.</p>
+                <ol>
+                  <li>In your project, click the <strong>Manage &gt; Service &amp; integrations</strong>.</li>
+                  <li>Click <strong>Associate service</strong>.</li>
+                  <li>Select your Watson Machine Learning instance from the list, and click <strong>Associate</strong>; or click <strong>New service</strong> if you do not have one to set up an instance.</li>
+                </ol>
+                <p><img src="../analyze-data/images/fl_tut_add_wml_service.png" alt="Screenshot of associating the service" style="max-width:90%;height:auto;width:auto"></p>
+              </li>
+              <li>
+                <p>Log in to your Cloud Pak for Data cluster.</p>
+              </li>
+              <li>
+                <p><a href="https://www.ibm.com/docs/SSQNUZ_4.8.x/svc-wml/wml-install.html">Install the Watson Machine Learning image</a> if you do not have it set up in your environment.</p>
+              </li>
+              <li>
+                <p>Log in to your IBM Cloud Pak for Data host.</p>
+              </li>
+              <li>
+                <p>Use an existing <a href="../getting-started/projects.html">project</a> or create a new one. You must have at least editor permission.</p>
+              </li>
+            </ol>
+          </section>
+          <section id="section-start-the-aggregator">
+            <h3 id="start-the-aggregator">Start the aggregator</h3>
+            <ol>
+              <li>
+                <p>Create the Federated learning experiment asset:</p>
+                <ol>
+                  <li>
+                    <p>Click the <strong>Assets</strong> tab in your project.</p>
+                  </li>
+                  <li>
+                    <p>Click <strong>New asset &gt; Train models on distributed data</strong>.</p>
+                  </li>
+                  <li>
+                    <p>Type a <em>Name</em> for your experiment and optionally a description.</p>
+                  </li>
+                  <li>
+                    <p>Verify the associated Watson Machine Learning instance under <em>Select a machine learning instance</em>. If you don't see a Watson Machine Learning instance associated, follow these steps:</p>
+                    <ol>
+                      <li>
+                        <p>Click <strong>Associate a Machine Learning Service Instance</strong>.</p>
+                      </li>
+                      <li>
+                        <p>Select an existing instance and click <strong>Associate</strong>, or create a <strong>New service</strong>.</p>
+                      </li>
+                      <li>
+                        <p>Click <strong>Reload</strong> to see the associated service.</p>
+                        <p><img src="../analyze-data/images/fl_demo_2.png" alt="Screenshot of associating the service" height="70%" width="70%"></p>
+                      </li>
+                      <li>
+                        <p>Click <strong>Next</strong>.</p>
+                      </li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+              <li>
+                <p>Configure the experiment.</p>
+                <ol>
+                  <li>
+                    <p>On the <em>Configure</em> page, select a <strong>Hardware specification</strong>.</p>
+                  </li>
+                  <li>
+                    <p>Under the <em>Machine learning framework</em> dropdown, select <strong>scikit-learn</strong>.</p>
+                  </li>
+                  <li>
+                    <p>For the <em>Model type</em>, select <strong>XGBoost</strong>.</p>
+                  </li>
+                  <li>
+                    <p>For the <em>Fusion method</em>, select <strong>XGBoost classification fusion</strong></p>
+                    <p><img src="../analyze-data/images/fl_xg_framework.png" alt="Screenshot of selecting XGBoost classification" height="70%" width="70%"></p>
+                  </li>
+                </ol>
+              </li>
+              <li>
+                <p>Define the hyperparameters.</p>
+                <ol>
+                  <li>
+                    <p>Set the value for the <em>Rounds</em> field to <code>5</code>.</p>
+                  </li>
+                  <li>
+                    <p>Accept the default values for the rest of the fields.</p>
+                    <p><img src="../analyze-data/images/fl_xg_hyperparameters.png" alt="Screenshot of selecting hyperparameters" height="50%" width="50%"></p>
+                  </li>
+                  <li>
+                    <p>Click <strong>Next</strong>.</p>
+                  </li>
+                </ol>
+              </li>
+              <li>
+                <p>Select remote training systems.</p>
+                <ol>
+                  <li>Click <strong>Add new systems</strong>.</li>
+                </ol>
+                <p><img src="../analyze-data/images/fl_demo_7.png" alt="Screenshot of Add RTS UI" height="70%" width="70%"></p>
+                <ol>
+                  <li>
+                    <p>Give your Remote Training System a name.</p>
+                  </li>
+                  <li>
+                    <p>Under <strong>Allowed identities</strong>, select the user that will participate in the experiment, and then click <strong>Add</strong>. You can add as many allowed identities as participants in this Federated Experiment training instance.
+                      For this tutorial, choose only yourself.<br>Any allowed identities must be part of the project and have at least<strong>Admin</strong> permission.</p>
+                  </li>
+                  <li>
+                    <p>When you are finished, click <strong>Add systems</strong>.</p>
+                    <p><img src="../analyze-data/images/fl_xg_create_rts.png" alt="Screenshot of creating an RTS" height="70%" width="70%"></p>
+                  </li>
+                  <li>
+                    <p>Return to the <em>Select remote training systems</em> page, verify that your system is selected, and then click <strong>Next</strong>.</p>
+                    <p><img src="../analyze-data/images/fl_xg_select_rts.png" alt="Screenshot of selecting RTS" height="70%" width="70%"></p>
+                  </li>
+                </ol>
+              </li>
+              <li>
+                <p>Review your settings, and then click <strong>Create</strong>.</p>
+              </li>
+              <li>
+                <p>Watch the status. Your Federated Learning experiment status is <em>Pending</em> when it starts. When your experiment is ready for parties to connect, the status will change to <em>Setup – Waiting for remote systems</em>. This may take
+                  a few minutes.</p>
+              </li>
+            </ol>
+          </section>
+        </section>
+        <section id="section-step-2">
+          <h2 id="step-2">Step 2: Train model as a party</h2>
+          <ol>
+            <li>
+              <p>Ensure that you are using the same Python version as the admin. Using a different Python version might cause compatibility issues. To see Python versions compatible with different frameworks, see <a href="fl-frames.html#fl-py-fmwk">Frameworks and Python version compatibility</a>.</p>
+            </li>
+            <li>
+              <p>Create a new local directory.</p>
+            </li>
+            <li>
+              <p>Download the <em>Adult</em> data set into the directory with this command: <code>wget https://api.dataplatform.cloud.ibm.com/v2/gallery-assets/entries/5fcc01b02d8f0e50af8972dc8963f98e/data -O adult.csv</code>.</p>
+            </li>
+            <li>
+              <p>Download the data handler by running <code>wget https://raw.githubusercontent.com/IBMDataScience/sample-notebooks/master/Files/adult_sklearn_data_handler.py -O adult_sklearn_data_handler.py</code>.</p>
+            </li>
+            <li>
+              <p>Install Watson Machine Learning.</p>
+              <ul>
+                <li>If you are using Linux, run <code>pip install 'ibm-watson-machine-learning[fl-rt22.2-py3.10]'</code>.</li>
+                <li>If you are using Mac OS with M-series CPU and Conda, download the <a href="https://raw.github.ibm.com/WML/federated-learning/master/docs/install_fl_rt22.2_macos.sh?token=AAAXW7VVQZF7LYMTX5VOW7DEDULLE">installation script</a> and then run
+                  <code>./install_fl_rt22.2_macos.sh &lt;name for new conda environment&gt;</code>.<br>You now have the party connector script, <code>mnist_keras_data_handler.py</code>, <code>mnist-keras-test.pkl</code> and <code>mnist-keras-train.pkl</code>,
+                  data handler in the same directory.</li>
+              </ul>
+            </li>
+            <li>
+              <p>Go back to the Federated Learning experiment page, where the aggregator is running. Click <strong>View Setup Information</strong>.</p>
+            </li>
+            <li>
+              <p>Click the download icon next to the remote training system, and select <strong>Party connector script</strong>.</p>
+            </li>
+            <li>
+              <p>Ensure that you have the party connector script, the <em>Adult</em> data set, and the data handler in the same directory. If you run <code>ls -l</code>, you should see:</p>
+              <pre class="codeblock"><code class="lang-bash hljs">adult.csv
+adult_sklearn_data_handler.py
+rts_&lt;RTS Name&gt;_&lt;RTS ID&gt;.py
+</code></pre>
+            </li>
+            <li>
+              <p>In the party connector script:</p>
+              <ol>
+                <li>
+                  <p>Authenticate using any method.</p>
+                </li>
+                <li>
+                  <p>Put in these parameters for the <code>"data"</code> section:</p>
+                  <pre class="codeblock"><code class="lang-json hljs"><span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"AdultSklearnDataHandler"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"path"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"./adult_sklearn_data_handler.py"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"info"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+                <span class="hljs-attr">"txt_file"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"./adult.csv"</span>
+        <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+</code></pre>
+                  <p>where:</p>
+                  <ul>
+                    <li><code>name</code>: Class name defined for the data handler.</li>
+                    <li><code>path</code>: Path of where the data handler is located.</li>
+                    <li><code>info</code>: Create a key value pair for the file type of local data set, or the path of your data set.</li>
+                  </ul>
+                </li>
+              </ol>
+            </li>
+            <li>
+              <p>Run the party connector script: <code>python3 rts_&lt;RTS Name&gt;_&lt;RTS ID&gt;.py</code>.</p>
+            </li>
+            <li>
+              <p>When all participating parties connect to the aggregator, the aggregator facilitates the local model training and global model update. Its status is <em>Training</em>. You can monitor the status of your Federated Learning experiment from
+                the user interface.</p>
+            </li>
+            <li>
+              <p>When training is complete, the party receives a <code>Received STOP message</code> on the party.</p>
+            </li>
+            <li>
+              <p>Now, you can save the trained model and deploy it to a space.</p>
+            </li>
+          </ol>
+        </section>
+        <section id="section-step-3">
+          <h2 id="step-3">Step 3: Save and deploy the model online</h2>
+          <p>In this section, you learn how to save and deploy the model that you trained.</p>
+          <ol>
+            <li>
+              <p>Save your model.</p>
+              <ol>
+                <li>In your completed Federated Learning experiment, click <strong>Save model to project</strong>.</li>
+                <li>Give your model a name and click <strong>Save</strong>.</li>
+                <li>Go to your project home.</li>
+              </ol>
+            </li>
+            <li>
+              <p>Create a deployment space, if you don't have one.</p>
+              <ol>
+                <li>
+                  <p>From the navigation menu <img src="../getting-started/images/navigation-menu.svg" alt="Navigation menu" title="Navigation menu" height="20" style="vertical-align:text-bottom">, click <strong>Deployments</strong>.</p>
+                </li>
+                <li>
+                  <p>Click <strong>New deployment space</strong>.</p>
+                </li>
+                <li>
+                  <p>Fill in the fields, and click <strong>Create</strong>.</p>
+                  <p><img src="../analyze-data/images/fl_xg_create_deploy.png" alt="Screenshot of creating a deployment" height="70%" width="70%"></p>
+                </li>
+              </ol>
+            </li>
+            <li>
+              <p>Promote the model to a space.</p>
+              <ol>
+                <li>Return to your project, and click the <strong>Assets</strong> tab.</li>
+                <li>In the <em>Models</em> section, click the model to view its details page.</li>
+                <li>Click <strong>Promote to space</strong>.</li>
+                <li>Choose a deployment space for your trained model.</li>
+                <li>Select the <strong>Go to the model in the space after promoting it</strong> option.</li>
+                <li>Click <strong>Promote</strong>.</li>
+              </ol>
+            </li>
+            <li>
+              <p>When the model displays inside the deployment space, click <strong>New deployment</strong>.</p>
+              <ol>
+                <li>Select <strong>Online</strong> as the <em>Deployment type</em>.</li>
+                <li>Specify a name for the deployment.</li>
+                <li>Click <strong>Create</strong>.</li>
+              </ol>
+            </li>
+          </ol>
+        </section>
+        <section id="section-step-4">
+          <h2 id="step-4">Step 4: Score the model</h2>
+          <p>In this section, you learn to create a Python function to process the scoring data to ensure that it is in the same format that was used during training. For comparison, you will also score the raw data set by calling the Python function that
+            we created.</p>
+          <ol>
+            <li>
+              <p>Define the Python function as follows. The function loads the scoring data in its raw format and processes the data exactly as it was done during training. Then, score the processed data.</p>
+              <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">def</span> <span class="hljs-title function_">adult_scoring_function</span>():
+
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+
+<span class="hljs-keyword">from</span> ibm_watson_machine_learning <span class="hljs-keyword">import</span> APIClient
+
+wml_credentials = {
+<span class="hljs-string">"url"</span>: <span class="hljs-string">"https://us-south.ml.cloud.ibm.com"</span>,
+<span class="hljs-string">"apikey"</span>: <span class="hljs-string">"&lt;API KEY&gt;"</span>
+}
+client = APIClient(wml_credentials)
+client.<span class="hljs-built_in">set</span>.default_space(<span class="hljs-string">'&lt;SPACE ID&gt;'</span>)
+
+<span class="hljs-comment"># converts scoring input data format to pandas dataframe</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">create_dataframe</span>(<span class="hljs-params">raw_dataset</span>):
+
+fields = raw_dataset.get(<span class="hljs-string">"input_data"</span>)[<span class="hljs-number">0</span>].get(<span class="hljs-string">"fields"</span>)
+values = raw_dataset.get(<span class="hljs-string">"input_data"</span>)[<span class="hljs-number">0</span>].get(<span class="hljs-string">"values"</span>)
+
+raw_dataframe = pd.DataFrame(
+columns = fields,
+data = values
+)
+
+<span class="hljs-keyword">return</span> raw_dataframe
+
+<span class="hljs-comment"># reuse preprocess definition from training data handler</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">preprocess</span>(<span class="hljs-params">training_data</span>):
+
+<span class="hljs-string">"""
+Performs the following preprocessing on adult training and testing data:
+* Drop following features: 'workclass', 'fnlwgt', 'education', 'marital-status', 'occupation',
+'relationship', 'capital-gain', 'capital-loss', 'hours-per-week', 'native-country'
+* Map 'race', 'sex' and 'class' values to 0/1
+        * ' White': 1, ' Amer-Indian-Eskimo': 0, ' Asian-Pac-Islander': 0, ' Black': 0, ' Other': 0
+        * ' Male': 1, ' Female': 0
+        * Further details in Kamiran, F. and Calders, T. Data preprocessing techniques for classification without discrimination
+* Split 'age' and 'education' columns into multiple columns based on value
+
+:param training_data: Raw training data
+:type training_data: `pandas.core.frame.DataFrame
+:return: Preprocessed training data
+:rtype: `pandas.core.frame.DataFrame`
+"""</span>
+<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(training_data.columns)==<span class="hljs-number">15</span>:
+<span class="hljs-comment"># drop 'fnlwgt' column</span>
+training_data = training_data.drop(training_data.columns[<span class="hljs-number">2</span>], axis=<span class="hljs-string">'columns'</span>)
+
+training_data.columns = [<span class="hljs-string">'age'</span>,
+                        <span class="hljs-string">'workclass'</span>,
+                        <span class="hljs-string">'education'</span>,
+                        <span class="hljs-string">'education-num'</span>,
+                        <span class="hljs-string">'marital-status'</span>,
+                        <span class="hljs-string">'occupation'</span>,
+                        <span class="hljs-string">'relationship'</span>,
+                        <span class="hljs-string">'race'</span>,
+                        <span class="hljs-string">'sex'</span>,
+                        <span class="hljs-string">'capital-gain'</span>,
+                        <span class="hljs-string">'capital-loss'</span>,
+                        <span class="hljs-string">'hours-per-week'</span>,
+                        <span class="hljs-string">'native-country'</span>,
+                        <span class="hljs-string">'class'</span>]
+
+<span class="hljs-comment"># filter out columns unused in training, and reorder columns</span>
+training_dataset = training_data[[<span class="hljs-string">'race'</span>, <span class="hljs-string">'sex'</span>, <span class="hljs-string">'age'</span>, <span class="hljs-string">'education-num'</span>, <span class="hljs-string">'class'</span>]]
+
+<span class="hljs-comment"># map 'sex' and 'race' feature values based on sensitive attribute privileged/unpriveleged groups</span>
+training_dataset[<span class="hljs-string">'sex'</span>] = training_dataset[<span class="hljs-string">'sex'</span>].<span class="hljs-built_in">map</span>({<span class="hljs-string">' Female'</span>: <span class="hljs-number">0</span>,
+                                                        <span class="hljs-string">' Male'</span>: <span class="hljs-number">1</span>})
+
+training_dataset[<span class="hljs-string">'race'</span>] = training_dataset[<span class="hljs-string">'race'</span>].<span class="hljs-built_in">map</span>({<span class="hljs-string">' Asian-Pac-Islander'</span>: <span class="hljs-number">0</span>,
+                                                        <span class="hljs-string">' Amer-Indian-Eskimo'</span>: <span class="hljs-number">0</span>,
+                                                        <span class="hljs-string">' Other'</span>: <span class="hljs-number">0</span>,
+                                                        <span class="hljs-string">' Black'</span>: <span class="hljs-number">0</span>,
+                                                        <span class="hljs-string">' White'</span>: <span class="hljs-number">1</span>})
+
+<span class="hljs-comment"># map 'class' values to 0/1 based on positive and negative classification</span>
+training_dataset[<span class="hljs-string">'class'</span>] = training_dataset[<span class="hljs-string">'class'</span>].<span class="hljs-built_in">map</span>({<span class="hljs-string">' &lt;=50K'</span>: <span class="hljs-number">0</span>, <span class="hljs-string">' &gt;50K'</span>: <span class="hljs-number">1</span>})
+
+training_dataset[<span class="hljs-string">'age'</span>] = training_dataset[<span class="hljs-string">'age'</span>].astype(<span class="hljs-built_in">int</span>)
+training_dataset[<span class="hljs-string">'education-num'</span>] = training_dataset[<span class="hljs-string">'education-num'</span>].astype(<span class="hljs-built_in">int</span>)
+
+<span class="hljs-comment"># split age column into category columns</span>
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">8</span>):
+        <span class="hljs-keyword">if</span> i != <span class="hljs-number">0</span>:
+        training_dataset[<span class="hljs-string">'age'</span> + <span class="hljs-built_in">str</span>(i)] = <span class="hljs-number">0</span>
+
+<span class="hljs-keyword">for</span> index, row <span class="hljs-keyword">in</span> training_dataset.iterrows():
+        <span class="hljs-keyword">if</span> row[<span class="hljs-string">'age'</span>] &lt; <span class="hljs-number">20</span>:
+        training_dataset.loc[index, <span class="hljs-string">'age1'</span>] = <span class="hljs-number">1</span>
+        <span class="hljs-keyword">elif</span> ((row[<span class="hljs-string">'age'</span>] &lt; <span class="hljs-number">30</span>) &amp; (row[<span class="hljs-string">'age'</span>] &gt;= <span class="hljs-number">20</span>)):
+        training_dataset.loc[index, <span class="hljs-string">'age2'</span>] = <span class="hljs-number">1</span>
+        <span class="hljs-keyword">elif</span> ((row[<span class="hljs-string">'age'</span>] &lt; <span class="hljs-number">40</span>) &amp; (row[<span class="hljs-string">'age'</span>] &gt;= <span class="hljs-number">30</span>)):
+        training_dataset.loc[index, <span class="hljs-string">'age3'</span>] = <span class="hljs-number">1</span>
+        <span class="hljs-keyword">elif</span> ((row[<span class="hljs-string">'age'</span>] &lt; <span class="hljs-number">50</span>) &amp; (row[<span class="hljs-string">'age'</span>] &gt;= <span class="hljs-number">40</span>)):
+        training_dataset.loc[index, <span class="hljs-string">'age4'</span>] = <span class="hljs-number">1</span>
+        <span class="hljs-keyword">elif</span> ((row[<span class="hljs-string">'age'</span>] &lt; <span class="hljs-number">60</span>) &amp; (row[<span class="hljs-string">'age'</span>] &gt;= <span class="hljs-number">50</span>)):
+        training_dataset.loc[index, <span class="hljs-string">'age5'</span>] = <span class="hljs-number">1</span>
+        <span class="hljs-keyword">elif</span> ((row[<span class="hljs-string">'age'</span>] &lt; <span class="hljs-number">70</span>) &amp; (row[<span class="hljs-string">'age'</span>] &gt;= <span class="hljs-number">60</span>)):
+        training_dataset.loc[index, <span class="hljs-string">'age6'</span>] = <span class="hljs-number">1</span>
+        <span class="hljs-keyword">elif</span> row[<span class="hljs-string">'age'</span>] &gt;= <span class="hljs-number">70</span>:
+        training_dataset.loc[index, <span class="hljs-string">'age7'</span>] = <span class="hljs-number">1</span>
+
+<span class="hljs-comment"># split age column into multiple columns</span>
+training_dataset[<span class="hljs-string">'ed6less'</span>] = <span class="hljs-number">0</span>
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">13</span>):
+        <span class="hljs-keyword">if</span> i &gt;= <span class="hljs-number">6</span>:
+        training_dataset[<span class="hljs-string">'ed'</span> + <span class="hljs-built_in">str</span>(i)] = <span class="hljs-number">0</span>
+training_dataset[<span class="hljs-string">'ed12more'</span>] = <span class="hljs-number">0</span>
+
+<span class="hljs-keyword">for</span> index, row <span class="hljs-keyword">in</span> training_dataset.iterrows():
+        <span class="hljs-keyword">if</span> row[<span class="hljs-string">'education-num'</span>] &lt; <span class="hljs-number">6</span>:
+        training_dataset.loc[index, <span class="hljs-string">'ed6less'</span>] = <span class="hljs-number">1</span>
+        <span class="hljs-keyword">elif</span> row[<span class="hljs-string">'education-num'</span>] == <span class="hljs-number">6</span>:
+        training_dataset.loc[index, <span class="hljs-string">'ed6'</span>] = <span class="hljs-number">1</span>
+        <span class="hljs-keyword">elif</span> row[<span class="hljs-string">'education-num'</span>] == <span class="hljs-number">7</span>:
+        training_dataset.loc[index, <span class="hljs-string">'ed7'</span>] = <span class="hljs-number">1</span>
+        <span class="hljs-keyword">elif</span> row[<span class="hljs-string">'education-num'</span>] == <span class="hljs-number">8</span>:
+        training_dataset.loc[index, <span class="hljs-string">'ed8'</span>] = <span class="hljs-number">1</span>
+        <span class="hljs-keyword">elif</span> row[<span class="hljs-string">'education-num'</span>] == <span class="hljs-number">9</span>:
+        training_dataset.loc[index, <span class="hljs-string">'ed9'</span>] = <span class="hljs-number">1</span>
+        <span class="hljs-keyword">elif</span> row[<span class="hljs-string">'education-num'</span>] == <span class="hljs-number">10</span>:
+        training_dataset.loc[index, <span class="hljs-string">'ed10'</span>] = <span class="hljs-number">1</span>
+        <span class="hljs-keyword">elif</span> row[<span class="hljs-string">'education-num'</span>] == <span class="hljs-number">11</span>:
+        training_dataset.loc[index, <span class="hljs-string">'ed11'</span>] = <span class="hljs-number">1</span>
+        <span class="hljs-keyword">elif</span> row[<span class="hljs-string">'education-num'</span>] == <span class="hljs-number">12</span>:
+        training_dataset.loc[index, <span class="hljs-string">'ed12'</span>] = <span class="hljs-number">1</span>
+        <span class="hljs-keyword">elif</span> row[<span class="hljs-string">'education-num'</span>] &gt; <span class="hljs-number">12</span>:
+        training_dataset.loc[index, <span class="hljs-string">'ed12more'</span>] = <span class="hljs-number">1</span>
+
+training_dataset.drop([<span class="hljs-string">'age'</span>, <span class="hljs-string">'education-num'</span>], axis=<span class="hljs-number">1</span>, inplace=<span class="hljs-literal">True</span>)
+
+<span class="hljs-comment"># move class column to be last column</span>
+label = training_dataset[<span class="hljs-string">'class'</span>]
+training_dataset.drop(<span class="hljs-string">'class'</span>, axis=<span class="hljs-number">1</span>, inplace=<span class="hljs-literal">True</span>)
+training_dataset[<span class="hljs-string">'class'</span>] = label
+
+<span class="hljs-keyword">return</span> training_dataset
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">score</span>(<span class="hljs-params">raw_dataset</span>):
+<span class="hljs-keyword">try</span>:
+
+<span class="hljs-comment"># create pandas dataframe from input</span>
+raw_dataframe = create_dataframe(raw_dataset)
+
+<span class="hljs-comment"># reuse preprocess from training data handler</span>
+processed_dataset = preprocess(raw_dataframe)
+
+<span class="hljs-comment"># drop class column</span>
+processed_dataset.drop(<span class="hljs-string">'class'</span>, inplace=<span class="hljs-literal">True</span>, axis=<span class="hljs-string">'columns'</span>)
+
+<span class="hljs-comment"># create data payload for scoring</span>
+fields = processed_dataset.columns.values.tolist()
+values = processed_dataset.values.tolist()
+scoring_dataset = {client.deployments.ScoringMetaNames.INPUT_DATA: [{<span class="hljs-string">'fields'</span>: fields, <span class="hljs-string">'values'</span>: values}]}
+<span class="hljs-built_in">print</span>(scoring_dataset)
+
+<span class="hljs-comment"># score data</span>
+prediction = client.deployments.score(<span class="hljs-string">'&lt;MODEL DEPLOYMENT ID&gt;'</span>, scoring_dataset)
+<span class="hljs-keyword">return</span> prediction
+
+<span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
+<span class="hljs-keyword">return</span> {<span class="hljs-string">'error'</span>: <span class="hljs-built_in">repr</span>(e)}
+
+<span class="hljs-keyword">return</span> score
+</code></pre>
+            </li>
+            <li>
+              <p>Replace the variables in the previous Python function:</p>
+              <ul>
+                <li><code>API KEY</code>: Your IAM API key. To create a new API key, go to the <a href="https://cloud.ibm.com/" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud website</a>, and click <strong>Create an IBM Cloud API key</strong>                  under <strong>Manage &gt; Access(IAM) &gt; API keys</strong>.</li>
+                <li><code>SPACE ID</code>: ID of the Deployment space where the adult income deployment is running. To see your space ID, go to <strong>Deployment spaces &gt; <code>YOUR SPACE NAME</code> &gt; Manage</strong>. Copy the <em>Space GUID</em>.</li>
+                <li><code>MODEL DEPLOYMENT ID</code>: Online deployment ID for the adult income model. To see your model ID, you can see it by clicking the model in your project. It is in both the address bar and the information pane.</li>
+              </ul>
+            </li>
+            <li>
+              <p>Get the Software Spec ID for Python 3.9. For list of other environments run client.software_specifications.list().
+                <code>software_spec_id =  client.software_specifications.get_id_by_name('default_py3.9')</code></p>
+            </li>
+            <li>
+              <p>Store the Python function into your Watson Studio space.</p>
+              <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-comment"># stores python function in space</span>
+meta_props = {
+        client.repository.FunctionMetaNames.NAME: <span class="hljs-string">'Adult Income Scoring Function'</span>,
+        client.repository.FunctionMetaNames.SOFTWARE_SPEC_ID: software_spec_id
+}
+stored_function = client.repository.store_function(meta_props=meta_props, function=adult_scoring_function)
+function_id = stored_function[<span class="hljs-string">'metadata'</span>][<span class="hljs-string">'id'</span>]
+</code></pre>
+            </li>
+            <li>
+              <p>Create an online deployment by using the Python function.</p>
+              <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-comment"># create online deployment for fucntion</span>
+meta_props = {
+    client.deployments.ConfigurationMetaNames.NAME: <span class="hljs-string">"Adult Income Online Scoring Function"</span>,
+    client.deployments.ConfigurationMetaNames.ONLINE: {}
+}
+online_deployment = client.deployments.create(function_id, meta_props=meta_props)
+function_deployment_id = online_deployment[<span class="hljs-string">'metadata'</span>][<span class="hljs-string">'id'</span>]
+</code></pre>
+            </li>
+            <li>
+              <p>Download the Adult Income data set. This is reused as our scoring data.</p>
+              <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+
+<span class="hljs-comment"># read adult csv dataset</span>
+adult_csv = pd.read_csv(<span class="hljs-string">'./adult.csv'</span>, dtype=<span class="hljs-string">'category'</span>)
+
+<span class="hljs-comment"># use 10 random rows for scoring</span>
+sample_dataset = adult_csv.sample(n=<span class="hljs-number">10</span>)
+
+fields = sample_dataset.columns.values.tolist()
+values = sample_dataset.values.tolist()
+</code></pre>
+            </li>
+            <li>
+              <p>Score the adult income data by using the Python function created.</p>
+              <pre class="codeblock"><code class="lang-python hljs">raw_dataset = {client.deployments.ScoringMetaNames.INPUT_DATA: [{<span class="hljs-string">'fields'</span>: fields, <span class="hljs-string">'values'</span>: values}]}
+
+prediction = client.deployments.score(function_deployment_id, raw_dataset)
+<span class="hljs-built_in">print</span>(prediction)
+</code></pre>
+            </li>
+          </ol>
+          <section id="section-next-steps">
+            <h3 id="next-steps">Next steps</h3>
+            <p><a href="fl-start.html">Creating your Federated Learning experiment</a>.</p>
+            <p><strong>Parent topic:</strong>
+              <a href="../analyze-data/fl-demo.html">Federated Learning tutorial and samples</a></p>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

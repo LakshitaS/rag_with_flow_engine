@@ -1,0 +1,125 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can configure an integration with the Microsoft Azure platform to allow IBM watsonx users access to data sources from Microsoft Azure. Before proceeding, make sure you have proper permissions. For example, you'll need permission in your subscription to create an application integration in Azure Active Directory.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Integrating with Microsoft Azure</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=platforms-integrating-azure"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="integrating-with-microsoft-azure" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-integrating-with-microsoft-azure">
+        <h1 id="integrating-with-microsoft-azure">Integrating with Microsoft Azure</h1>
+        <p>You can configure an integration with the Microsoft Azure platform to allow IBM watsonx users access to data sources from Microsoft Azure. Before proceeding, make sure you have proper permissions. For example, you'll need permission in your subscription
+          to create an application integration in Azure Active Directory.</p>
+        <p>After you configure an integration, you'll see it under <strong>Service instances</strong>. You'll see a new <strong>Azure</strong> tab that lists your instances of Data Lake Storage Gen1 and SQL Database.</p>
+        <p>To configure an integration with Microsoft Azure:</p>
+        <ol>
+          <li>
+            <p>Log on to your Microsoft Azure account at <a href="https://portal.azure.com" target="_blank" rel="noopener noreferrer">https://portal.azure.com</a>.</p>
+          </li>
+          <li>
+            <p>Navigate to the <strong>Subscriptions</strong> panel and copy your subscription ID.</p>
+          </li>
+          <li>
+            <p>In IBM watsonx, go to <strong>Administration &gt; Cloud integrations</strong> and click the <strong>Azure</strong> tab. Paste the subscription ID you copied in the previous step into the <strong>Subscription ID</strong> field.</p>
+          </li>
+          <li>
+            <p>In Microsoft Azure Active Directory, navigate to <strong>Manage &gt; App registrations</strong> and click <strong>New registration</strong> to register an application. Give it a name such as <i>IBM integration</i> and select the desired option
+              for supported account types.</p>
+          </li>
+          <li>
+            <p>Copy the <strong>Application (client) ID</strong> and the <strong>Tenant ID</strong> and paste them into the appropriate fields on the IBM watsonx <strong>Integrations</strong> page, as you did with the subscription ID.</p>
+          </li>
+          <li>
+            <p>In Microsoft Azure, navigate to <strong>Certificates &amp; secrets &gt; New client secret</strong> to create a new secret.</p>
+            <p><strong>Important!</strong></p>
+            <ul>
+              <li>Write down your secret and store it in a safe place. After you leave this page, you won't be able to retrieve the secret again. You'd need to delete the secret and create a new one.</li>
+              <li>If you ever need to revoke the secret for some reason, you can simply delete it from this page.</li>
+              <li>Pay attention to the expiration date. When the secret expires, integration will stop working.</li>
+            </ul>
+          </li>
+          <li>
+            <p>Copy the secret from Microsoft Azure and paste it into the appropriate field on the <strong>Integrations</strong> page as you did with the subscription ID and client ID.</p>
+          </li>
+          <li>
+            <p>Configure <a href="#firewall">firewall access</a>.</p>
+          </li>
+          <li>
+            <p>Confirm that you can see your Azure services. From the main menu, choose <strong>Administration &gt; Services &gt; Services instances</strong>. Click the <strong>Azure</strong> tab to see those services.</p>
+          </li>
+        </ol>
+        <p>Now users who have credentials to your Azure services can <a href="../manage-data/create-conn.html">create connections</a> to them by selecting them on the <strong>Add connection</strong> page. Then they can access data from those connections
+          by <a href="../manage-data/connected-data.html">creating connected data assets</a>.</p>
+        <section id="section-firewall">
+          <h2 id="firewall">Configuring firewall access</h2>
+          <p>You must also configure access so IBM watsonx can access data through the firewall.</p>
+          <p>For Microsoft Azure SQL Database firewall:</p>
+          <ol>
+            <li>Open the database instance in Microsoft Azure.</li>
+            <li>From the top list of actions, select <strong>Set server firewall</strong>.</li>
+            <li>Set <strong>Deny public network access</strong> to <strong>No</strong>.</li>
+            <li>In a separate tab or window, open IBM watsonx and go to <strong>Administration &gt; Cloud integrations</strong>. In the <strong>Firewall configuration</strong> panel, for each firewall IP range, copy the start and end address values into the
+              list of rules in the Microsoft Azure QL Database firewall.</li>
+          </ol>
+          <p>For Microsoft Azure Data Lake Storage Gen1 firewall:</p>
+          <ol>
+            <li>Open the Data Lake instance.</li>
+            <li>Go to <strong>Settings &gt; Firewall and virtual networks</strong>.</li>
+            <li>In a separate tab or window, open IBM watsonx and go to <strong>Administration &gt; Cloud integrations</strong>. In the <strong>Firewall configuration</strong> panel, for each firewall IP range, copy the start and end address values into the
+              list of rules under <strong>Firewall</strong> in the Data Lake instance.</li>
+          </ol>
+          <p>You can now create connections, preview data from Microsoft Azure data sources, and access Microsoft Azure data in Notebooks, Data Refinery, SPSS Modeler, and other tools in projects and in catalogs. You can see your Microsoft Azure instances
+            under <strong>Services &gt; Service instances</strong>.</p>
+        </section>
+        <section id="section-next-steps">
+          <h2 id="next-steps">Next steps</h2>
+          <ul>
+            <li><a href="../getting-started/projects.html">Set up a project</a></li>
+            <li><a href="../manage-data/create-conn.html">Create connections in a project</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong>
+            <a href="../admin/int-cloud.html">Integrations with other cloud platforms</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

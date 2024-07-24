@@ -1,0 +1,194 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="The experiment settings used for data imputation in time series experiments.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Data imputation implementation details for time series experiments</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=imputation-details-time-series-experiments"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="data-imputation-implementation-details-for-time-series-experiments" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-data-imputation-implementation-details-for-time-series-experiments">
+        <h1 id="data-imputation-implementation-details-for-time-series-experiments">Data imputation implementation details for time series experiments</h1>
+        <p>The experiment settings used for data imputation in time series experiments.</p>
+        <section id="section-data-imputation-methods">
+          <h2 id="data-imputation-methods">Data imputation methods</h2>
+          <p>Apply one of these data imputation methods in experiment settings to supply missing values in a data set.</p>
+          <table>
+            <caption caption-side="bottom">Data imputation methods for classification and regression experiments</caption>
+            <thead>
+              <tr>
+                <th>Imputation method</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>FlattenIterative</td>
+                <td>Time series data is first flattened, then missing values are imputed with the Scikit-learn iterative imputer.</td>
+              </tr>
+              <tr>
+                <td>Linear</td>
+                <td>Linear interpolation method is used to impute the missing value.</td>
+              </tr>
+              <tr>
+                <td>Cubic</td>
+                <td>Cubic interpolation method is used to impute the missing value.</td>
+              </tr>
+              <tr>
+                <td>Previous</td>
+                <td>Missing value is imputed with the previous value.</td>
+              </tr>
+              <tr>
+                <td>Next</td>
+                <td>Missing value is imputed with the next value.</td>
+              </tr>
+              <tr>
+                <td>Fill</td>
+                <td>Missing value is imputed by using user-specified value, or sample mean, or sample median.</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section id="section-input-settings">
+          <h2 id="input-settings">Input Settings</h2>
+          <p>These commands are used to support data imputation for time series experiments in a notebook.</p>
+          <table>
+            <caption caption-side="bottom">Data imputation methods for time series experiments</caption>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Value</th>
+                <th>DefaultValue</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>use_imputation</td>
+                <td>Flag for switching imputation on or off.</td>
+                <td>True or False</td>
+                <td>True</td>
+              </tr>
+              <tr>
+                <td>imputer_list</td>
+                <td>List of imputer names (strings) to search. If a list is not specified, all the default imputers are searched. If an empty list is passed, all imputers are searched.</td>
+                <td>"FlattenIterative", "Linear", "Cubic", "Previous", "Fill", "Next"</td>
+                <td>"FlattenIterative", "Linear", "Cubic", "Previous"</td>
+              </tr>
+              <tr>
+                <td>imputer_fill_type</td>
+                <td>Categories of "Fill" imputer</td>
+                <td>"mean"/"median"/"value"</td>
+                <td>"value"</td>
+              </tr>
+              <tr>
+                <td>imputer_fill_value</td>
+                <td>A single numeric value to be filled for all missing values. Only applies when "imputer_fill_type" is specified as "value". Ignored if "mean" or "median" is specified for "imputer_fill_type.</td>
+                <td>(Negative Infinity, Positive Infinity)</td>
+                <td>0</td>
+              </tr>
+              <tr>
+                <td>imputation_threshold</td>
+                <td>Threshold for imputation. The missing value ratio must not be greater than the threshold in one column. Otherwise, results in an error.</td>
+                <td>(0,1)</td>
+                <td>0.25</td>
+              </tr>
+            </tbody>
+          </table>
+          <section id="section-notes-for-use_imputation-usage">
+            <h3 id="notes-for-use_imputation-usage">Notes for use_imputation usage</h3>
+            <ul>
+              <li>
+                <p>If the <code>use_imputation</code> method is specified as <code>True</code> and the input data has missing values:</p>
+                <ul>
+                  <li><code>imputation_threshold</code> takes effect.</li>
+                  <li>imputer candidates in <code>imputer_list</code> would be used to search for the best imputer.</li>
+                  <li>If the best imputer is <code>Fill</code>, <code>imputer_fill_type</code> and <code>imputer_fill_value</code> are applied; otherwise, they are ignored.</li>
+                </ul>
+              </li>
+              <li>
+                <p>If the <code>use_imputation</code> method is specified as <code>True</code> and the input data has no missing values:</p>
+                <ul>
+                  <li><code>imputation_threshold</code> is ignored.</li>
+                  <li>imputer candidates in <code>imputer_list</code> are used to search for the best imputer. If the best imputer is <code>Fill</code>, <code>imputer_fill_type</code> and <code>imputer_fill_value</code> are applied; otherwise, they are ignored.</li>
+                </ul>
+              </li>
+              <li>
+                <p>If the <code>use_imputation</code> method is specified as <code>False</code> but the input data has missing values:</p>
+                <ul>
+                  <li><code>use_imputation</code> is turned on with a warning, then the method follows the behavior for the first scenario.</li>
+                </ul>
+              </li>
+              <li>
+                <p>If the <code>use_imputation</code> method is specified as <code>False</code> and the input data has no missing values, then no further processing is required.</p>
+              </li>
+            </ul>
+            <p>For example:</p>
+            <pre class="codeblock"><code class="hljs">"pipelines": [
+      {
+        "id": "automl",
+        "runtime_ref": "hybrid",
+        "nodes": [
+          {
+            "id": "automl-ts",
+            "type": "execution_node",
+            "op": "kube",
+            "runtime_ref": "automl",
+            "parameters": {
+              "del_on_close": true,
+              "optimization": {
+	          "target_columns": [2,3,4],
+	          "timestamp_column": 1,
+	          "use_imputation": true
+              }
+            }
+          }
+        ]
+      }
+    ]
+</code></pre>
+            <p><strong>Parent topic:</strong> <a href="autoai-imputation.html">Data imputation in AutoAI experiments</a></p>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

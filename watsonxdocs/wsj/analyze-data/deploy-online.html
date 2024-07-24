@@ -1,0 +1,259 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Create an online deployment for machine learning models, generative AI assets, or Python functions to generate predictions or results in real time. For example, create an online deployment for a classification model that is trained to predict whether a bank customer enrolls in a promotion. Submitting new customer data to the deployment endpoint returns a prediction in real time.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Creating online deployments in Watson Machine Learning</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=assets-creating-online-deployments"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="creating-online-deployments-in-watson-machine-learning" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-creating-online-deployments-in-watson-machine-learning">
+        <h1 id="creating-online-deployments-in-watson-machine-learning">Creating online deployments in Watson Machine Learning</h1>
+        <p>Create an online deployment for machine learning models, generative AI assets, or Python functions to generate predictions or results in real time. For example, create an online deployment for a classification model that is trained to predict
+          whether a bank customer enrolls in a promotion. Submitting new customer data to the deployment endpoint returns a prediction in real time.</p>
+        <section id="section-deployable-asset-types-for-online-deployments">
+          <h2 id="deployable-asset-types-for-online-deployments">Deployable asset types for online deployments</h2>
+          <p>You can create online deployments for these types of assets:</p>
+          <ul>
+            <li><a href="ml-deploy-py-function.html">Functions</a></li>
+            <li>Models
+              <ul>
+                <li><a href="../getting-started/get-started-build.html">AutoAI models</a></li>
+                <li><a href="../getting-started/get-started-do.html">Decision Optimization models</a></li>
+                <li><a href="fl-tf2-tutorial.html">Federated learning models</a></li>
+                <li>Models that are <a href="ml-importing-model.html">imported from a file</a></li>
+                <li>Models that are created with <a href="ml-manage-frame-and-specs.html">supported frameworks</a></li>
+                <li><a href="fm-tuning-deploy.html">Tuned foundation models</a></li>
+                <li><a href="../getting-started/get-started-build-spss.html">SPSS Modeler models</a></li>
+                <li>Watson Machine Learning Accelerator models</li>
+              </ul>
+            </li>
+            <li><a href="prompt-template-deploy.html">Prompt templates</a></li>
+            <li><a href="deploy-script.html">Scripts</a></li>
+          </ul>
+        </section>
+        <section id="section-ways-to-create-an-online-deployment">
+          <h2 id="ways-to-create-an-online-deployment">Ways to create an online deployment</h2>
+          <p>You can create an online deployment one of these ways:</p>
+          <ul>
+            <li>Use a no-code approach to <a href="#create_space">Create an online deployment from a deployment space.</a></li>
+            <li>Use code to <a href="#create_programmatically">Create an online deployment programmatically by using notebooks.</a></li>
+          </ul>
+          <p>After you create an online deployment, an endpoint URL is generated. You can use the endpoint URL to test the deployment or to include the deployment in your applications.</p>
+        </section>
+        <section id="section-create_space">
+          <h2 id="create_space">Creating an online deployment from a deployment space</h2>
+          <p>Follow these steps to create your online deployment from a deployment space:</p>
+          <ol>
+            <li>
+              <p>Promote or add the asset that you want to deploy to a space. For more information, see <a href="ml-space-add-assets-all.html">Assets in a deployment space</a>.</p>
+            </li>
+            <li>
+              <p>From the Assets page, click <strong>Deploy</strong> from the action menu.</p>
+            </li>
+            <li>
+              <p>From the deployment details page, click <strong>New deployment</strong>.</p>
+            </li>
+            <li>
+              <p>Choose <strong>Online</strong> as the deployment type.</p>
+            </li>
+            <li>
+              <p>Provide a name and an optional description for the deployment.</p>
+            </li>
+            <li>
+              <p>Use the <strong>Serving name</strong> field to specify a name for your deployment instead of deployment ID.</p>
+              <div class="note note"><span class="notetitle">Note:</span>
+                <md-block>
+                  <ul>
+                    <li>The serving name must be distinctive within the namespace.</li>
+                    <li>The serving name must contain only these characters: [a-z,0-9,_] and must be a maximum 36 characters long.</li>
+                    <li>The serving name works only as part of the prediction URL. Sometime, you may have to use the deployment ID.</li>
+                  </ul>
+                </md-block>
+              </div>
+            </li>
+            <li>
+              <p>Optional: Select a <a href="ml-hardware-configs.html">hardware specification</a> if you're deploying Python functions, Tensorflow models, or models with <a href="ml-customize.html">custom software specifications</a>. For example, if you
+                are <a href="ml-deploy-scaling.html">scaling a deployment</a>, you might want to increase the hardware resources.</p>
+              <div class="note restriction"><span class="restrictiontitle">Restriction:</span>
+                <md-block>
+                  <p>If you want to use a custom hardware specification, you must create and select the custom hardware specification by using the <a href="https://ibm.github.io/watson-machine-learning-sdk/core_api.html#client.HwSpec.store"><code>hardware_specifications.store</code> function</a>                    from the <a href="https://www.ibm.com/links?url=https%3A%2F%2Fibm.github.io%2Fwatson-machine-learning-sdk%2F">Python client</a> or <a href="https://api.dataplatform.cloud.ibm.com/v2/environments/docs/swagger/#/">Environments API</a>.
+                    You cannot create or select a custom hardware specification from the user interface in a deployment space.</p>
+                  <p></p>
+                </md-block>
+              </div>
+              <p></p>
+            </li>
+            <li>
+              <p>Optional: Select a <a href="pm_service_supported_frameworks.html">software specification</a> that is compatible with your asset. You can select software specifications for functions only.</p>
+            </li>
+            <li>
+              <p>Click <strong>Create</strong> to create the deployment.</p>
+            </li>
+          </ol>
+          <section id="section-testing-an-online-deployment">
+            <h3 id="testing-an-online-deployment">Testing an online deployment</h3>
+            <p>Follow these steps to test your online deployment:</p>
+            <ol>
+              <li>From the <strong>Deployments</strong> tab of your space, click the deployment name.</li>
+              <li>Click the <strong>Test</strong> tab to enter data and get a prediction or other response from the deployed asset.</li>
+            </ol>
+            <p>The way that you provide test data for an online deployment depends on the type of asset you deployed. For most assets, you can directly enter test data into a form, upload a file that contains test data, or paste the test data in as JSON
+              code. For example, following is the test interface for a classification model:</p>
+            <p><img src="images/test-online-deployment.png" alt="Entering input data to test online deployment" style="max-width:90%;height:auto;width:auto"></p>
+            <div class="note note"><span class="notetitle">Note:</span>
+              <md-block>
+                <p>For providing test data:</p>
+                <ul>
+                  <li>If your deployed model has a defined schema, your test data must use the same schema. For example, for a classification model, enter test data by using the same columns, omitting the prediction column.</li>
+                  <li>For a deployed prompt template, the form for testing the deployment mirrors the input/output form that you used to create the prompt.</li>
+                </ul>
+                <p></p>
+              </md-block>
+            </div>
+            <p></p>
+            <section id="section-sample_json">
+              <h4 id="sample_json">Sample JSON code to test a deployment</h4>
+              <p>When you submit JSON code as the payload, or input data, for a deployment, your input data must match the requirements of the deployed asset.</p>
+              <p>For example, for a model with a schema, the <code>fields</code> must match the column headers for the data, and the <code>values</code> must contain the data (in the same order). Use this format:</p>
+              <pre class="codeblock"><code class="lang-js hljs">{<span class="hljs-string">"input_data"</span>:[{
+        <span class="hljs-string">"fields"</span>: [&lt;field1&gt;, &lt;field2&gt;, ...],
+        <span class="hljs-string">"values"</span>: [[&lt;value1&gt;, &lt;value2&gt;, ...]]
+}]}
+</code></pre>
+              <p>Refer to this example:
+                <br></p>
+              <pre class="codeblock"><code class="lang-js hljs">{<span class="hljs-string">"input_data"</span>:[{
+        <span class="hljs-string">"fields"</span>: [<span class="hljs-string">"PassengerId"</span>,<span class="hljs-string">"Pclass"</span>,<span class="hljs-string">"Name"</span>,<span class="hljs-string">"Sex"</span>,<span class="hljs-string">"Age"</span>,<span class="hljs-string">"SibSp"</span>,<span class="hljs-string">"Parch"</span>,<span class="hljs-string">"Ticket"</span>,<span class="hljs-string">"Fare"</span>,<span class="hljs-string">"Cabin"</span>,<span class="hljs-string">"Embarked"</span>],
+        <span class="hljs-string">"values"</span>: [[<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-string">"Braund, Mr. Owen Harris"</span>,<span class="hljs-number">0</span>,<span class="hljs-number">22</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-string">"A/5 21171"</span>,<span class="hljs-number">7.25</span>,<span class="hljs-literal">null</span>,<span class="hljs-string">"S"</span>]]
+}]}
+</code></pre>
+              <p>However, to enter input data for a deployed prompt template, the structure mirrors the input and output for prompting the model. For example, see the following code snippet:</p>
+              <pre class="codeblock"><code class="lang-js hljs">{
+    <span class="hljs-string">"parameters"</span>: {
+        <span class="hljs-string">"prompt_variables"</span>: {
+            <span class="hljs-string">"input"</span>: <span class="hljs-string">"input text goes here."</span>
+        }
+    }
+}
+</code></pre>
+              <div class="note note"><span class="notetitle">Note:</span>
+                <md-block>
+                  <p>For formatting JSON input:</p>
+                  <ul>
+                    <li>All strings are enclosed in double quotation marks. The Python notation for dictionaries looks similar, but Python strings in single quotation marks are not accepted in the JSON data.</li>
+                    <li>Indicate missing values with <code>null</code>.</li>
+                  </ul>
+                  <p></p>
+                </md-block>
+              </div>
+              <p></p>
+            </section>
+          </section>
+          <section id="section-online-endpoint">
+            <h3 id="online-endpoint">Retrieving the endpoint for an online deployment</h3>
+            <p>Follow these steps to retrieve the endpoint URL for your online deployment so that you can access the deployment from your applications:</p>
+            <ol>
+              <li>From the <strong>Deployments</strong> tab of your space, click the deployment name.</li>
+              <li>In the <strong>API Reference</strong> tab, find the private and public endpoint links. You can also find code snippets in various programming languages such as Python, Java, and more to include the endpoint details in an application.</li>
+            </ol>
+            <div class="note note"><span class="notetitle">Note:</span>
+              <md-block>
+                <p>If you added <strong>Serving name</strong> when you created your online deployment, you see two endpoint URLs. The first URL contains the deployment ID, and the second URL contains your serving name. You can use either one of these URLs
+                  with your deployment.</p>
+                <p></p>
+              </md-block>
+            </div>
+            <p></p>
+          </section>
+          <section id="section-accessing-the-online-deployment-details">
+            <h3 id="accessing-the-online-deployment-details">Accessing the online deployment details</h3>
+            <p>Follow these steps to review or update deployment details:</p>
+            <ol>
+              <li>From the <strong>Deployments</strong> tab of your space, click a deployment name.</li>
+              <li>Click the <strong>Deployment details</strong> tab to access information that is related to your online deployment.</li>
+            </ol>
+          </section>
+        </section>
+        <section id="section-create_programmatically">
+          <h2 id="create_programmatically">Creating online deployment programmatically by using notebooks</h2>
+          <p>You can create an online deployment programmatically by using:</p>
+          <ul>
+            <li>Watson Machine Learning <a href="https://cloud.ibm.com/apidocs/machine-learning">REST API</a>.</li>
+            <li>Watson Machine Learning <a href="https://ibm.github.io/watson-machine-learning-sdk/">Python client library</a>.</li>
+          </ul>
+          <p>To access sample notebooks that use demonstrate how to create and manage deployments by using Watson Machine Learning Python client, see <a href="ml-samples-overview.html">Machine learning samples and examples</a>.</p>
+          <section id="section-testing-your-online-deployment-programmatically">
+            <h3 id="testing-your-online-deployment-programmatically">Testing your online deployment programmatically</h3>
+            <p>To test your online deployment programmatically, you must prepare a payload that matches the schema of the existing model requirements of the deployed asset. For example, the input data (payload) for a classification model must match the schema
+              of the deployed model. The following sample for a classification model provides test data with columns and values that exactly match the model schema:</p>
+            <pre class="codeblock"><code class="lang-python hljs">model_details = client.repository.get_details(<span class="hljs-string">"&lt;model_id&gt;"</span>)  <span class="hljs-comment"># retrieves details and includes schema</span>
+columns_in_schema = []
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(model_details[<span class="hljs-string">'entity'</span>][<span class="hljs-string">'schemas'</span>][<span class="hljs-string">'input'</span>][<span class="hljs-number">0</span>].get(<span class="hljs-string">'fields'</span>))):
+    columns_in_schema.append(model_details[<span class="hljs-string">'entity'</span>][<span class="hljs-string">'schemas'</span>][<span class="hljs-string">'input'</span>][<span class="hljs-number">0</span>].get(<span class="hljs-string">'fields'</span>)[i][<span class="hljs-string">'name'</span>])
+
+X = X[columns_in_schema] <span class="hljs-comment"># where X is a pandas dataframe that contains values to be scored</span>
+<span class="hljs-comment">#(...)</span>
+scoring_values = X.values.tolist()
+array_of_input_fields = X.columns.tolist()
+payload_scoring = {<span class="hljs-string">"input_data"</span>: [{<span class="hljs-string">"fields"</span>: [array_of_input_fields],<span class="hljs-string">"values"</span>: scoring_values}]}
+</code></pre>
+          </section>
+          <section id="section-retrieving-the-endpoint-for-an-online-deployment-programmatically">
+            <h3 id="retrieving-the-endpoint-for-an-online-deployment-programmatically">Retrieving the endpoint for an online deployment programmatically</h3>
+            <p>To retrieve the endpoint URL of your online deployment from a notebook:</p>
+            <ol>
+              <li>List the deployments by calling the <a href="https://ibm.github.io/watson-machine-learning-sdk/core_api.html#client.Deployments.list" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Python client method</a> <code>client.deployments.list()</code>.</li>
+              <li>Find the row with your deployment. The deployment endpoint URL is listed in the <code>url</code> column.</li>
+            </ol>
+          </section>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p>To learn how to create a batch deployment, see <a href="deploy-batch-details.html">Creating a batch deployment</a>.</p>
+          <p>To learn how to manage deployment jobs, and update, scale, or delete an online deployment, see <a href="ml-space-add-assets-all.html">Managing assets</a>.</p>
+          <p>To learn more about deployment endpoints, see <a href="https://cloud.ibm.com/apidocs/machine-learning#endpoint-url" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Endpoint URLs</a>.</p>
+          <p><strong>Parent topic:</strong> <a href="../analyze-data/ml-deploy-general.html">Managing predictive deployments</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

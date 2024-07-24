@@ -1,0 +1,584 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Explore this atlas to understand some of the risks of working with generative AI, foundation models, and machine learning models.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>AI risk atlas</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=ai-risk-atlas"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="ai-risk-atlas" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-ai-risk-atlas">
+        <h1 id="ai-risk-atlas">AI risk atlas</h1>
+        <style type="text/css" keep="true">
+          .risk-section {
+            margin-bottom: 16px;
+          }
+          
+          .risk-section .heading {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 48px 1.5rem;
+            border-radius: 8px 8px 0 0;
+            overflow: hidden;
+          }
+          
+          .risk-section .heading .overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: linear-gradient(90deg, rgba(244, 244, 244, 1) 45%, rgba(244, 244, 244, 0.2) 65%, rgba(244, 244, 244, 0.4) 70%, rgba(244, 244, 244, 0) 85%);
+          }
+          
+          .risk-section .heading img {
+            position: absolute;
+            top: 0;
+            left: 0;
+          }
+          
+          .risk-section .heading h3 {
+            margin-bottom: 0 !important;
+            z-index: 0;
+            color: #000;
+          }
+          
+          .risk-section .heading.input {
+            background-color: #F67100;
+          }
+          
+          .risk-section .heading.output {
+            background-color: #00539A;
+          }
+          
+          .risk-section .heading.non-technical {
+            background-color: #D9A883;
+          }
+          
+          .risk-section .content {
+            background-color: #f4f4f4;
+            padding: 16px 16px 32px 16px;
+          }
+          
+          .risk-section .content h4 {
+            margin: 16px 0;
+          }
+          
+          .risk-section .content .content-grid {
+            display: grid;
+            row-gap: 16px;
+            column-gap: 16px;
+            grid-template-columns: repeat(3, 1fr);
+          }
+          
+          .risk-section .risk-group {
+            background-color: #ffffff;
+            padding: 16px;
+          }
+          
+          .risk-section .risk-group .risk a {
+            margin-right: 8px;
+            font-size: 14px;
+          }
+          
+          .risk-section .risk-group .risk .bx--tag {
+            font-size: 12px;
+          }
+          
+          .risk-section .risk-group .risk,
+          .risk-section .risk-group .risk .bx--tag {
+            line-height: normal;
+          }
+          
+          .risk-section .risk-group .risk:not(:last-child) {
+            margin-bottom: 8px;
+          }
+          
+          .risk-section .risk-group h4 {
+            margin-bottom: 16px;
+          }
+        </style>
+        <div>
+          <p>Explore this atlas to understand some of the risks of working with generative AI, foundation models, and machine learning models.</p>
+          <p>Risks are categorized with one of these tags:
+            </p><ul>
+              <li>Traditional AI risks (applies to traditional models as well as generative AI)</li>
+              <li>Risks amplified by generative AI (might also apply to traditional models)</li>
+              <li>New risks specifically associated with generative AI</li>
+            </ul>
+          <p></p>
+          <div class="risk-section">
+            <div class="heading input">
+              <img src="images/bg_input.jpg" alt="Background image for risks associated with input">
+              <div class="overlay"></div>
+              <h3>Risks associated with input</h3>
+            </div>
+            <div class="content">
+              <h4>Training and tuning phase</h4>
+              <div class="content-grid">
+                <div class="risk-group">
+                  <svg class="risk-group-icon" version="1.1" id="risk-icon-fairness-training-tuning" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" width="32" height="32" xml:space="preserve">
+<path xmlns="http://www.w3.org/2000/svg" id="risk-icon-path-fairness-training-tuning" d="M26,29.36H6v-0.72h6.659c0.167-1.565,1.415-2.813,2.981-2.98V11.333c-1.131-0.174-2-1.154-2-2.333s0.869-2.159,2-2.333V3.36H6.136l4.173,6.955c0.034,0.056,0.051,0.12,0.051,0.185c0,2.68-2.18,4.86-4.86,4.86s-4.86-2.18-4.86-4.86c0-0.065,0.018-0.129,0.051-0.185l4.5-7.5C5.256,2.707,5.374,2.64,5.5,2.64h21c0.126,0,0.243,0.066,0.309,0.175l4.5,7.5c0.033,0.056,0.052,0.12,0.052,0.185c0,2.68-2.181,4.86-4.86,4.86s-4.86-2.18-4.86-4.86c0-0.065,0.019-0.129,0.052-0.185l4.173-6.955H16.36v3.308c1.131,0.174,2,1.154,2,2.333s-0.869,2.159-2,2.333v14.327c1.566,0.167,2.814,1.415,2.981,2.98H26V29.36zM13.384,28.64h5.231c-0.176-1.286-1.281-2.28-2.615-2.28C14.667,26.36,13.561,27.354,13.384,28.64z M22.376,10.86c0.183,2.115,1.963,3.78,4.124,3.78s3.941-1.665,4.124-3.78H22.376z M1.375,10.86c0.183,2.115,1.963,3.78,4.125,3.78s3.941-1.665,4.125-3.78H1.375z M16,7.36c-0.904,0-1.64,0.736-1.64,1.64s0.736,1.64,1.64,1.64c0.904,0,1.64-0.736,1.64-1.64S16.904,7.36,16,7.36z M22.636,10.14h7.729L26.5,3.7L22.636,10.14z M1.636,10.14h7.729L5.5,3.7L1.636,10.14z"></path>
+<rect id="risk-icon-rect-fairness-training-tuning" style="fill:none;" width="32" height="32"></rect>
+</svg>
+                  <h4>Fairness</h4>
+                  <div class="risk">
+                    <a href="bias.html">Data bias</a>
+                    <div class="bx--tag bx--tag--purple">Amplified</div>
+                  </div>
+                </div>
+                <div class="risk-group">
+                  <svg class="risk-group-icon" version="1.1" id="risk-icon-robustness-training-tuning" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" width="32" height="32" xml:space="preserve">
+<path xmlns="http://www.w3.org/2000/svg" id="risk-icon-path-robustness-training-tuning" d="M25.128,31.48c-1.653,0-3.285-0.644-4.505-1.862c-1.697-1.698-2.29-4.224-1.542-6.493L8.874,12.92c-2.271,0.747-4.794,0.153-6.491-1.543c-1.904-1.903-2.404-4.813-1.244-7.24c0.05-0.105,0.148-0.18,0.264-0.2c0.118-0.018,0.233,0.018,0.315,0.101L5.72,8.04c0.64,0.638,1.68,0.639,2.32,0c0.639-0.64,0.639-1.68,0-2.32L4.038,1.718c-0.083-0.083-0.12-0.2-0.101-0.315c0.02-0.115,0.094-0.213,0.2-0.264c2.427-1.161,5.336-0.66,7.239,1.243c1.698,1.698,2.292,4.224,1.542,6.494l10.206,10.205c2.271-0.752,4.796-0.156,6.493,1.542c1.902,1.903,2.402,4.812,1.243,7.24c-0.051,0.105-0.149,0.18-0.265,0.199c-0.108,0.022-0.231-0.018-0.315-0.1l-4.002-4.002c-0.639-0.639-1.68-0.639-2.318,0c-0.64,0.64-0.64,1.68,0,2.318l4.002,4.002c0.082,0.083,0.12,0.2,0.1,0.315s-0.094,0.214-0.199,0.265C26.991,31.277,26.057,31.48,25.128,31.48z M8.968,12.146c0.094,0,0.186,0.037,0.254,0.105L19.75,22.775c0.1,0.1,0.132,0.248,0.083,0.38c-0.765,2.062-0.255,4.399,1.3,5.953c1.564,1.564,3.896,2.06,5.942,1.305l-3.624-3.624c-0.919-0.92-0.919-2.417,0-3.338c0.924-0.918,2.42-0.917,3.338,0l3.624,3.624c0.755-2.047,0.26-4.378-1.305-5.942c-1.554-1.555-3.889-2.065-5.953-1.3c-0.132,0.048-0.279,0.017-0.38-0.083L12.25,9.225c-0.1-0.099-0.132-0.248-0.083-0.38c0.766-2.062,0.255-4.399-1.299-5.954c-1.564-1.564-3.896-2.06-5.943-1.304l3.624,3.624C8.993,5.655,9.237,6.248,9.237,6.88S8.992,8.105,8.548,8.548c-0.888,0.889-2.45,0.888-3.337,0L1.587,4.925c-0.755,2.046-0.26,4.378,1.304,5.943c1.554,1.554,3.892,2.064,5.952,1.3C8.884,12.153,8.926,12.146,8.968,12.146z M2.858,31.24c-0.092,0-0.185-0.036-0.254-0.105l-1.743-1.743c-0.136-0.136-0.141-0.354-0.012-0.497l2.936-3.229c0.066-0.073,0.159-0.115,0.258-0.118c0.077,0,0.193,0.036,0.263,0.105l0.764,0.764l7.476-7.477l0.509,0.51l-7.476,7.477l0.763,0.763c0.07,0.07,0.108,0.165,0.105,0.264s-0.045,0.191-0.118,0.258L3.1,31.148C3.032,31.209,2.945,31.24,2.858,31.24z M1.613,29.125l1.257,1.258l2.695-2.451L4.063,26.43L1.613,29.125z M21.361,14.518l-0.51-0.509l9.311-9.311c0.384-0.383,0.595-0.892,0.595-1.433s-0.211-1.05-0.595-1.433c-0.788-0.788-2.074-0.79-2.864,0l-9.311,9.311l-0.51-0.509l9.311-9.311c1.038-1.038,2.848-1.036,3.884,0c0.519,0.519,0.805,1.208,0.805,1.942s-0.286,1.423-0.805,1.942L21.361,14.518z M19.674,12.831l-0.51-0.509l9.282-9.282l0.51,0.509L19.674,12.831z"></path>
+<rect id="risk-icon-rect-robustness-training-tuning" style="fill:none;" width="32" height="32"></rect>
+</svg>
+                  <h4>Robustness</h4>
+                  <div class="risk">
+                    <a href="data-poisoning.html">Data poisoning</a>
+                    <div class="bx--tag bx--tag--teal">Traditional</div>
+                  </div>
+                </div>
+                <div class="risk-group">
+                  <svg class="risk-group-icon" version="1.1" id="risk-icon-value-alignment-training-tuning" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" width="32" height="32" xml:space="preserve">
+<path xmlns="http://www.w3.org/2000/svg" id="risk-icon-path-value-alignment-training-tuning" d="M16,31.36C7.53,31.36,0.64,24.47,0.64,16S7.53,0.64,16,0.64S31.36,7.53,31.36,16S24.47,31.36,16,31.36zM16,1.36C7.927,1.36,1.36,7.927,1.36,16c0,8.072,6.567,14.64,14.64,14.64c8.072,0,14.64-6.567,14.64-14.64S24.072,1.36,16,1.36zM16,26.36c-5.712,0-10.36-4.647-10.36-10.36c0-5.712,4.647-10.36,10.36-10.36S26.36,10.287,26.36,16S21.713,26.36,16,26.36zM16,6.36c-5.315,0-9.64,4.325-9.64,9.64s4.325,9.64,9.64,9.64s9.64-4.324,9.64-9.64S21.315,6.36,16,6.36z M16,21.36c-2.956,0-5.36-2.405-5.36-5.36c0-2.956,2.404-5.36,5.36-5.36c2.955,0,5.36,2.404,5.36,5.36C21.36,18.955,18.955,21.36,16,21.36zM16,11.36c-2.559,0-4.64,2.082-4.64,4.64s2.082,4.64,4.64,4.64s4.64-2.081,4.64-4.64S18.559,11.36,16,11.36z M16,17c0.552,0,1-0.448,1-1s-0.448-1-1-1s-1,0.448-1,1C15,16.553,15.448,17,16,17z"></path>
+<rect id="risk-icon-rect-value-alignment-training-tuning" style="fill:none;" width="32" height="32"></rect>
+</svg>
+                  <h4>Value alignment</h4>
+                  <div class="risk">
+                    <a href="data-curation.html">Data curation</a>
+                    <div class="bx--tag bx--tag--purple">Amplified</div>
+                  </div>
+                  <div class="risk">
+                    <a href="downstream-retraining.html">Downstream retraining</a>
+                    <div class="bx--tag bx--tag--cyan">New</div>
+                  </div>
+                </div>
+                <div class="risk-group">
+                  <svg class="risk-group-icon" version="1.1" id="risk-icon-data-laws-training-tuning" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" width="32" height="32" xml:space="preserve">
+<path id="risk-icon-path-data-laws-training-tuning" d="M31,31.36H1c-0.199,0-0.36-0.161-0.36-0.36v-3c0-0.199,0.161-0.36,0.36-0.36h1.64V25c0-0.199,0.161-0.36,0.36-0.36h1.64V22c0-0.199,0.161-0.36,0.36-0.36h0.64v-5.28H5c-0.199,0-0.36-0.161-0.36-0.36v-2.64H1c-0.153,0-0.289-0.096-0.34-0.241c-0.05-0.144-0.004-0.305,0.115-0.4l15-12c0.132-0.104,0.318-0.104,0.45,0l15,12c0.12,0.096,0.166,0.256,0.115,0.4c-0.051,0.145-0.187,0.241-0.34,0.241h-3.64V16c0,0.199-0.161,0.36-0.36,0.36h-0.64v5.28H27c0.199,0,0.36,0.161,0.36,0.36v2.64H29c0.199,0,0.36,0.161,0.36,0.36v2.64H31c0.199,0,0.36,0.161,0.36,0.36v3C31.36,31.199,31.199,31.36,31,31.36z M1.36,30.64h29.28v-2.28H1.36V30.64z M3.36,27.64h25.28v-2.28H3.36V27.64z M21.36,24.64h5.279v-2.28H21.36V24.64z M19.36,24.64h1.279V22c0-0.199,0.161-0.36,0.36-0.36h0.64v-5.28H21c-0.199,0-0.36-0.161-0.36-0.36v-2.64h-1.28V16c0,0.199-0.161,0.36-0.36,0.36h-0.64v5.28H19c0.199,0,0.36,0.161,0.36,0.36V24.64zM13.36,24.64h5.28v-2.28h-5.28C13.36,22.36,13.36,24.64,13.36,24.64z M11.36,24.64h1.28V22c0-0.199,0.161-0.36,0.36-0.36h0.64v-5.28H13c-0.199,0-0.36-0.161-0.36-0.36v-2.64h-1.28V16c0,0.199-0.161,0.36-0.36,0.36h-0.64v5.28H11c0.199,0,0.36,0.161,0.36,0.36V24.64z M5.36,24.64h5.28v-2.28H5.36V24.64z M22.36,21.64h3.279v-5.28H22.36V21.64z M14.36,21.64h3.28v-5.28h-3.28V21.64zM6.36,21.64h3.28v-5.28H6.36V21.64z M21.36,15.64h5.279v-2.28H21.36V15.64z M13.36,15.64h5.28v-2.28h-5.28C13.36,13.36,13.36,15.64,13.36,15.64z M5.36,15.64h5.28v-2.28H5.36V15.64z M2.026,12.64h27.947L16,1.461L2.026,12.64z M16,10.86c-1.577,0-2.86-1.283-2.86-2.86S14.423,5.14,16,5.14S18.86,6.423,18.86,8S17.577,10.86,16,10.86z M16,5.86c-1.18,0-2.14,0.96-2.14,2.14s0.96,2.14,2.14,2.14S18.14,9.18,18.14,8S17.18,5.86,16,5.86z"></path>
+<rect id="risk-icon-rect-data-laws-training-tuning" style="fill:none;" width="32" height="32"></rect>
+</svg>
+                  <h4>Data laws</h4>
+                  <div class="risk">
+                    <a href="data-transfer.html">Data transfer</a>
+                    <div class="bx--tag bx--tag--teal">Traditional</div>
+                  </div>
+                  <div class="risk">
+                    <a href="data-usage.html">Data usage</a>
+                    <div class="bx--tag bx--tag--teal">Traditional</div>
+                  </div>
+                  <div class="risk">
+                    <a href="data-aquisition.html">Data aquisition</a>
+                    <div class="bx--tag bx--tag--purple">Amplified</div>
+                  </div>
+                </div>
+                <div class="risk-group">
+                  <svg class="risk-group-icon" version="1.1" id="risk-icon-intellectual-property-training-tuning" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" width="32" height="32" xml:space="preserve">
+<path xmlns="http://www.w3.org/2000/svg" d="M28 31.4001H3.99998C3.79998 31.4001 3.59998 31.2001 3.59998 31.0001V1.0001C3.59998 0.800098 3.79998 0.600098 3.99998 0.600098H22C22.1 0.600098 22.2 0.600098 22.3 0.700098L28.3 6.7001C28.4 6.8001 28.4 6.9001 28.4 7.0001V31.0001C28.4 31.2001 28.2 31.4001 28 31.4001ZM4.39998 30.6001H27.7V7.4001H22C21.8 7.4001 21.6 7.2001 21.6 7.0001V1.4001H4.39998V30.6001ZM22.4 6.6001H27.2L22.4 1.8001V6.6001ZM20 27.4001H7.99998V26.7001H20V27.4001ZM24 23.4001H7.99998V22.7001H24V23.4001ZM24 19.4001H7.99998V18.7001H24V19.4001Z" fill="black"></path>
+<path xmlns="http://www.w3.org/2000/svg" d="M8.7 4.80005H8V13.2H8.7V4.80005Z" fill="black"></path>
+<path xmlns="http://www.w3.org/2000/svg" d="M14 4.80005H11.6V13.2H12.3V9.50005H13.8L14.7 9.40005C15.6 9.10005 16.3 8.20005 16.3 7.20005C16.4 5.90005 15.3 4.80005 14 4.80005ZM14 8.80005H12.4V5.50005H14C14.9 5.50005 15.6 6.20005 15.6 7.10005C15.6 8.10005 14.9 8.80005 14 8.80005Z" fill="black"></path>
+<rect id="risk-icon-rect-intellectual-property-training-tuning" style="fill:none;" width="32" height="32"></rect>
+</svg>
+                  <h4>Intellectual property</h4>
+                  <div class="risk">
+                    <a href="data-usage-rights.html">Data usage rights</a>
+                    <div class="bx--tag bx--tag--purple">Amplified</div>
+                  </div>
+                  <div class="risk">
+                    <a href="confidential-information-in-data.html">Confidential information in data</a>
+                    <div class="bx--tag bx--tag--teal">Traditional</div>
+                  </div>
+                </div>
+                <div class="risk-group">
+                  <svg class="risk-group-icon" version="1.1" id="risk-icon-transparency-training-tuning" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" width="32" height="32" xml:space="preserve">
+<path xmlns="http://www.w3.org/2000/svg" id="risk-icon-path-transparency-training-tuning" d="M16,31.36H6c-0.096,0-0.187-0.038-0.254-0.105l-5-5C0.678,26.188,0.64,26.096,0.64,26V11c0-0.199,0.161-0.36,0.359-0.36l4.647-0.003C5.838,5.092,10.409,0.64,16,0.64c5.713,0,10.36,4.647,10.36,10.36c0,2.646-0.986,5.141-2.785,7.066l7.68,7.679l-0.51,0.51l-7.679-7.68c-1.838,1.717-4.194,2.693-6.707,2.778V31C16.36,31.199,16.199,31.36,16,31.36z M6.36,30.64h9.28v-9.286c-5.428-0.187-9.81-4.568-9.994-9.997L1.36,11.36v14.28H6c0.199,0,0.36,0.161,0.36,0.36V30.64z M1.869,26.36l3.771,3.771V26.36H1.869z M16,1.36c-5.315,0-9.64,4.325-9.64,9.64s4.325,9.64,9.64,9.64c2.574,0,4.994-1.003,6.815-2.824S25.64,13.573,25.64,11C25.64,5.685,21.315,1.36,16,1.36z M9.578,13.907l-0.623-0.36l2.732-4.73c0.071-0.123,0.201-0.195,0.349-0.178c0.141,0.015,0.261,0.111,0.305,0.247l0.979,3.005l2.365-4.074c0.067-0.116,0.199-0.185,0.328-0.179c0.134,0.006,0.253,0.086,0.31,0.208l1.944,4.158l3.424-5.691l0.617,0.371l-3.772,6.271c-0.068,0.113-0.195,0.18-0.327,0.174c-0.133-0.007-0.251-0.086-0.308-0.207l-1.938-4.146l-2.424,4.175c-0.072,0.123-0.208,0.193-0.35,0.177c-0.141-0.015-0.26-0.111-0.304-0.247l-0.978-3.002L9.578,13.907z"></path>
+<rect id="risk-icon-rect-transparency-training-tuning" style="fill:none;" width="32" height="32"></rect>
+</svg>
+                  <h4>Transparency</h4>
+                  <div class="risk">
+                    <a href="data-transparency.html">Data transparency</a>
+                    <div class="bx--tag bx--tag--purple">Amplified</div>
+                  </div>
+                  <div class="risk">
+                    <a href="data-provenance.html">Data provenance</a>
+                    <div class="bx--tag bx--tag--purple">Amplified</div>
+                  </div>
+                </div>
+                <div class="risk-group">
+                  <svg class="risk-group-icon" version="1.1" id="risk-icon-privacy-training-tuning" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" width="32" height="32" xml:space="preserve">
+<path xmlns="http://www.w3.org/2000/svg" id="risk-icon-path-privacy-training-tuning" d="M16,31.36C9.736,31.36,4.64,26.264,4.64,20V6.786L16,0.59l11.36,6.196V20 C27.36,26.264,22.264,31.36,16,31.36z M5.36,7.214V20c0,5.867,4.773,10.64,10.64,10.64S26.64,25.868,26.64,20V7.214L16,1.41 L5.36,7.214z M20,12.509l-2.255-2.255l0.51-0.509L20,11.491l3.745-3.745l0.51,0.509L20,12.509z M8.36,15.251 c0-1.694,1.151-3.15,2.799-3.541c0.15-0.035,0.261-0.163,0.275-0.316c0.014-0.154-0.071-0.3-0.212-0.363 c-0.693-0.308-1.141-0.997-1.141-1.753c0-1.058,0.861-1.918,1.918-1.918c1.06,0,1.922,0.86,1.922,1.918 c0,0.757-0.448,1.445-1.142,1.753c-0.141,0.063-0.226,0.209-0.212,0.363c0.014,0.153,0.125,0.281,0.275,0.316 c0.882,0.209,1.651,0.739,2.165,1.492l0.595-0.406c-0.467-0.684-1.111-1.214-1.856-1.54c0.559-0.494,0.894-1.21,0.894-1.979 c0-1.455-1.185-2.638-2.642-2.638c-1.455,0-2.638,1.183-2.638,2.638c0,0.768,0.335,1.484,0.893,1.978 c-1.571,0.681-2.614,2.23-2.614,3.996V21h0.72v-5.749H8.36z M22,17.36h-8c-0.199,0-0.36-0.161-0.36-0.36v-2 c0-0.199,0.161-0.36,0.36-0.36h8c0.199,0,0.36,0.161,0.36,0.36v2C22.36,17.199,22.199,17.36,22,17.36z M14.36,16.64h7.28v-1.28 h-7.28C14.36,15.36,14.36,16.64,14.36,16.64z M22,21.36h-8c-0.199,0-0.36-0.161-0.36-0.36v-2c0-0.199,0.161-0.36,0.36-0.36h8 c0.199,0,0.36,0.161,0.36,0.36v2C22.36,21.199,22.199,21.36,22,21.36z M14.36,20.64h7.28v-1.28h-7.28 C14.36,19.36,14.36,20.64,14.36,20.64z M22,25.36h-8c-0.199,0-0.36-0.161-0.36-0.36v-2c0-0.199,0.161-0.36,0.36-0.36h8 c0.199,0,0.36,0.161,0.36,0.36v2C22.36,25.199,22.199,25.36,22,25.36z M14.36,24.64h7.28v-1.28h-7.28 C14.36,23.36,14.36,24.64,14.36,24.64z"></path>	
+<rect id="risk-icon-rect-privacy-training-tuning" style="fill:none;" width="32" height="32"></rect>
+</svg>
+                  <h4>Privacy</h4>
+                  <div class="risk">
+                    <a href="personal-information-in-data.html">Personal information in data</a>
+                    <div class="bx--tag bx--tag--teal">Traditional</div>
+                  </div>
+                  <div class="risk">
+                    <a href="reidentification.html">Reidentification</a>
+                    <div class="bx--tag bx--tag--teal">Traditional</div>
+                  </div>
+                  <div class="risk">
+                    <a href="data-privacy-rights.html">Data privacy rights</a>
+                    <div class="bx--tag bx--tag--purple">Amplified</div>
+                  </div>
+                  <div class="risk">
+                    <a href="informed-consent.html">Informed consent</a>
+                    <div class="bx--tag bx--tag--teal">Traditional</div>
+                  </div>
+                </div>
+              </div>
+              <h4>Inference phase</h4>
+              <div class="content-grid">
+                <div class="risk-group">
+                  <svg class="risk-group-icon" version="1.1" id="risk-icon-privacy-inference" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" width="32" height="32" xml:space="preserve">
+<path xmlns="http://www.w3.org/2000/svg" id="risk-icon-path-privacy-inference" d="M16,31.36C9.736,31.36,4.64,26.264,4.64,20V6.786L16,0.59l11.36,6.196V20 C27.36,26.264,22.264,31.36,16,31.36z M5.36,7.214V20c0,5.867,4.773,10.64,10.64,10.64S26.64,25.868,26.64,20V7.214L16,1.41 L5.36,7.214z M20,12.509l-2.255-2.255l0.51-0.509L20,11.491l3.745-3.745l0.51,0.509L20,12.509z M8.36,15.251 c0-1.694,1.151-3.15,2.799-3.541c0.15-0.035,0.261-0.163,0.275-0.316c0.014-0.154-0.071-0.3-0.212-0.363 c-0.693-0.308-1.141-0.997-1.141-1.753c0-1.058,0.861-1.918,1.918-1.918c1.06,0,1.922,0.86,1.922,1.918 c0,0.757-0.448,1.445-1.142,1.753c-0.141,0.063-0.226,0.209-0.212,0.363c0.014,0.153,0.125,0.281,0.275,0.316 c0.882,0.209,1.651,0.739,2.165,1.492l0.595-0.406c-0.467-0.684-1.111-1.214-1.856-1.54c0.559-0.494,0.894-1.21,0.894-1.979 c0-1.455-1.185-2.638-2.642-2.638c-1.455,0-2.638,1.183-2.638,2.638c0,0.768,0.335,1.484,0.893,1.978 c-1.571,0.681-2.614,2.23-2.614,3.996V21h0.72v-5.749H8.36z M22,17.36h-8c-0.199,0-0.36-0.161-0.36-0.36v-2 c0-0.199,0.161-0.36,0.36-0.36h8c0.199,0,0.36,0.161,0.36,0.36v2C22.36,17.199,22.199,17.36,22,17.36z M14.36,16.64h7.28v-1.28 h-7.28C14.36,15.36,14.36,16.64,14.36,16.64z M22,21.36h-8c-0.199,0-0.36-0.161-0.36-0.36v-2c0-0.199,0.161-0.36,0.36-0.36h8 c0.199,0,0.36,0.161,0.36,0.36v2C22.36,21.199,22.199,21.36,22,21.36z M14.36,20.64h7.28v-1.28h-7.28 C14.36,19.36,14.36,20.64,14.36,20.64z M22,25.36h-8c-0.199,0-0.36-0.161-0.36-0.36v-2c0-0.199,0.161-0.36,0.36-0.36h8 c0.199,0,0.36,0.161,0.36,0.36v2C22.36,25.199,22.199,25.36,22,25.36z M14.36,24.64h7.28v-1.28h-7.28 C14.36,23.36,14.36,24.64,14.36,24.64z"></path>	
+<rect id="risk-icon-rect-privacy-inference" style="fill:none;" width="32" height="32"></rect>
+</svg>
+                  <h4>Privacy</h4>
+                  <div class="risk">
+                    <a href="personal-information-in-prompt.html">Personal information in prompt</a>
+                    <div class="bx--tag bx--tag--cyan">New</div>
+                  </div>
+                  <div class="risk">
+                    <a href="membership-inference-attack.html">Membership inference attack</a>
+                    <div class="bx--tag bx--tag--teal">Traditional</div>
+                  </div>
+                  <div class="risk">
+                    <a href="attribute-inference-attack.html">Attribute inference attack</a>
+                    <div class="bx--tag bx--tag--purple">Amplified</div>
+                  </div>
+                </div>
+                <div class="risk-group">
+                  <svg class="risk-group-icon" version="1.1" id="risk-icon-intellectual-property-inference" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" width="32" height="32" xml:space="preserve">
+<path xmlns="http://www.w3.org/2000/svg" d="M28 31.4001H3.99998C3.79998 31.4001 3.59998 31.2001 3.59998 31.0001V1.0001C3.59998 0.800098 3.79998 0.600098 3.99998 0.600098H22C22.1 0.600098 22.2 0.600098 22.3 0.700098L28.3 6.7001C28.4 6.8001 28.4 6.9001 28.4 7.0001V31.0001C28.4 31.2001 28.2 31.4001 28 31.4001ZM4.39998 30.6001H27.7V7.4001H22C21.8 7.4001 21.6 7.2001 21.6 7.0001V1.4001H4.39998V30.6001ZM22.4 6.6001H27.2L22.4 1.8001V6.6001ZM20 27.4001H7.99998V26.7001H20V27.4001ZM24 23.4001H7.99998V22.7001H24V23.4001ZM24 19.4001H7.99998V18.7001H24V19.4001Z" fill="black"></path>
+<path xmlns="http://www.w3.org/2000/svg" d="M8.7 4.80005H8V13.2H8.7V4.80005Z" fill="black"></path>
+<path xmlns="http://www.w3.org/2000/svg" d="M14 4.80005H11.6V13.2H12.3V9.50005H13.8L14.7 9.40005C15.6 9.10005 16.3 8.20005 16.3 7.20005C16.4 5.90005 15.3 4.80005 14 4.80005ZM14 8.80005H12.4V5.50005H14C14.9 5.50005 15.6 6.20005 15.6 7.10005C15.6 8.10005 14.9 8.80005 14 8.80005Z" fill="black"></path>
+<rect id="risk-icon-rect-intellectual-property-inference" style="fill:none;" width="32" height="32"></rect>
+</svg>
+                  <h4>Intellectual property</h4>
+                  <div class="risk">
+                    <a href="ip-information-in-prompt.html">IP information in prompt</a>
+                    <div class="bx--tag bx--tag--cyan">New</div>
+                  </div>
+                  <div class="risk">
+                    <a href="confidential-data-in-prompt.html">Confidential data in prompt</a>
+                    <div class="bx--tag bx--tag--cyan">New</div>
+                  </div>
+                </div>
+                <div class="risk-group">
+                  <svg class="risk-group-icon" version="1.1" id="risk-icon-robustness-inference" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" width="32" height="32" xml:space="preserve">
+<path xmlns="http://www.w3.org/2000/svg" id="risk-icon-path-robustness-inference" d="M25.128,31.48c-1.653,0-3.285-0.644-4.505-1.862c-1.697-1.698-2.29-4.224-1.542-6.493L8.874,12.92c-2.271,0.747-4.794,0.153-6.491-1.543c-1.904-1.903-2.404-4.813-1.244-7.24c0.05-0.105,0.148-0.18,0.264-0.2c0.118-0.018,0.233,0.018,0.315,0.101L5.72,8.04c0.64,0.638,1.68,0.639,2.32,0c0.639-0.64,0.639-1.68,0-2.32L4.038,1.718c-0.083-0.083-0.12-0.2-0.101-0.315c0.02-0.115,0.094-0.213,0.2-0.264c2.427-1.161,5.336-0.66,7.239,1.243c1.698,1.698,2.292,4.224,1.542,6.494l10.206,10.205c2.271-0.752,4.796-0.156,6.493,1.542c1.902,1.903,2.402,4.812,1.243,7.24c-0.051,0.105-0.149,0.18-0.265,0.199c-0.108,0.022-0.231-0.018-0.315-0.1l-4.002-4.002c-0.639-0.639-1.68-0.639-2.318,0c-0.64,0.64-0.64,1.68,0,2.318l4.002,4.002c0.082,0.083,0.12,0.2,0.1,0.315s-0.094,0.214-0.199,0.265C26.991,31.277,26.057,31.48,25.128,31.48z M8.968,12.146c0.094,0,0.186,0.037,0.254,0.105L19.75,22.775c0.1,0.1,0.132,0.248,0.083,0.38c-0.765,2.062-0.255,4.399,1.3,5.953c1.564,1.564,3.896,2.06,5.942,1.305l-3.624-3.624c-0.919-0.92-0.919-2.417,0-3.338c0.924-0.918,2.42-0.917,3.338,0l3.624,3.624c0.755-2.047,0.26-4.378-1.305-5.942c-1.554-1.555-3.889-2.065-5.953-1.3c-0.132,0.048-0.279,0.017-0.38-0.083L12.25,9.225c-0.1-0.099-0.132-0.248-0.083-0.38c0.766-2.062,0.255-4.399-1.299-5.954c-1.564-1.564-3.896-2.06-5.943-1.304l3.624,3.624C8.993,5.655,9.237,6.248,9.237,6.88S8.992,8.105,8.548,8.548c-0.888,0.889-2.45,0.888-3.337,0L1.587,4.925c-0.755,2.046-0.26,4.378,1.304,5.943c1.554,1.554,3.892,2.064,5.952,1.3C8.884,12.153,8.926,12.146,8.968,12.146z M2.858,31.24c-0.092,0-0.185-0.036-0.254-0.105l-1.743-1.743c-0.136-0.136-0.141-0.354-0.012-0.497l2.936-3.229c0.066-0.073,0.159-0.115,0.258-0.118c0.077,0,0.193,0.036,0.263,0.105l0.764,0.764l7.476-7.477l0.509,0.51l-7.476,7.477l0.763,0.763c0.07,0.07,0.108,0.165,0.105,0.264s-0.045,0.191-0.118,0.258L3.1,31.148C3.032,31.209,2.945,31.24,2.858,31.24z M1.613,29.125l1.257,1.258l2.695-2.451L4.063,26.43L1.613,29.125z M21.361,14.518l-0.51-0.509l9.311-9.311c0.384-0.383,0.595-0.892,0.595-1.433s-0.211-1.05-0.595-1.433c-0.788-0.788-2.074-0.79-2.864,0l-9.311,9.311l-0.51-0.509l9.311-9.311c1.038-1.038,2.848-1.036,3.884,0c0.519,0.519,0.805,1.208,0.805,1.942s-0.286,1.423-0.805,1.942L21.361,14.518z M19.674,12.831l-0.51-0.509l9.282-9.282l0.51,0.509L19.674,12.831z"></path>
+<rect id="risk-icon-rect-robustness-inference" style="fill:none;" width="32" height="32"></rect>
+</svg>
+                  <h4>Robustness</h4>
+                  <div class="risk">
+                    <a href="evasion-attack.html">Evasion attack</a>
+                    <div class="bx--tag bx--tag--purple">Amplified</div>
+                  </div>
+                  <div class="risk">
+                    <a href="extraction-attack.html">Extraction attack</a>
+                    <div class="bx--tag bx--tag--purple">Amplified</div>
+                  </div>
+                  <div class="risk">
+                    <a href="prompt-injection.html">Prompt injection</a>
+                    <div class="bx--tag bx--tag--cyan">New</div>
+                  </div>
+                  <div class="risk">
+                    <a href="prompt-leaking.html">Prompt leaking</a>
+                    <div class="bx--tag bx--tag--purple">Amplified</div>
+                  </div>
+                </div>
+                <div class="risk-group">
+                  <svg class="risk-group-icon" version="1.1" id="risk-icon-multi-category-inference" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" width="32" height="32" xml:space="preserve">
+<path xmlns="http://www.w3.org/2000/svg" id="risk-icon-path-multi-category-inference" d="M31,31.36h-6c-0.199,0-0.36-0.161-0.36-0.36v-6c0-0.199,0.161-0.36,0.36-0.36h6c0.199,0,0.36,0.161,0.36,0.36v6C31.36,31.199,31.199,31.36,31,31.36z M25.36,30.64h5.279v-5.28H25.36V30.64z M19,31.36h-6c-0.199,0-0.36-0.161-0.36-0.36v-6c0-0.199,0.161-0.36,0.36-0.36h6c0.199,0,0.36,0.161,0.36,0.36v6C19.36,31.199,19.199,31.36,19,31.36z M13.36,30.64h5.28v-5.28h-5.28C13.36,25.36,13.36,30.64,13.36,30.64z M7,31.36H1c-0.199,0-0.36-0.161-0.36-0.36v-6c0-0.199,0.161-0.36,0.36-0.36h6c0.199,0,0.36,0.161,0.36,0.36v6C7.36,31.199,7.199,31.36,7,31.36z M1.36,30.64h5.28v-5.28H1.36V30.64z M28,29.36c-0.75,0-1.36-0.61-1.36-1.36s0.61-1.36,1.36-1.36s1.36,0.61,1.36,1.36S28.75,29.36,28,29.36z M28,27.36c-0.353,0-0.64,0.287-0.64,0.64s0.287,0.64,0.64,0.64s0.64-0.287,0.64-0.64S28.353,27.36,28,27.36zM31,19.36h-6c-0.199,0-0.36-0.161-0.36-0.36v-6c0-0.199,0.161-0.36,0.36-0.36h6c0.199,0,0.36,0.161,0.36,0.36v6C31.36,19.199,31.199,19.36,31,19.36z M25.36,18.64h5.279v-5.28H25.36V18.64z M19,19.36h-6c-0.199,0-0.36-0.161-0.36-0.36v-6c0-0.199,0.161-0.36,0.36-0.36h6c0.199,0,0.36,0.161,0.36,0.36v6C19.36,19.199,19.199,19.36,19,19.36z M13.36,18.64h5.28v-5.28h-5.28C13.36,13.36,13.36,18.64,13.36,18.64z M7,19.36H1c-0.199,0-0.36-0.161-0.36-0.36v-6c0-0.199,0.161-0.36,0.36-0.36h6c0.199,0,0.36,0.161,0.36,0.36v6C7.36,19.199,7.199,19.36,7,19.36z M1.36,18.64h5.28v-5.28H1.36V18.64z M16,17.36c-0.75,0-1.36-0.61-1.36-1.36s0.61-1.36,1.36-1.36s1.36,0.61,1.36,1.36S16.75,17.36,16,17.36z M16,15.36c-0.353,0-0.64,0.287-0.64,0.64s0.287,0.64,0.64,0.64s0.64-0.287,0.64-0.64S16.353,15.36,16,15.36z M4,17.36c-0.75,0-1.36-0.61-1.36-1.36S3.25,14.64,4,14.64S5.36,15.25,5.36,16S4.75,17.36,4,17.36z M4,15.36c-0.353,0-0.64,0.287-0.64,0.64S3.647,16.64,4,16.64S4.64,16.353,4.64,16S4.353,15.36,4,15.36z M31,7.36h-6c-0.199,0-0.36-0.161-0.36-0.36V1c0-0.199,0.161-0.36,0.36-0.36h6c0.199,0,0.36,0.161,0.36,0.36v6C31.36,7.199,31.199,7.36,31,7.36z M25.36,6.64h5.279V1.36H25.36V6.64z M19,7.36h-6c-0.199,0-0.36-0.161-0.36-0.36V1c0-0.199,0.161-0.36,0.36-0.36h6c0.199,0,0.36,0.161,0.36,0.36v6C19.36,7.199,19.199,7.36,19,7.36z M13.36,6.64h5.28V1.36h-5.28C13.36,1.36,13.36,6.64,13.36,6.64z M7,7.36H1C0.801,7.36,0.64,7.199,0.64,7V1c0-0.199,0.161-0.36,0.36-0.36h6c0.199,0,0.36,0.161,0.36,0.36v6C7.36,7.199,7.199,7.36,7,7.36zM1.36,6.64h5.28V1.36H1.36V6.64z M28,5.36c-0.75,0-1.36-0.61-1.36-1.36S27.25,2.64,28,2.64S29.36,3.25,29.36,4S28.75,5.36,28,5.36zM28,3.36c-0.353,0-0.64,0.287-0.64,0.64S27.647,4.64,28,4.64S28.64,4.353,28.64,4S28.353,3.36,28,3.36z"></path>
+<rect id="risk-icon-rect-multi-category-inference" style="fill:none;" width="32" height="32"></rect>
+</svg>
+                  <h4>Multi-category</h4>
+                  <div class="risk">
+                    <a href="prompt-priming.html">Prompt priming</a>
+                    <div class="bx--tag bx--tag--purple">Amplified</div>
+                  </div>
+                  <div class="risk">
+                    <a href="jailbreaking.html">Jailbreaking</a>
+                    <div class="bx--tag bx--tag--purple">Amplified</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="risk-section">
+            <div class="heading output">
+              <img src="images/bg_output.jpg" alt="Background image for risks associated with output">
+              <div class="overlay"></div>
+              <h3>Risks associated with output</h3>
+            </div>
+            <div class="content">
+              <div class="content-grid">
+                <div class="risk-group">
+                  <svg class="risk-group-icon" version="1.1" id="risk-icon-fairness-output" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" width="32" height="32" xml:space="preserve">
+<path xmlns="http://www.w3.org/2000/svg" id="risk-icon-path-fairness-output" d="M26,29.36H6v-0.72h6.659c0.167-1.565,1.415-2.813,2.981-2.98V11.333c-1.131-0.174-2-1.154-2-2.333s0.869-2.159,2-2.333V3.36H6.136l4.173,6.955c0.034,0.056,0.051,0.12,0.051,0.185c0,2.68-2.18,4.86-4.86,4.86s-4.86-2.18-4.86-4.86c0-0.065,0.018-0.129,0.051-0.185l4.5-7.5C5.256,2.707,5.374,2.64,5.5,2.64h21c0.126,0,0.243,0.066,0.309,0.175l4.5,7.5c0.033,0.056,0.052,0.12,0.052,0.185c0,2.68-2.181,4.86-4.86,4.86s-4.86-2.18-4.86-4.86c0-0.065,0.019-0.129,0.052-0.185l4.173-6.955H16.36v3.308c1.131,0.174,2,1.154,2,2.333s-0.869,2.159-2,2.333v14.327c1.566,0.167,2.814,1.415,2.981,2.98H26V29.36zM13.384,28.64h5.231c-0.176-1.286-1.281-2.28-2.615-2.28C14.667,26.36,13.561,27.354,13.384,28.64z M22.376,10.86c0.183,2.115,1.963,3.78,4.124,3.78s3.941-1.665,4.124-3.78H22.376z M1.375,10.86c0.183,2.115,1.963,3.78,4.125,3.78s3.941-1.665,4.125-3.78H1.375z M16,7.36c-0.904,0-1.64,0.736-1.64,1.64s0.736,1.64,1.64,1.64c0.904,0,1.64-0.736,1.64-1.64S16.904,7.36,16,7.36z M22.636,10.14h7.729L26.5,3.7L22.636,10.14z M1.636,10.14h7.729L5.5,3.7L1.636,10.14z"></path>
+<rect id="risk-icon-rect-fairness-output" style="fill:none;" width="32" height="32"></rect>
+</svg>
+                  <h4>Fairness</h4>
+                  <div class="risk">
+                    <a href="output-bias.html">Output bias</a>
+                    <div class="bx--tag bx--tag--cyan">New</div>
+                  </div>
+                  <div class="risk">
+                    <a href="decision-bias.html">Decision bias</a>
+                    <div class="bx--tag bx--tag--teal">Traditional</div>
+                  </div>
+                </div>
+                <div class="risk-group">
+                  <svg class="risk-group-icon" version="1.1" id="risk-icon-intellectual-property-output" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" width="32" height="32" xml:space="preserve">
+<path xmlns="http://www.w3.org/2000/svg" d="M28 31.4001H3.99998C3.79998 31.4001 3.59998 31.2001 3.59998 31.0001V1.0001C3.59998 0.800098 3.79998 0.600098 3.99998 0.600098H22C22.1 0.600098 22.2 0.600098 22.3 0.700098L28.3 6.7001C28.4 6.8001 28.4 6.9001 28.4 7.0001V31.0001C28.4 31.2001 28.2 31.4001 28 31.4001ZM4.39998 30.6001H27.7V7.4001H22C21.8 7.4001 21.6 7.2001 21.6 7.0001V1.4001H4.39998V30.6001ZM22.4 6.6001H27.2L22.4 1.8001V6.6001ZM20 27.4001H7.99998V26.7001H20V27.4001ZM24 23.4001H7.99998V22.7001H24V23.4001ZM24 19.4001H7.99998V18.7001H24V19.4001Z" fill="black"></path>
+<path xmlns="http://www.w3.org/2000/svg" d="M8.7 4.80005H8V13.2H8.7V4.80005Z" fill="black"></path>
+<path xmlns="http://www.w3.org/2000/svg" d="M14 4.80005H11.6V13.2H12.3V9.50005H13.8L14.7 9.40005C15.6 9.10005 16.3 8.20005 16.3 7.20005C16.4 5.90005 15.3 4.80005 14 4.80005ZM14 8.80005H12.4V5.50005H14C14.9 5.50005 15.6 6.20005 15.6 7.10005C15.6 8.10005 14.9 8.80005 14 8.80005Z" fill="black"></path>
+<rect id="risk-icon-rect-intellectual-property-output" style="fill:none;" width="32" height="32"></rect>
+</svg>
+                  <h4>Intellectual property</h4>
+                  <div class="risk">
+                    <a href="copyright-infringement.html">Copyright infringement</a>
+                    <div class="bx--tag bx--tag--cyan">New</div>
+                  </div>
+                  <div class="risk">
+                    <a href="revealing-confidential-information.html">Revealing confidential information</a>
+                    <div class="bx--tag bx--tag--purple">Amplified</div>
+                  </div>
+                </div>
+                <div class="risk-group">
+                  <svg class="risk-group-icon" version="1.1" id="risk-icon-value-alignment-output" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" width="32" height="32" xml:space="preserve">
+<path xmlns="http://www.w3.org/2000/svg" id="risk-icon-path-value-alignment-output" d="M16,31.36C7.53,31.36,0.64,24.47,0.64,16S7.53,0.64,16,0.64S31.36,7.53,31.36,16S24.47,31.36,16,31.36zM16,1.36C7.927,1.36,1.36,7.927,1.36,16c0,8.072,6.567,14.64,14.64,14.64c8.072,0,14.64-6.567,14.64-14.64S24.072,1.36,16,1.36zM16,26.36c-5.712,0-10.36-4.647-10.36-10.36c0-5.712,4.647-10.36,10.36-10.36S26.36,10.287,26.36,16S21.713,26.36,16,26.36zM16,6.36c-5.315,0-9.64,4.325-9.64,9.64s4.325,9.64,9.64,9.64s9.64-4.324,9.64-9.64S21.315,6.36,16,6.36z M16,21.36c-2.956,0-5.36-2.405-5.36-5.36c0-2.956,2.404-5.36,5.36-5.36c2.955,0,5.36,2.404,5.36,5.36C21.36,18.955,18.955,21.36,16,21.36zM16,11.36c-2.559,0-4.64,2.082-4.64,4.64s2.082,4.64,4.64,4.64s4.64-2.081,4.64-4.64S18.559,11.36,16,11.36z M16,17c0.552,0,1-0.448,1-1s-0.448-1-1-1s-1,0.448-1,1C15,16.553,15.448,17,16,17z"></path>
+<rect id="risk-icon-rect-value-alignment-output" style="fill:none;" width="32" height="32"></rect>
+</svg>
+                  <h4>Value alignment</h4>
+                  <div class="risk">
+                    <a href="hallucination.html">Hallucination</a>
+                    <div class="bx--tag bx--tag--cyan">New</div>
+                  </div>
+                  <div class="risk">
+                    <a href="toxic-output.html">Toxic output</a>
+                    <div class="bx--tag bx--tag--cyan">New</div>
+                  </div>
+                  <div class="risk">
+                    <a href="over-or-under-reliance.html">Over or under reliance</a>
+                    <div class="bx--tag bx--tag--purple">Amplified</div>
+                  </div>
+                  <div class="risk">
+                    <a href="physical-harm.html">Physical harm</a>
+                    <div class="bx--tag bx--tag--cyan">New</div>
+                  </div>
+                  <div class="risk">
+                    <a href="unspecified-advice.html">Unspecified advice</a>
+                    <div class="bx--tag bx--tag--cyan">New</div>
+                  </div>
+                </div>
+                <div class="risk-group">
+                  <svg class="risk-group-icon" version="1.1" id="risk-icon-misuse-output" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" width="32" height="32" xml:space="preserve">
+<path xmlns="http://www.w3.org/2000/svg" id="risk-icon-path-misuse-output" d="M16,31.36C7.53,31.36,0.64,24.469,0.64,16S7.531,0.64,16,0.64S31.36,7.53,31.36,16S24.47,31.36,16,31.36zM16,1.36C7.928,1.36,1.36,7.927,1.36,16c0,8.072,6.567,14.64,14.64,14.64c8.072,0,14.639-6.567,14.639-14.64C30.64,7.927,24.072,1.36,16,1.36z M20.987,23.36c-0.636,0-1.232-0.246-1.68-0.693L16,19.358l-3.308,3.309c-0.894,0.896-2.465,0.894-3.359,0c-0.447-0.447-0.693-1.044-0.693-1.68s0.246-1.232,0.693-1.68L12.641,16l-3.308-3.308c-0.926-0.926-0.926-2.433,0-3.358s2.434-0.927,3.359,0L16,12.641l3.307-3.307c0.896-0.895,2.466-0.894,3.359,0c0.447,0.447,0.693,1.043,0.693,1.679s-0.246,1.232-0.693,1.68L19.359,16l3.308,3.308c0.447,0.447,0.693,1.043,0.693,1.68s-0.246,1.232-0.693,1.68S21.624,23.36,20.987,23.36z M16,18.489c0.096,0,0.187,0.038,0.254,0.105l3.562,3.562c0.622,0.624,1.721,0.623,2.34,0c0.312-0.311,0.483-0.727,0.483-1.17s-0.172-0.859-0.483-1.17l-3.562-3.563c-0.141-0.141-0.141-0.368,0-0.509l3.562-3.562c0.312-0.311,0.483-0.727,0.483-1.17s-0.172-0.859-0.483-1.17c-0.619-0.621-1.718-0.624-2.34,0l-3.562,3.562c-0.141,0.141-0.368,0.141-0.509,0l-3.562-3.562c-0.623-0.623-1.72-0.622-2.341,0c-0.645,0.646-0.645,1.695,0,2.341l3.562,3.562c0.141,0.141,0.141,0.368,0,0.509l-3.562,3.563c-0.311,0.311-0.482,0.727-0.482,1.17s0.171,0.859,0.482,1.17c0.621,0.622,1.718,0.623,2.341,0l3.562-3.562C15.813,18.527,15.905,18.489,16,18.489z"></path>
+<rect id="risk-icon-rect-misuse-output" style="fill:none;" width="32" height="32"></rect>
+</svg>
+                  <h4>Misuse</h4>
+                  <div class="risk">
+                    <a href="spreading-disinformation.html">Spreading disinformation</a>
+                    <div class="bx--tag bx--tag--cyan">New</div>
+                  </div>
+                  <div class="risk">
+                    <a href="spreading-toxicity.html">Spreading toxicity</a>
+                    <div class="bx--tag bx--tag--cyan">New</div>
+                  </div>
+                  <div class="risk">
+                    <a href="nonconsensual-use.html">Nonconsensual use</a>
+                    <div class="bx--tag bx--tag--purple">Amplified</div>
+                  </div>
+                  <div class="risk">
+                    <a href="dangerous-use.html">Dangerous use</a>
+                    <div class="bx--tag bx--tag--cyan">New</div>
+                  </div>
+                  <div class="risk">
+                    <a href="non-disclosure.html">Non-disclosure</a>
+                    <div class="bx--tag bx--tag--cyan">New</div>
+                  </div>
+                  <div class="risk">
+                    <a href="improper-usage.html">Improper usage</a>
+                    <div class="bx--tag bx--tag--purple">Amplified</div>
+                  </div>
+                </div>
+                <div class="risk-group">
+                  <svg class="risk-group-icon" version="1.1" id="risk-icon-harmful-code-generation-output" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" width="32" height="32" xml:space="preserve">
+<path xmlns="http://www.w3.org/2000/svg" id="risk-icon-path-harmful-code-generation-output" d="M28.745,31.255l-4.723-4.724C22.532,28.834,19.94,30.36,17,30.36h-2c-2.941,0-5.532-1.526-7.022-3.829l-4.723,4.724l-0.509-0.51l4.855-4.855C6.988,24.728,6.64,23.403,6.64,22v-3.501l-5.526,1.843l-0.228-0.684L6.64,17.74V12c0-1.403,0.348-2.727,0.961-3.89L2.746,3.254l0.509-0.509l4.723,4.723c1.075-1.661,2.724-2.917,4.663-3.489V1h0.72v2.801C13.89,3.696,14.439,3.64,15,3.64h2c0.561,0,1.109,0.056,1.64,0.161V1h0.721v2.979c1.938,0.572,3.587,1.829,4.662,3.489l4.723-4.723l0.51,0.509L24.398,8.11c0.614,1.163,0.962,2.486,0.962,3.89v5.74l5.754,1.918l-0.229,0.684l-5.525-1.843V22c0,1.403-0.348,2.728-0.962,3.89l4.856,4.855L28.745,31.255z M16.36,29.64H17c4.213,0,7.64-3.427,7.64-7.64v-9.64h-8.28V29.64z M7.36,12.36V22c0,4.213,3.427,7.64,7.64,7.64h0.64V12.36H7.36z M7.368,11.64h17.264C24.443,7.594,21.092,4.36,17,4.36h-2C10.908,4.36,7.557,7.594,7.368,11.64z"></path>
+<rect id="risk-icon-rect-harmful-code-generation-output" style="fill:none;" width="32" height="32"></rect>
+</svg>
+                  <h4>Harmful code generation</h4>
+                  <div class="risk">
+                    <a href="harmful-code-generation.html">Harmful code generation</a>
+                    <div class="bx--tag bx--tag--cyan">New</div>
+                  </div>
+                </div>
+                <div class="risk-group">
+                  <svg class="risk-group-icon" version="1.1" id="risk-icon-privacy-output" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" width="32" height="32" xml:space="preserve">
+<path xmlns="http://www.w3.org/2000/svg" id="risk-icon-path-privacy-output" d="M16,31.36C9.736,31.36,4.64,26.264,4.64,20V6.786L16,0.59l11.36,6.196V20 C27.36,26.264,22.264,31.36,16,31.36z M5.36,7.214V20c0,5.867,4.773,10.64,10.64,10.64S26.64,25.868,26.64,20V7.214L16,1.41 L5.36,7.214z M20,12.509l-2.255-2.255l0.51-0.509L20,11.491l3.745-3.745l0.51,0.509L20,12.509z M8.36,15.251 c0-1.694,1.151-3.15,2.799-3.541c0.15-0.035,0.261-0.163,0.275-0.316c0.014-0.154-0.071-0.3-0.212-0.363 c-0.693-0.308-1.141-0.997-1.141-1.753c0-1.058,0.861-1.918,1.918-1.918c1.06,0,1.922,0.86,1.922,1.918 c0,0.757-0.448,1.445-1.142,1.753c-0.141,0.063-0.226,0.209-0.212,0.363c0.014,0.153,0.125,0.281,0.275,0.316 c0.882,0.209,1.651,0.739,2.165,1.492l0.595-0.406c-0.467-0.684-1.111-1.214-1.856-1.54c0.559-0.494,0.894-1.21,0.894-1.979 c0-1.455-1.185-2.638-2.642-2.638c-1.455,0-2.638,1.183-2.638,2.638c0,0.768,0.335,1.484,0.893,1.978 c-1.571,0.681-2.614,2.23-2.614,3.996V21h0.72v-5.749H8.36z M22,17.36h-8c-0.199,0-0.36-0.161-0.36-0.36v-2 c0-0.199,0.161-0.36,0.36-0.36h8c0.199,0,0.36,0.161,0.36,0.36v2C22.36,17.199,22.199,17.36,22,17.36z M14.36,16.64h7.28v-1.28 h-7.28C14.36,15.36,14.36,16.64,14.36,16.64z M22,21.36h-8c-0.199,0-0.36-0.161-0.36-0.36v-2c0-0.199,0.161-0.36,0.36-0.36h8 c0.199,0,0.36,0.161,0.36,0.36v2C22.36,21.199,22.199,21.36,22,21.36z M14.36,20.64h7.28v-1.28h-7.28 C14.36,19.36,14.36,20.64,14.36,20.64z M22,25.36h-8c-0.199,0-0.36-0.161-0.36-0.36v-2c0-0.199,0.161-0.36,0.36-0.36h8 c0.199,0,0.36,0.161,0.36,0.36v2C22.36,25.199,22.199,25.36,22,25.36z M14.36,24.64h7.28v-1.28h-7.28 C14.36,23.36,14.36,24.64,14.36,24.64z"></path>	
+<rect id="risk-icon-rect-privacy-output" style="fill:none;" width="32" height="32"></rect>
+</svg>
+                  <h4>Privacy</h4>
+                  <div class="risk">
+                    <a href="revealing-personal-information.html">Revealing personal information</a>
+                    <div class="bx--tag bx--tag--purple">Amplified</div>
+                  </div>
+                </div>
+                <div class="risk-group">
+                  <svg class="risk-group-icon" version="1.1" id="risk-icon-explainability-output" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" width="32" height="32" xml:space="preserve">
+<path xmlns="http://www.w3.org/2000/svg" id="risk-icon-path-explainability-output" d="M21.36,31h-0.72l-0.001-1.572c0-1.952-1.254-3.704-3.121-4.36c-0.136-0.048-0.229-0.171-0.24-0.314c-0.01-0.143,0.065-0.278,0.193-0.345c1.073-0.559,1.739-1.646,1.739-2.837c0-1.771-1.44-3.211-3.211-3.211s-3.212,1.44-3.212,3.211c0,1.191,0.667,2.279,1.74,2.838c0.127,0.066,0.203,0.202,0.193,0.345c-0.01,0.144-0.104,0.267-0.239,0.314c-1.866,0.656-3.12,2.408-3.12,4.359L11.359,31h-0.72v-1.572c0-1.952-1.255-3.704-3.122-4.36c-0.135-0.048-0.229-0.171-0.239-0.314c-0.01-0.143,0.065-0.278,0.192-0.345c1.073-0.559,1.739-1.646,1.739-2.837c0-1.771-1.441-3.211-3.211-3.211c-1.771,0-3.212,1.44-3.212,3.211c0,1.191,0.667,2.279,1.74,2.838c0.127,0.066,0.203,0.202,0.193,0.345c-0.01,0.144-0.104,0.267-0.239,0.314c-1.866,0.656-3.12,2.408-3.12,4.359V31H0.64v-1.572c0-2.022,1.162-3.858,2.954-4.763c-0.956-0.737-1.527-1.87-1.527-3.094c0-2.168,1.764-3.932,3.932-3.932c2.167,0,3.931,1.764,3.931,3.932c0,1.223-0.571,2.354-1.526,3.092c1.202,0.607,2.122,1.633,2.596,2.854c0.475-1.22,1.393-2.245,2.595-2.852c-0.956-0.737-1.527-1.87-1.527-3.094c0-2.168,1.764-3.932,3.932-3.932s3.932,1.764,3.932,3.932c0,1.223-0.571,2.354-1.527,3.092c1.203,0.607,2.122,1.634,2.597,2.854c0.475-1.221,1.394-2.246,2.595-2.853c-0.956-0.737-1.527-1.87-1.527-3.094c0-2.168,1.764-3.932,3.932-3.932s3.932,1.764,3.932,3.932c0,1.223-0.571,2.354-1.526,3.092c1.793,0.905,2.956,2.742,2.956,4.765V31H30.64v-1.572c0-1.952-1.254-3.704-3.121-4.36c-0.136-0.048-0.229-0.171-0.24-0.314c-0.01-0.143,0.065-0.278,0.193-0.345c1.072-0.559,1.738-1.646,1.738-2.837c0-1.771-1.44-3.211-3.211-3.211s-3.211,1.44-3.211,3.211c0,1.192,0.666,2.279,1.739,2.838c0.128,0.066,0.203,0.202,0.193,0.345c-0.011,0.144-0.104,0.267-0.24,0.314c-1.866,0.656-3.119,2.408-3.119,4.359L21.36,31zM31,15.36H16v-0.72h14.64V1.36H14.36v6.008h2.679c0.75,0,1.36,0.61,1.36,1.36s-0.61,1.36-1.36,1.36H10.36V15H9.64V9.728c0-0.199,0.161-0.36,0.36-0.36h7.039c0.353,0,0.64-0.287,0.64-0.64s-0.287-0.64-0.64-0.64H7.616c-0.166,0-0.31-0.113-0.35-0.274C7.227,7.652,7.303,7.485,7.45,7.408C8.519,6.85,9.184,5.763,9.184,4.572C9.184,2.801,7.755,1.36,6,1.36c-1.774,0-3.218,1.441-3.218,3.212c0,1.192,0.665,2.279,1.735,2.837C4.644,7.475,4.72,7.611,4.709,7.754C4.699,7.897,4.605,8.021,4.47,8.068c-1.86,0.656-3.11,2.408-3.11,4.36V15H0.64v-2.572c0-2.022,1.159-3.858,2.945-4.763c-0.953-0.737-1.523-1.87-1.523-3.093C2.062,2.404,3.829,0.64,6,0.64c2.152,0,3.903,1.764,3.903,3.932c0,1.069-0.435,2.069-1.181,2.796h4.918V1c0-0.199,0.161-0.36,0.36-0.36h17c0.199,0,0.36,0.161,0.36,0.36v14C31.36,15.199,31.199,15.36,31,15.36z M26,11.36c-0.897,0-1.741-0.35-2.376-0.984C22.989,9.741,22.64,8.897,22.64,8s0.35-1.741,0.984-2.375c1.27-1.27,3.482-1.27,4.752,0C29.011,6.259,29.36,7.103,29.36,8s-0.35,1.741-0.984,2.375l0,0l0,0l0,0C27.741,11.01,26.897,11.36,26,11.36z M25.695,10.623c0.791,0.092,1.601-0.185,2.171-0.756l0,0C28.365,9.368,28.64,8.705,28.64,8c0-0.58-0.186-1.131-0.528-1.586l-1.787,1.772L25.695,10.623z M23.562,6.984C23.43,7.302,23.36,7.646,23.36,8c0,0.705,0.274,1.368,0.773,1.867c0.251,0.251,0.545,0.446,0.864,0.577l0.586-2.271L23.562,6.984z M23.928,6.364l2.016,1.185l1.661-1.646c-1.009-0.775-2.558-0.684-3.471,0.23C24.06,6.207,23.991,6.284,23.928,6.364z M20,5.36h-4V4.64h4V5.36z M21,3.36h-5V2.64h5V3.36z"></path>
+<rect id="risk-icon-rect-explainability-output" style="fill:none;" width="32" height="32"></rect>
+</svg>
+                  <h4>Explainability</h4>
+                  <div class="risk">
+                    <a href="unexplainable-output.html">Unexplainable output</a>
+                    <div class="bx--tag bx--tag--purple">Amplified</div>
+                  </div>
+                  <div class="risk">
+                    <a href="unreliable-source-attribution.html">Unreliable source attribution</a>
+                    <div class="bx--tag bx--tag--purple">Amplified</div>
+                  </div>
+                  <div class="risk">
+                    <a href="inaccessible-training-data.html">Inaccessible training data</a>
+                    <div class="bx--tag bx--tag--purple">Amplified</div>
+                  </div>
+                  <div class="risk">
+                    <a href="untraceable-attribution.html">Untraceable attribution</a>
+                    <div class="bx--tag bx--tag--purple">Amplified</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="risk-section">
+            <div class="heading non-technical">
+              <img src="images/bg_non-technical.jpg" alt="Background image for non-technical risks">
+              <div class="overlay"></div>
+              <h3>Non-technical risks</h3>
+            </div>
+            <div class="content">
+              <div class="content-grid">
+                <div class="risk-group">
+                  <svg class="risk-group-icon" version="1.1" id="risk-icon-governance-non-technical" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" width="32" height="32" xml:space="preserve">
+<path d="M15.9999 31.3601C14.6989 31.3601 13.6399 30.3011 13.6399 29.0001C13.6399 27.6991 14.6989 26.6401 15.9999 26.6401C17.1049 26.6401 18.0359 27.4051 18.2909 28.4331C22.8109 27.6031 26.6109 24.2831 28.0299 19.8901L28.7159 20.1111C27.2079 24.7761 23.1609 28.2961 18.3559 29.1531C18.2759 30.3831 17.2499 31.3601 15.9999 31.3601ZM15.9999 27.3601C15.0959 27.3601 14.3599 28.0951 14.3599 29.0001C14.3599 29.9051 15.0959 30.6401 15.9999 30.6401C16.9039 30.6401 17.6399 29.9051 17.6399 29.0001C17.6399 28.0951 16.9039 27.3601 15.9999 27.3601ZM11.8889 28.7161C7.22489 27.2081 3.70489 23.1611 2.84689 18.3561C1.61689 18.2761 0.639893 17.2501 0.639893 16.0001C0.639893 14.6991 1.69889 13.6401 2.99989 13.6401C4.30089 13.6401 5.35989 14.6991 5.35989 16.0001C5.35989 17.1051 4.59489 18.0361 3.56689 18.2911C4.39789 22.8111 7.71789 26.6111 12.1109 28.0301L11.8889 28.7161ZM2.99989 14.3601C2.09589 14.3601 1.35989 15.0961 1.35989 16.0001C1.35989 16.9041 2.09589 17.6401 2.99989 17.6401C3.90389 17.6401 4.63989 16.9041 4.63989 16.0001C4.63989 15.0961 3.90389 14.3601 2.99989 14.3601ZM15.9999 23.3601H15.9989C15.9979 23.3601 15.9969 23.3601 15.9959 23.3601C15.9949 23.3601 15.9939 23.3601 15.9939 23.3601H15.9929C15.9349 23.3581 15.8789 23.3421 15.8299 23.3151L15.8289 23.3141C15.8069 23.3011 15.7859 23.2871 15.7659 23.2701C15.7659 23.2691 15.7659 23.2691 15.7659 23.2691C15.7659 23.2691 15.7659 23.2691 15.7649 23.2681C15.7649 23.2681 15.7699 23.2681 15.7629 23.2671C15.7519 23.2561 15.7409 23.2461 15.7309 23.2341L8.73289 15.2361C8.61389 15.1011 8.61389 14.8981 8.73289 14.7621L12.2329 10.7621C12.3009 10.6831 12.3999 10.6391 12.5039 10.6391H19.5039C19.6079 10.6391 19.7059 10.6831 19.7749 10.7621L23.2749 14.7621C23.3939 14.8971 23.3939 15.1001 23.2749 15.2361L16.2769 23.2341C16.2669 23.2461 16.2559 23.2561 16.2449 23.2671C16.2439 23.2671 16.2439 23.2681 16.2429 23.2681C16.2429 23.2691 16.2419 23.2691 16.2419 23.2691C16.2419 23.2691 16.2419 23.2691 16.2419 23.2701C16.2219 23.2871 16.2009 23.3011 16.1789 23.3141C16.1789 23.3141 16.1789 23.3151 16.1779 23.3151C16.1289 23.3421 16.0729 23.3581 16.0149 23.3601C16.0149 23.3601 16.0129 23.3601 16.0119 23.3601C16.0109 23.3601 16.0109 23.3601 16.0099 23.3601C16.0019 23.3601 15.9999 23.3601 15.9999 23.3601ZM13.5199 15.3601L15.9999 21.9751L18.4799 15.3601C18.4799 15.3601 13.5199 15.3601 13.5199 15.3601ZM19.2489 15.3601L17.0309 21.2751L22.2069 15.3601H19.2489ZM9.79289 15.3601L14.9679 21.2751L12.7499 15.3601H9.79289ZM19.1799 14.6401H22.2069L19.3369 11.3601H16.7199L19.1799 14.6401ZM13.7199 14.6401H18.2799L15.9999 11.6001L13.7199 14.6401ZM9.79289 14.6401H12.8189L15.2789 11.3601H12.6629L9.79289 14.6401ZM28.9999 18.3601C27.6979 18.3601 26.6399 17.3011 26.6399 16.0001C26.6399 14.8951 27.4049 13.9641 28.4329 13.7091C27.6029 9.18914 24.2829 5.38914 19.8899 3.97014L20.1109 3.28414C24.7759 4.79114 28.2959 8.83814 29.1529 13.6451C30.3829 13.7241 31.3609 14.7501 31.3609 16.0001C31.3599 17.3021 30.3019 18.3601 28.9999 18.3601ZM28.9999 14.3601C28.0959 14.3601 27.3599 15.0961 27.3599 16.0001C27.3599 16.9041 28.0949 17.6401 28.9999 17.6401C29.9049 17.6401 30.6399 16.9051 30.6399 16.0001C30.6399 15.0951 29.9039 14.3601 28.9999 14.3601ZM3.96989 12.1111L3.28389 11.8891C4.79089 7.22514 8.83789 3.70514 13.6449 2.84714C13.7239 1.61714 14.7499 0.640137 15.9999 0.640137C17.3019 0.640137 18.3599 1.69914 18.3599 3.00014C18.3599 4.30114 17.3019 5.36014 15.9999 5.36014C14.8939 5.36014 13.9629 4.59514 13.7089 3.56714C9.18789 4.39814 5.38889 7.71814 3.96989 12.1111ZM15.9999 1.36014C15.0959 1.36014 14.3599 2.09614 14.3599 3.00014C14.3599 3.90414 15.0959 4.64014 15.9999 4.64014C16.9039 4.64014 17.6399 3.90414 17.6399 3.00014C17.6399 2.09614 16.9039 1.36014 15.9999 1.36014Z" fill="black"></path>
+<rect id="risk-icon-rect-governance-non-technical" style="fill:none;" width="32" height="32"></rect>
+</svg>
+                  <h4>Governance</h4>
+                  <div class="risk">
+                    <a href="lack-of-model-transparency.html">Lack of model transparency</a>
+                    <div class="bx--tag bx--tag--teal">Traditional</div>
+                  </div>
+                  <div class="risk">
+                    <a href="lack-of-data-transparency.html">Lack of data transparency</a>
+                    <div class="bx--tag bx--tag--purple">Amplified</div>
+                  </div>
+                  <div class="risk">
+                    <a href="accountability.html">Accountability</a>
+                    <div class="bx--tag bx--tag--purple">Amplified</div>
+                  </div>
+                </div>
+                <div class="risk-group">
+                  <svg class="risk-group-icon" version="1.1" id="risk-icon-legal-compliance-non-technical" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" width="32" height="32" xml:space="preserve">
+<path xmlns="http://www.w3.org/2000/svg" id="risk-icon-path-legal-compliance-non-technical" d="M25,31.36H7v-0.72h5.657c0.157-1.615,1.367-2.825,2.983-2.982V12.333c-1.131-0.174-2-1.154-2-2.333s0.869-2.159,2-2.333V4.334L6.876,6.838c2.012,0.595,3.484,2.46,3.484,4.662c0,2.68-2.18,4.86-4.86,4.86s-4.86-2.18-4.86-4.86c0-2.479,1.866-4.531,4.267-4.824L4.901,6.654l20.999-6c0.149-0.042,0.321,0.021,0.406,0.155l5,8c0.069,0.111,0.072,0.251,0.009,0.365C31.251,9.289,31.131,9.36,31,9.36H21c-0.131,0-0.251-0.071-0.314-0.186c-0.063-0.114-0.061-0.254,0.009-0.365l4.504-7.206L16.36,4.129v3.539c1.131,0.174,2,1.154,2,2.333s-0.869,2.159-2,2.333v15.325c1.616,0.157,2.826,1.367,2.983,2.982H25V31.36z M13.382,30.64h5.236c-0.166-1.323-1.235-2.28-2.618-2.28C14.618,28.36,13.547,29.317,13.382,30.64z M5.5,7.36c-2.283,0-4.14,1.857-4.14,4.14s1.857,4.14,4.14,4.14s4.14-1.857,4.14-4.14S7.783,7.36,5.5,7.36z M16,8.36c-0.904,0-1.64,0.736-1.64,1.64s0.736,1.64,1.64,1.64c0.904,0,1.64-0.736,1.64-1.64S16.904,8.36,16,8.36z M21.649,8.64h8.701L26,1.679L21.649,8.64z"></path>
+<rect id="risk-icon-rect-legal-compliance-non-technical" style="fill:none;" width="32" height="32"></rect>
+</svg>
+                  <h4>Legal compliance</h4>
+                  <div class="risk">
+                    <a href="legal-accountability.html">Legal accountability</a>
+                    <div class="bx--tag bx--tag--cyan">New</div>
+                  </div>
+                  <div class="risk">
+                    <a href="generated-content-ownership.html">Generated content ownership</a>
+                    <div class="bx--tag bx--tag--cyan">New</div>
+                  </div>
+                  <div class="risk">
+                    <a href="generated-content-intellectual-property.html">Generated content IP</a>
+                    <div class="bx--tag bx--tag--cyan">New</div>
+                  </div>
+                </div>
+                <div class="risk-group">
+                  <svg class="risk-group-icon" version="1.1" id="risk-icon-societal-impact-non-technical" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" width="32" height="32" xml:space="preserve">
+<path xmlns="http://www.w3.org/2000/svg" id="risk-icon-path-societal-impact-non-technical" d="M31.36,16c0-0.655-0.466-1.203-1.083-1.331c-0.273-2.952-1.425-5.686-3.349-7.947C27.06,6.512,27.14,6.266,27.14,6c0-0.75-0.61-1.36-1.36-1.36S24.42,5.25,24.42,6s0.61,1.36,1.36,1.36c0.222,0,0.43-0.059,0.615-0.154c0.389,0.459,0.749,0.936,1.07,1.434h-4.292C21.94,5.1,19.84,2.538,17.345,1.849C17.269,1.171,16.698,0.64,16,0.64c-0.657,0-1.206,0.468-1.332,1.089C7.339,2.408,1.64,8.609,1.64,16s5.699,13.592,13.027,14.272c0.126,0.62,0.675,1.089,1.332,1.089c0.656,0,1.205-0.467,1.332-1.086c6.826-0.635,12.304-6.114,12.94-12.942C30.892,17.206,31.36,16.657,31.36,16z M25.141,6c0-0.353,0.287-0.64,0.64-0.64S26.42,5.647,26.42,6s-0.287,0.64-0.64,0.64S25.141,6.353,25.141,6z M27.893,9.36c0.921,1.641,1.488,3.451,1.666,5.36c-0.421,0.145-0.745,0.488-0.865,0.92H24.35c-0.033-2.252-0.369-4.386-0.947-6.28C23.403,9.36,27.893,9.36,27.893,9.36z M24.306,22.64c-0.1-0.363-0.346-0.662-0.671-0.836c0.447-1.739,0.687-3.566,0.714-5.444h4.345c0.119,0.43,0.442,0.773,0.86,0.919c-0.181,1.929-0.764,3.745-1.673,5.361H24.306zM16.36,28.694V23.36h5.334c0.076,0.275,0.235,0.513,0.451,0.689c-1.191,2.881-2.956,4.81-4.91,5.388C17.069,29.075,16.749,28.802,16.36,28.694z M14.767,29.435c-2.179-0.64-4.037-2.908-5.18-6.074h6.053v5.334C15.252,28.802,14.933,29.074,14.767,29.435z M2.377,16.36h4.317c0.132,0.476,0.512,0.848,0.995,0.961C7.79,19.223,8.107,21.02,8.6,22.639H4.117C3.061,20.765,2.438,18.628,2.377,16.36z M15.64,3.305V8.64H9.587c1.143-3.167,3.001-5.435,5.18-6.075C14.933,2.926,15.252,3.198,15.64,3.305z M15.64,9.36v6.28H9.305c-0.122-0.443-0.461-0.792-0.896-0.93c0.102-1.925,0.425-3.738,0.93-5.35C9.339,9.36,15.64,9.36,15.64,9.36z M22.932,21.647c-0.594,0.03-1.084,0.44-1.237,0.993H16.36v-6.28h7.268C23.601,18.184,23.368,19.959,22.932,21.647z M16.36,15.64V9.36h6.302c0.589,1.875,0.935,4.013,0.969,6.28C23.631,15.64,16.36,15.64,16.36,15.64z M8,16.64c-0.353,0-0.64-0.287-0.64-0.64S7.647,15.36,8,15.36c0.353,0,0.64,0.287,0.64,0.64C8.64,16.353,8.353,16.64,8,16.64z M7.69,14.679c-0.483,0.114-0.863,0.485-0.995,0.961H2.377c0.06-2.268,0.684-4.406,1.74-6.28h4.484C8.108,10.979,7.791,12.777,7.69,14.679zM8.409,17.291c0.436-0.139,0.774-0.488,0.896-0.931h6.335v6.28H9.339C8.833,21.028,8.511,19.215,8.409,17.291z M22.36,23c0-0.353,0.287-0.64,0.64-0.64s0.64,0.287,0.64,0.64s-0.287,0.64-0.64,0.64S22.36,23.353,22.36,23z M22.421,8.64H16.36V3.305c0.389-0.107,0.707-0.379,0.873-0.74C19.426,3.208,21.28,5.482,22.421,8.64z M16,1.36c0.353,0,0.64,0.287,0.64,0.64S16.353,2.64,16,2.64S15.36,2.353,15.36,2S15.647,1.36,16,1.36z M12.754,2.777C11.11,3.968,9.743,6.041,8.837,8.64H4.539C6.4,5.762,9.319,3.621,12.754,2.777z M4.54,23.36h4.298c0.906,2.599,2.273,4.672,3.918,5.862C9.319,28.379,6.4,26.239,4.54,23.36zM16,30.64c-0.353,0-0.64-0.287-0.64-0.64s0.287-0.64,0.64-0.64s0.64,0.287,0.64,0.64S16.353,30.64,16,30.64z M19.233,29.23c1.421-1.02,2.66-2.698,3.57-4.89c0.065,0.01,0.13,0.02,0.198,0.02c0.624,0,1.147-0.425,1.306-1h3.132C25.57,26.245,22.653,28.39,19.233,29.23z M30,16.64c-0.353,0-0.64-0.287-0.64-0.64s0.287-0.64,0.64-0.64s0.64,0.287,0.64,0.64C30.64,16.353,30.353,16.64,30,16.64z"></path>
+<rect id="risk-icon-rect-societal-impact-non-technical" style="fill:none;" width="32" height="32"></rect>
+</svg>
+                  <h4>Societal impact</h4>
+                  <div class="risk">
+                    <a href="job-loss.html">Job loss</a>
+                    <div class="bx--tag bx--tag--purple">Amplified</div>
+                  </div>
+                  <div class="risk">
+                    <a href="human-exploitation.html">Human exploitation</a>
+                    <div class="bx--tag bx--tag--purple">Amplified</div>
+                  </div>
+                  <div class="risk">
+                    <a href="impact-on-the-environment.html">Impact on the environment</a>
+                    <div class="bx--tag bx--tag--purple">Amplified</div>
+                  </div>
+                  <div class="risk">
+                    <a href="impact-on-cultural-diversity.html">Impact on cultural diversity</a>
+                    <div class="bx--tag bx--tag--cyan">New</div>
+                  </div>
+                  <div class="risk">
+                    <a href="impact-on-human-agency.html">Impact on human agency</a>
+                    <div class="bx--tag bx--tag--purple">Amplified</div>
+                  </div>
+                  <div class="risk">
+                    <a href="bypassing-learning.html">Bypassing learning</a>
+                    <div class="bx--tag bx--tag--cyan">New</div>
+                  </div>
+                  <div class="risk">
+                    <a href="plagiarism.html">Plagiarism</a>
+                    <div class="bx--tag bx--tag--cyan">New</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

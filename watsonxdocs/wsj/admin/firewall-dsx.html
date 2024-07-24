@@ -1,0 +1,108 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Inbound firewall access is granted to the Watson Studio service by allowing the IP addresses for IBM watsonx on IBM Cloud.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Firewall access for Watson Studio</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=access-firewall-watson-studio"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="firewall-access-for-watson-studio" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-firewall-access-for-watson-studio">
+        <h1 id="firewall-access-for-watson-studio">Firewall access for Watson Studio</h1>
+        <p>Inbound firewall access is granted to the Watson Studio service by allowing the IP addresses for IBM watsonx on IBM Cloud.</p>
+        <p>If Watson Studio is installed behind a firewall, you must add the WebSocket connection for your region to the firewall settings. Enabling the WebSocket connection is required for notebooks and RStudio.</p>
+        <p>Following are the WebSocket settings for each region:</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Location</th>
+              <th>Region</th>
+              <th>WebSocket</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>United States (Dallas)</td>
+              <td>us-south</td>
+              <td>wss://dataplatform.cloud.ibm.com</td>
+            </tr>
+            <tr>
+              <td>Europe (Frankfurt)</td>
+              <td>eu-de</td>
+              <td>wss://eu-de.dataplatform.cloud.ibm.com</td>
+            </tr>
+            <tr>
+              <td>United Kingdom (London)</td>
+              <td>eu-gb</td>
+              <td>wss://eu-gb.dataplatform.cloud.ibm.com</td>
+            </tr>
+            <tr>
+              <td>Asia Pacific (Tokyo)</td>
+              <td>jp-tok</td>
+              <td>wss://jp-tok.dataplatform.cloud.ibm.com</td>
+            </tr>
+            <tr>
+              <td caption="Table 1. Regional WebSockets" caption-side="top"></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><br></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+        <p>Follow these steps to look up the IP addresses for IBM watsonx and allow them on IBM Cloud:</p>
+        <ol>
+          <li>From the main menu, choose <strong>Administration &gt; Cloud integrations</strong>.</li>
+          <li>Click <strong>Firewall configuration</strong> to display the IP addresses for the current region. Use CIDR notation.</li>
+          <li>Copy each CIDR range into the <strong>IP address restrictions</strong> for either a user or an account. You must also enter the allowed individual client IP addresses. Enter the IP addresses as a comma-separated list. Then, click <strong>Apply</strong>.</li>
+          <li>Repeat for each region to allow access for Watson Studio.</li>
+        </ol>
+        <p>When you configure the allowed IP addresses for Watson Studio, you include the CIDR ranges for the Watson Studio cluster. You can also allow individual client system IP addresses.</p>
+        <p>For step-by-step instructions for both user and account restrictions, see <a href="https://cloud.ibm.com/docs/account?topic=account-ips" target="_blank _blank" rel="noopener noreferrer" title="Opens a new window or tab" class="external">IBM Cloud docs: Allowing specific IP addresses</a></p>
+        <p><strong>Parent topic:</strong>
+          <a href="firewall_ovrvw.html">Configuring firewall access</a></p>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

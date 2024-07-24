@@ -1,0 +1,82 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="The IBM Watson OpenScale service integrates with external machine learning service engines, such as Microsoft Azure ML Studio, Microsoft Azure ML Service, and Amazon SageMaker.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Integrating 3rd-party ML engines</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=models-integrating-3rd-party-ml-engines-watson-openscale"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="integrating-3rd-party-ml-engines" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-integrating-3rd-party-ml-engines" help="" support="">
+        <h1 id="integrating-3rd-party-ml-engines">Integrating 3rd-party ML engines</h1>
+        <p>The IBM Watson OpenScale service integrates with external machine learning service engines, such as Microsoft Azure ML Studio, Microsoft Azure ML Service, and Amazon SageMaker.</p>
+        <p>You can integrate Watson OpenScale with 3rd-party engines in the following ways:</p>
+        <ul>
+          <li>
+            <p>Engine binding level</p>
+            <p>Ability to list deployments and get deployment details.</p>
+          </li>
+          <li>
+            <p>Deployment subscription level</p>
+            <p>Watson OpenScale needs to be able to score subscribed deployment in the proper format, such as the IBM Watson Machine Learning format and receive the output in the same compatible format. Watson OpenScale must be configured to process both
+              input and output formats.</p>
+          </li>
+          <li>
+            <p>Payload logging</p>
+            <p>Each input and output to the deployed model triggered by a user’s application must be stored in a payload store. The format of the payload records follows the same specification as mentioned in the preceding section on deployment subscription
+              levels.</p>
+            <p>Watson OpenScale uses those records to calculate bias, explanations, and others. It is not possible for Watson OpenScale to automatically store transactions that run on the user site, which is outside the Watson OpenScale system. This method
+              is one of the ways that Watson OpenScale safeguards proprietary information. Use the Watson OpenScale Rest API or Python SDK to work with secure data.</p>
+          </li>
+        </ul>
+        <section id="section-fmrk-workaround-steps">
+          <h2 id="fmrk-workaround-steps">Steps to implement this solution</h2>
+          <ol>
+            <li><a href="wos-frameworks-custom.html">Learn about custom machine learning engines</a>.</li>
+            <li><a href="wos-payload-logging.html">Set up payload logging</a>.</li>
+            <li>Set up a custom machine learning engine by using one of these <a href="wos-frameworks-custom.html">Custom machine learning engine examples</a>.</li>
+          </ol>
+          <p><strong>Parent topic:</strong> <a href="wos-frameworks-ovr.html">Supported machine learning engines, frameworks, and models</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

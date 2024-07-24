@@ -1,0 +1,127 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="To access your data in Snowflake, create a connection asset for it.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Snowflake connection</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=connectors-snowflake-connection"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="snowflake-connection" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-snowflake-connection">
+        <h1 id="snowflake-connection">Snowflake connection</h1>
+        <p>To access your data in Snowflake, create a connection asset for it.</p>
+        <p>Snowflake is a cloud-based data storage and analytics service.</p>
+        <section id="section-create-a-connection-to-snowflake">
+          <h2 id="create-a-connection-to-snowflake">Create a connection to Snowflake</h2>
+          <p>To create the connection asset, you need the following connection details:</p>
+          <ul>
+            <li>Account name: The full name of your account</li>
+            <li>Database name</li>
+            <li>Role: The default access control role to use in the Snowflake session</li>
+            <li>Warehouse: The virtual warehouse</li>
+          </ul>
+          <section id="section-credentials">
+            <h3 id="credentials">Credentials</h3>
+            <p>Authentication method:</p>
+            <ul>
+              <li>
+                <p>Username and password</p>
+              </li>
+              <li>
+                <p>Key-Pair: Enter the contents of the private key and the key passphrase (if configured). These properties must be set up by the Snowflake administrator. For information, see <a href="https://docs.snowflake.com/en/user-guide/key-pair-auth" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Key Pair Authentication &amp; Key Pair Rotation</a> in the Snowflake documentation.</p>
+              </li>
+              <li>
+                <p>Okta URL endpoint: If your company uses native Okta SSO authentication, enter the Okta URL endpoint for your Okta account. Example: <code>https://&lt;okta_account_name&gt;.okta.com</code>. Leave this field blank if you want to use the
+                  default authentication of Snowflake. For information about federated authentication provided by Okta, see <a href="https://docs.snowflake.com/en/user-guide/admin-security-fed-auth-use.html#native-sso-okta-only" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Native SSO</a>.</p>
+              </li>
+            </ul>
+            <p></p>
+          </section>
+          <section id="section-choose-the-method-for-creating-a-connection-based-on-where-you-are-in-the-platform">
+            <h3 id="choose-the-method-for-creating-a-connection-based-on-where-you-are-in-the-platform">Choose the method for creating a connection based on where you are in the platform</h3>
+            <dl>
+              <dt><strong>In a project</strong></dt>
+              <dd>Click <strong>Assets &gt; New asset &gt; Connect to a data source</strong>. See <a href="create-conn.html">Adding a connection to a project</a>.</dd>
+              <dt><strong>In a deployment space</strong></dt>
+              <dd>Click <strong>Add to space &gt; Connection</strong>. See <a href="../analyze-data/ml-space-add-assets.html">Adding connections to a deployment space</a>.</dd>
+              <dt><strong>In the Platform assets catalog</strong></dt>
+              <dd>Click <strong>New connection</strong>. See <a href="platform-conn.html">Adding platform connections</a>.</dd>
+            </dl>
+          </section>
+          <section id="section-next-step-add-data-assets-from-the-connection">
+            <h3 id="next-step-add-data-assets-from-the-connection">Next step: Add data assets from the connection</h3>
+            <ul>
+              <li>See <a href="connected-data.html">Add data from a connection in a project</a>.</li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-where-you-can-use-this-connection">
+          <h2 id="where-you-can-use-this-connection">Where you can use this connection</h2>
+          <p>You can use Snowflake connections in the following workspaces and tools:</p>
+          <p><strong>Projects</strong></p>
+          <ul>
+            <li>Data Refinery</li>
+            <li>Decision Optimization</li>
+            <li>SPSS Modeler</li>
+            <li>Synthetic Data Generator</li>
+          </ul>
+          <p><strong>Catalogs</strong></p>
+          <ul>
+            <li>Platform assets catalog</li>
+          </ul>
+        </section>
+        <section id="section-snowflake-setup">
+          <h2 id="snowflake-setup">Snowflake setup</h2>
+          <p><a href="https://docs.snowflake.com/en/user-guide/gen-conn-config.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">General Configuration </a></p>
+          <section id="section-running-sql-statements">
+            <h3 id="running-sql-statements">Running SQL statements</h3>
+            <p>To ensure that your SQL statements run correctly, refer to the <a href="https://docs.snowflake.com/en/sql-reference-commands.html" target="_blank" rel="noopener noreferrer">Snowflake SQL Command Reference</a> for the correct syntax.</p>
+          </section>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p><a href="https://docs.snowflake.com/en/user-guide/getting-started-tutorial.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Snowflake in 20 Minutes</a></p>
+          <p><strong>Parent topic:</strong> <a href="conn_types.html">Supported connections</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

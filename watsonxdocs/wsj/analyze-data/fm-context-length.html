@@ -1,0 +1,149 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Each foundation model has a maximum context length, which is the maximum number of tokens that are allowed in the input plus the generated output for a prompt. If you frequently meet this limit when you use a foundation model to complete a task, try one of these workarounds.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Techniques for overcoming context length limitations</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=tips-overcoming-context-length-limitations"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="techniques-for-overcoming-context-length-limitations" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-techniques-for-overcoming-context-length-limitations">
+        <h1 id="techniques-for-overcoming-context-length-limitations">Techniques for overcoming context length limitations</h1>
+        <p>Each foundation model has a maximum context length, which is the maximum number of tokens that are allowed in the input plus the generated output for a prompt. If you frequently meet this limit when you use a foundation model to complete a task,
+          try one of these workarounds.</p>
+        <p>The maximum context length varies from 4,096 to 32,768 tokens, depending on the foundation model. The context length limit can be a problem, especially when you use a foundation model for retrieval-augmented generation, summarization, or conversational
+          tasks.</p>
+        <p>The following techniques can help you give a foundation model the context it needs to complete a task without exceeding the model's context window limit.</p>
+        <ul>
+          <li><a href="#rag">Send fewer tokens with RAG inputs</a></li>
+          <li><a href="#divide">Divide and conquer complex tasks</a></li>
+          <li><a href="#chat">Summarize dialog context</a></li>
+          <li><a href="#tune">Lower your token count with zero-shot prompts</a></li>
+        </ul>
+        <section id="section-rag">
+          <h2 id="rag">Sending fewer tokens with RAG inputs</h2>
+          <p>Retrieval-augmented generation (RAG) is a technique in which a foundation model is augmented with knowledge from external sources to generate text. In the retrieval step, relevant documents from an external source are identified from the user’s
+            query. In the generation step, portions of those documents are included in the foundation model prompt to generate a response that is grounded in the retrieved documents.</p>
+          <p>If you send a prompt with too much grounding information, the input might exceed the foundation model's context window limit. Try some of the following techniques to work around this limitation.</p>
+          <ul>
+            <li><a href="#classify-relevance">Classify content by relevancy</a></li>
+            <li><a href="#summarize">Summarize long documents</a></li>
+            <li><a href="#embed">Generate text embeddings from the content</a></li>
+          </ul>
+          <p>For more information about RAG, see <a href="fm-rag.html">Retrieval-augmented generation (RAG)</a>.</p>
+          <section id="section-classify-relevance">
+            <h3 id="classify-relevance">Classify content by relevancy</h3>
+            <p>Use a foundation model that is good at classifying content to first determine whether a document can effectively answer a question before it is included in a prompt.</p>
+            <p>For example, you can use a prompt such as, <code>For each question and sample document, check whether the document contains the information that is required to answer the question. If the sample document appears to contain information that is useful for answering the question, respond 'Yes'. Otherwise, respond 'No'.</code></p>
+            <p>If you set the <em>Max tokens</em> parameter to 1, the model is more likely to return a Yes or No answer.</p>
+            <p>Use this classification method to find and remove irrelevant documents or sentences that are retrieved by search. Then, recombine the relevant content to send with the question in the foundation model prompt.</p>
+          </section>
+          <section id="section-summarize">
+            <h3 id="summarize">Summarize long documents</h3>
+            <p>For long documents, use a foundation model to summarize sections of the document. You can then submit a summary of those summaries instead of feeding the entire document to the foundation model.</p>
+            <p>For example, to generate a useful summary from one long meeting transcript, you might break the transcript into many smaller chunks and summarize each one separately. Or you might search and extract segments with contributions from different
+              speakers. Then, you can chain the summaries together as context for the prompt that you submit to the foundation model.</p>
+          </section>
+          <section id="section-embed">
+            <h3 id="embed">Generate text embeddings from the content</h3>
+            <p>A text embedding is a numerical representation of a unit of information, such as a word or a sentence, as a vector of real-valued numbers.</p>
+            <p>To leverage text embeddings in a RAG use case, complete the following steps:</p>
+            <ol>
+              <li>
+                <p>Use a text splitter to chunk the content into meaningful segments.</p>
+                <p>For example, you can use a recursive character splitter to chunk the document into segments that meet the syntax and character limit requirements set by the foundation model. See <a href="https://python.langchain.com/docs/modules/data_connection/document_transformers/recursive_text_splitter" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">LangChain: Recursively split by character</a>.</p>
+              </li>
+              <li>
+                <p>Use an embedding model to convert the document chunks into vectors that capture the meaning of the document segment.</p>
+              </li>
+              <li>
+                <p>Store the vectors that represent your document segments in a vector database.</p>
+              </li>
+              <li>
+                <p>At run time, search the vector store by using keywords or a search query to retrieve the most relevant document segments to feed to the foundation model.</p>
+              </li>
+            </ol>
+            <p>Converting text to embeddings decreases the size of your foundation model prompt without removing the grounding information that helps the model respond with factual answers.</p>
+          </section>
+        </section>
+        <section id="section-divide">
+          <h2 id="divide">Divide and conquer complex tasks</h2>
+          <p>For complex use cases where different types of input are expected and need to be handled in different ways, apply a multiple-prompt approach.</p>
+          <ol>
+            <li>
+              <p>Create several targeted prompts, each one designed for optimal effectiveness with one type of input.</p>
+              <p>For example, you might classify customer questions into the following types: a support issue, sales query, or product detail inquiry.</p>
+            </li>
+            <li>
+              <p>Use a foundation model to classify the incoming input as one of the predefined input types.</p>
+            </li>
+            <li>
+              <p>Route the input to the appropriate targeted prompt based on the input type.</p>
+              <p>For example, for the product detail inquiry, you might search your website or other marketing content and include a summary in the prompt. For support issues, you might search your troubleshooting knowledge base, and include a workaround
+                procedure in the prompt. And for sales inquiries, you might connect the customer with a seller.</p>
+            </li>
+          </ol>
+        </section>
+        <section id="section-chat">
+          <h2 id="chat">Summarize dialog context</h2>
+          <p>For conversational tasks, use a foundation model to summarize the context from previous dialog exchanges instead of retaining and resubmitting the chat history with each input. Using summarization reduces the number of tokens that are submitted
+            to the foundation model with subsequent turns in the conversation.</p>
+        </section>
+        <section id="section-tune">
+          <h2 id="tune">Lower your prompt token count by prompt-tuning the model</h2>
+          <p>Free up the tokens that might otherwise be used by complex instructions and examples that you include in your prompt by tuning the foundation model.</p>
+          <p>When you tune a foundation model, you show the model what to return in output for the types of input that you submit. You can submit zero-shot prompts to a tuned model and still get the output that you expect.</p>
+          <p>Tuning a model is useful for classification, summarization, or extraction tasks. Tuning is not the best solution to use when you need the foundation model output to include factual information.</p>
+          <p>For more information, see <a href="fm-tuning-tune.html">Tuning a foundation model</a>.</p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="fm-tokens.html">Tokens and tokenization</a></li>
+            <li><a href="fm-prompt-lab.html">Prompt Lab</a></li>
+            <li><a href="fm-prompt-samples.html">Sample prompts</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="fm-prompt-tips.html">Prompt tips</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

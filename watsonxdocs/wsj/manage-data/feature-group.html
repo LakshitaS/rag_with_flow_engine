@@ -1,0 +1,192 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Create a feature group to preserve a set of columns of a data asset along with associated metadata for use with Machine Learning models.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Managing feature groups (beta)</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=data-managing-feature-groups-beta"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="managing-feature-groups-beta" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-managing-feature-groups-beta">
+        <h1 id="managing-feature-groups-beta">Managing feature groups (beta)</h1>
+        <p>Create a feature group to preserve a set of columns of a data asset along with associated metadata for use with Machine Learning models.</p>
+        <dl>
+          <dt><strong>Required service</strong></dt>
+          <dd>
+            <p>Watson Studio (for projects)</p>
+          </dd>
+          <dt><strong>Required permissions</strong></dt>
+          <dd>
+            <p>To view this page, you can have any role in a project.</p>
+          </dd>
+          <dd>
+            <p>To edit or update information on this page, you must have the <strong>Editor</strong> or <strong>Admin</strong> role in the project.</p>
+          </dd>
+          <dt><strong>Workspaces</strong></dt>
+          <dd>
+            <p>You can view the asset feature group in these workspaces:</p>
+            <ul>
+              <li>Projects</li>
+            </ul>
+          </dd>
+          <dt><strong>Types of assets</strong></dt>
+          <dd>
+            <p>These types of assets can have a feature group:</p>
+            <ul>
+              <li>Tabular: CSV, TSV, Parquet, xls, xslx, avro, text, json files</li>
+              <li><a href="conn_types.html">Connected data types</a> that are structured and supported in Watson Studio.</li>
+            </ul>
+          </dd>
+          <dt><strong>Data size</strong></dt>
+          <dd>
+            <p>No limit</p>
+          </dd>
+        </dl>
+        <section id="section-feature-groups">
+          <h2 id="feature-groups">Feature groups (beta)</h2>
+          <p>Create a <strong>feature group</strong> to preserve a set of columns of a particular data asset along with the metadata used for Machine Learning. For example, if you have a set of features for a credit approval model, you can preserve the features
+            used to train the model, as well as some metadata, including which column is used as the prediction target, and which columns are used for bias detection. Feature groups make it simple to preserve the metadata for the features used to train
+            a machine learning model so other data scientists can use the same features. You can see the feature group tab when you preview a particular asset.</p>
+          <ul>
+            <li><a href="#create-featuregrp">Creating a feature group</a></li>
+            <li><a href="#edit-featuregrp">Editing a feature group</a></li>
+            <li><a href="#remove-featuregrp">Removing features or a feature group</a></li>
+            <li><a href="#api-featuregrp">Using the Python API for feature groups</a></li>
+          </ul>
+          <section id="section-create-featuregrp">
+            <h3 id="create-featuregrp">Creating a feature group in a project</h3>
+            <section id="section-before-you-begin">
+              <h4 id="before-you-begin">Before you begin</h4>
+              <p>If you create a <a href="../getting-started/profile.html">profile</a> for the data asset before creating a feature group you can select profile metadata to add values to the feature.</p>
+            </section>
+            <section id="section-create-a-feature-group">
+              <h4 id="create-a-feature-group">Create a feature group</h4>
+              <p>You can select particular columns of data assets to form a feature group.</p>
+              <ol>
+                <li>
+                  <p>In the project <strong>Assets</strong> tab, click the name of the relevant asset to open the preview and select the <strong>Feature group</strong> tab. Here you can create a feature group or view and edit an existing one. An asset can
+                    have only one feature group. Click <strong>New feature group</strong>.</p>
+                  <p><img src="images/create-feature-group3.png" alt="Create a feature group" title="Create a feature group" width="950px"></p>
+                </li>
+                <li>
+                  <p>Select the columns that you want to be used in the feature group. Select the <strong>Name</strong> checkbox to include all the columns as features.</p>
+                  <p><img src="images/create-feature-group-columns1.png" alt="Select the feature group columns" title="Select the feature group columns" width="550px"></p>
+                </li>
+              </ol>
+            </section>
+          </section>
+          <section id="section-edit-featuregrp">
+            <h3 id="edit-featuregrp">Editing a feature group</h3>
+            <p>When you have selected the columns of the data asset to be used in the feature group, you can then view each feature and edit it to specify the role it will have in Machine Learning models.</p>
+            <p><img src="images/feature-group-example3.png" alt="View feature group" title="View the feature group" width="950px"></p>
+            <ol>
+              <li>
+                <p>Click a feature name and click <strong>Edit this feature</strong>. A window opens displaying the following tabs:</p>
+                <ul>
+                  <li>
+                    <p><strong>Details</strong> - provide the following information about the feature.</p>
+                    <p><img src="images/feature-group-details.png" alt="Details" width="750px"></p>
+                    <p>Select a <strong>Role</strong> to be assigned to the feature:</p>
+                    <ul>
+                      <li><code>Input</code>: the feature can be used as input for training a Machine Learning model.</li>
+                      <li><code>Target</code>: the feature to be used as the prediction target when the data is used to train a Machine Learning model.</li>
+                      <li><code>Identifier</code>: the primary key, such as customer ID, used to identify the input data.</li>
+                    </ul>
+                    <p>Enter a <strong>Description</strong>, <strong>Recipe</strong> (any method or formula used to create values for the feature) and any <strong>Tags</strong>.</p>
+                  </li>
+                  <li>
+                    <p><strong>Value descriptions</strong></p>
+                    <p><img src="images/feature-group-values.png" alt="Value descriptions" width="750px"></p>
+                    <p>Value descriptions allow you to clarify the meaning of specific values. For example, consider a column "credit evaluation" with the values <em>-1</em>, <em>0</em> and <em>1</em>. You can use value descriptions to provide
+                      meaning for these values. For example, <em>-1</em> might mean "evaluation rejected". You can enter descriptions for particular values. For numerical values, you can also specify a range. To specify a range of numerical
+                      values, enter the following text <em>[n,m]</em> where <em>n</em> is the start and <em>m</em> is the end of the range, surrounded by brackets, and click <strong>Add</strong>. For example, to describe all age values between 18 and
+                      24 as "millenials", enter <em>[18,24]</em> as the value and <em>millenials</em> as the description. If you have a <a href="../getting-started/profile.html">profile</a> defined, the profile values are displayed in the value
+                      descriptions list. From here you can select one value or multiple values.</p>
+                  </li>
+                  <li>
+                    <p><strong>Fairness information</strong></p>
+                    <p><img src="images/feature-group-fairness.png" alt="Fairness information" width="750px"></p>
+                    <p>You can define <code>Monitor</code> or <code>Reference</code> groups of values for monitoring bias. The values that are more at risk of biased outcomes can be placed in the Monitor group. These values are then compared to values in
+                      the Reference group. To specify a range of numerical values, enter the following text <em>[n,m]</em> where <em>n</em> is the start and <em>m</em> is the end of the range, surrounded by brackets. For example, to monitor all age values
+                      between 18 and 35, enter <em>[18,35]</em>. Then select Monitor or Reference and click <strong>Add</strong>. You can also specify <strong>Favorable outcomes</strong>. See <a href="../analyze-data/autoai-fairness.html">Fairness in AutoAI experiments</a>                      for more information about fairness.</p>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <p>When you have edited the feature, click <strong>Save</strong>. You can now see your changes in the <strong>Feature Details</strong> window. Close this window to return to the feature group.</p>
+              </li>
+            </ol>
+          </section>
+          <section id="section-remove-featuregrp">
+            <h3 id="remove-featuregrp">Removing features from a group</h3>
+            <p>To remove a feature from a group:</p>
+            <ol>
+              <li>
+                <p>Preview the asset in the project and select the <strong>Feature group</strong> tab.</p>
+              </li>
+              <li>
+                <p>In the <strong>Features</strong> table that is displayed, select the feature (or features) that you want to remove.</p>
+              </li>
+              <li>
+                <p>In the toolbar that appears, select <strong>Remove from group</strong>.</p>
+                <p><img src="images/feature-group-remove3.png" alt="Removing features" title="Removing features" width="950px"></p>
+              </li>
+            </ol>
+            <p>The feature, or feature group if you selected all the features, is removed.</p>
+          </section>
+          <section id="section-api-featuregrp">
+            <h3 id="api-featuregrp">Using the Python API to create and use feature groups</h3>
+            <p>You can also use the <a href="../analyze-data/py_assetframe.html">assetframe-lib Python library</a> in notebooks to create and edit feature groups. This library also allows you use feature metadata like fairness information when creating machine
+              learning models.</p>
+          </section>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p>For examples on how to create and use feature groups in notebooks:</p>
+          <ul>
+            <li><a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/e756adfa2855bdfc20f588f9c1986382" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Creating and using feature store data</a> sample project in
+              the Resource hub</li>
+          </ul>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

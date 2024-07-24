@@ -1,0 +1,171 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Learn about various ways of adding and promoting data assets to a space and data types that are used in deployments.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Adding data assets to a deployment space</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=spaces-adding-data-assets-deployment-space"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="adding-data-assets-to-a-deployment-space" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-adding-data-assets-to-a-deployment-space">
+        <h1 id="adding-data-assets-to-a-deployment-space">Adding data assets to a deployment space</h1>
+        <p>Learn about various ways of adding and promoting data assets to a space and data types that are used in deployments.</p>
+        <p>Data can be:</p>
+        <ul>
+          <li>A data file such as a .csv file</li>
+          <li>A connection to data that is located in a repository such as a database.</li>
+          <li>Connected data that is located in a storage bucket. For more information, see <a href="#cos-data">Using data from the Cloud Object Storage service</a>.</li>
+        </ul>
+        <p><strong>Notes:</strong></p>
+        <ul>
+          <li>For definitions of data-related terms, refer to <a href="../getting-started/assets.html">Asset types and properties</a>.</li>
+        </ul>
+        <p>You can add data to a space in one of these ways:</p>
+        <ul>
+          <li><a href="#add-directly">Add data and connections to space by using UI</a></li>
+          <li><a href="../analyze-data/ml-space-promote-assets.html">Promote a data source, such as a file or a connection from an associated project</a></li>
+          <li><a href="#add-programmatically">Save a data asset to a space programmatically</a></li>
+          <li><a href="../analyze-data/ml-space-import-to-space.html">Import a space or a project, including data assets, into an existing space</a>.</li>
+        </ul>
+        <p>Data added to a space is managed in a similar way to data added to a Watson Studio
+          <!---->project. For example:</p>
+        <ul>
+          <li>Adding data to a space creates a new copy of the asset and its attachments within the space, maintaining a reference back to the project asset. If an asset such as a data connection requires access credentials, they persist and are the same
+            whether you are accessing the data from a project or from a space.</li>
+          <li>Just like with data connection in a project, you can edit data connection details from the space.</li>
+          <li>Data assets are stored in a space in the same way that they are stored in a project. They use the same file structure for the space as the structure used for the project.</li>
+        </ul>
+        <section id="section-add-directly">
+          <h2 id="add-directly">Adding data and connections to space by using UI</h2>
+          <p>To add data or connections to space by using UI:</p>
+          <ol>
+            <li>From the <strong>Assets</strong> tab of your deployment space, click <strong>Import assets</strong>.</li>
+            <li>Choose between adding a connected data asset, local file, or connection to a data source:
+              <ul>
+                <li>If you want to add a connected data asset, select <strong>Connected data</strong>. Choose a connection and click <strong>Import</strong>.</li>
+                <li>If you want to add a local file, select <strong>Local file &gt; Data asset</strong>. Upload your file and click <strong>Done</strong>.</li>
+                <li>If you want to add a connection to a data source, select <strong>Data access &gt; Connection</strong>. Choose a connection and click <strong>Import</strong>.</li>
+              </ul>
+            </li>
+          </ol>
+          <p>The data asset displays in the space and is available for use as an input data source in a deployment job.</p>
+          <div class="note note"><span class="notetitle">Note:</span>
+            <mdblock>
+              Some types of connections allow for using your personal platform credentials. If you add a connection or connected data that uses your personal platform credentials, tick the <b>Use my platform login credentials</b> checkbox.
+            </mdblock>
+          </div>
+        </section>
+        <section id="section-add-programmatically">
+          <h2 id="add-programmatically">Adding data to space programmatically</h2>
+          <p>If you are using APIs to create, update, or delete Watson Machine Learning assets, make sure that you are using only Watson Machine Learning <a href="https://cloud.ibm.com/apidocs/machine-learning">API calls</a>.</p>
+          <p>For an example of how to add assets programmatically, refer to this sample notebook:
+            <a href="https://github.com/IBM/watson-machine-learning-samples/blob/df8e5122a521638cb37245254fe35d3a18cd3f59/cloud/notebooks/python_sdk/deployments/spss/Use%20SPSS%20and%20batch%20deployment%20with%20DB2%20to%20predict%20customer%20churn.ipynb">Use SPSS and batch deployment with Db2 to predict customer churn</a></p>
+          <section id="section-reference-types">
+            <h3 id="reference-types">Data source reference types in Watson Machine Learning</h3>
+            <p>Data source reference types are referenced in Watson Machine Learning requests to represent input data and results locations. Use <code>data_asset</code> and <code>connection_asset</code> for these types of data sources:</p>
+            <ul>
+              <li>Cloud Object Storage</li>
+              <li>Db2</li>
+              <li>Database data</li>
+            </ul>
+            <p><strong>Notes:</strong><br></p>
+            <ul>
+              <li>For Decision Optimization, the reference type is <code>url</code>.</li>
+            </ul>
+            <section id="section-data_asset_payload">
+              <h4 id="data_asset_payload">Example data_asset payload</h4>
+              <pre class="codeblock"><code class="lang-python hljs">{<span class="hljs-string">"input_data_references"</span>: [{
+    <span class="hljs-string">"type"</span>: <span class="hljs-string">"data_asset"</span>,
+    <span class="hljs-string">"connection"</span>: {
+    },
+    <span class="hljs-string">"location"</span>: {
+        <span class="hljs-string">"href"</span>: <span class="hljs-string">"/v2/assets/&lt;asset_id&gt;?space_id=&lt;space_id&gt;"</span>
+    }
+}]
+</code></pre>
+            </section>
+            <section id="section-connection_asset_payload">
+              <h4 id="connection_asset_payload">Example connection_asset payload</h4>
+              <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-string">"input_data_references"</span>: [{
+    <span class="hljs-string">"type"</span>: <span class="hljs-string">"connection_asset"</span>,
+    <span class="hljs-string">"connection"</span>: {
+        <span class="hljs-string">"id"</span>: <span class="hljs-string">"&lt;connection_guid&gt;"</span>
+    },
+    <span class="hljs-string">"location"</span>: {
+        <span class="hljs-string">"bucket"</span>: <span class="hljs-string">"&lt;bucket_name&gt;"</span>,
+        <span class="hljs-string">"file_name"</span>: <span class="hljs-string">"&lt;directory_name&gt;/&lt;file_name&gt;"</span>
+    }
+    &lt;other wdp-properties supported by runtimes&gt;
+}]
+</code></pre>
+              <p>For more information, see:</p>
+              <ul>
+                <li>Watson Machine Learning <a href="https://cloud.ibm.com/apidocs/machine-learning">REST API</a></li>
+              </ul>
+            </section>
+          </section>
+        </section>
+        <section id="section-cos-data">
+          <h2 id="cos-data">Using data from the Cloud Object Storage service</h2>
+          <p>Cloud Object Storage service can be used with deployment jobs through a connected data asset or a connection asset. To use data from the Cloud Object Storage service:</p>
+          <ol>
+            <li>
+              <p>Create a connection to IBM Cloud Object Storage
+                <!---->by adding a <strong>Connection</strong> to your project or space and selecting Cloud Object Storage (infrastructure) or Cloud Object Storage as the connector. Provide the secret key, access key, and login URL.</p>
+              <div class="note note"><span class="notetitle">Note:</span>
+                <md-block>
+                  <p>When you are creating a connection to Cloud Object Storage or Cloud Object Storage (Infrastructure), you must specify both <code>access_key</code> and <code>secret_key</code>. If <code>access_key</code> and <code>secret_key</code> are
+                    not specified, downloading the data from that connection doesn't work in a batch deployment job. For reference, see <a href="../manage-data/conn-cos.html">IBM Cloud Object Storage connection</a> and <a href="../manage-data/conn-cos-infra.html">IBM Cloud Object Storage (infrastructure) connection</a>.</p>
+                  <p></p>
+                </md-block>
+              </div>
+              <p></p>
+            </li>
+            <li>
+              <p>Add input and output files to the deployment space as connected data by using the Cloud Object Storage connection that you created.</p>
+            </li>
+          </ol>
+          <p><strong>Parent topic:</strong> <a href="../analyze-data/ml-space-add-assets-all.html">Assets in deployment spaces</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

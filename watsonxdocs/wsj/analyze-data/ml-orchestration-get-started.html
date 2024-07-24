@@ -1,0 +1,150 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="The Watson Pipelines editor is a graphical canvas where you can drag and drop nodes that you connect together into a pipeline for automating machine model operations.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Getting started with the Watson Pipelines editor</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=pipelines-getting-started"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="getting-started-with-the-watson-pipelines-editor" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-getting-started-with-the-watson-pipelines-editor">
+        <h1 id="getting-started-with-the-watson-pipelines-editor">Getting started with the Watson Pipelines editor</h1>
+        <p>The Watson Pipelines editor is a graphical canvas where you can drag and drop nodes that you connect together into a pipeline for automating machine model operations.</p>
+        <p>You can open the Pipelines editor by creating a new Pipelines asset or editing an existing Pipelines asset. To create a new asset in your project from the <em>Assets</em> tab, click <strong>New asset &gt; Automate model lifecycle</strong>. To
+          edit an existing asset, click the pipeline asset name on the <em>Assets</em> tab.</p>
+        <p>The canvas opens with a set of annotated tools for you to use to create a pipeline. The canvas includes the following components:</p>
+        <p><img src="images/Pipeline-canvas.svg" alt="Pipeline canvas components" style="max-width:90%;height:auto;width:auto"></p>
+        <ul>
+          <li>The <strong>node palette</strong> provides nodes that represent various actions for manipulating assets and altering the flow of control in a pipeline. For example, you can add nodes to create assets such as data files, AutoAI experiments, or
+            deployment spaces. You can configure node actions based on conditions if files import successfully, such as feeding data into a notebook. You can also use nodes to run and update assets. As you build your pipeline, you connect the nodes, then
+            configure operations on the nodes to create the pipeline. These pipelines create a dynamic flow that addresses specific stages of the machine learning lifecycle.</li>
+          <li>The <strong>toolbar</strong> includes shortcuts to options related to running, editing, and viewing the pipeline.</li>
+          <li>The <strong>parameters pane</strong> provides context-sensitive options for configuring the elements of your pipeline.</li>
+        </ul>
+        <section id="section-the-toolbar">
+          <h3 id="the-toolbar">The toolbar</h3>
+          <p><img src="images/Pipeline-toolbar.png" alt="Pipeline toolbar"></p>
+          <p>Use the Pipeline editor toolbar to:</p>
+          <ul>
+            <li>Run the pipeline as a trial run or a scheduled job</li>
+            <li>View the history of pipeline runs</li>
+            <li>Cut, copy, or paste canvas objects</li>
+            <li>Delete a selected node</li>
+            <li>Drop a comment onto the canvas</li>
+            <li>Configure global objects, such as pipeline parameters or user variables</li>
+            <li>Manage default settings</li>
+            <li>Arrange nodes vertically</li>
+            <li>View last saved timestamp</li>
+            <li>Zoom in or out</li>
+            <li>Fit the pipeline to the view</li>
+            <li>Show or hide global messages</li>
+          </ul>
+          <p>Hover over an icon on the toolbar to view the shortcut text.</p>
+        </section>
+        <section id="section-the-node-palette">
+          <h3 id="the-node-palette">The node palette</h3>
+          <p>The node palette provides the objects that you need to create an end-to-end pipeline. Click a top-level node in the palette to see the related nodes.</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Node category</th>
+                <th>Description</th>
+                <th>Node type</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Copy</td>
+                <td>Use nodes to copy an asset or file, import assets, or export assets</td>
+                <td>Copy assets<br>Export assets<br>Import assets</td>
+              </tr>
+              <tr>
+                <td>Create</td>
+                <td>Create assets or containers for assets</td>
+                <td>Create AutoAI experiment<br> Create AutoAI time series experiment<br> Create batch deployment<br>Create data asset<br>Create deployment space<br>Create online deployment</td>
+              </tr>
+              <tr>
+                <td>Wait</td>
+                <td>Specify node-level conditions for advancing the pipeline run</td>
+                <td>Wait for all results<br> Wait for any result<br>Wait for file</td>
+              </tr>
+              <tr>
+                <td>Control</td>
+                <td>Specify error handling</td>
+                <td>Loop in parallel<br>Loop in sequence<br>Set user variables<br>Terminate pipeline</td>
+              </tr>
+              <tr>
+                <td>Update</td>
+                <td>Update the configuration settings for a space, asset, or job.</td>
+                <td>Update AutoAI experiment<br>Update batch deployment<br>Update deployment space<br>Update online deployment</td>
+              </tr>
+              <tr>
+                <td>Delete</td>
+                <td>Remove a specified asset, job, or space.</td>
+                <td>Delete AutoAI experiment<br>Delete batch deployment<br>Delete deployment space<br>Delete online deployment</td>
+              </tr>
+              <tr>
+                <td>Run</td>
+                <td>Run an existing or ad hoc job.</td>
+                <td>Run AutoAI experiment<br> Run Bash script<br> Run batch deployment<br> Run Data Refinery job<br> Run notebook job <br> Run pipeline job <br> Run Pipelines component job <br> Run SPSS Modeler job</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section id="section-the-parameters-pane">
+          <h3 id="the-parameters-pane">The parameters pane</h3>
+          <p>Double-click a node to edit its configuration options. Depending on the type, a node can define various input and output options or even allow the user to add inputs or outputs dynamically. You can define the source of values in various ways.
+            For example, you can specify that the source of value for "ML asset" input for a batch deployment must be the output from a run notebook node.</p>
+          <p>For more information on parameters, see <a href="ml-orchestration-config.html">Configuring pipeline components</a>.</p>
+        </section>
+        <section id="section-next-steps">
+          <h2 id="next-steps">Next steps</h2>
+          <ul>
+            <li><a href="ml-orchestration-planning.html">Planning a pipeline</a></li>
+            <li><a href="ml-orchestration-sample.html">Explore the sample pipeline</a></li>
+            <li><a href="ml-orchestration-create.html">Create a pipeline</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="ml-orchestration-overview.html">Watson Pipelines</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

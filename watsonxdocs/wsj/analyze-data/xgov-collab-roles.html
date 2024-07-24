@@ -1,0 +1,235 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Review the collaboration roles for managing access to governance tools such as inventories, AI use cases, and evaluations.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Collaboration roles for governance</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=cases-collaboration-roles-governance"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="collaboration-roles-for-governance" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-collaboration-roles-for-governance">
+        <h1 id="collaboration-roles-for-governance">Collaboration roles for governance</h1>
+        <p>Review the collaboration roles for managing access to governance tools such as inventories, AI use cases, and evaluations.</p>
+        <section id="section-roles-permissions">
+          <h2 id="roles-permissions">User roles and permissions for governance</h2>
+          <p>The permissions that you allow you to work with governance artifacts depend on your watsonx roles:</p>
+          <ul>
+            <li>IAM Platform access roles determine your permissions for the IBM Cloud account. At least the Viewer role is required to work with services.</li>
+            <li>IAM Service access roles determine your permissions within services.</li>
+            <li>Workspace collaborator roles determine what actions you have permission to perform within workspaces in IBM watsonx.</li>
+          </ul>
+          <p>For details, see <a href="../getting-started/roles.html">Levels of user access roles in IBM watsonx</a>.</p>
+        </section>
+        <section id="section-roles-for-governance">
+          <h2 id="roles-for-governance">Roles for governance</h2>
+          <p>If you have the IAM Platform Admin role, you can:</p>
+          <ul>
+            <li>Provision watsonx.governance</li>
+            <li>Create inventory</li>
+            <li>Create platform assets catalog</li>
+            <li>Enable external model tracking</li>
+            <li>Create attachment fact definitions</li>
+            <li>Customize report templates</li>
+          </ul>
+          <p>If you have these workspace roles for an inventory, you can:</p>
+          <table>
+            <caption caption-side="top">Governance permissions for inventories</caption>
+            <thead>
+              <tr>
+                <th>Enabled permission</th>
+                <th>Viewer</th>
+                <th>Editor</th>
+                <th>Admin/Owner</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Create and edit AI use cases</td>
+                <td></td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>View AI use cases</td>
+                <td>✓</td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>Add collaborators to an inventory</td>
+                <td></td>
+                <td></td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>Delete inventory</td>
+                <td></td>
+                <td></td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>Evaluate model deployment</td>
+                <td></td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>Add collaborators to a use case</td>
+                <td></td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>Generate reports</td>
+                <td>✓</td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>Add attachments to a use case</td>
+                <td></td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>Update asset type definitions<br>(For example: model_entry_user, modelfacts_user)</td>
+                <td></td>
+                <td></td>
+                <td>✓</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>If you have these workspace roles for an AI use case, you can:</p>
+          <table>
+            <caption caption-side="top">Governance permissions for AI use cases</caption>
+            <thead>
+              <tr>
+                <th>Enabled permission</th>
+                <th>Editor/Collaborator</th>
+                <th>Admin/Owner</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Delete AI use cases</td>
+                <td></td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>Add collaborators to the use case</td>
+                <td></td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>Edit AI use case</td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>Edit use case</td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>Add values to custom facts</td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>Upload attachments to use case</td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>If you have these workspace roles for a project or space, you can:</p>
+          <table>
+            <caption caption-side="top">Governance permissions for project and space roles</caption>
+            <thead>
+              <tr>
+                <th>Enabled permission</th>
+                <th>Viewer</th>
+                <th>Editor/Collaborator</th>
+                <th>Admin/Owner</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Track/untrack prompt template</td>
+                <td></td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>Upload attachments to use case</td>
+                <td></td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>Add values to custom facts</td>
+                <td></td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>View AI factsheet</td>
+                <td>✓</td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>Generate report</td>
+                <td>✓</td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p><strong>Parent topic:</strong> <a href="xgov-use-cases.html">Governing assets in AI use cases</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

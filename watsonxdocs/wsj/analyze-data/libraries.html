@@ -1,0 +1,120 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Watson Studio includes a large selection of preinstalled open source libraries for Python and R in its runtime environments. You can also use preinstalled IBM libraries or install custom libraries.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Libraries and scripts for notebooks</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=scripts-libraries"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="libraries-and-scripts-for-notebooks" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-libraries-and-scripts-for-notebooks">
+        <h1 id="libraries-and-scripts-for-notebooks">Libraries and scripts for notebooks</h1>
+        <p>Watson Studio includes a large selection of preinstalled open source libraries for Python and R in its runtime environments. You can also use preinstalled IBM libraries or install custom libraries.</p>
+        <p>Watson Studio includes the following libraries and the appropriate runtime environments with which you can expand your data analysis:</p>
+        <ul>
+          <li>The Watson Natural Language Processing library in Python and Python with GPU runtime environments.</li>
+          <li>The gespatio-temporal library in Spark with Python runtime environments</li>
+          <li>The Xskipper library for data skipping uses the open source in Spark with Python runtime environments</li>
+          <li>Parquet encryption in Spark with Python runtime environments</li>
+          <li>The tspy library for time series analysis in Spark with Python runtime environments</li>
+        </ul>
+        <section id="section-listing-installed-libraries">
+          <h2 id="listing-installed-libraries">Listing installed libraries</h2>
+          <p>Many of your favorite open source libraries are pre-installed on runtime environments. All you have to do is import them. See <a href="#import-lib">Import preinstalled libraries and packages</a>.</p>
+          <p>If a library is not preinstalled, you can add it:</p>
+          <ul>
+            <li>
+              <p>Through the notebook</p>
+              <p>Some libraries require a kernel restart after a version change. If you need to work with a library version that isn't pre-installed in the environment in which you start the notebook, and you install this library version through the notebook,
+                the notebook only runs successfully after you restart the kernel.</p>
+              <p>Note that when you run the notebook non-interactively, for example as a notebook job, it fails because the kernel can't be restarted.</p>
+            </li>
+            <li>
+              <p>By adding a customization to the environment in which the notebook runs</p>
+              <p>If you add a library with a particular version to the software customization, the library is preinstalled at the time the environment is started and no kernel restart is required. Also, if the notebook is run in a scheduled job, it won't
+                fail.</p>
+              <p>The advantage of adding an environment customization is that the library is preinstalled each time the environment runtime is started. Libraries that you add through a notebook are persisted for the lifetime of the runtime only. If the runtime
+                is stopped and later restarted, those libraries are not installed.</p>
+            </li>
+          </ul>
+          <p>To see the list of installed libraries in your environment runtime:</p>
+          <ol>
+            <li>
+              <p>From the <strong>Manage</strong> tab, on the project's <strong>Environments</strong> page, select the environment template.</p>
+            </li>
+            <li>
+              <p>From a notebook, run the appropriate command from a notebook cell:</p>
+              <ul>
+                <li>Python: <code>!pip list --isolated</code></li>
+                <li>R: <code>installed.packages()</code></li>
+              </ul>
+            </li>
+            <li>
+              <p>Optional: Add custom libraries and packages to the environment. See <a href="customize-envs.html">customizing an environment template</a>.</p>
+            </li>
+          </ol>
+        </section>
+        <section id="section-import-lib">
+          <h2 id="import-lib">Importing an installed library</h2>
+          <p>To import an installed library into your notebook, run the appropriate command from a notebook cell with the library name:</p>
+          <ul>
+            <li>Python: <code>import library_name</code></li>
+            <li>R: <code>library(library_name)</code></li>
+          </ul>
+          <p>Alternatively, you can write a script that includes multiple classes and methods and then <a href="add-script-to-notebook.html">import the script into your notebook</a>.</p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="install-cust-lib.html">Installing custom libraries</a></li>
+            <li><a href="add-script-to-notebook.html">Importing scripts into a notebook</a></li>
+            <li><a href="watson-nlp.html">Watson Natural Language Processing library</a></li>
+            <li><a href="geo-spatial-lib.html">gespatio-temporal library for location analysis</a></li>
+            <li><a href="data-skipping-spark-sql.html">Xskipper library for data skipping</a></li>
+            <li><a href="../spark/parquet-encryption.html">Parquet encryption</a></li>
+            <li><a href="../spark/time-series-lib.html">tspy library for time series analysis</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="notebooks-and-scripts.html">Notebooks and scripts</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

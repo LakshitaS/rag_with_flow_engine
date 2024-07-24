@@ -1,0 +1,90 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Jupyter notebooks run in kernels in Jupyter notebook environments or, if the notebooks use Spark APIs, those kernels run in a Spark environment.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Jupyter kernels and notebook environments</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=notebooks-jupyter-kernels-notebook-environments"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="jupyter-kernels-and-notebook-environments" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-jupyter-kernels-and-notebook-environments">
+        <h1 id="jupyter-kernels-and-notebook-environments">Jupyter kernels and notebook environments</h1>
+        <p>Jupyter notebooks run in kernels in Jupyter notebook environments or, if the notebooks use Spark APIs, those kernels run in a Spark environment.</p>
+        <p>The number of notebook Juypter kernels started in an environment depends on the environment type:</p>
+        <ul>
+          <li>
+            <p>CPU or GPU environments</p>
+            <p>When you open a notebook in edit mode, exactly one interactive session connects to a Jupyter kernel for the notebook language and the environment runtime that you select. The runtime is started per user and not per notebook. This means that
+              if you open a second notebook with the same environment template, a second kernel is started in that runtime. Resources are shared. If you want to avoid sharing runtime resources, you must associate each notebook with its own environment
+              template.</p>
+            <div class="note important"><span class="importanttitle">Important:</span> Stopping a notebook kernel doesn't stop the environment runtime in which the kernel is started because other notebook kernels could still be active in that runtime. Only stop an environment runtime
+              if you are sure that no kernels are active. </div>
+          </li>
+          <li>
+            <p>Spark environments</p>
+            <p>When you open a notebook in edit mode in a Spark environment, a dedicated Spark cluster is started, even if another notebook was opened in the same Spark environment template. Each notebook kernel has its own Spark driver and set of Spark
+              executors. No resources are shared.</p>
+          </li>
+        </ul>
+        <p>If necessary, you can restart or reconnect to a kernel. When you restart a kernel, the kernel is stopped and then started in the same session, but all execution results are lost. When you reconnect to a kernel after losing a connection, the notebook
+          is connected to the same kernel session, and all previous execution results which were saved are available.</p>
+        <p>The kernel remains active even if you leave the notebook or close the web browser window. When you reopen the same notebook, the notebook is connected to the same kernel. Only the output cells that were saved (auto-save happens every 2 minutes)
+          before you left the notebook or closed the web browser window will be visible. You will not see the output for any cells which ran in the background after you left the notebook or closed the window. To see all of the output cells, you need to
+          rerun the notebook.</p>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li>
+              <p><a href="environments-parent.html">Notebook environments</a></p>
+            </li>
+            <li>
+              <p><a href="../getting-started/assoc-services.html">Associated Spark services</a></p>
+            </li>
+            <li>
+              <p><a href="notebook-environments.html#runtime-scope">Runtime scope in notebook environments</a></p>
+            </li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="../analyze-data/creating-notebooks.html">Creating notebooks</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

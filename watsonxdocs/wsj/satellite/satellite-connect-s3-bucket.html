@@ -1,0 +1,94 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="In IBM watsonx you can access data stored in AWS S3 buckets through access points from a notebook.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Accessing data in AWS through access points from a notebook</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=notebook-accessing-data-in-aws-s3-bucket"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="accessing-data-in-aws-through-access-points-from-a-notebook" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-accessing-data-in-aws-through-access-points-from-a-notebook">
+        <h1 id="accessing-data-in-aws-through-access-points-from-a-notebook">Accessing data in AWS through access points from a notebook</h1>
+        <p>In IBM watsonx you can access data stored in AWS S3 buckets through access points from a notebook.</p>
+        <p>Run the notebook in an environment in IBM watsonx. Create an internet-enabled access point to connect to the S3 bucket.</p>
+        <section id="section-connecting-to-aws-s3-data-through-an-internet-enabled-access-point">
+          <h2 id="connecting-to-aws-s3-data-through-an-internet-enabled-access-point">Connecting to AWS S3 data through an internet-enabled access point</h2>
+          <p>You can access data in an AWS S3 bucket through an internet-enabled access point in any AWS region.</p>
+          <p>To access S3 data through an internet-enabled access point:</p>
+          <ol>
+            <li>
+              <p>Create an access point for your S3 bucket. See <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/creating-access-points.html" target="_blank" class="external">Creating access points</a>.</p>
+              <p>Set the network origin to <code>Internet</code>.</p>
+            </li>
+            <li>
+              <p>After the access point is created, make a note of the Amazon resource name (ARN) for the access point. Example: <code>ARN: arn:aws:s3:us-east-1:675068711478:accesspoint/cust-data-bucket-internet-ap</code>.&nbsp;You will need to enter the ARN
+                in your notebook.</p>
+            </li>
+          </ol>
+        </section>
+        <section id="section-accessing-aws-s3-data-from-your-notebook">
+          <h2 id="accessing-aws-s3-data-from-your-notebook">Accessing AWS S3 data from your notebook</h2>
+          <p>The following sample code snippet shows you how to access AWS data from your notebook by using an access point:</p>
+          <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">import</span> boto3
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+
+<span class="hljs-comment"># use an access key and a secret that has access to the bucket</span>
+access_key=<span class="hljs-string">"..."</span>&nbsp;&nbsp;
+secret=<span class="hljs-string">"..."</span>&nbsp;
+
+s3_client = boto3.client(<span class="hljs-string">'s3'</span>, aws_access_key_id=access_key, aws_secret_access_key=secret)
+
+<span class="hljs-comment">#the Amazon resource name (ARN) of the access point</span>
+arn = <span class="hljs-string">"..."</span>&nbsp;
+<span class="hljs-comment"># the file you want to retrieve</span>
+fileName=<span class="hljs-string">"customers.csv"</span>
+
+response = s3_client.get_object(Bucket=arn, Key=fileName)
+s3FileStream = response[<span class="hljs-string">"Body"</span>]
+<span class="hljs-comment">#for other file types, change the line below to use the appropriate read_() method from pandas</span>
+customerDF = pd.read_csv(s3FileStream)
+</code></pre>
+          <p><strong>Parent topic:</strong> <a href="../analyze-data/load-and-access-data.html">Loading and accessing data in a notebook</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

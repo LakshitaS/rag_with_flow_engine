@@ -1,0 +1,190 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Learn the terms and concepts that are used in the Watson OpenScale service for evaluating machine learning models.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Glossary</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=models-glossary"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="glossary" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-glossary">
+        <h1 id="glossary">Glossary</h1>
+        <p>Learn the terms and concepts that are used in the Watson OpenScale service for evaluating machine learning models.</p>
+        <p><strong>Acceptable fairness</strong>
+          <br>The percentage of favorable outcomes that a monitored group must receive to meet the fairness threshold. It is calculated by multiplying perfect equality by the fairness threshold.</p>
+        <p><strong>Alert</strong>
+          <br>A notification that a performance metric is outside of the acceptable range specified by configured monitors.</p>
+        <p><strong>Balanced data set</strong>
+          <br>A data set that includes the scoring requests received by the model for the selected hour and the perturbed records.</p>
+        <p><strong>Baseline data</strong>
+          <br>Previous data that is collected before intervention or modification. This data serves as the foundation to which future data collected is compared to.</p>
+        <p><strong>Batch deployment</strong>
+          <br>Processes the input data from a file, data connection, or connected data in a storage bucket, and writes the output to a selected destination. A method to deploy models that processes input data from a file and writes the output to a file.</p>
+        <p><strong>Batch processing</strong>
+          <br>If OpenScale needs to be used to monitor with deployment involving huge payload/feedback data, then batch processing is suggested.</p>
+        <p><strong>Bias</strong>
+          <br>When a machine learning model produces a result for a monitored person, group, or thing that is considered to be unfair when compared to a reference result. Can be caused by a problem with the training data for a model. The Fairness monitor
+          can detect bias that falls under a threshold you set. Related term: Debiasing.</p>
+        <p><strong>Cloud Object Storage</strong>
+          <br>A service offered by IBM for storing and accessing data. If Cloud Object Storage is the repository for machine learning assets, the associated service credentials must be used to connect to the assets from OpenScale.
+          <br>See also: Resource ID, API key.</p>
+        <p><strong>Confidence score</strong>
+          <br>The probability that a machine learning model's prediction is correct. A higher score indicates a higher probability that the predicted outcome matches the actual outcome.</p>
+        <p><strong>Contrastive explanation</strong>
+          <br>Explanations that indicate the minimal set of feature column value changes to change the model prediction. This is computed for a single data point.</p>
+        <p><strong>Data mart</strong>
+          <br>Workspace where all the OpenScale related metadata gets saved. Behind the scenes, it is connected to a database persistence layer where metadata gets saved.</p>
+        <p><strong>Debiased transactions</strong>
+          <br>The transactions for which debiased outcome is generated.</p>
+        <p><strong>Debiasing</strong>
+          <br>When the Fairness monitor detects bias. When a monitored group receives biased outcomes, take steps to mitigate the bias automatically or manually.</p>
+        <p><strong>Deployment</strong>
+          <br>You deploy a model to make an endpoint available so you can input new data (the request) to the model and get a score, or response. A model deployment can be in a pre-production environment for testing, or a production environment for actual
+          usage.</p>
+        <p><strong>Drift</strong>
+          <br>When model accuracy declines over time. Can be caused by a change in model input data that leads to model performance deterioration. To monitor for draft, alerts can be created for when the model accuracy drops below a specified acceptable
+          threshold.</p>
+        <p><strong>Evaluation</strong>
+          <br>The process of using metrics to assess a machine learning model and measure how well the model performs (in areas such as fairness and accuracy). Monitors can assess a model for areas important to goals.</p>
+        <p><strong>Explanation</strong>
+          <br>An insight into the evaluation of a particular measurement of a model. In OpenScale, an explanation helps understand results and also experiments with what-if scenarios to help address issues.</p>
+        <p><strong>Fairness</strong>
+          <br>Determine whether a model produces biased outcomes that favor a monitored group over a reference group. The fairness evaluation checks when the model shows a tendency to provide a favorable/preferable outcome more often for one group over
+          another. Typical categories to monitor are age, sex, and race.</p>
+        <p><strong>Features</strong>
+          <br>List of dataset column names (feature columns) used to train a machine learning model.
+          <br>Example: In a model that predicts whether a person qualifies for a loan, the features for employment status and credit history might be given greater weight than zip code.</p>
+        <p><strong>Feedback data</strong>
+          <br>Labeled data that matches the schema and structure of the data used to train a machine learning model (including the target) but that was not used for training. This data is already known or actual data used by the Quality monitor to measure
+          the accuracy of a deployed model. Determines whether predictions are accurate when measured against the known outcome.</p>
+        <p><strong>Global explanation</strong>
+          <br>Explains model's prediction on a sample of data.</p>
+        <p><strong>Headless subscription</strong>
+          <br>A subscription that has a realtime deployment behind the scenes. Through headless subscription, user can monitor the deployment by using the data (Payload/Feedback) being supplied to the deployment without supplying any scoring URL.</p>
+        <p><strong>Labeled data</strong>
+          <br>Data that is labeled in a uniform manner for the machine learning algorithms to recognize during model training.
+          <br>Example: A table of data with labeled columns is typical for supervised machine learning. Images can also be labeled for use in a machine learning problem.</p>
+        <p><strong>Local explanation</strong>
+          <br>Explains a model's prediction by using specific, individual examples.</p>
+        <p><strong>Meta-fields</strong>
+          <br>Specialized data that is unique between products.</p>
+        <p><strong>Monitor</strong>
+          <br>Each feature that OpenScale provides is called monitor.
+          <br>Example: Fairness, drift, quality, explainability.</p>
+        <p><strong>Monitored group</strong>
+          <br>When evaluating fairness, the monitored group represents the values that are most at risk for biased outcomes.
+          <br>Example: In the sex feature, Female and Nonbinary can be set as monitored groups.</p>
+        <p><strong>Online deployment</strong>
+          <br>Method of accessing a deployment through an API endpoint that provides a real-time score or solution on new data.</p>
+        <p><strong>Payload data</strong>
+          <br>Any real-time data supplied to a model. Consists of requests to a model (input) and responses from a model (output).</p>
+        <p><strong>Payload logging</strong>
+          <br>Persisting payload data.</p>
+        <p><strong>Perfect equality</strong>
+          <br>The percentage of favorable outcomes delivered to all reference groups. For the balanced and debiased data sets, the calculation includes monitored group transactions that were altered to become reference group transactions.</p>
+        <p><strong>Perturbations</strong>
+          <br>Data points that are simulated around real data points during the computation of different metrics that are associated with monitors—such as fairness, explainability.</p>
+        <p><strong>Pre-production space</strong>
+          <br>An environment that is used to readily test the data for model validations.</p>
+        <p><strong>Prediction column</strong>
+          <br>The variable that a supervised machine learning model (trained with labeled data) predicts when presented with new data.
+          <br>See also: Target.</p>
+        <p><strong>Probability</strong>
+          <br>The confidence with which a model predicts the output. Applicable for classification models.</p>
+        <p><strong>Production space</strong>
+          <br>A deployment space used for operationalizing machine learning models. Deployments from a production space are evaluated for comparison of actual performance against specified metrics.</p>
+        <p><strong>Quality</strong>
+          <br>A monitor that evaluates how well a model predicts accurate outcomes based on the evaluation of feedback data. It uses a set of standard data science metrics to evaluate how well the model predicts outcomes that match the actual outcomes
+          in the labeled data set.</p>
+        <p><strong>Records</strong>
+          <br>Transactions on which monitors are evaluated.</p>
+        <p><strong>Reference group</strong>
+          <br>When evaluating fairness, the reference group represents the values that are least at risk for biased outcomes.
+          <br>Example: For the Age feature, you can set 30-55 as the reference group and compare results for other cohorts to that group.</p>
+        <p><strong>Relative weight</strong>
+          <br>The relative weight that a feature has on predicting the target variable. A higher weight indicates more importance. Knowing the relative weight helps explain the model results.</p>
+        <p><strong>Resource ID</strong>
+          <br>The unique identifier for a resource stored in Cloud Object Storage. To obtain:</p>
+        <ol>
+          <li>Open <a href="https://cloud.ibm.com/resources">https://cloud.ibm.com/resources</a></li>
+          <li>Find and expand the resource (such as a storage service)</li>
+          <li>Copy the value for Resource ID without the quotation marks</li>
+        </ol>
+        <p><strong>Response time</strong>
+          <br>The time taken to process a scoring request by the model deployment</p>
+        <p><strong>Runtime data</strong>
+          <br>Data obtained from running a model's lifecycle.</p>
+        <p><strong>Scoring endpoint</strong>
+          <br>The HTTPS endpoint that users can call to receive the scoring output of a deployed model.</p>
+        <p><strong>Scoring request</strong>
+          <br>The input to a deployment.
+          <br>See also: Payload.</p>
+        <p><strong>Scoring</strong>
+          <br>In a model inference, the action of sending request to model and getting a response.</p>
+        <p><strong>Self-managed</strong>
+          <br>Model transactions stored in your own data warehouse and evaluated by your own Spark analytics engine.</p>
+        <p><strong>Service credentials</strong>
+          <br>The access IDs required to connect to IBM Cloud resources.</p>
+        <p><strong>Service Provider</strong>
+          <br>A machine learning providers (typically a model engine: WML, AWS, Azure, Custom) which hosts the deployments.</p>
+        <p><strong>Subscription</strong>
+          <br>A deployment getting monitored at OpenScale level. There is a 1-1 mapping between deployment and subscription.</p>
+        <p><strong>System-managed</strong>
+          <br>Model transactions stored in the OpenScale database and evaluated using OpenScale computing resources.</p>
+        <p><strong>Target</strong>
+          <br>The feature or column of a data set that the trained model predicts. The model is trained by using pre-existing data to learn patterns and discover relationships between the features of the data set and the target.
+          <br>See also: Prediction column.</p>
+        <p><strong>Threshold</strong>
+          <br>When monitors are configured to evaluate a machine learning model. A benchmark for an acceptable range of outcomes is established. When the outcome falls under the configured threshold, an alert is triggered assess and remedy the situation.</p>
+        <p><strong>Training data</strong>
+          <br>Data used to teach and train a model's learning algorithm.</p>
+        <p><strong>Transactions</strong>
+          <br>The records for machine learning model evaluations that are stored in the payload logging table.</p>
+        <p><strong>Unlabeled data</strong>
+          <br>Data that is not associated with labels that identify characteristics, classifications, and properties. Unstructured data that is not labeled in a uniform manner.
+          <br>Example: Email or unlabeled images are typical of unlabeled data. Unlabeled data can be used in unsupervised machine learning.</p>
+        <p><strong>User ID</strong>
+          <br>The id of the user associated with the scoring request</p>
+        <p><strong>Parent topic:</strong> <a href="getting-started.html">Evaluating AI models with Watson OpenScale</a></p>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

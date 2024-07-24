@@ -1,0 +1,345 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="The following limitations and known issues apply to watsonx.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Known issues and limitations</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=overview-known-issues-limitations"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="known-issues-and-limitations" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-known-issues-and-limitations">
+        <h1 id="known-issues-and-limitations">Known issues and limitations</h1>
+        <p>The following limitations and known issues apply to watsonx.</p>
+        <ul>
+          <li><a href="region-lims.html"><strong>Regional limitations</strong></a></li>
+          <li><a href="#notebooks">Notebooks</a></li>
+          <li><a href="#wmlissues">Machine learning</a></li>
+          <li><a href="#spssissues">SPSS Modeler</a></li>
+          <li><a href="#connectissues">Connections</a></li>
+          <li><a href="#pipeline-issues">Watson Pipelines</a></li>
+          <li><a href="#xgov-issues">watsonx.governance</a></li>
+        </ul>
+        <!--### Test Python or R script as web service with external Git integration
+{. #external-git-script)
+
+When your project is integrated with external git (for example, including GitHub or BitBucket), when you try to select `Test as API with R3.6` with either R & Python scripts under **Data refinery**, you get an error message `There was an error loading the container.` To get around this issue:
+
+1. Ensure the desired environment is running in **Project > Environments**.
+1. Open script in a script editor.
+    1. Ensure `Run Configuration` settings are correct.
+    1. Save if necessary.
+    1. To test a script, do the following:
+      1. Retrieve a temporary bearer access token by running the following command:
+      ``` {: .codeblock}
+      curl -k -X POST "https://$url/v1/preauth/validateAuth" \
+      -u $username:$password
+      ```
+      1. Then, use the following command to test the script:
+      ``` {: .codeblock}
+      curl -k -X POST "https://$url/$script-type/ibmdsxuser-$uid/$project-id/$function" \
+      -H "Content-Type: application/json" \
+      -H "Authorization: Bearer $accessToken" \
+      -d '{ "relativeScriptPath": "scripts/$script-name", "args": $args }'
+      ```
+      Where:
+      - `$accessToken` is the bearer token gotten from the first step.
+      - `$function` is the function of the script to execute.
+      - `$args` is a JSON object of arguments to pass to the function.
+      - `$project-id` is the project ID.
+      - `$uid` is the user ID.-->
+        <!--dap-planning/issues/11292-->
+        <section id="section-notebooks">
+          <h2 id="notebooks">Notebook issues</h2>
+          <p>You might encounter some of these issues when getting started with and using notebooks.</p>
+          <section id="section-HTML-fail">
+            <h3 id="HTML-fail">Failure to export a notebook to HTML in the Jupyter Notebook editor</h3>
+            <p>When you are working with a Jupyter Notebook created in a tool other than Watson Studio, you might not be able to export the notebook to HTML. This issue occurs when the cell output is exposed.</p>
+            <p><strong>Workaround</strong></p>
+            <ol>
+              <li>
+                <p>In the Jupyter Notebook UI, go to <strong>Edit</strong> and click <strong>Edit Notebook Metadata</strong>.</p>
+              </li>
+              <li>
+                <p>Remove the following metadata:</p>
+                <pre class="codeblock"><code class="lang-json hljs"><span class="hljs-attr">"widgets"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+   <span class="hljs-attr">"state"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span><span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+   <span class="hljs-attr">"version"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"1.1.2"</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+              </li>
+              <li>
+                <p>Click <strong>Edit</strong>.</p>
+              </li>
+              <li>
+                <p>Save the notebook.</p>
+              </li>
+            </ol>
+          </section>
+          <section id="section-manual-installation-of-some-tensor-libraries-is-not-supported">
+            <h3 id="manual-installation-of-some-tensor-libraries-is-not-supported">Manual installation of some tensor libraries is not supported</h3>
+            <p>Some tensor flow libraries are preinstalled, but if you try to install additional tensor flow libraries yourself, you get an error.</p>
+          </section>
+          <section id="section-connection-to-notebook-kernel-is-taking-longer-than-expected-after-running-a-code-cell">
+            <h3 id="connection-to-notebook-kernel-is-taking-longer-than-expected-after-running-a-code-cell">Connection to notebook kernel is taking longer than expected after running a code cell</h3>
+            <p>If you try to reconnect to the kernel and immediately run a code cell (or if the kernel reconnection happened during code execution), the notebook doesn't reconnect to the kernel and no output is displayed for the code cell. You need to manually
+              reconnect to the kernel by clicking <strong>Kernel</strong> &gt; <strong>Reconnect</strong>. When the kernel is ready, you can try running the code cell again.</p>
+          </section>
+          <section id="section-using-the-predefined-sqlcontext-object-in-multiple-notebooks-causes-an-error">
+            <h3 id="using-the-predefined-sqlcontext-object-in-multiple-notebooks-causes-an-error">Using the predefined sqlContext object in multiple notebooks causes an error</h3>
+            <p>You might receive an Apache Spark error if you use the predefined sqlContext object in multiple notebooks. Create a new sqlContext object for each notebook. See <a href="http://stackoverflow.com/questions/38117849/you-must-build-spark-with-hive-export-spark-hive-true/38118112#38118112" target="_blank" rel="noopener noreferrer">this Stack Overflow explanation</a>.</p>
+          </section>
+          <section id="section-connection-failed-message">
+            <h3 id="connection-failed-message">Connection failed message</h3>
+            <p>If your kernel stops, your notebook is no longer automatically saved. To save it, click <strong>File</strong> &gt; <strong>Save</strong> manually, and you should get a <strong>Notebook saved</strong> message in the kernel information area,
+              which appears before the Spark version. If you get a message that the kernel failed, to reconnect your notebook to the kernel click <strong>Kernel</strong> &gt; <strong>Reconnect</strong>. If nothing you do restarts the kernel and you can't
+              save the notebook, you can download it to save your changes by clicking <strong>File</strong> &gt; <strong>Download as</strong> &gt; <strong>Notebook (.ipynb)</strong>. Then you need to create a new notebook based on your downloaded notebook
+              file.</p>
+          </section>
+          <section id="section-preview-links-broken">
+            <h3 id="preview-links-broken">Hyperlinks to notebook sections don't work in preview mode</h3>
+            <p>If your notebook contains sections that you link to from an introductory section at the top of the notebook for example, the links to these sections will not work if the notebook was opened in view-only mode in Firefox. However, if you open
+              the notebook in edit mode, these links will work.</p>
+          </section>
+          <section id="section-firewall">
+            <h3 id="firewall">Can't connect to notebook kernel</h3>
+            <p>If you try to run a notebook and you see the message <code>Connecting to Kernel</code>, followed by <code>Connection failed. Reconnecting</code> and finally by a connection failed error message, the reason might be that your firewall is blocking
+              the notebook from running.</p>
+            <p>If Watson Studio is installed behind a firewall, you must add the WebSocket connection <code>wss://dataplatform.cloud.ibm.com</code> to the firewall settings. Enabling this WebSocket connection is required when you're using notebooks and RStudio.</p>
+          </section>
+          <section id="section-resources-unavailable">
+            <h3 id="resources-unavailable">Insufficient resources available error when opening or editing a notebook</h3>
+            <p>If you see the following message when opening or editing a notebook, the environment runtime associated with your notebook has resource issues:</p>
+            <pre class="codeblock"><code class="lang-txt hljs">Insufficient resources available
+A runtime instance with the requested configuration can't be started at this time because the required hardware resources aren't available.
+Try again later or adjust the requested sizes.
+</code></pre>
+            <p>To find the cause, try checking the status page for IBM Cloud incidents affecting Watson Studio. Additionally, you can open a support case at the IBM Cloud Support portal.</p>
+          </section>
+        </section>
+        <section id="section-wmlissues">
+          <h2 id="wmlissues">Machine learning issues</h2>
+          <p>You might encounter some of these issues when working with machine learning tools.</p>
+          <section id="section-region-requirements">
+            <h3 id="region-requirements">Region requirements</h3>
+            <p>You can only associate a Watson Machine Learning service instance with your project when the Watson Machine Learning service instance and the Watson Studio instance are located in the same region.</p>
+          </section>
+          <section id="section-new-service">
+            <h3 id="new-service">Accessing links if you create a service instance while associating a service with a project</h3>
+            <p>While you are associating a Watson Machine Learning service to a project, you have the option of creating a new service instance. If you choose to create a new service, the links on the service page might not work. To access the service terms,
+              APIs, and documentation, right click the links to open them in new windows.</p>
+          </section>
+          <section id="section-fl-new">
+            <h3 id="fl-new">Federated Learning assets cannot be searched in All assets, search results, or filter results in the new projects UI</h3>
+            <p>You cannot search Federated Learning assets from the <strong>All assets</strong> view, the search results, or the filter results of your project.</p>
+            <p><strong>Workaround:</strong> Click the Federated Learning asset to open the tool.</p>
+          </section>
+          <section id="section-deployment-issues">
+            <h3 id="deployment-issues">Deployment issues</h3>
+            <ul>
+              <li>A deployment that is inactive (no scores) for a set time (24 hours for the free plan or 120 hours for a paid plan) is automatically hibernated. When a new scoring request is submitted, the deployment is reactivated and the score request
+                is served. Expect a brief delay of 1 to 60 seconds for the first score request after activation, depending on the model framework.</li>
+              <li>For some frameworks, such as SPSS modeler, the first score request for a deployed model after hibernation might result in a 504 error. If this happens, submit the request again; subsequent requests should succeed.</li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-watson-machine-learning-limitations">
+          <h2 id="watson-machine-learning-limitations">Watson Machine Learning limitations</h2>
+          <section id="section-autoai-issues">
+            <h3 id="autoai-issues">AutoAI known limitations</h3>
+            <ul>
+              <li>
+                <p>Currently, AutoAI experiments do not support double-byte character sets. AutoAI only supports CSV files with ASCII characters. Users must convert any non-ASCII characters in the file name or content, and provide input data as a CSV as
+                  defined in <a href="https://tools.ietf.org/html/rfc4180" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">this CSV standard</a>.</p>
+              </li>
+              <li>
+                <p>To interact programmatically with an AutoAI model, use the REST API instead of the Python client. The APIs for the Python client required to support AutoAI are not generally available at this time.</p>
+              </li>
+            </ul>
+          </section>
+          <section id="section-fl_data_module_missing">
+            <h3 id="fl_data_module_missing">Data module not found in IBM Federated Learning</h3>
+            <p>The data handler for IBM Federated Learning is trying to extract a data module from the FL library but is unable to find it. You might see the following error message:</p>
+            <pre class="codeblock"><code class="lang-txt hljs">ModuleNotFoundError: No module named 'ibmfl.util.datasets'
+</code></pre>
+            <p>The issue possibly results from using an outdated DataHandler. Please review and update your DataHandler to conform to the latest spec. Here is the link to the most recent <a href="https://github.com/IBMDataScience/sample-notebooks/blob/master/Files/mnist_keras_data_handler.py" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">MNIST data handler</a> or ensure your sample versions are up-to-date.</p>
+          </section>
+        </section>
+        <section id="section-spssissues">
+          <h2 id="spssissues">SPSS Modeler issues</h2>
+          <p>You might encounter some of these issues when working in SPSS Modeler.</p>
+          <section id="section-flow-editor-runtime-restrictions">
+            <h3 id="flow-editor-runtime-restrictions">SPSS Modeler runtime restrictions</h3>
+            <p>Watson Studio does not include SPSS functionality in Peru, Ecuador, Colombia and Venezuela.</p>
+          </section>
+          <section id="section-spss_merge">
+            <h3 id="spss_merge">Merge node and unicode characters</h3>
+            <p>The Merge node treats the following very similar Japanese characters as the same character. <br>
+              <img src="images/SPSSmergenode.png" alt="Japanese characters" title="Similar Japanese characters treated as the same by the Merge node" width="200px"></p>
+          </section>
+        </section>
+        <section id="section-connectissues">
+          <h2 id="connectissues">Connection issues</h2>
+          <p>You might encounter this issue when working with connections.</p>
+          <section id="section-cloudera">
+            <h3 id="cloudera">Cloudera Impala connection does not work with LDAP authentication</h3>
+            <p>If you create a connection to a Cloudera Impala data source and the Cloudera Impala server is set up for LDAP authentication, the username and password authentication method in IBM watsonx will not work.</p>
+            <p>Workaround: Disable the <strong>Enable LDAP Authentication</strong> option on the Impala server. See <a href="https://docs.cloudera.com/cdp-private-cloud-base/latest/impala-secure/topics/impala-ldap.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Configuring LDAP Authentication</a> in the Cloudera documentation.</p>
+          </section>
+        </section>
+        <section id="section-pipeline-issues">
+          <h2 id="pipeline-issues">Watson Pipelines known issues</h2>
+          <p>The issues pertain to Watson Pipelines.</p>
+          <section id="section-nest-loops">
+            <h3 id="nest-loops">Nesting loops more than 2 levels can result in pipeline error</h3>
+            <p>Nesting loops more than 2 levels can result in an error when you run the pipeline, such as Error retrieving the run. Reviewing the logs can show an error such as <code>text in text not resolved: neither pipeline_input nor node_output</code>.
+              If you are looping with output from a Bash script, the log might list an error like this: <code>PipelineLoop can't be run; it has an invalid spec: non-existent variable in $(params.run-bash-script-standard-output)</code>. To resolve the
+              problem, do not nest loops more than 2 levels.</p>
+          </section>
+          <section id="section-asset-browser">
+            <h3 id="asset-browser">Asset browser does not always reflect count for total numbers of asset type</h3>
+            <p>When selecting an asset from the asset browser, such as choosing a source for a Copy node, you see that some of the assets list the total number of that asset type available, but notebooks do not. That is a current limitation.</p>
+          </section>
+          <section id="section-del-versions">
+            <h3 id="del-versions">Cannot delete pipeline versions</h3>
+            <p>Currently, you cannot delete saved versions of pipelines that you no longer need.</p>
+          </section>
+          <section id="section-del-autoai">
+            <h3 id="del-autoai">Deleting an AutoAI experiment fails under some conditions</h3>
+            <p>Using a <em>Delete AutoAI experiment</em> node to delete an AutoAI experiment that was created from the Projects UI does not delete the AutoAI asset. However, the rest of the flow can complete successfully.</p>
+          </section>
+          <section id="section-cache-enable">
+            <h3 id="cache-enable">Cache appears enabled but is not enabled</h3>
+            <p>If the <em>Copy assets</em> Pipelines node's <em>Copy mode</em> is set to <code>Overwrite</code>, cache is displayed as enabled but remains disabled.</p>
+          </section>
+        </section>
+        <section id="section-wsplimitations">
+          <h2 id="wsplimitations">Watson Pipelines limitations</h2>
+          <p>These limitations apply to Watson Pipelines.</p>
+          <ul>
+            <li><a href="#pipeline-limits">Single pipeline limits</a></li>
+            <li><a href="#config-size">Limitations by configuration size</a></li>
+            <li><a href="#input-limit">Input and output size limits</a></li>
+            <li><a href="#batch-input">Batch input limited to data assets</a></li>
+          </ul>
+          <section id="section-pipeline-limits">
+            <h3 id="pipeline-limits">Single pipeline limits</h3>
+            <p>These limitation apply to a single pipeline, regardless of configuration.</p>
+            <ul>
+              <li>Any single pipeline cannot contain more than 120 standard nodes</li>
+              <li>Any pipeline with a loop cannot contain more than 600 nodes across all iterations (for example, 60 iterations - 10 nodes each)</li>
+            </ul>
+          </section>
+          <section id="section-config-size">
+            <h3 id="config-size">Limitations by configuration size</h3>
+            <section id="section-small-configuration">
+              <h4 id="small-configuration">Small configuration</h4>
+              <p>A SMALL configuration supports 600 standard nodes (across all active pipelines) or 300 nodes run in a loop. For example:</p>
+              <ul>
+                <li>30 standard pipelines with 20 nodes run in parallel = 600 standard nodes</li>
+                <li>3 pipelines containing a loop with 10 iterations and 10 nodes in each iteration = 300 nodes in a loop</li>
+              </ul>
+            </section>
+            <section id="section-medium-configuration">
+              <h4 id="medium-configuration">Medium configuration</h4>
+              <p>A MEDIUM configuration supports 1200 standard nodes (across all active pipelines) or 600 nodes run in a loop. For example:</p>
+              <ul>
+                <li>30 standard pipelines with 40 nodes run in parallel = 1200 standard nodes</li>
+                <li>6 pipelines containing a loop with 10 iterations and 10 nodes in each iteration = 600 nodes in a loop</li>
+              </ul>
+            </section>
+            <section id="section-large-configuration">
+              <h4 id="large-configuration">Large configuration</h4>
+              <p>A LARGE configuration supports 4800 standard nodes (across all active pipelines) or 2400 nodes run in a loop. For example:</p>
+              <ul>
+                <li>80 standard pipelines with 60 nodes run in parallel = 4800 standard nodes</li>
+                <li>24 pipelines containing a loop with 10 iterations and 10 nodes in each iteration = 2400 nodes in a loop</li>
+              </ul>
+            </section>
+          </section>
+          <section id="section-input-limit">
+            <h3 id="input-limit">Input and output size limits</h3>
+            <p>Input and output values, which include pipeline parameters, user variables, and generic node inputs and outputs, cannot exceed 10 KB of data.</p>
+          </section>
+          <section id="section-batch-input">
+            <h3 id="batch-input">Batch input limited to data assets</h3>
+            <p>Currently, input for batch deployment jobs is limited to data assets. This means that certain types of deployments, which require JSON input or multiple files as input, are not supported. For example, SPSS models and Decision Optimization
+              solutions that require multiple files as input are not supported.</p>
+          </section>
+        </section>
+        <section id="section-cos">
+          <h2 id="cos">Issues with Cloud Object Storage</h2>
+          <p>These issue apply to working with Cloud Object Storage.</p>
+          <section id="section-issues-with-cloud-object-storage-when-key-protect-is-enabled">
+            <h3 id="issues-with-cloud-object-storage-when-key-protect-is-enabled">Issues with Cloud Object Storage when Key Protect is enabled</h3>
+            <p>Key Protect in conjunction with Cloud Object Storage is not supported for working with Watson Machine Learning assets. If you are using Key Protect, you might encounter these issues when you are working with assets in Watson Studio.</p>
+            <ul>
+              <li>Training or saving these Watson Machine Learning assets might fail:
+                <ul>
+                  <li>Auto AI</li>
+                  <li>Federated Learning</li>
+                  <li>Watson Pipelines</li>
+                </ul>
+              </li>
+              <li>You might be unable to save an SPSS model or a notebook model to a project</li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-xgov-issues">
+          <h2 id="xgov-issues">Issues with watsonx.governance</h2>
+          <section id="section-pt-delay">
+            <h3 id="pt-delay">Delay showing prompt template deployment data in a factsheet</h3>
+            <p>When a deployment is created for a prompt template, the facts for the deployment are not added to factsheet immediately. You must first evaluate the deployment or view the lifecycle tracking page to add the facts to the factsheet.</p>
+          </section>
+          <section id="section-model-inv">
+            <h3 id="model-inv">Display issues for existing Factsheet users</h3>
+            <p>If you previously used factsheets with IBM Knowledge Catalog and you create a new AI use case in watsonx.governance, you might see some display issues, such as duplicate Risk level fields in the General information and Details section of the
+              AI use case interface.</p>
+            <p>To resolve display problems, update the <code>model_entry_user</code> asset type definition. For details on updating a use case programmatically, see <a href="../analyze-data/xgov-customize-user-facts.html">Customizing details for a use case or factsheet</a>.</p>
+          </section>
+          <section id="section-factsheet-attach">
+            <h3 id="factsheet-attach">Redundant attachment links in factsheet</h3>
+            <p>A factsheet tracks all of the events for an asset over all phases of the lifecycle. Attachments show up in each stage, creating some redundancy in the factsheet.</p>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

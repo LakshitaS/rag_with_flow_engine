@@ -1,0 +1,116 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Use this information to resolve questions about using Synthetic Data Generator.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Troubleshooting Synthetic Data Generator</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=troubleshooting-synthetic-data-generator"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="troubleshooting-synthetic-data-generator" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-troubleshooting-synthetic-data-generator">
+        <h1 id="troubleshooting-synthetic-data-generator">Troubleshooting Synthetic Data Generator</h1>
+        <p>Use this information to resolve questions about using <em>Synthetic Data Generator</em>.</p>
+        <section id="section-typeless-columns-ignored-for-an-import-node">
+          <h2 id="typeless-columns-ignored-for-an-import-node">Typeless columns ignored for an Import node</h2>
+          <p>When you use an <strong>Import</strong> node that contains <strong>Typeless</strong> columns, these columns will be ignored when you use the <strong>Mimic</strong> node. After pressing the <strong>Read Values</strong> button, the <strong>Typeless</strong>            columns will be automatically set to <strong>Pass</strong> and will not be present in the final dataset.</p>
+          <p>Suggested workaround:</p>
+          <p>Add a new column in the <strong>Generate</strong> node for the missing column(s).</p>
+        </section>
+        <section id="section-size-limit-notice">
+          <h2 id="size-limit-notice">Size limit notice</h2>
+          <p>The <em>Synthetic Data Generator</em> environment can import up to ~2.5GB of data.</p>
+          <p>Suggested workaround:</p>
+          <p>If you receive a related error message or your data fails to import, please reduce the amount of data and try again.</p>
+        </section>
+        <section id="section-internal-error-occurred-scapi-error-the-value-on-row-1029-is-not-a-valid-string">
+          <h2 id="internal-error-occurred-scapi-error-the-value-on-row-1029-is-not-a-valid-string">Internal error occurred: SCAPI error: The value on row 1,029 is not a valid string</h2>
+          <p>For example, preview of data asset using <strong>Import</strong> node gives the following error:</p>
+          <pre class="codeblock"><code class="hljs">Node:
+Import
+WDP Connector Error: CDICO9999E: Internal error occurred: SCAPI error: The value on row 1,029 is not a valid string of the Bit data type for the SecurityDelay column.
+</code></pre>
+          <p>This is expected behavior. In this particular case, the 1st 1000 rows were binary, 0's or 1's. The value at row 1,029 was 3. For most flat files, <em>Synthetic Data Generator</em> reads the 1st 1000 records to infer the data type. In this case,
+            <em>Synthetic Data Generator</em> inferred binary values (0 or 1). When <em>Synthetic Data Generator</em> read a value of 3 at row 1,029, it threw an error, as 3 is not a binary value.</p>
+          <p>Suggested workarounds:</p>
+          <ol>
+            <li>Users can adjust their <code>Infer_record_count</code> parameter to include more data, choosing 2000 rows instead (or more).</li>
+            <li>Users can update the value in the first 1000 rows that is causing the error, if this is an error in the data.</li>
+          </ol>
+        </section>
+        <section id="section-error-mimic-data-set-no-available-input-record">
+          <h2 id="error-mimic-data-set-no-available-input-record">Error Mimic Data set no available input record.</h2>
+          <p>The <strong>Mimic</strong> node requires the input dataset to have at least one valid record (a record without any missing values). If your dataset is empty, or if the dataset does not contain at least one valid record, clicking <strong>Run selection</strong>            gives the following error message:</p>
+          <pre class="codeblock"><code class="hljs">Node:
+Mimic
+Mimic Data set no available input record.
+</code></pre>
+          <p>Suggested workarounds:</p>
+          <ol>
+            <li>Fix your dataset so that there is at least one record (row) that contains a value for every column and then try again.</li>
+            <li>Click <strong>Read values</strong> from the <strong>Import</strong> node and run your flow again. <img src="../synthetic/images/td-read-values-sd.png" alt="Read values" title="Read values"></li>
+          </ol>
+        </section>
+        <section id="section-error-incorrect-number-of-fields-detected-in-the-server-data-model-or-wdp-connector-execution-error">
+          <h2 id="error-incorrect-number-of-fields-detected-in-the-server-data-model-or-wdp-connector-execution-error">Error: Incorrect number of fields detected in the server data model. or WDP Connector Execution Error</h2>
+          <p>Creating a new flow using a <code>.synth</code> file, then doing a migration of the <strong>Import</strong> node with a newly uploaded file to the project, and then running the flow, gives one or both of the following errors:</p>
+          <pre class="codeblock"><code class="hljs">Error: Incorrect number of fields detected in the server data model.
+</code></pre>
+          <p>or</p>
+          <pre class="codeblock"><code class="hljs">WDP Connector Execution Error
+</code></pre>
+          <p>This error is caused by using different data sets (data models) for the create flow and for the migration data.</p>
+          <p>Suggested workaround:</p>
+          <p>Run the <strong>Mimic</strong> node that creates the <strong>Generate</strong> node a second time.</p>
+        </section>
+        <section id="section-error-valid-variable-does-not-exist-in-metadata">
+          <h2 id="error-valid-variable-does-not-exist-in-metadata">Error: Valid variable does not exist in metadata</h2>
+          <p>Doing a migration of the <strong>Import</strong> node and then running the flow fails and gives the error:</p>
+          <pre class="codeblock"><code class="hljs">Error: Valid variable does not exist in metadata
+</code></pre>
+          <p>Suggested workaround:</p>
+          <p>Make sure that in your <strong>Import</strong> node you have at least one field that is not <strong>Typeless</strong>. For example, in the screen capture below, the only field in the <strong>Import</strong> node is <strong>Typeless</strong>.
+            At least one field that is not <strong>Typeless</strong> should be added to the <strong>Import</strong> node to avoid this error.
+            <img src="../synthetic/images/td-import-typeless-sd.png" alt="Typeless field in Import node" title="Typeless field in Import node"></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

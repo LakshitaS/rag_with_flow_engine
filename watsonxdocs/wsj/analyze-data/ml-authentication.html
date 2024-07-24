@@ -1,0 +1,183 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="To use Watson Machine Learning with the Python client library or the REST API, you must authenticate to secure your work. Learn about the different ways to authenticate and how to apply them to the service of your choosing.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Authenticating for programmatic access</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=assets-authenticating-programmatic-access"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="authenticating-for-programmatic-access" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-authenticating-for-programmatic-access">
+        <h1 id="authenticating-for-programmatic-access">Authenticating for programmatic access</h1>
+        <p>To use Watson Machine Learning with the Python client library or the REST API, you must authenticate to secure your work. Learn about the different ways to authenticate and how to apply them to the service of your choosing.</p>
+        <p>You use IBM Cloud® Identity and Access Management (IAM) to make authenticated requests to public IBM Watson™ services. With IAM access policies, you can assign access to more than one resource from a single key. In addition, a user, service ID,
+          and service instance can hold multiple API keys.</p>
+        <section id="section-security-overview">
+          <h2 id="security-overview">Security overview</h2>
+          <p>Refer to the section that describes your security needs.</p>
+          <ul>
+            <li><a href="#terminology">Authentication credentials</a></li>
+            <li><a href="#python-client">Python client</a></li>
+            <li><a href="#rest-api">Rest API</a></li>
+          </ul>
+        </section>
+        <section id="section-terminology">
+          <h2 id="terminology">Authentication credentials</h2>
+          <p>These terms relate to the security requirements described in this topic.</p>
+          <ul>
+            <li><strong>API keys</strong> allow you to easily authenticate when you are using the Python client or APIs and can be used across multiple services. API Keys are considered confidential because they are used to grant access. Treat all API keys
+              as you would a password because anyone with your API key can access your service.</li>
+            <li>An <strong>IAM token</strong> is an authentication token that is required to access IBM Cloud services. You can generate a token by using your API key in the token request. For details on using IAM tokens, refer to <a href="https://cloud.ibm.com/apidocs/machine-learning#authentication">Authenticating to Watson Machine Learning API</a>.</li>
+          </ul>
+          <p>To authenticate to a service through its API, pass your credentials to the API. You can pass either a bearer token in an authorization header or an API key.</p>
+          <section id="section-generating-an-api-key">
+            <h3 id="generating-an-api-key">Generating an API key</h3>
+            <p>To generate an API key from your IBM Cloud user account, go to <a href="https://cloud.ibm.com/iam/apikeys">Manage access and users - API Keys</a> and create or select an API key for your user account.</p>
+            <p>You can also generate and rotate API keys from <strong>Profile and settings &gt; User API key</strong>. For more information, see <a href="../admin/admin-apikeys.html">Managing the user API key</a>.</p>
+          </section>
+          <section id="section-authenticate-with-an-iam-token">
+            <h3 id="authenticate-with-an-iam-token">Authenticate with an IAM token</h3>
+            <p>IAM tokens are temporary security credentials that are valid for 60 minutes. When a token expires, you generate a new one. Tokens can be useful for temporary access to resources. For more information, see <a href="https://cloud.ibm.com/docs/account?topic=account-iamtoken_from_apikey">Generating an IBM Cloud IAM token by using an API key</a>.</p>
+          </section>
+          <section id="section-getting-a-service-level-token">
+            <h3 id="getting-a-service-level-token">Getting a service-level token</h3>
+            <p>You can also authenticate with a service-level token. To generate a service-level token:</p>
+            <ol>
+              <li>Refer to the IBM Cloud instructions for <a href="https://cloud.ibm.com/iam/serviceids">creating a Service ID</a>.</li>
+              <li>Generate an API key for that Service ID.</li>
+              <li>Open the space where you plan to keep your deployable assets.</li>
+              <li>On the <strong>Access control</strong> tab, add the Service ID and assign an access role of <strong>Admin</strong> or <strong>Editor</strong>.</li>
+            </ol>
+            <p>You can use the service-level token with your API scoring requests.</p>
+          </section>
+        </section>
+        <section id="section-interfaces">
+          <h2 id="interfaces">Interfaces</h2>
+          <ul>
+            <li><a href="#python">Python client</a></li>
+            <li><a href="#rest-api">REST API</a></li>
+          </ul>
+          <p>
+            <a name="python"></a>
+          </p>
+          <p>&nbsp;</p>
+          <section id="section-python-client">
+            <h3 id="python-client">Python client</h3>
+            <p>Refer to: <a href="https://ibm.github.io/watson-machine-learning-sdk/" target="_other">Watson Machine Learning Python client <img src="../console/images/launch-glyph.png" alt="external link"></a></p>
+            <p>To create an instance of the Watson Machine Learning Python client object, you need to pass your credentials to Watson Machine Learning API client.</p>
+            <pre class="codeblock"><code class="lang-python hljs">wml_credentials = {
+                  <span class="hljs-string">"apikey"</span>:<span class="hljs-string">"123456789"</span>,
+                  <span class="hljs-string">"url"</span>: <span class="hljs-string">" https://HIJKL"</span>
+}
+<span class="hljs-keyword">from</span> ibm_watson_machine_learning <span class="hljs-keyword">import</span> APIClient
+wml_client = APIClient(wml_credentials)
+</code></pre>
+            <div class="note note"><span class="notetitle">Note:</span>
+              <md-block>
+                <p>Even though you do not explicitly provide an <code>instance_id</code>, it will be picked up from the associated space or project for billing purposes. For details on plans and billing for Watson Machine Learning services, refer to <a href="../getting-started/wml-plans.html">Watson Machine Learning plans and runtime usage</a>.</p>
+                <p></p>
+              </md-block>
+            </div>
+            <p></p>
+            <p>Refer to <a href="ml-samples-overview.html">sample notebooks</a> for examples of how to authenticate and then score a model by using the Python client.</p>
+          </section>
+          <section id="section-rest-api">
+            <h3 id="rest-api">REST API</h3>
+            <p>Refer to: <a href="https://cloud.ibm.com/apidocs/machine-learning" target="_other">Watson Machine Learning REST API <img src="../console/images/launch-glyph.png" alt="external link"></a></p>
+            <p>To use the Watson Machine Learning REST API, you must obtain an IBM Cloud Identity and Access Management (IAM) token. In this example, you would supply your API key in place of the example key.</p>
+            <section id="section-curl-example">
+              <h4 id="curl-example">cURL example</h4>
+              <pre class="codeblock"><code class="lang-bash hljs">curl -k -X POST \
+--header <span class="hljs-string">"Content-Type: application/x-www-form-urlencoded"</span> \
+--header <span class="hljs-string">"Accept: application/json"</span> \
+--data-urlencode <span class="hljs-string">"grant_type=urn:ibm:params:oauth:grant-type:apikey"</span> \
+--data-urlencode <span class="hljs-string">"apikey=123456789"</span> \
+<span class="hljs-string">"https://iam.cloud.ibm.com/identity/token"</span>
+</code></pre>
+              <p>The obtained IAM token needs to be prefixed with the word <code>Bearer</code>, and passed in the Authorization header for API calls.</p>
+            </section>
+            <section id="section-python-example">
+              <h4 id="python-example">Python example</h4>
+              <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">import</span> requests
+
+<span class="hljs-comment"># Paste your Watson Machine Learning service apikey here</span>
+
+apikey = <span class="hljs-string">"123456789"</span>
+
+<span class="hljs-comment"># Get an IAM token from IBM Cloud</span>
+url     = <span class="hljs-string">"https://iam.cloud.ibm.com/identity/token"</span>
+headers = { <span class="hljs-string">"Content-Type"</span> : <span class="hljs-string">"application/x-www-form-urlencoded"</span> }
+data    = <span class="hljs-string">"apikey="</span> + apikey + <span class="hljs-string">"&amp;grant_type=urn:ibm:params:oauth:grant-type:apikey"</span>
+response  = requests.post( url, headers=headers, data=data, auth=apikey )
+iam_token = response.json()[<span class="hljs-string">"access_token"</span>]
+</code></pre>
+            </section>
+            <section id="section-nodejs-example">
+              <h4 id="nodejs-example">Node.js example</h4>
+              <pre class="codeblock"><code class="lang-javascript hljs"><span class="hljs-keyword">var</span> btoa    = <span class="hljs-built_in">require</span>( <span class="hljs-string">"btoa"</span> );
+<span class="hljs-keyword">var</span> request = <span class="hljs-built_in">require</span>( <span class="hljs-string">'request'</span> );
+
+<span class="hljs-comment">// Paste your Watson Machine Learning service apikey here</span>
+<span class="hljs-keyword">var</span> apikey = <span class="hljs-string">"123456789"</span>;
+
+<span class="hljs-comment">// Use this code as written to get an access token from IBM Cloud REST API</span>
+<span class="hljs-comment">//</span>
+<span class="hljs-keyword">var</span> IBM_Cloud_IAM_uid = <span class="hljs-string">"bx"</span>;
+<span class="hljs-keyword">var</span> IBM_Cloud_IAM_pwd = <span class="hljs-string">"bx"</span>;
+
+<span class="hljs-keyword">var</span> options = { url     : <span class="hljs-string">"https://iam.cloud.ibm.com/identity/token"</span>,
+                headers : { <span class="hljs-string">"Content-Type"</span>  : <span class="hljs-string">"application/x-www-form-urlencoded"</span>,
+                            <span class="hljs-string">"Authorization"</span> : <span class="hljs-string">"Basic "</span> + <span class="hljs-title function_">btoa</span>( IBM_Cloud_IAM_uid + <span class="hljs-string">":"</span> + IBM_Cloud_IAM_pwd ) },
+                body    : <span class="hljs-string">"apikey="</span> + apikey + <span class="hljs-string">"&amp;grant_type=urn:ibm:params:oauth:grant-type:apikey"</span> };
+
+request.<span class="hljs-title function_">post</span>( options, <span class="hljs-keyword">function</span>(<span class="hljs-params"> error, response, body </span>)
+{
+    <span class="hljs-keyword">var</span> iam_token = <span class="hljs-variable constant_">JSON</span>.<span class="hljs-title function_">parse</span>( body )[<span class="hljs-string">"access_token"</span>];
+} );
+</code></pre>
+              <p><strong>Parent topic:</strong> <a href="../analyze-data/ml-deploy-general.html">Managing predictive deployments</a></p>
+            </section>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

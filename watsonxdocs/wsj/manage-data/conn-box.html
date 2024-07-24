@@ -1,0 +1,171 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="To access your data in Box, create a connection asset for it.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Box connection</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=connectors-box-connection"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="box-connection" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-box-connection">
+        <h1 id="box-connection">Box connection</h1>
+        <p>To access your data in Box, create a connection asset for it.</p>
+        <p>The Box platform is a cloud content management and file sharing service.</p>
+        <section id="section-prerequisite-create-a-custom-app-in-box">
+          <h2 id="prerequisite-create-a-custom-app-in-box">Prerequisite: Create a custom app in Box</h2>
+          <p>Before you create a connection to Box, you create a custom app in the Box Developer Console. You can create an app for application-level access that users can use to share files, or you can create an app for enterprise-wide access to all user
+            accounts. With enterprise-wide access, users do not need to share files and folders with the application.</p>
+          <ol>
+            <li>Go to the <a href="https://app.box.com/developers/console" target="_blank" rel="noopener noreferrer">Box Developer Console</a>, and follow the wizard to create a <strong>Custom App</strong>. For the <strong>Authentication Method</strong>,
+              select <code>OAuth 2.0 with JWT (Server Authentication)</code>.</li>
+            <li>Make the following selections in the <strong>Configuration</strong> page. Otherwise, keep the default settings.
+              <ol>
+                <li>Select one of two choices for <strong>App Access Level</strong>:
+                  <ul>
+                    <li>Keep the default <strong>App Access Only</strong> selection to allow access where users share files. <br></li>
+                    <li>Select <strong>App + Enterprise Access</strong> to create an app with enterprise-wide access to all user accounts. <br></li>
+                  </ul>
+                </li>
+                <li>Under <strong>Add and Manage Public Keys</strong>, click <strong>Generate a Public/Private Keypair</strong>. This selection requires that two-factor authentication is enabled on the Box account, but you can disable it afterward. The generated
+                  key pair produces a config (<code>*_config.json</code>) file for you to download. You will need the information in this file to create the connection in your project.</li>
+              </ol>
+            </li>
+            <li>If you selected an <strong>App + Enterprise Access</strong>, under <strong>Advanced Features</strong>, select both of these check boxes:
+              <ul>
+                <li><strong>Make API calls using the as-user header</strong></li>
+                <li><strong>Generate user access tokens</strong></li>
+              </ul>
+            </li>
+            <li>Submit the app client ID to the Box enterprise administrator for authorization: Go to your application in the <a href="https://app.box.com/developers/console" target="_blank" rel="noopener noreferrer">Box Developer Console</a> and select the
+              <strong>General</strong> link from the left sidebar in your application. Scroll down to the <strong>App Authorization</strong> section.</li>
+          </ol>
+          <section id="section-choose-the-method-for-creating-a-connection-based-on-where-you-are-in-the-platform">
+            <h3 id="choose-the-method-for-creating-a-connection-based-on-where-you-are-in-the-platform">Choose the method for creating a connection based on where you are in the platform</h3>
+            <dl>
+              <dt><strong>In a project</strong></dt>
+              <dd>Click <strong>Assets &gt; New asset &gt; Connect to a data source</strong>. See <a href="create-conn.html">Adding a connection to a project</a>.</dd>
+              <dt><strong>In a deployment space</strong></dt>
+              <dd>Click <strong>Add to space &gt; Connection</strong>. See <a href="../analyze-data/ml-space-add-assets.html">Adding connections to a deployment space</a>.</dd>
+              <dt><strong>In the Platform assets catalog</strong></dt>
+              <dd>Click <strong>New connection</strong>. See <a href="platform-conn.html">Adding platform connections</a>.</dd>
+            </dl>
+          </section>
+          <section id="section-create-the-box-connection">
+            <h3 id="create-the-box-connection">Create the Box connection</h3>
+            <p>Enter the values from the downloaded config file for these settings:</p>
+            <ul>
+              <li><strong>Client ID</strong></li>
+              <li><strong>Client Secret</strong></li>
+              <li><strong>Enterprise ID</strong></li>
+              <li><strong>Private Key</strong> (Replace each <code>\n</code> with a newline)</li>
+              <li><strong>Private Key Password</strong> (The <code>passphrase</code> value in the config file)</li>
+              <li><strong>Public Key</strong> (The <code>publicKeyID</code> value in the config file)</li>
+            </ul>
+          </section>
+          <section id="section-enterprise-wide-app">
+            <h3 id="enterprise-wide-app">Enterprise-wide app</h3>
+            <p>If you configured an enterprise-wide access app, enter the username of the Box user account in the <strong>Username</strong> field.</p>
+          </section>
+          <section id="section-application-level-app">
+            <h3 id="application-level-app">Application-level app</h3>
+            <p>Users must explicitly share their files with the app's email address in order for the app to access the files.</p>
+            <ol>
+              <li>
+                <p>Make a REST call to the connection to find out the app email address. For example:</p>
+                <p><code>PUT https://api.dataplatform.cloud.ibm.com/v2/connections/{connection_id}/actions/get_user_info?project_id={project_id}</code></p>
+                <p>Request body:</p>
+                <pre class="codeblock"><code class="lang-json hljs"><span class="hljs-punctuation">{</span><span class="hljs-punctuation">}</span>
+</code></pre>
+                <p>Returns:</p>
+                <pre class="screen"><code class="lang-json hljs"><span class="hljs-punctuation">{</span>
+ <span class="hljs-attr">"login_name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"AutomationUser_123467_aBcDEFg12h@boxdevedition.com"</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+              </li>
+              <li>
+                <p>Share the files and folders in Box that you want accessible from Watson Studio with the login name that was returned by the REST call.</p>
+              </li>
+            </ol>
+          </section>
+          <section id="section-next-step-add-data-assets-from-the-connection">
+            <h3 id="next-step-add-data-assets-from-the-connection">Next step: Add data assets from the connection</h3>
+            <ul>
+              <li>See <a href="connected-data.html">Add data from a connection in a project</a>.</li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-where-you-can-use-this-connection">
+          <h2 id="where-you-can-use-this-connection">Where you can use this connection</h2>
+          <p>You can use the Box connection in the following workspaces and tools:</p>
+          <p><strong>Projects</strong></p>
+          <ul>
+            <li>Data Refinery</li>
+            <li>Synthetic Data Generator</li>
+          </ul>
+          <!-- Data Refinery confirmed here: https://github.ibm.com/dap/dap-planning/issues/12134#issue-14708053-->
+          <!-- - Notebooks -->
+          <!-- * Notebooks -->
+          <!-- Notebooks: see: https://ibm.ent.box.com/notes/719984608729 -->
+          <!-- * SPSS Modeler  -->
+          <!-- NLW: SPSS Modeler support in CPD 3.5: https://github.ibm.com/dap/dap-planning/issues/12062#issuecomment-23593984 -->
+          <p><strong>Catalogs</strong></p>
+          <ul>
+            <li>Platform assets catalog</li>
+          </ul>
+        </section>
+        <section id="section-limitation">
+          <h2 id="limitation">Limitation</h2>
+          <p>If you have thousands of files in a Box folder, the connection might not be able to retrieve the files before a time-out. Jobs or profiling that use the Box files might not work.</p>
+          <p><strong>Workaround</strong>: Reorganize the file hierarchy in Box so that there are fewer files in the same folder.</p>
+        </section>
+        <section id="section-supported-file-types">
+          <h2 id="supported-file-types">Supported file types</h2>
+          <p>The Box connection supports these file types:&nbsp; Avro, CSV, Delimited text, Excel, JSON, ORC, Parquet, SAS, SAV, SHP, and XML.</p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p><a href="https://support.box.com/hc/articles/360044196653-Managing-custom-apps" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Managing custom apps</a></p>
+          <p><strong>Parent topic</strong>: <a href="conn_types.html">Supported connections</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

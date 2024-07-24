@@ -1,0 +1,966 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Use these functions in Pipelines code editors, for example, to define a user variable or build an advanced condition.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Functions used in Watson Pipelines's Expression Builder</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=pipeline-functions-used-in-pipelines-expression-builder"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="functions-used-in-watson-pipeliness-expression-builder" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-functions-used-in-watson-pipeliness-expression-builder">
+        <h1 id="functions-used-in-watson-pipeliness-expression-builder">Functions used in Watson Pipelines's Expression Builder</h1>
+        <p>Use these functions in Pipelines code editors, for example, to define a user variable or build an advanced condition.</p>
+        <p>The Experssion Builder uses the categories for coding functions:</p>
+        <!--Reminder: Get DS functions into separate topic-->
+        <ul>
+          <li><a href="#conversion">Conversion functions</a></li>
+          <li><a href="#ofext">Standard functions</a></li>
+          <li><a href="#advanced">Accessing advanced global objects</a></li>
+        </ul>
+        <section id="section-conversion">
+          <h2 id="conversion">Conversion functions</h2>
+          <p>Converts a single data element format to another.
+            <br></p>
+          <section id="section-table-for-basic-data-type-conversion">
+            <h3 id="table-for-basic-data-type-conversion">Table for basic data type conversion</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>Accepts</th>
+                  <th>Returns</th>
+                  <th>Syntax</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>double</code></td>
+                  <td><code>int, uint, string</code></td>
+                  <td><code>double</code></td>
+                  <td><code>double(val)</code></td>
+                </tr>
+                <tr>
+                  <td><code>duration</code></td>
+                  <td><code>string</code></td>
+                  <td><code>duration</code></td>
+                  <td><code>duration(string)</code> <br> Duration must end with "s", which stands for seconds.</td>
+                </tr>
+                <tr>
+                  <td><code>int</code></td>
+                  <td><code>int, uint, double, string, timestamp</code></td>
+                  <td><code>int</code></td>
+                  <td><code>int(val)</code></td>
+                </tr>
+                <tr>
+                  <td><code>timestamp</code></td>
+                  <td><code>string</code></td>
+                  <td><code>timestamp</code></td>
+                  <td><code>timestamp(string)</code> <br> Converts strings to timestamps according to RFC3339, that is "1972-01-01T10:00:20.021-05:00".</td>
+                </tr>
+                <tr>
+                  <td><code>uint</code></td>
+                  <td><code>int, double, string</code></td>
+                  <td><code>uint</code></td>
+                  <td><code>uint(val)</code></td>
+                </tr>
+              </tbody>
+            </table>
+            <section id="section-example">
+              <h4 id="example">Example</h4>
+              <p>For example, to cast a value to type <code>double</code>:</p>
+              <pre class="codeblock"><code class="lang-shell hljs"><span class="hljs-meta">double(%</span><span class="language-bash">val%)</span>
+</code></pre>
+              <p>When you cast double to <code>int | uint</code>, result rounds toward zero and errors if result is out of range.
+                <br></p>
+            </section>
+          </section>
+        </section>
+        <section id="section-ofext">
+          <h2 id="ofext">Standard functions</h2>
+          <p>Functions that are unique to IBM Watson Pipelines.</p>
+          <!--Combined section-->
+          <!--Issues in Orchestrator_ext, Standard_ext, Language_def-->
+          <!--2. Issue: format function -- 2 functions in the JSON docs, one takes param 1, param 2, param 3...other takes layout. One is a method of TimeStamp. A: Different "methodOf"-->
+          <!--3. what is the difference between "now" and "currentTimestamp"? It seems like the Date and Time functions return something called "translationsHelper.msg.XXX_output". What does that do? A: Output type slightly different-->
+          <!--5. What is translationsHelper.msg.XXX_output as a return function? Does it have something to do with them added as columns? A: Can just ignore-->
+          <br>
+          <section id="section-sub">
+            <h3 id="sub">sub</h3>
+            <p>Replaces substrings of a string that matches the given regular expression that starts at position offset.</p>
+            <section id="section-syntax">
+              <h4 id="syntax">Syntax</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">(string).sub(substring (string), replacement (string), [occurrence (int), [offset (int)]])
+</code></pre>
+              <p>returns: the string with substrings updated.</p>
+            </section>
+            <section id="section-examples">
+              <h4 id="examples">Examples</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">'aaabbbcccbbb'.sub('[b]+','RE')
+</code></pre>
+              <p>Returns 'aaaREcccRE'.
+                <br></p>
+            </section>
+          </section>
+          <section id="section-formatstring">
+            <h3 id="formatstring">format</h3>
+            <p>Formats a string or timestamp according to a format specifier and returns the resulting string.</p>
+            <section id="section-syntax-2">
+              <h4 id="syntax-2">Syntax</h4>
+              <p><strong><em>format</em> as a method of strings</strong></p>
+              <pre class="codeblock"><code class="lang-shell hljs">(string).format(parameter 1 (string or bool or number)... parameter 10 (string or bool or number))
+</code></pre>
+              <p>returns: the string that contains the formatted input values.</p>
+              <p><strong><em>format</em> as a method of timestamps</strong></p>
+              <pre class="codeblock"><code class="lang-shell hljs">(timestamp).format(layout(string))
+</code></pre>
+              <p>returns: the formatted timestamp in string format.</p>
+            </section>
+            <section id="section-examples-2">
+              <h4 id="examples-2">Examples</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">'number=%d, text=%s'.format(1, 'str')
+</code></pre>
+              <p>Returns the string 'number=1, text=str'.</p>
+              <pre class="codeblock"><code class="lang-shell hljs">timestamp('2020-07-24T09:07:29.000-00:00').format('%Y/%m/%d')
+</code></pre>
+              <p>Returns the string '2020/07/24'.
+                <br></p>
+            </section>
+          </section>
+          <section id="section-now">
+            <h3 id="now">now</h3>
+            <p>Returns the current timestamp.</p>
+            <section id="section-syntax-3">
+              <h4 id="syntax-3">Syntax</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">now()
+</code></pre>
+              <p>returns: the current timestamp.</p>
+              <!--#### Examples-->
+              <br>
+            </section>
+          </section>
+          <section id="section-parsetimestamp">
+            <h3 id="parsetimestamp">parseTimestamp</h3>
+            <p>Returns the current timestamp in string format.</p>
+            <section id="section-syntax-4">
+              <h4 id="syntax-4">Syntax</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">parseTimestamp([timestamp_string(string)] [layout(string)])
+</code></pre>
+              <p>returns: the current timestamp to a string of type string.</p>
+            </section>
+            <section id="section-examples-3">
+              <h4 id="examples-3">Examples</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">parseTimestamp('2020-07-24T09:07:29Z')
+</code></pre>
+              <p>Returns '2020-07-24T09:07:29.000-00:00'.
+                <br></p>
+            </section>
+          </section>
+          <section id="section-min">
+            <h3 id="min">min</h3>
+            <p>Returns minimum value in list.</p>
+            <section id="section-syntax-5">
+              <h4 id="syntax-5">Syntax</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">(list).min()
+</code></pre>
+              <p>returns: the minimum value of the list.</p>
+            </section>
+            <section id="section-examples-4">
+              <h4 id="examples-4">Examples</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">[1,2,3].min()
+</code></pre>
+              <p>Returns the integer 1.
+                <br></p>
+            </section>
+          </section>
+          <section id="section-max">
+            <h3 id="max">max</h3>
+            <p>Returns maximum value in list.</p>
+            <section id="section-syntax-6">
+              <h4 id="syntax-6">Syntax</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">(list).max()
+</code></pre>
+              <p>returns: the maximum value of the list.</p>
+            </section>
+            <section id="section-examples-5">
+              <h4 id="examples-5">Examples</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">[1,2,3].max()
+</code></pre>
+              <p>Returns the integer 3.
+                <br></p>
+            </section>
+          </section>
+          <section id="section-argmin">
+            <h3 id="argmin">argmin</h3>
+            <p>Returns index of minimum value in list.</p>
+            <section id="section-syntax-7">
+              <h4 id="syntax-7">Syntax</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">(list).argmin()
+</code></pre>
+              <p>returns: the index of the minimum value of the list.</p>
+            </section>
+            <section id="section-examples-6">
+              <h4 id="examples-6">Examples</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">[1,2,3].argmin()
+</code></pre>
+              <p>Returns the integer 0.
+                <br></p>
+            </section>
+          </section>
+          <section id="section-argmax">
+            <h3 id="argmax">argmax</h3>
+            <p>Returns index of maximum value in list.</p>
+            <section id="section-syntax-8">
+              <h4 id="syntax-8">Syntax</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">(list).argmax()
+</code></pre>
+              <p>returns: the index of the maximum value of the list.</p>
+            </section>
+            <section id="section-examples-7">
+              <h4 id="examples-7">Examples</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">[1,2,3].argmax()
+</code></pre>
+              <p>Returns the integer 2.
+                <br></p>
+            </section>
+          </section>
+          <section id="section-sum">
+            <h3 id="sum">sum</h3>
+            <p>Returns the sum of values in list.</p>
+            <section id="section-syntax-9">
+              <h4 id="syntax-9">Syntax</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">(list).sum()
+</code></pre>
+              <p>returns: the index of the maximum value of the list.</p>
+            </section>
+            <section id="section-examples-8">
+              <h4 id="examples-8">Examples</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">[1,2,3].argmax()
+</code></pre>
+              <p>Returns the integer 2.
+                <br></p>
+            </section>
+          </section>
+          <section id="section-base64decode">
+            <h3 id="base64decode">base64.decode</h3>
+            <p>Decodes base64-encoded string to bytes. This function returns an error if the string input is not base64-encoded.</p>
+            <section id="section-syntax-10">
+              <h4 id="syntax-10">Syntax</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">base64.decode(base64_encoded_string(string))
+</code></pre>
+              <p>returns: the decoded base64-encoded string in byte format.</p>
+            </section>
+            <section id="section-examples-9">
+              <h4 id="examples-9">Examples</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">base64.decode('aGVsbG8=')
+</code></pre>
+              <p>Returns 'hello' in bytes.
+                <br></p>
+            </section>
+          </section>
+          <section id="section-base64encode">
+            <h3 id="base64encode">base64.encode</h3>
+            <p>Encodes bytes to a base64-encoded string.</p>
+            <section id="section-syntax-11">
+              <h4 id="syntax-11">Syntax</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">base64.encode(bytes_to_encode (bytes))
+</code></pre>
+              <p>returns: the encoded base64-encoded string of the original byte value.</p>
+            </section>
+            <section id="section-examples-10">
+              <h4 id="examples-10">Examples</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">base64.decode(b'hello')
+</code></pre>
+              <p>Returns 'aGVsbG8=' in bytes.
+                <br></p>
+            </section>
+          </section>
+          <section id="section-charat">
+            <h3 id="charat">charAt</h3>
+            <p>Returns the character at the given position. If the position is negative, or greater than the length of the string, the function produces an error.</p>
+            <section id="section-syntax-12">
+              <h4 id="syntax-12">Syntax</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">(string).charAt(index (int))
+</code></pre>
+              <p>returns: the character of the specified position in integer format.</p>
+            </section>
+            <section id="section-examples-11">
+              <h4 id="examples-11">Examples</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">'hello'.charAt(4)
+</code></pre>
+              <p>Returns the character 'o'.
+                <br></p>
+            </section>
+          </section>
+          <section id="section-indexof">
+            <h3 id="indexof">indexOf</h3>
+            <p>Returns the integer index of the first occurrence of the search string. If the search string is not found the function returns -1.</p>
+            <section id="section-syntax-13">
+              <h4 id="syntax-13">Syntax</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">(string).indexOf(search_string (string), [offset (int)])
+</code></pre>
+              <p>returns: the index of the first character occurrence after the offset.</p>
+            </section>
+            <section id="section-examples-12">
+              <h4 id="examples-12">Examples</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">'hello mellow'.indexOf('ello', 2)
+</code></pre>
+              <p>Returns the integer 7.
+                <br></p>
+            </section>
+          </section>
+          <section id="section-lowerascii">
+            <h3 id="lowerascii">lowerAscii</h3>
+            <p>Returns a new string with ASCII characters turned to lowercase.</p>
+            <section id="section-syntax-14">
+              <h4 id="syntax-14">Syntax</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">(string).lowerAscii()
+</code></pre>
+              <p>returns: the new lowercase string.</p>
+            </section>
+            <section id="section-examples-13">
+              <h4 id="examples-13">Examples</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">'TacoCat'.lowerAscii()
+</code></pre>
+              <p>Returns the string 'tacocat'.
+                <br></p>
+            </section>
+          </section>
+          <section id="section-replace">
+            <h3 id="replace">replace</h3>
+            <p>Returns a new string based on the target, which replaces the occurrences of a search string with a replacement string if present. The function accepts an optional limit on the number of substring replacements to be made.</p>
+            <section id="section-syntax-15">
+              <h4 id="syntax-15">Syntax</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">(string).replace(search_string (string), replacement (string), [offset (int)])
+</code></pre>
+              <p>returns: the new string with occurrences of a search string replaced.</p>
+            </section>
+            <section id="section-examples-14">
+              <h4 id="examples-14">Examples</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">'hello hello'.replace('he', 'we')
+</code></pre>
+              <p>Returns the string 'wello wello'.
+                <br></p>
+            </section>
+          </section>
+          <section id="section-split">
+            <h3 id="split">split</h3>
+            <p>Returns a list of strings that are split from the input by the separator. The function accepts an optional argument that specifies a limit on the number of substrings that are produced by the split.</p>
+            <section id="section-syntax-16">
+              <h4 id="syntax-16">Syntax</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">(string).split(separator (string), [limit (int)])
+</code></pre>
+              <p>returns: the split string as a string list.</p>
+            </section>
+            <section id="section-examples-15">
+              <h4 id="examples-15">Examples</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">'hello hello hello'.split(' ')
+</code></pre>
+              <p>Returns the string list ['hello', 'hello', 'hello'].
+                <br></p>
+            </section>
+          </section>
+          <section id="section-substring">
+            <h3 id="substring">substring</h3>
+            <p>Returns the substring given a numeric range corresponding to character positions. Optionally you might omit the trailing range for a substring from a character position until the end of a string.</p>
+            <section id="section-syntax-17">
+              <h4 id="syntax-17">Syntax</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">(string).substring(start (int), [end (int)])
+</code></pre>
+              <p>returns: the substring at the specified index of the string.</p>
+            </section>
+            <section id="section-examples-16">
+              <h4 id="examples-16">Examples</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">'tacocat'.substring(4)
+</code></pre>
+              <p>Returns the string 'cat'.
+                <br></p>
+            </section>
+          </section>
+          <section id="section-trim">
+            <h3 id="trim">trim</h3>
+            <p>Returns a new string, which removes the leading and trailing white space in the target string. The trim function uses the Unicode definition of white space, which does not include the zero-width spaces.</p>
+            <section id="section-syntax-18">
+              <h4 id="syntax-18">Syntax</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">(string).trim()
+</code></pre>
+              <p>returns: the new string with white spaces removed.</p>
+            </section>
+            <section id="section-examples-17">
+              <h4 id="examples-17">Examples</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">'  \ttrim\n    '.trim()
+</code></pre>
+              <p>Returns the string 'trim'.
+                <br></p>
+            </section>
+          </section>
+          <section id="section-upperascii">
+            <h3 id="upperascii">upperAscii</h3>
+            <p>Returns a new string where all ASCII characters are upper-cased.</p>
+            <section id="section-syntax-19">
+              <h4 id="syntax-19">Syntax</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">(string).upperAscii()
+</code></pre>
+              <p>returns: the new string with all characters turned to uppercase.</p>
+            </section>
+            <section id="section-examples-18">
+              <h4 id="examples-18">Examples</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">'TacoCat'.upperAscii()
+</code></pre>
+              <p>Returns the string 'TACOCAT'.
+                <br></p>
+            </section>
+          </section>
+          <section id="section-size">
+            <h3 id="size">size</h3>
+            <p>Returns the length of the string, bytes, list, or map.</p>
+            <section id="section-syntax-20">
+              <h4 id="syntax-20">Syntax</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">(string | bytes | list | map).size()
+</code></pre>
+              <p>returns: the length of the string, bytes, list, or map array.</p>
+            </section>
+            <section id="section-examples-19">
+              <h4 id="examples-19">Examples</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">'hello'.size() 
+</code></pre>
+              <p>Returns the integer 5.</p>
+              <pre class="codeblock"><code class="lang-shell hljs">'hello'.size() 
+</code></pre>
+              <p>Returns the integer 5.</p>
+              <pre class="codeblock"><code class="lang-shell hljs">['a','b','c'].size() 
+</code></pre>
+              <p>Returns the integer 3.</p>
+              <pre class="codeblock"><code class="lang-shell hljs">{'key': 'value'}.size() 
+</code></pre>
+              <p>Returns the integer 1.
+                <br></p>
+            </section>
+          </section>
+          <section id="section-contains">
+            <h3 id="contains">contains</h3>
+            <p>Tests whether the string operand contains the substring.</p>
+            <section id="section-syntax-21">
+              <h4 id="syntax-21">Syntax</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">(string).contains(substring (string))
+</code></pre>
+              <p>returns: a Boolean value of whether the substring exists in the string operand.</p>
+            </section>
+            <section id="section-examples-20">
+              <h4 id="examples-20">Examples</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">'hello'.contains('ll')
+</code></pre>
+              <p>Returns true.
+                <br></p>
+            </section>
+          </section>
+          <section id="section-endswith">
+            <h3 id="endswith">endsWith</h3>
+            <p>Tests whether the string operand ends with the specified suffix.</p>
+            <section id="section-syntax-22">
+              <h4 id="syntax-22">Syntax</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">(string).endsWith(suffix (string))
+</code></pre>
+              <p>returns: a Boolean value of whether the string ends with specified suffix in the string operand.</p>
+            </section>
+            <section id="section-examples-21">
+              <h4 id="examples-21">Examples</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">'hello'.endsWith('llo')
+</code></pre>
+              <p>Returns true.
+                <br></p>
+            </section>
+          </section>
+          <section id="section-startswith">
+            <h3 id="startswith">startsWith</h3>
+            <p>Tests whether the string operand starts with the prefix argument.</p>
+            <section id="section-syntax-23">
+              <h4 id="syntax-23">Syntax</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">(string).startsWith(prefix (string))
+</code></pre>
+              <p>returns: a Boolean value of whether the string begins with specified prefix in the string operand.</p>
+            </section>
+            <section id="section-examples-22">
+              <h4 id="examples-22">Examples</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">'hello'.startsWith('he')
+</code></pre>
+              <p>Returns true.
+                <br></p>
+            </section>
+          </section>
+          <section id="section-matches">
+            <h3 id="matches">matches</h3>
+            <p>Tests whether the string operand matches regular expression.</p>
+            <section id="section-syntax-24">
+              <h4 id="syntax-24">Syntax</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">(string).matches(prefix (string))
+</code></pre>
+              <p>returns: a Boolean value of whether the string matches the specified regular expression.</p>
+            </section>
+            <section id="section-examples-23">
+              <h4 id="examples-23">Examples</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">'Hello'.matches('[Hh]ello')
+</code></pre>
+              <p>Returns true.
+                <br></p>
+            </section>
+          </section>
+          <section id="section-getdate">
+            <h3 id="getdate">getDate</h3>
+            <p>Get the day of the month from the date with time zone (default Coordinated Universal Time), one-based indexing.</p>
+            <section id="section-syntax-25">
+              <h4 id="syntax-25">Syntax</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">(timestamp).getDate([time_zone (string)])
+</code></pre>
+              <p>returns: the day of the month with one-based indexing.</p>
+            </section>
+            <section id="section-examples-24">
+              <h4 id="examples-24">Examples</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">timestamp('2020-07-24T09:07:29.000-00:00').getDate()
+</code></pre>
+              <p>Returns 24.
+                <br></p>
+            </section>
+          </section>
+          <section id="section-getdayofmonth">
+            <h3 id="getdayofmonth">getDayOfMonth</h3>
+            <p>Get the day of the month from the date with time zone (default Coordinated Universal Time), zero-based indexing.</p>
+            <section id="section-syntax-26">
+              <h4 id="syntax-26">Syntax</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">(timestamp).getDayOfMonth([time_zone (string)])
+</code></pre>
+              <p>returns: the day of the month with zero-based indexing.</p>
+            </section>
+            <section id="section-examples-25">
+              <h4 id="examples-25">Examples</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">timestamp('2020-07-24T09:07:29.000-00:00').getDayOfMonth()
+</code></pre>
+              <p>Returns 23.
+                <br></p>
+            </section>
+          </section>
+          <section id="section-getdayofweek">
+            <h3 id="getdayofweek">getDayOfWeek</h3>
+            <p>Get day of the week from the date with time zone (default Coordinated Universal Time), zero-based indexing, zero for Sunday.</p>
+            <section id="section-syntax-27">
+              <h4 id="syntax-27">Syntax</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">(timestamp).getDayOfWeek([time_zone (string)])
+</code></pre>
+              <p>returns: the day of the week with zero-based indexing.</p>
+            </section>
+            <section id="section-examples-26">
+              <h4 id="examples-26">Examples</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">timestamp('2020-07-24T09:07:29.000-00:00').getDayOfWeek()
+</code></pre>
+              <p>Returns 5.
+                <br></p>
+            </section>
+          </section>
+          <section id="section-getdayofyear">
+            <h3 id="getdayofyear">getDayOfYear</h3>
+            <p>Get the day of the year from the date with time zone (default Coordinated Universal Time), zero-based indexing.</p>
+            <section id="section-syntax-28">
+              <h4 id="syntax-28">Syntax</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">(timestamp).getDayOfYear([time_zone (string)])
+</code></pre>
+              <p>returns: the day of the year with zero-based indexing.</p>
+            </section>
+            <section id="section-examples-27">
+              <h4 id="examples-27">Examples</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">timestamp('2020-07-24T09:07:29.000-00:00').getDayOfYear()
+</code></pre>
+              <p>Returns 205.
+                <br></p>
+            </section>
+          </section>
+          <section id="section-getfullyear">
+            <h3 id="getfullyear">getFullYear</h3>
+            <p>Get the year from the date with time zone (default Coordinated Universal Time).</p>
+            <section id="section-syntax-29">
+              <h4 id="syntax-29">Syntax</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">(timestamp).getFullYear([time_zone (string)])
+</code></pre>
+              <p>returns: the year from the date.</p>
+            </section>
+            <section id="section-examples-28">
+              <h4 id="examples-28">Examples</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">timestamp('2020-07-24T09:07:29.000-00:00').getFullYear()
+</code></pre>
+              <p>Returns 2020.
+                <br></p>
+            </section>
+          </section>
+          <section id="section-getmonth">
+            <h3 id="getmonth">getMonth</h3>
+            <p>Get the month from the date with time zone, 0-11.</p>
+            <section id="section-syntax-30">
+              <h4 id="syntax-30">Syntax</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">(timestamp).getMonth([time_zone (string)])
+</code></pre>
+              <p>returns: the month from the date.</p>
+            </section>
+            <section id="section-examples-29">
+              <h4 id="examples-29">Examples</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">timestamp('2020-07-24T09:07:29.000-00:00').getMonth()
+</code></pre>
+              <p>Returns 6.
+                <br></p>
+            </section>
+          </section>
+          <section id="section-gethours">
+            <h3 id="gethours">getHours</h3>
+            <p>Get hours from the date with time zone, 0-23.</p>
+            <section id="section-syntax-31">
+              <h4 id="syntax-31">Syntax</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">(timestamp).getHours([time_zone (string)])
+</code></pre>
+              <p>returns: the hour from the date.</p>
+            </section>
+            <section id="section-examples-30">
+              <h4 id="examples-30">Examples</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">timestamp('2020-07-24T09:07:29.000-00:00').getHours()
+</code></pre>
+              <p>Returns 9.
+                <br></p>
+            </section>
+          </section>
+          <section id="section-getminutes">
+            <h3 id="getminutes">getMinutes</h3>
+            <p>Get minutes from the date with time zone, 0-59.</p>
+            <section id="section-syntax-32">
+              <h4 id="syntax-32">Syntax</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">(timestamp).getMinutes([time_zone (string)])
+</code></pre>
+              <p>returns: the minute from the date.</p>
+            </section>
+            <section id="section-examples-31">
+              <h4 id="examples-31">Examples</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">timestamp('2020-07-24T09:07:29.000-00:00').getMinutes()
+</code></pre>
+              <p>Returns 7.
+                <br></p>
+            </section>
+          </section>
+          <section id="section-getseconds">
+            <h3 id="getseconds">getSeconds</h3>
+            <p>Get seconds from the date with time zone, 0-59.</p>
+            <section id="section-syntax-33">
+              <h4 id="syntax-33">Syntax</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">(timestamp).getSeconds([time_zone (string)])
+</code></pre>
+              <p>returns: the second from the date.</p>
+            </section>
+            <section id="section-examples-32">
+              <h4 id="examples-32">Examples</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">timestamp('2020-07-24T09:07:29.000-00:00').getSeconds()
+</code></pre>
+              <p>Returns 29.
+                <br></p>
+            </section>
+          </section>
+          <section id="section-getmilliseconds">
+            <h3 id="getmilliseconds">getMilliseconds</h3>
+            <p>Get milliseconds from the date with time zone, 0-999.</p>
+            <section id="section-syntax-34">
+              <h4 id="syntax-34">Syntax</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">(timestamp).getMilliseconds([time_zone (string)])
+</code></pre>
+              <p>returns: the millisecond from the date.</p>
+            </section>
+            <section id="section-examples-33">
+              <h4 id="examples-33">Examples</h4>
+              <pre class="codeblock"><code class="lang-shell hljs">timestamp('2020-07-24T09:07:29.021-00:00').getMilliseconds()
+</code></pre>
+              <p>Returns 21.</p>
+              <!--End of OF extended functions-->
+            </section>
+          </section>
+        </section>
+        <section id="section-advanced">
+          <h2 id="advanced">Access to advanced global objects</h2>
+          <p>Get node outputs, user variables, and pipeline parameters by using the following Pipelines code.</p>
+          <section id="section-get-user-variable">
+            <h3 id="get-user-variable">Get user variable</h3>
+            <p>Gets the most up-to-date value of a user variable.</p>
+            <section id="section-syntax-35">
+              <h4 id="syntax-35">Syntax</h4>
+              <pre class="codeblock"><code class="lang-c hljs">vars.&lt;var name&gt;
+</code></pre>
+            </section>
+            <section id="section-examples-34">
+              <h4 id="examples-34">Examples</h4>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Example</th>
+                    <th>Output</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>vars.my_user_var</code></td>
+                    <td>Gets the value of the user variable <code>my_user_var</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+          </section>
+          <section id="section-get-parameters">
+            <h3 id="get-parameters">Get parameters</h3>
+            <p>Gets the flow parameters.</p>
+            <section id="section-syntax-36">
+              <h4 id="syntax-36">Syntax</h4>
+              <pre class="codeblock"><code class="lang-c hljs">params.&lt;param name&gt;
+</code></pre>
+            </section>
+            <section id="section-examples-35">
+              <h4 id="examples-35">Examples</h4>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Example</th>
+                    <th>Output</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>params.a</code></td>
+                    <td>Gets the value of the parameter <code>a</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+          </section>
+          <section id="section-get-parameter-sets">
+            <h3 id="get-parameter-sets">Get parameter sets</h3>
+            <p>Gets the flow parameter sets.</p>
+            <section id="section-syntax-37">
+              <h4 id="syntax-37">Syntax</h4>
+              <pre class="codeblock"><code class="lang-c hljs">param_set.&lt;param_set_name&gt;.&lt;param_name&gt;
+</code></pre>
+            </section>
+            <section id="section-examples-36">
+              <h4 id="examples-36">Examples</h4>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Example</th>
+                    <th>Output</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>param_set.ps.a</code></td>
+                    <td>Gets the value of the parameter <code>a</code> from a parameter set <code>ps</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>param_sets.config</code></td>
+                    <td>Gets the pipeline configuration values</td>
+                  </tr>
+                  <tr>
+                    <td><code>param_sets.config.deadline</code></td>
+                    <td>Gets a date object from the configurations parameter set</td>
+                  </tr>
+                  <tr>
+                    <td><code>param_sets.ps["$PARAM"]</code></td>
+                    <td>Gets the value of the parameter <code>$PARAM</code> from a parameter set <code>ps</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+          </section>
+          <section id="section-get-task-results">
+            <h3 id="get-task-results">Get task results</h3>
+            <p>Get a pipeline task's resulting output and other metrics from a pipeline task after it completes its run.</p>
+            <section id="section-syntax-38">
+              <h4 id="syntax-38">Syntax</h4>
+              <pre class="codeblock"><code class="lang-c hljs">tasks.&lt;node id&gt;.&lt;output name&gt;
+</code></pre>
+            </section>
+            <section id="section-examples-37">
+              <h4 id="examples-37">Examples</h4>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Example</th>
+                    <th>Output</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>tasks.run_datastage_job</code></td>
+                    <td>Gets the results dictionary of job output</td>
+                  </tr>
+                  <tr>
+                    <td><code>tasks.run_datastage_job.results.score</code></td>
+                    <td>Gets the value <code>score</code> of job output</td>
+                  </tr>
+                  <tr>
+                    <td><code>tasks.run_datastage_job.results.timestamp</code></td>
+                    <td>Gets the end timestamp of job run</td>
+                  </tr>
+                  <tr>
+                    <td><code>tasks.run_datastage_job.results.error</code></td>
+                    <td>Gets the number of errors from job run</td>
+                  </tr>
+                  <tr>
+                    <td><code>tasks.loop_task.loop.counter</code></td>
+                    <td>Gets the current loop iterative counter of job run</td>
+                  </tr>
+                  <tr>
+                    <td><code>tasks.loop_task.loop.item</code></td>
+                    <td>Gets the current loop iterative item of job run</td>
+                  </tr>
+                  <tr>
+                    <td><code>tasks.run_datastage_job.results.status</code></td>
+                    <td>Gets either success or fail status of job run</td>
+                  </tr>
+                  <tr>
+                    <td><code>tasks.run_datastage_job.results.status_message</code></td>
+                    <td>Gets the status message of job run</td>
+                  </tr>
+                  <tr>
+                    <td><code>tasks.run_datastage_job.results.job_name</code></td>
+                    <td>Gets the job name</td>
+                  </tr>
+                  <tr>
+                    <td><code>tasks.run_datastage_job.results.job</code></td>
+                    <td>Gets the Cloud Pak for Data path of job</td>
+                  </tr>
+                  <tr>
+                    <td><code>tasks.run_datastage_job.results.job_run</code></td>
+                    <td>Gets the Cloud Pak for Data run path of job run</td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+          </section>
+          <section id="section-get-pipeline-context-objects">
+            <h3 id="get-pipeline-context-objects">Get pipeline context objects</h3>
+            <p>Gets values that are evaluated in the context of a pipeline that is run in a scope (project, space, catalog).</p>
+            <section id="section-examples-38">
+              <h4 id="examples-38">Examples</h4>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Example</th>
+                    <th>Output</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>ctx.scope.id</code></td>
+                    <td>Gets scope ID</td>
+                  </tr>
+                  <tr>
+                    <td><code>ctx.scope.type</code></td>
+                    <td>Returns either "project", "space", or "catalog"</td>
+                  </tr>
+                  <tr>
+                    <td><code>ctx.scope.name</code></td>
+                    <td>Gets scope name</td>
+                  </tr>
+                  <tr>
+                    <td><code>ctx.pipeline.id</code></td>
+                    <td>Gets pipeline ID</td>
+                  </tr>
+                  <tr>
+                    <td><code>ctx.pipeline.name</code></td>
+                    <td>Gets pipeline name</td>
+                  </tr>
+                  <tr>
+                    <td><code>ctx.job.id</code></td>
+                    <td>Gets job ID</td>
+                  </tr>
+                  <tr>
+                    <td><code>ctx.run_datastage_job.id</code></td>
+                    <td>Gets job run ID</td>
+                  </tr>
+                  <tr>
+                    <td><code>ctx.run_datastage_job.started_at</code></td>
+                    <td>Gets job run start time</td>
+                  </tr>
+                  <tr>
+                    <td><code>ctx.user.id</code></td>
+                    <td>Gets the user ID</td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+          </section>
+          <section id="section-get-error-status">
+            <h3 id="get-error-status">Get error status</h3>
+            <p>If the exception handler is triggered, an error object is created and becomes accessible only within the exception handler.</p>
+            <section id="section-examples-39">
+              <h4 id="examples-39">Examples</h4>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Example</th>
+                    <th>Output</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>error.status</code></td>
+                    <td>Gets either success or fail status of job run, usually failed</td>
+                  </tr>
+                  <tr>
+                    <td><code>error.status_message</code></td>
+                    <td>Gets the error status message</td>
+                  </tr>
+                  <tr>
+                    <td><code>error.job</code></td>
+                    <td>Gets the Cloud Pak for Data path of job</td>
+                  </tr>
+                  <tr>
+                    <td><code>error.run_datastage_job</code></td>
+                    <td>Gets the Cloud Pak for Data run path of job (not available in watsonx)</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p><strong>Parent topic:</strong> <a href="ml-orchestration-conditions.html">Adding conditions to a Pipelines</a></p>
+            </section>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

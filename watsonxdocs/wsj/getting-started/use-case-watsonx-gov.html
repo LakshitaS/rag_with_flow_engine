@@ -1,0 +1,230 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="To drive responsible, transparent, and explainable AI workflows, your enterprise needs an integrated system for tracking, monitoring, and retraining AI models. Watsonx.governance provides the processes and technologies to enable your enterprise to&nbsp;monitor, maintain, automate, and govern machine learning and generative AI models in production.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>IBM watsonx.governance use case</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=cases-watsonxgovernance-use-case"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="ibm-watsonxgovernance-use-case" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-ibm-watsonxgovernance-use-case">
+        <h1 id="ibm-watsonxgovernance-use-case">IBM watsonx.governance use case</h1>
+        <p>To drive responsible, transparent, and explainable AI workflows, your enterprise needs an integrated system for tracking, monitoring, and retraining AI models. Watsonx.governance provides the processes and technologies to enable your enterprise
+          to&nbsp;monitor, maintain, automate, and govern machine learning and generative AI models in production.</p>
+        <section id="section-challenges">
+          <h2 id="challenges">Challenges</h2>
+          <p>Watsonx.governance helps you to solve the following challenges for your enterprise:</p>
+          <dl>
+            <dt><strong>Ensuring governance and compliance for machine learning model and generative AI assets</strong></dt>
+            <dd>Organizations need to evaluate, track, and document the detailed history of machine learning models and generative AI assets to ensure compliance and to provide visibility to all stakeholders.</dd>
+            <dt><strong>Managing risk and ensuring responsible AI</strong></dt>
+            <dd>Organizations need to monitor models in production to ensure that the models are valid and accurate, and that they are not introducing bias or drifting away from the intended goals.</dd>
+            <dt><strong>Monitoring and retraining machine learning models</strong></dt>
+            <dd>Organizations need to automate the monitoring and retraining of machine learning models based on production feedback.</dd>
+          </dl>
+          <br>
+          <section id="section-example-golden-banks-challenges">
+            <h4 id="example-golden-banks-challenges">Example: Golden Bank's challenges</h4>
+            <p>Follow the story of Golden Bank as it uses watsonx.governance to govern their AI assets as they implement a process to analyze stock anomalies to boost productivity and increase the accuracy of a stock analyst in investment banking. The team
+              needs to:</p>
+            <ul>
+              <li>Track their machine learning models and generative AI assets throughout the lifecycle; to capture and share facts about the assets; to help meet governance and compliance goals.</li>
+              <li>Monitor their deployed models for fairness, accuracy, explainability, and drift.</li>
+              <li>Evaluate their summarization and question-answering prompt templates to measure how effectively the foundation models generate responses.</li>
+              <li>Create a pipeline to simplify the retraining process.</li>
+            </ul>
+            <br>
+          </section>
+        </section>
+        <section id="section-process">
+          <h2 id="process">Process</h2>
+          <p>To implement watsonx.governance for your enterprise, your organization can follow this process:</p>
+          <ol>
+            <li><a href="#track">Track machine learning models and prompt templates</a></li>
+            <li><a href="#evaluate">Evaluate machine learning models and prompt templates</a></li>
+            <li><a href="#monitor">Monitor deployed machine learning models and prompt templates</a></li>
+          </ol>
+          <p>Watsonx.ai and watsonx.governance provide the tools and processes that your organization needs to govern AI assets.</p>
+          <p><img src="../getting-started/images/watsonx-governance-use-case.svg" alt="Image showing the flow of the watsonx.governance use case" style="max-width:90%;height:auto;width:auto"></p>
+          <section id="section-track">
+            <h3 id="track">1. Track machine learning models and prompt templates</h3>
+            <p>Your team can track your machine-learning models and prompt templates from request to production and evaluate whether they comply with your organization's regulations and requirements.</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>What you can use</th>
+                  <th>What you can do</th>
+                  <th>Best to use when</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><a href="../analyze-data/xgov-use-cases.html">Factsheets</a></td>
+                  <td>Create an AI use case to track and govern AI assets from request through production.<br><br>View lifecycle status for all of the registered assets and drill down to detailed factsheets for models, deployments, or prompt templates that
+                    are registered to the model use case.<br><br>Review the details that are captured for each tracked asset in a factsheet associated with an AI use case.<br><br>View evaluation details, quality metrics, fairness details, and drift details.</td>
+                  <td>You need to request a new model or prompt template from your data science team. <br><br>You want to make sure that your model or prompt template is compliant and performing as expected.<br><br>You want to determine whether you need to
+                    update a model or prompt template based on tracking data.<br><br>You want to run reports on tracked assets to share or preserve details.</td>
+                </tr>
+              </tbody>
+            </table>
+            <br>
+            <section id="section-example-golden-banks-model-tracking">
+              <h4 id="example-golden-banks-model-tracking">Example: Golden Bank's model tracking</h4>
+              <p>Business analysts at Golden Bank requested a stock anomaly prediction model. They can then track the model through all stages of the AI lifecycle as data scientists or ML engineers build and train the model and ModelOps engineers deploy
+                and evaluate it. Factsheets document details about the model history and generate metrics that show its performance.</p>
+              <br>
+            </section>
+          </section>
+          <section id="section-evaluate">
+            <h3 id="evaluate">2. Evaluate machine learning models and prompt templates</h3>
+            <p>You can evaluate machine learning models and prompt templates in projects or deployment spaces to measure their performance. For machine learning models, evaluate the model for quality, fairness, and accuracy. For foundation models, evaluate
+              foundation model tasks, and understand how your model generates responses.</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>What you can use</th>
+                  <th>What you can do</th>
+                  <th>Best to use when</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><a href="../analyze-data/ml-orchestration-overview.html">Projects</a></td>
+                  <td>Use a project as a collaborative workspace to build machine learning models, prompt foundation models, save machine learning models and prompt templates, and evaluate machine learning models and prompt templates. By default, your sandbox
+                    project is created automatically when you sign up for watsonx.</td>
+                  <td>You want to collaborate on machine learning models and prompt templates.</td>
+                </tr>
+                <tr>
+                  <td><a href="../analyze-data/ml-spaces_local.html">Spaces user interface</a></td>
+                  <td>Use the Spaces UI to deploy and evaluate machine learning models, prompt templates, and other assets from projects to spaces.</td>
+                  <td>You want to deploy and evaluate machine learning models and prompt templates and view deployment information in a collaborative workspace.</td>
+                </tr>
+              </tbody>
+            </table>
+            <br>
+            <section id="section-example-golden-banks-prompt-evaluation">
+              <h4 id="example-golden-banks-prompt-evaluation">Example: Golden Bank's prompt evaluation</h4>
+              <p>Golden Bank's data scientist and prompt engineering teams work together to evaluate the summarization and questing-answering prompt templates using test data. They want to measure the performance of the foundation model and to understand
+                how the model generates responses. The evaluations are tracked in AI Factsheets, so the entire team can monitor throughout the lifecycle from the development phase all the way through to the production phase.</p>
+              <br>
+            </section>
+          </section>
+          <section id="section-monitor">
+            <h3 id="monitor">3. Monitor deployed machine learning models and prompt templates</h3>
+            <p>After deploying models, it is important to govern and monitor them to make sure that they are explainable and transparent. Data scientists must be able to explain how the models arrive at certain predictions so that they can determine whether
+              the predictions have any implicit or explicit bias. You can configure drift evaluations to measure changes in your data over time to ensure consistent outcomes for your model. Use drift evaluations to identify changes in your model output,
+              the accuracy of your predictions, and the distribution of your input data.</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>What you can use</th>
+                  <th>What you can do</th>
+                  <th>Best to use when</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><a href="../model/getting-started.html">Watson OpenScale</a></td>
+                  <td>Monitor model fairness issues across multiple features.<br><br>Monitor model performance and data consistency over time.<br><br>Explain how the model arrived at certain predictions with weighted factors.<br><br>Maintain and report on
+                    model governance and lifecycle across your organization.</td>
+                  <td>You have features that are protected or that might contribute to prediction fairness.<br><br>You want to trace model performance and data consistencies over time.<br><br>You want to know why the model gives certain predictions.</td>
+                </tr>
+              </tbody>
+            </table>
+            <br>
+            <section id="section-example-golden-banks-model-monitoring">
+              <h4 id="example-golden-banks-model-monitoring">Example: Golden Bank's model monitoring</h4>
+              <p>Data scientists at Golden Bank use Watson OpenScale to monitor the deployed stock anomaly prediction model to ensure that it is accurate, fair, and explainable. They run a notebook to set up monitors for the model and then tweak the configuration
+                by using the Watson OpenScale user interface. Using metrics from the Watson OpenScale quality monitor and fairness monitor, the data scientists determine how well the model predicts outcomes and if it produces any biased outcomes. They
+                also get insights for how the model comes to decisions so that the decisions can be explained to the stock analysts.</p>
+              <br>
+            </section>
+          </section>
+        </section>
+        <section id="section-tutorials-for-watsonxgovernance">
+          <h2 id="tutorials-for-watsonxgovernance">Tutorials for watsonx.governance</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Tutorial</th>
+                <th>Description</th>
+                <th>Expertise for tutorial</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><a href="get-started-evaluate-prompt.html">Evaluate and track a prompt template</a></td>
+                <td>Evaluate a prompt template to measure the performance of foundation model and track the prompt template through its lifecycle.</td>
+                <td>Use the evaluation tool and an AI use case to track the prompt template.<br><button class="bx--tag bx--tag--green"><span class="bx--tag__label">Beginner</span></button> <button class="bx--tag bx--tag--green"><span class="bx--tag__label">No code</span></button></td>
+              </tr>
+              <tr>
+                <td><a href="get-started-openscale.html">Evaluate a machine learning model</a></td>
+                <td>Deploy a model, configure monitors for the deployed model, and evaluate the model.</td>
+                <td>Run a notebook to configure the models and use Watson OpenScale to evaluate.<br><button class="bx--tag bx--tag--blue"><span class="bx--tag__label">Intermediate</span></button> <button class="bx--tag bx--tag--blue"><span class="bx--tag__label">Low code</span></button></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section id="section-next-steps">
+          <h2 id="next-steps">Next Steps</h2>
+          <ul>
+            <li>Build machine learning and generative AI models with <a href="use-case-watsonx-ai.html">watsonx.ai</a></li>
+            <li>Scale AI workloads, for all your data, anywhere with <a href="https://www.ibm.com/docs/en/watsonxdata" target="_blank" class="external">watsonx.data</a></li>
+          </ul>
+          <br>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="overview-wx.html">IBM watsonx overview</a></li>
+            <li><a href="../../svc-welcome/wsl.html">Watson Studio overview</a></li>
+            <li><a href="../../svc-welcome/wml.html">Watson Machine Learning overview</a></li>
+            <li><a href="../../svc-welcome/aiopenscale.html">Watson OpenScale overview</a></li>
+            <li><a href="videos-wx.html">Videos</a></li>
+            <li>Try out different use cases on a <a href="https://dsce.ibm.com/watsonx" target="_blank" class="external">self-service site</a>. Select a use case to experience a live application built with watsonx. Developers, access prompt selection and
+              construction guidance, along with sample application code, to accelerate your project.</li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="use-case-ai-overview.html">Use cases</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

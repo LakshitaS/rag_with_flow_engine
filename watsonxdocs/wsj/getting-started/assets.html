@@ -1,0 +1,488 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You create content, in the form of assets, when you work with tools in collaborative workspaces. An asset is an item that contains information about a data set, a model, or another item that works with data.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Asset types and properties</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=watsonx-asset-types-properties"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="asset-types-and-properties" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-asset-types-and-properties">
+        <h1 id="asset-types-and-properties">Asset types and properties</h1>
+        <p>You create content, in the form of assets, when you work with tools in collaborative workspaces. An <em>asset</em> is an item that contains information about a data set, a model, or another item that works with data.</p>
+        <p>You add assets by importing them or creating them with tools. You work with assets in collaborative workspaces. The workspace that you use depends on your tasks.</p>
+        <ul>
+          <li>
+            <p><strong>Projects</strong> Where you collaborate with others to work with data and create assets. Most tools are in projects and you run assets that contain code in projects. For example, you can import data, prepare data, analyze data, or
+              create models in projects. See <a href="../manage-data/manage-projects.html">Projects</a>.</p>
+          </li>
+          <li>
+            <p><strong>Deployment spaces</strong> Where you deploy and run assets that are ready for testing or production. You move assets from projects into deployment spaces and then create deployments from those assets. You monitor and update deployments
+              as necessary. See <a href="../analyze-data/ml-spaces_local.html">Deployment spaces</a>.</p>
+          </li>
+        </ul>
+        <p>You can create many different types of assets, but all assets have some common properties:</p>
+        <ul>
+          <li><a href="#types">Asset types</a></li>
+          <li><a href="#common">Common properties for assets</a></li>
+          <li><a href="#data">Data asset types and their properties</a></li>
+        </ul>
+        <section id="section-types">
+          <h2 id="types">Asset types</h2>
+          <p>To create most types of assets, you must use a specific tool.</p>
+          <p>The following table lists the types of assets that you can create, the tools you need to create them, and the workspaces where you can add them.</p>
+          <table>
+            <caption caption-side="top">Asset types</caption>
+            <thead>
+              <tr>
+                <th>Asset type</th>
+                <th>Description</th>
+                <th>Tools to create it</th>
+                <th>Workspaces</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><a href="../analyze-data/autoai-overview.html">AutoAI experiment</a></td>
+                <td>Automatically generates candidate predictive model pipelines.</td>
+                <td>AutoAI</td>
+                <td>Projects</td>
+              </tr>
+              <tr>
+                <td><a href="#data">Connected data asset</a></td>
+                <td>Represents data that is accessed through a connection to a remote data source.</td>
+                <td>Connected data tool</td>
+                <td>Projects,&nbsp;Spaces</td>
+              </tr>
+              <tr>
+                <td><a href="#data">Connection</a></td>
+                <td>Contains the information to connect to a data source.</td>
+                <td>Connection tool</td>
+                <td>Projects,&nbsp;Spaces</td>
+              </tr>
+              <tr>
+                <td><a href="#data">Data asset from a file</a></td>
+                <td>Represents a file that you uploaded from your local system.</td>
+                <td>Upload pane</td>
+                <td>Projects,&nbsp;Spaces</td>
+              </tr>
+              <tr>
+                <td><a href="../refinery/data_flows.html">Data Refinery flow</a></td>
+                <td>Prepares data.</td>
+                <td>Data Refinery</td>
+                <td>Projects,&nbsp;Spaces</td>
+              </tr>
+              <tr>
+                <td><a href="../../DO/DOWS-Cloud_home.html">Decision Optimization</a></td>
+                <td>Solves optimization problems</td>
+                <td>Decision Optimization</td>
+                <td>Projects</td>
+              </tr>
+              <tr>
+                <td><a href="../analyze-data/fed-lea.html">Federated Learning experiment</a></td>
+                <td>Trains a common model on a set of remote data sources.</td>
+                <td>Federated Learning</td>
+                <td>Projects</td>
+              </tr>
+              <tr>
+                <td><a href="#data">Folder asset</a></td>
+                <td>Represents a folder in IBM Cloud Object Storage.</td>
+                <td>Connected data tool</td>
+                <td>Projects,&nbsp;Spaces</td>
+              </tr>
+              <tr>
+                <td><a href="../analyze-data/notebooks-and-scripts.html">Jupyter notebook</a></td>
+                <td>Runs Python or R code to analyze data or build models.</td>
+                <td>Jupyter notebook editor, AutoAI, Prompt Lab</td>
+                <td>Projects</td>
+              </tr>
+              <tr>
+                <td>Model</td>
+                <td>Contains information about a saved or imported model.</td>
+                <td>Various tools that run experiments or train models</td>
+                <td>Projects,&nbsp;Spaces</td>
+              </tr>
+              <tr>
+                <td><a href="../analyze-data/xgov-create-use-case.html">Model use case</a></td>
+                <td>Tracks the lifecycle of a model from request to production.</td>
+                <td>watsonx.governance</td>
+                <td>Inventory</td>
+              </tr>
+              <tr>
+                <td><a href="../analyze-data/ml-orchestration-overview.html">Pipeline</a></td>
+                <td>Automates the model lifecycle.</td>
+                <td>Watson Pipelines</td>
+                <td>Projects</td>
+              </tr>
+              <tr>
+                <td><a href="../analyze-data/fm-prompt-lab.html">Prompt template</a></td>
+                <td>A single prompt.</td>
+                <td>Prompt Lab</td>
+                <td>Projects</td>
+              </tr>
+              <tr>
+                <td><a href="../analyze-data/fm-prompt-lab.html">Prompt session</a></td>
+                <td>The history of a working session in the Prompt Lab.</td>
+                <td>Prompt Lab</td>
+                <td>Projects</td>
+              </tr>
+              <tr>
+                <td><a href="../analyze-data/ml-deploy-py-function.html">Python function</a></td>
+                <td>Contains Python code to support a model in production.</td>
+                <td>Jupyter notebook editor</td>
+                <td>Projects,&nbsp;Spaces</td>
+              </tr>
+              <tr>
+                <td><a href="../analyze-data/deploy-script.html">Script</a></td>
+                <td>Contains a Python or R script to support a model in production.</td>
+                <td>Jupyter notebook editor, RStudio</td>
+                <td>Projects,&nbsp;Spaces</td>
+              </tr>
+              <tr>
+                <td><a href="../../wsd/spss-modeler.html">SPSS Modeler flow</a></td>
+                <td>Runs a flow to prepare data and build a model.</td>
+                <td>SPSS Modeler</td>
+                <td>Projects</td>
+              </tr>
+              <tr>
+                <td><a href="../../dataview/idh_idc_cg_help_main.html">Visualization</a></td>
+                <td>Shows visualizations from a data asset.</td>
+                <td><strong>Visualization</strong> page in data assets</td>
+                <td>Projects</td>
+              </tr>
+              <tr>
+                <td><a href="../synthetic/synthetic_data_overview_sd.html">Synthetic data flow</a></td>
+                <td>Generates synthetic tabular data.</td>
+                <td>Synthetic Data Generator</td>
+                <td>Projects</td>
+              </tr>
+              <tr>
+                <td><a href="../analyze-data/fm-tuning-deploy.html">Tuned model</a></td>
+                <td>A tuned foundation model.</td>
+                <td>Tuning Studio</td>
+                <td>Projects</td>
+              </tr>
+              <tr>
+                <td><a href="../analyze-data/fm-tuning-tune.html">Tuning experiment</a></td>
+                <td>A tuning experiment that builds a tuned foundation model.</td>
+                <td>Tuning Studio</td>
+                <td>Projects</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section id="section-common">
+          <h2 id="common">Common properties for assets</h2>
+          <p>Assets accumulate information in properties when you create them, use them, or when they are updated by automated processes. Some properties are provided by users and can be edited by users. Other properties are automatically provided by the
+            system. Most system-provided properties can't be edited by users.</p>
+          <section id="section-basic">
+            <h3 id="basic">Common properties for assets everywhere</h3>
+            <p>Most types of assets have the properties that are listed in the following table in all the workspaces where those asset types exist.</p>
+            <table>
+              <caption caption-side="top">Common properties for assets</caption>
+              <thead>
+                <tr>
+                  <th>Property</th>
+                  <th>Description</th>
+                  <th>Editable?</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Name</td>
+                  <td>The asset name. Can contain up to 255 characters. Supports multibyte characters. Cannot be empty, contain Unicode control characters, or contain only blank spaces. Asset names do not need to be unique within a project or deployment space.</td>
+                  <td>Yes</td>
+                </tr>
+                <tr>
+                  <td>Description</td>
+                  <td>Optional. Supports multibyte characters and hyperlinks.</td>
+                  <td>Yes</td>
+                </tr>
+                <tr>
+                  <td>Creation date</td>
+                  <td>The timestamp of when the asset was created or imported.</td>
+                  <td>No</td>
+                </tr>
+                <tr>
+                  <td>Creator or Owner</td>
+                  <td>The username or email address of the person who created or imported the asset.</td>
+                  <td>No</td>
+                </tr>
+                <tr>
+                  <td>Last modified date</td>
+                  <td>The timestamp of when the asset was last modified.</td>
+                  <td>No</td>
+                </tr>
+                <tr>
+                  <td>Last editor</td>
+                  <td>The username or email address of the person who last modified the asset.</td>
+                  <td>No</td>
+                </tr>
+              </tbody>
+            </table>
+            <br>
+          </section>
+          <section id="section-tools">
+            <h3 id="tools">Common properties for assets that run in tools</h3>
+            <p>Some assets are associated with running a tool. For example, an AutoAI experiment asset runs in the AutoAI tool. Assets that run in tools are also known as operational assets. Every time that you run assets in tools, you start a job. You can
+              monitor and schedule jobs. Jobs use compute resources. Compute resources are measured in capacity unit hours (CUH) and are tracked. Depending on your service plans, you can have a limited amount of CUH per month, or pay for the CUH that
+              you use every month.</p>
+            <p>For many assets that run in tools, you have a choice of the compute environment configuration to use. Typically, larger and faster environment configurations consume compute resources faster.</p>
+            <p>In addition to basic properties, most assets that run in tools contain the following types of information in projects:</p>
+            <table>
+              <caption caption-side="top">Properties for assets in projects</caption>
+              <thead>
+                <tr>
+                  <th>Properties</th>
+                  <th>Description</th>
+                  <th>Editable?</th>
+                  <th>Workspaces</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Environment definition</td>
+                  <td>The environment template, hardware specification, and software specification for running the asset. See <a href="../analyze-data/environments-parent.html">Environments</a>.</td>
+                  <td>Yes</td>
+                  <td>Projects,&nbsp;Spaces</td>
+                </tr>
+                <tr>
+                  <td>Settings</td>
+                  <td>Information that defines how the asset is run. Specific to each type of asset.</td>
+                  <td>Yes</td>
+                  <td>Projects</td>
+                </tr>
+                <tr>
+                  <td>Associated data assets</td>
+                  <td>The data that the asset is working on.</td>
+                  <td>Yes</td>
+                  <td>Projects</td>
+                </tr>
+                <tr>
+                  <td>Jobs</td>
+                  <td>Information about how to run the asset, including the environment definition, schedule, and notification options. See <a href="../manage-data/jobs.html">Jobs</a>.</td>
+                  <td>Yes</td>
+                  <td>Projects,&nbsp;Spaces</td>
+                </tr>
+              </tbody>
+            </table>
+            <br>
+          </section>
+        </section>
+        <section id="section-data">
+          <h2 id="data">Data asset types and their properties</h2>
+          <p>Data asset types contain metadata and other information about data, including how to access the data.</p>
+          <p>How you create a data asset depends on where your data is:</p>
+          <ul>
+            <li>If your data is in a file, you upload the file from your local system to a project or deployment space.</li>
+            <li>If your data is in a remote data source, you first create a <em>connection asset</em> that defines the connection to that data source. Then, you create a data asset by selecting the connection, the path or other structure, and the table or
+              file that contains the data. This type of data asset is called a <em>connected data asset</em>.</li>
+          </ul>
+          <p>The following graphic illustrates how data assets from files point to uploaded files in Cloud Object Storage. Connected data assets require a connection asset and point to data in a remote data source.</p>
+          <p><img src="images/data-assets.svg" alt="This graphic shows that data assets from files point to uploaded files and connected data assets require a connection asset and point to data in a remote data source." height="350px"></p>
+          <p>You can create the following types of data assets in a project or deployment space:</p>
+          <ul>
+            <li>
+              <p><strong>Data asset from a file</strong> Represents a file that you uploaded from your local system. The file is stored in the object storage container on the IBM Cloud Object Storage instance that is associated with the workspace. The contents
+                of the file can include structured data, unstructured textual data, images, and other types of data. You can create a data asset with a file of any format. However, you can do more actions on CSV files than other file types. See <a href="#prop-data">Properties of data assets</a>.</p>
+              <p>You can create a data asset from a file by uploading a file in a workspace. You can also create data files with tools and convert them to assets. For example, you can create data assets from files with the Data Refinery, Jupyter notebook,
+                and RStudio tools.</p>
+            </li>
+            <li>
+              <p><strong>Connected data asset</strong> Represents a table, file, or folder that is accessed through a connection to a remote data source. The connection is defined in the connection asset that is associated with the connected data asset.
+                You can create a connected data asset for every supported connection. When you access a connected data asset, the data is dynamically retrieved from the data source. See <a href="#prop-data">Properties of data assets</a>.</p>
+              <p>You can import connected data assets from a data source with the connected data tool in a workspace.</p>
+            </li>
+            <li>
+              <p><strong>Folder asset</strong> Represents a folder in IBM Cloud Object Storage. A folder data asset is special case of a connected data asset. You create a folder data asset by specifying the path to the folder and the IBM Cloud Object Storage
+                connection asset. You can view the files and subfolders that share the path with the folder data asset. The files that you can view within the folder data asset are not themselves data assets. For example, you can create a folder data
+                asset for a path that contains news feeds that are continuously updated. See <a href="#prop-data">Properties of data assets</a>.</p>
+              <p>You can import folder assets from IBM Cloud Object Storage with the connected data tool in a workspace.</p>
+            </li>
+            <li>
+              <p><strong>Connection asset</strong> Contains the information necessary to create a connection to a data source. See <a href="#conn">Properties of connection assets</a>.</p>
+              <p>You can create connections with the connection tool in a workspace.</p>
+            </li>
+          </ul>
+          <p>Learn more about creating and importing data assets:</p>
+          <ul>
+            <li><a href="../manage-data/add-data-project.html">Adding data to a project</a></li>
+            <li><a href="../analyze-data/ml-space-add-assets.html">Adding data assets to a deployment space</a></li>
+          </ul>
+          <section id="section-prop-data">
+            <h3 id="prop-data">Properties of data assets from files and connected data assets</h3>
+            <p>In addition to basic properties, data assets from files and connected data assets have the properties or pages that are listed in the following table.</p>
+            <table>
+              <caption caption-side="top">Properties of data assets from files and connected data assets</caption>
+              <thead>
+                <tr>
+                  <th>Property or page</th>
+                  <th>Description</th>
+                  <th>Editable?</th>
+                  <th>Workspaces</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Tags</td>
+                  <td>Optional. Text labels that users create to simplify searching. A tag consists of one string of up to 255 characters. It can contain spaces, letters, numbers, underscores, dashes, and the symbols # and @.</td>
+                  <td>Yes</td>
+                  <td>Projects</td>
+                </tr>
+                <tr>
+                  <td>Format</td>
+                  <td>The MIME type of a file. Automatically detected.</td>
+                  <td>Yes</td>
+                  <td>Projects,&nbsp;Spaces</td>
+                </tr>
+                <tr>
+                  <td>Source</td>
+                  <td>Information about the data file in storage or the data source and connection.</td>
+                  <td>No</td>
+                  <td>Projects,&nbsp;Spaces</td>
+                </tr>
+                <tr>
+                  <td>Asset details</td>
+                  <td>Information about the size of the data, the number of columns and rows, and the asset version.</td>
+                  <td>No</td>
+                  <td>Projects,&nbsp;Spaces</td>
+                </tr>
+                <tr>
+                  <td><strong>Preview asset</strong></td>
+                  <td>A preview of the data that includes a limited set of columns and rows from the original data source. See <a href="previews.html">Asset contents or previews</a>.</td>
+                  <td>No</td>
+                  <td>Projects,&nbsp;Spaces</td>
+                </tr>
+                <tr>
+                  <td><strong>Profile</strong> page</td>
+                  <td>Metadata and statistics about the content of the data. See <a href="profile.html">Profile</a>.</td>
+                  <td>Yes</td>
+                  <td>Projects</td>
+                </tr>
+                <tr>
+                  <td><strong>Visualizations</strong> page</td>
+                  <td>Charts and graphs that users create to understand the data. See <a href="visualizations.html">Visualizations</a>.</td>
+                  <td>Yes</td>
+                  <td>Projects</td>
+                </tr>
+                <tr>
+                  <td><strong>Feature group</strong> page</td>
+                  <td>Information about which columns in the data asset are used as features in models. See <a href="../manage-data/feature-group.html">Managing feature groups</a>.</td>
+                  <td>Yes</td>
+                  <td>Projects,&nbsp;Spaces</td>
+                </tr>
+              </tbody>
+            </table>
+            <br>
+          </section>
+          <section id="section-conn">
+            <h3 id="conn">Properties of connection assets</h3>
+            <p>The properties of connection assets depend on the data source that you select when you create a connection. See <a href="../manage-data/conn_types.html">Connection types</a>. Connection assets for most data sources have the properties that
+              are listed in the following table.</p>
+            <table>
+              <caption caption-side="top">Properties of connection assets</caption>
+              <thead>
+                <tr>
+                  <th>Properties</th>
+                  <th>Description</th>
+                  <th>Editable?</th>
+                  <th>Workspaces</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Connection details</td>
+                  <td>The information that identifies the data source. For example, the database name, hostname, IP address, port, instance ID, bucket, endpoint URL, and so on.</td>
+                  <td>Yes</td>
+                  <td>Projects,&nbsp;Spaces</td>
+                </tr>
+                <tr>
+                  <td>Credential setting</td>
+                  <td>Whether the credentials are shared across the platform (default) or each user must enter their personal credentials. Not all data sources support personal credentials.</td>
+                  <td>Yes</td>
+                  <td>Projects,&nbsp;Spaces</td>
+                </tr>
+                <tr>
+                  <td>Authentication method</td>
+                  <td>The format of the credentials information. For example, an API key or a username and password.</td>
+                  <td>Yes</td>
+                  <td>Projects,&nbsp;Spaces</td>
+                </tr>
+                <tr>
+                  <td>Credentials</td>
+                  <td>The username and password, API key, or other credentials, as required by the data source and the specified authentication method.</td>
+                  <td>Yes</td>
+                  <td>Projects,&nbsp;Spaces</td>
+                </tr>
+                <tr>
+                  <td>Certificates</td>
+                  <td>Whether the data source port is configured to accept SSL connections and other information about the SSL certificate.</td>
+                  <td>Yes</td>
+                  <td>Projects,&nbsp;Spaces</td>
+                </tr>
+                <tr>
+                  <td>Private connectivity</td>
+                  <td>The method to connect to a database that is not externalized to the internet. See <a href="../manage-data/securingconn.html">Connecting to data behind a firewall</a>.</td>
+                  <td>Yes</td>
+                  <td>Projects,&nbsp;Spaces</td>
+                </tr>
+              </tbody>
+            </table>
+            <br>
+          </section>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="profile.html">Profiles</a></li>
+            <li><a href="previews.html">Asset contents or previews</a></li>
+            <li><a href="asset-activities.html">Activities</a></li>
+            <li><a href="visualizations.html">Visualizations</a></li>
+            <li><a href="get-started-wdp.html">Getting started</a></li>
+            <li><a href="../manage-data/conn_types.html">Connection types</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong>
+            <a href="../getting-started/overview-wx.html">Overview of IBM watsonx.ai</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

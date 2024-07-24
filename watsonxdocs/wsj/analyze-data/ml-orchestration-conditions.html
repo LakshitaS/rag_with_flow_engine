@@ -1,0 +1,123 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Add conditions to a pipeline to handle various scenarios.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Adding conditions to the pipeline</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=pipeline-adding-conditions"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="adding-conditions-to-the-pipeline" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-adding-conditions-to-the-pipeline">
+        <h1 id="adding-conditions-to-the-pipeline">Adding conditions to the pipeline</h1>
+        <p>Add conditions to a pipeline to handle various scenarios.</p>
+        <section id="section-configuring-conditions-for-the-pipeline">
+          <h2 id="configuring-conditions-for-the-pipeline">Configuring conditions for the pipeline</h2>
+          <p>As you create a pipeline, you can specify conditions that must be met before you run the pipeline. For example, you can set a condition that the output from a node must satisfy a particular condition before you proceed with the pipeline execution.</p>
+          <p>To define a condition:</p>
+          <ol>
+            <li>
+              <p>Hover over the link between two nodes.</p>
+            </li>
+            <li>
+              <p>Click <strong>Add condition</strong>.</p>
+            </li>
+            <li>
+              <p>Choose the type of condition:</p>
+              <ul>
+                <li><a href="#node">Condition Response</a> checks a condition on the status of the previous node.</li>
+                <li><a href="#simple">Simple condition</a> is a no-code condition in the form of an if-then statement.</li>
+                <li><a href="#advanced">Advanced condition</a> Advanced condition uses expression code, providing the most features and flexibility.</li>
+              </ul>
+            </li>
+            <li>
+              <p>Define and save your expression.</p>
+            </li>
+          </ol>
+          <p><img src="images/pipelines_adding_condition.gif" alt="Defining a condition" width="560" data-tearsheet="this"></p>
+          <p>When you define your expression, a summary captures the condition and the expected result. For example:</p>
+          <p>If <strong>Run AutoAI</strong> is <strong>Successful</strong>, then <strong>Create deployment node</strong>.</p>
+          <p>When you return to the flow, you see an indicator that you defined a condition. Hover over the icon to edit or delete the condition.</p>
+          <p><img src="images/oflow-condition1.png" alt="Viewing a successful condition" style="max-width:90%;height:auto;width:auto"></p>
+        </section>
+        <section id="section-node">
+          <h2 id="node">Configuring a condition based on node status</h2>
+          <p>If you select <strong>Condition Response</strong> as your condition type, the previous node status must satisfy at least one of these conditions to continue with the flow:</p>
+          <ul>
+            <li>Completed - the node activity is completed without error.</li>
+            <li>Completed with warnings - the node activity is completed but with warnings.</li>
+            <li>Completed with errors - the node activity is completed, but with errors.</li>
+            <li>Failed - the node activity failed to complete.</li>
+            <li>Cancelled - the previous action or activity was canceled.</li>
+          </ul>
+        </section>
+        <section id="section-simple">
+          <h2 id="simple">Configuring a simple condition</h2>
+          <p>To configure a simple condition, choose the condition that must be satisfied to continue with the flow.</p>
+          <ol>
+            <li><em>Optional:</em> edit the default name.</li>
+            <li>Depending on the node, choose a variable from the drop-down options. For example, if you are creating a condition based on a Run AutoAI node, you can choose Model metric as the variable to base your condition on.</li>
+            <li>Based on the variable, choose an operator from: Equal to, Not equal to, Greater than, Less than, Greater than or equal to, Less than or equal to.</li>
+            <li>Specify the required value. For example, if you are basing a condition on an AutoAI metric, specify a list of values that consists of the available metrics.</li>
+            <li><em>Optional:</em> click the plus icon to add an <strong>And</strong> (all conditions must be met) or an <strong>Or</strong> (either condition must be met) to the expression to build a compound conditional statement.</li>
+            <li>Review the summary and save the condition.</li>
+          </ol>
+        </section>
+        <section id="section-advanced">
+          <h2 id="advanced">Configuring an advanced condition</h2>
+          <p>Use coding constructs to build a more complex condition. The next node runs when the condition is met. You build the advanced condition by using the expression builder.</p>
+          <ol>
+            <li><em>Optional:</em> edit the default name.</li>
+            <li>Add items from the <strong>Expression elements</strong> panel to the <strong>Expression</strong> canvas to build your condition. You can also type your conditions and the elements autocomplete.</li>
+            <li>When your expression is complete, review the summary and save the condition.</li>
+          </ol>
+          <section id="section-learn-more">
+            <h3 id="learn-more">Learn more</h3>
+            <p>For more information on using the code editor to build an expression, see:</p>
+            <ul>
+              <li><a href="ml-orchestration-expr-builder.html">Functions used in pipelines Expression Builder</a></li>
+            </ul>
+            <p><strong>Parent topic:</strong> <a href="ml-orchestration-create.html">Creating a pipeline</a></p>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

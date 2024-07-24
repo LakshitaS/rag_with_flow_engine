@@ -1,0 +1,817 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="To refine data, you take it from one location, cleanse and shape it, and then load the result into a different location. You can cleanse and shape tabular data with a graphical flow editor tool called Data Refinery.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Refining data</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=data-refining"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="refining-data" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-refining-data">
+        <h1 id="refining-data">Refining data</h1>
+        <p>To refine data, you take it from one location, cleanse and shape it, and then load the result into a different location. You can cleanse and shape tabular data with a graphical flow editor tool called Data Refinery.</p>
+        <p>When you <em>cleanse data</em>, you fix or remove data that is incorrect, incomplete, improperly formatted, or duplicated. When you <em>shape data</em>, you customize it by filtering, sorting, combining or removing columns.</p>
+        <p>You create a <em>Data Refinery flow</em> as a set of ordered operations on data. Data Refinery includes a graphical interface to profile your data to validate it and over 20 customizable charts that give you insights into your data.</p>
+        <dl>
+          <dt id="dr-format"><strong>Data format</strong></dt>
+          <dd>Avro, CSV, JSON, Microsoft Excel (xls and xlsx formats. First sheet only, except for connections and connected data assets.), Parquet, SAS with the "sas7bdat" extension (read only), TSV (read only), or delimited text data asset</dd>
+          <dd>Tables in relational data sources</dd>
+          <dt><strong>Data size</strong></dt>
+          <dd>Any. Data Refinery operates on a sample subset of rows in the data set. The sample size is 1 MB or 10,000 rows, whichever comes first. However, when you run a job for the Data Refinery flow, the entire data set is processed. If the Data Refinery
+            flow fails with a large data asset, see workarounds in <a href="../refinery/ts_index.html">Troubleshooting Data Refinery</a>.</dd>
+        </dl>
+        <ul>
+          <li><a href="#prereqs">Prerequisites</a></li>
+          <li><a href="#limitsource">Source file limitations</a></li>
+          <li><a href="#limittarget">Target file limitations</a></li>
+          <li><a href="#previews">Data set previews</a></li>
+          <li><a href="#refine">Refine your data</a></li>
+        </ul>
+        <section id="section-prereqs">
+          <h2 id="prereqs">Prerequisites</h2>
+          <p>Before you can refine data, you need <a href="../getting-started/projects.html">a project</a> that uses Cloud Object Storage. You can use the sandbox project or create a new project.</p>
+          <hr id="video02">
+          <details>
+            <summary>Watch this video to see how to create a project</summary>
+            <p style="font-size:smaller">This video provides a visual method to learn the concepts and tasks in this documentation.</p>
+            <iframe id="wx-create-project" src="https://video.ibm.com/embed/channel/23952663/video/wx-create-project" lang="en-US" onload="executeEmbedScript()" style="border: 0;" allow="picture-in-picture" webkitallowfullscreen="" allowfullscreen="" frameborder="no" width="560" height="315" title="Watch this video to see how to create a project">
+</iframe>
+            <style type="text/css" keep="true">
+              .collapsibleList li>input+* {
+                display: none;
+              }
+              
+              .collapsibleList li>input:checked+* {
+                display: block;
+              }
+              
+              .collapsibleList li>input {
+                display: none;
+              }
+              
+              .collapsibleList label {
+                cursor: pointer;
+                color: #0062ff;
+                text-decoration: underline;
+              }
+              
+              .scrolling_table_div {
+                max-height: 300px;
+                overflow-y: auto;
+                padding-top: 20px;
+                margin-bottom: 30px;
+              }
+              
+              .transcript_sync_cb {
+                margin: 20px;
+              }
+              
+              .transcript_tbl {
+                border-collapse: collapse;
+                border: none;
+              }
+              
+              .transcript_tbl th,
+              .transcript_tbl td {
+                border: none;
+              }
+              
+              .clickable {
+                cursor: pointer;
+                color: #0062ff;
+                vertical-align: top;
+              }
+              
+              .clickable:hover {
+                text-decoration: underline;
+              }
+              
+              .clickable_span {
+                cursor: pointer;
+                color: #0062ff;
+                vertical-align: bottom;
+              }
+              
+              .clickable_span:hover {
+                text-decoration: underline;
+              }
+            </style>
+            <script keep="true" src="https://unpkg.com/ibm-video-streaming-web-player-api@1.1.0/dist/index.umd.min.js"></script>
+            <script keep="true">
+              var g_viewer = null;
+              var g_b_do_retry = true;
+              var g_highlighted_row_num = -1;
+              var g_org_color = "";
+
+              var g_loop = setInterval(function() {
+                synchronize(null);
+
+              }, 2 * 1000);
+
+              function executeEmbedScript() {
+                if (g_viewer) {
+                  // Chrome is running this function twice??
+                  return;
+                }
+
+                g_viewer = PlayerAPI("wx-create-project");
+
+                var url = window.location.href;
+                if (!url.match(/t\=\d+/i)) {
+                  return;
+                }
+
+                g_viewer.addListener("playing", function(event_key, b_is_playing) {
+                  if (b_is_playing) {
+                    g_b_do_retry = false;
+                  }
+
+                });
+
+                openTranscript();
+
+                var seconds = url.replace(/^.*t\=(\d+).*$/i, "$1");
+                synchronize(parseInt(seconds));
+                jumpToTimeRetry(seconds, 5);
+              }
+
+              function openTranscript() {
+                if (document.getElementById("transcript_btn_wx-create-project")) {
+                  document.getElementById("transcript_btn_wx-create-project").click();
+                }
+              }
+
+              function jumpTo(obj) {
+                var seconds = obj.parentNode.id;
+                jumpToTime(seconds);
+              }
+
+              function jumpToTime(seconds) {
+                g_viewer.callMethod("seek", seconds);
+                g_viewer.callMethod("play");
+              }
+
+              function jumpToTimeRetry(seconds, iteration) {
+                if (iteration < 1) {
+                  // Give up
+                  return;
+                }
+
+                g_viewer.callMethod("seek", seconds);
+                g_viewer.callMethod("play");
+
+                setTimeout(function() {
+                  // Wait 1.5 seconds and then try again
+                  if (g_b_do_retry) {
+                    jumpToTimeRetry(seconds, iteration - 1);
+                  }
+
+                }, 1.5 * 1000);
+              }
+
+              function synchronize(seconds_in) {
+                if (!g_viewer || !document.getElementById("sync_cb_wx-create-project") || !document.getElementById("sync_cb_wx-create-project").checked) {
+                  return;
+                }
+
+                if (null !== seconds_in && !isNaN(seconds_in)) {
+                  scrollAndHighlight(seconds_in);
+                  return;
+                }
+
+                g_viewer.getProperty("progress", function(seconds) {
+                  scrollAndHighlight(seconds);
+
+                });
+
+              }
+
+              function scrollAndHighlight(seconds) {
+                var rows_arr = document.getElementsByClassName("video_tr");
+                for (var i = (rows_arr.length - 1); i >= 0; i--) {
+                  if (parseInt(rows_arr[i].id) > seconds) {
+                    continue;
+                  }
+
+                  if (i == g_highlighted_row_num) {
+                    break;
+                  }
+
+                  if (-1 !== g_highlighted_row_num) {
+                    unhighlight(rows_arr[g_highlighted_row_num]);
+                  }
+
+                  g_highlighted_row_num = i;
+                  highlight(rows_arr[g_highlighted_row_num]);
+                  scrollToRow(rows_arr[g_highlighted_row_num]);
+
+                  break;
+                }
+
+              }
+
+              function scrollToRow(row_obj) {
+                var row_top = row_obj.offsetTop;
+                var row_bottom = row_top + row_obj.clientHeight;
+
+                var scroller = document.getElementById("transcript_div_wx-create-project");
+                var scroll_top = scroller.scrollTop;
+                var scroll_bottom = scroll_top + scroller.clientHeight;
+
+                if ((row_top < scroll_top) && (row_bottom > scroll_bottom)) {
+                  // Edge case: Row taller than div
+                  // Don't do anything
+                } else if ((row_top < scroll_top) || (row_bottom > scroll_bottom)) {
+                  scroller.scrollTop = row_top;
+                }
+              }
+
+              function highlight(row_obj) {
+                var obj_arr = row_obj.childNodes;
+                for (var i = 0; i < obj_arr.length; i++) {
+                  if ("TD" == obj_arr[i].nodeName) {
+                    g_org_color = obj_arr[i].style.backgroundColor;
+                    obj_arr[i].style.backgroundColor = "#c6c6c6";
+                  }
+                }
+              }
+
+              function unhighlight(row_obj) {
+                var obj_arr = row_obj.childNodes;
+                for (var i = 0; i < obj_arr.length; i++) {
+                  if ("TD" == obj_arr[i].nodeName) {
+                    obj_arr[i].style.backgroundColor = g_org_color;
+                  }
+                }
+              }
+
+              function toggleHighlighting() {
+                if (!document.getElementById("sync_cb_wx-create-project").checked && (-1 !== g_highlighted_row_num)) {
+                  var rows_arr = document.getElementsByClassName("video_tr");
+                  unhighlight(rows_arr[g_highlighted_row_num]);
+                  g_highlighted_row_num = -1;
+                }
+              }
+            </script>
+          </details>
+          <hr>
+          <br>
+          <p>If you have data in cloud or on-premises data sources, you'll need to <a href="../manage-data/create-conn.html">add connections</a> to those sources and you'll need to <a href="../manage-data/connected-data.html">add data assets</a> from each
+            connection. If you want to be able to save refined data to cloud or on-premises data sources, create connections for this purpose as well. Source connections can be used only to read data; target connections can be used only to load (save)
+            data. When you create a target connection, be sure to use credentials that have Write permission or you won't be able to save your Data Refinery flow output to the target.</p>
+          <hr id="video04">
+          <details>
+            <summary>Watch this video to see how to create a connection and add connected data to a project</summary>
+            <div class="note Video disclaimer"><span class="Video disclaimertitle">Video disclaimer:</span> Some minor steps and graphical elements in this video might differ from your platform.</div>
+            <p style="font-size:smaller">This video provides a visual method to learn the concepts and tasks in this documentation.</p>
+            <iframe id="ws-connected-data" src="https://video.ibm.com/embed/channel/23952663/video/ws-connected-data" lang="en-US" onload="executeEmbedScript()" style="border: 0;" allow="picture-in-picture" webkitallowfullscreen="" allowfullscreen="" frameborder="no" width="560" height="315" title="Watch this video to see how to create a connection and add connected data to a project">
+</iframe>
+            <style type="text/css" keep="true">
+              .collapsibleList li>input+* {
+                display: none;
+              }
+              
+              .collapsibleList li>input:checked+* {
+                display: block;
+              }
+              
+              .collapsibleList li>input {
+                display: none;
+              }
+              
+              .collapsibleList label {
+                cursor: pointer;
+                color: #0062ff;
+                text-decoration: underline;
+              }
+              
+              .scrolling_table_div {
+                max-height: 300px;
+                overflow-y: auto;
+                padding-top: 20px;
+                margin-bottom: 30px;
+              }
+              
+              .transcript_sync_cb {
+                margin: 20px;
+              }
+              
+              .transcript_tbl {
+                border-collapse: collapse;
+                border: none;
+              }
+              
+              .transcript_tbl th,
+              .transcript_tbl td {
+                border: none;
+              }
+              
+              .clickable {
+                cursor: pointer;
+                color: #0062ff;
+                vertical-align: top;
+              }
+              
+              .clickable:hover {
+                text-decoration: underline;
+              }
+              
+              .clickable_span {
+                cursor: pointer;
+                color: #0062ff;
+                vertical-align: bottom;
+              }
+              
+              .clickable_span:hover {
+                text-decoration: underline;
+              }
+            </style>
+            <script keep="true" src="https://unpkg.com/ibm-video-streaming-web-player-api@1.1.0/dist/index.umd.min.js"></script>
+            <script keep="true">
+              var g_viewer = null;
+              var g_b_do_retry = true;
+              var g_highlighted_row_num = -1;
+              var g_org_color = "";
+
+              var g_loop = setInterval(function() {
+                synchronize(null);
+
+              }, 2 * 1000);
+
+              function executeEmbedScript() {
+                if (g_viewer) {
+                  // Chrome is running this function twice??
+                  return;
+                }
+
+                g_viewer = PlayerAPI("ws-connected-data");
+
+                var url = window.location.href;
+                if (!url.match(/t\=\d+/i)) {
+                  return;
+                }
+
+                g_viewer.addListener("playing", function(event_key, b_is_playing) {
+                  if (b_is_playing) {
+                    g_b_do_retry = false;
+                  }
+
+                });
+
+                openTranscript();
+
+                var seconds = url.replace(/^.*t\=(\d+).*$/i, "$1");
+                synchronize(parseInt(seconds));
+                jumpToTimeRetry(seconds, 5);
+              }
+
+              function openTranscript() {
+                if (document.getElementById("transcript_btn_ws-connected-data")) {
+                  document.getElementById("transcript_btn_ws-connected-data").click();
+                }
+              }
+
+              function jumpTo(obj) {
+                var seconds = obj.parentNode.id;
+                jumpToTime(seconds);
+              }
+
+              function jumpToTime(seconds) {
+                g_viewer.callMethod("seek", seconds);
+                g_viewer.callMethod("play");
+              }
+
+              function jumpToTimeRetry(seconds, iteration) {
+                if (iteration < 1) {
+                  // Give up
+                  return;
+                }
+
+                g_viewer.callMethod("seek", seconds);
+                g_viewer.callMethod("play");
+
+                setTimeout(function() {
+                  // Wait 1.5 seconds and then try again
+                  if (g_b_do_retry) {
+                    jumpToTimeRetry(seconds, iteration - 1);
+                  }
+
+                }, 1.5 * 1000);
+              }
+
+              function synchronize(seconds_in) {
+                if (!g_viewer || !document.getElementById("sync_cb_ws-connected-data") || !document.getElementById("sync_cb_ws-connected-data").checked) {
+                  return;
+                }
+
+                if (null !== seconds_in && !isNaN(seconds_in)) {
+                  scrollAndHighlight(seconds_in);
+                  return;
+                }
+
+                g_viewer.getProperty("progress", function(seconds) {
+                  scrollAndHighlight(seconds);
+
+                });
+
+              }
+
+              function scrollAndHighlight(seconds) {
+                var rows_arr = document.getElementsByClassName("video_tr");
+                for (var i = (rows_arr.length - 1); i >= 0; i--) {
+                  if (parseInt(rows_arr[i].id) > seconds) {
+                    continue;
+                  }
+
+                  if (i == g_highlighted_row_num) {
+                    break;
+                  }
+
+                  if (-1 !== g_highlighted_row_num) {
+                    unhighlight(rows_arr[g_highlighted_row_num]);
+                  }
+
+                  g_highlighted_row_num = i;
+                  highlight(rows_arr[g_highlighted_row_num]);
+                  scrollToRow(rows_arr[g_highlighted_row_num]);
+
+                  break;
+                }
+
+              }
+
+              function scrollToRow(row_obj) {
+                var row_top = row_obj.offsetTop;
+                var row_bottom = row_top + row_obj.clientHeight;
+
+                var scroller = document.getElementById("transcript_div_ws-connected-data");
+                var scroll_top = scroller.scrollTop;
+                var scroll_bottom = scroll_top + scroller.clientHeight;
+
+                if ((row_top < scroll_top) && (row_bottom > scroll_bottom)) {
+                  // Edge case: Row taller than div
+                  // Don't do anything
+                } else if ((row_top < scroll_top) || (row_bottom > scroll_bottom)) {
+                  scroller.scrollTop = row_top;
+                }
+              }
+
+              function highlight(row_obj) {
+                var obj_arr = row_obj.childNodes;
+                for (var i = 0; i < obj_arr.length; i++) {
+                  if ("TD" == obj_arr[i].nodeName) {
+                    g_org_color = obj_arr[i].style.backgroundColor;
+                    obj_arr[i].style.backgroundColor = "#c6c6c6";
+                  }
+                }
+              }
+
+              function unhighlight(row_obj) {
+                var obj_arr = row_obj.childNodes;
+                for (var i = 0; i < obj_arr.length; i++) {
+                  if ("TD" == obj_arr[i].nodeName) {
+                    obj_arr[i].style.backgroundColor = g_org_color;
+                  }
+                }
+              }
+
+              function toggleHighlighting() {
+                if (!document.getElementById("sync_cb_ws-connected-data").checked && (-1 !== g_highlighted_row_num)) {
+                  var rows_arr = document.getElementsByClassName("video_tr");
+                  unhighlight(rows_arr[g_highlighted_row_num]);
+                  g_highlighted_row_num = -1;
+                }
+              }
+            </script>
+          </details>
+          <hr>
+        </section>
+        <section id="section-limitsource">
+          <h2 id="limitsource">Source file limitations</h2>
+          <section id="section-csv-files">
+            <h3 id="csv-files">CSV files</h3>
+            <p>Be sure that CSV files are correctly formatted and conform to the following rules:</p>
+            <ul>
+              <li>Two consecutive commas in a row indicate an empty column.</li>
+              <li>If a row ends with a comma, an additional column is created.</li>
+            </ul>
+          </section>
+          <section id="section-white-space-characters-are-considered-as-part-of-the-data">
+            <h3 id="white-space-characters-are-considered-as-part-of-the-data">White-space characters are considered as part of the data</h3>
+            <p>If your data includes columns that contain white space (blank) characters, Data Refinery considers those white-space characters as part of the data, even though you can't see them in the grid. Some database tools might pad character strings
+              with white-space characters to make all the data in a column the same length and this change affects the results of Data Refinery operations that compare data.</p>
+          </section>
+          <section id="section-column-names">
+            <h3 id="column-names">Column names</h3>
+            <p>Be sure that column names conform to the following rules:</p>
+            <ul>
+              <li>Duplicate column names are not allowed. Column names must be unique within the data set. Column names are not case-sensitive. A data set that includes a column name "Sales" and another column name "sales" will not work.</li>
+              <li>The column names are not reserved words in the R programming language.</li>
+              <li>The column names are not numbers. A workaround is to enclose the column names in double quotation marks ("").</li>
+            </ul>
+          </section>
+          <section id="section-data-sets-with-columns-with-the-other-data-type-are-not-supported-in-data-refinery-flows">
+            <h3 id="data-sets-with-columns-with-the-other-data-type-are-not-supported-in-data-refinery-flows">Data sets with columns with the "Other" data type are not supported in Data Refinery flows</h3>
+            <p>If your data set contains columns that have data types that are identified as "Other" in the Watson Studio preview, the columns will show as the String data type in Data Refinery. However, if you try to use the data in a Data Refinery
+              flow, the job for the Data Refinery flow will fail. An example of a data type that shows as "Other" in the preview is the Db2 DECFLOAT data type.</p>
+          </section>
+        </section>
+        <section id="section-limittarget">
+          <h2 id="limittarget">Target file limitations</h2>
+          <p>The following limitation applies if you save Data Refinery flow output (the target data set) to a file:</p>
+          <ul>
+            <li>You can't change the file format if the file is an existing data asset.</li>
+          </ul>
+        </section>
+        <section id="section-previews">
+          <h2 id="previews">Data set previews</h2>
+          <p>Data Refinery provides support for large data sets, which can be time-consuming and unwieldy to refine. To enable you to work quickly and efficiently, it operates on a subset of rows in the data set while you interactively refine the data. When
+            you run a job for the Data Refinery flow, it operates on the entire data set.</p>
+        </section>
+        <section id="section-refine">
+          <h2 id="refine">Refine your data</h2>
+          <p>The following video shows you how to refine data.</p>
+          <div class="note Video disclaimer"><span class="Video disclaimertitle">Video disclaimer:</span> Some minor steps and graphical elements in this video might differ from your platform.</div>
+          <p style="font-size:smaller">This video provides a visual method to learn the concepts and tasks in this documentation.</p>
+          <iframe id="wx-shape-data" src="https://video.ibm.com/embed/channel/23952663/video/wx-shape-data" onload="executeEmbedScript()" lang="en-US" style="border: 0;" webkitallowfullscreen="" allowfullscreen="" frameborder="no" width="560" height="315" title="Refine data">
+</iframe>
+          <style type="text/css" keep="true">
+            .collapsibleList li>input+* {
+              display: none;
+            }
+            
+            .collapsibleList li>input:checked+* {
+              display: block;
+            }
+            
+            .collapsibleList li>input {
+              display: none;
+            }
+            
+            .collapsibleList label {
+              cursor: pointer;
+              color: #0062ff;
+              text-decoration: underline;
+            }
+            
+            .scrolling_table_div {
+              max-height: 300px;
+              overflow-y: auto;
+              padding-top: 20px;
+              margin-bottom: 30px;
+            }
+            
+            .transcript_sync_cb {
+              margin: 20px;
+            }
+            
+            .transcript_tbl {
+              border-collapse: collapse;
+              border: none;
+            }
+            
+            .transcript_tbl th,
+            .transcript_tbl td {
+              border: none;
+            }
+            
+            .clickable {
+              cursor: pointer;
+              color: #0062ff;
+              vertical-align: top;
+            }
+            
+            .clickable:hover {
+              text-decoration: underline;
+            }
+          </style>
+          <script keep="true" src="https://unpkg.com/ibm-video-streaming-web-player-api@1.1.0/dist/index.umd.min.js"></script>
+          <script keep="true">
+            var g_viewer = null;
+            var g_b_is_playing = false;
+            var g_b_do_retry = true;
+            var g_highlighted_row_num = -1;
+            var g_org_color = "";
+
+            var g_loop = setInterval(function() {
+              if (g_viewer && document.getElementById("sync_cb_wx-shape-data").checked) {
+                synchronize();
+              }
+
+            }, 2 * 1000);
+
+            function executeEmbedScript() {
+              if (g_viewer) {
+                // Chrome is running this function twice??
+                return;
+              }
+
+              g_viewer = PlayerAPI("wx-shape-data");
+
+              var url = window.location.href;
+              if (!url.match(/t\=\d+/i)) {
+                return;
+              }
+
+              g_viewer.addListener("playing", function(event_key, b_is_playing) {
+                g_b_is_playing = b_is_playing;
+
+                if (b_is_playing) {
+                  g_b_do_retry = false;
+                }
+
+              });
+
+              document.getElementById("transcript_btn_wx-shape-data").click();
+              var seconds = url.replace(/^.*t\=(\d+).*$/i, "$1");
+              synchronize(seconds);
+              jumpToTimeRetry(seconds, 5);
+            }
+
+            function jumpTo(obj) {
+              var seconds = obj.parentNode.id;
+              jumpToTime(seconds);
+            }
+
+            function jumpToTime(seconds) {
+              g_viewer.callMethod("seek", seconds);
+              g_viewer.callMethod("play");
+            }
+
+            function jumpToTimeRetry(seconds, iteration) {
+              if (iteration < 1) {
+                // Give up
+                return;
+              }
+
+              g_viewer.callMethod("seek", seconds);
+              g_viewer.callMethod("play");
+
+              setTimeout(function() {
+                // Wait 1.5 seconds and then try again
+                if (g_b_do_retry) {
+                  jumpToTimeRetry(seconds, iteration - 1);
+                }
+
+              }, 1.5 * 1000);
+            }
+
+            function synchronize(seconds_in) {
+              if (seconds_in) {
+                scrollAndHighlight(seconds_in);
+                return;
+              }
+
+              g_viewer.getProperty("progress", function(seconds) {
+                scrollAndHighlight(seconds);
+
+              });
+
+            }
+
+            function scrollAndHighlight(seconds) {
+              var rows_arr = document.getElementsByClassName("video_tr");
+              for (var i = (rows_arr.length - 1); i >= 0; i--) {
+                if (parseInt(rows_arr[i].id) > seconds) {
+                  continue;
+                }
+
+                if (i == g_highlighted_row_num) {
+                  break;
+                }
+
+                if (-1 !== g_highlighted_row_num) {
+                  unhighlight(rows_arr[g_highlighted_row_num]);
+                }
+
+                g_highlighted_row_num = i;
+                highlight(rows_arr[g_highlighted_row_num]);
+                scrollToRow(rows_arr[g_highlighted_row_num]);
+
+                break;
+              }
+
+            }
+
+            function scrollToRow(row_obj) {
+              var row_top = row_obj.offsetTop;
+              var row_bottom = row_top + row_obj.clientHeight;
+
+              var scroller = document.getElementById("transcript_div_wx-shape-data");
+              var scroll_top = scroller.scrollTop;
+              var scroll_bottom = scroll_top + scroller.clientHeight;
+
+              if ((row_top < scroll_top) && (row_bottom > scroll_bottom)) {
+                // Edge case: Row taller than div
+                // Don't do anything
+              } else if ((row_top < scroll_top) || (row_bottom > scroll_bottom)) {
+                scroller.scrollTop = row_top;
+              }
+            }
+
+            function highlight(row_obj) {
+              var obj_arr = row_obj.childNodes;
+              for (var i = 0; i < obj_arr.length; i++) {
+                if ("TD" == obj_arr[i].nodeName) {
+                  g_org_color = obj_arr[i].style.backgroundColor;
+                  obj_arr[i].style.backgroundColor = "#c6c6c6";
+                }
+              }
+            }
+
+            function unhighlight(row_obj) {
+              var obj_arr = row_obj.childNodes;
+              for (var i = 0; i < obj_arr.length; i++) {
+                if ("TD" == obj_arr[i].nodeName) {
+                  obj_arr[i].style.backgroundColor = g_org_color;
+                }
+              }
+            }
+
+            function toggleHighlighting() {
+              if (!document.getElementById("sync_cb_wx-shape-data").checked && (-1 !== g_highlighted_row_num)) {
+                var rows_arr = document.getElementsByClassName("video_tr");
+                unhighlight(rows_arr[g_highlighted_row_num]);
+                g_highlighted_row_num = -1;
+              }
+            }
+          </script>
+          <br>
+          <p>1. Access Data Refinery from within a project. Click <strong>New asset &gt; Prepare and visualize data</strong>. Then select the data that you want to work with. Alternatively, from the <strong>Assets</strong> tab of a project, open a file (
+            <a href="#dr-format">supported formats</a>) to preview it, and then click <strong>Prepare data</strong>.</p>
+          <p>Note that different asset types can have duplicate names. However, you can't add an asset type with the same name multiple times.</p>
+          <p>2. Use steps to apply operations that cleanse, shape, and enrich your data. Browse <a href="gui_operations.html">operation categories or search for a specific operation</a>, then let the UI guide you. You can <a href="code_operations.html">enter R code</a>            in the command line and let autocomplete assist you in getting the correct syntax. As you apply operations to a data set, Data Refinery keeps track of them and builds a Data Refinery flow. For each operation that you apply, Data Refinery adds
+            a step.</p>
+          <p>Data tab <br>
+            <img src="images/dr-data-tab.png" alt="Data tab" title="Data tab"></p>
+          <p>If your data contains non-string data types, the <strong>Convert column type</strong> GUI operation is automatically applied as the first step in the Data Refinery flow when you open a file in Data Refinery. Data types are automatically converted
+            to inferred data types, such as Integer, Date, or Boolean. You can undo or edit this step.</p>
+          <p>3. Click the <strong>Profile</strong> tab to <a href="metrics.html">validate your data</a> throughout the data refinement process.
+            <!--ORIGINAL TEXT: [Conduct interactive data profiling](metrics.html) throughout the data refinement process to understand the quality of your data, identify ways to improve that quality, and gain insight from the counts and ratios from your data.-->
+          </p>
+          <p>Profile tab <br>
+            <img src="images/dr-profile-tab.png" alt="Profile tab" title="Profile tab"></p>
+          <p>4. Click the <strong>Visualizations</strong> tab to <a href="visualizations.html">visualize the data</a> in charts. Uncover patterns, trends, and correlations within your data.</p>
+          <p>Visualizations tab <br>
+            <img src="images/dr-viz-tab.png" alt="Visualizations tab" title="Visualizations tab"></p>
+          <p>5. Refine the sample data set to suit your needs.</p>
+          <p>6. Click <strong>Save and create a job</strong> or <strong>Save and view jobs</strong> in the toolbar to run the Data Refinery flow on the entire data set. Select the runtime and add a one-time or repeating schedule. For information about jobs,
+            see <a href="../manage-data/create-job-dr.html">Creating jobs in Data Refinery</a>.</p>
+          <p>For the actions that you can do as you refine your data, see <a href="data_flows.html">Managing Data Refinery flows</a>.</p>
+        </section>
+        <section id="section-next-step">
+          <h2 id="next-step">Next step</h2>
+          <p><a href="../analyze-data/data-science.html">Analyze your data and build models</a></p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="data_flows.html">Manage Data Refinery flows</a></li>
+          </ul>
+          <ul>
+            <li><a href="../getting-started/get-started-refine.html">Quick start: Refine data</a></li>
+          </ul>
+          <p><strong>Parent topic</strong>: <a href="../manage-data/get-data.html">Preparing data</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

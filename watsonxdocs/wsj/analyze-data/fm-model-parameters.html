@@ -1,0 +1,287 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can set parameters in the Prompt Lab to control how the model generates output in response to your prompt. Set decoding parameters to adjust how the output text is generated. Set stopping criteria parameters to specify when the model should stop generating output.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Foundation model parameters: decoding and stopping criteria</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=lab-model-parameters-prompting"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="foundation-model-parameters-decoding-and-stopping-criteria" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-foundation-model-parameters-decoding-and-stopping-criteria">
+        <h1 id="foundation-model-parameters-decoding-and-stopping-criteria">Foundation model parameters: decoding and stopping criteria</h1>
+        <p>You can set parameters in the Prompt Lab to control how the model generates output in response to your prompt. Set decoding parameters to adjust how the output text is generated. Set stopping criteria parameters to specify when the model should
+          stop generating output.</p>
+        <section id="section-decoding">
+          <h2 id="decoding">Decoding</h2>
+          <p><em>Decoding</em> is the process that a model uses to choose the tokens in the generated output.</p>
+          <p>Choose one of the following decoding options:</p>
+          <ul>
+            <li>
+              <p><strong>Greedy decoding</strong>: Selects the token with the highest probability at each step of the decoding process.</p>
+              <p>Greedy decoding produces output that closely matches the most common language in the model's pretraining data and in your prompt text, which is desirable in less creative or fact-based use cases. A weakness of greedy decoding is that it
+                can cause repetitive loops in the generated output.</p>
+            </li>
+            <li>
+              <p><strong>Sampling decoding</strong>: Offers more variability in how tokens are selected.</p>
+              <p>With sampling decoding, the model <em>samples</em> tokens, meaning the model chooses a subset of tokens, and then one token is chosen randomly from this subset to be added to the output text. Sampling adds variability and randomness to the
+                decoding process, which can be desirable in creative use cases. However, with greater variability comes a greater risk of incorrect or nonsensical output.</p>
+            </li>
+          </ul>
+          <section id="section-more-options-for-sampling-decoding">
+            <h3 id="more-options-for-sampling-decoding">More options for sampling decoding</h3>
+            <p>When you choose <em>Sampling</em> decoding, more parameters are available that you can use to adjust how the foundation model chooses tokens to sample. The following parameters work together to influence which tokens are sampled:</p>
+            <ul>
+              <li><em>Temperature sampling</em> flattens or sharpens the probability distribution over the tokens to be sampled.</li>
+              <li><em>Top-k sampling</em> samples tokens with the highest probabilities until the specified number of tokens is reached.</li>
+              <li><em>Top-p sampling</em> samples tokens with the highest probability scores until the sum of the scores reaches the specified threshold value. (Top-p sampling is also called <em>nucleus sampling</em>.)</li>
+            </ul>
+            <table>
+              <caption caption-side="top">Table 1. Supported values, defaults, and usage notes for sampling decoding</caption>
+              <thead>
+                <tr>
+                  <th>Parameter</th>
+                  <th>Supported values</th>
+                  <th>Default</th>
+                  <th>Use</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Temperature</td>
+                  <td>Floating-point number in the range 0.0 (same as greedy decoding) to 2.0 (maximum creativity)</td>
+                  <td>0.7</td>
+                  <td>Higher values lead to greater variability</td>
+                </tr>
+                <tr>
+                  <td>Top K</td>
+                  <td>Integer in the range 1 to 100</td>
+                  <td>50</td>
+                  <td>Higher values lead to greater variability</td>
+                </tr>
+                <tr>
+                  <td>Top P</td>
+                  <td>Floating-point number in the range 0.0 to 1.0</td>
+                  <td>1.0</td>
+                  <td>Unless you change the value, this setting is not used</td>
+                </tr>
+              </tbody>
+            </table>
+            <br>
+          </section>
+          <section id="section-example-of-adjusting-sampling-decoding-settings">
+            <h3 id="example-of-adjusting-sampling-decoding-settings">Example of adjusting sampling decoding settings</h3>
+            <p>In this example, the foundation model already generated the output text <code>I took my dog</code> and now the model is choosing the next token.</p>
+            <p>To find the best choice, the model calculates a discrete probability distribution over the possible tokens. With this type of distribution, each token is assigned a decimal point probability score between 0 and 1 where the scores add up to
+              1.</p>
+            <p>In a real scenario, there might be hundreds of possible tokens. In this example, the choices include only five tokens, which are shown here in the context of typical sentences:</p>
+            <p><em>I took my dog...</em></p>
+            <ul>
+              <li><em>for</em> a walk.</li>
+              <li><em>to</em> the vet.</li>
+              <li><em>with</em> me.</li>
+              <li><em>and</em> my cat on vacation.</li>
+              <li><em>by</em> the collar.</li>
+            </ul>
+            <p>Top K and Top P represent two different methods for choosing the tokens to sample.</p>
+            <p>Both methods begin by ordering the choices from most-to-least probable. The following table lists the tokens and their fictional probability scores in order.</p>
+            <table>
+              <caption caption-side="top">Table 2: Sample token options with probability scores</caption>
+              <thead>
+                <tr>
+                  <th>Token</th>
+                  <th>Probability score</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>for</td>
+                  <td>0.4</td>
+                </tr>
+                <tr>
+                  <td>to</td>
+                  <td>0.25</td>
+                </tr>
+                <tr>
+                  <td>with</td>
+                  <td>0.17</td>
+                </tr>
+                <tr>
+                  <td>and</td>
+                  <td>0.13</td>
+                </tr>
+                <tr>
+                  <td>by</td>
+                  <td>0.05</td>
+                </tr>
+              </tbody>
+            </table>
+            <section id="section-top-k-example">
+              <h4 id="top-k-example">Top K example</h4>
+              <p>Top K specifies how many tokens to sample. For example, if you set Top K to 3, then only the first three tokens in the list are sampled: <em>for</em>, <em>to</em>, and <em>with</em>.</p>
+              <p>Note: A <em>Greedy</em> decoding setting is equivalent to Top K = 1.</p>
+              <p><img src="images/fm-topk.svg" alt="Shows the same values as in table 2, but with the first three rows highlighted" width="85%"></p>
+            </section>
+            <section id="section-top-p-example">
+              <h4 id="top-p-example">Top P example</h4>
+              <p>Top P specifies the cumulative probability score threshold that the tokens must reach.</p>
+              <p>For example, if you set Top P to 0.6, then only the first two tokens, <em>for</em> and <em>to</em>, are sampled because their probabilities (0.4 and 0.25) add up to 0.65. (As shown in this example, it is okay for the sum to exceed the threshold.)</p>
+              <p><img src="images/fm-topp.svg" alt="Shows the same values as in table 2, but with the probability values from the first two rows added to make 0.65" width="85%"></p>
+              <p>Top P is not used unless you set the Top P parameter value to something other than the default value of 1. Using Top P and Top K together can be a useful way to filter out tokens with extra low probability scores. When both parameters are
+                specified, Top K is applied first.</p>
+              <p>For example, you might set Top K to 5 and Top P to 0.8. The Top K setting samples all 5 tokens, and then Top P limits the sampled tokens to <em>for</em>, <em>to</em>, and <em>with</em> because their probabilities reach the probability score
+                threshold of 0.8 (0.4 + 0.25 + 0.17 = 0.82).</p>
+              <p>When both settings are specified, any tokens below the cutoff that is set by Top K are considered to have a probability of zero when Top P is computed. For example, if Top K is set to 2 and Top P to 0.8, then only <em>for</em> and <em>to</em>                are sampled. The token <em>with</em> is not sampled because the probability scores for <em>with</em>, <em>and</em>, and <em>by</em> are reset to 0.</p>
+            </section>
+            <section id="section-temperature-example">
+              <h4 id="temperature-example">Temperature example</h4>
+              <p>Temperature is a parameter of the softmax function that converts a vector of numbers into a probability distribution. The temperature setting affects the shape of the probability distribution.</p>
+              <p><img src="images/fm-temperature.svg" alt="Shows two graphs side by side. The Low temperature graph shows a drastic increase. The High temperature graph shows a gradual increase." width="85%"></p>
+              <p>Low temperatures amplify the probability differences between tokens. More-likely terms have much higher scores relative to less-likely terms. As a result, terms that are similar to terms in the model's training data or your prompt input
+                will probably be sampled. Use a lower temperature value when you want more dependable output.</p>
+              <p>High temperatures result in token probabilities that are closer to one another. As a result, unusual terms have a better chance of being sampled. Use a higher temperature value when you want to increase the randomness and variability or
+                the output, such as when you want creative output. Remember, randomness can also lead to inaccurate or nonsensical output.</p>
+              <p>For example, when a high temperature value such as 2 is applied, the probability scores of the tokens in this example might be closer to one another, as shown in the Table 3.</p>
+              <table>
+                <caption caption-side="top">Table 3: Sample token probabilities with a high temperature</caption>
+                <thead>
+                  <tr>
+                    <th>Token</th>
+                    <th>Scores with temperature = 2</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>for</td>
+                    <td>0.3</td>
+                  </tr>
+                  <tr>
+                    <td>to</td>
+                    <td>0.25</td>
+                  </tr>
+                  <tr>
+                    <td>with</td>
+                    <td>0.2</td>
+                  </tr>
+                  <tr>
+                    <td>and</td>
+                    <td>0.15</td>
+                  </tr>
+                  <tr>
+                    <td>by</td>
+                    <td>0.10</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p>When a high temperature value of 2 is used, it takes more tokens to reach the threshold when Top P is set to 0.8.</p>
+              <p><img src="images/fm-temps-compare.svg" alt="Shows a table with two columns. The first three words in the Low temperature column add up to 0.82. The first four words in the High temperature column add up to 0.9." width="80%"></p>
+              <ul>
+                <li>With a high temperature, the <em>for</em>, <em>to</em>, <em>with</em>, and <em>and</em> tokens (0.3 + 0.25 + 0.2 + 0.15 = 90) are sampled.</li>
+                <li>With a low temperature, only the <em>for</em>, <em>to</em>, and <em>with</em> tokens (0.4 + 0.25 + 0.17 = 82) are sampled.</li>
+              </ul>
+            </section>
+          </section>
+          <section id="section-random-seed">
+            <h3 id="random-seed">Random seed</h3>
+            <p>When you submit the same prompt to a model multiple times with sampling decoding, the model usually generates different text each time. This variability is the result of intentional pseudo-randomness that is built into the decoding process.</p>
+            <p><em>Random seed</em> refers to the number that is used to start the random number generator that the model uses to randomize its token choices. If you want to remove this intentional randomness as a variable from your experiments, you can
+              pick a number and specify that same number each time you run the experiment.</p>
+            <ul>
+              <li><strong>Supported values:</strong> Integer in the range 1 to 4,294,967,295</li>
+              <li><strong>Default:</strong> Itself randomly generated</li>
+              <li><strong>Use:</strong> To produce repeatable results, set the same random seed value every time.</li>
+            </ul>
+          </section>
+          <section id="section-repetition-penalty">
+            <h3 id="repetition-penalty">Repetition penalty</h3>
+            <p>If the generated output for your chosen prompt, model, and parameters consistently contains repetitive text, you can try adding a <em>repetition penalty</em>. When set, the penalty lowers the probability scores of tokens that were recently
+              used so that the model is less likely to repeat them. A higher value leads to more diverse and varied output.</p>
+            <ul>
+              <li><strong>Supported values:</strong> Floating-point number in the range 1.0 (no penalty) to 2.0 (maximum penalty)</li>
+              <li><strong>Default:</strong> 1.0</li>
+              <li><strong>Use:</strong> The higher the penalty, the less likely it is that the result will include repeated text.</li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-stopping-criteria">
+          <h2 id="stopping-criteria">Stopping criteria</h2>
+          <p>Text generation stops after the model considers the output to be complete, a stop sequence is generated, the maximum token limit is reached, or the model generation time limit is reached.</p>
+          <p>Model generation stops when the time limit for the generation request is reached. The default time limit is 10 minutes and 5 minutes for Lite plans. You can specify a shorter time limit when you submit an inference request by using the API.</p>
+          <p>You can affect the length of the output that is generated by the model in the following ways: specifying stop sequences and setting Min tokens and Max tokens.</p>
+          <section id="section-stop-sequences">
+            <h3 id="stop-sequences">Stop sequences</h3>
+            <p>A <em>stop sequence</em> is a string of one or more characters. If you specify stop sequences, the model will automatically stop generating output after one of the stop sequences that you specify appears in the generated output.</p>
+            <p>For example, one way to cause a model to stop generating output after just one sentence is to specify a period as a stop sequence. That way, after the model generates the first sentence and ends it with a period, output generation stops.</p>
+            <p>Choosing effective stop sequences depends on your use case and the nature of the generated output that you expect.</p>
+            <p><strong>Supported values:</strong> 0 to 6 strings, each no longer than 40 tokens</p>
+            <p><strong>Default:</strong> No stop sequence</p>
+            <p><strong>Use:</strong></p>
+            <ul>
+              <li>Stop sequences are ignored until after the number of tokens that are specified in the Min tokens parameter are generated.</li>
+              <li>If your prompt includes examples of input-and-output pairs, ensure the sample output in the examples ends with one of the stop sequences.</li>
+            </ul>
+          </section>
+          <section id="section-minimum-and-maximum-new-tokens">
+            <h3 id="minimum-and-maximum-new-tokens">Minimum and maximum new tokens</h3>
+            <p>If the output from the model is too short or too long, try adjusting the parameters that control the number of generated tokens:</p>
+            <ul>
+              <li>The <em>Min tokens</em> parameter controls the minimum number of tokens in the generated output</li>
+              <li>The <em>Max tokens</em> parameter controls the maximum number of tokens in the generated output</li>
+            </ul>
+            <p>The maximum number of tokens that are allowed in the output differs by model. For more information, see the <em>Maximum tokens</em> information in <a href="fm-models.html">Supported foundation models</a>.</p>
+            <p><strong>Defaults:</strong></p>
+            <ul>
+              <li>Min tokens: 0</li>
+              <li>Max tokens: 200</li>
+            </ul>
+            <p><strong>Use:</strong></p>
+            <ul>
+              <li>Min tokens must be less than or equal to Max tokens.</li>
+              <li>The cost of using foundation models in IBM watsonx.ai is based on use, which is partly related to the number of tokens that are generated. Specifying the lowest value for Max tokens that works for your use case is a cost-saving strategy.</li>
+              <li>For Lite plans, output stops being generated after a dynamic, model-specific, environment-driven upper limit is reached. Output can stop even if the value specified with the Max tokens parameter is not reached. To determine the upper limit,
+                see the <em>Tokens limits</em> section for the model in <a href="fm-models.html">Supported foundation models</a> or call the <a href="https://ibm.github.io/watsonx-ai-python-sdk/fm_model.html#ibm_watsonx_ai.foundation_models.Model.get_details" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab"><code>get_details</code></a> function of the foundation models Python library.</li>
+            </ul>
+            <p><strong>Parent topic:</strong> <a href="fm-prompt-lab.html">Prompt Lab</a></p>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

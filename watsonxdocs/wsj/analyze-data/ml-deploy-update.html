@@ -1,0 +1,236 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="After you create an online or a batch deployment, you can still update your deployment details and update the assets that are associated with your deployment.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Updating a deployment</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=assets-updating-deployment"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="updating-a-deployment" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-updating-a-deployment">
+        <h1 id="updating-a-deployment">Updating a deployment</h1>
+        <p>After you create an online or a batch deployment, you can still update your deployment details and update the assets that are associated with your deployment.</p>
+        <p>For more information, see:</p>
+        <ul>
+          <li><a href="#upd-general">Update deployment details</a></li>
+          <li><a href="#upd-assets">Update assets associated with a deployment</a></li>
+        </ul>
+        <section id="section-upd-general">
+          <h2 id="upd-general">Updating deployment details</h2>
+          <p>You can update general deployment details, such as deployment name, description, metadata, and tags by using one of these methods:</p>
+          <ul>
+            <li><a href="#update-details-ui">Update deployment details from the UI</a>.</li>
+            <li><a href="#update-details-api">Update deployment details by using the Patch API command</a>.</li>
+          </ul>
+          <section id="section-update-details-ui">
+            <h3 id="update-details-ui">Updating deployment details from the UI</h3>
+            <ol>
+              <li>
+                <p>From the <strong>Deployments</strong> tab of your deployment space, click the action menu for the deployment and choose <strong>Edit settings</strong>.</p>
+              </li>
+              <li>
+                <p>Update the details and then click <strong>Save</strong>.</p>
+                <div class="note tip"><span class="tiptitle">Tip:</span> You can also update a deployment from the information sheet for the deployment.</div>
+              </li>
+            </ol>
+          </section>
+          <section id="section-update-details-api">
+            <h3 id="update-details-api">Updating deployment details by using the Patch API command</h3>
+            <p>Use the <a href="https://cloud.ibm.com/apidocs/machine-learning-cp#models-update">Watson Machine Learning API Patch</a> command to update deployment details.</p>
+            <pre class="codeblock"><code class="lang-bash hljs">curl -X PATCH <span class="hljs-string">'&lt;deployment endpoint url&gt;/ml/v4/deployments/&lt;deployment id&gt;?space_id=&lt;space id&gt;&amp;version=&lt;YYYY-MM-DD&gt;'</span> \n--data-raw <span class="hljs-string">'[
+    {
+        "op": "&lt;operation type&gt;",
+        "path": "&lt;path&gt;",
+        "value": "&lt;new value&gt;"
+    },
+    {
+        "op": "&lt;operation type&gt;",
+        "path": "&lt;path&gt;",
+        "value": "&lt;new value&gt;"
+    }
+]'</span>
+</code></pre>
+            <p>For example, to update a description for deployment:</p>
+            <pre class="codeblock"><code class="lang-bash hljs">curl -X PATCH <span class="hljs-string">'&lt;deployment endpoint url&gt;/ml/v4/deployments/&lt;deployment_id&gt;?space_id=&lt;space_id&gt;&amp;version=&lt;YYYY-MM-DD&gt;'</span> \n--data-raw <span class="hljs-string">'[
+    {
+        "op": "replace",
+        "path": "/description",
+        "value": "&lt;new_description&gt;"
+    },
+]'</span>
+</code></pre>
+            <p><strong>Notes</strong>:</p>
+            <ul>
+              <li>For <code>&lt;operation type&gt;</code>, use <code>"add"</code>, <code>"remove"</code>, or <code>"replace"</code>.</li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-upd-assets">
+          <h2 id="upd-assets">Updating assets associated with a deployment</h2>
+          <p>After you create an online or batch deployment, you can update the deployed asset from the same endpoint. For example, if you have a better performing model, you can replace the deployed model with the improved version. When the update is complete,
+            the new model is available from the REST API endpoint.</p>
+          <p>Before you update an asset, make sure that these conditions are true:</p>
+          <ul>
+            <li>
+              <p>The framework of the new model is compatible with the existing deployed model.</p>
+            </li>
+            <li>
+              <p>The input schema exists and matches for the new and deployed model.</p>
+              <div class="note caution"><span class="cautiontitle">Caution:</span> Failure to follow these conditions can result in a failed deployment.</div>
+            </li>
+            <li>
+              <p>For more information, see <a href="#update-asset-ui">Updating an asset from the deployment space UI</a>.</p>
+            </li>
+            <li>
+              <p>For more information, see <a href="#update-asset-api">Updating an asset by using the Patch API command</a>.</p>
+            </li>
+          </ul>
+          <section id="section-update-asset-ui">
+            <h3 id="update-asset-ui">Updating an asset from the deployment space UI</h3>
+            <ol>
+              <li>From the <strong>Deployments</strong> tab of your deployment space, click the action menu for the deployment and choose <strong>Edit</strong>.</li>
+              <li>Click <strong>Replace asset</strong>. From the <em>Select an asset</em> dialog box, select the asset that you want to replace the current asset with and click <strong>Select asset</strong>.</li>
+              <li>Click <strong>Save</strong>.</li>
+            </ol>
+            <div class="note important"><span class="importanttitle">Important:</span> Make sure that the new asset is compatible with the deployment.</div>
+            <p><img src="images/deploy-update.png" alt="Replacing a deployed asset"></p>
+          </section>
+          <section id="section-update-asset-api">
+            <h3 id="update-asset-api">Updating an asset by using the Patch API command</h3>
+            <p>Use the Watson Machine Learning <a href="https://cloud.ibm.com/apidocs/machine-learning">API</a> <code>Patch</code> command to update any supported asset.</p>
+            <p>Use this method to patch a model for an online deployment.</p>
+            <pre class="codeblock"><code class="lang-bash hljs">curl -X PATCH <span class="hljs-string">'&lt;deployment endpoint url&gt;/ml/v4/models/&lt;model_id&gt;?space_id=&lt;space_id&gt;&amp;project_id=&lt;project_id&gt;&amp;version=&lt;YYYY-MM-DD&gt;'</span> \n--data-raw <span class="hljs-string">'[
+    {
+        "op": "&lt;operation type&gt;",
+        "path": "&lt;path&gt;",
+        "value": "&lt;new value&gt;"
+    },
+    {
+        "op": "&lt;operation type&gt;",
+        "path": "&lt;path&gt;",
+        "value": "&lt;new value&gt;"
+    }
+]'</span>
+</code></pre>
+            <p>For example, patch a model with ID <code>6f01d512-fe0f-41cd-9a52-1e200c525c84</code> in space ID <code>f2ddb8ce-7b10-4846-9ab0-62454a449802</code>:</p>
+            <pre class="codeblock"><code class="lang-bash hljs">curl -X PATCH <span class="hljs-string">'&lt;deployment endpoint url&gt;/ml/v4/models/6f01d512-fe0f-41cd-9a52-1e200c525c84?space_id=f2ddb8ce-7b10-4846-9ab0-62454a449802&amp;project_id=&lt;project_id&gt;&amp;version=&lt;YYYY-MM-DD&gt;'</span> \n--data-raw <span class="hljs-string">'[
+
+   {
+      "op":"replace",
+      "path":"/asset",
+      "value":{
+         "id":"6f01d512-fe0f-41cd-9a52-1e200c525c84",
+         "rev":"1"
+      }
+   }
+]'</span>
+</code></pre>
+            <p>A successful output response looks like this:</p>
+            <pre class="codeblock"><code class="lang-bash hljs">{
+  <span class="hljs-string">"entity"</span>: {
+    <span class="hljs-string">"asset"</span>: {
+      <span class="hljs-string">"href"</span>: <span class="hljs-string">"/v4/models/6f01d512-fe0f-41cd-9a52-1e200c525c84?space_id=f2ddb8ce-7b10-4846-9ab0-62454a449802"</span>,
+      <span class="hljs-string">"id"</span>: <span class="hljs-string">"6f01d512-fe0f-41cd-9a52-1e200c525c84"</span>
+    },
+    <span class="hljs-string">"custom"</span>: {
+    },
+    <span class="hljs-string">"description"</span>: <span class="hljs-string">"Test V4 deployments"</span>,
+    <span class="hljs-string">"name"</span>: <span class="hljs-string">"test_v4_dep_online_space_hardware_spec"</span>,
+    <span class="hljs-string">"online"</span>: {
+    },
+    <span class="hljs-string">"space"</span>: {
+      <span class="hljs-string">"href"</span>: <span class="hljs-string">"/v4/spaces/f2ddb8ce-7b10-4846-9ab0-62454a449802"</span>,
+      <span class="hljs-string">"id"</span>: <span class="hljs-string">"f2ddb8ce-7b10-4846-9ab0-62454a449802"</span>
+    },
+    <span class="hljs-string">"space_id"</span>: <span class="hljs-string">"f2ddb8ce-7b10-4846-9ab0-62454a449802"</span>,
+    <span class="hljs-string">"status"</span>: {
+      <span class="hljs-string">"online_url"</span>: {
+        <span class="hljs-string">"url"</span>: <span class="hljs-string">"https://example.com/v4/deployments/349dc1f7-9452-491b-8aa4-0777f784bd83/predictions"</span>
+      },
+      <span class="hljs-string">"state"</span>: <span class="hljs-string">"updating"</span>
+    }
+  },
+  <span class="hljs-string">"metadata"</span>: {
+    <span class="hljs-string">"created_at"</span>: <span class="hljs-string">"2020-06-08T16:51:08.315Z"</span>,
+    <span class="hljs-string">"description"</span>: <span class="hljs-string">"Test V4 deployments"</span>,
+    <span class="hljs-string">"guid"</span>: <span class="hljs-string">"349dc1f7-9452-491b-8aa4-0777f784bd83"</span>,
+    <span class="hljs-string">"href"</span>: <span class="hljs-string">"/v4/deployments/349dc1f7-9452-491b-8aa4-0777f784bd83"</span>,
+    <span class="hljs-string">"id"</span>: <span class="hljs-string">"349dc1f7-9452-491b-8aa4-0777f784bd83"</span>,
+    <span class="hljs-string">"modified_at"</span>: <span class="hljs-string">"2020-06-08T16:55:28.348Z"</span>,
+    <span class="hljs-string">"name"</span>: <span class="hljs-string">"test_v4_dep_online_space_hardware_spec"</span>,
+    <span class="hljs-string">"parent"</span>: {
+      <span class="hljs-string">"href"</span>: <span class="hljs-string">""</span>
+    },
+    <span class="hljs-string">"space_id"</span>: <span class="hljs-string">"f2ddb8ce-7b10-4846-9ab0-62454a449802"</span>
+  }
+}
+</code></pre>
+            <p><strong>Notes:</strong></p>
+            <ul>
+              <li>
+                <p>For <code>&lt;operation type&gt;</code>, use <code>"add"</code>, <code>"remove"</code>, or <code>"replace"</code>.</p>
+              </li>
+              <li>
+                <p>The initial state for the PATCH API output is "updating". Keep polling the status until it changes to "ready", then retrieve the deployment meta.</p>
+              </li>
+              <li>
+                <p>Only the <code>ASSET</code> attribute can be specified for the asset patch. Changing any other attribute results in an error.</p>
+              </li>
+              <li>
+                <p>The schema of the current model and the model being patched is compared to the deployed asset. A warning message is returned in the output of the Patch request API if the two don't match.&nbsp;For example, if a mismatch is detected, you can
+                  find this information in the output response.</p>
+                <pre class="codeblock"><code class="lang-json hljs"><span class="hljs-attr">"status"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"message"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-attr">"text"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"The input schema of the asset being patched does not match with the currently deployed asset. Please ensure that the score payloads are up to date as per the asset being patched."</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+</code></pre>
+              </li>
+              <li>
+                <p>For more information, see <a href="../analyze-data/ml-manage-outdated.html#update-soft-specs-api">Updating software specifications by using the API</a>.</p>
+              </li>
+            </ul>
+            <p><strong>Parent topic:</strong> <a href="../analyze-data/ml-deploy-general.html">Managing predictive deployments</a></p>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

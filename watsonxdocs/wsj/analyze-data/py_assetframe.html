@@ -1,0 +1,539 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can use the assetframe-lib to create, view and edit feature group information for data assets in Watson Studio notebooks.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Managing feature groups with assetframe-lib for Python (beta)</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=notebook-managing-feature-groups-assetframe-lib-python-beta"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="managing-feature-groups-with-assetframe-lib-for-python-beta" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-managing-feature-groups-with-assetframe-lib-for-python-beta">
+        <h1 id="managing-feature-groups-with-assetframe-lib-for-python-beta">Managing feature groups with assetframe-lib for Python (beta)</h1>
+        <p>You can use the <code>assetframe-lib</code> to create, view and edit feature group information for data assets in Watson Studio notebooks.</p>
+        <p>Feature groups define additional metadata on columns of your data asset that can be used in downstream Machine Learning tasks. See <a href="../manage-data/feature-group.html">Managing feature groups</a> for more information about using feature
+          groups in the UI.</p>
+        <section id="section-setting-up-the-assetframe-lib-and-ibm-watson-studio-lib-libraries">
+          <h2 id="setting-up-the-assetframe-lib-and-ibm-watson-studio-lib-libraries">Setting up the <code>assetframe-lib</code> and <code>ibm-watson-studio-lib</code> libraries</h2>
+          <p>The <code>assetframe-lib</code> library for Python is pre-installed and can be imported directly in a notebook in Watson Studio. However, it relies on the <a href="../analyze-data/using-ibm-ws-lib.html"><code>ibm-watson-studio-lib</code></a>            library. The following steps describe how to set up both libraries.<br></p>
+          <p>To insert the project token to your notebook:</p>
+          <ol>
+            <li>
+              <p>Click the <strong>More</strong> icon on your notebook toolbar and then click <strong>Insert project token</strong>.</p>
+              <p>If a project token exists, a cell is added to your notebook with the following information:</p>
+              <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">from</span> ibm_watson_studio_lib <span class="hljs-keyword">import</span> access_project_or_space
+wslib = access_project_or_space({<span class="hljs-string">"token"</span>:<span class="hljs-string">"&lt;ProjectToken&gt;"</span>})
+</code></pre>
+              <p><code>&lt;ProjectToken&gt;</code> is the value of the project token.</p>
+              <p>If you are told in a message that no project token exists, click the link in the message to be redirected to the project's <strong>Access Control</strong> page where you can create a project token. You must be eligible to create a project
+                token.</p>
+              <p>To create a project token:</p>
+              <ol>
+                <li>From the <strong>Manage</strong> tab, select the <strong>Access Control</strong> page, and click <strong>New access token</strong> under <strong>Access tokens</strong>.</li>
+                <li>Enter a name, select <strong>Editor</strong> role for the project, and create a token.</li>
+                <li>Go back to your notebook, click the <strong>More</strong> icon on the notebook toolbar and then click <strong>Insert project token</strong>.</li>
+              </ol>
+            </li>
+            <li>
+              <p>Import <code>assetframe-lib</code> and initialize it with the created <code>ibm-watson-studio-lib</code> instance.</p>
+              <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">from</span> assetframe_lib <span class="hljs-keyword">import</span> AssetFrame
+AssetFrame._wslib = wslib
+</code></pre>
+            </li>
+          </ol>
+        </section>
+        <section id="section-the-assetframe-lib-functions-and-methods">
+          <h2 id="the-assetframe-lib-functions-and-methods">The assetframe-lib functions and methods</h2>
+          <p>The assetframe-lib library exposes a set of functions and methods that are grouped in the following way:</p>
+          <ul>
+            <li><a href="#create-assetframe">Creating an asset frame</a></li>
+            <li><a href="#create-features">Creating, retrieving and removing features</a></li>
+            <li><a href="#specify-featureatt">Specifying feature attributes</a>
+              <ul>
+                <li><a href="#role">Role</a></li>
+                <li><a href="#description">Description</a></li>
+                <li><a href="#fairnessinfo">Fairness information for favorable and unfavorable outcomes</a></li>
+                <li><a href="#monitoredreference">Fairness information for monitored and reference groups</a></li>
+                <li><a href="#value-desc">Value descriptions</a></li>
+                <li><a href="#recipe">Recipe</a></li>
+                <li><a href="#tags">Tags</a></li>
+              </ul>
+            </li>
+            <li><a href="#preview-data">Previewing data</a></li>
+            <li><a href="#get-fairness">Getting fairness information</a></li>
+          </ul>
+        </section>
+        <section id="section-create-assetframe">
+          <h2 id="create-assetframe">Creating an asset frame</h2>
+          <p>An asset frame is used to define feature group metadata on an existing data asset or on a pandas DataFrame. You can have exactly one feature group for each asset. If you create an asset frame on a pandas DataFrame, you can store the pandas DataFrame
+            along with the feature group metadata as a data asset in your project.</p>
+          <p>You can use one of the following functions to create your asset frame:</p>
+          <ul>
+            <li>
+              <p><code>AssetFrame.from_data_asset(asset_name, create_default_features=False)</code></p>
+              <p>This function creates a new asset frame wrapping an existing data asset in your project. If there is already a feature group for this asset, for example created in the user interface, it is read from the asset metadata.</p>
+              <p><strong>Parameters:</strong></p>
+              <ul>
+                <li><code>asset_name</code>: (Required) The name of a data asset in your project.</li>
+                <li><code>create_default_features</code>: (Optional) Creates features for all columns in the data asset.</li>
+              </ul>
+            </li>
+            <li>
+              <p><code>AssetFrame.from_pandas(name, dataframe, create_default_features=False)</code></p>
+              <p>This function creates a new asset frame wrapping a pandas DataFrame.</p>
+              <p><strong>Parameters:</strong></p>
+              <ul>
+                <li>
+                  <p><code>name</code>: (Required) The name of the asset frame. This name will be used as the name of the data asset if you store your feature group in your project in a later step.</p>
+                </li>
+                <li>
+                  <p><code>dataframe</code>: (Required) A pandas DataFrame that you want to store along with feature group information.</p>
+                </li>
+                <li>
+                  <p><code>create_default_features</code>: (Optional) Create features for all columns in the dataframe.</p>
+                  <p>Example of creating a asset frame from a pandas DataFrame:</p>
+                  <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-comment"># Create an asset frame from a pandas DataFrame and set</span>
+<span class="hljs-comment"># the name of the asset frame.</span>
+af = AssetFrame.from_pandas(dataframe=credit_risk_df, name=<span class="hljs-string">"Credit Risk Training Data"</span>)
+</code></pre>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section id="section-create-features">
+          <h2 id="create-features">Creating, retrieving and removing features</h2>
+          <p>A feature defines metadata that can be used by downstream Machine Learning tasks. You can create one feature per column in your data set.</p>
+          <p>You can use one of the following functions to create, retrieve or remove columns from your asset frame:</p>
+          <ul>
+            <li>
+              <p><code>add_feature(column_name, role='Input')</code></p>
+              <p>This function adds a new feature to your asset frame with the given role.</p>
+              <p><strong>Parameters:</strong></p>
+              <ul>
+                <li>
+                  <p><code>column_name</code>: (Required) The name of the column to create a feature for.</p>
+                </li>
+                <li>
+                  <p><code>role</code>: (Optional) The role of the feature. It defaults to <em>Input</em>. <br></p>
+                  <p>Valid roles are: <br></p>
+                  <ul>
+                    <li><em>Input</em>: The input for a machine learning model <br></li>
+                    <li><em>Target</em>: The target of a prediction model<br></li>
+                    <li><em>Identifier</em>: The identifier of a row in your data set.<br></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p><code>create_default_features()</code></p>
+              <p>This function creates features for all columns in your data set. The roles of the features will default to <em>Input</em>.</p>
+            </li>
+            <li>
+              <p><code>get_features()</code></p>
+              <p>This function retrieves all features of the asset frame.</p>
+            </li>
+            <li>
+              <p><code>get_feature(column_name)</code></p>
+              <p>This function retrieves the feature for the given column name.</p>
+              <p><strong>Parameters:</strong></p>
+              <ul>
+                <li><code>column_name</code>: (Required) The string name of the column to create the feature for.</li>
+              </ul>
+            </li>
+            <li>
+              <p><code>get_features_by_role(role)</code></p>
+              <p>This function retrieves all features of the dataframe with the given role.</p>
+              <p><strong>Parameters:</strong></p>
+              <ul>
+                <li><code>role</code>: (Required) The role that the features must have. This can be <em>Input</em>, <em>Target</em> or <em>Identifier</em>.</li>
+              </ul>
+            </li>
+            <li>
+              <p><code>remove_feature(feature_or_column_name)</code></p>
+              <p>This function removes the feature from the asset frame.</p>
+              <p><strong>Parameters:</strong></p>
+              <ul>
+                <li><code>feature_or_column_name</code>: (Required) A feature or the name of the column to remove the feature for.</li>
+              </ul>
+            </li>
+          </ul>
+          <p>Example that shows creating features for all columns in the data set and retrieving one of those columns for further specifications:</p>
+          <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-comment"># Create features for all columns in the data set and retrieve a column</span>
+<span class="hljs-comment"># for further specifications.</span>
+af.create_default_features()
+risk_feat = af.get_feature(<span class="hljs-string">'Risk'</span>)
+</code></pre>
+        </section>
+        <section id="section-specify-featureatt">
+          <h2 id="specify-featureatt">Specifying feature attributes</h2>
+          <p>Features specify additional metadata on columns that may be used in downstream Machine Learning tasks.</p>
+          <p>You can use the following function to retrieve the column that the feature is defined for:</p>
+          <ul>
+            <li>
+              <p><code>get_column_name()</code></p>
+              <p>This function retrieves the column name that the feature is defined for.</p>
+            </li>
+          </ul>
+          <section id="section-role">
+            <h3 id="role">Role</h3>
+            <p>The role specifies the intended usage of the feature in a Machine Learning task. <br></p>
+            <p>Valid roles are:</p>
+            <ul>
+              <li><code>Input</code>: The feature can be used as an input to a Machine Learning model.</li>
+              <li><code>Identifier</code>: The feature uniquely identifies a row in the data set.</li>
+              <li><code>Target</code>: The feature can be used as a target in a prediction algorithm. <br></li>
+            </ul>
+            <p>At this time, a feature must have exactly one role.</p>
+            <p>You can use the following methods to work with the role:</p>
+            <ul>
+              <li>
+                <p><code>set_roles(roles)</code></p>
+                <p>This method sets the roles of the feature.</p>
+                <p><strong>Parameters:</strong></p>
+                <ul>
+                  <li><code>roles</code> : (Required) The roles to be used. Either as a single string or an array of strings.</li>
+                </ul>
+              </li>
+              <li>
+                <p><code>get_roles()</code></p>
+                <p>This method returns all roles of the feature.</p>
+              </li>
+            </ul>
+            <br> Example that shows getting a feature and setting a role:
+            <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-comment"># Set the role of the feature 'Risk' to 'Target' to use it as a target in a prediction model.</span>
+risk_feat = af.get_feature(<span class="hljs-string">'Risk'</span>)
+risk_feat.set_roles(<span class="hljs-string">'Target'</span>)
+</code></pre>
+          </section>
+          <section id="section-description">
+            <h3 id="description">Description</h3>
+            <p>An optional description of the feature. It defaults to <code>None</code>.</p>
+            <p>You can use the following methods to work with the description.</p>
+            <ul>
+              <li>
+                <p><code>set_description(description)</code></p>
+                <p>This method sets the description of the feature.</p>
+                <p><strong>Parameters:</strong></p>
+                <ul>
+                  <li><code>description</code>: (Required) Either a string or <code>None</code> to remove the description.</li>
+                </ul>
+              </li>
+              <li>
+                <p><code>get_description()</code></p>
+                <p>This method returns the description of the feature.</p>
+              </li>
+            </ul>
+          </section>
+          <section id="section-fairnessinfo">
+            <h3 id="fairnessinfo">Fairness information for favorable and unfavorable outcomes</h3>
+            <p>You can specify favorable and unfavorable labels for a feature with a <code>Target</code> role.</p>
+            <p>You can use the following methods to set and retrieve favorable or unfavorable labels.</p>
+            <section id="section-favorable-outcomes">
+              <h4 id="favorable-outcomes">Favorable outcomes</h4>
+              <p>You can use the following methods to set and get favorable labels:</p>
+              <ul>
+                <li>
+                  <p><code>set_favorable_labels(labels)</code></p>
+                  <p>This method sets favorable labels for the feature.</p>
+                  <p><strong>Parameters:</strong></p>
+                  <ul>
+                    <li><code>labels</code>: (Required) A string or list of strings with favorable labels.</li>
+                  </ul>
+                </li>
+                <li>
+                  <p><code>get_favorable_labels()</code></p>
+                  <p>This method returns the favorable labels of the feature.</p>
+                </li>
+              </ul>
+            </section>
+            <section id="section-unfavorable-outcomes">
+              <h4 id="unfavorable-outcomes">Unfavorable outcomes</h4>
+              <p>You can use the following methods to set and get unfavorable labels:</p>
+              <ul>
+                <li>
+                  <p><code>set_unfavorable_labels(labels)</code></p>
+                  <p>This method sets unfavorable labels for the feature.</p>
+                  <p><strong>Parameters</strong>:</p>
+                  <ul>
+                    <li><code>labels</code>: (Required) A string or list of strings with unfavorable labels.</li>
+                  </ul>
+                </li>
+                <li>
+                  <p><code>get_unfavorable_labels()</code></p>
+                  <p>This method gets the unfavorable labels of the feature.</p>
+                </li>
+              </ul>
+              <p>Example that shows setting favorable and unfavorable labels:</p>
+              <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-comment"># Set favorable and unfavorable labels for the target feature 'Risk'.</span>
+risk_feat = af.get_feature(<span class="hljs-string">'Risk'</span>)
+risk_feat.set_favorable_labels(<span class="hljs-string">"No Risk"</span>)
+risk_feat.set_unfavorable_labels(<span class="hljs-string">"Risk"</span>)
+</code></pre>
+            </section>
+          </section>
+          <section id="section-monitoredreference">
+            <h3 id="monitoredreference">Fairness information for monitored and reference groups</h3>
+            <p>Some columns in your data might by prone to unfair bias. You can specify monitored and reference groups for further usage in Machine Learning tasks. They can be specified for features with the role <code>Input</code>.</p>
+            <p>You can either specify single values or ranges of numeric values as a string with square brackets and a start and end value, for example <code>[0,15]</code>.</p>
+            <p>You can use the following methods to set and retrieve monitored and reference groups:</p>
+            <ul>
+              <li>
+                <p><code>set_monitored_groups(groups)</code></p>
+                <p>This method sets monitored groups for the feature.</p>
+                <p><strong>Parameters</strong>:</p>
+                <ul>
+                  <li><code>groups</code>: (Required) A string or list of strings with monitored groups.</li>
+                </ul>
+              </li>
+              <li>
+                <p><code>get_monitored_groups()</code></p>
+                <p>This method gets the monitored groups of the feature.</p>
+              </li>
+              <li>
+                <p><code>set_reference_groups(groups)</code></p>
+                <p>This method sets reference groups for the feature.</p>
+                <p><strong>Parameters</strong>:</p>
+                <ul>
+                  <li><code>groups</code>: (Required) A string or list of strings with reference groups.</li>
+                </ul>
+              </li>
+              <li>
+                <p><code>get_reference_groups()</code></p>
+                <p>This method gets the reference groups of the feature.</p>
+              </li>
+            </ul>
+            <p>Example that shows setting monitored and reference groups:</p>
+            <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-comment"># Set monitored and reference groups for the features 'Sex' and 'Age'.</span>
+sex_feat = af.get_feature(<span class="hljs-string">"Sex"</span>)
+sex_feat.set_reference_groups(<span class="hljs-string">"male"</span>)
+sex_feat.set_monitored_groups(<span class="hljs-string">"female"</span>)
+
+age_feat = af.get_feature(<span class="hljs-string">"Age"</span>)
+age_feat.set_monitored_groups(<span class="hljs-string">"[0,25]"</span>)
+age_feat.set_reference_groups(<span class="hljs-string">"[26,80]"</span>)
+</code></pre>
+          </section>
+          <section id="section-value-desc">
+            <h3 id="value-desc">Value descriptions</h3>
+            <p>You can use value descriptions to specify descriptions for column values in your data.</p>
+            <p>You can use the following methods to set and retrieve descriptions:</p>
+            <ul>
+              <li>
+                <p><code>set_value_descriptions(value_descriptions)</code></p>
+                <p>This method sets value descriptions for the feature.</p>
+                <p><strong>Parameters:</strong></p>
+                <ul>
+                  <li><code>value_descriptions</code>: (Required) A Pyton dictionary or list of dictionaries of the following format: <code>{'value': '&lt;value&gt;', 'description': '&lt;description&gt;'}</code></li>
+                </ul>
+              </li>
+              <li>
+                <p><code>get_value_descriptions()</code></p>
+                <p>This method returns all value descriptions of the feature.</p>
+              </li>
+              <li>
+                <p><code>get_value_description(value)</code></p>
+                <p>This method returns the value description for the given value.</p>
+                <p><strong>Parameters</strong>:</p>
+                <ul>
+                  <li><code>value</code>: (Required) The value to retrieve the value description for.</li>
+                </ul>
+              </li>
+              <li>
+                <p><code>add_value_description(value, description)</code></p>
+                <p>This method adds a value description with the given value and description to the list of value descriptions for the feature.</p>
+                <p><strong>Parameters</strong>:</p>
+                <ul>
+                  <li><code>value</code>: (Required) The string value of the value description.</li>
+                  <li><code>description</code>: (Required) The string description of the value description.</li>
+                </ul>
+              </li>
+              <li>
+                <p><code>remove_value_description(value)</code></p>
+                <p>This method removes the value description with the given value from the list of value descriptions of the feature.</p>
+                <p><strong>Parameters</strong>:</p>
+                <ul>
+                  <li><code>value</code>: (Required) A value of the value description to be removed.</li>
+                </ul>
+              </li>
+            </ul>
+            <p>Example that shows how to set value descriptions:</p>
+            <pre class="codeblock"><code class="lang-python hljs">plan_feat = af.get_feature(<span class="hljs-string">"InstallmentPlans"</span>)
+val_descriptions = [
+    {<span class="hljs-string">'value'</span>: <span class="hljs-string">'stores'</span>,
+     <span class="hljs-string">'description'</span>: <span class="hljs-string">'customer has additional business installment plan'</span>},
+    {<span class="hljs-string">'value'</span>: <span class="hljs-string">'bank'</span>,
+     <span class="hljs-string">'description'</span>: <span class="hljs-string">'customer has additional personal installment plan'</span>},
+    {<span class="hljs-string">'value'</span>: <span class="hljs-string">'none'</span>,
+     <span class="hljs-string">'description'</span>: <span class="hljs-string">'customer has no additional installment plan'</span>}
+]
+plan_feat.set_value_descriptions(val_descriptions)
+</code></pre>
+          </section>
+          <section id="section-recipe">
+            <h3 id="recipe">Recipe</h3>
+            <p>You can use the recipe to describe how a feature was created, for example with a formula or a code snippet. It defaults to <code>None</code>.</p>
+            <p>You can use the following methods to work with the recipe.</p>
+            <ul>
+              <li>
+                <p><code>set_recipe(recipe)</code></p>
+                <p>This method sets the recipe of the feature.</p>
+                <p><strong>Parameters</strong>:</p>
+                <ul>
+                  <li><code>recipe</code>: (Required) Either a string or None to remove the recipe.</li>
+                </ul>
+              </li>
+              <li>
+                <p><code>get_recipe()</code></p>
+                <p>This method returns the recipe of the feature.</p>
+              </li>
+            </ul>
+          </section>
+          <section id="section-tags">
+            <h3 id="tags">Tags</h3>
+            <p>You can use tags to attach additional labels or information to your feature.</p>
+            <p>You can use the following methods to work with tags:</p>
+            <ul>
+              <li>
+                <p><code>set_tags(tags)</code></p>
+                <p>This method sets the tags of the feature.</p>
+                <p><strong>Parameters</strong>:</p>
+                <ul>
+                  <li><code>tags</code>: (Required) Either as a single string or an array of strings.</li>
+                </ul>
+              </li>
+              <li>
+                <p><code>get_tags()</code></p>
+                <p>This method returns all tags of the feature.</p>
+              </li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-preview-data">
+          <h2 id="preview-data">Previewing data</h2>
+          <p>You can preview the data of your data asset or pandas DataFrame with additional information about your features like fairness information.</p>
+          <p>The data is displayed like a pandas DataFrame with optional header information about feature roles, descriptions or recipes. Fairness information is displayed with coloring for favorable or unfavorable labels, monitored and reference groups.</p>
+          <p>At this time, you can retrieve up to 100 rows of sample data for a data asset.</p>
+          <p>Use the following function to preview data:</p>
+          <ul>
+            <li>
+              <p><code>head(num_rows=5, display_options=['role'])</code></p>
+              <p>This function returns the first <code>num_rows</code> rows of the data set in a pandas DataFrame.</p>
+              <p><strong>Parameters</strong>:</p>
+              <ul>
+                <li>
+                  <p><code>num_rows</code> : (Optional) The number of rows to retrieve.</p>
+                </li>
+                <li>
+                  <p><code>display_options</code>: (Optional) The column header can display additional information for a column in your data set.</p>
+                  <p>Use these options to display feature attributes:</p>
+                  <ul>
+                    <li><code>role</code>: Displays the role of a feature for this column.</li>
+                    <li><code>description</code>: Displays the description of a feature for this column.</li>
+                    <li><code>recipe</code>: Displays the recipe of a feature for this column.</li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section id="section-get-fairness">
+          <h2 id="get-fairness">Getting fairness information</h2>
+          <p>You can retrieve the fairness information of all features in your asset frame as a Python dictionary. This includes all features containing monitored or reference groups (or both) as protected attributes and the target feature with favorable
+            or unfavorable labels.</p>
+          <p>If the data type of a column with fairness information is numeric, the values of labels and groups are transformed to numeric values if possible.</p>
+          <p>Fairness information can be used directly in <a href="autoai-fairness.html">AutoAI</a> or <a href="https://www.ibm.com/opensource/open/projects/ai-fairness-360/" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">AI Fairness 360</a>.</p>
+          <p>You can use the following function to retrieve fairness information of your asset frame:</p>
+          <ul>
+            <li>
+              <p><code>get_fairness_info(target=None)</code></p>
+              <p>This function returns a Python dictionary with favorable and unfavorable labels of the target column and protected attributes with monitored and reference groups.</p>
+              <p><strong>Parameters</strong>:</p>
+              <ul>
+                <li>
+                  <p>target: (Optional) The target feature. If there is only one feature with role <code>Target</code>, it will be used automatically.</p>
+                  <p>Example that shows how to retrieve fairness information:</p>
+                  <pre class="codeblock"><code class="lang-python hljs">af.get_fairness_info()
+</code></pre>
+                  <p>Output showing fairness information:</p>
+                  <pre class="codeblock"><code class="lang-txt hljs">{
+'favorable_labels': ['No Risk'],
+'unfavorable_labels': ['Risk'],
+'protected_attributes': [
+    {'feature': 'Sex',
+    'monitored_group': ['female'],
+    'reference_group': ['male']},
+    {'feature': 'Age',
+    'monitored_group': [[0.0, 25]],
+    'reference_group': [[26, 80]]
+    }]
+}
+</code></pre>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section id="section-save-featuregp-info">
+          <h2 id="save-featuregp-info">Saving feature group information</h2>
+          <p>After you have fully specified or updated your features, you can save the whole feature group definition as metadata for your data asset.</p>
+          <p>If you created the asset frame from a pandas DataFrame, a new data asset will be created in the project storage with the name of the asset frame.</p>
+          <p>You can use the following method to store your feature group information:</p>
+          <ul>
+            <li>
+              <p><code>to_data_asset(overwrite_data=False)</code></p>
+              <p>This method saves feature group information to the assets metadata. It creates a new data asset, if the asset frame was created from a pandas DataFrame.</p>
+              <p><strong>Parameters</strong>:</p>
+              <ul>
+                <li><code>overwrite_data</code>: (Optional) Also overwrite the asset contents with the data from the asset frame. Defaults to <code>False</code>.</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p>See the <a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/e756adfa2855bdfc20f588f9c1986382">Creating and using feature store data</a> sample project in the Resource hub.</p>
+          <p><strong>Parent topic:</strong>
+            <a href="../analyze-data/load-and-access-data.html">Loading and accessing data in a notebook</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

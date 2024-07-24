@@ -1,0 +1,161 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="The plan you choose for Watson Studio affects the features and capabilities that you can use.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Watson Studio service plans</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=studio-watson-plans"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="watson-studio-service-plans" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-watson-studio-service-plans">
+        <h1 id="watson-studio-service-plans">Watson Studio service plans</h1>
+        <p>The plan you choose for Watson Studio affects the features and capabilities that you can use.</p>
+        <p>When you provision or upgrade Watson Studio, you can choose between a Lite and a Professional plan.</p>
+        <p>See the plan pages in <a href="https://cloud.ibm.com/catalog/services/watson-studio" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud catalog: Watson Studio</a> for pricing and feature information.</p>
+        <p>IBM Cloud account owners can choose between the Lite (unpaid) and Professional (paid) plan.</p>
+        <p>Under the Professional plan, you can provision multiple Watson Studio instances in an IBM Cloud account. The Professional plan allows unlimited users and charges for compute usage which is measured in capacity unit hours (CUH). The Professional
+          plan is the only paid plan option.</p>
+        <p>Under the Lite plan, you can provision one Watson Studio instance per IBM Cloud account. The Lite plan allows only one user and limits the CUH to 10 hours per month. Collaborators in your projects must have their own Watson Studio Lite plans.</p>
+        <p>Both Watson Studio plans contain these features without additional services:</p>
+        <ul>
+          <li>Watson services APIs to run in notebooks.</li>
+          <li><a href="../analyze-data/notebooks-and-scripts.html">Jupyter notebooks</a> to analyze data with Python or R code.</li>
+          <li><a href="../analyze-data/rstudio-overview.html">RStudio</a> to analyze data with R code.</li>
+          <li><a href="../../wsd/spss-modeler.html">SPSS Modeler</a> to develop predictive models on a graphical canvas.</li>
+          <li><a href="../refinery/refining_data.html">Data Refinery</a> to shape and cleanse data.</li>
+          <li><a href="../analyze-data/ml-orchestration-overview.html">Watson Pipelines</a> to orchestrate an end-to-end flow of assets from creation through deployment.</li>
+          <li><a href="../analyze-data/environments-parent.html">Small runtime environments</a> as compute resources for analytical tools.</li>
+          <li><a href="../analyze-data/notebook-environments.html#default-spark">Spark runtime environments</a>. The maximum number of Spark executors that can be used is restricted by the service plan.</li>
+          <li><a href="../analyze-data/watson-nlp.html">Environments with the Watson Natural Language Processing library</a> with pre-trained models for language processing tasks that you can run on unstructured data.</li>
+          <li><a href="../../DO/DOWS-Cloud_home.html">Environments with Decision Optimization libraries</a> to model and solve decision optimization problems that exceed the complexity that is supported by the Community Edition of the libraries in the other
+            default Python environments.</li>
+          <li><a href="../manage-data/conn_types.html">Connectors to data sources</a>.</li>
+          <li><a href="../getting-started/collaborate.html">Collaboration</a> in projects and deployment spaces.</li>
+          <li><a href="https://dataplatform.cloud.ibm.com/gallery" target="_blank" rel="noopener noreferrer">Resource hub</a> for resources to help you learn and samples that you can use.</li>
+        </ul>
+        <p>Both Watson Studio plans contain these features that also require the Watson Machine Learning service:</p>
+        <ul>
+          <li><a href="../analyze-data/ml-overview.html">Machine learning models</a> to build analytical models.</li>
+          <li><a href="../analyze-data/autoai-overview.html">AutoAI</a> to automatically create a set of model candidates.</li>
+          <li><a href="../analyze-data/fed-lea.html">Federated learning</a> to collaboratively train a model with multiple remote parties without sharing data.</li>
+          <li><a href="../../DO/DOWS-Cloud_home.html">Decision Optimization</a> to build models that solve business problems.</li>
+          <li><a href="../synthetic/synthetic_data_overview_sd.html">Synthetic Data Generator</a> to generate synthetic tabular data.</li>
+        </ul>
+        <p>The Watson Studio Professional plan includes features that are not available in the Lite plan, including the following:</p>
+        <ul>
+          <li><a href="../console/wdp_admin_cos.html#byok">Encrypt your IBM Cloud Object Storage instance with your own key</a>.</li>
+          <li><a href="../analyze-data/environments-parent.html">Large runtime environments with 8 or more vCPUs</a> as compute resources for analytical tools.</li>
+          <li><a href="../analyze-data/notebook-environments.html##default-gpu">GPU environments for running notebooks</a>.</li>
+          <li><a href="../manage-data/export-project.html">Export projects</a>.</li>
+        </ul>
+        <p>The Professional plan charges for <a href="../admin/monitor-resources.html">compute usage</a> consumed per month. Compute usage is measured in capacity unit hours (CUH). For details on computing resource allocation and consumption, see <a href="../analyze-data/track-runtime-usage.html">Runtime usage</a>.</p>
+        <table>
+          <caption caption-side="top">Table 1. Feature differences between Watson Studio plans</caption>
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Lite</th>
+              <th>Professional</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Custom encryption keys</td>
+              <td></td>
+              <td>✓</td>
+            </tr>
+            <tr>
+              <td>Connectors</td>
+              <td>✓</td>
+              <td>✓</td>
+            </tr>
+            <tr>
+              <td>Large environments</td>
+              <td></td>
+              <td>✓</td>
+            </tr>
+            <tr>
+              <td>Spark environments</td>
+              <td>2 executors</td>
+              <td>Up to 35 executors</td>
+            </tr>
+            <tr>
+              <td>GPU environments</td>
+              <td></td>
+              <td>✓ Dallas region only</td>
+            </tr>
+            <tr>
+              <td>Export projects</td>
+              <td></td>
+              <td>✓</td>
+            </tr>
+            <tr>
+              <td>Collaborators</td>
+              <td>1</td>
+              <td>Unlimited</td>
+            </tr>
+            <tr>
+              <td>Processing usage</td>
+              <td>10 CUH per month</td>
+              <td>Unlimited - pay per CUH</td>
+            </tr>
+            <tr>
+              <td>HIPAA readiness</td>
+              <td></td>
+              <td>✓ Dallas region only</td>
+            </tr>
+          </tbody>
+        </table>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="../../svc-welcome/wsl.html">Watson Studio service overview</a></li>
+            <li><a href="../getting-started/get-started-wdp.html">Getting started</a></li>
+            <li><a href="../analyze-data/data-science.html">Analyzing data and building models</a></li>
+            <li><a href="../admin/upgrade.html">Upgrade your plan</a>.</li>
+          </ul>
+          <p><strong>Parent topic:</strong>
+            <a href="../../svc-welcome/wsl.html">Watson Studio</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Use global objects to create configurable constants to configure your pipeline at run time. Use parameters or user variables in pipelines to specify values at run time, rather than hardcoding the values. Unlike pipeline parameters, user variables can be dynamically set during the flow.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Configuring global objects for Watson Pipelines</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=pipeline-configuring-global-objects"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="configuring-global-objects-for-watson-pipelines" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-configuring-global-objects-for-watson-pipelines">
+        <h1 id="configuring-global-objects-for-watson-pipelines">Configuring global objects for Watson Pipelines</h1>
+        <p>Use global objects to create configurable constants to configure your pipeline at run time. Use parameters or user variables in pipelines to specify values at run time, rather than hardcoding the values. Unlike pipeline parameters, user variables
+          can be dynamically set during the flow.</p>
+        <p>Learn about creating:</p>
+        <ul>
+          <li><a href="#flow">Pipeline parameters</a></li>
+          <li><a href="#param-set">Parameter sets</a></li>
+          <li><a href="#user">User variables</a></li>
+        </ul>
+        <section id="section-flow">
+          <h2 id="flow">Pipeline parameters</h2>
+          <p>Use pipeline parameters to specify a value at pipeline runtime. For example, if you want a user to enter a deployment space for pipeline output, use a parameter to prompt for the space name to use when the pipeline runs. Specifying the value
+            of the parameter each time that you run the job helps you use the correct resources.</p>
+          <p>About pipeline parameters:</p>
+          <ul>
+            <li>can be assigned as a node value or assign it for the pipeline job.</li>
+            <li>can be assigned to any node, and a status indicator alerts you.</li>
+            <li>can be used for multiple nodes.</li>
+          </ul>
+          <section id="section-defining-a-pipeline-parameter">
+            <h3 id="defining-a-pipeline-parameter">Defining a pipeline parameter</h3>
+            <ol>
+              <li>Create a pipeline parameter from the node configuration panel from the toolbar.</li>
+              <li>Enter a name and an optional description. The name must be lower <em>snake</em> case with lowercase letters, numbers, and underscores. For example, <code>lower_snake_case_with_numbers_123</code> is a valid name. The name must begin with
+                a letter. If the name does not comply, you get a 404 error when you try to run the pipeline.</li>
+              <li>Assign a parameter type. Depending on the parameter type, you might need to provide more details or assign a default value.</li>
+              <li>Click <strong>Add to list</strong> to save the pipeline parameter.</li>
+            </ol>
+            <div class="note note"><span class="notetitle">Note:</span> </div>
+          </section>
+          <section id="section-parameter-types">
+            <h3 id="parameter-types">Parameter types</h3>
+            <p>Parameter types are categorized as:</p>
+            <ul>
+              <li><strong>Basic:</strong> including data types to structure input to a pipeline or options for handling the creation of a duplicate space or asset.</li>
+              <li><strong>Resource:</strong> for selecting a project, catalog, space, or asset.</li>
+              <li><strong>Instance:</strong> for selecting a machine learning instance or a Cloud Object Storage instance.</li>
+              <li><strong>Other:</strong> for specifying details, such as creation mode or error policy.</li>
+            </ul>
+            <section id="section-example-of-using-pipeline-types">
+              <h4 id="example-of-using-pipeline-types">Example of using pipeline types</h4>
+              <p>To create a parameter of the type <strong>Path</strong>:</p>
+              <ol>
+                <li>Create a parameter set called <strong>MASTER_PARAMETER_SET</strong>.</li>
+                <li>Create a parameter called <code>file_path</code> and set the type to <strong>Path</strong>.</li>
+                <li>Set the value of <code>file_path</code> to <code>mnts/workspace/masterdir</code>.</li>
+                <li>Drag the node <strong>Wait for file</strong> onto the canvas and set the <em>File location</em> value to <code>MASTER_PARAMETER_SET.file_path</code>.</li>
+                <li>Connect the <strong>Wait for file</strong> with the <strong>Run Bash script</strong> node so that the latter node runs after the former.</li>
+                <li><em>Optional:</em> Test your parameter variable:
+                  <ol>
+                    <li>Add the environment variable parameter to your <strong>MASTER_PARAMETER_SET</strong> parameter set, for example <code>FILE_PATH</code>.</li>
+                    <li>Paste the following command into the <em>Script code</em> of the <strong>Run Bash script</strong>:<pre class="codeblock"><code class="lang-bash hljs"><span class="hljs-built_in">echo</span> File: <span class="hljs-variable">$FILE_PATH</span>
+cat <span class="hljs-variable">$FILE_PATH</span>
+</code></pre>
+                    </li>
+                  </ol>
+                </li>
+                <li>Run the pipeline. The path <code>mnts/workspace/masterdir</code> is in both of the nodes' execution logs to see they passed successfully.</li>
+              </ol>
+            </section>
+          </section>
+        </section>
+        <section id="section-configuring-a-node-with-a-pipeline-parameter">
+          <h2 id="configuring-a-node-with-a-pipeline-parameter">Configuring a node with a pipeline parameter</h2>
+          <p>When you configure a node with a pipeline parameter, you can choose an existing pipeline parameter or create a new one as part of configuring a node.</p>
+          <p>For example:</p>
+          <ol>
+            <li>Create a pipeline parameter called <em>creationmode</em> and save it to the parameter list.</li>
+            <li>Configure a <em>Create deployment space</em> node and click to open the configuration panel.</li>
+            <li>Choose the <strong>Pipeline parameter</strong> as the input for the <strong>Creation mode</strong> option.</li>
+            <li>Choose the <em>creationmode</em> pipeline parameter and save the configuration.</li>
+          </ol>
+          <p>When you run the flow, the pipeline parameter is assigned when the space is created.</p>
+        </section>
+        <section id="section-param-set">
+          <h2 id="param-set">Parameter sets</h2>
+          <p>Parameter sets are a group of related parameters to use in a pipeline. For example, you might create one set of parameters to use in a test environment and another for use in a production environment.</p>
+          <p>Parameter sets can be created as a project asset. Parameter sets created in the project are then available for use in pipelines in that project.</p>
+          <section id="section-creating-a-parameter-set-as-a-project-asset">
+            <h3 id="creating-a-parameter-set-as-a-project-asset">Creating a parameter set as a project asset</h3>
+            <p>You can create a parameter set as a reusable project asset to use in pipelines.</p>
+            <ol>
+              <li>Open an existing project or create a project.</li>
+              <li>Click <strong>New task &gt; Collect multiple job parameters with specified values to reuse in jobs</strong> from the available tasks.</li>
+              <li>Assign a name for the set, and specify the details for each parameter in the set, including:
+                <ul>
+                  <li>Name for the parameter</li>
+                  <li>Data type</li>
+                  <li>Prompt</li>
+                  <li>Default value</li>
+                </ul>
+              </li>
+              <li>Optionally create value sets for the parameters in the parameter set. The value sets can be the different values for different contexts. For example, you can create a Test value set with values for a test environment, and a production set
+                for production values.</li>
+              <li>Save the parameter set after you create all the parameters, s. It becomes available for use in pipelines that are created in that project.</li>
+            </ol>
+          </section>
+          <section id="section-adding-a-parameter-set-for-use-in-a-pipeline">
+            <h3 id="adding-a-parameter-set-for-use-in-a-pipeline">Adding a parameter set for use in a pipeline</h3>
+            <p>To add a parameter set from a project:</p>
+            <ol>
+              <li>Click the global objects icon and switch to the <strong>Parameter sets tab</strong>.</li>
+              <li>Click <strong>Add parameter set</strong> to add parameter sets from your project that you want to use in your pipeline.</li>
+              <li>You can add or remove parameter sets from the list. The parameter sets you specify for use in your pipeline becomes available when you assign parameters as input in the pipeline.</li>
+            </ol>
+          </section>
+          <section id="section-creating-a-parameter-set-from-the-parameters-list-in-your-pipeline">
+            <h3 id="creating-a-parameter-set-from-the-parameters-list-in-your-pipeline">Creating a parameter set from the parameters list in your pipeline</h3>
+            <p>You can create a parameter set from the parameters list for your pipeline</p>
+            <ol>
+              <li>Click the global objects icon and open the Pipeline Parameters.</li>
+              <li>Select the parameters that you want in the set, then click the <strong>Save as parameter set</strong> icon.</li>
+              <li>Enter a name and optional description for the set.</li>
+              <li>Save to add the parameter set for use in your pipeline.</li>
+            </ol>
+          </section>
+          <section id="section-using-a-parameter-set-in-a-pipeline">
+            <h3 id="using-a-parameter-set-in-a-pipeline">Using a parameter set in a pipeline</h3>
+            <p>To use a parameter set:</p>
+            <ol>
+              <li>Choose <strong>Assign pipeline parameter</strong> as an input type from a node property sheet.</li>
+              <li>Choose the parameter to assign. A list displays all available parameters of the type for that input. Available parameters can be individual parameters, and parameters defined as part of a set. The parameter set name precedes the name of
+                the parameter. For example, <em>Parameter_set_name.Parameter_name</em>.</li>
+              <li>Run the pipeline and select a value set for the corresponding value (if available), assign a value for the parameter, or accept the default value.</li>
+            </ol>
+            <div class="note note"><span class="notetitle">Note:</span> You can use a parameter set in the expression builder by using the format `param_sets.
+              <myparamset.brparam>`. If a parameter set value contains an environment variable, you must use this syntax in the expression builder: `param_sets.MyParamSet[</myparamset.brparam>
+            </div>
+            <div class="note attention"><span class="attentiontitle">Attention:</span> If you delete a parameter, make sure that you remove the references to the parameter from your job design. If you do not remove the references, your job might fail.</div>
+          </section>
+          <section id="section-editing-a-parameter-set-in-a-job">
+            <h3 id="editing-a-parameter-set-in-a-job">Editing a parameter set in a job</h3>
+            <p>If you use a parameter set when you define a job, you can choose a value set to populate variables with the values in that set. If you change and save the values, then edit the job and save changes, the parameter set values reset to the defaults.</p>
+          </section>
+        </section>
+        <section id="section-user">
+          <h2 id="user">User variables</h2>
+          <p>Create user variables to assign values when the flow runs. Unlike pipeline parameters, user variables can be modified during processing.</p>
+          <section id="section-defining-a-user-variable">
+            <h3 id="defining-a-user-variable">Defining a user variable</h3>
+            <p>You can create user variables for use in your pipeline. User variables, like parameters, are defined on the global level and are not specific to any node. The initial value for a user variable must be set when you define it and cannot be set
+              dynamically as the result of any node output. When you define a user variable, you can use the <strong>Set user variables</strong> node to update it with node output.</p>
+            <p>To create a user variable:</p>
+            <ol>
+              <li>Create a variable from the <strong>Update variable</strong> node configuration panel or from the toolbar.</li>
+              <li>Enter a name and an optional description. The name must be lower <em>snake</em> case with lowercase letters, numbers, and underscores. For example, lower_snake_case_with_numbers_123 is a valid name. The name must begin with a letter. If
+                the name does not comply, you get a 404 error when you try to run the pipeline.</li>
+              <li>Complete the definition of the variable, including choosing a variable type and input type.</li>
+              <li>Click <strong>Add</strong> to add the variable to the list. It is now available for use in a node.</li>
+            </ol>
+            <p><strong>Parent topic:</strong> <a href="ml-orchestration-create.html">Creating a pipeline</a></p>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

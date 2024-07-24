@@ -1,0 +1,186 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="As the owner or an administrator of the IBM Cloud account, you can monitor and manage services and the platform.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Managing IBM watsonx</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=administration-managing-platform"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="managing-ibm-watsonx" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-managing-ibm-watsonx">
+        <h1 id="managing-ibm-watsonx">Managing IBM watsonx</h1>
+        <p>As the owner or an administrator of the IBM Cloud account, you can monitor and manage services and the platform.</p>
+        <ul>
+          <li><a href="#core">Configuring services</a></li>
+        </ul>
+        <p>An IBM Cloud account administrator is a user in the account who was assigned the <strong>Administrator</strong> role in IBM Cloud for the All Identity and Access enabled services option in IAM. If you're not sure of your roles, see <a href="../admin/your-roles.html">Determine your roles</a>.</p>
+        <p>You perform some administrative tasks within IBM watsonx, and others in IBM Cloud. Some tasks require steps in both areas, depending on your goals.</p>
+        <section id="section-core">
+          <h2 id="core">Configuring services</h2>
+          <p>The services that are included in watsonx.ai are Watson Studio and Watson Machine Learning.</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Task</th>
+                <th>In IBM watsonx?</th>
+                <th>In IBM Cloud?</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><a href="../admin/create-services.html#manage">Manage services in IBM Cloud</a></td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td><a href="#region">Switch service region</a></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../admin/upgrade.html#account">Upgrade your IBM Cloud account</a></td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td><a href="../admin/upgrade.html#app">Upgrade your services</a></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../admin/endpoints-vrf.html">Configure private service endpoints</a></td>
+                <td></td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td><a href="../admin/admin-removeusers.html">Remove users</a></td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td><a href="stopapps.html">Stop using IBM watsonx</a></td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td><a href="../admin/monitor-resources.html">Monitor account resource usage</a></td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td><a href="../admin/monitor-resources.html#monitor-cuh">View and manage environment runtimes</a></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="wdp_admin_cos.html">Set up IBM Cloud Object Storage for use with IBM watsonx</a></td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td><a href="../getting-started/setup-access.html">Manage users and access</a></td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td><a href="../admin/account-settings.html">Set resources scope</a></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../admin/account-settings.html">Set type of credentials for connections</a></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../admin/account-settings.html">Manage IBM Cloud account in IBM Cloud</a></td>
+                <td></td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td><a href="../admin/admin-manage-projects.html">Manage all projects in the account</a></td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td><a href="../getting-started/security-overview.html">Secure IBM watsonx</a></td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td><a href="../admin/admin-appid.html">Set up IBM Cloud App ID (beta)</a></td>
+                <td></td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td><a href="wdp_admin_cos.html#byok">Delegate encryption keys for IBM Cloud Object Storage</a></td>
+                <td>✓</td>
+                <td>✓</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section id="section-region">
+          <h2 id="region">Switch service region</h2>
+          <p>The platform and services are available in multiple IBM Cloud service regions and you can have services in more than one region. Your projects, catalogs, and data are specific to the region in which they were saved and can be accessed only from
+            your services in that region. If you provision Watson Studio services in both the Dallas and the Frankfurt regions, you can't access projects that you created in the Frankfurt region from the Dallas region.</p>
+          <p>To switch your service region:</p>
+          <ol>
+            <li>Log in to IBM watsonx.</li>
+            <li>Click the <strong>Region Switcher</strong> <img src="images/region_switcher.png" alt="Region Switcher icon" height="18" style="vertical-align: text-bottom;"> in the home page header.</li>
+            <li>Select the region that contains your services and projects.</li>
+          </ol>
+          <p>For wider browsers, you can select the region from the dropdown menu.</p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="../getting-started/ws-plans.html">Watson Studio offering plans</a></li>
+            <li><a href="../getting-started/wml-plans.html">Watson Machine Learning plans and compute usage</a></li>
+            <li><a href="../getting-started/roles.html">Roles in the platform</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong>
+            <a href="../admin/administer-accounts.html">Administration</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

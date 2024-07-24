@@ -1,0 +1,139 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can change the name, the description, and the hardware configuration of an environment template that you created. You can customize the software configuration of Jupyter notebook environment templates through conda channels or by using pip. You can provide a list of conda packages, a list of pip packages, or a combination of both. When using conda packages, you can provide a list of additional conda channel locations through which the packages can be obtained.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Customizing environment templates</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=resources-customizing-environments"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="customizing-environment-templates" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-customizing-environment-templates">
+        <h1 id="customizing-environment-templates">Customizing environment templates</h1>
+        <p>You can change the name, the description, and the hardware configuration of an environment template that you created. You can customize the software configuration of Jupyter notebook environment templates through conda channels or by using pip.
+          You can provide a list of conda packages, a list of pip packages, or a combination of both. When using conda packages, you can provide a list of additional conda channel locations through which the packages can be obtained.</p>
+        <dl>
+          <dt><strong>Required permissions</strong></dt>
+          <dd>You must be have the <strong>Admin</strong> or <strong>Editor</strong> role in the project to customize an environment template.</dd>
+          <dt><strong>Restrictions</strong></dt>
+          <dd>You cannot change the language of an existing environment template.</dd>
+          <dd>You can’t customize the software configuration of a Spark environment template you created.</dd>
+        </dl>
+        <p>To customize an environment template that you created:</p>
+        <ol>
+          <li>
+            <p>Under your project's <strong>Manage</strong> tab, click the <strong>Environments</strong> page.</p>
+          </li>
+          <li>
+            <p>In the <strong>Active Runtimes</strong> section, check that no runtime is active for the environment template you want to change.</p>
+          </li>
+          <li>
+            <p>In the <strong>Environment Templates</strong> section, click the environment template you want to customize.</p>
+          </li>
+          <li>
+            <p>Make your changes.</p>
+            <p>For a Juypter notebook environment template, select to create a customization and specify the libraries to add to the standard packages that are available by default. You can also use the customization to upgrade or downgrade packages that
+              are part of the standard software configuration.</p>
+            <p>The libraries that are added to an environment template through the customization aren't persisted; however, they are automatically installed each time the environment runtime is started. Note that if you add a library using <code>pip install</code>              through a notebook cell and not through the customization, only you will be able to use this library; the library is not available to someone else using the same environment template.</p>
+            <p>If you want you can use the provided template to add the custom libraries. There is a different template for Python and for R. The following example shows you how to add Python packages:</p>
+            <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-comment"># Modify the following content to add a software customization to an environment.</span>
+<span class="hljs-comment"># To remove an existing customization, delete the entire content and click Apply.</span>
+
+<span class="hljs-comment"># Add conda channels below defaults, indented by two spaces and a hyphen.</span>
+channels:
+ - defaults
+
+<span class="hljs-comment"># To add packages through conda or pip, remove the comment on the following line.</span>
+<span class="hljs-comment"># dependencies:</span>
+
+<span class="hljs-comment"># Add conda packages here, indented by two spaces and a hyphen.</span>
+<span class="hljs-comment"># Remove the comment on the following line and replace sample package name with your package name:</span>
+<span class="hljs-comment">#  - a_conda_package=1.0</span>
+
+<span class="hljs-comment"># Add pip packages here, indented by four spaces and a hyphen.</span>
+<span class="hljs-comment"># Remove the comments on the following lines  and replace sample package name with your package name.</span>
+<span class="hljs-comment">#  - pip:</span>
+<span class="hljs-comment">#    - a_pip_package==1.0</span>
+</code></pre>
+            <p><strong>Important when customizing</strong>:</p>
+            <ul>
+              <li>Before you customize a package, verify that the changes you are planning have the intended effect.
+                <ul>
+                  <li><code>conda</code> can report the changes required for installing a given package, without actually installing it. You can verify the changes from your notebook. For example, for the library Plotly:
+                    <ul>
+                      <li>In a Python notebook, enter: <code>!conda install --dry-run plotly</code></li>
+                      <li>In an R notebook, enter: <code>print(system2("conda", args=c("install","--dry-run","r-plotly"), stdout=TRUE))</code></li>
+                    </ul>
+                  </li>
+                  <li><code>pip</code> does install the package. However, restarting the runtime again after verification will remove the package. Here too you verify the changes from your notebook. For example, for the library Plotly:
+                    <ul>
+                      <li>In a Python notebook, enter: <code>!pip install plotly</code></li>
+                      <li>In an R notebook, enter: <code>print(system2("pip", args="install plotly", stdout=TRUE))</code></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li>If you can get a package through <code>conda</code> from the default channels and through <code>pip</code> from PyPI, the preferred method is through <code>conda</code> from the default channels.</li>
+              <li>Conda does dependency checking when installing packages which can be memory intensive if you add many packages to the customization. Ensure that you select an environment with sufficient RAM to enable dependency checking at the time the
+                runtime is started.</li>
+              <li>To prevent unnecessary dependency checking if you only want packages from one Conda channel, exclude the default channels by removing <code>defaults</code> from the channels list in the template and adding <code>nodefaults</code>.</li>
+              <li>In addition to the Anaconda main channel, many packages for R can be found in Anaconda's R channel. In R environments, this channel is already part of the default channels, hence it does not need to be added separately.</li>
+              <li>If you add packages only through pip or only through conda to the customization template, you must make sure that <code>dependencies</code> is not commented out in the template.</li>
+              <li>When you specify a package version, use a single <code>=</code> for <code>conda</code> packages and <code>==</code> for <code>pip</code> packages. Wherever possible, specify a version number as this reduces the installation time and memory
+                consumption significantly. If you don't specify a version, the package manager might pick the latest version available, or keep the version that is available in the package.</li>
+              <li>You cannot add arbitrary notebook extensions as a customization because notebook extensions must be pre-installed.</li>
+            </ul>
+          </li>
+          <li>
+            <p>Apply your changes.</p>
+          </li>
+        </ol>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="example-customizations.html">Examples of customizations</a></li>
+            <li><a href="install-cust-lib.html">Installing custom packages through a notebook</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="../analyze-data/manage-envs-new.html">Managing compute resources</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

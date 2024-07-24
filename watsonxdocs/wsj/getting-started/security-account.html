@@ -1,0 +1,178 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Account security mechanisms for IBM watsonx are provided by IBM Cloud. These security mechanisms, including SSO and role-based, group-based, and service-based access control, protect access to resources and provide user authentication.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>IBM Cloud account security</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=security-account"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="ibm-cloud-account-security" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-ibm-cloud-account-security">
+        <h1 id="ibm-cloud-account-security">IBM Cloud account security</h1>
+        <p>Account security mechanisms for IBM watsonx are provided by IBM Cloud. These security mechanisms, including SSO and role-based, group-based, and service-based access control, protect access to resources and provide user authentication.</p>
+        <table>
+          <caption caption-side="top">Table 1. Account security mechanisms for IBM watsonx</caption>
+          <thead>
+            <tr>
+              <th>Mechanism</th>
+              <th>Purpose</th>
+              <th>Responsibility</th>
+              <th>Configured on</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a href="#iam-access-roles">Access (IAM) roles</a></td>
+              <td>Provide role-based access control for services</td>
+              <td>Customer</td>
+              <td>IBM Cloud</td>
+            </tr>
+            <tr>
+              <td><a href="#access-groups">Access groups</a></td>
+              <td>Configure access groups and policies</td>
+              <td>Customer</td>
+              <td>IBM Cloud</td>
+            </tr>
+            <tr>
+              <td><a href="#resource-groups">Resource groups</a></td>
+              <td>Organize resources into groups and assign access</td>
+              <td>Customer</td>
+              <td>IBM Cloud</td>
+            </tr>
+            <tr>
+              <td><a href="#service-ids">Service IDs</a></td>
+              <td>Enables an application outside of IBM Cloud access to your IBM Cloud services</td>
+              <td>Customer</td>
+              <td>IBM Cloud</td>
+            </tr>
+            <tr>
+              <td><a href="#service-id-api-keys">Service ID API keys</a></td>
+              <td>Authenticates an application to a Service ID</td>
+              <td>Customer</td>
+              <td>IBM Cloud</td>
+            </tr>
+            <tr>
+              <td><a href="#activity-tracker">Activity Tracker</a></td>
+              <td>Monitor events related to IBM watsonx</td>
+              <td>Customer</td>
+              <td>IBM Cloud</td>
+            </tr>
+            <tr>
+              <td><a href="#multifactor-authentication">Multifactor authentication (MFA)</a></td>
+              <td>Require users to authenticate with a method beyond ID and password</td>
+              <td>Customer</td>
+              <td>IBM Cloud</td>
+            </tr>
+            <tr>
+              <td><a href="#single-sign-on">Single sign-on authentication</a></td>
+              <td>Connect with an identity provider (IdP) for single sign-on (SSO) authentication by using SAML federation</td>
+              <td>Shared</td>
+              <td>IBM Cloud</td>
+            </tr>
+          </tbody>
+        </table>
+        <section id="section-iam-access-roles">
+          <h2 id="iam-access-roles">IAM access roles</h2>
+          <p>You can use IAM access roles to provide users access to all resources that belong to a resource group. You can also give users access to manage resource groups and create new service instances that are assigned to a resource group.</p>
+          <p>For step-by-step instructions, see <a href="https://cloud.ibm.com/docs/account?topic=account-access-getstarted" target="_blank" rel="noopener noreferrer">IBM Cloud docs: Assigning access to resources</a></p>
+        </section>
+        <section id="section-access-groups">
+          <h2 id="access-groups">Access groups</h2>
+          <p>After you set up and organize resource groups in your account, you can streamline access management by using access groups. Create access groups to organize a set of users and service IDs into a single entity. You can then assign a policy to
+            all group members by assigning it to the access group. Thus you can assign a single policy to the access group instead of assigning the same policy multiple times per individual user or service ID.</p>
+          <p>By using access groups, you can minimally manage the number of assigned policies by giving the same access to all identities in an access group.</p>
+          <p>For more information see:</p>
+          <ul>
+            <li><a href="https://cloud.ibm.com/docs/account?topic=account-groups&amp;interface=ui" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud docs: Setting up access groups</a>.</li>
+          </ul>
+        </section>
+        <section id="section-resource-groups">
+          <h2 id="resource-groups">Resource groups</h2>
+          <p>Use resource groups to organize your account's resources into logical groups that help with access control. Rather than assigning access to individual resources, you assign access to the group. Resources are any service that is managed by IAM,
+            such as databases. Whenever you create a service instance from the Cloud catalog, you must assign it to a resource group.</p>
+          <p>Resource groups work with access group policies to provide a way to manage access to resources by groups of users.
+            <!--- See Access groups. -->By including a user in an access group, and assigning the access group to a resource group, you provide access to the resources contained in the group. Those resources are not available to nonmembers.</p>
+          <!--- https://cloud.ibm.com/docs/account?topic -->
+          <p>The Lite account comes with a single resource group, named "Default", so all resources are placed in the Default resource group. With paid accounts, Administrators can create multiple resource groups to support your business and provide
+            access to resources on an as-needed basis.</p>
+          <p>For step-by-step instructions, see <a href="https://cloud.ibm.com/docs/account?topic=account-rgs" target="_blank" rel="noopener noreferrer">IBM Cloud docs: Managing resource groups</a></p>
+          <p>For tips on configuring resource groups to provide secure access, see <a href="https://cloud.ibm.com/docs/account?topic=account-account_setup" target="_blank" rel="noopener noreferrer">IBM Cloud docs: Best practices for organizing resources and assigning access</a></p>
+        </section>
+        <section id="section-service-ids">
+          <h2 id="service-ids">Service IDs</h2>
+          <p>You can create service IDs in IBM Cloud to enable an application outside of IBM Cloud access to your IBM Cloud services. Service IDs are not tied to a specific user. If a user leaves an organization and is deleted from the account, the service
+            ID remains intact to ensure that your service continues to work. Access policies that are assigned to each service ID ensure that your application has the appropriate access for authenticating with your IBM Cloud services. See <a href="../getting-started/collaborate.html">Project collaborators</a>.</p>
+          <p>One way in which Service IDs and access policies can be used is to manage access to the Cloud Object Storage buckets. See <a href="../manage-data/cos_buckets.html">Controlling access to Cloud Object Storage buckets</a>.</p>
+          <p>For more information, see <a href="https://cloud.ibm.com/docs/account?topic=account-serviceids" target="_blank" rel="noopener noreferrer">IBM Cloud docs: Creating and working with service IDs</a>.</p>
+        </section>
+        <section id="section-service-id-api-keys">
+          <h2 id="service-id-api-keys">Service ID API keys</h2>
+          <p>For extra protection, Service IDs can be combined with unique API keys. The API key that is associated with a Service ID can be set for one-time use or unlimited use. For more information, see <a href="https://cloud.ibm.com/docs/account?topic=account-serviceidapikeys" target="_blank" rel="noopener noreferrer">IBM Cloud docs: Managing service IDs API keys</a>.</p>
+        </section>
+        <section id="section-activity-tracker">
+          <h2 id="activity-tracker">Activity Tracker</h2>
+          <p>The Activity Tracker collects and stores audit records for API calls (events) made to resources that run in the IBM Cloud. You can use Activity Tracker to monitor the activity of your IBM Cloud account to investigate abnormal activity and critical
+            actions, and to comply with regulatory audit requirements. The events that are collected comply with the Cloud Auditing Data Federation (CADF) standard. IBM services that generate Activity Tracker events follow the IBM Cloud security policy.</p>
+          <p>For a list of events that apply to IBM watsonx, see <a href="../admin/at-events.html">Activity Tracker events</a>.</p>
+          <p>For instructions on configuring Activity Tracker, see <a href="https://cloud.ibm.com/docs/activity-tracker?topic=activity-tracker-getting-started" target="_blank" rel="noopener noreferrer">IBM Cloud docs: Getting started with IBM Cloud Activity Tracker</a>.</p>
+        </section>
+        <section id="section-multifactor-authentication">
+          <h2 id="multifactor-authentication">Multifactor authentication</h2>
+          <p>Multifactor authentication (or MFA) adds an extra layer of security by requiring multiple types of authentication methods upon login. After entering a valid username and password, users must also satisfy a second authentication method. For example,
+            a time-sensitive passcode is sent to the user, either through text or email. The correct passcode must be entered to complete the login process.</p>
+          <p>For more information, see <a href="https://cloud.ibm.com/docs/account?topic=account-types" target="_blank" rel="noopener noreferrer">IBM Cloud docs: Types of multifactor authentication</a>.</p>
+        </section>
+        <section id="section-single-sign-on">
+          <h2 id="single-sign-on">Single sign-on authentication</h2>
+          <p>Single sign-on (SSO) is an authentication method that enables users to log in to multiple, related applications that use one set of credentials.</p>
+          <p>IBM watsonx supports SSO using Security Assertion Markup Language (SAML) federated IDs. SAML federation requires coordination with IBM to configure. SAML connects IBMids with the user credentials that are provided by an identity provider (IdP).
+            For companies that have configured SAML federation with IBM, users can log in to IBM watsonx with their company credentials. SAML federation is the recommended method for SSO configuration with IBM watsonx.</p>
+          <p>The <a href="https://ibm.ent.box.com/notes/78040808400?s=yqjnprek2rm99jgqhlm04xz0nsjda69a" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBMid Enterprise Federation Adoption Guide</a> describes the steps that are
+            required to federate your identity provider (IdP). You need an IBM Sponsor, which is an IBM employee that works as the contact person between you and the IBMid team.</p>
+          <p>For an overview of SAML federation, see <a href="https://www.ibm.com/cloud/blog/ibm-cloud-saml-federation-guide" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud SAML Federation Guide</a>. This blog discusses
+            both SAML federation and IBM Cloud App ID. IBM Cloud App ID is supported as a Beta version with IBM watsonx.</p>
+          <p><strong>Parent topic:</strong>
+            <a href="../getting-started/security-overview.html">Security</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

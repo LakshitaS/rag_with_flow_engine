@@ -1,0 +1,88 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Use the advanced setup option to run a Python notebook that uses sample data to demonstrate how to configure model evaluations for Watson OpenScale.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Configuring Watson OpenScale with advanced setup</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=openscale-configuring-watson-advanced-setup"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="configuring-watson-openscale-with-advanced-setup" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-configuring-watson-openscale-with-advanced-setup">
+        <h1 id="configuring-watson-openscale-with-advanced-setup">Configuring Watson OpenScale with advanced setup</h1>
+        <p>Use the advanced setup option to run a Python notebook that uses sample data to demonstrate how to configure model evaluations for Watson OpenScale.</p>
+        <p>Use a notebook to build, train, and deploy a model and configure Watson OpenScale to monitor the model deployment. The notebook also provides historical data that generates insights that you can view in Watson OpenScale. The notebook uses the
+          German Credit risk model that is also used for the auto setup option to provide sample data. For more information, see the <a href="wos-auto-setup.html#sample-overview">Overview of the sample data</a>.</p>
+        <section id="section-crt-prereqs">
+          <h2 id="crt-prereqs">Before you begin</h2>
+          <p>To use the advanced setup option, you must select the <strong>Default Spark 3.3.x &amp; Python 3.9</strong> or the <strong>Runtime 22.2 on Python 3.10</strong> runtime environment when you create a Jupyter Notebook in the notebook editor. The
+            runtime environments require service credentials for the following services:</p>
+          <ul>
+            <li>Watson OpenScale</li>
+            <li>IBM Watson Machine Learning</li>
+            <li>Db2 Warehouse</li>
+          </ul>
+          <p>Watson Studio, Watson Machine Learning, Watson OpenScale, and other supplemental services are not available by default. An administrator must install these services on the IBM Cloud Pak for Data platform. To determine whether a service is installed,
+            open the Services catalog and check whether the service is enabled.</p>
+        </section>
+        <section id="section-run-adv-setup">
+          <h2 id="run-adv-setup">Running the advanced setup</h2>
+          <ol>
+            <li>Download the <a href="https://github.com/IBM/watson-openscale-samples/blob/main/Cloud%20Pak%20for%20Data/WML/notebooks/binary/spark/Watson%20OpenScale%20and%20Watson%20ML%20Engine.ipynb" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Watson OpenScale and Watson ML Engine.ipynb</a>              file from Github. You can sign in and clone the watson-openscale-samples repository to download the file or click <strong>Copy raw contents</strong> to paste the file content into a new IPYNB file.</li>
+            <li>Open Watson Studio and select one of your projects.</li>
+            <li>From the <strong>Assets</strong> tab, click <strong>New asset &gt; Work with data and models in Python or R notebooks</strong>.</li>
+            <li>Select the <strong>From file</strong> tab and specify a notebook name.</li>
+            <li>Select the <strong>Default Spark 3.3.x &amp; Python 3.9</strong> or the <strong>Runtime 22.2 on Python 3.10</strong> runtime environment from the <strong>Select runtime</strong> menu.</li>
+            <li>Upload the IPYNB file and click <strong>Create</strong>. The <strong>Working with Watson Machine Learning</strong> notebook loads and opens in your project.</li>
+          </ol>
+          <p>Now you can follow the steps in the notebook to run the advanced setup and deploy the German Credit risk model to your Watson OpenScale service instance.</p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="wos-manual-setup.html">Configuring Watson OpenScale with manual setup</a></li>
+            <li><a href="wos-auto-setup.html">Configuring Watson OpenScale with auto setup</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="getting-started.html">Watson OpenScale</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

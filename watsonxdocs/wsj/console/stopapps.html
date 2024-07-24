@@ -1,0 +1,127 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can stop using any services or IBM watsonx at any time, whether you are accessing the services from your own or someone else's IBM Cloud account.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Stop using services or IBM watsonx</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=platform-stop-using-services"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="stop-using-services-or-ibm-watsonx" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-stop-using-services-or-ibm-watsonx">
+        <h1 id="stop-using-services-or-ibm-watsonx">Stop using services or IBM watsonx</h1>
+        <p>You can stop using any services or IBM watsonx at any time, whether you are accessing the services from your own or someone else's IBM Cloud account.</p>
+        <p>The method you choose to stop using IBM watsonx depends on your goal:</p>
+        <ul>
+          <li>To remove your access to IBM watsonx in all IBM Cloud accounts that you belong to, <a href="#deactivate">leave IBM watsonx</a>.</li>
+          <li>To stop the use of a service in your IBM Cloud account, <a href="#deleteapps">delete your service</a> in your IBM Cloud account.</li>
+          <li>To stop all use of all IBM Cloud services in your account, <a href="#deletecloud">delete your IBM Cloud account</a>.</li>
+        </ul>
+        <p>When other users in your account stop using IBM watsonx, they are cleaned up appropriately.</p>
+        <section id="section-deactivate">
+          <h2 id="deactivate">Leave IBM watsonx</h2>
+          <p>If you want to leave IBM watsonx:</p>
+          <ol>
+            <li>Log in to IBM watsonx.</li>
+            <li>Click your avatar and then <strong>Profile</strong>.</li>
+            <li>On the <strong>Profile</strong> page, click <strong>Leave watsonx</strong>. If you change your mind about leaving, you can <a href="../getting-started/signup-wx.html">sign up to re-activate your profile</a>.</li>
+          </ol>
+          <p>Use this process when you want to stop using IBM watsonx, you are not the account owner, and you want to keep your IBM Cloud account.</p>
+          <p>These are the results when you leave IBM watsonx:</p>
+          <ul>
+            <li>Your profile is deleted and you can't log in to IBM watsonx.</li>
+            <li>Your projects and deployment spaces remain until you delete your services.</li>
+            <li>Your IBM Cloud account remains active.</li>
+            <li>Your IBM Cloud services are not affected.</li>
+          </ul>
+        </section>
+        <section id="section-deleteapps">
+          <h2 id="deleteapps">Delete a service</h2>
+          <p>To remove any of your services:</p>
+          <ol>
+            <li>Log in to IBM watsonx.</li>
+            <li>Click <strong>Administration &gt; Services &gt; Service instances</strong>.</li>
+            <li>Click the menu next to the service you want to remove and choose <strong>Delete</strong>.</li>
+          </ol>
+          <p>This action is the same as deleting the service in IBM Cloud. If you change your mind within 30 days, you can get your services and data back by reprovisioning the service.</p>
+          <p>These are the results when you delete the Watson Studio service:</p>
+          <ul>
+            <li>Your IBM watsonx profile remains.</li>
+            <li>You can no longer access that service from that IBM Cloud account.</li>
+            <li>You can still access your services from other accounts.</li>
+            <li>Your billing for that service stops.</li>
+            <li>Your data in IBM Cloud Object Storage remains.</li>
+            <li>Your projects remain.</li>
+            <li>You remain a collaborator in all your projects in other IBM Cloud accounts.</li>
+          </ul>
+        </section>
+        <section id="section-deletecloud">
+          <h2 id="deletecloud">Closing a IBM Cloud account</h2>
+          <p>If you want to stop using IBM Cloud services altogether and delete all your data, you can deactivate your IBM Cloud account. Follow these steps to close your Lite account:</p>
+          <ol>
+            <li>Sign in to your IBM Cloud account.</li>
+            <li>In the IBM Cloud console, go to the <strong>Manage &gt; Account &gt; Account settings</strong> page.</li>
+            <li>Click <strong>Close Account</strong>. After an account is closed for 30 days, all data is deleted and all services are removed.</li>
+          </ol>
+          <p>If you are not the owner of the account, you do not see a <strong>Close Account</strong> button.</p>
+          <p>These are the results when your IBM Cloud account is in the Canceled state:</p>
+          <ul>
+            <li>All your data in IBM Cloud is permanently deleted in 30 days.</li>
+            <li>The projects and catalogs in your account are deleted.</li>
+            <li>Your IBM watsonx profile and your IBM Cloud profile are deleted.</li>
+            <li>All the IBM Cloud services in you account are deleted in 30 days.</li>
+            <li>You are removed as a collaborator from projects and catalogs in other accounts within 30 days.</li>
+          </ul>
+          <p>If you want to close a Pay-As-You-Go or Subscription account, contact <a href="https://cloud.ibm.com/unifiedsupport/supportcenter" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Support</a>.</p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="../admin/admin-removeusers.html">Removing users from the account or from the workspace</a></li>
+            <li><a href="https://cloud.ibm.com/docs/account?topic=account-account-membership" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud docs: Leaving an account</a></li>
+            <li><a href="https://cloud.ibm.com/docs/account?topic=account-account_settings" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud docs: Managing your account settings</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong>
+            <a href="../console/wdp_admin_console.html">Managing IBM watsonx</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

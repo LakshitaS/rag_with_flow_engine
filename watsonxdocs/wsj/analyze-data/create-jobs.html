@@ -1,0 +1,146 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="A job is a way of running a batch deployment, or a self-contained asset like a script, notebook, code package, or flow in Watson Machine Learning. You can select the input and output for your job and choose to run it manually or on a schedule. From a deployment space, you can create, schedule, run, and manage jobs.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Creating jobs in deployment spaces</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=assets-creating-deployment-jobs"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="creating-jobs-in-deployment-spaces" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-creating-jobs-in-deployment-spaces">
+        <h1 id="creating-jobs-in-deployment-spaces">Creating jobs in deployment spaces</h1>
+        <p>A job is a way of running a batch deployment, or a self-contained asset like a script, notebook, code package, or flow in Watson Machine Learning. You can select the input and output for your job and choose to run it manually or on a schedule.
+          From a deployment space, you can create, schedule, run, and manage jobs.</p>
+        <section id="section-create-jobs-batch">
+          <h2 id="create-jobs-batch">Creating a batch deployment job</h2>
+          <p>Follow these steps when you are creating a batch deployment job:</p>
+          <div class="note important"><span class="importanttitle">Important:</span> You must have an existing batch deployment to create a batch job.</div>
+          <ol>
+            <li>From the <strong>Deployments</strong> tab, select your deployment and click <strong>New job</strong>. The <em>Create a job</em> dialog box opens.</li>
+            <li>In the <em>Define details</em> section, enter your job name, an optional description, and click <strong>Next</strong>.</li>
+            <li>In the <em>Configure</em> section, select a hardware specification. You can follow these steps to optionally configure environment variables and job run retention settings:
+              <ul>
+                <li>Optional: If you are deploying a Python script, an R script, or a notebook, then you can enter environment variables to pass parameters to the job. Click <strong>Environment variables</strong> to enter the <em>key</em> - <em>value</em>                  pair.</li>
+                <li>Optional: To avoid finishing resources by retaining all historical job metadata, follow one of these options:
+                  <ul>
+                    <li>Click <strong>By amount</strong> to set thresholds for saving a set number of job runs and associated logs.</li>
+                    <li>Click <strong>By duration (days)</strong> to set thresholds for saving artifacts for a specified number of days.</li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li>Optional: In the <em>Schedule</em> section, toggle the <strong>Schedule off</strong> button to schedule a run. You can set a date and time for start of schedule and set a schedule for repetition. Click <strong>Next</strong>.</li>
+          </ol>
+          <div class="note note"><span class="notetitle">Note:</span> If you don't specify a schedule, the job runs immediately.</div>
+          <ol start="4">
+            <li>Optional: In the <em>Notify</em> section, toggle the <strong>Off</strong> button to turn on notifications associated with this job. Click <strong>Next</strong>.</li>
+          </ol>
+          <div class="note note"><span class="notetitle">Note:</span> You can receive notifications for three types of events: success, warning, and failure.</div>
+          <ol start="5">
+            <li>In the <em>Choose data</em> section, provide inline data that corresponds with your model schema. You can provide input in JSON format. Click <strong>Next</strong>. See <a href="#example-json">Example JSON payload for inline data</a>.</li>
+            <li>In the <em>Review and create</em> section, verify your job details, and click <strong>Create and run</strong>.</li>
+          </ol>
+          <p><strong>Notes</strong>:</p>
+          <ul>
+            <li>
+              <p>Scheduled jobs display on the <strong>Jobs</strong> tab of the deployment space.</p>
+            </li>
+            <li>
+              <p>Results of job runs are written to the specified output file and saved as a space asset.</p>
+            </li>
+            <li>
+              <p>A data asset can be a data source file that you promoted to the space, a connected data source, or tables from databases and files from file-based data sources.</p>
+            </li>
+            <li>
+              <p>If you exclude certain weekdays in your job schedule, the job might not run as you would expect. The reason is due to a discrepancy between the time zone of the user who creates the schedule, and the time zone of the main node where the
+                job runs.</p>
+            </li>
+            <li>
+              <p>When you create or modify a scheduled job, an API key is generated. Future runs use this generated API key.</p>
+            </li>
+          </ul>
+          <section id="section-example-json">
+            <h3 id="example-json">Example JSON payload for inline data</h3>
+            <pre class="codeblock"><code class="lang-js hljs">{
+  <span class="hljs-string">"deployment"</span>: {
+    <span class="hljs-string">"id"</span>: <span class="hljs-string">"&lt;deployment id&gt;"</span>
+  },
+  <span class="hljs-string">"space_id"</span>: <span class="hljs-string">"&lt;your space id&gt;"</span>,
+  <span class="hljs-string">"name"</span>: <span class="hljs-string">"test_v4_inline"</span>,
+  <span class="hljs-string">"scoring"</span>: {
+  <span class="hljs-string">"input_data"</span>: [{
+    <span class="hljs-string">"fields"</span>: [<span class="hljs-string">"AGE"</span>, <span class="hljs-string">"SEX"</span>, <span class="hljs-string">"BP"</span>, <span class="hljs-string">"CHOLESTEROL"</span>, <span class="hljs-string">"NA"</span>, <span class="hljs-string">"K"</span>],
+    <span class="hljs-string">"values"</span>: [[<span class="hljs-number">47</span>, <span class="hljs-string">"M"</span>, <span class="hljs-string">"LOW"</span>, <span class="hljs-string">"HIGH"</span>, <span class="hljs-number">0.739</span>, <span class="hljs-number">0.056</span>], [<span class="hljs-number">47</span>, <span class="hljs-string">"M"</span>, <span class="hljs-string">"LOW"</span>, <span class="hljs-string">"HIGH"</span>, <span class="hljs-number">0.739</span>, <span class="hljs-number">0.056</span>]]
+    }]
+  }
+}
+</code></pre>
+          </section>
+        </section>
+        <section id="section-queuing-and-concurrent-job-executions">
+          <h2 id="queuing-and-concurrent-job-executions">Queuing and concurrent job executions</h2>
+          <p>The maximum number of concurrent jobs for each deployment is handled internally by the deployment service. For batch deployment, by default, two jobs can be run concurrently. Any deployment job request for a batch deployment that already has
+            two running jobs is placed in a queue for execution later. When any of the running jobs is completed, the next job in the queue is run. The queue has no size limit.</p>
+        </section>
+        <section id="section-limitation-on-using-large-inline-payloads-for-batch-deployments">
+          <h2 id="limitation-on-using-large-inline-payloads-for-batch-deployments">Limitation on using large inline payloads for batch deployments</h2>
+          <p>Batch deployment jobs that use large inline payload might get stuck in <code>starting</code> or <code>running</code> state. For more information, see</p>
+          <div class="note tip"><span class="tiptitle">Tip:</span> If you provide huge payloads to batch deployments, use data references instead of inline.</div>
+        </section>
+        <section id="section-retention-of-deployment-job-metadata">
+          <h2 id="retention-of-deployment-job-metadata">Retention of deployment job metadata</h2>
+          <p>Job-related metadata is persisted and can be accessed until the job and its deployment are deleted.</p>
+        </section>
+        <section id="section-viewing-deployment-job-details">
+          <h2 id="viewing-deployment-job-details">Viewing deployment job details</h2>
+          <p>When you create or view a batch job, the deployment ID and the job ID are displayed.</p>
+          <p><img src="images/job-ids.png" alt="Job IDs"></p>
+          <ul>
+            <li>The deployment ID represents the deployment definition, including the hardware and software configurations and related assets.</li>
+            <li>The job ID represents the details for a job, including input data and an output location and a schedule for running the job.</li>
+          </ul>
+          <p>Use these IDs to refer to the job in Watson Machine Learning <a href="https://cloud.ibm.com/apidocs/machine-learning">REST API</a> requests or in notebooks that use the Watson Machine Learning <a href="https://ibm.github.io/watson-machine-learning-sdk/">Python client library</a>.</p>
+          <p><strong>Parent topic:</strong> <a href="ml-deploy-general.html">Managing predictive deployments</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Deploy a tuned model so you can add it to a business workflow and start to use foundation models in a meaningful way.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Deploying a tuned foundation model</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=assets-deploying-tuned-model"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="deploying-a-tuned-foundation-model" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-deploying-a-tuned-foundation-model">
+        <h1 id="deploying-a-tuned-foundation-model">Deploying a tuned foundation model</h1>
+        <p>Deploy a tuned model so you can add it to a business workflow and start to use foundation models in a meaningful way.</p>
+        <section id="section-tuning-prereq">
+          <h2 id="tuning-prereq">Before you begin</h2>
+          <p>The tuning experiment that you used to tune the foundation model must be finished. For more information, see <a href="fm-tuning-tune.html">Tuning a foundation model</a>.</p>
+        </section>
+        <section id="section-deploy-tune">
+          <h2 id="deploy-tune">Deploy a tuned model</h2>
+          <p>To deploy a tuned model, complete the following steps:</p>
+          <ol>
+            <li>
+              <p>From the navigation menu, expand <strong>Projects</strong>, and then click <strong>All projects</strong>.</p>
+            </li>
+            <li>
+              <p>Click to open your project.</p>
+            </li>
+            <li>
+              <p>From the <em>Assets</em> tab, click the <strong>Experiments</strong> asset type.</p>
+            </li>
+            <li>
+              <p>Click to open the tuning experiment for the model you want to deploy.</p>
+            </li>
+            <li>
+              <p>From the <em>Tuned models</em> list, find the completed tuning experiment, and then click <strong>New deployment</strong>.</p>
+            </li>
+            <li>
+              <p>Name the tuned model.</p>
+              <p>The name of the tuning experiment is used as the tuned model name if you don't change it. The name has a number after it in parentheses, which counts the deployments. The number starts at one and is incremented by one each time you deploy
+                this tuning experiment.</p>
+            </li>
+            <li>
+              <p><strong>Optional</strong>: Add a description and tags.</p>
+            </li>
+            <li>
+              <p>In the <em>Target deployment space</em> field, choose a deployment space.</p>
+              <p>The deployment space must be associated with a machine learning instance that is in the same account as the project where the tuned model was created.</p>
+              <p>If you don't have a deployment space, choose <strong>Create a new deployment space</strong>, and then follow the steps in <a href="ml-space-create.html">Creating deployment spaces</a>.</p>
+              <p>For more information, see <a href="#deployment-space">What is a deployment space?</a></p>
+            </li>
+            <li>
+              <p>In the <em>Deployment serving name</em> field, add a label for the deployment.</p>
+              <p>The serving name is used in the URL for the API endpoint that identifies your deployment. Adding a name is helpful because the human-readable name that you add replaces a long, system-generated ID that is assigned otherwise.</p>
+              <p>The serving name also abstracts the deployment from its service instance details. Applications can refer to this name which allows for the underlying service instance to be changed without impacting users.</p>
+              <p>The name can have up to 36 characters. The supported characters are [a-z,0-9,_].</p>
+              <p>The name must be unique across the IBM Cloud region. You might be prompted to change the serving name if the name you choose is already in use.</p>
+            </li>
+            <li>
+              <p><strong>Tip</strong>: Select <strong>View deployment in deployment space after creating</strong>. Otherwise, you need to take more steps to find your deployed model.</p>
+            </li>
+            <li>
+              <p>Click <strong>Deploy</strong>.</p>
+            </li>
+          </ol>
+          <p>After the tuned model is promoted to the deployment space and deployed, a copy of the tuned model is stored in your project as a model asset.</p>
+          <section id="section-deployment-space">
+            <h3 id="deployment-space">What is a deployment space?</h3>
+            <p>When you create a new deployment, a tuned model is promoted to a deployment space, and then deployed. A deployment space is separate from the project where you create the asset. A deployment space is associated with the following services
+              that it uses to deploy assets:</p>
+            <ul>
+              <li>
+                <p>Watson Machine Learning: A product with tools and services you can use to build, train, and deploy machine learning models. This service hosts your turned model.</p>
+              </li>
+              <li>
+                <p>IBM Cloud Object Storage: A secure platform for storing structured and unstructured data. Your deployed model asset is stored in a Cloud Object Storage bucket that is associated with your project.</p>
+              </li>
+            </ul>
+            <p>For more information, see <a href="ml-spaces_local.html">Deployment spaces</a>.</p>
+          </section>
+        </section>
+        <section id="section-testing-the-deployed-model">
+          <h2 id="testing-the-deployed-model">Testing the deployed model</h2>
+          <p>The true test of your tuned model is how it responds to input that follows tuned-for patterns.</p>
+          <p>You can test the tuned model from one of the following pages:</p>
+          <ul>
+            <li><strong>Prompt Lab</strong>: A tool with an intuitive user interface for prompting foundation models. You can customize the prompt parameters for each input. You can also save the prompt as a notebook so you can interact with it programmatically.</li>
+            <li><strong>Deployment space</strong>: Useful when you want to test your model programmatically. From the <em>API Reference</em> tab, you can find information about the available endpoints and code examples. You can also submit input as text and
+              choose to return the output or in a stream, as the output is generated. However, you cannot change the prompt parameters for the input text.</li>
+          </ul>
+          <p>To test your tuned model, complete the following steps:</p>
+          <ol>
+            <li>
+              <p>From the navigation menu, select <strong>Deployments</strong>.</p>
+            </li>
+            <li>
+              <p>Click the name of the deployment space where you deployed the tuned model.</p>
+            </li>
+            <li>
+              <p>Click the name of your deployed model.</p>
+            </li>
+            <li>
+              <p>Follow the appropriate steps based on where you want to test the tuned model:</p>
+              <ul>
+                <li>
+                  <p>From Prompt Lab:</p>
+                  <ol>
+                    <li>
+                      <p>Click <strong>Open in Prompt Lab</strong>, and then choose the project where you want to work with the model.</p>
+                      <p>Prompt Lab opens and the tuned model that you deployed is selected from the Model field.</p>
+                    </li>
+                    <li>
+                      <p>In the <em>Try</em> section, add a prompt to the <strong>Input</strong> field that follows the prompt pattern that your tuned model is trained to recognize, and then click <strong>Generate</strong>.</p>
+                    </li>
+                  </ol>
+                  <p>For more information about how to use the prompt editor, see <a href="fm-prompt-lab.html">Prompt Lab</a>.</p>
+                </li>
+                <li>
+                  <p>From the deployment space:</p>
+                  <ol>
+                    <li>
+                      <p>Click the <em>Test</em> tab.</p>
+                    </li>
+                    <li>
+                      <p>In the <em>Input data</em> field, add a prompt that follows the prompt pattern that your tuned model is trained to recognize, and then click <strong>Generate</strong>.</p>
+                      <p>You can click <strong>View parameter settings</strong> to see the prompt parameters that are applied to the model by default. To change the prompt parameters, you must go to the Prompt Lab.</p>
+                    </li>
+                  </ol>
+                </li>
+              </ul>
+            </li>
+          </ol>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li>
+              <p><a href="fm-tuning-tune.html">Tuning a foundation model</a></p>
+            </li>
+            <li>
+              <p><a href="fm-security.html">Security and privacy for foundation models</a></p>
+            </li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="deploy-found-assets.html">Deploying foundation model assets</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

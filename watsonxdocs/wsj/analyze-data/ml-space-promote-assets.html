@@ -1,0 +1,100 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Learn about how to promote assets from a project to a deployment space and the requirements for promoting specific asset types.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Promoting assets to a deployment space</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=spaces-promoting-assets-deployment-space"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="promoting-assets-to-a-deployment-space" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-promoting-assets-to-a-deployment-space">
+        <h1 id="promoting-assets-to-a-deployment-space">Promoting assets to a deployment space</h1>
+        <p>Learn about how to promote assets from a project to a deployment space and the requirements for promoting specific asset types.</p>
+        <section id="section-promoting-assets-to-your-deployment-space">
+          <h2 id="promoting-assets-to-your-deployment-space">Promoting assets to your deployment space</h2>
+          <p>You can promote assets from your project to a deployment space. For a list of assets that can be promoted from a project to a deployment space, refer to <a href="../analyze-data/ml-space-add-assets-all.html">Adding assets to a deployment space</a>.
+            When you are promoting assets, you can:</p>
+          <ul>
+            <li>Choose an existing space or create a new one.</li>
+            <li>Add tags to help identify the promoted asset.</li>
+            <li>Choose dependent assets to promote them at the same time.</li>
+          </ul>
+          <p>Follow these steps to promote your assets to your deployment space:</p>
+          <ol>
+            <li>From your project, go to the <strong>Assets</strong> tab.</li>
+            <li>Select the <strong>Options</strong> (<img src="../refinery/images/actions.png" alt="Options icon" height="20" style="vertical-align:text-bottom">) icon and click <strong>Promote to space</strong>.</li>
+          </ol>
+          <div class="note tip"><span class="tiptitle">Tip:</span> If the asset that you want to promote is a model, you can also click the model name to open the model details page, and then click the <b>Promote to deployment space</b> icon.</div>
+          <p><strong>Notes:</strong></p>
+          <ul>
+            <li>Promoting assets and their dependencies from a project to a space by using the Watson Studio user interface is the recommended method to guarantee that the promotion flow results in a complete asset definition. For example, relying on the
+              <a href="https://cloud.ibm.com/apidocs/watson-data-api-cpd" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Watson Data API</a> to manage the promotion flow of an asset, together with its dependencies, can result
+              in the promoted asset from being inaccessible from the space.</li>
+            <li>Promoting assets from default Git-based projects is not supported.</li>
+            <li>Depending on your configuration and the type of asset that you promote, large asset attachments, typically more than 2 GB, can cause the promotion action to time out.</li>
+          </ul>
+          <p>For more information, see:</p>
+          <ul>
+            <li><a href="#promo-conn">Promoting connections and connected data</a></li>
+            <li><a href="#promo-model">Promoting models</a></li>
+          </ul>
+        </section>
+        <section id="section-promo-conn">
+          <h2 id="promo-conn">Promoting connections and connected data</h2>
+          <p>When you promote a connection that uses personal credentials or Cloud Pak for Data authentication to a deployment space, the credentials are not promoted. You must provide the credentials information again or allow Cloud Pak for Data authentication.
+            Because Storage Volume connections support only personal credentials, to be able to use this type of asset after it is promoted to a space, you must provide the credentials again.<br><br> Some types of connections allow for using your personal
+            platform credentials. If you promote a connection or connected data that uses your personal platform credentials, tick the <em>Use my platform login credentials</em> checkbox.<br><br> Although you can promote any kind of data connection to
+            a space, where you can use the connection is governed by factors such as model and deployment type. For example, you can access any of the connected data by using a script. However, in batch deployments you are limited to particular types
+            of data, as listed in <a href="../analyze-data/deploy-batch-details.html">Creating a batch deployment</a>.</p>
+        </section>
+        <section id="section-promo-model">
+          <h2 id="promo-model">Promoting models</h2>
+          <p>When you promote a model to a space:</p>
+          <ul>
+            <li>Components that are required for a successful deployment, such as a custom software specification or model definition are automatically promoted as well.</li>
+            <li>The data assets that were used to train the model are not promoted with it. Information on data assets used to train the model is included in model metadata.</li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="../analyze-data/ml-space-add-assets-all.html">Assets in deployment spaces</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

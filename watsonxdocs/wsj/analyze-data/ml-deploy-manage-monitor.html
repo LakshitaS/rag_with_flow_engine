@@ -1,0 +1,155 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Configure watsonx.governance evaluations in your deployment spaces to gain insights about your model performance. When you configure evaluations, you can analyze evaluation results and model transaction records directly in your spaces.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Evaluating deployments in spaces</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=assets-evaluating-deployments-in-spaces"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="evaluating-deployments-in-spaces" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-evaluating-deployments-in-spaces">
+        <h1 id="evaluating-deployments-in-spaces">Evaluating deployments in spaces</h1>
+        <p>Configure watsonx.governance evaluations in your deployment spaces to gain insights about your model performance. When you configure evaluations, you can analyze evaluation results and model transaction records directly in your spaces.</p>
+        <p>watsonx.governance evaluates your model deployments to help you measure performance and understand your model predictions. When you configure model evaluations, watsonx.governance generates metrics for each evaluation that provide different insights
+          that you can review. watsonx.governance also logs the transactions that are processed during evaluations to help you understand how your model predictions are determined. For more information, see <a href="../model/getting-started.html">Evaluating AI models with Watson OpenScale</a>.</p>
+        <p>If you have an instance of watsonx.governance provisioned, you can seamlessly create an online deployment, then monitor the deployment results for fairness, quality, drift, and explainability.</p>
+        <p><img src="../model/images/Evaluating-deployments-in-a-space.svg" alt="Evaluating model deployments in a space"></p>
+        <p>A typical scenario follows this sequence:</p>
+        <ol>
+          <li>Create a deployment space and associate a watsonx.governance instance with the space to enable all the monitoring capabilities. You can choose the type of space, for example production, or pre-production, depending on your requirements.</li>
+          <li>Promote a trained machine learning model and input (payload) data to the deployment space and create an online deployment for the model.</li>
+          <li>From the deployment Test tab, provide the input data and get predictions back.</li>
+          <li>From the Evaluations tab, configure the evaluation to monitor your deployment for quality, fairness, and explainability. Provide all the required model details so that Watson OpenScale can connect to the model, the training and payload data,
+            and to a repository for storing evaluation results.</li>
+          <li>Configure a monitor for fairness to make sure that your model is producing unbiased results. Select fields to monitor for fairness, then set thresholds to measure predictions for a monitored group compared to a reference group. For example,
+            you can evaluate your model to make sure that it is providing unbiased predictions based on gender.</li>
+          <li>Configure a monitor for quality to determine model performance based on the number of correct outcomes that are produced by the model based on labeled test data that is called Feedback data. Set quality thresholds to track when a metric value
+            is outside an acceptable range.</li>
+          <li>Configure a monitor for drift to make sure that your deployments are up-to-date and consistent. Use feature importance to determine the impact of feature drift on your model. For example, a small amount of drift in an important feature can have
+            a bigger impact on your model than a moderate amount of drift in a less important feature.</li>
+          <li>You can monitor your deployment results for explainability to understand the factors that led the model to determine a prediction. Choose the explanation method that is best suited to your needs. For example, you can choose SHAP (Shapley Additive
+            EXplanations) method for thorough explanations or LIME (Local Interpretable Model-Agnostic Explanations) method for faster explanations.</li>
+          <li>Finally, you can inspect your model evaluations to find areas where small changes to a few inputs would result in a different decision. Test scenarios to determine whether changing inputs can improve model performance.</li>
+        </ol>
+        <p>Watch the following video for a demonstration of how to use watsonx.governance to monitor a deployment in a space.</p>
+        <div>
+          <p style="font-size:smaller">This video provides a visual method to learn the concepts and tasks in this documentation.</p><iframe id="wm-CPD-wos-in-spaces" src="https://video.ibm.com/embed/channel/23952663/video/CPD-wos-in-spaces" lang="en-US" style="border: 0;" webkitallowfullscreen="" allowfullscreen="" frameborder="no" width="560" height="315" title="Evaluate and online deployment in spaces" alt="Evaluate and online deployment in spaces"></iframe></div>
+        <p>The following sections describe how to configure watsonx.governance evaluations and review model insights in your deployment spaces:</p>
+        <section id="section-getting-started">
+          <h2 id="getting-started">Preparing to evaluate models in spaces</h2>
+          <p>To configure Watson OpenScale evaluations from your <a href="ml-spaces_local.html">deployment spaces</a>, you must select <strong>Associate a service instance</strong> in the <strong>Associate a service instance</strong> dialog box before you
+            can run evaluations. In the <strong>Associate instance for evaluation</strong> window, you must choose the watsonx.governance instance that you want to use and select <strong>Associate a service instance</strong> to associate an instance with
+            your project. You must be assigned the <strong>Admin</strong> role for your project to associate instances.</p>
+          <p><img src="../model/images/wos-associate-wxgov-instance.png" alt="Associate watsonx.governance instance"></p>
+          <p>If you don't have a database that is associated with your watsonx.governance instance, you must also associate a database before you can run evaluations. To associate a database, you must also click <strong>Associate database</strong> in the
+            <strong>Database required</strong> dialog box to connect to a database. You must be assigned the <strong>Admin</strong> role for your project and watsonx.governance instance to associate databases.</p>
+          <p><img src="../model/images/wos-associate-wxgov-database.png" alt="Associate watsonx.governance database with project"></p>
+        </section>
+        <section id="section-configuring-evaluations">
+          <h2 id="configuring-evaluations">Configuring Watson OpenScale evaluations in spaces</h2>
+          <p>After you associate your Watson OpenScale instance, you can select deployments to view the <strong>Evaluations</strong> and <strong>Transactions</strong> tabs that you can use to configure evaluations and review model insights. To start configuring
+            model evaluations in your space, you can select <strong>Configure OpenScale evaluation settings</strong> to open a wizard that provides a guided series of steps.</p>
+          <p><img src="images/amalgam_wos_start_eval.png" alt="Evaluation tab displays button to start configuring evaluations"></p>
+          <p>You can evaluate online deployments only in your deployment space.</p>
+          <section id="section-model-details">
+            <h3 id="model-details">Providing model details</h3>
+            <p>To configure model evaluations, you must provide model details to enable watsonx.governance to understand how your model is set up. You must provide details about your training data and your model output.</p>
+            <p><img src="images/wos-model-details.png" alt="Provide model details to configure evaluation settings"></p>
+            <p>For more information, see <a href="../model/wos-deploy-prepare.html#providing-model-details-in-watson-machine-learning-deployment-spaces">Providing model details</a>.</p>
+          </section>
+          <section id="section-configuring-explain">
+            <h3 id="configuring-explain">Configuring explainability</h3>
+            <p>You can configure explainability in watsonx.governance to reveal which features contribute to the outcome predicted by your model for a transaction and predict what changes would result in a different outcome. You can choose to configure local
+              explanations to analyze the impact of factors for specific model transactions and configure global explanations to analyze general factors that impact model outcomes.</p>
+            <p><img src="images/wos-amalgam-config-explain.png" alt="Configure explainability settings"></p>
+            <p>For more information, see <a href="../model/wos-explainability-config.html">Configuring explainability</a>.</p>
+          </section>
+          <section id="section-configuring-fairness-evaluations">
+            <h3 id="configuring-fairness-evaluations">Configuring fairness evaluations</h3>
+            <p>You can configure fairness evaluations to determine whether your model produces biased outcomes for different groups. To configure fairness evaluations, you can specify the reference group that you expect to represent favorable outcomes and
+              the fairness metrics that you want to use. You can also select features that are compared to the reference group to evaluate them for bias.</p>
+            <p><img src="images/amalgam-config-fairness.png" alt="Configure fairness evaluations"></p>
+            <p>For more information, see <a href="../model/wos-monitor-fairness.html">Configuring fairness evaluations</a>.</p>
+          </section>
+          <section id="section-configuring-quality-evaluations">
+            <h3 id="configuring-quality-evaluations">Configuring quality evaluations</h3>
+            <p>You can configure quality evaluations to understand how well your model predicts accurate outcomes. To configure quality evaluations, you must specify thresholds for each metric to enable watsonx.governance to identify when model quality declines.</p>
+            <p><img src="images/amalgam-config-quality.png" alt="Configure quality evaluations"></p>
+            <p>For more information, see <a href="../model/wos-monitor-accuracy.html">Configuring quality evaluations</a>.</p>
+          </section>
+          <section id="section-configuring-drift-v2-evaluations">
+            <h3 id="configuring-drift-v2-evaluations">Configuring drift v2 evaluations</h3>
+            <p>You can configure drift v2 evaluations to measure changes in your data over time to make sure that you get consistent outcomes for your model. To configure drift v2 evaluations, you must set thresholds that enable watsonx.governance to identify
+              changes in your model output, the accuracy of your predictions, and the distribution of your input data. You must also select important features to enable watsonx.governance to measure the change in value distribution.</p>
+            <p><img src="images/amalgam-config-driftv2.png" alt="Configure driftv2 evaluations"></p>
+            <p>For more information, see <a href="../model/wos-driftv2-config.html">Configuring drift v2 evaluations</a>.</p>
+          </section>
+          <section id="section-configuring-drift-evaluations">
+            <h3 id="configuring-drift-evaluations">Configuring drift evaluations</h3>
+            <p>You can configure drift evaluations to enable watsonx.governance to detect drops in accuracy and data consistency in your model. To configure drift evaluations, you must set thresholds to enable watsonx.governance to establish an accuracy
+              and consistency baseline for your model.</p>
+            <p><img src="images/amalgam-config-drift.png" alt="Configure drift evaluations"></p>
+            <p>For more information, see <a href="../model/wos-monitor-drift.html">Configuring drift evaluations</a>.</p>
+          </section>
+        </section>
+        <section id="section-running-evaluations">
+          <h2 id="running-evaluations">Running evaluations</h2>
+          <p>After you configure evaluations, you can close the wizard to run the evaluations. To run the evaluations, you must select <strong>Evaluate now</strong> in the <strong>Actions</strong> menu on the <strong>Evaluations</strong> tab to <a href="../model/wos-send-model-transactions.html">send model transactions</a>.</p>
+          <p><img src="images/amalgam-send-model-transactions.png" alt="Import data to run evaluations"></p>
+        </section>
+        <section id="section-review-eval-results">
+          <h2 id="review-eval-results">Reviewing evaluation results</h2>
+          <p>You can analyze evaluation results on the <strong>Evaluations</strong> tab to gain insights about your model performance. To analyze evaluation results, you can click the arrow <img src="../model/images/wos-nav-arrow.png" alt="navigation arrow">            in an evaluation section or use the <strong>Actions</strong> menu to view details about your model.</p>
+          <p><img src="../model/images/wos-evaluation-results.png" alt="Model deployment evaluation chart is displayed with each evaluation showing details for how the model meets set thresholds."></p>
+          <p>For more information, see <a href="../model/wos-insight-timechart.html">Reviewing evaluation results</a>.</p>
+        </section>
+        <section id="section-exploring-transactions">
+          <h2 id="exploring-transactions">Reviewing model transactions</h2>
+          <p>You can analyze model transactions on the <strong>Transactions</strong> tab to understand how your model predicts outcomes and predict what changes might cause different outcomes. To analyze transactions, you can choose to view explanations
+            that provide details about how your model predictions are determined.</p>
+          <p><img src="../model/images/wos-shap-explain-transactions.png" alt="Transaction details"></p>
+          <p>For more information, see <a href="../model/wos-insights-transaction-details.html">Explaining model transactions</a>.</p>
+          <p><strong>Parent topic:</strong> <a href="../analyze-data/ml-deploy-general.html">Managing predictive deployments</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

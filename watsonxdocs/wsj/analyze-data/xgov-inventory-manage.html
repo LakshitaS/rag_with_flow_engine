@@ -1,0 +1,122 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Manage the options for AI use cases. For example, create or manage an inventory for storing and reviewing AI use cases, customize report templates, or manage attachments.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Managing AI use cases</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=cases-creating-managing-inventories"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="managing-ai-use-cases" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-managing-ai-use-cases">
+        <h1 id="managing-ai-use-cases">Managing AI use cases</h1>
+        <p>Manage the options for AI use cases. For example, create or manage an inventory for storing and reviewing AI use cases, customize report templates, or manage attachments.</p>
+        <section id="section-creating-an-inventory-for-ai-use-cases">
+          <h2 id="creating-an-inventory-for-ai-use-cases">Creating an inventory for AI use cases</h2>
+          <p>You must have Admin rights to create and manage an inventory. For more information, see <a href="xgov-collab-roles.html">Collaboration roles</a>.</p>
+          <ol>
+            <li>
+              <p>Click <strong>AI use cases</strong> from the navigation menu.</p>
+            </li>
+            <li>
+              <p>Click the settings icon <img src="images/ml-setting-icon.png" alt="gear icon" height="20" style="vertical-align:text-bottom">.</p>
+              <p><img src="images/xgov-use-case-settings.png" alt="Opening settings for AI use cases inventory" style="max-width:90%;height:auto;width:auto"></p>
+            </li>
+            <li>
+              <p>Click <strong>Inventories</strong> to see the Inventories settings.</p>
+            </li>
+            <li>
+              <p>Click <strong>New inventory</strong>.</p>
+            </li>
+            <li>
+              <p>Assign a name, add an optional description, and associate a Cloud Object Storage instance.</p>
+            </li>
+          </ol>
+        </section>
+        <section id="section-adding-collaborators-to-an-inventory">
+          <h2 id="adding-collaborators-to-an-inventory">Adding collaborators to an inventory</h2>
+          <p>Inventories are meant to be collaborative so that multiple people that perform different roles can contribute to governance of key assets. To add collaborators to an inventory:</p>
+          <ol>
+            <li>Click <strong>AI use cases</strong> from the navigation menu.</li>
+            <li>Click the settings icon <img src="images/ml-setting-icon.png" alt="gear icon" height="20" style="vertical-align:text-bottom">.</li>
+            <li>Click <strong>Inventories</strong> to see the Inventories settings.</li>
+            <li>In the options menu for the inventory, click <strong>Set collaborators</strong>.</li>
+            <li>Click <strong>Add collaborators</strong> to add collaborators individually, or by user group.</li>
+            <li>Assign a role of Admin, Editor, or Viewer.</li>
+            <li>Collaborators are added to the list for the inventory. You can remove or change the assigned access as needed.</li>
+          </ol>
+        </section>
+        <section id="section-managing-external-models-report-templates-and-attachments">
+          <h2 id="managing-external-models-report-templates-and-attachments">Managing external models, report templates, and attachments</h2>
+          <p>You can extend inventory management to include the ability to govern external models, customize report templates, and manage attachments for factsheets.</p>
+        </section>
+        <section id="section-enabling-governance-of-external-models">
+          <h2 id="enabling-governance-of-external-models">Enabling governance of external models</h2>
+          <p>Enable governance for models that are created in notebooks or outside of Cloud Pak for Data. Track the results of model evaluations and model details in factsheets. You can store external models in the Platform assets catalog or choose an inventory.</p>
+          <ol>
+            <li>Click <strong>AI use cases</strong> from the navigation menu.</li>
+            <li>Click the settings icon <img src="images/ml-setting-icon.png" alt="gear icon" height="20" style="vertical-align:text-bottom">.</li>
+            <li>Click <strong>General</strong> to see the General settings.</li>
+            <li>Click the toggle to enable <strong>External model management</strong>.</li>
+            <li>Select an inventory for tracking external models.</li>
+            <li>Select an owner, then click <strong>Apply.</strong></li>
+          </ol>
+          <div class="note note"><span class="notetitle">Note:</span> External models are listed under AI governance in the main navigation menu.</div>
+          <p>MRG-Factsheet-API-Access</p>
+          <section id="section-managing-report-templates">
+            <h3 id="managing-report-templates">Managing report templates</h3>
+            <p>Manage report templates to customize the reports inventory users can create.</p>
+            <p>For details, see <a href="xgov-manage-reports.html">Managing report templates</a>.</p>
+          </section>
+          <section id="section-managing-attachments">
+            <h3 id="managing-attachments">Managing attachments</h3>
+            <p>Create and manage attachment groups for AI use cases to provide the structure for users to attach supporting files to enrich a use case or a factsheet. For example, if you want every use case to include approval documents, you can create a
+              group to define placeholders for those documents in each use case. Users can then upload the documents to those placeholder slots.</p>
+            <p>For more information, see <a href="xgov-manage-attachments.html">Managing attachments</a>.</p>
+          </section>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p><strong>Parent topic:</strong> <a href="xgov-use-cases.html">Governing assets in AI use cases</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

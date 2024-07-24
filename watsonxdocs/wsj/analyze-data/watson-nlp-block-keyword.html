@@ -1,0 +1,105 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="The Watson Natural Language Processing  Keyword extraction with ranking block extracts noun phrases from input text based on their relevance.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Keyword extraction and ranking</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=catalog-keyword-extraction-ranking"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="keyword-extraction" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-keyword-extraction">
+        <h1 id="keyword-extraction">Keyword extraction and ranking</h1>
+        <p>The Watson Natural Language Processing Keyword extraction with ranking block extracts noun phrases from input text based on their relevance.</p>
+        <p><strong>Block name</strong></p>
+        <p><code>keywords_text-rank_&lt;language&gt;_stock</code></p>
+        <p><strong>Supported language</strong></p>
+        <p>Keyword extraction with text ranking is available for the following languages. For a list of the language codes and the corresponding language, see <a href="watson-nlp-block-catalog.html#lang-codes">Language codes</a>.</p>
+        <p>ar, cs, da, de, en, es, fi, fr, he, hi, it, ja, ko, nb, nl, nn, pt, ro, ru, sk, sv, tr, zh-cn</p>
+        <p><strong>Capabilities</strong></p>
+        <p>The keywords and text rank block ranks noun phrases extracted from an input document based on how relevant they are within the document.</p>
+        <table>
+          <caption>Capabilities of keyword extraction and ranking based on an example</caption>
+          <thead>
+            <tr>
+              <th>Capabilities</th>
+              <th>Examples</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Ranks extracted noun phrases based on relevance</td>
+              <td>"Anna went to school at University of California Santa Cruz. Anna joined the university in 2015." -&gt; Anna, University of California Santa Cruz</td>
+            </tr>
+          </tbody>
+        </table>
+        <p><strong>Dependencies on other blocks</strong></p>
+        <p>The following blocks must run before you can run the Keyword extraction with ranking block:</p>
+        <ul>
+          <li><code>syntax_izumo_&lt;language&gt;_stock</code></li>
+          <li><code>noun-phrases_rbr_&lt;language&gt;_stock</code></li>
+        </ul>
+        <p><strong>Code sample</strong></p>
+        <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">import</span> watson_nlp
+text = <span class="hljs-string">"Anna went to school at University of California Santa Cruz. Anna joined the university in 2015."</span>
+
+<span class="hljs-comment"># Load Syntax, Noun Phrases and Keywords models for English</span>
+syntax_model = watson_nlp.load(<span class="hljs-string">'syntax_izumo_en_stock'</span>)
+noun_phrases_model = watson_nlp.load(<span class="hljs-string">'noun-phrases_rbr_en_stock'</span>)
+keywords_model = watson_nlp.load(<span class="hljs-string">'keywords_text-rank_en_stock'</span>)
+
+<span class="hljs-comment"># Run the Syntax and Noun Phrases models</span>
+syntax_prediction = syntax_model.run(text, parsers=(<span class="hljs-string">'token'</span>, <span class="hljs-string">'lemma'</span>, <span class="hljs-string">'part_of_speech'</span>))
+noun_phrases = noun_phrases_model.run(text)
+
+<span class="hljs-comment"># Run the keywords model</span>
+keywords = keywords_model.run(syntax_prediction, noun_phrases, limit=<span class="hljs-number">2</span>)
+<span class="hljs-built_in">print</span>(keywords)
+</code></pre>
+        <p>Output of the code sample:</p>
+        <pre class="codeblock"><code class="lang-text hljs">'keywords':&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [{'text': 'University of California Santa Cruz', 'relevance': 0.939524, 'count': 1},
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {'text': 'Anna', 'relevance': 0.891002, 'count': 2}]
+</code></pre>
+        <p><strong>Parent topic:</strong> <a href="watson-nlp-block-catalog.html">Watson Natural Language Processing task catalog</a></p>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

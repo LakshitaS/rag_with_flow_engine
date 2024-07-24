@@ -1,0 +1,145 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Data imputation is the means of replacing missing values in your data set with substituted values. If you enable imputation, you can specify how missing values are interpolated in your data.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Data imputation in AutoAI experiments</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=autoai-configuring-data-imputation"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="data-imputation-in-autoai-experiments" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-data-imputation-in-autoai-experiments">
+        <h1 id="data-imputation-in-autoai-experiments">Data imputation in AutoAI experiments</h1>
+        <p>Data imputation is the means of replacing missing values in your data set with substituted values. If you enable imputation, you can specify how missing values are interpolated in your data.</p>
+        <section id="section-imputation-by-experiment-type">
+          <h2 id="imputation-by-experiment-type">Imputation by experiment type</h2>
+          <p>Imputation methods depend on the type of experiment that you build.</p>
+          <ul>
+            <li>For classification and regression you can configure categorical and numerical imputation methods.</li>
+            <li>For timeseries problems, you can choose from a set of imputation methods to apply to numerical columns. When the experiment runs, the best performing method from the set is applied automatically. You can also specify a specific value as a
+              replacement value.</li>
+          </ul>
+        </section>
+        <section id="section-enabling-imputation">
+          <h2 id="enabling-imputation">Enabling imputation</h2>
+          <p>To view and set imputation options:</p>
+          <ol>
+            <li>Click <strong>Experiment settings</strong> when you configure your experiment.</li>
+            <li>Click the <strong>Data source</strong> option.</li>
+            <li>Click <strong>Enable data imputation</strong>. Note that if you do not explicitly enable data imputation but your data source has missing values, AutoAI warns you and applies default imputation methods. See <a href="autoai-data-imp-details.html">imputation details</a>.</li>
+            <li>Select options in the Imputation section.</li>
+            <li>Optionally set a threshold for the percentage of imputation acceptable for a column of data. If the percentage of missing values exceeds the specified threshold, the experiment fails. To resolve, update the data source or adjust the threshold.</li>
+          </ol>
+        </section>
+        <section id="section-configuring-imputation-for-classification-and-regression-experiments">
+          <h2 id="configuring-imputation-for-classification-and-regression-experiments">Configuring imputation for classification and regression experiments</h2>
+          <p>Choose one of these methods for imputing missing data in binary classification, multiclass classification, or regression experiments. Note that you can have one method for completing values for text-based (categorical) data and another for numerical
+            data.</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Method</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Most frequent</td>
+                <td>Replace missing value with the value that appears most frequently in the column.</td>
+              </tr>
+              <tr>
+                <td>Median</td>
+                <td>Replace missing value with the value in the middle of the sorted column.</td>
+              </tr>
+              <tr>
+                <td>Mean</td>
+                <td>Replace missing value with the average value for the column.</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section id="section-configuring-imputation-for-timeseries-experiments">
+          <h2 id="configuring-imputation-for-timeseries-experiments">Configuring imputation for timeseries experiments</h2>
+          <p>Choose some or all of these methods. When multiple methods are selected, the best-performing method is automatically applied for the experiment.</p>
+          <div class="note note"><span class="notetitle">Note:</span> Imputation is not supported for date or time values.</div>
+          <table>
+            <thead>
+              <tr>
+                <th>Method</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Cubic</td>
+                <td>Uses cubic interpolation by using pandas/scipy method to fill missing values.</td>
+              </tr>
+              <tr>
+                <td>Fill</td>
+                <td>Choose <em>value</em> as the type to replace the missing values with a numeric value you specify.</td>
+              </tr>
+              <tr>
+                <td>Flatten iterative</td>
+                <td>Data is first flattened and then the Scikit-learn iterative imputer is applied to find missing values.</td>
+              </tr>
+              <tr>
+                <td>Linear</td>
+                <td>Use linear interpolation by using pandas/scipy method to fill missing values.</td>
+              </tr>
+              <tr>
+                <td>Next</td>
+                <td>Replace missing value with the next value.</td>
+              </tr>
+              <tr>
+                <td>Previous</td>
+                <td>Replace missing value with the previous value.</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section id="section-next-steps">
+          <h2 id="next-steps">Next steps</h2>
+          <p><a href="autoai-data-imp-details.html">Data imputation implementation details for time series experiments</a></p>
+          <p><strong>Parent topic:</strong> <a href="autoai-overview.html">AutoAI overview</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

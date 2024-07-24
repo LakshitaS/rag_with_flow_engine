@@ -1,0 +1,141 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can create custom environment templates if you do not want to use the default environments provided by Watson Studio.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Creating environment templates</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=resources-creating-environments"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="creating-environment-templates" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-creating-environment-templates">
+        <h1 id="creating-environment-templates">Creating environment templates</h1>
+        <p>You can create custom environment templates if you do not want to use the default environments provided by Watson Studio.</p>
+        <dl>
+          <dt><strong>Required permissions</strong></dt>
+          <dd>To create an environment template, you must have the <strong>Admin</strong> or <strong>Editor</strong> role within the project.</dd>
+        </dl>
+        <p>You can create environment templates for the following types of assets:</p>
+        <ul>
+          <li>Notebooks in the Notebook editor</li>
+          <li>Notebooks in RStudio</li>
+          <li>Modeler flows in the SPSS Modeler</li>
+          <li>Data Refinery flows</li>
+          <li>Jobs that run operational assets, such as Data Refinery flows, or Notebooks in a project</li>
+        </ul>
+        <div class="note note"><span class="notetitle">Note:</span>
+          <md-block>
+            <p>If you want additional packages to be automatically installed in your environment template (software customization), you can configure this after the custom environment template is created. For details, refer to <a href="../analyze-data/customize-envs.html">Adding customizations</a>.</p>
+            <p></p>
+          </md-block>
+        </div>
+        <p></p>
+        <p>To create an environment template:</p>
+        <ol>
+          <li>On the <strong>Manage</strong> tab of your project, select the <strong>Environments</strong> page and click <strong>New template</strong> under <strong>Templates</strong>.</li>
+          <li>Enter a name and a description.</li>
+          <li>Select one of the following engine types:
+            <ul>
+              <li><strong>Default</strong>: Select for Python, R, and RStudio runtimes for Watson Studio.</li>
+              <li><strong>Spark</strong>: Select for Spark with Python or R runtimes for Watson Studio.</li>
+              <li><strong>GPU</strong>: Select for more computing power to improve model training performance for Watson Studio.</li>
+            </ul>
+          </li>
+          <li>Select the hardware configuration from the <strong>Hardware configuration</strong> drop-down menu.</li>
+          <li>Select the software version if you selected a runtime of "Default," "Spark," or "GPU."</li>
+        </ol>
+        <section id="section-where-to-find">
+          <h3 id="where-to-find">Where to find your custom environment template</h3>
+          <p>Your new environment template is listed under Templates on the <strong>Environments</strong> page in the <strong>Manage</strong> tab of your project. From this page, you can:</p>
+          <ul>
+            <li>Check which runtimes are active</li>
+            <li>Update custom environment templates</li>
+            <li>Track the number of capacity units per hour that your runtimes have consumed so far</li>
+            <li>Stop active runtimes.</li>
+          </ul>
+        </section>
+        <section id="section-env-limitations">
+          <h2 id="env-limitations">Limitations</h2>
+          <p>The default environments provided by Watson Studio cannot be edited or modified.</p>
+          <dl>
+            <dt><strong>Notebook environments</strong> (Anaconda Python or R distributions):</dt>
+            <dd>
+              <ul>
+                <li>You can't add a software customization to the default Python and R environment templates included in Watson Studio. You can only add a customization to an environment template that you create.</li>
+              </ul>
+            </dd>
+            <dd>
+              <ul>
+                <li>If you add a software customization using conda, your environment must have at least 2 GB RAM.</li>
+              </ul>
+            </dd>
+            <dd>
+              <ul>
+                <li>You can't customize an R environment for a notebook by installing R packages directly from CRAN or GitHub. You can check if the CRAN package you want is available only from conda channels and, if the package is available, add that package
+                  name in the customization list as <code>r-&lt;package-name&gt;</code>.</li>
+              </ul>
+            </dd>
+          </dl>
+          <ul>
+            <li>After you have started a notebook in an Watson Studio environment, you can't create another conda environment from inside that notebook and use it. Watson Studio environments do not behave like a Conda environment manager.</li>
+          </ul>
+          <dl>
+            <dt><strong>Spark environments</strong>:</dt>
+            <dd>
+              <ul>
+                <li>You can't customize the software configuration of a Spark environment template.</li>
+              </ul>
+            </dd>
+          </dl>
+        </section>
+        <section id="section-next-steps">
+          <h2 id="next-steps">Next steps</h2>
+          <ul>
+            <li><a href="customize-envs.html">Customize environment templates for Python or R</a></li>
+          </ul>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p><strong>Parent topic:</strong> <a href="../analyze-data/manage-envs-new.html">Managing compute resources</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

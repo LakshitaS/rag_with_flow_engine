@@ -1,0 +1,105 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="The deployments dashboard provides an aggregate view of deployment activity available to you, across spaces. You can get a broad view of deployment activity such as the status of job runs or a list of online deployments. You can also use filters and views to focus on specific job runs or category of runs such as failed runs. ModelOps or DevOps users can review and monitor the activity for an organization.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Deployments dashboard</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=modelops-deployments-dashboard"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="deployments-dashboard" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-deployments-dashboard">
+        <h1 id="deployments-dashboard">Deployments dashboard</h1>
+        <p>The deployments dashboard provides an aggregate view of deployment activity available to you, across spaces. You can get a broad view of deployment activity such as the status of job runs or a list of online deployments. You can also use filters
+          and views to focus on specific job runs or category of runs such as failed runs. ModelOps or DevOps users can review and monitor the activity for an organization.</p>
+        <section id="section-accessing-the-deployments-dashboard">
+          <h2 id="accessing-the-deployments-dashboard">Accessing the Deployments dashboard</h2>
+          <p>From the navigation menu, click <strong>Deployments</strong>. If you don't have any deployment spaces, you are prompted to create a space. This following illustration shows an example of the Deployments dashboard:</p>
+          <p><img src="images/deployment-dashboard.png" alt="Deployments dashboard"></p>
+          <p>The dashboard view has two tabs:</p>
+          <ul>
+            <li><a href="#activity"><strong>Activity</strong></a>: Use the <strong>Activity</strong> tab to review all of the deployment activity across spaces. You can sort and filter this view to focus on a particular type of activity, such as failed deployments,
+              or jobs with active runs. You can also review metrics such as the number of deployment spaces with active deployments.</li>
+            <li><a href="#spaces"><strong>Spaces</strong></a>: Use the <strong>Spaces</strong> tab to list all the spaces that you can access. You can read the overview information, such as the number of deployments and job runs in a space, or click a space
+              name to view details and create deployments or jobs.</li>
+          </ul>
+        </section>
+        <section id="section-activity">
+          <h2 id="activity">Viewing activity</h2>
+          <p>View the overview information for finished runs, active runs, or online deployments, or drill down to view details.</p>
+          <section id="section-finished-runs">
+            <h3 id="finished-runs">Finished runs</h3>
+            <p>The <strong>Finished runs</strong> section shows activity in jobs over a specified time interval. The default is to view finished jobs for the last 8 hours. It shows jobs that are completed, canceled, or failed across all of your deployment
+              spaces within the specified time frame. Click <strong>View finished runs</strong> to view a list of runs.</p>
+            <p>The view provides more information on the finished runs and a visualization that shows run times.</p>
+            <p><img src="images/operator-view3.png" alt="Viewing detail for finished jobs"></p>
+            <p>Filter the view to focus on a particular type of activity:</p>
+            <p><img src="images/operator-view4.png" alt="Filtering job details"></p>
+            <ul>
+              <li><strong>Jobs with active runs</strong> - Shows jobs that have active runs (running, started, or queued) across all spaces you can access.</li>
+              <li><strong>Active runs</strong> - Shows runs that are in the running, started, or queued state across all jobs you can access.</li>
+              <li><strong>Jobs with finished runs</strong> - Shows jobs with runs that are completed, canceled, or failed.</li>
+              <li><strong>Finished runs</strong> - Shows runs that are completed, canceled, or failed.</li>
+            </ul>
+          </section>
+          <section id="section-active-runs">
+            <h3 id="active-runs">Active runs</h3>
+            <p>The <strong>Active runs</strong> section displays runs that are currently running or are in the starting or queued state. Click <strong>View active runs</strong> to view a list of the runs.</p>
+          </section>
+          <section id="section-online-deployments">
+            <h3 id="online-deployments">Online deployments</h3>
+            <p>The <strong>Deployments</strong> section shows all online and R-Shiny deployments, which are sorted into categories for by status. Click <strong>View deployments</strong> to view the list of deployments that you can access.</p>
+            <p>From any view, you can start from the overview and drill down to see more information for a particular job or run. You can also filter the view to focus on a particular type of deployment.</p>
+          </section>
+        </section>
+        <section id="section-spaces">
+          <h2 id="spaces">Viewing spaces</h2>
+          <p>View a list of spaces that you can access, with overview information such as number of deployments and collaborators. Click the name of a space to view details or add assets, and to create new deployments or jobs. Use <em>filters</em> to modify
+            the view from the default list of all spaces to show <strong>Active spaces</strong>, with deployments or jobs, or <strong>Inactive spaces</strong>, with no deployments or jobs.</p>
+        </section>
+        <section id="section-next-steps">
+          <h2 id="next-steps">Next steps</h2>
+          <p><a href="../analyze-data/ml-spaces_local.html">Use spaces</a> to organize your deployment activity.</p>
+          <p><strong>Parent topic:</strong> <a href="../wmls/wmls-deploy-overview.html">Deploying and managing assets</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

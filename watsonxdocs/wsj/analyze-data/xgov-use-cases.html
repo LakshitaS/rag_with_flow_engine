@@ -1,0 +1,275 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Create an AI use case to define a business problem and track the related AI assets through their lifecycle. View details about governed assets or generate reports to help meet governance and compliance goals.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Setting up an AI use case</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=cases-setting-up-ai-use-case"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="setting-up-an-ai-use-case" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-setting-up-an-ai-use-case">
+        <h1 id="setting-up-an-ai-use-case">Setting up an AI use case</h1>
+        <p>Create an AI use case to define a business problem and track the related AI assets through their lifecycle. View details about governed assets or generate reports to help meet governance and compliance goals.</p>
+        <section id="section-creating-ai-use-cases-in-an-inventory">
+          <h2 id="creating-ai-use-cases-in-an-inventory">Creating AI use cases in an inventory</h2>
+          <p>An inventory presents a view of all the AI use cases that you can access that are assigned to that inventory. Use multiple inventories to manage groups of AI use cases. For example, you might create an inventory for governing prompt templates
+            and another for governing machine learning assets. Add collaborators to inventories so they can view or contribute to AI uses cases.</p>
+          <section id="section-before-you-begin">
+            <h3 id="before-you-begin">Before you begin</h3>
+            <ul>
+              <li>Enable watsonx.governance and provision Watson OpenScale.</li>
+              <li>You must have access to an existing inventory or have sufficient access to <a href="xgov-inventory-manage.html">create a new inventory</a>.</li>
+            </ul>
+            <p>For details on watsonx.governance roles and managing access for governance, see <a href="xgov-collab-roles.html">Collaboration roles for governance</a>. If you do not have sufficient access to create or contribute to an inventory, contact
+              your administrator.</p>
+          </section>
+        </section>
+        <section id="section-viewing-ai-use-cases">
+          <h2 id="viewing-ai-use-cases">Viewing AI use cases</h2>
+          <ol>
+            <li>
+              <p>Click <strong>AI use cases</strong> from the navigation menu to view all existing AI use cases you can access, or click <strong>Request a model with an AI use case</strong> from the home page. From the primary view, you can search for a
+                specific use case or filter the view to focus on certain use cases. For example, filter the view by <em>Inventory</em> to view all the AI use cases in a particular inventory.</p>
+              <p><img src="images/xgov-inv-use-cases.png" alt="Viewing AI use cases in an inventory"></p>
+            </li>
+            <li>
+              <p>Click the name of an AI use case to open it and view the details on these tabs:</p>
+              <ul>
+                <li><strong>Overview</strong> shows the essential details for the use case.</li>
+                <li><strong>Lifecycle</strong> shows the assets that are tracked in the use case, which is organized by the phases of the AI lifecycle.</li>
+                <li><strong>Access</strong> lists collaborators for the use case and assigned roles.</li>
+              </ul>
+            </li>
+            <li>
+              <p>Click the name of an asset to view the associated factsheet.</p>
+            </li>
+          </ol>
+        </section>
+        <section id="section-generating-a-report-from-a-use-case">
+          <h2 id="generating-a-report-from-a-use-case">Generating a report from a use case</h2>
+          <p>You can generate reports from use cases or factsheets to share or preserve records. By default, the reports generate these default reports:</p>
+          <ul>
+            <li><strong>Basic report</strong> contains the set of facts visible on the Overview and Lifecycle tabs.</li>
+            <li><strong>Full report</strong> contains all facts about the use case and the models, prompt templates, and deployments it contains.</li>
+          </ul>
+          <p>The inventory admin can customize reports to include custom branding or to change the fields included in reports. For details, see <a href="xgov-manage-reports.html">Customizing report templates</a>. To create a report:</p>
+          <ol>
+            <li>Open a use case in an inventory.</li>
+            <li>Click the <strong>Export report</strong> icon to generate a PDF record of the use case.</li>
+            <li>Choose a format option and export the report.</li>
+          </ol>
+        </section>
+        <section id="section-creating-an-ai-use-case">
+          <h2 id="creating-an-ai-use-case">Creating an AI use case</h2>
+          <ol>
+            <li>Click <strong>AI use cases</strong> from the navigation menu.</li>
+            <li>Click <strong>New AI use case</strong>.</li>
+            <li>Enter a name and choose an inventory for the use case. If you do not have access to an inventory, you must create one before you can define a use case. See <a href="xgov-inventory-manage.html">Managing an inventory for AI use cases</a> for
+              details.</li>
+            <li>Complete optional fields as needed:</li>
+          </ol>
+          <table>
+            <thead>
+              <tr>
+                <th>Option</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Description</td>
+                <td>Define the business problem and provide any details about the proposed solution.</td>
+              </tr>
+              <tr>
+                <td>Risk level</td>
+                <td>Assign a risk level that reflects the nature of the business problem and the anticipated solution according to your governance policies. For example, assign a risk level of <em>High</em> for a model that processes sensitive personal data.</td>
+              </tr>
+              <tr>
+                <td>Supporting data</td>
+                <td>Enter links to supporting documents that support or clarify the purpose of the use case</td>
+              </tr>
+              <tr>
+                <td>Owner</td>
+                <td>For a use case with multiple owners, you can edit ownership</td>
+              </tr>
+              <tr>
+                <td>Status</td>
+                <td>By default, a new AI use case is assigned a status of default, as it is typically waiting for assets to be added for tracking. You can manually change the status. For example, change to <em>Awaiting development</em> if you do not require
+                  any additional review or approval for a requested model. Change to <em>Developed</em> if you already have a model to add to governance. Review the complete list of status options in the following section.</td>
+              </tr>
+              <tr>
+                <td>Tags</td>
+                <td>Assign or create tags to make your AI use cases easier to find or group.</td>
+              </tr>
+            </tbody>
+          </table>
+          <section id="section-use-case-status-details">
+            <h3 id="use-case-status-details">Use case status details</h3>
+            <p>Update the status field to provide users of the use case an immediate reflection of the current state.</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Status</th>
+                  <th>Description</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Draft</td>
+                  <td>AI use case in progress</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Ready for use case approval</td>
+                  <td>Use case is defined and ready for review</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Use case approved</td>
+                  <td>Use case ready for model or prompt template development</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Use case rejected</td>
+                  <td>Use case not ready for model or prompt development</td>
+                  <td><strong>Typical reason:</strong> An AI model is not be required to implement the use case or the information provided to develop the use case is insufficient.<br><strong>Recommended action:</strong> Revise and resubmit the use case for
+                    approval.</td>
+                </tr>
+                <tr>
+                  <td>Awaiting development</td>
+                  <td>Awaiting delivery of AI asset (model or prompt)</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Development in progress</td>
+                  <td>AI asset (model or prompt) in development</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Developed</td>
+                  <td>Trained model or prompt template added to use case</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Ready for AI asset validation</td>
+                  <td>AI asset ready for testing or evaluation</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Validation complete</td>
+                  <td>AI asset is tested or evaluated</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Ready for AI asset approval</td>
+                  <td>Waiting for approval to move AI asset to production</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>AI asset approved</td>
+                  <td>AI asset approved for deployment to production environment</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>AI asset rejected</td>
+                  <td>AI asset rejected for deploying to production environment</td>
+                  <td><strong>Typical reason:</strong> If the AI asset that is submitted for the use case fails specified performance thresholds, it should be rejected. <br><strong>Recommended action:</strong> Update the asset in the project to reach an acceptable
+                    performance level and resubmit. Or, for assets such as prompt templates or trained models that cannot be updated, create a new asset.</td>
+                </tr>
+                <tr>
+                  <td>Promote to production space</td>
+                  <td>AI asset is promoted to a production environment</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Deployed for operation</td>
+                  <td>AI asset deployed for production</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>In operation</td>
+                  <td>AI asset is live in a production environment</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Under revision</td>
+                  <td>AI asset requires updating</td>
+                  <td><strong>Typical reason:</strong> Apply this status when an AI asset in a use case falls below specified thresholds for what is acceptable behavior or performance. <br> <strong>Recommended action:</strong> Update the thresholds if appropriate
+                    based on regulation change or revised expectations. Following any updates, if the AI asset continues to operate below acceptable thresholds, it should be Decommissioned.</td>
+                </tr>
+                <tr>
+                  <td>Decommissioned</td>
+                  <td>AI asset removed from production environment</td>
+                  <td><strong>Typical reason:</strong> The AI asset that is running in production might be failing to meet quality or performance thresholds. <br><strong>Recommended action:</strong> Delete decommissioned assets from the project or space.
+                    A decommissioned and deleted asset in a use case displays in gray text in the Lifecycle page and is labeled Deleted.</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </section>
+        <section id="section-adding-collaborators-to-an-ai-use-case">
+          <h2 id="adding-collaborators-to-an-ai-use-case">Adding collaborators to an AI use case</h2>
+          <p>Add collaborators so they can view or contribute to the AI use case.</p>
+          <ol>
+            <li>From the <strong>Access</strong> tab of the AI use case, click <strong>Add members</strong>.</li>
+            <li>Search for a member by name or email address.</li>
+            <li>Assign an access level and click <strong>Add.</strong> For details on permissions, see <a href="xgov-collab-roles.html">Collaboration roles for governance</a>.</li>
+          </ol>
+        </section>
+        <section id="section-next-steps">
+          <h2 id="next-steps">Next steps</h2>
+          <p>After you create an AI use case, use it to track assets. Depending on your governance strategy, your next step might be to:</p>
+          <ul>
+            <li>Send a link to the use case to a reviewer for approval.</li>
+            <li>Send a link to a data scientist to create the requested asset.</li>
+            <li><a href="xgov-tracking-overview.html">Add an asset</a> for tracking in the use case.</li>
+          </ul>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p>Use a sample project to try out watsonx.governance features with the tutorial <a href="../getting-started/get-started-evaluate-prompt.html">Quick start: Evaluate and track a prompt template</a>.</p>
+          <p><strong>Parent topic:</strong> <a href="xgov-use-cases.html">Governing assets in AI use cases</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

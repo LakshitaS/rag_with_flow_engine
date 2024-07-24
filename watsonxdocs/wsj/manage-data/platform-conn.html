@@ -1,0 +1,112 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can add connections to the Platform assets catalog to share them across your organization. All collaborators in the Platform assets catalog can see the connections in the catalog. However, only users with the credentials for the data source can use a platform connection in a project to create a connected data asset.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Adding platform connections</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=data-adding-platform-connections"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="adding-platform-connections" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-adding-platform-connections">
+        <h1 id="adding-platform-connections">Adding platform connections</h1>
+        <p>You can add connections to the Platform assets catalog to share them across your organization. All collaborators in the Platform assets catalog can see the connections in the catalog. However, only users with the credentials for the data source
+          can use a platform connection in a project to create a connected data asset.</p>
+        <dl>
+          <dt><strong>Required permissions</strong></dt>
+          <dd>To create a platform connection, you must be a collaborator in the Platform assets catalog with one of these roles:
+            <ul>
+              <li><strong>Editor</strong></li>
+              <li><strong>Admin</strong></li>
+            </ul>
+          </dd>
+        </dl>
+        <p>If you're not a collaborator in the Platform assets catalog, ask someone who is a collaborator to add you or tell you who has the <strong>Admin</strong> role in the catalog. You create connections to these types of data sources:</p>
+        <ul>
+          <li>IBM Cloud services</li>
+          <li>Other cloud services</li>
+          <li>On-premises databases</li>
+        </ul>
+        <p>See <a href="conn_types.html">Connectors</a> for a full list of data sources. Watch this video to see how to add platform connections.</p>
+        <div class="note Video disclaimer"><span class="Video disclaimertitle">Video disclaimer:</span> Some minor steps and graphical elements in this video might differ from your platform.</div>
+        <div>
+          <p style="font-size:smaller">This video provides a visual method to learn the concepts and tasks in this documentation.</p><iframe id="wm-wkc-platform-connections" src="https://video.ibm.com/embed/channel/23952663/video/wkc-platform-connections" lang="en-US" style="border: 0;" webkitallowfullscreen="" allowfullscreen="" frameborder="no" width="560" height="315" title="Add platform connections" alt="Add platform connections"></iframe></div>
+        <p>To create a platform connection:</p>
+        <ol>
+          <li>From the main menu, choose <strong>Data &gt; Platform connections</strong>.</li>
+          <li>Click <strong>New connection</strong>.</li>
+          <li>Choose a data source.</li>
+          <li>If necessary, enter the connection information required for your data source. Typically, you need to provide information like the host, port number, username, and password.</li>
+          <li>If prompted, specify whether you want to use personal or shared credentials. You cannot change this option after you create the connection. The credentials type for the connection, either Personal or Shared, is set by the account owner on the
+            <a href="../admin/account-settings.html">Account page</a>. The default setting is <strong>Shared</strong>.
+            <ul>
+              <li><strong>Personal</strong>: With personal credentials, each user must specify their own credentials to access the connection. Each user's credentials are saved but are not shared with any other users. Use personal credentials instead of shared
+                credentials to protect credentials. For example, if you use personal credentials and another user changes the connection properties (such as the hostname or port number), the credentials are invalidated to prevent malicious redirection.</li>
+              <li><strong>Shared</strong>: With shared credentials, all users access the connection with the credentials that you provide.</li>
+            </ul>
+          </li>
+          <li>To connect to a database that is not externalized to the internet (for example, behind a firewall), see <a href="../manage-data/securingconn.html">Connecting to data behind a firewall</a>.</li>
+          <li>Click <strong>Create.</strong> The connection appears on the <strong>Connections</strong> page. You can edit the connection by clicking the connection name.</li>
+        </ol>
+        <p>Alternatively, you can create a connection in a project and then publish it to the Platform assets catalog.</p>
+        <p>To publish a connection from a project to the Platform assets catalog:</p>
+        <ol>
+          <li>Locate the connection in the project's <strong>Assets</strong> tab in the <strong>Data assets</strong> section.</li>
+          <li>From the Actions menu <img src="../refinery/images/actions.png" alt="Actions icon" title="Actions icon" height="20" style="vertical-align:text-bottom">, select <strong>Publish to catalog</strong>.</li>
+          <li>Select <strong>Platform assets catalog</strong> and click <strong>Publish</strong>.</li>
+        </ol>
+        <section id="section-next-step">
+          <h2 id="next-step">Next step</h2>
+          <ul>
+            <li><a href="create-conn.html">Add a connection to a project</a></li>
+          </ul>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="conn_types.html">Connectors</a></li>
+            <li><a href="../admin/account-settings.html#set-the-credentials-for-connections">Set the credentials for connections</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="../manage-data/get-data.html">Preparing data</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

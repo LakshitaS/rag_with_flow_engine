@@ -1,0 +1,257 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Use sample data to train a univariate (single prediction column) time series experiment that predicts minimum daily temperatures.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Tutorial: AutoAI univariate time series experiment</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=experiment-tutorial-autoai-univariate-time-series"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="tutorial-autoai-univariate-time-series-experiment" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-tutorial-autoai-univariate-time-series-experiment">
+        <h1 id="tutorial-autoai-univariate-time-series-experiment">Tutorial: AutoAI univariate time series experiment</h1>
+        <p>Use sample data to train a univariate (single prediction column) time series experiment that predicts minimum daily temperatures.</p>
+        <p>When you set up the experiment, you load data that tracks daily minimum temperatures for the city of Melbourne, Australia. The experiment will generate a set of pipelines that use algorithms to predict future minimum daily temperatures. After
+          generating the pipelines, AutoAI compares and tests them, chooses the best performers, and presents them in a leaderboard for you to review.</p>
+        <section id="section-data-set-overview">
+          <h2 id="data-set-overview">Data set overview</h2>
+          <p>The <a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/de4d953f2a766fbc0469723eba0d93ef" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab"><em>Mini_Daily_Temperatures</em></a> data set describes
+            the minimum daily temperatures over 10 years (1981-1990) in the city Melbourne, Australia. The units are in degrees celsius and the data set contains 3650 observations. The source of the data is the Australian Bureau of Meteorology. Details
+            about the data set are described here:</p>
+          <p><img src="images/autoai_uni_table.png" alt="Daily Min Temperature Spreadsheet " style="max-width:90%;height:auto;width:auto"></p>
+          <ul>
+            <li>
+              <p>You will use the <code>Min_Temp</code> column as the prediction column to build pipelines and forecast the future daily minimum temperatures. Before the pipeline training, the <code>date</code> column and <code>Min_Temp</code> column are
+                used together to figure out the appropriate lookback window.</p>
+            </li>
+            <li>
+              <p>The prediction column forecasts a prediction for the daily minimum temperature on a specified day.</p>
+            </li>
+            <li>
+              <p>The sample data is <em>structured</em> in rows and columns and saved as a .csv file.</p>
+            </li>
+          </ul>
+        </section>
+        <section id="section-tasks-overview">
+          <h2 id="tasks-overview">Tasks overview</h2>
+          <p>In this tutorial, you follow these steps to create a univariate time series experiment:</p>
+          <ol>
+            <li><a href="#step0">Create a project</a></li>
+            <li><a href="#step1">Create an AutoAI experiment</a></li>
+            <li><a href="#step2">Configure the experiment</a></li>
+            <li><a href="#step3">Review experiment results</a></li>
+            <li><a href="#step4">Deploy the trained model</a></li>
+            <li><a href="#step5">Test the deployed model</a></li>
+          </ol>
+        </section>
+        <section id="section-step0">
+          <h2 id="step0">Create a project</h2>
+          <p>Follow these steps to download the <a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/de4d953f2a766fbc0469723eba0d93ef" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab"><em>Mini_Daily_Temperatures</em></a>            data set from the <strong>Resource hub</strong> and create an empty project:</p>
+          <ol>
+            <li>From the navigation menu <img src="../getting-started/images/navigation-menu.svg" alt="Navigation menu" title="Navigation menu" height="20" style="vertical-align:text-bottom">, click <strong>Resource hub</strong> and download a local copy
+              of the <a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/de4d953f2a766fbc0469723eba0d93ef" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab"><em>Mini_Daily_Temperatures</em></a> data set.</li>
+            <li>From the navigation menu <img src="../getting-started/images/navigation-menu.svg" alt="Navigation menu" title="Navigation menu" height="20" style="vertical-align:text-bottom">, click <strong>Projects &gt; View all projects</strong>, then click
+              <strong>New Project</strong>.
+              <ol>
+                <li>Click <strong>Create an empty project</strong>.</li>
+                <li>Enter a name and optional description for your project.</li>
+                <li>Click <strong>Create</strong>.</li>
+              </ol>
+            </li>
+          </ol>
+        </section>
+        <section id="section-step1">
+          <h2 id="step1">Create an AutoAI experiment</h2>
+          <p>Follow these steps to create an AutoAI experiment and add sample data to your experiment:</p>
+          <ol>
+            <li>
+              <p>On the <em>Assets</em> tab from within your project, click <strong>New asset &gt; Build machine learning models automatically</strong>.</p>
+            </li>
+            <li>
+              <p>Specify a name and optional description for your experiment, then select <strong>Create</strong>.</p>
+            </li>
+            <li>
+              <p>Select <strong>Associate a Machine Learning service instance</strong> to create a new service instance or associate an existing instance with your project. Click <strong>Reload</strong> to confirm your configuration.</p>
+            </li>
+            <li>
+              <p>Click <strong>Create</strong>.</p>
+            </li>
+            <li>
+              <p>To add the sample data, choose one of the these methods: <br></p>
+              <ul>
+                <li>If you downloaded your file locally, upload the training data file, <em>Daily_Min_Temperatures.csv</em>, by clicking <strong>Browse</strong> and then following the prompts. <br></li>
+                <li>If you already uploaded your file to your project, click <strong>Select from project</strong>, then select the <strong>Data asset</strong> tab and choose <em>Daily_Min_Temperatures.csv</em>.</li>
+              </ul>
+            </li>
+          </ol>
+        </section>
+        <section id="section-step2">
+          <h2 id="step2">Configure the experiment</h2>
+          <p>Follow these steps to configure your univariate AutoAI time series experiment:</p>
+          <ol>
+            <li>
+              <p>Click <strong>Yes</strong> for the option to create a Time Series Forecast.</p>
+            </li>
+            <li>
+              <p>Choose as prediction columns: <code>Min_Temp</code>.</p>
+            </li>
+            <li>
+              <p>Choose as the date/time column: <code>Date</code>.</p>
+              <p><img src="images/autoai_uni_run_configuration.png" alt="Configuring experiment settings. Yes to time series forecast and min temp as the prediction column with Date as the date/time column." style="max-width:90%;height:auto;width:auto"></p>
+            </li>
+            <li>
+              <p>Click <strong>Experiment settings</strong> to configure the experiment: <br></p>
+              <ol>
+                <li>
+                  <p>In the <strong>Data source</strong> page, select the <strong>Time series</strong> tab. <br></p>
+                </li>
+                <li>
+                  <p>For this tutorial, accept the default value for <em>Number of backtests</em> (4), <em>Gap length</em> (0 steps), and <em>Holdout length</em> (20 steps).</p>
+                  <div class="note note"><span class="notetitle">Note:</span> The validation length changes if you change the value of any of the parameters: *Number of backtests*, *Gap length*, or *Holdout length*.</div>
+                </li>
+              </ol>
+              <p>c. Click <strong>Cancel</strong> to exit from the <em>Experiment settings</em>. <br></p>
+              <p><img src="images/autoai_uni_exp_settings.png" alt="Experiment settings on Data Source page" style="max-width:90%;height:auto;width:auto"></p>
+            </li>
+            <li>
+              <p>Click <strong>Run experiment</strong> to begin the training.</p>
+            </li>
+          </ol>
+        </section>
+        <section id="section-step3">
+          <h2 id="step3">Review experiment results</h2>
+          <p>The experiment takes several minutes to complete. As the experiment trains, a visualization shows the transformations that are used to create pipelines. Follow these steps to review experiment results and save the pipeline with the best performance.</p>
+          <ol>
+            <li>
+              <p>(Optional): Hover over any node in the visualization to get details on the transformation for a particular pipeline.</p>
+              <p><img src="images/autoai_uni_pipeline_build.png" alt="Experiment summary generating pipelines" style="max-width:90%;height:auto;width:auto"></p>
+            </li>
+            <li>
+              <p>(Optional): After the pipelines are listed on the leaderboard, click <strong>Pipeline comparison</strong> to see how they differ. For example:</p>
+              <p><img src="images/autoai_uni_pipeline_comparison.png" alt="Metric chart of pipeline comparison" style="max-width:90%;height:auto;width:auto"></p>
+            </li>
+            <li>
+              <p>(Optional): When the training completes, the top three best performing pipelines are saved to the leaderboard. Click <strong>View discarded pipelines</strong> to review pipelines with the least performance.</p>
+              <p><img src="images/autoai_uni_pipeline_leaderboard.png" alt="Ranked pipeline leaderboard based on accuracy" style="max-width:90%;height:auto;width:auto"></p>
+            </li>
+            <li>
+              <p>Select the pipeline with Rank 1 and click <strong>Save as</strong> to create your model. Then, select <strong>Create</strong>. This action saves the pipeline under the <strong>Models</strong> section in the Assets tab.</p>
+            </li>
+          </ol>
+        </section>
+        <section id="section-step4">
+          <h2 id="step4">Deploy the trained model</h2>
+          <p>Before you can use your trained model to make predictions on new data, you must deploy the model. Follow these steps to promote your trained model to a deployment space:</p>
+          <ol>
+            <li>You can deploy the model from the model details page. To access the model details page, choose one of the these methods:
+              <ul>
+                <li>Click the model’s name in the notification that is displayed when you save the model.</li>
+                <li>Open the <em>Assets</em> page for the project that contains the model and click the model’s name in the <em>Machine Learning Model</em> section.</li>
+              </ul>
+            </li>
+            <li>Click the <strong>Promote to deployment space</strong> <img src="../getting-started/images/promote.svg" alt="Promote to deployment space icon" title="Promote to deployment space" height="20" style="vertical-align:text-bottom"> icon, then select
+              or create a deployment space where the model will be deployed. <br> (Optional): To create a deployment space, follow these steps: <br>
+              <ol>
+                <li>
+                  <p>From the <strong>Target space</strong> list, select <strong>Create a new deployment space</strong>. <br></p>
+                </li>
+                <li>
+                  <p>Enter a name for your deployment space. <br></p>
+                </li>
+                <li>
+                  <p>To associate a machine learning instance, go to <strong>Select machine learning service (optional)</strong> and select an instance from the list. <br></p>
+                </li>
+                <li>
+                  <p>Click <strong>Create</strong>. <br></p>
+                </li>
+              </ol>
+            </li>
+            <li>After you select or create your space, click <strong>Promote</strong>.</li>
+            <li>Click the deployment space link from the notification.</li>
+            <li>From the Assets tab of the deployment space:
+              <ol>
+                <li>Hover over the model’s name and click the deployment icon <img src="images/deploy-icon.png" alt="Deploy icon" height="20" style="vertical-align:text-bottom">.</li>
+                <li>In the page that opens, complete the fields:
+                  <ol>
+                    <li>Specify a name for the deployment.</li>
+                    <li>Select <strong>Online</strong> as the <em>Deployment type</em>.</li>
+                    <li>Click <strong>Create</strong>.</li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+          </ol>
+          <p>After the deployment is complete, click the <strong>Deployments</strong> tab and select the deployment name to view the details page.</p>
+        </section>
+        <section id="section-step5">
+          <h2 id="step5">Test the deployed model</h2>
+          <p>Follow these steps to test the deployed model from the deployment details page:</p>
+          <ol>
+            <li>
+              <p>On the <strong>Test tab</strong> of the deployment details page, click the terminal icon <img src="images/terminal-icon.png" alt="Terminal icon" height="20" style="vertical-align:text-bottom"> and enter the following JSON test data:</p>
+              <pre class="codeblock"><code class="lang-JSON hljs"><span class="hljs-punctuation">{</span> <span class="hljs-attr">"input_data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span> <span class="hljs-punctuation">{</span>
+
+      <span class="hljs-attr">"fields"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+
+            <span class="hljs-string">"Min_Temp"</span>
+
+      <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+
+      <span class="hljs-attr">"values"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+
+            <span class="hljs-punctuation">[</span><span class="hljs-number">7</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span> <span class="hljs-punctuation">[</span><span class="hljs-number">15</span><span class="hljs-punctuation">]</span>
+
+      <span class="hljs-punctuation">]</span>
+
+<span class="hljs-punctuation">}</span> <span class="hljs-punctuation">]</span> <span class="hljs-punctuation">}</span>
+</code></pre>
+              <div class="note note"><span class="notetitle">Note:</span> The test data replicates the data fields for the model, except the prediction field.</div>
+            </li>
+            <li>
+              <p>Click <strong>Predict</strong> to predict the future minimum temperature.</p>
+            </li>
+          </ol>
+          <p><img src="images/autoai_uni_test.png" alt="Test tab for deployed model with JSON code as input data" style="max-width:90%;height:auto;width:auto"></p>
+          <p><strong>Parent topic:</strong> <a href="autoai-timeseries.html">Building a time series experiment</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

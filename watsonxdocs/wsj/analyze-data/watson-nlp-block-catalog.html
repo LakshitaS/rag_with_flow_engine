@@ -1,0 +1,184 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Watson Natural Language Processing encapsulates natural language functionality in standardized components called blocks or workflows. Each block or workflow can be loaded and run in a notebook, some directly on input data, others in a given order.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Watson Natural Language Processing task catalog</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=processing-library-task-catalog"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="watson-natural-language-processing-task-catalog" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-watson-natural-language-processing-task-catalog">
+        <h1 id="watson-natural-language-processing-task-catalog">Watson Natural Language Processing task catalog</h1>
+        <p>Watson Natural Language Processing encapsulates natural language functionality in standardized components called blocks or workflows. Each block or workflow can be loaded and run in a notebook, some directly on input data, others in a given order.</p>
+        <p>This topic contains descriptions of the natural language processing tasks supported in the Watson Natural Language Processing library. It lists the task names, the languages that are supported, dependencies to other blocks and includes sample
+          code of how you use the natural language processing functionality in a Python notebook.</p>
+        <p>The following natural language processing tasks are supported as blocks or workflows in the Watson Natural Language Processing library:</p>
+        <ul>
+          <li><a href="watson-nlp-block-language-detection.html">Language detection</a></li>
+          <li><a href="watson-nlp-block-syntax.html">Syntax analysis</a></li>
+          <li><a href="watson-nlp-block-noun-phrase.html">Noun phrase extraction</a></li>
+          <li><a href="watson-nlp-block-keyword.html">Keyword extraction and ranking</a></li>
+          <li><a href="watson-nlp-block-entity-enhanced.html">Entity extraction</a></li>
+          <li><a href="watson-nlp-block-sentiment.html">Sentiment classification</a></li>
+          <li><a href="watson-nlp-block-tone.html">Tone classification</a></li>
+          <li><a href="watson-nlp-block-emotion.html">Emotion classification</a></li>
+          <li><a href="watson-nlp-block-concept-ext_cloud.html">Concepts extraction</a></li>
+          <li><a href="watson-nlp-block-relation-extraction.html">Relations extraction</a></li>
+          <li><a href="watson-nlp-block-hierarchical-cat.html">Hierarchical text categorization</a></li>
+        </ul>
+        <section id="section-lang-codes">
+          <h2 id="lang-codes">Language codes</h2>
+          <p>Many of the pre-trained models are available in many languages. The following table lists the language codes and the corresponding language.</p>
+          <table>
+            <caption>Language codes and their corresponding language equivalents</caption>
+            <thead>
+              <tr>
+                <th>Language code</th>
+                <th>Corresponding language</th>
+                <th>Language code</th>
+                <th>Corresponding language</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>af</td>
+                <td>Afrikaans</td>
+                <td>ar</td>
+                <td>Arabic</td>
+              </tr>
+              <tr>
+                <td>bs</td>
+                <td>Bosnian</td>
+                <td>ca</td>
+                <td>Catalan</td>
+              </tr>
+              <tr>
+                <td>cs</td>
+                <td>Czech</td>
+                <td>da</td>
+                <td>Danish</td>
+              </tr>
+              <tr>
+                <td>de</td>
+                <td>German</td>
+                <td>el</td>
+                <td>Greek</td>
+              </tr>
+              <tr>
+                <td>en</td>
+                <td>English</td>
+                <td>es</td>
+                <td>Spanish</td>
+              </tr>
+              <tr>
+                <td>fi</td>
+                <td>Finnish</td>
+                <td>fr</td>
+                <td>French</td>
+              </tr>
+              <tr>
+                <td>he</td>
+                <td>Hebrew</td>
+                <td>hi</td>
+                <td>Hindi</td>
+              </tr>
+              <tr>
+                <td>hr</td>
+                <td>Croatian</td>
+                <td>it</td>
+                <td>Italian</td>
+              </tr>
+              <tr>
+                <td>ja</td>
+                <td>Japanese</td>
+                <td>ko</td>
+                <td>Korean</td>
+              </tr>
+              <tr>
+                <td>nb</td>
+                <td>Norwegian Bokmål</td>
+                <td>nl</td>
+                <td>Dutch</td>
+              </tr>
+              <tr>
+                <td>nn</td>
+                <td>Norwegian Nynorsk</td>
+                <td>pl</td>
+                <td>Polish</td>
+              </tr>
+              <tr>
+                <td>pt</td>
+                <td>Portuguese</td>
+                <td>ro</td>
+                <td>Romanian</td>
+              </tr>
+              <tr>
+                <td>ru</td>
+                <td>Russian</td>
+                <td>sk</td>
+                <td>Slovak</td>
+              </tr>
+              <tr>
+                <td>sr</td>
+                <td>Serbian</td>
+                <td>sv</td>
+                <td>Swedish</td>
+              </tr>
+              <tr>
+                <td>tr</td>
+                <td>Turkish</td>
+                <td>zh_cn</td>
+                <td>Chinese (Simplified)</td>
+              </tr>
+              <tr>
+                <td>zh_tw</td>
+                <td>Chinese (Traditional)</td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <p><strong>Parent topic:</strong> <a href="watson-nlp.html">Watson Natural language Processing library</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

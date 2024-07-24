@@ -1,0 +1,235 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="The Watson Natural Language Processing Syntax block encapsulates syntax analysis functionality.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Syntax analysis</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=catalog-syntax-analysis"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="syntax-block" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-syntax-block">
+        <h1 id="syntax-block">Syntax analysis</h1>
+        <p>The Watson Natural Language Processing Syntax block encapsulates syntax analysis functionality.</p>
+        <p><strong>Block names</strong></p>
+        <ul>
+          <li><code>syntax_izumo_&lt;language&gt;_stock</code></li>
+          <li><code>syntax_izumo_&lt;language&gt;_stock-dp</code> (Runtime 23.1 only)</li>
+        </ul>
+        <p><strong>Supported languages</strong></p>
+        <p>The Syntax analysis block is available for the following languages. For a list of the language codes and the corresponding language, see <a href="watson-nlp-block-catalog.html#lang-codes">Language codes</a>.</p>
+        <p>Language codes to use for model <code>syntax_izumo_&lt;language&gt;_stock</code>: af, ar, bs, ca, cs, da, de, el, en, es, fi, fr, he, hi, hr, it, ja, ko, nb, nl, nn, pl, pt, ro, ru, sk, sr, sv, tr, zh_cn, zh_tw</p>
+        <p>Language codes to use for model <code>syntax_izumo_&lt;language&gt;_stock-dp</code>: af, ar, bs, ca, cs, da, de, el, en, es, fi, fr, he, hi, hr, it, ja, ko, nb, nl, nn, pl, pt, ro, ru, sk, sr, sv, tr, zh</p>
+        <table>
+          <caption>List of the supported languages for each syntax task</caption>
+          <thead>
+            <tr>
+              <th>Task</th>
+              <th>Supported language codes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Tokenization</td>
+              <td>af, ar, bs, ca, cs, da, de, el, en, es, fi, fr, he, hi, hr, it, ja, ko, nb, nl, nn, pl, pt, ro, ru, sk, sr, sv, tr, zh_cn, zh_tw, zh</td>
+            </tr>
+            <tr>
+              <td>Part-of-speech tagging</td>
+              <td>af, ar, bs, ca, cs, da, de, nl, nn, el, en, es, fi, fr, he, hi, hr, it, ja, ko, nb, pl, pt, ro, ru, sk, sr, sv, tr, zh_cn, zh_tw, zh</td>
+            </tr>
+            <tr>
+              <td>Lemmatization</td>
+              <td>af, ar, bs, ca, cs, da, de, el, en, es, fi, fr, he, hi, hr, it, ja, ko, nb, nl, nn, pl, pt, ro, ru, sk, sr, sv, tr, zh_cn, zh_tw, zh</td>
+            </tr>
+            <tr>
+              <td>Sentence detection</td>
+              <td>af, ar, bs, ca, cs, da, de, el, en, es, fi, fr, he, hi, hr, it, ja, ko, nb, nl, nn, pl, pt, ro, ru, sk, sr, sv, tr, zh_cn, zh_tw, zh</td>
+            </tr>
+            <tr>
+              <td>Paragraph detection</td>
+              <td>af, ar, bs, ca, cs, da, de, el, en, es, fi, fr, he, hi, hr, it, ja, ko, nb, nl, nn, pl, pt, ro, ru, sk, sr, sv, tr, zh_cn, zh_tw, zh</td>
+            </tr>
+            <tr>
+              <td>Dependency parsing</td>
+              <td>af, ar, bs, cs, da, de, en, es, fi, fr, hi, hr, it, ja, nb, nl, nn, pt, ro, ru, sk, sr, sv</td>
+            </tr>
+          </tbody>
+        </table>
+        <p><strong>Capabilities</strong></p>
+        <p>Use this block to perform tasks like sentence detection, tokenization, part-of-speech tagging, lemmatization and dependency parsing in different languages. For most tasks, you will likely only need sentence detection, tokenization, and part-of-speech
+          tagging. For these use cases use the <code>syntax_model_xx_stock</code> model. If you want to run dependency parsing in Runtime 23.1, use the <code>syntax_model_xx_stock-dp</code> model.</p>
+        <p>The analysis for Part-of-speech (POS) tagging and dependencies follows the Universal Parts of Speech tagset (<a href="https://universaldependencies.org/u/pos/">Universal POS tags</a>) and the Universal Dependencies v2 tagset (<a href="https://universaldependencies.org/u/dep/">Universal Dependency Relations</a>).</p>
+        <p>The following table shows you the capabilities of each task based on the same example and the outcome to the parse.</p>
+        <table>
+          <caption>Capabilities of each syntax task based on an example</caption>
+          <thead>
+            <tr>
+              <th>Capabilities</th>
+              <th>Examples</th>
+              <th>Parser attributes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Tokenization</td>
+              <td>"I don't like Mondays" --&gt; "I" , "do", "n't", "like", "Mondays"</td>
+              <td>token</td>
+            </tr>
+            <tr>
+              <td>Part-Of_Speech detection</td>
+              <td>"I don't like Mondays" --&gt; "I"\POS_PRON, "do"\POS_AUX, "n't"\POS_PART, "like"\POS_VERB, "Mondays"\POS_PROPN</td>
+              <td>part_of_speech</td>
+            </tr>
+            <tr>
+              <td>Lemmatization</td>
+              <td>"I don't like Mondays" --&gt; "I", "do", "not", "like", "Monday"</td>
+              <td>lemma</td>
+            </tr>
+            <tr>
+              <td>Dependency parsing</td>
+              <td>"I don't like Mondays" --&gt; "I"-SUBJECT-&gt;"like"&lt;-OBJECT-"Mondays"</td>
+              <td>dependency</td>
+            </tr>
+            <tr>
+              <td>Sentence detection</td>
+              <td>"I don't like Mondays" --&gt; returns this sentence</td>
+              <td>sentence</td>
+            </tr>
+            <tr>
+              <td>Paragraph detection (Currently paragraph detection is still experimental and returns similar results to sentence detection.)</td>
+              <td>"I don't like Mondays" --&gt; returns this sentence as being a paragraph</td>
+              <td>sentence</td>
+            </tr>
+          </tbody>
+        </table>
+        <p><strong>Dependencies on other blocks</strong></p>
+        <p>None</p>
+        <p><strong>Code sample</strong></p>
+        <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">import</span> watson_nlp
+
+<span class="hljs-comment"># Load Syntax for English</span>
+syntax_model = watson_nlp.load(<span class="hljs-string">'syntax_izumo_en_stock'</span>)
+
+<span class="hljs-comment"># Detect tokens, lemma and part-of-speech</span>
+text = <span class="hljs-string">'I don\'t like Mondays'</span>
+syntax_prediction = syntax_model.run(text, parsers=(<span class="hljs-string">'token'</span>, <span class="hljs-string">'lemma'</span>, <span class="hljs-string">'part_of_speech'</span>))
+
+<span class="hljs-comment"># Print the syntax result</span>
+<span class="hljs-built_in">print</span>(syntax_prediction)
+</code></pre>
+        <p>Output of the code sample:</p>
+        <pre class="codeblock"><code class="lang-json hljs"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"text"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"I don't like Mondays"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"producer_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Izumo Text Processing"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"version"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"0.0.1"</span>
+  <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"tokens"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"span"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"begin"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"end"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"text"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"I"</span>
+      <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"lemma"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"I"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"part_of_speech"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"POS_PRON"</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"span"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"begin"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">2</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"end"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"text"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"do"</span>
+      <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"lemma"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"do"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"part_of_speech"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"POS_AUX"</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"span"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"begin"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"end"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">7</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"text"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"n't"</span>
+      <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"lemma"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"not"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"part_of_speech"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"POS_PART"</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"span"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"begin"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">8</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"end"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">12</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"text"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"like"</span>
+      <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"lemma"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"like"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"part_of_speech"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"POS_VERB"</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"span"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"begin"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">13</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"end"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">20</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"text"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Mondays"</span>
+      <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"lemma"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Monday"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"part_of_speech"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"POS_PROPN"</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"sentences"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"span"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"begin"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"end"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">20</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"text"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"I don't like Mondays"</span>
+      <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"paragraphs"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"span"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"begin"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"end"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">20</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"text"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"I don't like Mondays"</span>
+      <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+        <p><strong>Parent topic:</strong> <a href="watson-nlp-block-catalog.html">Watson Natural Language Processing task catalog</a></p>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

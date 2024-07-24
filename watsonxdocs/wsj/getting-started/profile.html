@@ -1,0 +1,126 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="An asset profile includes generated information and statistics about the asset content. You can see the profile on an asset's Profile page.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Profiles of data assets</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=properties-profiles"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="asset-profiles" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-asset-profiles">
+        <h1 id="asset-profiles">Profiles of data assets</h1>
+        <p>An asset profile includes generated information and statistics about the asset content. You can see the profile on an asset's <strong>Profile</strong> page.</p>
+        <ul>
+          <li><a href="#prereqs">Requirements and restrictions</a></li>
+          <li><a href="#create-profile">Creating a profile</a></li>
+          <li><a href="#profile-results">Profile information</a></li>
+        </ul>
+        <section id="section-prereqs">
+          <h2 id="prereqs">Requirements and restrictions</h2>
+          <p>You can view the profile of assets under the following circumstances.</p>
+          <section id="section-required-permissions">
+            <h3 id="required-permissions">Required permissions</h3>
+            <p>To view a data asset's <strong>Profile</strong> page, you can have any role in a project.</p>
+            <p>To create or update a profile, you must have the <strong>Admin</strong> or <strong>Editor</strong> role in the project.</p>
+          </section>
+          <section id="section-workspaces">
+            <h3 id="workspaces">Workspaces</h3>
+            <p>You can view the asset profile in projects.</p>
+          </section>
+          <section id="section-types-of-assets">
+            <h3 id="types-of-assets">Types of assets</h3>
+            <p>These types of assets have a profile:</p>
+            <ul>
+              <li>
+                <p>Data assets from relational or nonrelational databases from a connection to the data sources, except Cloudant</p>
+              </li>
+              <li>
+                <p>Data assets from partitioned data sets, where a partitioned data set consists of multiple files and is represented by a single folder uploaded from the local file system or from file-based connections to the data sources</p>
+              </li>
+              <li>
+                <p>Data assets from files uploaded from the local file system or from file-based connections to the data sources, with these formats:</p>
+                <ul>
+                  <li>CSV</li>
+                  <li>XLS, XLSM, XLSX (Only the first sheet in a workbook is profiled.)</li>
+                  <li>TSV</li>
+                  <li>Avro</li>
+                  <li>Parquet</li>
+                </ul>
+                <p>However, structured data files are not profiled when data assets do not explicitly reference them, such as in these circumstances:</p>
+                <ul>
+                  <li>The files are within a connected folder asset. Files that are accessible from a connected folder asset are not treated as assets and are not profiled.</li>
+                  <li>The files are within an archive file. The archive file is referenced by the data asset and the compressed files are not profiled.</li>
+                </ul>
+              </li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-create-profile">
+          <h2 id="create-profile">Creating a profile</h2>
+          <p>In projects, you can create a profile for a data asset by clicking <strong>Create profile</strong>. You can update an existing profile when the data changes.</p>
+        </section>
+        <section id="section-profile-results">
+          <h2 id="profile-results">Profiling results</h2>
+          <p>When you create or update an asset profile, the columns in the data asset are analyzed. By default, the profile is created based on the first 5,000 rows of data. If the data asset has more than 250 columns, the profile is created based on the
+            first 1,000 rows of data.</p>
+          <p>The profile of a data asset shows information about each column in the data set:</p>
+          <ul>
+            <li>When was the profile created or last updated.</li>
+            <li>How many columns and rows were analyzed.</li>
+            <li>The data types for columns and data types distribution.</li>
+            <li>The data formats for columns and formats distribution.</li>
+            <li>The percentage of matching, mismatching, or missing data for each column.</li>
+            <li>The frequency distribution for all values identified in a column.</li>
+            <li>Statistics about the data for each column:
+              <ul>
+                <li>The number of <em>distinct</em> values indicates how many different values exist in the sampled data for the column.</li>
+                <li>The percentage of <em>unique</em> values indicates the percentage of distinct values that appear only once in the column.</li>
+                <li>The minimum, maximum, or mean, and sometimes the standard deviation in that column. Depending on a column’s data format, the statistics vary slightly. For example, statistics for a column of data type integer have minimum, maximum, and
+                  mean values and a standard deviation value while statistics for a column of data type string have minimum length, maximum length, and mean length values.</li>
+              </ul>
+            </li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="assets.html">Asset types and properties</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

@@ -1,0 +1,646 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can create a notebook in which you run code to prepare, visualize, and analyze data, or build and train a model. Read about Jupyter notebooks, then watch a video and take a tutorial that’s suitable for users with some knowledge of Python code.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Quick start: Analyze data in a Jupyter notebook</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=data-analyze-in-jupyter-notebook"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="quick-start-analyze-data-in-a-jupyter-notebook" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-quick-start-analyze-data-in-a-jupyter-notebook">
+        <h1 id="quick-start-analyze-data-in-a-jupyter-notebook">Quick start: Analyze data in a Jupyter notebook</h1>
+        <p>You can create a notebook in which you run code to prepare, visualize, and analyze data, or build and train a model. Read about Jupyter notebooks, then watch a video and take a tutorial that’s suitable for users with some knowledge of Python code.</p>
+        <p>Your basic workflow includes these tasks:</p>
+        <ol>
+          <li>Open your sandbox project. Projects are where you can collaborate with others to work with data.</li>
+          <li>Add your data to the project. You can add CSV files or data from a remote data source through a connection.</li>
+          <li>Create a notebook in the project.</li>
+          <li>Add code to the notebook to load and analyze your data.</li>
+          <li>Run your notebook and share the results with your colleagues.</li>
+        </ol>
+        <section id="section-read-about-notebooks">
+          <h2 id="read-about-notebooks">Read about notebooks</h2>
+          <p>A Jupyter notebook is a web-based environment for interactive computing. You can run small pieces of code that process your data, and you can immediately view the results of your computation. Notebooks include all of the building blocks you
+            need to work with data:</p>
+          <ul>
+            <li>The data</li>
+            <li>The code computations that process the data</li>
+            <li>Visualizations of the results</li>
+            <li>Text and rich media to enhance understanding</li>
+          </ul>
+          <p><a href="../analyze-data/notebook-editor.html">Read more about notebooks</a></p>
+        </section>
+        <section id="section-video-preview">
+          <h2 id="video-preview">Watch a video about notebooks</h2>
+          <p><img src="images/lc-video.png" alt="Watch Video" title="Watch Video" style="vertical-align:text-bottom"> Watch this video to learn the basics of Jupyter notebooks.</p>
+          <p></p>
+          <p style="font-size:smaller">This video provides a visual method to learn the concepts and tasks in this documentation.</p>
+          <iframe id="wx-notebook-basics" src="https://video.ibm.com/embed/channel/23952663/video/wx-notebook-basics" lang="en-US" onload="executeEmbedScript()" style="border: 0;" allow="picture-in-picture" webkitallowfullscreen="" allowfullscreen="" frameborder="no" width="560" height="315" title="Jupyter notebook basics">
+</iframe>
+          <style type="text/css" keep="true">
+            .collapsibleList li>input+* {
+              display: none;
+            }
+            
+            .collapsibleList li>input:checked+* {
+              display: block;
+            }
+            
+            .collapsibleList li>input {
+              display: none;
+            }
+            
+            .collapsibleList label {
+              cursor: pointer;
+              color: #0062ff;
+              text-decoration: underline;
+            }
+            
+            .scrolling_table_div {
+              max-height: 300px;
+              overflow-y: auto;
+              padding-top: 20px;
+              margin-bottom: 30px;
+            }
+            
+            .transcript_sync_cb {
+              margin: 20px;
+            }
+            
+            .transcript_tbl {
+              border-collapse: collapse;
+              border: none;
+            }
+            
+            .transcript_tbl th,
+            .transcript_tbl td {
+              border: none;
+            }
+            
+            .clickable {
+              cursor: pointer;
+              color: #0062ff;
+              vertical-align: top;
+            }
+            
+            .clickable:hover {
+              text-decoration: underline;
+            }
+            
+            .clickable_span {
+              cursor: pointer;
+              color: #0062ff;
+              vertical-align: bottom;
+            }
+            
+            .clickable_span:hover {
+              text-decoration: underline;
+            }
+          </style>
+          <script keep="true" src="https://unpkg.com/ibm-video-streaming-web-player-api@1.1.0/dist/index.umd.min.js"></script>
+          <script keep="true">
+            var g_viewer = null;
+            var g_b_do_retry = true;
+            var g_highlighted_row_num = -1;
+            var g_org_color = "";
+
+            var g_loop = setInterval(function() {
+              synchronize(null);
+
+            }, 2 * 1000);
+
+            function executeEmbedScript() {
+              if (g_viewer) {
+                // Chrome is running this function twice??
+                return;
+              }
+
+              g_viewer = PlayerAPI("wx-notebook-basics");
+
+              var url = window.location.href;
+              if (!url.match(/t\=\d+/i)) {
+                return;
+              }
+
+              g_viewer.addListener("playing", function(event_key, b_is_playing) {
+                if (b_is_playing) {
+                  g_b_do_retry = false;
+                }
+
+              });
+
+              openTranscript();
+
+              var seconds = url.replace(/^.*t\=(\d+).*$/i, "$1");
+              synchronize(parseInt(seconds));
+              jumpToTimeRetry(seconds, 5);
+            }
+
+            function openTranscript() {
+              if (document.getElementById("transcript_btn_wx-notebook-basics")) {
+                document.getElementById("transcript_btn_wx-notebook-basics").click();
+              }
+            }
+
+            function jumpTo(obj) {
+              var seconds = obj.parentNode.id;
+              jumpToTime(seconds);
+            }
+
+            function jumpToTime(seconds) {
+              g_viewer.callMethod("seek", seconds);
+              g_viewer.callMethod("play");
+            }
+
+            function jumpToTimeRetry(seconds, iteration) {
+              if (iteration < 1) {
+                // Give up
+                return;
+              }
+
+              g_viewer.callMethod("seek", seconds);
+              g_viewer.callMethod("play");
+
+              setTimeout(function() {
+                // Wait 1.5 seconds and then try again
+                if (g_b_do_retry) {
+                  jumpToTimeRetry(seconds, iteration - 1);
+                }
+
+              }, 1.5 * 1000);
+            }
+
+            function synchronize(seconds_in) {
+              if (!g_viewer || !document.getElementById("sync_cb_wx-notebook-basics") || !document.getElementById("sync_cb_wx-notebook-basics").checked) {
+                return;
+              }
+
+              if (null !== seconds_in && !isNaN(seconds_in)) {
+                scrollAndHighlight(seconds_in);
+                return;
+              }
+
+              g_viewer.getProperty("progress", function(seconds) {
+                scrollAndHighlight(seconds);
+
+              });
+
+            }
+
+            function scrollAndHighlight(seconds) {
+              var rows_arr = document.getElementsByClassName("video_tr");
+              for (var i = (rows_arr.length - 1); i >= 0; i--) {
+                if (parseInt(rows_arr[i].id) > seconds) {
+                  continue;
+                }
+
+                if (i == g_highlighted_row_num) {
+                  break;
+                }
+
+                if (-1 !== g_highlighted_row_num) {
+                  unhighlight(rows_arr[g_highlighted_row_num]);
+                }
+
+                g_highlighted_row_num = i;
+                highlight(rows_arr[g_highlighted_row_num]);
+                scrollToRow(rows_arr[g_highlighted_row_num]);
+
+                break;
+              }
+
+            }
+
+            function scrollToRow(row_obj) {
+              var row_top = row_obj.offsetTop;
+              var row_bottom = row_top + row_obj.clientHeight;
+
+              var scroller = document.getElementById("transcript_div_wx-notebook-basics");
+              var scroll_top = scroller.scrollTop;
+              var scroll_bottom = scroll_top + scroller.clientHeight;
+
+              if ((row_top < scroll_top) && (row_bottom > scroll_bottom)) {
+                // Edge case: Row taller than div
+                // Don't do anything
+              } else if ((row_top < scroll_top) || (row_bottom > scroll_bottom)) {
+                scroller.scrollTop = row_top;
+              }
+            }
+
+            function highlight(row_obj) {
+              var obj_arr = row_obj.childNodes;
+              for (var i = 0; i < obj_arr.length; i++) {
+                if ("TD" == obj_arr[i].nodeName) {
+                  g_org_color = obj_arr[i].style.backgroundColor;
+                  obj_arr[i].style.backgroundColor = "#c6c6c6";
+                }
+              }
+            }
+
+            function unhighlight(row_obj) {
+              var obj_arr = row_obj.childNodes;
+              for (var i = 0; i < obj_arr.length; i++) {
+                if ("TD" == obj_arr[i].nodeName) {
+                  obj_arr[i].style.backgroundColor = g_org_color;
+                }
+              }
+            }
+
+            function toggleHighlighting() {
+              if (!document.getElementById("sync_cb_wx-notebook-basics").checked && (-1 !== g_highlighted_row_num)) {
+                var rows_arr = document.getElementsByClassName("video_tr");
+                unhighlight(rows_arr[g_highlighted_row_num]);
+                g_highlighted_row_num = -1;
+              }
+            }
+          </script>
+          <br>
+        </section>
+        <section id="section-try-a-tutorial-to-create-a-notebook">
+          <h2 id="try-a-tutorial-to-create-a-notebook">Try a tutorial to create a notebook</h2>
+          <p>In this tutorial, you will complete these tasks:</p>
+          <ul>
+            <li><a href="#step01">Task 1: Open a project.</a></li>
+            <li><a href="#step02">Task 2: Add a notebook to your project.</a></li>
+            <li><a href="#step03">Task 3: Load a file and save the notebook.</a></li>
+            <li><a href="#step04">Task 4: Find and edit the notebook.</a></li>
+            <li><a href="#step05">Task 5: Share read-only version of the notebook.</a></li>
+            <li><a href="#step06">Task 6: Schedule a notebook to run at a different time.</a></li>
+          </ul>
+          <p>This tutorial will take approximately 15 minutes to complete.</p>
+          <br>
+          <script keep="true">
+            function ToggleSections() {
+
+              var button_text = document.getElementById("expand-button");
+              console.log("Button text initial: ", button_text.innerHTML);
+
+              var sections = Array.from(document.getElementsByTagName("details"));
+              console.log("Initial sections: ", sections);
+
+              for (i = 0; i < sections.length; ++i) {
+                each = sections[i];
+                if (button_text.innerHTML == "Expand all sections") {
+                  each.setAttribute('open', true);
+                } else {
+                  each.removeAttribute('open');
+                }
+              }
+
+              if (button_text.innerHTML == "Expand all sections") {
+                button_text.innerHTML = "Collapse all sections";
+              } else {
+                button_text.innerHTML = "Expand all sections";
+              }
+
+              console.log("Button text final: ", button_text.innerHTML);
+              console.log("Updated sections: ", sections);
+            }
+          </script>
+          <p><button id="expand-button" class="cds-btn-ghost" onclick="ToggleSections()" alt="Expand/Collapse all sections" style="float: right; background-color: transparent;">Expand all sections</button>
+            <br></p>
+          <br>
+          <hr id="step_tutorial_tips">
+          <details>
+            <summary style="font-size: 18pt">Tips for completing this tutorial</summary>
+            <md-block>
+              <p>Here are some tips for successfully completing this tutorial.</p>
+              <section id="section-use-the-video-picture-in-picture">
+                <h3 id="use-the-video-picture-in-picture">Use the video picture-in-picture</h3>
+                <div class="note tip"><span class="tiptitle">Tip:</span> Start the video, then as you scroll through the tutorial, the video moves to picture-in-picture mode. Close the video table of contents for the best experience with picture-in-picture. You can use picture-in-picture
+                  mode so you can follow the video as you complete the tasks in this tutorial. Click the timestamps for each task to follow along.</div>
+                <p>The following animated image shows how to use the video picture-in-picture and table of contents features:</p>
+                <p><img src="images/pip-and-chapters.gif" alt="How to use picture-in-picture and chapters" title="How to use picture-in-picture and chapters" width="560px" height="315px" data-tearsheet="this"></p>
+              </section>
+              <section id="section-get-help-in-the-community">
+                <h3 id="get-help-in-the-community">Get help in the community</h3>
+                <p>If you need help with this tutorial, you can ask a question or find an answer in the <a href="https://community.ibm.com/community/user/watsonx/home" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">watsonx Community discussion forum</a>.</p>
+              </section>
+              <section id="section-set-up-your-browser-windows">
+                <h3 id="set-up-your-browser-windows">Set up your browser windows</h3>
+                <p>For the optimal experience completing this tutorial, open Cloud Pak for Data in one browser window, and keep this tutorial page open in another browser window to switch easily between the two applications. Consider arranging the two browser
+                  windows side-by-side to make it easier to follow along.</p>
+                <p><img src="images/tutorial-side-by-side.png" alt="Side-by-side tutorial and UI" title="Side-by-side tutorial and UI" width="560px" height="315px"></p>
+                <div class="note tip"><span class="tiptitle">Tip:</span> If you encounter a guided tour while completing this tutorial in the user interface, click <b>Maybe later</b>.</div>
+              </section>
+            </md-block>
+          </details>
+          <hr>
+          <br>
+          <hr id="step01">
+          <details>
+            <summary style="font-size: 18pt">Task 1: Open a project</summary>
+            <md-block>
+              <br>
+              <p>You need a project to store the notebook and data asset. You can use your sandbox project or create a project. Follow these steps to open a project and add a data asset to the project:</p>
+              <ol>
+                <li>
+                  <p>From the navigation menu <img src="images/navigation-menu.svg" alt="Navigation menu" title="Navigation menu" height="20" style="vertical-align:text-bottom">, choose <strong>Projects &gt; View all projects</strong></p>
+                </li>
+                <li>
+                  <p>Open your sandbox project. If you want to use a new project:</p>
+                  <ol>
+                    <li>
+                      <p>Click <strong>New project</strong>.</p>
+                    </li>
+                    <li>
+                      <p>Select <strong>Create an empty project</strong>.</p>
+                    </li>
+                    <li>
+                      <p>Enter a name and optional description for the project.</p>
+                    </li>
+                    <li>
+                      <p>Choose an existing <a href="../admin/storage-options.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">object storage service instance</a> or create a new one.</p>
+                    </li>
+                    <li>
+                      <p>Click <strong>Create</strong>.</p>
+                    </li>
+                  </ol>
+                </li>
+                <li>
+                  <p>From the navigation menu, click <strong>Resource hub</strong>.</p>
+                </li>
+                <li>
+                  <p>Search for an interesting data set, and select the data set.</p>
+                </li>
+                <li>
+                  <p>Click <strong>Add to project</strong>.</p>
+                </li>
+                <li>
+                  <p>Select the project from the list, and click <strong>Add</strong>.</p>
+                </li>
+                <li>
+                  <p>After the data set is added, click <strong>View Project</strong>.</p>
+                </li>
+                <li>
+                  <p>In the project, click the <strong>Assets</strong> tab to see the data set.</p>
+                </li>
+              </ol>
+              <p>For more information, see <a href="projects.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Creating a project</a>.<br></p>
+              <section id="section-checkpoint-icon-check-your-progress">
+                <h3 id="checkpoint-icon-check-your-progress"><img src="images/checkmark--filled-blue.svg" alt="Checkpoint icon" height="20" style="vertical-align:text-bottom"> Check your progress</h3>
+                <p>The following image shows the Assets tab in the project.<br><br></p>
+                <p><img src="images/gs-notebook-assets-tab-01.png" alt="The following image shows the Assets tab in the project." width="100%" data-tearsheet="this"></p>
+              </section>
+            </md-block>
+          </details>
+          <hr>
+          <br>
+          <hr id="step02">
+          <details>
+            <summary style="font-size: 18pt">Task 2: Add a notebook to your project</summary>
+            <md-block>
+              <br>
+              <p><img src="images/lc-video.png" alt="preview tutorial video" style="vertical-align:text-bottom"> To preview this task, watch the video beginning at <span role="link" class="clickable_span" onclick="jumpToTime( 6 );">00:06</span>.</p>
+              <p>Follow these steps to create a new notebook in your project.</p>
+              <ol>
+                <li>
+                  <p>In your project, on the <em>Assets</em> tab, click <strong>New asset &gt; Work with data and models in Python or R notebooks</strong>.</p>
+                </li>
+                <li>
+                  <p>Type a name and description (optional).</p>
+                </li>
+                <li>
+                  <p>Select a runtime environment for this notebook.</p>
+                </li>
+                <li>
+                  <p>Click <strong>Create</strong>. Wait for the notebook editor to load.</p>
+                </li>
+              </ol>
+              <section id="section-checkpoint-icon-check-your-progress-2">
+                <h3 id="checkpoint-icon-check-your-progress-2"><img src="images/checkmark--filled-blue.svg" alt="Checkpoint icon" height="20" style="vertical-align:text-bottom"> Check your progress</h3>
+                <p>The following image shows blank notebook.<br><br></p>
+                <p><img src="images/gs-notebook-editor.png" alt="The following image shows the blank notebook." width="100%" data-tearsheet="this"></p>
+              </section>
+            </md-block>
+          </details>
+          <hr>
+          <br>
+          <hr id="step03">
+          <details>
+            <summary style="font-size: 18pt">Task 3: Load a file and save the notebook</summary>
+            <md-block>
+              <br>
+              <p><img src="images/lc-video.png" alt="preview tutorial video" style="vertical-align:text-bottom"> To preview this task, watch the video beginning at <span role="link" class="clickable_span" onclick="jumpToTime( 23 );">00:23</span>.</p>
+              <p>Now you can access the data asset in your notebook that you uploaded to your project earlier. Follow these steps to load data into a data frame:</p>
+              <ol>
+                <li>
+                  <p>Click in an empty code cell in your notebook.</p>
+                </li>
+                <li>
+                  <p>Click the <strong>Code snippets</strong> icon (<img src="../analyze-data/images/code-snippets-icon.png" alt="the Code snippets icon" height="20" style="vertical-align:text-bottom">).</p>
+                </li>
+                <li>
+                  <p>In the side pane, click <strong>Read data</strong>.</p>
+                </li>
+                <li>
+                  <p>Click <strong>Select data from project</strong>.</p>
+                </li>
+                <li>
+                  <p>Locate the data asset from the project, and click <strong>Select</strong>.</p>
+                </li>
+                <li>
+                  <p>In the <em>Load as</em> drop-down list, select the load option that you prefer.</p>
+                </li>
+                <li>
+                  <p>Click <strong>Insert code to cell</strong>. The code to read and load the data asset is inserted into the cell.</p>
+                </li>
+                <li>
+                  <p>Click <strong>Run</strong> to run your code. The first few rows of your data set will display.</p>
+                </li>
+                <li>
+                  <p>To save a version of your notebook, click <strong>File &gt; Save Version</strong>. You can also just save your notebook with <strong>File &gt; Save</strong>.</p>
+                </li>
+              </ol>
+              <section id="section-checkpoint-icon-check-your-progress-3">
+                <h3 id="checkpoint-icon-check-your-progress-3"><img src="images/checkmark--filled-blue.svg" alt="Checkpoint icon" height="20" style="vertical-align:text-bottom"> Check your progress</h3>
+                <p>The following image shows the notebook with the pandas DataFrame.<br><br></p>
+                <p><img src="images/gs-notebook-cell01.png" alt="The following image shows the notebook with the pandas DataFrame." width="100%" data-tearsheet="this"></p>
+              </section>
+            </md-block>
+          </details>
+          <hr>
+          <br>
+          <hr id="step04">
+          <details>
+            <summary style="font-size: 18pt">Task 4: Find and edit the notebook</summary>
+            <md-block>
+              <br>
+              <p><img src="images/lc-video.png" alt="preview tutorial video" style="vertical-align:text-bottom"> To preview this task, watch the video beginning at <span role="link" class="clickable_span" onclick="jumpToTime( 79 );">01:19</span>.</p>
+              <p>Follow these steps to locate the saved notebook on the Assets tab, and edit the notebook:</p>
+              <ol>
+                <li>
+                  <p>In the project navigation trail, click your project name to return to your project.</p>
+                </li>
+                <li>
+                  <p>Click the <strong>Assets</strong> tab to find the notebook.</p>
+                </li>
+                <li>
+                  <p>When you click the notebook, it will open in <code>READ ONLY</code> mode.</p>
+                </li>
+                <li>
+                  <p>To edit the notebook, click the <strong>pencil</strong> icon <img src="images/edit.svg" alt="Pencil icon" title="Pencil icon" height="20" style="vertical-align:text-bottom">.</p>
+                </li>
+                <li>
+                  <p>Click the <strong>Information</strong> icon <img src="images/information.svg" alt="Information icon" title="Information icon" height="20" style="vertical-align:text-bottom"> to open the <em>Information</em> panel.</p>
+                </li>
+                <li>
+                  <p>On the <em>General</em> tab, edit the name and description of the notebook.</p>
+                </li>
+                <li>
+                  <p>Click the <strong>Environment</strong> tab to see how you can change the environment used to run the notebook or update the runtime status to either stop and restart.</p>
+                </li>
+              </ol>
+              <section id="section-checkpoint-icon-check-your-progress-4">
+                <h3 id="checkpoint-icon-check-your-progress-4"><img src="images/checkmark--filled-blue.svg" alt="Checkpoint icon" height="20" style="vertical-align:text-bottom"> Check your progress</h3>
+                <p>The following image shows the notebook with the Information panel displayed.<br><br></p>
+                <p><img src="images/gs-notebook-environment.png" alt="The following image shows the notebook with the Information panel displayed." width="100%" data-tearsheet="this"></p>
+              </section>
+            </md-block>
+          </details>
+          <hr>
+          <br>
+          <hr id="step05">
+          <details>
+            <summary style="font-size: 18pt">Task 5: Share read-only version of the notebook</summary>
+            <md-block>
+              <br>
+              <p><img src="images/lc-video.png" alt="preview tutorial video" style="vertical-align:text-bottom"> To preview this task, watch the video beginning at <span role="link" class="clickable_span" onclick="jumpToTime( 112 );">01:52</span>.</p>
+              <p>Follow these steps to create a link to the notebook to share with colleagues:</p>
+              <ol>
+                <li>
+                  <p>Click the <strong>Share</strong> icon <img src="images/share.svg" alt="Share icon" title="Share icon" height="20" style="vertical-align:text-bottom"> if you would like to share the read-only view of the notebook.</p>
+                </li>
+                <li>
+                  <p>Click to turn on the <strong>Share with anyone who has the link</strong> toggle button.</p>
+                </li>
+                <li>
+                  <p>Select what content you would like to share through a link or social media.</p>
+                </li>
+                <li>
+                  <p>Click the <strong>Copy</strong> icon <img src="images/copy.svg" alt="Copy icon" height="20" style="vertical-align:text-bottom"> to copy a direct link to this notebook.</p>
+                </li>
+                <li>
+                  <p>Click <strong>Close</strong>.</p>
+                </li>
+              </ol>
+              <section id="section-checkpoint-icon-check-your-progress-5">
+                <h3 id="checkpoint-icon-check-your-progress-5"><img src="images/checkmark--filled-blue.svg" alt="Checkpoint icon" height="20" style="vertical-align:text-bottom"> Check your progress</h3>
+                <p>The following image shows the Share dialog box.<br><br></p>
+                <p><img src="images/gs-notebook-share.png" alt="The following image shows the Share dialog box." width="100%" data-tearsheet="this"></p>
+              </section>
+            </md-block>
+          </details>
+          <hr>
+          <br>
+          <hr id="step06">
+          <details>
+            <summary style="font-size: 18pt">Task 6: Schedule a notebook to run at a different time</summary>
+            <md-block>
+              <br>
+              <p><img src="images/lc-video.png" alt="preview tutorial video" style="vertical-align:text-bottom"> To preview this task, watch the video beginning at <span role="link" class="clickable_span" onclick="jumpToTime( 128 );">02:08</span>.</p>
+              <p>Follow these steps to create a job to schedule the notebook to run at a specific time or repeat based on a schedule:</p>
+              <ol>
+                <li>
+                  <p>Click the <strong>Jobs</strong> icon, and select <strong>Create a job</strong>.<br><img src="images/gs-notebook-create-job.png" alt="Create a job" title="Create a job"></p>
+                </li>
+                <li>
+                  <p>Provide the name and description of the job, and click <strong>Next</strong>.</p>
+                </li>
+                <li>
+                  <p>Select the notebook version and environment runtime, and click <strong>Next</strong>.</p>
+                </li>
+                <li>
+                  <p>(Optional) Click the toggle button to schedule a run. Specify the date, time and if you would like the job to repeat, and click <strong>Next</strong>.</p>
+                </li>
+                <li>
+                  <p>(Optional) click the toggle button to receive notifications for this job, and click <strong>Next</strong>.</p>
+                </li>
+                <li>
+                  <p>Review the details, and click either <strong>Create</strong> (to create the job, but not run the job immediately) or <strong>Create and run</strong> (to run the job immediately).</p>
+                </li>
+                <li>
+                  <p>The job will display in the <strong>Jobs</strong> tab in the project.</p>
+                </li>
+              </ol>
+              <section id="section-checkpoint-icon-check-your-progress-6">
+                <h3 id="checkpoint-icon-check-your-progress-6"><img src="images/checkmark--filled-blue.svg" alt="Checkpoint icon" height="20" style="vertical-align:text-bottom"> Check your progress</h3>
+                <p>The following image shows the Jobs tab.<br><br></p>
+                <p><img src="images/gs-notebook-job.png" alt="The following image shows the Jobs tab." width="100%" data-tearsheet="this"></p>
+              </section>
+            </md-block>
+          </details>
+          <hr>
+          <br>
+        </section>
+        <section id="section-next-steps">
+          <h2 id="next-steps">Next steps</h2>
+          <p>Now you can use this data set for further analysis. For example, you or other users can do any of these tasks:</p>
+          <ul>
+            <li>
+              <p><a href="get-started-refine.html">Cleansing and shaping data</a></p>
+            </li>
+            <li>
+              <p><a href="get-started-build.html">Build and train a model with the data asset</a></p>
+            </li>
+          </ul>
+        </section>
+        <section id="section-additional-resources">
+          <h2 id="additional-resources">Additional resources</h2>
+          <ul>
+            <li>
+              <p>View more <a href="videos-wx.html">videos</a>.</p>
+            </li>
+            <li>
+              <p>Find sample data sets, projects, models, prompts, and notebooks in the Resource hub to gain hands-on experience:</p>
+              <p><img src="images/notebook.svg" alt="Notebook icon" title="Notebook icon" height="20" style="vertical-align:text-bottom"> <a href="https://dataplatform.cloud.ibm.com/gallery?context=wx&amp;format=notebook" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Notebooks</a> that you can add to your project to get started analyzing data and building models.</p>
+              <p><img src="images/ibm-cloud--projects.svg" alt="Project icon" title="Project icon" height="20" style="vertical-align:text-bottom"> <a href="https://dataplatform.cloud.ibm.com/gallery?context=wx&amp;format=project-template" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Projects</a> that you can import containing notebooks, data sets, prompts, and other assets.</p>
+              <p><img src="images/data--set.svg" alt="Data set icon" title="Data set icon" height="20" style="vertical-align:text-bottom"> <a href="https://dataplatform.cloud.ibm.com/gallery?context=wx&amp;format=dataset" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Data sets</a> that you can add to your project to refine, analyze, and build models.</p>
+              <p><img src="images/prompt.svg" alt="Prompt icon" title="Prompt icon" width="20"> <a href="https://dataplatform.cloud.ibm.com/gallery?context=wx&amp;format=example-prompt" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Prompts</a>                that you can use in the Prompt Lab to prompt a foundation model.</p>
+              <p><img src="images/model.svg" alt="Model icon" title="Model icon" height="20" style="vertical-align:text-bottom"> <a href="https://dataplatform.cloud.ibm.com/gallery?context=wx&amp;format=foundation-model" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Foundation models</a> that you can use in the Prompt Lab.</p>
+            </li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="quickstart-tutorials.html">Quick start tutorials</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

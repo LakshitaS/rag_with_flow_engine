@@ -1,0 +1,129 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Definitions of hyperparameters used in the experiment training. One or more of these hyperparameter options might be used, depending on your framework and fusion method.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Hyperparameter definitions</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=versions-hyperparameter"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="hyperparameter-definitions" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <!--AZ - Topic ready for 4.5 review-->
+      <section id="section-hyperparameter-definitions">
+        <h1 id="hyperparameter-definitions">Hyperparameter definitions</h1>
+        <p>Definitions of hyperparameters used in the experiment training. One or more of these hyperparameter options might be used, depending on your framework and fusion method.</p>
+        <table>
+          <caption caption-side="top">Hyperparameter definitions</caption>
+          <thead>
+            <tr>
+              <th>Hyperparameters</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Rounds</td>
+              <td>Int value. The number of training iterations to complete between the aggregator and the remote systems.</td>
+            </tr>
+            <tr>
+              <td>Termination accuracy <em>(Optional)</em></td>
+              <td>Float value. Takes <code>model_accuracy</code> and compares it to a numerical value. If the condition is satisfied, then the experiment finishes early. <br><br>For example, <code>termination_predicate: accuracy &gt;= 0.8</code> finishes
+                the experiment when the mean of model accuracy for participating parties is greater than or equal to 80%. Currently, Federated Learning accepts one type of early termination condition (model accuracy) for classification models only.</td>
+            </tr>
+            <tr>
+              <td>Quorum <em>(Optional)</em></td>
+              <td>Float value. Proceeds with model training after the aggregator reaches a certain ratio of party responses. Takes a decimal value between 0 - 1. The default is 1. The model training starts only after party responses reach the indicated ratio
+                value. <br>For example, setting this value to 0.5 starts the training after 50% of the registered parties responded to the aggregator call.</td>
+            </tr>
+            <tr>
+              <td>Max Timeout <em>(Optional)</em></td>
+              <td>Int value. Terminates the Federated Learning experiment if the waiting time for party responses exceeds this value in seconds. Takes a numerical value up to 43200. If this value in seconds passes and the <code>quorum</code> ratio is not
+                reached, the experiment terminates. <br><br>For example, <code>max_timeout = 1000</code> terminates the experiment after 1000 seconds if the parties do not respond in that time.</td>
+            </tr>
+            <tr>
+              <td>Sketch accuracy vs privacy <em>(Optional)</em></td>
+              <td>Float value. Used with XGBoost training to control the relative accuracy of sketched data sent to the aggregator. Takes a decimal value between 0 and 1. Higher values will result in higher quality models but with a reduction in data privacy
+                and increase in resource consumption.</td>
+            </tr>
+            <tr>
+              <td>Number of classes</td>
+              <td>Int value. Number of target classes for the classification model. Required if "Loss" hyperparameter is: <br> - <code>auto</code> <br> - <code>binary_crossentropy</code><br>- <code>categorical_crossentropy</code><br></td>
+            </tr>
+            <tr>
+              <td>Learning rate</td>
+              <td>Decimal value. The learning rate, also known as <em>shrinkage</em>. This is used as a multiplicative factor for the leaves values.</td>
+            </tr>
+            <tr>
+              <td>Loss</td>
+              <td>String value. The loss function to use in the boosting process. <br> - <code>binary_crossentropy</code> (also known as logistic loss) is used for binary classification.<br> - <code>categorical_crossentropy</code> is used for multiclass classification.
+                <br> - <code>auto</code> chooses either loss function depending on the nature of the problem. <br> - <code>least_squares</code> is used for regression.</td>
+            </tr>
+            <tr>
+              <td>Max Iter</td>
+              <td>Int value. The total number of passes over the local training data set to train a Scikit-learn model.</td>
+            </tr>
+            <tr>
+              <td>N cluster</td>
+              <td>Int value. The number of clusters to form and the number of centroids to generate.</td>
+            </tr>
+            <tr>
+              <td>Epoch <em>(Optional)</em></td>
+              <td>Int value. The number of local training iterations to be preformed by each remote party for each round. For example, if you set Rounds to 2 and Epochs to 5, all remote parties train locally 5 times before the model is sent to the aggregator.
+                In round 2, the aggregator model is trained locally again by all parties 5 times and re-sent to the aggregator.</td>
+            </tr>
+            <tr>
+              <td>sigma</td>
+              <td>Float value. Determines how far the local model neurons are allowed from the global model. A bigger value allows more matching and produces a smaller global model. Default value is 1.</td>
+            </tr>
+            <tr>
+              <td>sigma0</td>
+              <td>Float value. Defines the permitted deviation of the global network neurons. Default value is 1.</td>
+            </tr>
+            <tr>
+              <td>gamma</td>
+              <td>Float value. Indian Buffet Process parameter that controls the expected number of features in each observation. Default value is 1.</td>
+            </tr>
+          </tbody>
+        </table>
+        <p><strong>Parent topic:</strong> <a href="fl-frames.html">Frameworks, fusion methods, and Python versions</a></p>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

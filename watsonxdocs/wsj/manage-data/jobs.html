@@ -1,0 +1,189 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You create jobs to run assets or files in tools, such as Data Refinery flows, SPSS Modeler flows, Notebooks, and scripts, in a project.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Creating and managing jobs in a project</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=projects-creating-managing-jobs"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="creating-and-managing-jobs-in-a-project" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-creating-and-managing-jobs-in-a-project">
+        <h1 id="creating-and-managing-jobs-in-a-project">Creating and managing jobs in a project</h1>
+        <p>You create jobs to run assets or files in tools, such as Data Refinery flows, SPSS Modeler flows, Notebooks, and scripts, in a project.</p>
+        <p>When you create a job you define the properties for the job, such as the name, definition, environment runtime, schedule and notification specifications on different pages. You can run a job immediately or wait for the job to run at the next scheduled
+          interval.</p>
+        <p>Each time a job is started, a job run is created, which you can monitor and use to compare with the job run history of previous runs. You can view detailed information about each job run, job state changes, and job failures in the job run log.</p>
+        <p>How you create a job depends on the asset or file.</p>
+        <table>
+          <caption caption-side="top">Job creation options for assets or files</caption>
+          <thead>
+            <tr>
+              <th>Asset or file</th>
+              <th>Create job in tool</th>
+              <th>Create job from the Assets page</th>
+              <th>More information</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Data Refinery flow</td>
+              <td>✓</td>
+              <td>✓</td>
+              <td><a href="create-job-dr.html">Creating jobs in Data Refinery</a></td>
+            </tr>
+            <tr>
+              <td>SPSS Modeler flow</td>
+              <td>✓</td>
+              <td>✓</td>
+              <td><a href="create-job-spss.html">Creating jobs in SPSS Modeler</a></td>
+            </tr>
+            <tr>
+              <td>Notebook created in the Notebook editor</td>
+              <td>✓</td>
+              <td>✓</td>
+              <td><a href="create-job-nb-editor.html">Creating jobs in the Notebook editor</a></td>
+            </tr>
+            <tr>
+              <td>Pipelines</td>
+              <td>✓</td>
+              <td></td>
+              <td><a href="create-job-pipelines.html">Creating jobs for Pipelines</a></td>
+            </tr>
+          </tbody>
+        </table>
+        <section id="section-jobs-assets-page">
+          <h2 id="jobs-assets-page">Creating jobs from the Assets page</h2>
+          <p class="shortdesc">You can create a job to run an asset from the project's <strong>Assets</strong> page.</p>
+          <dl>
+            <dt><strong>Required permissions</strong></dt>
+            <dd>You must have an <strong>Editor</strong> or <strong>Admin</strong> role in the project.</dd>
+          </dl>
+          <div class="note restriction"><span class="restrictiontitle">Restriction:</span>
+            <md-block>
+              <p>You cannot run a job by using an API key from a <a href="../analyze-data/ml-authentication.html">service ID</a>.</p>
+              <p></p>
+            </md-block>
+          </div>
+          <p></p>
+          <p>To create jobs for a listed asset from the <strong>Assets</strong> page of a project:</p>
+          <ol>
+            <li>
+              <p>Select the asset from the section for your asset type and choose <strong>New job</strong> from the menu icon with the lists of options (<img src="../refinery/images/actions.png" alt="actions icon three vertical dots" height="20" style="vertical-align:text-bottom">)
+                at the end of the table row.</p>
+            </li>
+            <li>
+              <p>Define the job details by entering a name and a description (optional).</p>
+            </li>
+            <li>
+              <p>If you can select <strong>Setting</strong>, specify the settings that you want for the job.</p>
+            </li>
+            <li>
+              <p>If you can select <strong>Configure</strong>, choose an environment runtime for the job. Depending on the asset type, you can optionally configure more settings, for example environment variables or script arguments.</p>
+              <p>To avoid accumulating too many finished job runs and job run artifacts, set how long to retain finished job runs and job run artifacts like logs or notebook results. You can either select the number of days to retain the job runs or the
+                last number of job runs to keep.</p>
+            </li>
+            <li>
+              <p>On the <strong>Schedule</strong> page, you can optionally add a one-time or repeating schedule.</p>
+              <p>If you select the <strong>Repeat</strong> option and unit of <strong>Minutes</strong> with the value of <em>n</em>, the job runs at the start of the hour, and then at every multiple of <em>n</em>. For example, if you specify a value of 11
+                it will run at 0, 11, 22, 33, 44 and 55 minutes of each hour.</p>
+              <p>If you also select the <strong>Start of Schedule</strong> option, the job starts to run at the first multiple of <em>n</em> of the hour that occurs after the time that you provide in the <strong>Start Time</strong> field. For example, if
+                you enter 10:24 for the <strong>Start of Time</strong> value, and you select <strong>Repeat</strong> and set the job to repeat every 14 minutes, then your job will run at 10:42, 10:56, 11:00, 11:14. 11:28, 11:42, 11:56, and so on.</p>
+              <p>You can't change the time zone; you must set your job schedule in your web browser's time zone.&nbsp;The schedule will be translated to the time zone of the compute node where your job runs.</p>
+              <p>If you exclude certain weekdays, the job might not run as you would expect. The reason might be due to a discrepancy between the time zone of the user who creates the schedule, and the time zone of the compute node where the job runs.</p>
+              <div class="note note"><span class="notetitle">Note:</span> Your scheduled job can appear differently if your web browser’s time zone is set to your local time zone following Daylight Savings Time (DST). For example, your scheduled job appears at 3:00PM Eastern
+                Standard Time Zone (EST) daily corresponding to 8:00PM Coordinated Universal Time (UTC). When your local time zone changes to Eastern Daylight Time Zone (EDT), your scheduled job continues to run at 8:00PM (UTC) which will now appear as
+                4:00PM (EDT) daily.</div> <br><br> An API key is generated when you create a scheduled job, and future runs will use this API key. If you didn't create a scheduled job but choose to modify one, an API key is generated for you when you
+              modify the job and future runs will use this API key.
+            </li>
+            <li>
+              <p>(Optional): Select to see notifications for the job. You can select the type of alerts to receive.</p>
+            </li>
+            <li>
+              <p>Review the job settings. Then, create the job and run it immediately, or create the job and run it later.</p>
+            </li>
+          </ol>
+        </section>
+        <section id="section-view-job-details">
+          <h2 id="view-job-details">Managing jobs</h2>
+          <p>You can view all of the jobs that exist for your project from the project's <strong>Jobs</strong> page. With <strong>Admin</strong> or <strong>Editor</strong> role for the project, you can view and edit the job details. You can run jobs manually
+            and you can delete jobs. With <strong>Viewer</strong> role for the project, you can only view the job details. You can't run or delete jobs with Viewer role.</p>
+          <p>To view the details of a specific job, click the job. From the job's details page, you can:</p>
+          <ul>
+            <li><em>View the runs</em> for that job and the status of each run. If a run failed, you can select the run and view the log tail or download the entire log file to help you troubleshoot the run. A failed run might be related to a temporary connection
+              or environment problem. Try running the job again. If the job still fails, you can send the log to Customer Support.</li>
+            <li><em>Edit job settings</em> by clicking <strong>Edit job</strong>, for example to change schedule settings or to pick another environment template.</li>
+            <li><em>Run the job manually</em> by clicking the <strong>Run</strong> icon <img src="../manage-data/images/run-job.png" alt="the run icon" height="20" style="vertical-align:text-bottom"> from the job's action bar. You can start a scheduled job
+              based on the schedule and on demand.</li>
+            <li><em>Delete</em> the job by clicking the <strong>Delete</strong> <img src="../manage-data/images/delete-job.png" alt="the bin icon" height="20" style="vertical-align:text-bottom"> from the job's action bar.</li>
+          </ul>
+          <section id="section-view-jobs-in-tool">
+            <h3 id="view-jobs-in-tool">Viewing and editing jobs in a tool</h3>
+            <p>You can view and edit job settings associated with an asset directly in the following tools:</p>
+            <ul>
+              <li>Data Refinery</li>
+              <li>DataStage</li>
+              <li>Match 360</li>
+              <li>Notebook editor or viewer</li>
+              <li>Pipelines</li>
+            </ul>
+            <section id="section-viewing-and-editing-jobs-in-data-refinery-notebooks-and-pipelines">
+              <h4 id="viewing-and-editing-jobs-in-data-refinery-notebooks-and-pipelines">Viewing and editing jobs in Data Refinery, Notebooks, and Pipelines</h4>
+              <ol>
+                <li>In the tool, click the <strong>Jobs</strong> icon <img src="images/Run-schedule_Blue.png" alt="the jobs icon" height="20" style="vertical-align:text-bottom"> from the toolbar and select <strong>Save and view jobs</strong>. This action
+                  lists the jobs that exist for the asset.</li>
+                <li>Select a job to see its details. You can change job settings by clicking <strong>Edit job</strong>.</li>
+              </ol>
+            </section>
+          </section>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="create-job-dr.html">Creating jobs in Data Refinery</a></li>
+            <li><a href="create-job-nb-editor.html">Creating jobs in the Notebook editor or Notebook viewer</a></li>
+            <li><a href="create-job-pipelines.html">Creating jobs for Pipelines</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="manage-projects.html">Working in projects</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

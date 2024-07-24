@@ -1,0 +1,343 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Data skipping can significantly boost the performance of SQL queries by skipping over irrelevant data objects or files based on a summary metadata associated with each object.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Data skipping for Spark SQL</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=scripts-data-skipping-spark-sql"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="data-skipping-for-spark-sql" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-data-skipping-for-spark-sql">
+        <h1 id="data-skipping-for-spark-sql">Data skipping for Spark SQL</h1>
+        <p>Data skipping can significantly boost the performance of SQL queries by skipping over irrelevant data objects or files based on a summary metadata associated with each object.</p>
+        <p>Data skipping uses the open source Xskipper library for creating, managing and deploying data skipping indexes with Apache Spark. See <a href="https://xskipper.io" target="_blank" class="external">Xskipper - An Extensible Data Skipping Framework</a>.</p>
+        <p>For more details on how to work with Xskipper see:</p>
+        <ul>
+          <li><a href="https://xskipper.io/getting-started/quick-start-guide/" target="_blank" class="external">Quick Start Guide</a></li>
+          <li><a href="https://xskipper.io/getting-started/sample-notebooks/" target="_blank" class="external">Demo Notebooks</a></li>
+        </ul>
+        <p>In addition to the open source features in Xskipper, the following features are also available:</p>
+        <ul>
+          <li><a href="#geospatial-skipping">Geospatial data skipping</a></li>
+          <li><a href="#encrypting-indexes">Encrypting indexes</a></li>
+          <li><a href="#skipping-with-joins">Data skipping with joins (for Spark 3 only)</a></li>
+          <li><a href="#samples">Samples showing these features</a></li>
+        </ul>
+        <section id="section-geospatial-skipping">
+          <h2 id="geospatial-skipping">Geospatial data skipping</h2>
+          <p>You can also use data skipping when querying geospatial data sets using <a href="https://www.ibm.com/support/knowledgecenter/en/SSCJDQ/com.ibm.swg.im.dashdb.analytics.doc/doc/geo_functions.html">geospatial functions</a> from the <a href="geo-spatial-lib.html">spatio-temporal library</a>.</p>
+          <ul>
+            <li>To benefit from data skipping in data sets with latitude and longitude columns, you can collect the min/max indexes on the latitude and longitude columns.</li>
+            <li>Data skipping can be used in data sets with a geometry column (a UDT column) by using a built-in <a href="https://xskipper.io/api/indexing/#plugins">Xskipper plugin</a>.</li>
+          </ul>
+          <p>The next sections show you to work with the geospatial plugin.</p>
+          <section id="section-setting-up-the-geospatial-plugin">
+            <h3 id="setting-up-the-geospatial-plugin">Setting up the geospatial plugin</h3>
+            <p>To use the plugin, load the relevant implementations using the Registration module. Note that you can only use Scala in applications in IBM Analytics Engine powered by Apache Spark, not in Watson Studio.</p>
+            <ul>
+              <li>
+                <p>For Scala:</p>
+                <pre class="codeblock"><code class="lang-scala hljs"><span class="hljs-keyword">import</span> com.ibm.xskipper.stmetaindex.filter.<span class="hljs-type">STMetaDataFilterFactory</span>
+<span class="hljs-keyword">import</span> com.ibm.xskipper.stmetaindex.index.<span class="hljs-type">STIndexFactory</span>
+<span class="hljs-keyword">import</span> com.ibm.xskipper.stmetaindex.translation.parquet.{<span class="hljs-type">STParquetMetaDataTranslator</span>, <span class="hljs-type">STParquetMetadatastoreClauseTranslator</span>}
+<span class="hljs-keyword">import</span> io.xskipper._
+
+<span class="hljs-type">Registration</span>.addIndexFactory(<span class="hljs-type">STIndexFactory</span>)
+<span class="hljs-type">Registration</span>.addMetadataFilterFactory(<span class="hljs-type">STMetaDataFilterFactory</span>)
+<span class="hljs-type">Registration</span>.addClauseTranslator(<span class="hljs-type">STParquetMetadatastoreClauseTranslator</span>)
+<span class="hljs-type">Registration</span>.addMetaDataTranslator(<span class="hljs-type">STParquetMetaDataTranslator</span>)
+</code></pre>
+              </li>
+              <li>
+                <p>For Python:</p>
+                <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">from</span> xskipper <span class="hljs-keyword">import</span> Xskipper
+<span class="hljs-keyword">from</span> xskipper <span class="hljs-keyword">import</span> Registration
+
+Registration.addMetadataFilterFactory(spark, <span class="hljs-string">'com.ibm.xskipper.stmetaindex.filter.STMetaDataFilterFactory'</span>)
+Registration.addIndexFactory(spark, <span class="hljs-string">'com.ibm.xskipper.stmetaindex.index.STIndexFactory'</span>)
+Registration.addMetaDataTranslator(spark, <span class="hljs-string">'com.ibm.xskipper.stmetaindex.translation.parquet.STParquetMetaDataTranslator'</span>)
+Registration.addClauseTranslator(spark, <span class="hljs-string">'com.ibm.xskipper.stmetaindex.translation.parquet.STParquetMetadatastoreClauseTranslator'</span>)
+</code></pre>
+              </li>
+            </ul>
+          </section>
+          <section id="section-index-building">
+            <h3 id="index-building">Index building</h3>
+            <p>To build an index, you can use the <code>addCustomIndex</code> API. Note that you can only use Scala in applications in IBM Analytics Engine powered by Apache Spark, not in Watson Studio.</p>
+            <ul>
+              <li>
+                <p>For Scala:</p>
+                <pre class="codeblock"><code class="lang-Scala hljs"><span class="hljs-keyword">import</span> com.ibm.xskipper.stmetaindex.implicits._
+
+<span class="hljs-comment">// index the dataset</span>
+<span class="hljs-keyword">val</span> xskipper = <span class="hljs-keyword">new</span> <span class="hljs-type">Xskipper</span>(spark, dataset_path)
+
+xskipper
+  .indexBuilder()
+  <span class="hljs-comment">// using the implicit method defined in the plugin implicits</span>
+  .addSTBoundingBoxLocationIndex(<span class="hljs-string">"location"</span>)
+  <span class="hljs-comment">// equivalent</span>
+  <span class="hljs-comment">//.addCustomIndex(STBoundingBoxLocationIndex("location"))</span>
+  .build(reader).show(<span class="hljs-literal">false</span>)
+</code></pre>
+              </li>
+              <li>
+                <p>For Python:</p>
+                <pre class="codeblock"><code class="lang-python hljs">xskipper = Xskipper(spark, dataset_path)
+
+<span class="hljs-comment"># adding the index using the custom index API</span>
+xskipper.indexBuilder() \
+        .addCustomIndex(<span class="hljs-string">"com.ibm.xskipper.stmetaindex.index.STBoundingBoxLocationIndex"</span>, [<span class="hljs-string">'location'</span>], <span class="hljs-built_in">dict</span>()) \
+        .build(reader) \
+        .show(<span class="hljs-number">10</span>, <span class="hljs-literal">False</span>)
+</code></pre>
+              </li>
+            </ul>
+          </section>
+          <section id="section-supported-functions">
+            <h3 id="supported-functions">Supported functions</h3>
+            <p>The list of supported geospatial functions includes the following:</p>
+            <ul>
+              <li>ST_Distance</li>
+              <li>ST_Intersects</li>
+              <li>ST_Contains</li>
+              <li>ST_Equals</li>
+              <li>ST_Crosses</li>
+              <li>ST_Touches</li>
+              <li>ST_Within</li>
+              <li>ST_Overlaps</li>
+              <li>ST_EnvelopesIntersect</li>
+              <li>ST_IntersectsInterior</li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-encrypting-indexes">
+          <h2 id="encrypting-indexes">Encrypting indexes</h2>
+          <p>If you use a Parquet metadata store, the metadata can optionally be encrypted using Parquet Modular Encryption (PME). This is achieved by storing the metadata itself as a Parquet data set, and thus PME can be used to encrypt it. This feature
+            applies to all input formats, for example, a data set stored in CSV format can have its metadata encrypted using PME.</p>
+          <p>In the following section, unless specified otherwise, when referring to footers, columns, and so on, these are with respect to metadata objects, and not to objects in the indexed data set.</p>
+          <p>Index encryption is modular and granular in the following way:</p>
+          <ul>
+            <li>Each index can either be encrypted (with a per-index key granularity) or left in plain text</li>
+            <li>Footer + object name column:
+              <ul>
+                <li>Footer column of the metadata object which in itself is a Parquet file contains, among other things:
+                  <ul>
+                    <li>Schema of the metadata object, which reveals the types, parameters and column names for all indexes collected. For example, you can learn that a <code>BloomFilter</code> is defined on column <code>city</code> with a false-positive
+                      probability of <code>0.1</code>.</li>
+                    <li>Full path to the original data set or a table name in case of a Hive metastore table.</li>
+                  </ul>
+                </li>
+                <li>Object name column stores the names of all indexed objects.</li>
+              </ul>
+            </li>
+            <li>Footer + metadata column can either be:
+              <ul>
+                <li>
+                  <p>Both encrypted using the same key. This is the default. In this case, the plain text footer configuration for the Parquet objects comprising the metadata in encrypted footer mode, and the object name column is encrypted using the selected
+                    key.</p>
+                </li>
+                <li>
+                  <p>Both in plain text. In this case, the Parquet objects comprising the metadata are in plain text footer mode, and the object name column is not encrypted.</p>
+                  <p>If at least one index is marked as encrypted, then a footer key must be configured regardless of whether plain text footer mode is enabled or not. If plain text footer is set then the footer key is used only for tamper-proofing. Note
+                    that in that case the object name column is not tamper proofed.</p>
+                  <p>If a footer key is configured, then at least one index must be encrypted.</p>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <p>Before using index encryption, you should check the documentation on <a href="../spark/parquet-encryption.html">PME</a> and make sure you are familiar with the concepts.</p>
+          <div class="note important"><span class="importanttitle">Important:</span> When using index encryption, whenever a `key` is configured in any Xskipper API, it's always the label `NEVER the key itself`.</div>
+          <p>To use index encryption:</p>
+          <ol>
+            <li>
+              <p>Follow all the steps to make sure PME is enabled. See <a href="../spark/parquet-encryption.html">PME</a>.</p>
+            </li>
+            <li>
+              <p>Perform all <em>regular</em> PME configurations, including Key Management configurations.</p>
+            </li>
+            <li>
+              <p>Create encrypted metadata for a data set:</p>
+              <ol>
+                <li>Follow the regular flow for creating metadata.</li>
+                <li>Configure a footer key. If you wish to set a plain text footer + object name column, set <code>io.xskipper.parquet.encryption.plaintext.footer</code> to <code>true</code> (See samples below).</li>
+                <li>In <code>IndexBuilder</code>, for each index you want to encrypt, add the label of the key to use for that index.</li>
+              </ol>
+              <p>To use metadata during query time or to refresh existing metadata, no setup is necessary other than the <em>regular</em> PME setup required to make sure the keys are accessible (literally the same configuration needed to read an encrypted
+                data set).</p>
+            </li>
+          </ol>
+        </section>
+        <section id="section-samples">
+          <h2 id="samples">Samples</h2>
+          <p>The following samples show metadata creation using a key named <code>k1</code> as a footer + object name key, and a key named <code>k2</code> as a key to encrypt a <code>MinMax</code> for <code>temp</code>, while also creating a <code>ValueList</code>            for <code>city</code>, which is left in plain text. Note that you can only use Scala in applications in IBM Analytics Engine powered by Apache Spark, not in Watson Studio.</p>
+          <ul>
+            <li>
+              <p>For Scala:</p>
+              <pre class="codeblock"><code class="lang-scala hljs"><span class="hljs-comment">// index the dataset</span>
+<span class="hljs-keyword">val</span> xskipper = <span class="hljs-keyword">new</span> <span class="hljs-type">Xskipper</span>(spark, dataset_path)
+<span class="hljs-comment">// Configuring the JVM wide parameters</span>
+<span class="hljs-keyword">val</span> jvmComf = <span class="hljs-type">Map</span>(
+  <span class="hljs-string">"io.xskipper.parquet.mdlocation"</span> -&gt; md_base_location,
+  <span class="hljs-string">"io.xskipper.parquet.mdlocation.type"</span> -&gt; <span class="hljs-string">"EXPLICIT_BASE_PATH_LOCATION"</span>)
+<span class="hljs-type">Xskipper</span>.setConf(jvmConf)
+<span class="hljs-comment">// set the footer key</span>
+<span class="hljs-keyword">val</span> conf = <span class="hljs-type">Map</span>(
+  <span class="hljs-string">"io.xskipper.parquet.encryption.footer.key"</span> -&gt; <span class="hljs-string">"k1"</span>)
+xskipper.setConf(conf)
+xskipper
+  .indexBuilder()
+  <span class="hljs-comment">// Add an encrypted MinMax index for temp</span>
+  .addMinMaxIndex(<span class="hljs-string">"temp"</span>, <span class="hljs-string">"k2"</span>)
+  <span class="hljs-comment">// Add a plaintext ValueList index for city</span>
+  .addValueListIndex(<span class="hljs-string">"city"</span>)
+  .build(reader).show(<span class="hljs-literal">false</span>)
+</code></pre>
+            </li>
+            <li>
+              <p>For Python</p>
+              <pre class="codeblock"><code class="lang-python hljs">xskipper = Xskipper(spark, dataset_path)
+<span class="hljs-comment"># Add JVM Wide configuration</span>
+jvmConf = <span class="hljs-built_in">dict</span>([
+  (<span class="hljs-string">"io.xskipper.parquet.mdlocation"</span>, md_base_location),
+  (<span class="hljs-string">"io.xskipper.parquet.mdlocation.type"</span>, <span class="hljs-string">"EXPLICIT_BASE_PATH_LOCATION"</span>)])
+Xskipper.setConf(spark, jvmConf)
+<span class="hljs-comment"># configure footer key</span>
+conf = <span class="hljs-built_in">dict</span>([(<span class="hljs-string">"io.xskipper.parquet.encryption.footer.key"</span>, <span class="hljs-string">"k1"</span>)])
+xskipper.setConf(conf)
+<span class="hljs-comment"># adding the indexes</span>
+xskipper.indexBuilder() \
+        .addMinMaxIndex(<span class="hljs-string">"temp"</span>, <span class="hljs-string">"k1"</span>) \
+        .addValueListIndex(<span class="hljs-string">"city"</span>) \
+        .build(reader) \
+        .show(<span class="hljs-number">10</span>, <span class="hljs-literal">False</span>)
+</code></pre>
+            </li>
+          </ul>
+          <p>If you want the footer + object name to be left in plain text mode (as mentioned above), you need to add the configuration parameter:</p>
+          <ul>
+            <li>
+              <p>For Scala:</p>
+              <pre class="codeblock"><code class="lang-scala hljs"><span class="hljs-comment">// index the dataset</span>
+<span class="hljs-keyword">val</span> xskipper = <span class="hljs-keyword">new</span> <span class="hljs-type">Xskipper</span>(spark, dataset_path)
+<span class="hljs-comment">// Configuring the JVM wide parameters</span>
+<span class="hljs-keyword">val</span> jvmComf = <span class="hljs-type">Map</span>(
+  <span class="hljs-string">"io.xskipper.parquet.mdlocation"</span> -&gt; md_base_location,
+  <span class="hljs-string">"io.xskipper.parquet.mdlocation.type"</span> -&gt; <span class="hljs-string">"EXPLICIT_BASE_PATH_LOCATION"</span>)
+<span class="hljs-type">Xskipper</span>.setConf(jvmConf)
+<span class="hljs-comment">// set the footer key</span>
+<span class="hljs-keyword">val</span> conf = <span class="hljs-type">Map</span>(
+  <span class="hljs-string">"io.xskipper.parquet.encryption.footer.key"</span> -&gt; <span class="hljs-string">"k1"</span>,
+  <span class="hljs-string">"io.xskipper.parquet.encryption.plaintext.footer"</span> -&gt; <span class="hljs-string">"true"</span>)
+xskipper.setConf(conf)
+xskipper
+  .indexBuilder()
+  <span class="hljs-comment">// Add an encrypted MinMax index for temp</span>
+  .addMinMaxIndex(<span class="hljs-string">"temp"</span>, <span class="hljs-string">"k2"</span>)
+  <span class="hljs-comment">// Add a plaintext ValueList index for city</span>
+  .addValueListIndex(<span class="hljs-string">"city"</span>)
+  .build(reader).show(<span class="hljs-literal">false</span>)
+</code></pre>
+            </li>
+            <li>
+              <p>For Python</p>
+              <pre class="codeblock"><code class="lang-python hljs">xskipper = Xskipper(spark, dataset_path)
+<span class="hljs-comment"># Add JVM Wide configuration</span>
+jvmConf = <span class="hljs-built_in">dict</span>([
+(<span class="hljs-string">"io.xskipper.parquet.mdlocation"</span>, md_base_location),
+(<span class="hljs-string">"io.xskipper.parquet.mdlocation.type"</span>, <span class="hljs-string">"EXPLICIT_BASE_PATH_LOCATION"</span>)])
+Xskipper.setConf(spark, jvmConf)
+<span class="hljs-comment"># configure footer key</span>
+conf = <span class="hljs-built_in">dict</span>([(<span class="hljs-string">"io.xskipper.parquet.encryption.footer.key"</span>, <span class="hljs-string">"k1"</span>),
+(<span class="hljs-string">"io.xskipper.parquet.encryption.plaintext.footer"</span>, <span class="hljs-string">"true"</span>)])
+xskipper.setConf(conf)
+<span class="hljs-comment"># adding the indexes</span>
+xskipper.indexBuilder() \
+        .addMinMaxIndex(<span class="hljs-string">"temp"</span>, <span class="hljs-string">"k1"</span>) \
+        .addValueListIndex(<span class="hljs-string">"city"</span>) \
+        .build(reader) \
+        .show(<span class="hljs-number">10</span>, <span class="hljs-literal">False</span>)
+</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section id="section-skipping-with-joins">
+          <h2 id="skipping-with-joins">Data skipping with joins (for Spark 3 only)</h2>
+          <p>With Spark 3, you can use data skipping in join queries such as:</p>
+          <pre class="codeblock"><code class="lang-SQL hljs"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span>
+<span class="hljs-keyword">FROM</span> orders, lineitem&nbsp;
+<span class="hljs-keyword">WHERE</span> l_orderkey <span class="hljs-operator">=</span> o_orderkey <span class="hljs-keyword">and</span> o_custkey <span class="hljs-operator">=</span> <span class="hljs-number">800</span>
+</code></pre>
+          <p>This example shows a star schema based on the TPC-H benchmark schema (see <a href="http://www.tpc.org/tpch/">TPC-H</a>) where lineitem is a fact table and contains many records, while the orders table is a dimension table which has a relatively
+            small number of records compared to the fact tables.</p>
+          <p>The above query has a predicate on the orders tables which contains a small number of records which means using min/max will not benefit much from data skipping.</p>
+          <p><em>Dynamic data skipping</em> is a feature which enables queries such as the above to benefit from data skipping by first extracting the relevant <code>l_orderkey</code> values based on the condition on the <code>orders</code> table and then
+            using it to push down a predicate on <code>l_orderkey</code> that uses data skipping indexes to filter irrelevant objects.</p>
+          <p>To use this feature, enable the following optimization rule. Note that you can only use Scala in applications in IBM Analytics Engine powered by Apache Spark, not in Watson Studio.</p>
+          <ul>
+            <li>
+              <p>For Scala:</p>
+              <pre class="codeblock"><code class="lang-scala hljs">&nbsp; <span class="hljs-keyword">import</span> com.ibm.spark.implicits.
+
+&nbsp; spark.enableDynamicDataSkipping()
+</code></pre>
+            </li>
+            <li>
+              <p>For Python:</p>
+              <pre class="codeblock"><code class="lang-python hljs">&nbsp;&nbsp;  <span class="hljs-keyword">from</span> sparkextensions <span class="hljs-keyword">import</span> SparkExtensions
+
+&nbsp;&nbsp;  SparkExtensions.enableDynamicDataSkipping(spark)
+</code></pre>
+            </li>
+          </ul>
+          <p>Then use the Xskipper API as usual and your queries will benefit from using data skipping.</p>
+          <p>For example, in the above query, indexing <code>l_orderkey</code> using min/max will enable skipping over the <code>lineitem</code> table and will improve query performance.</p>
+        </section>
+        <section id="section-support-for-older-metadata">
+          <h2 id="support-for-older-metadata">Support for older metadata</h2>
+          <p>Xskipper supports older metadata created by the MetaIndexManager seamlessly. Older metadata can be used for skipping as updates to the Xskipper metadata are carried out automatically by the next refresh operation.</p>
+          <p>If you see <code>DEPRECATED_SUPPORTED</code> in front of an index when listing indexes or running a <code>describeIndex</code> operation, the metadata version is deprecated but is still supported and skipping will work. The next refresh operation
+            will update the metadata automatically.</p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

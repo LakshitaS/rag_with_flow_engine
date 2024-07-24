@@ -1,0 +1,99 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="If the default report templates that are provided for AI use cases or asset factsheets do not meet your governance needs, you can download a default report template, customize it, and upload the new template.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Managing and customizing report templates</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=inventories-managing-report-templates"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="managing-and-customizing-report-templates" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-managing-and-customizing-report-templates">
+        <h1 id="managing-and-customizing-report-templates">Managing and customizing report templates</h1>
+        <p>If the default report templates that are provided for AI use cases or asset factsheets do not meet your governance needs, you can download a default report template, customize it, and upload the new template.</p>
+        <section id="section-customizing-a-custom-report-template">
+          <h2 id="customizing-a-custom-report-template">Customizing a custom report template</h2>
+          <p>Create a report from an AI use case that captures all the details from An AI use case or for an AI asset. You can use reports for compliance verification, archiving, or other purposes.</p>
+          <p>If the default templates for the reports do not meet the needs of your organization, you can customize the report templates, the branding file, or the default stylesheet. For example, you can replace the IBM logo with your own logo image file.
+            You must have the manage_catalog role to customize report templates.</p>
+          <p>Follow these steps to customize a report template. Report templates to customize are available for download from <a href="https://github.com/IBM/ai-governance-factsheet-samples/tree/main/Assets/report_templates" target="_blank" class="external">this folder</a>.</p>
+          <section id="section-downloading-a-report">
+            <h3 id="downloading-a-report">Downloading a report</h3>
+            <p>To download a report template from the UI:</p>
+            <ol>
+              <li>Open the AI uses cases settings and click the <strong>Report templates</strong> tab. If you do not see this tab, you might have insufficient access.</li>
+              <li>In the options menu for a report template, click <strong>Download</strong>.
+                <img src="images/xgov-report-template.png" alt="Downloading a report template"></li>
+              <li>Open the <code>&lt;report-name&gt;.ftl</code> file in an editor.</li>
+              <li>Edit the template by using instructions from <a href="https://freemarker.apache.org/" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Apache FreeMarker</a> or the API commands.</li>
+            </ol>
+            <p>To download a report template by using APIs:</p>
+            <ol>
+              <li>Use the <code>GET</code> endpoint for <code>/v1/aigov/report_templates</code> in the <a href="https://cloud.ibm.com/apidocs/factsheets-cpd" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Watson Data API</a>                to list the available templates. Note the ID for the template that you want to download.</li>
+              <li>Use the <code>GET</code> endpoint <code>/v1/aigov/report_templates/{template_id}/content</code> with the template ID to download the template file.</li>
+              <li>Open the <code>&lt;report-name&gt;.ftl</code> file in an editor.</li>
+              <li>Edit the template by using instructions from <a href="https://freemarker.apache.org/" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Apache FreeMarker</a>.</li>
+            </ol>
+          </section>
+          <section id="section-uploading-a-template">
+            <h3 id="uploading-a-template">Uploading a template</h3>
+            <ol>
+              <li>Open the AI uses cases settings and click the <strong>Report templates</strong> tab. If you do not see this tab, you might have insufficient access.</li>
+              <li>Click <strong>Add template</strong>.</li>
+              <li>Specify a name for the template and an optional description.</li>
+              <li>Choose the type of template: AI asset or AI use case. The reports are available for external models and Watson Machine Learning assets.</li>
+              <li>Upload the updated <code>FTL</code> file. <br></li>
+            </ol>
+            <div class="note restriction"><span class="restrictiontitle">Restriction:</span>
+              <md-block>
+                <p>The <code>ftl</code> file that you upload must not import any other files. Support is not yet available for <code>import</code> statements other than system templates in the <code>ftl</code> file.</p>
+                <p></p>
+              </md-block>
+            </div>
+            <p></p>
+            <p>The custom template displays in the Report templates section and is available for creating reports. Click <strong>Edit</strong> or <strong>Delete</strong> from the action menu for a custom template to update the template details or to remove
+              the template.</p>
+            <p><strong>Parent topic:</strong> <a href="xgov-inventory-manage.html">Managing AI use cases</a></p>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

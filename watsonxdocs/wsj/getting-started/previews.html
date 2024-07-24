@@ -1,0 +1,270 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="In projects and other workspaces, you can see a preview of data assets that contain relational data.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Asset contents or previews</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=properties-previews"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="asset-contents-or-previews" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-asset-contents-or-previews">
+        <h1 id="asset-contents-or-previews">Asset contents or previews</h1>
+        <p>In projects and other workspaces, you can see a preview of data assets that contain relational data.</p>
+        <ul>
+          <li><a href="#require">Requirements and restrictions</a></li>
+          <li><a href="#data">Previews of data assets</a></li>
+        </ul>
+        <section id="section-require">
+          <h2 id="require">Requirements and restrictions</h2>
+          <p>You can view the contents or previews of assets under the following conditions and restrictions.</p>
+          <section id="section-workspaces">
+            <h3 id="workspaces">Workspaces</h3>
+            <p>You can view the preview or contents of assets in these workspaces:</p>
+            <ul>
+              <li>Projects</li>
+            </ul>
+          </section>
+          <section id="section-types-of-assets">
+            <h3 id="types-of-assets">Types of assets</h3>
+            <p>The following types of assets have previews:</p>
+            <ul>
+              <li>Data assets from files</li>
+              <li>Connected data assets</li>
+              <li>Models</li>
+              <li>Notebooks</li>
+            </ul>
+          </section>
+          <section id="section-required-permissions">
+            <h3 id="required-permissions">Required permissions</h3>
+            <p>You can see the asset contents or preview with any collaborator role in the workspace.</p>
+          </section>
+          <section id="section-restrictions-for-data-assets">
+            <h3 id="restrictions-for-data-assets">Restrictions for data assets</h3>
+            <p>Additional requirements apply to connected data assets and data assets from files. See <a href="#require-data">Requirements for data assets</a>.</p>
+            <p>Previews are not available for data assets that were added as managed assets by using the <a href="https://cloud.ibm.com/apidocs/watson-data-api#createattachmentnewv2" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Watson Data API</a>.</p>
+          </section>
+        </section>
+        <section id="section-data">
+          <h2 id="data">Previews of data assets</h2>
+          <p>The previews of data assets show a view of the data.</p>
+          <p>You can see when the data in the preview was last fetched and refresh the preview data by clicking the refresh icon.</p>
+          <ul>
+            <li><a href="#require-data">Requirements for data assets</a></li>
+            <li><a href="#preview-info">Preview information for data assets</a></li>
+            <li><a href="#files">File extensions and mime types of previewed files</a></li>
+          </ul>
+          <section id="section-require-data">
+            <h3 id="require-data">Requirements for data assets</h3>
+            <p>The additional requirements for viewing previews of data assets depend on whether the data is accessed through a connection or from a file.</p>
+            <section id="section-connected-data-assets">
+              <h4 id="connected-data-assets">Connected data assets</h4>
+              <p>You can see previews of data assets that are accessed through a connection if all these conditions are true:</p>
+              <ul>
+                <li>You have access to the data asset and its associated connection. See <a href="#require">Requirements and restrictions</a>.</li>
+                <li>The data asset contains structured data. Structured data resides in fixed fields within a record or file, for example, relational database data or spreadsheets.</li>
+                <li>You have credentials for the connection:
+                  <ul>
+                    <li>For connections with shared credentials, the username in the connection details has access to the object at the data source.</li>
+                    <li>For connections with personal credentials, you must enter your personal credentials when you see a key icon <img src="../manage-data/images/privatekey.png" alt="the key symbol for private connections">. This is a one-time step that
+                      permanently unlocks the connection for you. See <a href="../manage-data/create-conn.html">Adding connections to projects</a>.</li>
+                  </ul>
+                </li>
+              </ul>
+            </section>
+            <section id="section-data-assets-from-files">
+              <h4 id="data-assets-from-files">Data assets from files</h4>
+              <p>You can see previews of data assets from files if the following conditions are true:</p>
+              <ul>
+                <li>
+                  <p>You have access to the data asset. See <a href="#require">Requirements and restrictions</a>.</p>
+                </li>
+                <li>
+                  <p>The file is stored in IBM Cloud Object Storage. For preview of text or image files from an IBM Cloud Object Storage connection to work, the connection credentials must include an access key and a secret key. If you’re using an existing
+                    Cloud Object Storage connection that doesn’t have these keys, edit the connection asset and add them. See <a href="../manage-data/conn-cos.html">IBM Cloud Object Storage connection</a>.</p>
+                </li>
+                <li>
+                  <p>The file type is supported. See <a href="#files">File extensions and mime types of previewed files</a>.</p>
+                </li>
+                <li>
+                  <p>The content has UTF-8 encoding.</p>
+                </li>
+              </ul>
+            </section>
+          </section>
+          <section id="section-preview-info">
+            <h3 id="preview-info">Preview information for data assets</h3>
+            <p>For structured data, the preview displays a limited number of rows and columns:</p>
+            <ul>
+              <li>The number of rows in the preview is limited to 1,000.</li>
+              <li>The amount of data is limited to 800 KB. The more columns the data asset has, the fewer rows that appear in the preview.</li>
+            </ul>
+            <p>Previews show different information for different types of data assets and files.</p>
+            <section id="section-structured-data">
+              <h4 id="structured-data">Structured data</h4>
+              <p>For structured data, the preview shows column names, a subset of columns and rows of data. The supported formats for structured data include relational data, CSV, TSV, Avro, Microsoft Excel documents, and partitioned Parquet data (for IBM
+                Cloud Object Storage and S3 connections). Microsoft Excel documents show the first sheet.</p>
+              <p>Assets from file based connections like Apache Kafka and Apache Cassandra are not supported.</p>
+              <!-- NLW: https://github.ibm.com/dap/dsx-documentation-source/issues/2749 Data classes not supported. -->
+            </section>
+            <section id="section-unstructured-data">
+              <h4 id="unstructured-data">Unstructured data</h4>
+              <p>Unstructured data files must be stored in IBM Cloud Object Storage to have previews.</p>
+              <p>For these unstructured data files, the preview shows the whole document: Text, JSON, HTML, PDF, and images. HTML files are supported in text format. Images stored in IBM Cloud Object Storage support JPG, JPEG, PNG, GIF, BMP, and BMP1.</p>
+              <p>For connected folder assets, the preview shows the files and subfolders, which you can also preview.</p>
+            </section>
+          </section>
+          <section id="section-files">
+            <h3 id="files">File extensions and mime types of previewed files</h3>
+            <p>These types of files that contain structured data have previews:</p>
+            <table>
+              <caption caption-side="top">Structured data files</caption>
+              <thead>
+                <tr>
+                  <th>Extension</th>
+                  <th>Mime type</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>AVRO</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>CSV</td>
+                  <td>text/csv</td>
+                </tr>
+                <tr>
+                  <td>CSV1</td>
+                  <td>application/csv</td>
+                </tr>
+                <tr>
+                  <td>PARQ</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>TSV</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>XLSX</td>
+                  <td>application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</td>
+                </tr>
+                <tr>
+                  <td>XLS</td>
+                  <td>application/vnd.ms-excel</td>
+                </tr>
+                <tr>
+                  <td>XLSM</td>
+                  <td>application/vnd.ms-excel.sheet.macroEnabled.12</td>
+                </tr>
+              </tbody>
+            </table>
+            <br> These types of image files have previews:
+            <table>
+              <caption caption-side="top">Image files</caption>
+              <thead>
+                <tr>
+                  <th>Extension</th>
+                  <th>Mime type</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>BMP</td>
+                  <td>image/bmp</td>
+                </tr>
+                <tr>
+                  <td>GIF</td>
+                  <td>image/gif</td>
+                </tr>
+                <tr>
+                  <td>JPG</td>
+                  <td>image/jpeg</td>
+                </tr>
+                <tr>
+                  <td>JPEG</td>
+                  <td>image/jpeg</td>
+                </tr>
+                <tr>
+                  <td>PNG</td>
+                  <td>image/png</td>
+                </tr>
+              </tbody>
+            </table>
+            <br> These types of document files have previews:
+            <table>
+              <caption caption-side="top">Document files</caption>
+              <thead>
+                <tr>
+                  <th>Extension</th>
+                  <th>Mime type</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>HTML</td>
+                  <td>text/html</td>
+                </tr>
+                <tr>
+                  <td>PDF</td>
+                  <td>application/pdf</td>
+                </tr>
+                <tr>
+                  <td>TXT</td>
+                  <td>text/plain</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="asset-activities.html">Activities</a></li>
+            <li><a href="visualizations.html">Visualizations</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="../getting-started/assets.html">Asset types and properties</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="To access your data in Microsoft Azure Data Lake Storage, create a connection asset for it.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Microsoft Azure Data Lake Storage connection</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=connectors-microsoft-azure-data-lake-storage-connection"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="microsoft-azure-data-lake-storage-connection" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-microsoft-azure-data-lake-storage-connection">
+        <h1 id="microsoft-azure-data-lake-storage-connection">Microsoft Azure Data Lake Storage connection</h1>
+        <p>To access your data in Microsoft Azure Data Lake Storage, create a connection asset for it.</p>
+        <p>Azure Data Lake Storage (ADLS) is a scalable data storage and analytics service that is hosted in Azure, Microsoft's public cloud. The Microsoft Azure Data Lake Storage connection supports access to both Gen1 and Gen2 Azure Data Lake Storage repositories.</p>
+        <section id="section-create-a-connection-to-microsoft-azure-data-lake-storage">
+          <h2 id="create-a-connection-to-microsoft-azure-data-lake-storage">Create a connection to Microsoft Azure Data Lake Storage</h2>
+          <p>To create the connection asset, you need these connection details:</p>
+          <ul>
+            <li>WebHDFS URL: The WebHDFS URL for accessing HDFS. <br> To connect to a Gen 2 ADLS, use the format, <code>https://&lt;account-name&gt;.dfs.core.windows.net/&lt;file-system&gt;</code> <br> Where <code>&lt;account-name&gt;</code> is the name you
+              used when you created the ADLS instance. <br> For <code>&lt;file-system&gt;</code>, use the name of the container you created. For more information, see the <a href="https://docs.microsoft.com/en-us/rest/api/storageservices/datalakestoragegen2/path/read" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Microsoft 	Data Lake Storage Gen2 documentation</a>. <br> <br></li>
+            <li>Tenant ID: The Azure Active Directory tenant ID</li>
+            <li>Client ID: The client ID for authorizing access to Microsoft Azure Data Lake Storage</li>
+            <li>Client secret: The authentication key that is associated with the client ID for authorizing access to Microsoft Azure Data Lake Storage</li>
+          </ul>
+          <p>Select <strong>Server proxy</strong> to access the Azure Data Lake Storage data source through a proxy server. Depending on its setup, a proxy server can provide load balancing, increased security, and privacy. The proxy server settings are
+            independent of the authentication credentials and the personal or shared credentials selection.</p>
+          <ul>
+            <li><strong>Proxy host</strong>: The proxy URL. For example, <code>https://proxy.example.com</code>.</li>
+            <li><strong>Proxy port number</strong>: The port number to connect to the proxy server. For example, <code>8080</code> or <code>8443</code>.</li>
+            <li>The <strong>Proxy protocol</strong> selection for HTTP or HTTPS is optional.</li>
+          </ul>
+          <p>For <strong>Private connectivity</strong>, to connect to a database that is not externalized to the internet (for example, behind a firewall), you must set up a <a href="securingconn.html">secure connection</a>.</p>
+          <section id="section-choose-the-method-for-creating-a-connection-based-on-where-you-are-in-the-platform">
+            <h3 id="choose-the-method-for-creating-a-connection-based-on-where-you-are-in-the-platform">Choose the method for creating a connection based on where you are in the platform</h3>
+            <dl>
+              <dt><strong>In a project</strong></dt>
+              <dd>Click <strong>Assets &gt; New asset &gt; Connect to a data source</strong>. See <a href="create-conn.html">Adding a connection to a project</a>.</dd>
+              <dt><strong>In a deployment space</strong></dt>
+              <dd>Click <strong>Add to space &gt; Connection</strong>. See <a href="../analyze-data/ml-space-add-assets.html">Adding connections to a deployment space</a>.</dd>
+              <dt><strong>In the Platform assets catalog</strong></dt>
+              <dd>Click <strong>New connection</strong>. See <a href="platform-conn.html">Adding platform connections</a>.</dd>
+            </dl>
+          </section>
+          <section id="section-next-step-add-data-assets-from-the-connection">
+            <h3 id="next-step-add-data-assets-from-the-connection">Next step: Add data assets from the connection</h3>
+            <ul>
+              <li>See <a href="connected-data.html">Add data from a connection in a project</a>.</li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-where-you-can-use-this-connection">
+          <h2 id="where-you-can-use-this-connection">Where you can use this connection</h2>
+          <p>You can use Microsoft Azure Data Lake Storage connections in the following workspaces and tools:</p>
+          <p><strong>Projects</strong></p>
+          <ul>
+            <li>Decision Optimization</li>
+            <li>SPSS Modeler</li>
+            <li>Synthetic Data Generator</li>
+          </ul>
+          <p><strong>Catalogs</strong></p>
+          <ul>
+            <li>Platform assets catalog</li>
+          </ul>
+        </section>
+        <section id="section-azure-data-lake-storage-authentication-setup">
+          <h2 id="azure-data-lake-storage-authentication-setup">Azure Data Lake Storage authentication setup</h2>
+          <p>To set up authentication, you need a tenant ID, client (or application) ID, and client secret.</p>
+          <ul>
+            <li>Gen1: <br>
+              <ol>
+                <li>Create an Azure Active Directory (Azure AD) web application, get an application ID, authentication key, and a tenant ID.</li>
+                <li>Then, you must assign the Azure AD application to the Azure Data Lake Storage account file or folder. Follow Steps 1, 2, and 3 at <a href="https://docs.microsoft.com/en-us/azure/data-lake-store/data-lake-store-service-to-service-authenticate-using-active-directory" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Service-to-service authentication with Azure Data Lake Storage using Azure Active Directory</a>.</li>
+              </ol>
+            </li>
+            <li>Gen2: <br>
+              <ol>
+                <li>Follow instructions in <a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-auth-aad-app" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Acquire a token from Azure AD for authorizing requests from a client application</a>.
+                  These steps create a new identity. After you create the identity, set permissions to grant the application access to your ADLS. The Microsoft Azure Data Lake Storage connection will use the associated Client ID, Client secret, and Tenant
+                  ID for the application.</li>
+                <li>Give the Azure App access to the storage container using Storage Explorer. For instructions, see <a href="https://docs.microsoft.com/en-us/azure/storage/blobs/data-lake-storage-explorer#managing-access" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Use Azure Storage Explorer to manage directories and files in Azure Data Lake Storage Gen2</a>.</li>
+              </ol>
+            </li>
+          </ul>
+        </section>
+        <section id="section-supported-file-types">
+          <h2 id="supported-file-types">Supported file types</h2>
+          <p>The Microsoft Azure Data Lake Storage connection supports these file types: Avro, CSV, Delimited text, Excel, JSON, ORC, Parquet, SAS, SAV, SHP, and XML.</p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p><a href="https://azure.microsoft.com/en-us/solutions/data-lake" target="_blank" rel="noopener noreferrer">Azure Data Lake</a></p>
+          <p><strong>Parent topic:</strong> <a href="conn_types.html">Supported connections</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

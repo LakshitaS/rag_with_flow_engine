@@ -1,0 +1,129 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can manage the global settings of your IBM Watson Pipelines such as a default error policy and default rules for node caching.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Manage default settings</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=pipeline-managing-default-settings"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="manage-default-settings" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-manage-default-settings">
+        <h1 id="manage-default-settings">Manage default settings</h1>
+        <p>You can manage the global settings of your IBM Watson Pipelines such as a default error policy and default rules for node caching.</p>
+        <p>Global settings apply to all nodes in the pipeline unless local node settings overwrite them. To update global settings, click the <strong>Manage default settings</strong> icon <img src="../analyze-data/images/ml-setting-icon.png" alt="gear icon" height="20" style="vertical-align:text-bottom"> on the toolbar. You can configure:</p>
+        <ul>
+          <li><a href="#err-pol">Error policy</a></li>
+          <li><a href="#node-cache">Node caching</a></li>
+          <li><a href="#pip-set">Pipelines settings</a></li>
+        </ul>
+        <section id="section-err-pol">
+          <h2 id="err-pol">Setting global error policy</h2>
+          <p>You can define the behavior of Pipelines when an error occurs.</p>
+          <ul>
+            <li><em>Fail pipeline on error</em> stops the flow and initiates an error-handling flow.</li>
+            <li><em>Continue pipeline on error</em> tries to continue running the pipeline.</li>
+          </ul>
+          <section id="section-error-handling">
+            <h3 id="error-handling">Error handling</h3>
+            <p>You can configure the behavior of Pipelines for error handling.</p>
+            <ul>
+              <li><em>Create custom-error handling response</em>: Customize an error-handling response. Add an error handling node to the canvas so you can configure a custom error response. The response applies to all configured nodes to fail when an error
+                occurs.
+                <ul>
+                  <li><em>Show icon on nodes linked to error handling pipeline</em>: An icon flags a node with an error to help debug the flow.</li>
+                </ul>
+              </li>
+            </ul>
+            <p>To learn more about error handling, see <a href="ml-orchestration-errors.html">Managing pipeline errors</a></p>
+          </section>
+        </section>
+        <section id="section-node-cache">
+          <h2 id="node-cache">Setting node caches</h2>
+          <p>Manual caching for nodes sets the default for how the pipeline caches and stores information. You can override these settings for individual nodes.</p>
+          <section id="section-default-cache-usage-frequency">
+            <h3 id="default-cache-usage-frequency">Default cache usage frequency</h3>
+            <p>You can change the following cache settings:</p>
+            <section id="section-caching-method">
+              <h4 id="caching-method">Caching method</h4>
+              <p>Choose whether to enable automatic caching for all nodes or choose to manually set cache conditions for specific nodes.</p>
+              <ul>
+                <li><em>Enable automatic caching for all nodes (recommended)</em><br> All nodes that support caching enable it by default. Setting <em>Creation Mode</em> or <em>Copy Mode</em> in your node's settings to <code>Overwrite</code> automatically
+                  disables cache, if the node supports these setting parameters.</li>
+                <li><em>Enable caching for specific nodes in the node properties panel</em><br>In individual nodes, you can select <strong>Create data cache at this node</strong> in <strong>Output</strong> to allow caching for individual nodes. A save icon
+                  appears on nodes that uses this feature.</li>
+              </ul>
+            </section>
+            <section id="section-cache-usage">
+              <h4 id="cache-usage">Cache usage</h4>
+              <p>Choose the conditions for using cached data.</p>
+              <ul>
+                <li><em>Do not use cache</em></li>
+                <li><em>Always use cache</em></li>
+                <li><em>Use cache when all selected conditions are met</em>, options include:
+                  <ul>
+                    <li>Retrying from a previous failed run</li>
+                    <li>Input values for the current pipeline are unchanged from previous run</li>
+                    <li>Pipeline version is unchanged from previous run</li>
+                  </ul>
+                </li>
+              </ul>
+              <p>To view and download your cache data, see <strong>Run tracker</strong> in your flow. You can download the results by opening a preview of the node's cache and clicking the download icon.</p>
+            </section>
+          </section>
+          <section id="section-resetting-the-cache">
+            <h3 id="resetting-the-cache">Resetting the cache</h3>
+            <p>If your cache was enabled, you can choose to reset your cache when you run a Pipelines job. When you click <strong>Run again</strong>, you can select <em>Clear pipeline cache</em> in <strong>Define run settings</strong>. By choosing this option,
+              you are overriding the default cache settings to reset the cache for the current run. However, the pipeline still creates cache for subsequent runs while cache is enabled.</p>
+          </section>
+        </section>
+        <section id="section-pip-set">
+          <h2 id="pip-set">Managing your Pipelines settings</h2>
+          <p>Configure other global settings for your Pipelines asset.</p>
+          <section id="section-autosave">
+            <h3 id="autosave">Autosave</h3>
+            <p>Choose to automatically save your current Pipelines canvas at a selected frequency. Only changes that impact core pipeline flow are saved.</p>
+            <p><strong>Parent topic:</strong> <a href="ml-orchestration-overview.html">IBM Watson Pipelines</a></p>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

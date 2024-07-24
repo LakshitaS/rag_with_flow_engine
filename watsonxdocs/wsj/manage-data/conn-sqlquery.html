@@ -1,0 +1,144 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="To access your data in IBM Cloud Data Engine, create a connection asset for it.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>IBM Cloud Data Engine connection</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=connectors-cloud-data-engine-connection"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="ibm-cloud-data-engine-connection" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-ibm-cloud-data-engine-connection">
+        <h1 id="ibm-cloud-data-engine-connection">IBM Cloud Data Engine connection</h1>
+        <p>To access your data in IBM Cloud Data Engine, create a connection asset for it.</p>
+        <div class="note important"><span class="importanttitle">Important:</span> The IBM Cloud Data Engine connector is deprecated and will be discontinued in a future release.</div>
+        <p>IBM Cloud Data Engine is a service on IBM Cloud that you use to build, manage, and consume data lakes and their table assets in IBM Cloud Object Storage (COS). IBM Cloud Data Engine provides functions to load, prepare, and query big data that
+          is stored in various formats. It also includes a metastore with table definitions. IBM Cloud Data Engine was formerly named "IBM Cloud SQL Query."</p>
+        <section id="section-prerequisites">
+          <h2 id="prerequisites">Prerequisites</h2>
+        </section>
+        <section id="section-create-a-connection-to-ibm-cloud-data-engine">
+          <h2 id="create-a-connection-to-ibm-cloud-data-engine">Create a connection to IBM Cloud Data Engine</h2>
+          <p>To create the connection asset, you need these connection details:</p>
+          <ul>
+            <li>The Cloud Resource Name (CRN) of the IBM Cloud Data Engine instance. Go to the IBM Cloud Data Engine service instance in your resources list in your IBM Cloud dashboard and copy the value of the CRN from the deployment details.</li>
+            <li>Target Cloud Object Storage: A default location where IBM Cloud Data Engine stores query results. You can specify any Cloud Object Storage bucket that you have access to. You can also select the default Cloud Object Storage bucket that is
+              created when you open the IBM Cloud Data Engine web console for the first time from IBM Cloud dashboard. See the <strong>Target location</strong> field in the IBM Cloud Data Engine web console.</li>
+            <li>IBM Cloud API key: An API key for a user or service ID that has access to your IBM Cloud Data Engine and Cloud Object Storage services (for both the Cloud Object Storage data that you want to query and the default target Cloud Object Storage
+              location). <br></li>
+          </ul>
+          <p>You can create a new API key for your own user:</p>
+          <ol>
+            <li>In the IBM Cloud console, go to <strong>Manage &gt; Access (IAM)</strong>.</li>
+            <li>In the left navigation, select <strong>API keys</strong>.</li>
+            <li>Select <strong>Create an IBM Cloud API Key</strong>.</li>
+          </ol>
+          <section id="section-credentials">
+            <h3 id="credentials">Credentials</h3>
+            <p>IBM Cloud Data Engine uses the SSO credentials that are specified as a single API key, which authenticates a user or service ID.<br> The API key must have the following properties:</p>
+            <ul>
+              <li>Manage permission for the IBM Cloud Data Engine instance</li>
+              <li>Read access to all Cloud Object Storage locations that you want to read from</li>
+              <li>Write access to the default Cloud Object Storage target location</li>
+              <li>Write access to the IBM Cloud Data Engine instance</li>
+            </ul>
+          </section>
+          <section id="section-choose-the-method-for-creating-a-connection-based-on-where-you-are-in-the-platform">
+            <h3 id="choose-the-method-for-creating-a-connection-based-on-where-you-are-in-the-platform">Choose the method for creating a connection based on where you are in the platform</h3>
+            <dl>
+              <dt><strong>In a project</strong></dt>
+              <dd>Click <strong>Assets &gt; New asset &gt; Connect to a data source</strong>. See <a href="create-conn.html">Adding a connection to a project</a>.</dd>
+              <dt><strong>In a deployment space</strong></dt>
+              <dd>Click <strong>Add to space &gt; Connection</strong>. See <a href="../analyze-data/ml-space-add-assets.html">Adding connections to a deployment space</a>.</dd>
+              <dt><strong>In the Platform assets catalog</strong></dt>
+              <dd>Click <strong>New connection</strong>. See <a href="platform-conn.html">Adding platform connections</a>.</dd>
+            </dl>
+          </section>
+          <section id="section-next-step-add-data-assets-from-the-connection">
+            <h3 id="next-step-add-data-assets-from-the-connection">Next step: Add data assets from the connection</h3>
+            <ul>
+              <li>See <a href="connected-data.html">Add data from a connection in a project</a>.</li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-where-you-can-use-this-connection">
+          <h2 id="where-you-can-use-this-connection">Where you can use this connection</h2>
+          <p>You can use IBM Cloud Data Engine connections in the following workspaces and tools:</p>
+          <p><strong>Projects</strong></p>
+          <ul>
+            <li>Data Refinery</li>
+            <li>Notebooks. See the Notebook <a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/e82c765fd1165439caccfc4ce8579a25" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">tutorial</a> for using the IBM
+              Cloud Data Engine (SQL Query) API to run SQL statements.</li>
+            <li>SPSS Modeler</li>
+            <li>Synthetic Data Generator</li>
+          </ul>
+          <p><strong>Catalogs</strong></p>
+          <ul>
+            <li>Platform assets catalog</li>
+          </ul>
+        </section>
+        <section id="section-restrictions">
+          <h2 id="restrictions">Restrictions</h2>
+          <p>You can only use this connection for source data. You cannot write to data or export data with this connection.</p>
+        </section>
+        <section id="section-ibm-cloud-data-engine-setup">
+          <h2 id="ibm-cloud-data-engine-setup">IBM Cloud Data Engine setup</h2>
+          <p>To set up IBM Cloud Data Engine on IBM Cloud Object Storage, see <a href="https://cloud.ibm.com/docs/sql-query/sql-query.html#overview?cm_sp=Cloud-Product-_-OnPageNavLink-IBMCloudPlatform_IBMCloudObjectStorage-_-COSsql_LearnMore" target="_blank" rel="noopener noreferrer">Getting started with IBM Cloud Data Engine</a>.</p>
+        </section>
+        <section id="section-supported-encryption">
+          <h2 id="supported-encryption">Supported encryption</h2>
+          <p>By default, all objects that are stored in IBM Cloud Object Storage are encrypted by using randomly generated keys and an all-or-nothing-transform (AONT). For details, see <a href="https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-encryption" target="_blank" rel="noopener noreferrer">Encrypting your data</a>. Additionally, you can use managed keys to encrypt the SQL query texts and error messages that are stored in the job information. See <a href="https://cloud.ibm.com/docs/sql-query?topic=sql-query-keyprotect" target="_blank" rel="noopener noreferrer">Encrypting SQL queries with Key Protect</a>.</p>
+          <section id="section-running-sql-statements">
+            <h3 id="running-sql-statements">Running SQL statements</h3>
+            <p><a href="https://cloud.ibm.com/docs/sql-query?topic=sql-query-overview#running" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Video to learn how you can get started to run a basic query</a></p>
+          </section>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="https://www.ibm.com/cloud/sql-query" target="_blank" rel="noopener noreferrer">IBM Cloud Data Engine</a></li>
+            <li><a href="https://www.ibm.com/cloud/blog/connecting-to-a-cloud-data-lake-with-ibm-cloud-pak-for-data" target="_blank" rel="noopener noreferrer">Connecting to a Cloud Data Lake with IBM Cloud Pak for Data</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="conn_types.html">Supported connections</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

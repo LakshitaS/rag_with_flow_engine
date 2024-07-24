@@ -1,0 +1,221 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Federated learning supports homomorphic encryption as an added measure of security for federated training data. Homomorphic encryption is a form of public key cryptography that enables computations on the encrypted data without first decrypting it, meaning the data can be used in modeling without exposing it to the risk of discovery.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Applying homomorphic encryption for security and privacy</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=learning-applying-encryption"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="applying-homomorphic-encryption-for-security-and-privacy" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-applying-homomorphic-encryption-for-security-and-privacy">
+        <h1 id="applying-homomorphic-encryption-for-security-and-privacy">Applying homomorphic encryption for security and privacy</h1>
+        <p>Federated learning supports homomorphic encryption as an added measure of security for federated training data. Homomorphic encryption is a form of public key cryptography that enables computations on the encrypted data without first decrypting
+          it, meaning the data can be used in modeling without exposing it to the risk of discovery.</p>
+        <p>With homomorphic encryption, the results of the computations remain in encrypted form and when decrypted, result in an output that is the same as the output produced with computations performed on unencrypted data. It uses a public key for encryption
+          and a private key for decryption.</p>
+        <section id="section-how-it-works-with-federated-learning">
+          <h2 id="how-it-works-with-federated-learning">How it works with Federated Learning</h2>
+          <p>Homomorphic encryption is an optional encryption method to add additional security and privacy to a Federated Learning experiment. When homomorphic encryption is applied in a Federated Learning experiment, the parties send their homomorphically
+            encrypted model updates to the aggregator. The aggregator does not have the private key and can only see the homomorphically encrypted model updates. For example, the aggregator cannot reverse engineer the model updates to discover information
+            on the parties' training data. The aggregator fuses the model updates in their encrypted form which results in an encrypted aggregated model. Then the aggregator sends the encrypted aggregated model to the participating parties who can use
+            their private key for decryption and continue with the next round of training. Only the participating parties can decrypt model data.</p>
+        </section>
+        <section id="section-supported-frameworks-and-fusion-methods">
+          <h2 id="supported-frameworks-and-fusion-methods">Supported frameworks and fusion methods</h2>
+          <p>Fully Homomorphic Encryption (FHE) supports the simple average fusion method for these model frameworks:</p>
+          <ul>
+            <li>Tensorflow</li>
+            <li>Pytorch</li>
+            <li>Scikit-learn classification</li>
+            <li>Scikit-learn regression</li>
+          </ul>
+        </section>
+        <section id="section-before-you-begin">
+          <h2 id="before-you-begin">Before you begin</h2>
+          <p>To get started with using homomorphic encryption, ensure that your experiment meets the following requirements:</p>
+          <ul>
+            <li>
+              <p>The hardware spec must be minimum <em>small</em>. Depending on the level of encryption that you apply, you might need a larger hardware spec to accommodate the resource consumption caused by more powerful data encryption. See the encryption
+                level table in <strong>Configuring the aggregator</strong>.- The software spec is <code>fl-rt22.2-py3.10</code>.</p>
+            </li>
+            <li>
+              <p>FHE is supported in Python client version 1.0.263 or later. All parties must use the same Python client version.</p>
+            </li>
+          </ul>
+          <section id="section-requirements-for-the-parties">
+            <h3 id="requirements-for-the-parties">Requirements for the parties</h3>
+            <p>Each party must:</p>
+            <ul>
+              <li>Run on a Linux x86 system.</li>
+              <li>Configure with a root certificate that identifies a certificate authority that is uniform to all parties.</li>
+              <li>Configure an RSA public and private key pair with attributes described in the following table.</li>
+              <li>Configure with a certificate of the party issued by the certificate authority. The RSA public key must be included in the party's certificate.</li>
+            </ul>
+            <div class="note note"><span class="notetitle">Note:</span> You can also choose to use self-signed certificates.</div>
+            <p>Homomorphic public and private encryption keys are generated and distributed automatically and securely among the parties for each experiment. Only the parties participating in an experiment have access to the private key generated for the
+              experiment. To support the automatic generation and distribution mechanism, the parties must be configured with the certificates and RSA keys specified previously.</p>
+          </section>
+          <section id="section-rsa-key-requirements">
+            <h3 id="rsa-key-requirements">RSA key requirements</h3>
+            <table>
+              <caption caption-side="top">Table 1. RSA Key Requirements</caption>
+              <thead>
+                <tr>
+                  <th>Attribute</th>
+                  <th>Requirement</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Key size</td>
+                  <td>4096 bit</td>
+                </tr>
+                <tr>
+                  <td>Public exponent</td>
+                  <td>65537</td>
+                </tr>
+                <tr>
+                  <td>Password</td>
+                  <td>None</td>
+                </tr>
+                <tr>
+                  <td>Hash algorithm</td>
+                  <td>SHA256</td>
+                </tr>
+                <tr>
+                  <td>File format</td>
+                  <td>The key and certificate files must be in "PEM" format</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </section>
+        <section id="section-configuring-the-aggregator-admin">
+          <h2 id="configuring-the-aggregator-admin">Configuring the aggregator (admin)</h2>
+          <p>As you create a Federated Learning experiment, follow these steps:</p>
+          <ol>
+            <li>In the <strong>Configure</strong> tab, toggle "Enable homomorphic encryption".</li>
+            <li>Choose <em>small</em> or above for <em>Hardware specification</em>. Depending on the level of encryption that you apply, you might need a larger hardware spec to accommodate the resource consumption for homomorphic encryption.</li>
+            <li>Ensure that you upload an unencrypted initial model when selecting the model file for <em>Model specification</em>.</li>
+            <li>Select "Simple average (encrypted)" for <em>Fusion method</em>. Click <strong>Next</strong>.</li>
+            <li>Check <em>Show advanced</em> in the <strong>Define hyperparameters</strong> tab.</li>
+            <li>Select the level of encryption in <em>Encryption level</em>.<br> Higher encryption levels increase security and precision, and require higher resource consumption (e.g. computation, memory, network bandwidth). The default is encryption level
+              1.<br> See the following table for description of the encryption levels:</li>
+          </ol>
+          <table>
+            <caption>Increasing encryption level and security and precision</caption>
+            <thead>
+              <tr>
+                <th>Level</th>
+                <th>Security</th>
+                <th>Precision</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>High</td>
+                <td>Good</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>High</td>
+                <td>High</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Very high</td>
+                <td>Good</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Very high</td>
+                <td>High</td>
+              </tr>
+            </tbody>
+          </table>
+          <p><em>Security</em> is the strength of the encryption, typically measured by the number of operations that an attacker must perform to break the encryption.<br>
+            <em>Precision</em> is the precision of the encryption system's outcomes. Higher precision levels reduce loss of accuracy of the model due to the encryption.</p>
+        </section>
+        <section id="section-connecting-to-the-aggregator-party">
+          <h2 id="connecting-to-the-aggregator-party">Connecting to the aggregator (party)</h2>
+          <p>The following steps only show the configuration needed for homomorphic encryption. For a step-by-step tutorial of using homomorphic encryption in Federated Learning, see <a href="fl-fhe-sample.html">FHE sample</a>.</p>
+          <p>To see how to create a general end-to-end party connector script, see <a href="fl-conn.html">Connect to the aggregator (party)</a>.</p>
+          <ol>
+            <li>
+              <p>Install the Python client with FHE with the following command:<br>
+                <code>pip install 'ibm_watson_machine_learning[fl-rt23.1-py3.10,fl-crypto]'</code></p>
+            </li>
+            <li>
+              <p>Configure the party as follows:</p>
+              <pre class="codeblock"><code class="lang-python hljs">party_config = {
+    <span class="hljs-string">"local_training"</span>: {
+        <span class="hljs-string">"info"</span>: {
+            <span class="hljs-string">"crypto"</span>: {
+                <span class="hljs-string">"key_manager"</span>: {
+                    <span class="hljs-string">"key_mgr_info"</span>: {
+                        <span class="hljs-string">"distribution"</span>: {
+                            <span class="hljs-string">"ca_cert_file_path"</span>: <span class="hljs-string">"path of the root certificate file identifying the certificate authority"</span>,
+                            <span class="hljs-string">"my_cert_file_path"</span>: <span class="hljs-string">"path of the certificate file of the party issued by the certificate authority"</span>,
+                            <span class="hljs-string">"asym_key_file_path"</span>: <span class="hljs-string">"path of the RSA key file of the party"</span>
+                            } 
+                        }  
+                    }  
+                }  
+            }  
+        }  
+    }
+}
+</code></pre>
+            </li>
+            <li>
+              <p>Run the party connector script after configuration.</p>
+            </li>
+          </ol>
+          <section id="section-additional-resources">
+            <h3 id="additional-resources">Additional resources</h3>
+            <p><strong>Parent topic:</strong> <a href="fed-lea.html">Federated Learning</a></p>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

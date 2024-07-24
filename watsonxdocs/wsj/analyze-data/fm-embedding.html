@@ -1,0 +1,76 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Use embedding models to create text embeddings that capture the meaning of a sentence or passage to help with retrieval-augmented generation tasks.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Using text embeddings to ground prompts in factual information</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=generation-using-text-embeddings-ground-prompts"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="using-text-embeddings-to-ground-prompts-in-factual-information" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-using-text-embeddings-to-ground-prompts-in-factual-information">
+        <h1 id="using-text-embeddings-to-ground-prompts-in-factual-information">Using text embeddings to ground prompts in factual information</h1>
+        <p>Use embedding models to create text embeddings that capture the meaning of a sentence or passage to help with retrieval-augmented generation tasks.</p>
+        <p>Retrieval-augmented generation (RAG) is a technique in which a foundation model is augmented with knowledge from external sources to generate text. You can use text embeddings to find higher-quality relevant information to include with the prompt
+          to help the foundation model answer factually.</p>
+        <p>The following diagram illustrates the retrieval-augmented generation pattern with embedding support.</p>
+        <p><img src="images/fm-rag-embed.svg" alt="Diagram that shows adding search results derived from a vector store to the input for retrieval-augmented generation" style="max-width:90%;height:auto;width:auto"></p>
+        <p>The retrieval-augmented generation pattern with embedding support involves the following steps:</p>
+        <ol>
+          <li>Convert your content into text embeddings and store them in a vector data store.</li>
+          <li>Use the same embedding model to convert the user input into text embeddings.</li>
+          <li>Search in your knowledge base for content that is related to the user's input.</li>
+          <li>Pull the most relevant search results into your prompt as context and add an instruction, such as “Answer the following question by using only information from the following passages.”</li>
+          <li>Send the combined prompt text to the model to generate output.</li>
+        </ol>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="fm-models-embed.html">Supported embedding models</a></li>
+            <li><a href="https://cloud.ibm.com/apidocs/watsonx-ai#text-embeddings" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Text embeddings API reference</a></li>
+            <li><a href="fm-rag.html">Retreival-augmented generation</a></li>
+            <li><a href="fm-context-length.html">Techniques for overcoming context length limitations</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="fm-code.html">Coding generative AI solutions</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

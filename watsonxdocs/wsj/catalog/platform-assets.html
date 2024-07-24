@@ -1,0 +1,195 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can create a Platform assets catalog to share connections across your organization. Any user who you add as a collaborator to the catalog can see these connections.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Creating the Platform assets catalog</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=administrators-creating-platform-assets-catalog"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="creating-the-platform-assets-catalog" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-creating-the-platform-assets-catalog">
+        <h1 id="creating-the-platform-assets-catalog">Creating the Platform assets catalog</h1>
+        <p>You can create a Platform assets catalog to share connections across your organization. Any user who you add as a collaborator to the catalog can see these connections.</p>
+        <p>You can add an unlimited number of collaborators and connection assets to the Platform assets catalog.</p>
+        <p>The Platform assets catalog also supports some watsonx.governance features in AI use cases, such as tracking third-party models, storing attachments, and generating reports. For more information on using the Platform assets catalog with inventories
+          for AI uses cases, see <a href="../analyze-data/xgov-inventory-manage.html">Managing an inventory for AI use cases</a>.</p>
+        <p>If you are signed up for both Cloud Pak for Data as a Service and watsonx, you share a single Platform assets catalog between the two platforms. Any connection assets that you add to the catalog on either platform are available in both platforms.
+          However, if you add other types of assets to the Platform assets catalog on Cloud Pak for Data as a Service, you can't access those types of assets on watsonx.</p>
+        <section id="section-requirements">
+          <h2 id="requirements">Requirements</h2>
+          <p>Before you create the Platform assets catalog, understand the required permissions and the requirements for storage and duplicate handling.</p>
+          <dl>
+            <dt><strong>Required permission</strong></dt>
+            <dd>You must have the IAM Administrator role in the IBM Cloud account.</dd>
+          </dl>
+          <p>To view your roles, go to <strong>Administration &gt; Access (IAM)</strong>. Then select <strong>Roles</strong> in the IBM Cloud console.</p>
+          <dl>
+            <dt><strong>Storage requirement</strong></dt>
+            <dd>
+              <p>Specify the IBM Cloud Object Storage instance that is configured during <a href="../admin/storage-options.html">IBM Cloud account setup</a>. If you are not an administrator for the IBM Cloud Object Storage instance, it must be <a href="../console/wdp_admin_cos.html">configured to allow catalog creation</a>.</p>
+            </dd>
+            <dt><strong>Duplicate asset handling</strong></dt>
+            <dd>
+              <p>Assets are considered duplicates if they have the same asset type and the same name.</p>
+            </dd>
+            <dd>
+              <p>Select how to handle duplicate assets:</p>
+              <ul>
+                <li>Update original assets</li>
+                <li>Overwrite original assets</li>
+                <li>Allow duplicates (default)</li>
+                <li>Preserve original assets and reject duplicates</li>
+              </ul>
+              <p>You can change the duplicate handling preferences at any time on the catalog <strong>Settings</strong> page.</p>
+            </dd>
+          </dl>
+        </section>
+        <section id="section-creating-the-platform-assets-catalog-2">
+          <h2 id="creating-the-platform-assets-catalog-2">Creating the Platform assets catalog</h2>
+          <p>To create the Platform assets catalog:</p>
+          <ol>
+            <li>
+              <p>From the main menu, choose <strong>Data &gt; Platform connections</strong>.</p>
+            </li>
+            <li>
+              <p>Click <strong>Create catalog</strong>.</p>
+            </li>
+            <li>
+              <p>Select the IBM Cloud Object Storage service. If you don't have an existing service instance, <a href="../console/wdp_admin_cos.html">create a IBM Cloud Object Storage service instance</a> and then refresh the page.</p>
+            </li>
+            <li>
+              <p>Click <strong>Create</strong>. The Platform assets catalog is created in a dedicated storage bucket. Initially, you are the only collaborator in the catalog.</p>
+            </li>
+            <li>
+              <p>Add collaborators to the catalog. Go to the <strong>Access control</strong> page in the catalog and add collaborators. You assign each user a <a href="#roles">role</a>:</p>
+              <ul>
+                <li>Assign the <strong>Admin</strong> role to at least one other user so that you are not the only person who can add collaborators.</li>
+                <li>Assign the <strong>Editor</strong> role to all users who are responsible for adding connections to the catalog.</li>
+                <li>Assign the <strong>Viewer</strong> role to the users who need to find connections and use them in projects.<br><br></li>
+              </ul>
+              <p>You can give all the users access to the Platform assets catalog by assigning the <strong>Viewer</strong> role to the <strong>Public Access</strong> group. By default, all users in your account are members of the <strong>Public Access</strong>                group. See <a href="catalog-collaborators.html">add collaborators</a>. <br> <br></p>
+            </li>
+            <li>
+              <p>Add connections to the catalog. You can delegate this step to other collaborators who have the <strong>Admin</strong> or <strong>Editor</strong> role. See <a href="../manage-data/platform-conn.html">Add connections to the Platform assets catalog</a>.</p>
+            </li>
+          </ol>
+          <section id="section-roles">
+            <h3 id="roles">Platform assets catalog collaborator roles</h3>
+            <p>The Platform assets catalog roles provide the permissions in the following table.</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Action</th>
+                  <th>Viewer</th>
+                  <th>Editor</th>
+                  <th>Admin</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>View connections</td>
+                  <td>✓</td>
+                  <td>✓</td>
+                  <td>✓</td>
+                </tr>
+                <tr>
+                  <td>Use connections in projects</td>
+                  <td>✓</td>
+                  <td>✓</td>
+                  <td>✓</td>
+                </tr>
+                <tr>
+                  <td>Use connections in spaces</td>
+                  <td>✓</td>
+                  <td>✓</td>
+                  <td>✓</td>
+                </tr>
+                <tr>
+                  <td>View collaborators</td>
+                  <td>✓</td>
+                  <td>✓</td>
+                  <td>✓</td>
+                </tr>
+                <tr>
+                  <td>Add connections</td>
+                  <td></td>
+                  <td>✓</td>
+                  <td>✓</td>
+                </tr>
+                <tr>
+                  <td>Modify connections</td>
+                  <td></td>
+                  <td>✓</td>
+                  <td>✓</td>
+                </tr>
+                <tr>
+                  <td>Delete connections</td>
+                  <td></td>
+                  <td>✓</td>
+                  <td>✓</td>
+                </tr>
+                <tr>
+                  <td>Add or remove collaborators</td>
+                  <td></td>
+                  <td></td>
+                  <td>✓</td>
+                </tr>
+                <tr>
+                  <td>Change collaborator roles</td>
+                  <td></td>
+                  <td></td>
+                  <td>✓</td>
+                </tr>
+                <tr>
+                  <td>Delete the catalog</td>
+                  <td></td>
+                  <td></td>
+                  <td>✓</td>
+                </tr>
+              </tbody>
+            </table>
+            <p><strong>Parent topic:</strong> <a href="../getting-started/setup-platform.html">Setting up the platform for administrators</a></p>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

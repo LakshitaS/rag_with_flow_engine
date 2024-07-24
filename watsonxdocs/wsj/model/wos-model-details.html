@@ -1,0 +1,94 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="To configure model evaluations, you must provide details about your model to enable the Watson OpenScale service to understand how your model is set up.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Providing model details</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=models-providing-model-details"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="providing-model-details" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-providing-model-details">
+        <h1 id="providing-model-details">Providing model details</h1>
+        <p>To configure model evaluations, you must provide details about your model to enable the Watson OpenScale service to understand how your model is set up.</p>
+        <p>Watson OpenScale provides different methods that you can use to provide model details for evaluations. The method that you use depends on how you want to configure evaluations and the type of deployments that you want to evaluate.</p>
+        <section id="section-providing-model-details-in-watson-openscale">
+          <h2 id="providing-model-details-in-watson-openscale">Providing model details in Watson OpenScale</h2>
+          <p>When you <a href="wos-connect-deploy.html">add deployments</a>, Watson OpenScale can automatically detect all of the required model details. If Watson OpenScale doesn't detect all of the required model details, you must manually provide model
+            details.</p>
+          <p>The following sections describe how you can provide model details in Watson OpenScale:</p>
+          <section id="section-select-a-configuration-method">
+            <h3 id="select-a-configuration-method">Select a configuration method</h3>
+            <p>For structured data models, you must provide model details by following guided steps or running a notebook to generate a configuration package that you can upload. If the deployment that you selected does not have a scoring endpoint, you must
+              upload a configuration package.</p>
+            <p><img src="images/wos-prepare-method.png" alt="Select a method to provide model details"></p>
+          </section>
+          <section id="section-provide-a-sample-transaction">
+            <h3 id="provide-a-sample-transaction">Provide a sample transaction</h3>
+            <p>For image and unstructured text models, Watson OpenScale does not require training data and you must manually provide a sample transaction to specify your model output and input.</p>
+            <p><img src="images/wos-config-image-text.png" alt="Provide model details for image and text models"></p>
+          </section>
+          <section id="section-specify-training-data">
+            <h3 id="specify-training-data">Specify training data</h3>
+            <p>If Watson OpenScale doesn't detect your training data details when you add a deployment, you can upload a CSV file to specify training data or connect to training data that is stored in a database or cloud storage. To connect to training data,
+              you must select the location and specify connection details. If your training data details are detected when you add a deployment, the <strong>Database or cloud storage</strong> option is preselected and Watson OpenScale specifies the location
+              and connection details for you.</p>
+            <p><img src="images/wos-specify-training-data.png" alt="Specify training data"></p>
+          </section>
+          <section id="section-select-the-feature-and-label-columns">
+            <h3 id="select-the-feature-and-label-columns">Select the feature and label columns</h3>
+            <p>Watson OpenScale displays a list of columns that are available in your training data. You must select the features that you used to train the model and specify a column as the <strong>Label/Target</strong> column that contains the expected
+              or accurate class label for each record. After you select the feature and label columns, Watson OpenScale uses your training data, and automatically sends a scoring request to your deployment to validate your model output and your deployment
+              status.</p>
+            <p><img src="images/wos-select-feat-label.png" alt="Select the feature and label columns"></p>
+          </section>
+          <section id="section-select-model-output">
+            <h3 id="select-model-output">Select model output</h3>
+            <p>Select a prediction column and a prediction probability column. The prediction column contains the prediction that your deployment generates and the prediction probability column contains the model's confidence in the prediction. Watson OpenScale
+              might preselect expected columns based on the metadata that it identifies from your model deployment. You can choose to change these selections. The data type of the prediction column must match the data type of the label column. If the
+              data types don't match, Watson OpenScale evaluations might not work properly.</p>
+            <p><img src="images/wos-select-model-output.png" alt="Select model output"></p>
+            <p><strong>Parent topic:</strong> <a href="wos-deploy-prepare.html">Preparing to evaluate a model</a></p>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

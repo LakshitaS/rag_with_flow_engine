@@ -1,0 +1,178 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="This tutorial guides you through using AutoAI and sample data to train a time series experiment to detect if daily electricity usage values are normal or anomalies (outliers).">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Tutorial: Create a time series anomaly prediction experiment</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=experiment-tutorial-autoai-anomaly-prediction"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="tutorial-create-a-time-series-anomaly-prediction-experiment" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-tutorial-create-a-time-series-anomaly-prediction-experiment">
+        <h1 id="tutorial-create-a-time-series-anomaly-prediction-experiment">Tutorial: Create a time series anomaly prediction experiment</h1>
+        <p>This tutorial guides you through using AutoAI and sample data to train a time series experiment to detect if daily electricity usage values are normal or anomalies (outliers).</p>
+        <p>When you set up the sample experiment, you load data that analyzes daily electricity usage from Industry A to determine whether a value is <em>normal</em> or an <em>anomaly</em>. Then, the experiment generates pipelines that use algorithms to
+          label these predicted values as normal or an anomaly. After generating the pipelines, AutoAI chooses the best performers, and presents them in a leaderboard for you to review.</p>
+        <p class="beta"><span class="carbon-tag-magenta bx--tag bx--tag--magenta">Tech preview</span> This is a technology preview and is not yet supported for use in production environments.</p>
+        <section id="section-data-set-overview">
+          <h2 id="data-set-overview">Data set overview</h2>
+          <p>This tutorial uses the <em>Electricity usage anomalies sample data</em> set. This data set describes the annual electricity usages for Industry A. The first column indicates the electricity usages and the second column indicates the date, which
+            is in a day-by-day format.</p>
+          <p><img src="images/autoai-ts-ad-dataset-preview.png" alt="A preview of the Electricity usage anomalies sample data" style="max-width:90%;height:auto;width:auto"></p>
+        </section>
+        <section id="section-tasks-overview">
+          <h2 id="tasks-overview">Tasks overview</h2>
+          <p>In this tutorial, follow these steps to create an anomaly prediction experiment:</p>
+          <ol>
+            <li><a href="#step1">Create an AutoAI experiment</a></li>
+            <li><a href="#step2">View the experiment</a></li>
+            <li><a href="#step3">Review experiment results</a></li>
+            <li><a href="#step4">Deploy the trained model</a></li>
+            <li><a href="#step5">Test the deployed model</a></li>
+          </ol>
+        </section>
+        <section id="section-step1">
+          <h2 id="step1">Create an AutoAI experiment</h2>
+          <p>Create an AutoAI experiment and add sample data to your experiment.</p>
+          <ol>
+            <li>
+              <p>From the navigation menu <img src="../getting-started/images/navigation-menu.svg" alt="Navigation menu" title="Navigation menu" height="20" style="vertical-align:text-bottom">, click <strong>Projects &gt; View all projects</strong>.</p>
+            </li>
+            <li>
+              <p>Open an existing project or <a href="../getting-started/projects.html">create a new project</a> to store the anomaly prediction experiment.</p>
+            </li>
+            <li>
+              <p>On the <em>Assets</em> tab from within your project, click <strong>New asset &gt; Build machine learning models automatically</strong>.</p>
+            </li>
+            <li>
+              <p>Click <strong>Resource hub sample &gt; Electricity usage anomalies sample data</strong>, then select <strong>Next</strong>. The AutoAI <em>experiment name</em> and <em>description</em> are pre-populated by the sample data.</p>
+            </li>
+            <li>
+              <p>If prompted, associate a Watson Machine Learning instance with your AutoAI experiment. <br></p>
+              <ol>
+                <li>Click <strong>Associate a Machine Learning service instance</strong> and select an instance of Watson Machine Learning.</li>
+                <li>Click <strong>Reload</strong> to confirm your configuration. <br></li>
+              </ol>
+            </li>
+            <li>
+              <p>Click <strong>Create</strong>. <br></p>
+            </li>
+          </ol>
+        </section>
+        <section id="section-step2">
+          <h2 id="step2">View the experiment details</h2>
+          <p>AutoAI pre-populates the details fields for the sample experiment:</p>
+          <p><img src="images/autoai-ts-ad-details.png" alt="Anomaly prediction pre-populated detail fields" style="max-width:90%;height:auto;width:auto"></p>
+          <ul>
+            <li>Type series analysis type: <em>Anomaly prediction</em> predicts whether future values in a series are anomalies (outliers). A prediction of 1 indicates a <em>normal</em> value and a prediction of -1 indicates an <em>anomaly</em>.</li>
+            <li>Feature column: <em>industry_a_usage</em> is the predicted value and indicates how much electricity <em>Industry A</em> consumes.</li>
+            <li>Date/Time column: <em>date</em> indicates the time increments for the experiment. For this experiment, there is one prediction value per day.<br></li>
+            <li>This experiment is optimized for the model performance metric: <em>Average Precision</em>. Average precision evaluates the performance of object detection and segmentation systems.</li>
+          </ul>
+          <p>Click <strong>Run experiment</strong> to train the model. The experiment takes several minutes to complete.</p>
+        </section>
+        <section id="section-step3">
+          <h2 id="step3">Review the experiment results</h2>
+          <p>The relationship map shows the transformations that are used to create pipelines. Follow these steps to review experiment results and save the pipeline with the best performance.
+            <img src="images/autoai-ts-ad-pipeline-map.png" alt="Anomaly prediction relationship map and pipeline leaderboard" style="max-width:90%;height:auto;width:auto"></p>
+          <ol>
+            <li>The leaderboard lists and saves the three best performing pipelines. Click the pipeline name with Rank 1 to review the details of the pipeline. For details on anomaly prediction metrics, see <a href="autoai-ts-ap.html">Creating a time series anomaly prediction experiment</a>.</li>
+            <li>Select the pipeline with Rank 1 and <strong>Save</strong> the pipeline as a <em>model</em>. The <em>model name</em> is pre-populated with the default name.</li>
+            <li>Click <strong>Create</strong> to confirm your pipeline selection.</li>
+          </ol>
+        </section>
+        <section id="section-step4">
+          <h2 id="step4">Deploy the trained model</h2>
+          <p>Before the trained model can make predictions on external values, you must deploy the model. Follow these steps to promote your trained model to a deployment space.</p>
+          <ol>
+            <li>
+              <p>Deploy the model from the <em>Model details</em> page. To access the <em>Model details</em> page, choose one of these options:</p>
+              <ul>
+                <li>From the notification displayed when you save the model, click <strong>View in project</strong>.</li>
+                <li>From the project's <em>Assets</em>, select the model’s name in <em>Models</em>.</li>
+              </ul>
+            </li>
+            <li>
+              <p>From the <em>Model details</em> page, click the <strong>Promote to deployment space</strong> <img src="../getting-started/images/promote.svg" alt="Promote to deployment space icon" title="Promote to deployment space" height="20" style="vertical-align:text-bottom">                icon. Then, select or create a deployment space to deploy the model.</p>
+            </li>
+            <li>
+              <p>Select <strong>Go to the model in the space after promoting it</strong> and click <strong>Promote</strong> to promote the model.</p>
+            </li>
+          </ol>
+        </section>
+        <section id="section-step5">
+          <h2 id="step5">Testing the model</h2>
+          <p>After promoting the model to the deployment space, you are ready to test your trained model with new data values.</p>
+          <ol>
+            <li>
+              <p>Select <strong>New Deployment</strong> and create a new deployment with the following fields:</p>
+              <ol>
+                <li>Deployment type: <code>Online</code></li>
+                <li>Name: <code>Electricity usage online deployment</code></li>
+              </ol>
+            </li>
+            <li>
+              <p>Click <strong>Create</strong> and wait for the status to update to <em>Deployed</em>.</p>
+            </li>
+            <li>
+              <p>After the deployment initializes, click the deployment. Use <em>Test input</em> to manually enter and evaluate values or use JSON input to attach a data set. <br></p>
+              <p><img src="images/autoai-ts-ad-sample-cases.png" alt="Anomaly prediction sample input data" style="max-width:90%;height:auto;width:auto"></p>
+            </li>
+            <li>
+              <p>Click <strong>Predict</strong> to see whether there are any anomalies in the values.</p>
+              <div class="note note"><span class="notetitle">Note:</span>
+                <md-block>
+                  <p>-1 indicates an <em>anomaly</em>; 1 indicates a <em>normal</em> value.</p>
+                  <p></p>
+                </md-block>
+              </div>
+              <p></p>
+            </li>
+          </ol>
+          <p><img src="images/autoai-ts-ad-predicted-results.png" alt="Anomaly prediction results table and chart" style="max-width:90%;height:auto;width:auto"></p>
+        </section>
+        <section id="section-next-steps">
+          <h2 id="next-steps">Next steps</h2>
+          <p><a href="autoai-timeseries.html">Building a time series forecast experiment</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

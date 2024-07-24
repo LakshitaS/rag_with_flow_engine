@@ -1,0 +1,1929 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Configure the nodes of your pipeline to specify inputs and to create outputs as part of your pipeline.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Configuring pipeline nodes</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=pipeline-configuring-nodes"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="configuring-pipeline-nodes" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-configuring-pipeline-nodes">
+        <h1 id="configuring-pipeline-nodes">Configuring pipeline nodes</h1>
+        <p>Configure the nodes of your pipeline to specify inputs and to create outputs as part of your pipeline.</p>
+        <section id="section-specifying-the-workspace-scope">
+          <h2 id="specifying-the-workspace-scope">Specifying the workspace scope</h2>
+          <p>By default, the scope for a pipeline is the project that contains the pipeline. You can explicitly specify a scope other than the default, to locate an asset used in the pipeline. The scope is the project, catalog, or space that contains the
+            asset. From the user interface, you can browse for the scope.</p>
+        </section>
+        <section id="section-changing-the-input-mode">
+          <h2 id="changing-the-input-mode">Changing the input mode</h2>
+          <p>When you are configuring a node, you can specify any resources that include data and notebooks in various ways. Such as directly entering a name or ID, browsing for an asset, or by using the output from a prior node in the pipeline to populate
+            a field. To see what options are available for a field, click the input icon for the field. Depending on the context, options can include:</p>
+          <ul>
+            <li>Select resource: use the asset browser to find an asset such as a data file.</li>
+            <li>Assign pipeline parameter: assign a value by using a variable configured with a pipeline parameter. For more information, see <a href="ml-orchestration-flow-param.html">Configuring global objects</a>.</li>
+            <li>Select from another node: use the output from a node earlier in the pipeline as the value for this field.</li>
+            <li>Enter the expression: enter code to assign values or identify resources. For more information, see <a href="ml-orchestration-expr-builder.html">Coding elements</a>.</li>
+          </ul>
+        </section>
+        <section id="section-pipeline-nodes-and-parameters">
+          <h2 id="pipeline-nodes-and-parameters">Pipeline nodes and parameters</h2>
+          <p>Configure the following types of pipeline nodes:</p>
+        </section>
+        <section id="section-copy">
+          <h2 id="copy">Copy nodes</h2>
+          <p>Use Copy nodes to add assets to your pipeline or to export pipeline assets.</p>
+          <hr id="copy-assets">
+          <details>
+            <summary>Copy assets</summary>
+            <md-block>
+              <p>Copy selected assets from a project or space to a nonempty space. You can copy these assets to a space:</p>
+              <ul>
+                <li>
+                  <p>AutoAI experiment</p>
+                </li>
+                <li>
+                  <p>Code package job</p>
+                </li>
+                <li>
+                  <p>Connection</p>
+                </li>
+                <li>
+                  <p>Data Refinery flow</p>
+                </li>
+                <li>
+                  <p>Data Refinery job</p>
+                </li>
+                <li>
+                  <p>Data asset</p>
+                </li>
+                <li>
+                  <p>Deployment job</p>
+                </li>
+                <li>
+                  <p>Environment</p>
+                </li>
+                <li>
+                  <p>Function</p>
+                </li>
+                <li>
+                  <p>Job</p>
+                </li>
+                <li>
+                  <p>Model</p>
+                </li>
+                <li>
+                  <p>Notebook</p>
+                </li>
+                <li>
+                  <p>Notebook job</p>
+                </li>
+                <li>
+                  <p>Pipelines job</p>
+                </li>
+                <li>
+                  <p>Script</p>
+                </li>
+                <li>
+                  <p>Script job</p>
+                </li>
+                <li>
+                  <p>SPSS Modeler job</p>
+                </li>
+              </ul>
+              <section id="section-input-parameters">
+                <h4 id="input-parameters">Input parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Source assets</td>
+                      <td>Browse or search for the source asset to add to the list. You can also specify an asset with a pipeline parameter, with the output of another node, or by entering the asset ID</td>
+                    </tr>
+                    <tr>
+                      <td>Target</td>
+                      <td>Browse or search for the target space</td>
+                    </tr>
+                    <tr>
+                      <td>Copy mode</td>
+                      <td>Choose how to handle a case where the flow tries to copy an asset and one of the same name exists. One of: <code>ignore</code>, <code>fail</code>, <code>overwrite</code></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <section id="section-output-parameters">
+                <h4 id="output-parameters">Output parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Output assets</td>
+                      <td>List of copied assets</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+            </md-block>
+          </details>
+          <hr>
+          <hr id="export-assets">
+          <details>
+            <summary>Export assets</summary>
+            <md-block>
+              <p>Export selected assets from the scope, for example, a project or deployment space. The operation exports all the assets by default. You can limit asset selection by building a list of resources to export.</p>
+              <section id="section-input-parameters-2">
+                <h4 id="input-parameters-2">Input parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Assets</td>
+                      <td>Choose <strong>Scope</strong> to export all exportable items or choose <strong>List</strong> to create a list of specific items to export</td>
+                    </tr>
+                    <tr>
+                      <td>Source project or space</td>
+                      <td>Name of project or space that contains the assets to export</td>
+                    </tr>
+                    <tr>
+                      <td>Exported file</td>
+                      <td>File location for storing the export file</td>
+                    </tr>
+                    <tr>
+                      <td>Creation mode (optional)</td>
+                      <td>Choose how to handle a case where the flow tries to create an asset and one of the same name exists. One of: <code>ignore</code>, <code>fail</code>, <code>overwrite</code></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <section id="section-output-parameters-2">
+                <h4 id="output-parameters-2">Output parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Exported file</td>
+                      <td>Path to exported file</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <p><strong>Notes:</strong></p>
+                <ul>
+                  <li>If you export a project that contains a notebook, the latest version of the notebook is included in the export file. If the Pipeline with the <strong>Run notebook job</strong> node was configured to use a different notebook version other
+                    than the latest version, the exported Pipeline is automatically reconfigured to use the latest version when imported. This might produce unexpected results or require some reconfiguration after the import.</li>
+                  <li>If assets are self-contained in the exported project, they are retained when you import a new project. Otherwise, some configuration might be required following an import of exported assets.</li>
+                </ul>
+              </section>
+            </md-block>
+          </details>
+          <hr>
+          <hr id="import-assets">
+          <details>
+            <summary>Import assets</summary>
+            <md-block>
+              <p>Import assets from a ZIP file that contains exported assets.</p>
+              <section id="section-input-parameters-3">
+                <h4 id="input-parameters-3">Input parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Path to import target</td>
+                      <td>Browse or search for the assets to import</td>
+                    </tr>
+                    <tr>
+                      <td>Archive file to import</td>
+                      <td>Specify the path to a ZIP file or archive</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <p><strong>Notes:</strong> After you import a file, paths and references to the imported assets are updated, following these rules:</p>
+                <ul>
+                  <li>References to assets from the exported project or space are updated in the new project or space after the import.</li>
+                  <li>If assets from the exported project refer to external assets (included in a different project), the reference to the external asset will persist after the import.</li>
+                  <li>If the external asset no longer exists, the parameter is replaced with an empty value and you must reconfigure the field to point to a valid asset.</li>
+                </ul>
+              </section>
+            </md-block>
+          </details>
+          <hr>
+        </section>
+        <section id="section-create">
+          <h2 id="create">Create nodes</h2>
+          <p>Configure the nodes for creating assets in your pipeline.</p>
+          <hr id="autoai-exp">
+          <details>
+            <summary>Create AutoAI experiment</summary>
+            <md-block>
+              <p>Use this node to train an <a href="autoai-overview.html">AutoAI classification or regression experiment</a> and generate model-candidate pipelines.</p>
+              <section id="section-input-parameters-4">
+                <h4 id="input-parameters-4">Input parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>AutoAI experiment name</td>
+                      <td>Name of the new experiment</td>
+                    </tr>
+                    <tr>
+                      <td>Scope</td>
+                      <td>A project or a space, where the experiment is going to be created</td>
+                    </tr>
+                    <tr>
+                      <td>Prediction type</td>
+                      <td>The type of model for the following data: binary, classification, or regression</td>
+                    </tr>
+                    <tr>
+                      <td>Prediction column (label)</td>
+                      <td>The prediction column name</td>
+                    </tr>
+                    <tr>
+                      <td>Positive class (optional)</td>
+                      <td>Specify a positive class for a binary classification experiment</td>
+                    </tr>
+                    <tr>
+                      <td>Training data split ratio (optional)</td>
+                      <td>The percentage of data to hold back from training and use to test the pipelines(float: 0.0 - 1.0)</td>
+                    </tr>
+                    <tr>
+                      <td>Algorithms to include (optional)</td>
+                      <td>Limit the list of estimators to be used (the list depends on the learning type)</td>
+                    </tr>
+                    <tr>
+                      <td>Algorithms to use</td>
+                      <td>Specify the list of estimators to be used (the list depends on the learning type)</td>
+                    </tr>
+                    <tr>
+                      <td>Optimize metric (optional)</td>
+                      <td>The metric used for model ranking</td>
+                    </tr>
+                    <tr>
+                      <td>Hardware specification (optional)</td>
+                      <td>Specify a hardware specification for the experiment</td>
+                    </tr>
+                    <tr>
+                      <td>AutoAI experiment description</td>
+                      <td>Description of the experiment</td>
+                    </tr>
+                    <tr>
+                      <td>AutoAI experiment tags (optional)</td>
+                      <td>Tags to identify the experiment</td>
+                    </tr>
+                    <tr>
+                      <td>Creation mode (optional)</td>
+                      <td>Choose how to handle a case where the pipeline tries to create an experiment and one of the same name exists. One of: <code>ignore</code>, <code>fail</code>, <code>overwrite</code></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <section id="section-output-parameters-3">
+                <h4 id="output-parameters-3">Output parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>AutoAI experiment</td>
+                      <td>Path to the saved model</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+            </md-block>
+          </details>
+          <hr>
+          <hr id="autoai-time">
+          <details>
+            <summary>Create AutoAI time series experiment</summary>
+            <md-block>
+              <p>Use this node to train an <a href="autoai-overview.html">AutoAI time series experiment</a> and generate model-candidate pipelines.</p>
+              <section id="section-input-parameters-5">
+                <h4 id="input-parameters-5">Input parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>AutoAI time series experiment name</td>
+                      <td>Name of the new experiment</td>
+                    </tr>
+                    <tr>
+                      <td>Scope</td>
+                      <td>A project or a space, where the pipeline is going to be created</td>
+                    </tr>
+                    <tr>
+                      <td>Prediction columns (label)</td>
+                      <td>The name of one or more prediction columns</td>
+                    </tr>
+                    <tr>
+                      <td>Date/time column (optional)</td>
+                      <td>Name of date/time column</td>
+                    </tr>
+                    <tr>
+                      <td>Leverage future values of supporting features</td>
+                      <td>Choose "True" to enable the consideration for supporting (exogenous) features to improve the prediction. For example, include a temperature feature for predicting ice cream sales.</td>
+                    </tr>
+                    <tr>
+                      <td>Supporting features (optional)</td>
+                      <td>Choose supporting features and add to list</td>
+                    </tr>
+                    <tr>
+                      <td>Imputation method (optional)</td>
+                      <td>Choose a technique for imputing missing values in a data set</td>
+                    </tr>
+                    <tr>
+                      <td>Imputation threshold (optional)</td>
+                      <td>Specify an higher threshold for percentage of missing values to supply with the specified imputation method. If the threshold is exceeded, the experiment fails. For example, if you specify that 10% of values can be imputed, and the
+                        data set is missing 15% of values, the experiment fails.</td>
+                    </tr>
+                    <tr>
+                      <td>Fill type</td>
+                      <td>Specify how the specified imputation method fill null values. Choose to supply a mean of all values, and median of all values, or specify a fill value.</td>
+                    </tr>
+                    <tr>
+                      <td>Fill value (optional)</td>
+                      <td>If you selected to sepcify a value for replacing null values, enter the value in this field.</td>
+                    </tr>
+                    <tr>
+                      <td>Final training data set</td>
+                      <td>Choose whether to train final pipelines with just the training data or with training data and holdout data. If you choose training data, the generated notebook includes a cell for retrieving holdout data</td>
+                    </tr>
+                    <tr>
+                      <td>Holdout size (optional)</td>
+                      <td>If you are splitting training data into training and holdout data, specify a percentage of the training data to reserve as holdout data for validating the pipelines. Holdout data does not exceed a third of the data.</td>
+                    </tr>
+                    <tr>
+                      <td>Number of backtests (optional)</td>
+                      <td>Customize the backtests to cross-validate your time series experiment</td>
+                    </tr>
+                    <tr>
+                      <td>Gap length (optional)</td>
+                      <td>Adjust the number of time points between the training data set and validation data set for each backtest. When the parameter value is non-zero, the time series values in the gap is not used to train the experiment or evaluate the
+                        current backtest.</td>
+                    </tr>
+                    <tr>
+                      <td>Lookback window (optional)</td>
+                      <td>A parameter that indicates how many previous time series values are used to predict the current time point.</td>
+                    </tr>
+                    <tr>
+                      <td>Forecast window (optional)</td>
+                      <td>The range that you want to predict based on the data in the lookback window.</td>
+                    </tr>
+                    <tr>
+                      <td>Algorithms to include (optional)</td>
+                      <td>Limit the list of estimators to be used (the list depends on the learning type)</td>
+                    </tr>
+                    <tr>
+                      <td>Pipelines to complete</td>
+                      <td>Optionally adjust the number of pipelines to create. More pipelines increase training time and resources.</td>
+                    </tr>
+                    <tr>
+                      <td>Hardware specification (optional)</td>
+                      <td>Specify a hardware specification for the experiment</td>
+                    </tr>
+                    <tr>
+                      <td>AutoAI time series experiment description (optional)</td>
+                      <td>Description of the experiment</td>
+                    </tr>
+                    <tr>
+                      <td>AutoAI experiment tags (optional)</td>
+                      <td>Tags to identify the experiment</td>
+                    </tr>
+                    <tr>
+                      <td>Creation mode (optional)</td>
+                      <td>Choose how to handle a case where the pipeline tries to create an experiment and one of the same name exists. One of: <code>ignore</code>, <code>fail</code>, <code>overwrite</code></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <section id="section-output-parameters-4">
+                <h4 id="output-parameters-4">Output parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>AutoAI time series experiment</td>
+                      <td>Path to the saved model</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+            </md-block>
+          </details>
+          <hr>
+          <hr id="batch-dep">
+          <details>
+            <summary>Create batch deployment</summary>
+            <md-block>
+              <p>Use this node to create a batch deployment for a machine learning model.</p>
+              <section id="section-input-parameters-6">
+                <h4 id="input-parameters-6">Input parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>ML asset</td>
+                      <td>Name or ID of the machine learning asset to deploy</td>
+                    </tr>
+                    <tr>
+                      <td>New deployment name (optional)</td>
+                      <td>Name of the new job, with optional description and tags</td>
+                    </tr>
+                    <tr>
+                      <td>Creation mode (optional)</td>
+                      <td>How to handle a case where the pipeline tries to create a job and one of the same name exists. One of: <code>ignore</code>, <code>fail</code>, <code>overwrite</code></td>
+                    </tr>
+                    <tr>
+                      <td>New deployment description (optional)</td>
+                      <td>Description of the deployment</td>
+                    </tr>
+                    <tr>
+                      <td>New deployment tags (optional)</td>
+                      <td>Tags to identify the deployment</td>
+                    </tr>
+                    <tr>
+                      <td>Hardware specification (optional)</td>
+                      <td>Specify a hardware specification for the job</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <section id="section-output-parameters-5">
+                <h4 id="output-parameters-5">Output parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>New deployment</td>
+                      <td>Path of the newly created deployment</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+            </md-block>
+          </details>
+          <hr>
+          <hr id="data-asset">
+          <details>
+            <summary>Create data asset</summary>
+            <md-block>
+              <p>Use this node to create a data asset.</p>
+              <section id="section-input-parameters-7">
+                <h4 id="input-parameters-7">Input parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>File</td>
+                      <td>Path to file in a file storage</td>
+                    </tr>
+                    <tr>
+                      <td>Target scope</td>
+                      <td>Path to the target space or project</td>
+                    </tr>
+                    <tr>
+                      <td>Name (optional)</td>
+                      <td>Name of the data source with optional description, country of origin, and tags</td>
+                    </tr>
+                    <tr>
+                      <td>Description (optional)</td>
+                      <td>Description for the asset</td>
+                    </tr>
+                    <tr>
+                      <td>Origin country (optional)</td>
+                      <td>Origin country for data regulations</td>
+                    </tr>
+                    <tr>
+                      <td>Tags (optional)</td>
+                      <td>Tags to identify assets</td>
+                    </tr>
+                    <tr>
+                      <td>Creation mode</td>
+                      <td>How to handle a case where the pipeline tries to create a job and one of the same name exists. One of: <code>ignore</code>, <code>fail</code>, <code>overwrite</code></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <section id="section-output-parameters-6">
+                <h4 id="output-parameters-6">Output parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Data asset</td>
+                      <td>The newly created data asset</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+            </md-block>
+          </details>
+          <hr>
+          <hr id="create-space">
+          <details>
+            <summary>Create deployment space</summary>
+            <md-block>
+              <p>Use this node to create and configure a space that you can use to organize and create deployments.</p>
+              <section id="section-input-parameters-8">
+                <h4 id="input-parameters-8">Input parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>New space name</td>
+                      <td>Name of the new space with optional description and tags</td>
+                    </tr>
+                    <tr>
+                      <td>New space tags (optional)</td>
+                      <td>Tags to identify the space</td>
+                    </tr>
+                    <tr>
+                      <td>New space COS instance CRN</td>
+                      <td>CRN of the COS service instance</td>
+                    </tr>
+                    <tr>
+                      <td>New space WML instance CRN (optional)</td>
+                      <td>CRN of the Watson Machine Learning service instance</td>
+                    </tr>
+                    <tr>
+                      <td>Creation mode (optional)</td>
+                      <td>How to handle a case where the pipeline tries to create a space and one of the same name exists. One of: <code>ignore</code>, <code>fail</code>, <code>overwrite</code></td>
+                    </tr>
+                    <tr>
+                      <td>Space description (optional)</td>
+                      <td>Description of the space</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <section id="section-output-parameters-7">
+                <h4 id="output-parameters-7">Output parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Space</td>
+                      <td>Path of the newly created space</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+            </md-block>
+          </details>
+          <hr>
+          <hr id="web-service">
+          <details>
+            <summary>Create online deployment</summary>
+            <md-block>
+              <p>Use this node to create an online deployment where you can submit test data directly to a web service REST API endpoint.</p>
+              <section id="section-input-parameters-9">
+                <h4 id="input-parameters-9">Input parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>ML asset</td>
+                      <td>Name or ID of the machine learning asset to deploy</td>
+                    </tr>
+                    <tr>
+                      <td>New deployment name (optional)</td>
+                      <td>Name of the new job, with optional description and tags</td>
+                    </tr>
+                    <tr>
+                      <td>Creation mode (optional)</td>
+                      <td>How to handle a case where the pipeline tries to create a job and one of the same name exists. One of: <code>ignore</code>, <code>fail</code>, <code>overwrite</code></td>
+                    </tr>
+                    <tr>
+                      <td>New deployment description (optional)</td>
+                      <td>Description of the deployment</td>
+                    </tr>
+                    <tr>
+                      <td>New deployment tags (optional)</td>
+                      <td>Tags to identify the deployment</td>
+                    </tr>
+                    <tr>
+                      <td>Hardware specification (optional)</td>
+                      <td>Specify a hardware specification for the job</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <section id="section-output-parameters-8">
+                <h4 id="output-parameters-8">Output parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>New deployment</td>
+                      <td>Path of the newly created deployment</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+            </md-block>
+          </details>
+          <hr>
+        </section>
+        <section id="section-wait">
+          <h2 id="wait">Wait</h2>
+          <p>Use nodes to pause a pipeline until an asset is available in the location that is specified in the path.</p>
+          <hr id="wait-all">
+          <details>
+            <summary>Wait for all results</summary>
+            <md-block>
+              <p>Use this node to wait until all results from the previous nodes in the pipeline are available so the pipeline can continue.</p>
+              <p>This node takes no inputs and produces no output. When the results are all available, the pipeline continues automatically.</p>
+            </md-block>
+          </details>
+          <hr>
+          <hr id="wait-any">
+          <details>
+            <summary>Wait for any result</summary>
+            <md-block>
+              <p>Use this node to wait until any result from the previous nodes in the pipeline is available so the pipeline can continue. Run the downstream nodes as soon as any of the upstream conditions are met.</p>
+              <p>This node takes no inputs and produces no output. When any results are available, the pipeline continues automatically.</p>
+            </md-block>
+          </details>
+          <hr>
+          <hr id="wait-file">
+          <details>
+            <summary>Wait for file</summary>
+            <md-block>
+              <p>Wait for an asset to be created or updated in the location that is specified in the path from a job or process earlier in the pipeline. Specify a timeout length to wait for the condition to be met. If 00:00:00 is the specified timeout length,
+                the flow waits indefinitely.</p>
+              <section id="section-input-parameters-10">
+                <h4 id="input-parameters-10">Input parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>File location</td>
+                      <td>Specify the location in the asset browser where the asset resides. Use the format <code>data_asset/filename</code> where the path is relative to the root. The file must exist and be in the location you specify or the node fails with
+                        an error.</td>
+                    </tr>
+                    <tr>
+                      <td>Wait mode</td>
+                      <td>By default the mode is for the file to appear. You can change to waiting for the file to disappear</td>
+                    </tr>
+                    <tr>
+                      <td>Timeout length (optional)</td>
+                      <td>Specify the length of time to wait before you proceed with the pipeline. Use the format <code>hh:mm:ss</code></td>
+                    </tr>
+                    <tr>
+                      <td>Error policy (optional)</td>
+                      <td>See <a href="ml-orchestration-errors.html">Handling errors</a></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <section id="section-output-parameters-9">
+                <h4 id="output-parameters-9">Output parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Return value</td>
+                      <td>Return value from the node</td>
+                    </tr>
+                    <tr>
+                      <td>Execution status</td>
+                      <td>Returns a value of: Completed, Completed with warnings, Completed with errors, Failed, or Canceled</td>
+                    </tr>
+                    <tr>
+                      <td>Status message</td>
+                      <td>Message associated with the status</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+            </md-block>
+          </details>
+          <hr>
+        </section>
+        <section id="section-control">
+          <h2 id="control">Control nodes</h2>
+          <p>Control the pipeline by adding error handling and logic.</p>
+          <hr id="control-loops">
+          <details>
+            <summary>Loops</summary>
+            <md-block>
+              <p>Loops are a node in a Pipeline that operates like a coded loop.</p>
+              <p>The two types of loops are parallel and sequential.</p>
+              <p>You can use loops when the number of iterations for an operation is dynamic. For example, if you don't know the number of notebooks to process, or you want to choose the number of notebooks at run time, you can use a loop to iterate through
+                the list of notebooks.</p>
+              <p>You can also use a loop to iterate through the output of a node or through elements in a data array.</p>
+              <section id="section-loops-in-parallel">
+                <h3 id="loops-in-parallel">Loops in parallel</h3>
+                <p>Add a parallel looping construct to the pipeline. A parallel loop runs the iterating nodes independently and possibly simultaneously.</p>
+                <p>For example, to train a machine learning model with a set of hyperparameters to find the best performer, you can use a loop to iterate over a list of hyperparameters to train the notebook variations in parallel. The results can be compared
+                  later in the flow to find the best notebook.</p>
+                <section id="section-input-parameters-when-iterating-list-types">
+                  <h4 id="input-parameters-when-iterating-list-types">Input parameters when iterating List types</h4>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Parameter</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>List input</td>
+                        <td>The <em>List input</em> parameter contains two fields, the data type of the list and the list content that the loop iterates over or a standard link to pipeline input or pipeline output.</td>
+                      </tr>
+                      <tr>
+                        <td>Parallelism</td>
+                        <td>Maximum number of tasks to be run simultaneously. Must be greater than zero</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </section>
+                <section id="section-input-parameters-when-iterating-string-types">
+                  <h4 id="input-parameters-when-iterating-string-types">Input parameters when iterating String types</h4>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Parameter</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Text input</td>
+                        <td>Text data that the loop reads from</td>
+                      </tr>
+                      <tr>
+                        <td>Separator</td>
+                        <td>A char used to split the text</td>
+                      </tr>
+                      <tr>
+                        <td>Parallelism (optional)</td>
+                        <td>Maximum number of tasks to be run simultaneously. Must be greater than zero</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <p>If the input array element type is JSON or any type that is represented as such, this field might decompose it as dictionary. Keys are the original element keys and values are the aliases for output names.</p>
+                </section>
+              </section>
+              <section id="section-loops-in-sequence">
+                <h3 id="loops-in-sequence">Loops in sequence</h3>
+                <p>Add a sequential loop construct to the pipeline. Loops can iterate over a numeric range, a list, or text with a delimiter.</p>
+                <p>A use case for sequential loops is if you want to try an operation 3 time before you determine whether an operation failed.</p>
+                <section id="section-input-parameters-11">
+                  <h4 id="input-parameters-11">Input parameters</h4>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Parameter</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>List input</td>
+                        <td>The <em>List input</em> parameter contains two fields, the data type of the list and the list content that the loop iterates over or a standard link to pipeline input or pipeline output.</td>
+                      </tr>
+                      <tr>
+                        <td>Text input</td>
+                        <td>Text data that the loop reads from. Specify a character to split the text.</td>
+                      </tr>
+                      <tr>
+                        <td>Range</td>
+                        <td>Specify the start, end, and optional step for a range to iterate over. The default step is 1.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <p>After you configure the loop iterative range, define a subpipeline flow inside the loop to run until the loop is complete. For example, it can invoke notebook, script, or other flow per iteration.</p>
+                </section>
+              </section>
+              <section id="section-terminate-loop">
+                <h3 id="terminate-loop">Terminate loop</h3>
+                <p>In a parallel or sequential loop process flow, you can add a <strong>Terminate pipeline</strong> node to end the loop process anytime. You must customize the conditions for terminating.</p>
+                <div class="note attention"><span class="attentiontitle">Attention:</span> If you use the Terminate loop node, your loop cancels any ongoing tasks and terminates without completing its iteration.</div>
+              </section>
+            </md-block>
+          </details>
+          <hr>
+          <hr id="set-user-var">
+          <details>
+            <summary>Set user variables</summary>
+            <md-block>
+              <p>Configure a user variable with a key/value pair, then add the list of dynamic variables for this node.</p>
+              <p>For more information on how to create a user variable, see <a href="ml-orchestration-flow-param.html">Configuring global objects</a>.</p>
+              <section id="section-input-parameters-12">
+                <h4 id="input-parameters-12">Input parameters</h4>
+                <p>x</p>
+                <table>
+                  <caption caption-side="top">Table 1. User variable input parameters</caption>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Name</td>
+                      <td>Enter the name, or key, for the variable</td>
+                    </tr>
+                    <tr>
+                      <td>Input type</td>
+                      <td>Choose Expression or Pipeline parameter as the input type.</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <ul>
+                  <li>For expressions, use the built-in Expression Builder to create a variable that results from a custom expression.</li>
+                  <li>For pipeline parameters, assign a pipeline parameter and use the parameter value as input for the user variable.</li>
+                </ul>
+              </section>
+            </md-block>
+          </details>
+          <hr>
+          <hr id="control-terminate">
+          <details>
+            <summary>Terminate pipeline</summary>
+            <md-block>
+              <p>You can initiate and control the termination of a pipeline with a Terminate pipeline node from the Control category. When the error flow runs, you can optionally specify how to handle notebook or training jobs that were initiated by nodes
+                in the pipeline. You must specify whether to wait for jobs to finish, cancel the jobs then stop the pipeline, or stop everything without canceling. Specify the options for the Terminate pipeline node.</p>
+              <section id="section-input-parameters-13">
+                <h4 id="input-parameters-13">Input parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Terminator mode (optional)</td>
+                      <td>Choose the behavior for the error flow</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <p>Terminator mode can be:</p>
+                <ul>
+                  <li><strong>Terminate pipeline run and all running jobs</strong> stops all jobs and stops the pipeline.</li>
+                  <li><strong>Cancel all running jobs then terminate pipeline</strong> cancels any running jobs before stopping the pipeline.</li>
+                  <li><strong>Terminate pipeline run after running jobs finish</strong> waits for running jobs to finish, then stops the pipeline.</li>
+                  <li><strong>Terminate pipeline that is run without stopping jobs</strong> stops the pipeline but allows running jobs to continue.</li>
+                </ul>
+              </section>
+            </md-block>
+          </details>
+          <hr>
+        </section>
+        <section id="section-update">
+          <h2 id="update">Update nodes</h2>
+          <p>Use update nodes to replace or update assets to improve performance. For example, if you want to standardize your tags, you can update to replace a tag with a new tag.</p>
+          <hr id="update-autoai">
+          <details>
+            <summary>Update AutoAI experiment</summary>
+            <md-block>
+              <p>Update the training details for an <a href="autoai-overview.html">AutoAI experiment</a>.</p>
+              <section id="section-input-parameters-14">
+                <h4 id="input-parameters-14">Input parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>AutoAI experiment</td>
+                      <td>Path to a project or a space, where the experiment resides</td>
+                    </tr>
+                    <tr>
+                      <td>AutoAI experiment name (optional)</td>
+                      <td>Name of the experiment to be updated, with optional description and tags</td>
+                    </tr>
+                    <tr>
+                      <td>AutoAI experiment description (optional)</td>
+                      <td>Description of the experiment</td>
+                    </tr>
+                    <tr>
+                      <td>AutoAI experiment tags (optional)</td>
+                      <td>Tags to identify the experiment</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <section id="section-output-parameters-10">
+                <h4 id="output-parameters-10">Output parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>AutoAI experiment</td>
+                      <td>Path of the updated experiment</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+            </md-block>
+          </details>
+          <hr>
+          <hr id="update-batch">
+          <details>
+            <summary>Update batch deployment</summary>
+            <md-block>
+              <p>Use these parameters to update a batch deployment.</p>
+              <section id="section-input-parameters-15">
+                <h4 id="input-parameters-15">Input parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Deployment</td>
+                      <td>Path to the deployment to be updated</td>
+                    </tr>
+                    <tr>
+                      <td>New name for the deployment (optional)</td>
+                      <td>Name or ID of the deployment to be updated</td>
+                    </tr>
+                    <tr>
+                      <td>New description for the deployment (optional)</td>
+                      <td>Description of the deployment</td>
+                    </tr>
+                    <tr>
+                      <td>New tags for the deployment (optional)</td>
+                      <td>Tags to identify the deployment</td>
+                    </tr>
+                    <tr>
+                      <td>ML asset</td>
+                      <td>Name or ID of the machine learning asset to deploy</td>
+                    </tr>
+                    <tr>
+                      <td>Hardware specification</td>
+                      <td>Update the hardware specification for the job</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <section id="section-output-parameters-11">
+                <h4 id="output-parameters-11">Output parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Deployment</td>
+                      <td>Path of the updated deployment</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+            </md-block>
+          </details>
+          <hr>
+          <hr id="update-space">
+          <details>
+            <summary>Update deployment space</summary>
+            <md-block>
+              <p>Update the details for a space.</p>
+              <section id="section-input-parameters-16">
+                <h4 id="input-parameters-16">Input parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Space</td>
+                      <td>Path of the existing space</td>
+                    </tr>
+                    <tr>
+                      <td>Space name (optional)</td>
+                      <td>Update the space name</td>
+                    </tr>
+                    <tr>
+                      <td>Space description (optional)</td>
+                      <td>Description of the space</td>
+                    </tr>
+                    <tr>
+                      <td>Space tags (optional)</td>
+                      <td>Tags to identify the space</td>
+                    </tr>
+                    <tr>
+                      <td>WML Instance (optional)</td>
+                      <td>Specify a new Machine Learning instance</td>
+                    </tr>
+                    <tr>
+                      <td>WML instance</td>
+                      <td>Specify a new Machine Learning instance. <strong>Note:</strong> Even if you assign a different name for an instance in the UI, the system name is <strong>Machine Learning instance</strong>. Differentiate between different instances
+                        by using the instance CRN</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <section id="section-output-parameters-12">
+                <h4 id="output-parameters-12">Output parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Space</td>
+                      <td>Path of the updated space</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+            </md-block>
+          </details>
+          <hr>
+          <hr id="update-web">
+          <details>
+            <summary>Update online deployment</summary>
+            <md-block>
+              <p>Use these parameters to update an online deployment (web service).</p>
+              <section id="section-input-parameters-17">
+                <h4 id="input-parameters-17">Input parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Deployment</td>
+                      <td>Path of the existing deployment</td>
+                    </tr>
+                    <tr>
+                      <td>Deployment name (optional)</td>
+                      <td>Update the deployment name</td>
+                    </tr>
+                    <tr>
+                      <td>Deployment description (optional)</td>
+                      <td>Description of the deployment</td>
+                    </tr>
+                    <tr>
+                      <td>Deployment tags (optional)</td>
+                      <td>Tags to identify the deployment</td>
+                    </tr>
+                    <tr>
+                      <td>Asset (optional)</td>
+                      <td>Machine learning asset (or version) to be redeployed</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <section id="section-output-parameters-13">
+                <h4 id="output-parameters-13">Output parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Deployment</td>
+                      <td>Path of the updated deployment</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+            </md-block>
+          </details>
+          <hr>
+        </section>
+        <section id="section-delete">
+          <h2 id="delete">Delete nodes</h2>
+          <p>Configure parameters for delete operations.</p>
+          <hr id="delete-nodes">
+          <details>
+            <summary>Delete</summary>
+            <md-block>
+              <p>You can delete:</p>
+              <ul>
+                <li>AutoAI experiment</li>
+                <li>Batch deployment</li>
+                <li>Deployment space</li>
+                <li>Online deployment</li>
+              </ul>
+              <p>For each item, choose the asset for deletion.</p>
+            </md-block>
+          </details>
+          <hr>
+        </section>
+        <section id="section-run">
+          <h2 id="run">Run nodes</h2>
+          <p>Use these nodes to train an experiment, execute a script, or run a data flow.</p>
+          <hr id="run-autoai">
+          <details>
+            <summary>Run AutoAI experiment</summary>
+            <md-block>
+              <p>Trains and stores <a href="autoai-overview.html">AutoAI experiment</a> pipelines and models.</p>
+              <section id="section-input-parameters-18">
+                <h4 id="input-parameters-18">Input parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>AutoAI experiment</td>
+                      <td>Browse for the ML Pipeline asset or get the experiment from a pipeline parameter or the output from a previous node.</td>
+                    </tr>
+                    <tr>
+                      <td>Training data asset</td>
+                      <td>Browse or search for the data to train the experiment. Note that you can supply data at runtime by using a pipeline parameter</td>
+                    </tr>
+                    <tr>
+                      <td>Holdout data asset (optional)</td>
+                      <td>Optionally choose a separate file to use for holdout data for testingmodel performance</td>
+                    </tr>
+                    <tr>
+                      <td>Models count (optional)</td>
+                      <td>Specify how many models to save from best performing pipelines. The limit is 3 models</td>
+                    </tr>
+                    <tr>
+                      <td>Run name (optional)</td>
+                      <td>Name of the experiment and optional description and tags</td>
+                    </tr>
+                    <tr>
+                      <td>Model name prefix (optional)</td>
+                      <td>Prefix used to name trained models. Defaults to &lt;(experiment name)&gt;</td>
+                    </tr>
+                    <tr>
+                      <td>Run description (optional)</td>
+                      <td>Description of the new training run</td>
+                    </tr>
+                    <tr>
+                      <td>Run tags (optional)</td>
+                      <td>Tags for new training run</td>
+                    </tr>
+                    <tr>
+                      <td>Creation mode (optional)</td>
+                      <td>Choose how to handle a case where the pipeline flow tries to create an asset and one of the same name exists. One of: <code>ignore</code>, <code>fail</code>, <code>overwrite</code></td>
+                    </tr>
+                    <tr>
+                      <td>Error policy (optional)</td>
+                      <td>Optionally, override the default error policy for the node</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <section id="section-output-parameters-14">
+                <h4 id="output-parameters-14">Output parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Models</td>
+                      <td>List of paths of highest <em>N</em> trained and persisted model (ordered by selected evaluation metric)</td>
+                    </tr>
+                    <tr>
+                      <td>Best model</td>
+                      <td>path of the winning model (based on selected evaluation metric)</td>
+                    </tr>
+                    <tr>
+                      <td>Model metrics</td>
+                      <td>a list of trained model metrics (each item is a nested object with metrics like: holdout_accuracy, holdout_average_precision, ...)</td>
+                    </tr>
+                    <tr>
+                      <td>Winning model metric</td>
+                      <td>elected evaluation metric of the winning model</td>
+                    </tr>
+                    <tr>
+                      <td>Optimized metric</td>
+                      <td>Metric used to tune the model</td>
+                    </tr>
+                    <tr>
+                      <td>Execution status</td>
+                      <td>Information on the state of the job: pending, starting, running, completed, canceled, or failed with errors</td>
+                    </tr>
+                    <tr>
+                      <td>Status message</td>
+                      <td>Information about the state of the job</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+            </md-block>
+          </details>
+          <hr>
+          <hr id="run-bash">
+          <details>
+            <summary>Run Bash script</summary>
+            <md-block>
+              <p>Run an inline Bash script to automate a function or process for the pipeline. You can enter the Bash script code manually, or you can import the bash script from a resource, pipeline parameter, or the output of another node.</p>
+              <p>You can also use a Bash script to process large output files. For example, you can generate a large, comma-separated list that you can then iterate over using a loop.</p>
+              <p>In the following example, the user entered the inline script code manually. The script uses the <code>cpdctl</code> tool to search all notebooks with a set variable tag and aggregates the results in a JSON list. The list can then be used
+                in another node, such as running the notebooks returned from the search.</p>
+              <p><img src="images/pipeline-config-4.png" alt="Example of a bash script node" height="50%" width="50%"></p>
+              <section id="section-input-parameters-19">
+                <h4 id="input-parameters-19">Input parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Inline script code</td>
+                      <td>Enter a Bash script in the inline code editor. <em>Optional:</em> Alternatively, you can select a resource, assign a pipeline parameter, or select from another node.</td>
+                    </tr>
+                    <tr>
+                      <td>Environment variables (optional)</td>
+                      <td>Specify a variable name (the key) and a data type and add to the list of variables to use in the script.</td>
+                    </tr>
+                    <tr>
+                      <td>Runtime type (optional)</td>
+                      <td>Select either use standalone runtime (default) or a shared runtime. Use a shared runtime for tasks that require running in shared pods.</td>
+                    </tr>
+                    <tr>
+                      <td>Error policy (optional)</td>
+                      <td>Optionally, override the default error policy for the node</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <section id="section-output-parameters-15">
+                <h4 id="output-parameters-15">Output parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Output variables</td>
+                      <td>Configure a key/value pair for each custom variable, then click the Add button to populate the list of dynamic variables for the node</td>
+                    </tr>
+                    <tr>
+                      <td>Return value</td>
+                      <td>Return value from the node</td>
+                    </tr>
+                    <tr>
+                      <td>Standard output</td>
+                      <td>Standard output from the script</td>
+                    </tr>
+                    <tr>
+                      <td>Standard error <button class="bx--tag bx--tag--blue"><span class="bx--tag__label">4.8.4 and later</span></button></td>
+                      <td>Standard error message from the script</td>
+                    </tr>
+                    <tr>
+                      <td>Execution status</td>
+                      <td>Information on the state of the job: pending, starting, running, completed, canceled, or failed with errors</td>
+                    </tr>
+                    <tr>
+                      <td>Status message</td>
+                      <td>Message associated with the status</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <section id="section-rules-for-bash-script-output">
+                <h4 id="rules-for-bash-script-output">Rules for Bash script output</h4>
+                <p>The output for a Bash script is often the result of a computed expression and can be large. When you are reviewing the properties for a script with valid large output, you can preview or download the output in a viewer.</p>
+                <p>These rules govern what type of large output is valid.</p>
+                <ul>
+                  <li>The output of a <code>list_expression</code> is a calculated expression, so it is valid a large output.</li>
+                  <li>String output is treated as a literal value rather than a calculated expression, so it must follow the size limits that govern inline expressions. For example, you are warned when a literal value exceeds 1 KB and values of 2 KB and higher
+                    result in an error.</li>
+                  <li><button class="bx--tag bx--tag--blue"><span class="bx--tag__label">4.8.4 and later</span></button> You can save standard error (<code>standard_error</code>) messages as a separate output and use it as input for other nodes or use it
+                    to conditionalize executing the next node.</li>
+                </ul>
+              </section>
+              <section id="section-refvar">
+                <h4 id="refvar">Referencing a variable in a Bash script</h4>
+                <p>The way that you reference a variable in a script depends on whether the variable was created as an input variable or as an output variable. Output variables are created as a file and require a file path in the reference. Specifically:</p>
+                <ul>
+                  <li>Input variables are available using the assigned name</li>
+                  <li>Output variable names require that <code>_PATH</code> be appended to the variable name to indicate that values have to be written to the output file pointed by the <code>{output_name}_PATH</code> variable.</li>
+                </ul>
+              </section>
+              <section id="section-using-ssh-in-bash-scripts">
+                <h4 id="using-ssh-in-bash-scripts">Using SSH in Bash scripts</h4>
+                <br>
+                <p>The following steps describe how to use <code>ssh</code> to run your remote Bash script.</p>
+                <ol>
+                  <li>Create a private key and public key.<br><pre class="codeblock"><code class="lang-bash hljs">ssh-keygen -t rsa -C <span class="hljs-string">"XXX"</span>
+</code></pre>
+                  </li>
+                  <li>Copy the public key to the remote host.<br><pre class="codeblock"><code class="lang-bash hljs">ssh-copy-id USER@REMOTE_HOST
+</code></pre>
+                  </li>
+                  <li>On the remote host, check whether the public key contents are added into <code>/root/.ssh/authorized_keys</code>.<br></li>
+                  <li>Copy the public and private keys to a new directory in the <strong>Run Bash script</strong> node.<pre class="codeblock"><code class="lang-bash hljs">mkdir -p <span class="hljs-variable">$HOME</span>/.ssh
+
+<span class="hljs-comment">#copy private key content</span>
+<span class="hljs-built_in">echo</span> <span class="hljs-string">"-----BEGIN OPENSSH PRIVATE KEY-----
+... ...
+-----END OPENSSH PRIVATE KEY-----"</span> &gt; <span class="hljs-variable">$HOME</span>/.ssh/id_rsa
+
+<span class="hljs-comment">#copy public key content</span>
+<span class="hljs-built_in">echo</span> <span class="hljs-string">"ssh-rsa ...... "</span> &gt; <span class="hljs-variable">$HOME</span>/.ssh/id_rsa.pub
+
+chmod 400 <span class="hljs-variable">$HOME</span>/.ssh/id_rsa.pub
+chmod 400 <span class="hljs-variable">$HOME</span>/.ssh/id_rsa
+
+ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o GlobalKnownHostsFile=/dev/null -i <span class="hljs-variable">$HOME</span>/.ssh/id_rsa USER@REMOTE_HOST <span class="hljs-string">"cd /opt/scripts; ls -l; sh 1.sh"</span>
+</code></pre>
+                  </li>
+                </ol>
+              </section>
+              <section id="section-using-ssh-utilities-in-bash-scripts">
+                <h4 id="using-ssh-utilities-in-bash-scripts">Using SSH utilities in Bash scripts</h4>
+                <br>
+                <p>The following steps describe how to use <code>sshpass</code> to run your remote Bash script.</p>
+                <ol>
+                  <li>Put your SSH password file in your system path, such as the mounted storage volume path.</li>
+                  <li>Use the SSH password directly in the <strong>Run Bash script</strong> node:<pre class="codeblock"><code class="lang-bash hljs"><span class="hljs-built_in">cd</span> /mnts/orchestration
+ls -l sshpass
+chmod 777 sshpass
+./sshpass -p PASSWORD ssh -o StrictHostKeyChecking=no USER@REMOTE_HOST <span class="hljs-string">"cd /opt/scripts; ls -l; sh 1.sh"</span>
+</code></pre>
+                  </li>
+                </ol>
+              </section>
+            </md-block>
+          </details>
+          <hr>
+          <hr id="run-batch">
+          <details>
+            <summary>Run batch deployment</summary>
+            <md-block>
+              <p>Configure this node to run selected deployment jobs.</p>
+              <section id="section-input-parameters-20">
+                <h4 id="input-parameters-20">Input parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Deployment</td>
+                      <td>Browse or search for the deployment job</td>
+                    </tr>
+                    <tr>
+                      <td>Input data assets</td>
+                      <td>Specify the data used for the batch job <br>
+                        <div class="note restriction"><span class="restrictiontitle">Restriction:</span> Input for batch deployment jobs is limited to data assets. Deployments that require JSON input or multiple files as input, are not supported. For example, SPSS models and Decision
+                          Optimization solutions that require multiple files as input are not supported.</div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Output asset</td>
+                      <td>Name of the output file for the results of the batch job. You can either select <em>Filename</em> and enter a custom file name, or <em>Data asset</em> and select an existing asset in a space.</td>
+                    </tr>
+                    <tr>
+                      <td>Hardware specification (optional)</td>
+                      <td>Browse for a hardware specification to apply for the job</td>
+                    </tr>
+                    <tr>
+                      <td>Error policy (optional)</td>
+                      <td>Optionally, override the default error policy for the node</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <section id="section-output-parameters-16">
+                <h4 id="output-parameters-16">Output parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Job</td>
+                      <td>Path to the file with results from the deployment job</td>
+                    </tr>
+                    <tr>
+                      <td>Job run</td>
+                      <td>ID for the job</td>
+                    </tr>
+                    <tr>
+                      <td>Execution status</td>
+                      <td>Information on the state of the job: pending, starting, running, completed, canceled, or failed with errors</td>
+                    </tr>
+                    <tr>
+                      <td>Status message</td>
+                      <td>Information about the state of the job</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+            </md-block>
+          </details>
+          <hr>
+          <hr id="run-datastage">
+          <details>
+            <summary>Run DataStage job</summary>
+            <md-block>
+            </md-block>
+          </details>
+          <hr>
+          <hr id="run-data-refine">
+          <details>
+            <summary>Run Data Refinery job</summary>
+            <md-block>
+              <p>This node runs a specified Data Refinery job.</p>
+              <section id="section-input-parameters-21">
+                <h4 id="input-parameters-21">Input parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Data Refinery job</td>
+                      <td>Path to the Data Refinery job.</td>
+                    </tr>
+                    <tr>
+                      <td>Environment</td>
+                      <td>Path of the environment used to run the job
+                        <div class="note attention"><span class="attentiontitle">Attention:</span> Leave the environments field as is to use the default runtime. If you choose to override, specify an alternate environment for running the job. Be sure any environment that you specify
+                          is compatible with the component language and hardware configuration to avoid a runtime error.</div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Error policy (optional)</td>
+                      <td>Optionally, override the default error policy for the node</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <section id="section-output-parameters-17">
+                <h4 id="output-parameters-17">Output parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Job</td>
+                      <td>Path to the results from the Data Refinery job</td>
+                    </tr>
+                    <tr>
+                      <td>Job run</td>
+                      <td>Information about the job run</td>
+                    </tr>
+                    <tr>
+                      <td>Job name</td>
+                      <td>Name of the job</td>
+                    </tr>
+                    <tr>
+                      <td>Execution status</td>
+                      <td>Information on the state of the flow: pending, starting, running, completed, canceled, or failed with errors</td>
+                    </tr>
+                    <tr>
+                      <td>Status message</td>
+                      <td>Information about the state of the flow</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+            </md-block>
+          </details>
+          <hr>
+          <hr id="run-notebook">
+          <details>
+            <summary>Run notebook job</summary>
+            <md-block>
+              <p>Use these configuration options to specify how to run a Jupyter Notebook in a pipeline.</p>
+              <section id="section-input-parameters-22">
+                <h4 id="input-parameters-22">Input parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Notebook job</td>
+                      <td>Path to the notebook job.</td>
+                    </tr>
+                    <tr>
+                      <td>Environment</td>
+                      <td>Path of the environment used to run the notebook.
+                        <div class="note attention"><span class="attentiontitle">Attention:</span> Leave the environments field as is to use the default environment. If you choose to override, specify an alternate environment for running the job. Be sure any environment that you
+                          specify is compatible with the notebook language and hardware configuration to avoid a runtime error.</div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Environment variables (optional)</td>
+                      <td>List of environment variables used to run the notebook job</td>
+                    </tr>
+                    <tr>
+                      <td>Error policy (optional)</td>
+                      <td>Optionally, override the default error policy for the node</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <p><strong>Notes:</strong></p>
+                <ul>
+                  <li>Environment variables that you define in a pipeline cannot be used for notebook jobs you run outside of Watson Pipelines.</li>
+                  <li>You can run a notebook from a code package in a regular package.</li>
+                </ul>
+              </section>
+              <section id="section-output-parameters-18">
+                <h4 id="output-parameters-18">Output parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Job</td>
+                      <td>Path to the results from the notebook job</td>
+                    </tr>
+                    <tr>
+                      <td>Job run</td>
+                      <td>Information about the job run</td>
+                    </tr>
+                    <tr>
+                      <td>Job name</td>
+                      <td>Name of the job</td>
+                    </tr>
+                    <tr>
+                      <td>Output variables</td>
+                      <td>Configure a key/value pair for each custom variable, then click <strong>Add</strong> to populate the list of dynamic variables for the node</td>
+                    </tr>
+                    <tr>
+                      <td>Execution status</td>
+                      <td>Information on the state of the run: pending, starting, running, completed, canceled, or failed with errors</td>
+                    </tr>
+                    <tr>
+                      <td>Status message</td>
+                      <td>Information about the state of the notebook run</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+            </md-block>
+          </details>
+          <hr>
+          <hr id="run-cust-comp">
+          <details>
+            <summary>Run Pipelines component</summary>
+            <md-block>
+              <p>Run a reusable pipeline component that is created by using a Python script. For more information, see <a href="ml-orchestration-custom-comp.html">Creating a custom component</a>.</p>
+              <ul>
+                <li>If a pipeline component is available, configuring the node presents a list of available components.</li>
+                <li>The component that you choose specifies the input and output for the node.</li>
+                <li>Once you assign a component to a node, you cannot delete or change the component. You must delete the node and create a new one.</li>
+              </ul>
+            </md-block>
+          </details>
+          <hr>
+          <hr id="run-pipeline">
+          <details>
+            <summary>Run Pipelines job</summary>
+            <md-block>
+              <p>Add a pipeline to run a nested pipeline job as part of a containing pipeline. This is a way of adding reusable processes to multiple pipelines. You can use the output from a nested pipeline that is run as input for a node in the containing
+                pipeline.</p>
+              <section id="section-input-parameters-23">
+                <h4 id="input-parameters-23">Input parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Pipelines job</td>
+                      <td>Select or enter a path to an existing Pipelines job.</td>
+                    </tr>
+                    <tr>
+                      <td>Environment (optional)</td>
+                      <td>Select the environment to run the Pipelines job in, and assign environment resources.
+                        <div class="note attention"><span class="attentiontitle">Attention:</span> Leave the environments field as is to use the default runtime. If you choose to override, specify an alternate environment for running the job. Be sure any environment that you specify
+                          is compatible with the component language and hardware configuration to avoid a runtime error.</div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Job Run Name (optional)</td>
+                      <td>A default job run name is used unless you override it by specifying a custom job run name. You can see the job run name in the <strong>Job Details</strong> dashboard.</td>
+                    </tr>
+                    <tr>
+                      <td>Values for local parameters (optional)</td>
+                      <td>Edit the default job parameters. This option is available only if you have local parameters in the job.</td>
+                    </tr>
+                    <tr>
+                      <td>Values from parameter sets (optional)</td>
+                      <td>Edit the parameter sets used by this job. You can choose to use the parameters as defined by default, or use value sets from other pipelines' parameters.</td>
+                    </tr>
+                    <tr>
+                      <td>Error policy (optional)</td>
+                      <td>Optionally, override the default error policy for the node</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <section id="section-output-parameters-19">
+                <h4 id="output-parameters-19">Output parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Job</td>
+                      <td>Path to the results from the pipeline job</td>
+                    </tr>
+                    <tr>
+                      <td>Job run</td>
+                      <td>Information about the job run</td>
+                    </tr>
+                    <tr>
+                      <td>Job name</td>
+                      <td>Name of the job</td>
+                    </tr>
+                    <tr>
+                      <td>Execution status</td>
+                      <td>Returns a value of: Completed, Completed with warnings, Completed with errors, Failed, or Canceled</td>
+                    </tr>
+                    <tr>
+                      <td>Status message</td>
+                      <td>Message associated with the status</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <section id="section-notes-for-running-nested-pipeline-jobs">
+                <h4 id="notes-for-running-nested-pipeline-jobs">Notes for running nested pipeline jobs</h4>
+                <p>If you create a pipeline with nested pipelines and run a pipeline job from the top-level, the pipelines are named and saved as project assets that use this convention:</p>
+                <ul>
+                  <li>The top-level pipeline job is named "Trial job - <em>pipeline guid</em>".</li>
+                  <li>All subsequent jobs are named "pipeline_ <em>pipeline guid</em>".</li>
+                </ul>
+              </section>
+            </md-block>
+          </details>
+          <hr>
+          <hr id="run-spss">
+          <details>
+            <summary>Run SPSS Modeler job</summary>
+            <md-block>
+              <p>Use these configuration options to specify how to run an SPSS Modeler in a pipeline.</p>
+              <section id="section-input-parameters-24">
+                <h4 id="input-parameters-24">Input parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>SPSS Modeler job</td>
+                      <td>Select or enter a path to an existing SPSS Modeler job.</td>
+                    </tr>
+                    <tr>
+                      <td>Environment (optional)</td>
+                      <td>Select the environment to run the SPSS Modeler job in, and assign environment resources.
+                        <div class="note attention"><span class="attentiontitle">Attention:</span> Leave the environments field as is to use the default SPSS Modeler runtime. If you choose to override, specify an alternate environment for running the job. Be sure any environment
+                          that you specify is compatible with the hardware configuration to avoid a runtime error.</div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Values for local parameters</td>
+                      <td>Edit the default job parameters. This option is available only if you have local parameters in the job.</td>
+                    </tr>
+                    <tr>
+                      <td>Error policy (optional)</td>
+                      <td>Optionally, override the default error policy for the node</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <section id="section-output-parameters-20">
+                <h4 id="output-parameters-20">Output parameters</h4>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Job</td>
+                      <td>Path to the results from the pipeline job</td>
+                    </tr>
+                    <tr>
+                      <td>Job run</td>
+                      <td>Information about the job run</td>
+                    </tr>
+                    <tr>
+                      <td>Job name</td>
+                      <td>Name of the job</td>
+                    </tr>
+                    <tr>
+                      <td>Execution status</td>
+                      <td>Returns a value of: Completed, Completed with warnings, Completed with errors, Failed, or Canceled</td>
+                    </tr>
+                    <tr>
+                      <td>Status message</td>
+                      <td>Message associated with the status</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+            </md-block>
+          </details>
+          <hr>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p><strong>Parent topic:</strong> <a href="ml-orchestration-create.html">Creating a pipeline</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

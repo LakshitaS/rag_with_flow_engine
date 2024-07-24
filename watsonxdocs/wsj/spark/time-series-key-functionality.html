@@ -1,0 +1,162 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="The time series library provides various functions on univariate, multivariate, multi-key time series as well as numeric and categorical types.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Time series key functionality</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=analysis-time-series-key-functionality"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="time-series-key-functionality" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-time-series-key-functionality">
+        <h1 id="time-series-key-functionality">Time series key functionality</h1>
+        <p>The time series library provides various functions on univariate, multivariate, multi-key time series as well as numeric and categorical types.</p>
+        <p>The functionality provided by the library can be broadly categorized into:</p>
+        <ul>
+          <li>Time series I/O, for creating and saving time series data</li>
+          <li>Time series functions, transforms, windowing or segmentation, and reducers</li>
+          <li>Time series SQL and SQL extensions to Spark to enable executing scalable time series functions</li>
+        </ul>
+        <p>Some of the key functionality is shown in the following sections using examples.</p>
+        <section id="section-time-series-io">
+          <h2 id="time-series-io">Time series I/O</h2>
+          <p>The primary input and output (I/O) functionality for a time series is through a pandas DataFrame or a Python list. The following code sample shows constructing a time series from a DataFrame:</p>
+          <pre class="codeblock"><code class="lang-Python hljs"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-meta">&gt;&gt;&gt; </span>data = np.array([[<span class="hljs-string">''</span>, <span class="hljs-string">'key'</span>, <span class="hljs-string">'timestamp'</span>, <span class="hljs-string">"value"</span>],[<span class="hljs-string">''</span>, <span class="hljs-string">"a"</span>, <span class="hljs-number">1</span>, <span class="hljs-number">27</span>], [<span class="hljs-string">''</span>, <span class="hljs-string">"b"</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>], [<span class="hljs-string">''</span>, <span class="hljs-string">"a"</span>, <span class="hljs-number">5</span>, <span class="hljs-number">17</span>], [<span class="hljs-string">''</span>, <span class="hljs-string">"a"</span>, <span class="hljs-number">3</span>, <span class="hljs-number">7</span>], [<span class="hljs-string">''</span>, <span class="hljs-string">"b"</span>, <span class="hljs-number">2</span>, <span class="hljs-number">45</span>]])
+<span class="hljs-meta">&gt;&gt;&gt; </span>df = pd.DataFrame(data=data[<span class="hljs-number">1</span>:, <span class="hljs-number">1</span>:], index=data[<span class="hljs-number">1</span>:, <span class="hljs-number">0</span>], columns=data[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>:]).astype(dtype={<span class="hljs-string">'key'</span>: <span class="hljs-string">'object'</span>, <span class="hljs-string">'timestamp'</span>: <span class="hljs-string">'int64'</span>, <span class="hljs-string">'value'</span>: <span class="hljs-string">'float64'</span>})
+<span class="hljs-meta">&gt;&gt;&gt; </span>df
+key  timestamp  value
+  a          <span class="hljs-number">1</span>   <span class="hljs-number">27.0</span>
+  b          <span class="hljs-number">3</span>    <span class="hljs-number">4.0</span>
+  a          <span class="hljs-number">5</span>   <span class="hljs-number">17.0</span>
+  a          <span class="hljs-number">3</span>    <span class="hljs-number">7.0</span>
+  b          <span class="hljs-number">2</span>   <span class="hljs-number">45.0</span>
+
+<span class="hljs-comment">#Create a timeseries from a dataframe, providing a timestamp and a value column</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>ts = tspy.time_series(df, ts_column=<span class="hljs-string">"timestamp"</span>, value_column=<span class="hljs-string">"value"</span>)
+<span class="hljs-meta">&gt;&gt;&gt; </span>ts
+TimeStamp: <span class="hljs-number">1</span>     Value: <span class="hljs-number">27.0</span>
+TimeStamp: <span class="hljs-number">2</span>     Value: <span class="hljs-number">45.0</span>
+TimeStamp: <span class="hljs-number">3</span>     Value: <span class="hljs-number">4.0</span>
+TimeStamp: <span class="hljs-number">3</span>     Value: <span class="hljs-number">7.0</span>
+TimeStamp: <span class="hljs-number">5</span>     Value: <span class="hljs-number">17.0</span>
+</code></pre>
+          <p>To revert from a time series back to a pandas DataFrame, use the <code>to_df</code> function:</p>
+          <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> tspy
+<span class="hljs-meta">&gt;&gt;&gt; </span>ts_orig = tspy.time_series([<span class="hljs-number">1.0</span>, <span class="hljs-number">2.0</span>, <span class="hljs-number">3.0</span>])
+<span class="hljs-meta">&gt;&gt;&gt; </span>ts_orig
+TimeStamp: <span class="hljs-number">0</span>     Value: <span class="hljs-number">1</span>
+TimeStamp: <span class="hljs-number">1</span>     Value: <span class="hljs-number">2</span>
+TimeStamp: <span class="hljs-number">2</span>     Value: <span class="hljs-number">3</span>
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>df = ts_orig.to_df()
+<span class="hljs-meta">&gt;&gt;&gt; </span>df
+   timestamp  value
+<span class="hljs-number">0</span>          <span class="hljs-number">0</span>      <span class="hljs-number">1</span>
+<span class="hljs-number">1</span>          <span class="hljs-number">1</span>      <span class="hljs-number">2</span>
+<span class="hljs-number">2</span>          <span class="hljs-number">2</span>      <span class="hljs-number">3</span>
+</code></pre>
+        </section>
+        <section id="section-data-model">
+          <h2 id="data-model">Data model</h2>
+          <p>Time series data does not have any standards for the model and data types, unlike some data types such as spatial, which are governed by a standard such as Open Geospatial Consortium (OGC). The challenge with time series data is the wide variety
+            of functions that need to be supported, similar to that of Spark Resilient Distributed Datasets (RDD).</p>
+          <p>The data model allows for a wide variety of operations ranging across different forms of segmentation or windowing of time series, transformations or conversions of one time series to another, reducers that compute a static value from a time
+            series, joins that join multiple time series, and collectors of time series from different time zones. The time series library enables the plug-and-play of new functions while keeping the core data structure unchangeable. The library also
+            support numeric and categorical typed timeseries.</p>
+          <p>With time zones and various human readable time formats, a key aspect of the data model is support for Time Reference System (TRS). Every time series is associated with a TRS (system default), which can be remapped to any specific choice of
+            the user at any time, enabling easy transformation of a specific time series or a segment of a time series. See <a href="time-reference-system.html">Using time reference system</a>.</p>
+          <p>Further, with the need for handling large scale time series, the library offers a lazy evaluation construct by providing a mechanism for identifying the maximal narrow temporal dependency. This construct is very similar to that of a Spark computation
+            graph, which also loads data into memory on as needed basis and realizes the computations only when needed.</p>
+        </section>
+        <section id="section-time-series-data-types">
+          <h2 id="time-series-data-types">Time series data types</h2>
+          <p>You can use multiple data types as an element of a time series, spanning numeric, categorical, array, and dictionary data structures.</p>
+          <p>The following data types are supported in a time series:</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Data type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>numeric</td>
+                <td>Time series with univariate observations of numeric type including double and integer. For example:<code>[(1, 7.2), (3, 4.5), (5, 4.5), (5, 4.6), (5, 7.1), (7, 3.9), (9, 1.1)]</code></td>
+              </tr>
+              <tr>
+                <td>numeric array</td>
+                <td>Time series with multivariate observations of numeric type, including double array and integer array. For example: <code>[(1, [7.2, 8.74]), (3, [4.5, 9.44]), (5, [4.5, 10.12]), (5, [4.6, 12.91]), (5, [7.1, 9.90]), (7, [3.9, 3.76])]</code></td>
+              </tr>
+              <tr>
+                <td>string</td>
+                <td>Time series with univariate observations of type string, for example: <code>[(1, "a"), (3, "b"), (5, "c"), (5, "d"), (5, "e"), (7, "f"), (9, "g")]</code></td>
+              </tr>
+              <tr>
+                <td>string array</td>
+                <td>Time series with multivariate observations of type string array, for example: <code>[(1, ["a", "xq"]), (3, ["b", "zr"]), (5, ["c", "ms"]), (5, ["d", "rt"]), (5, ["e", "wu"]), (7, ["f", "vv"]), (9, ["g", "zw"])]</code></td>
+              </tr>
+              <tr>
+                <td>segment</td>
+                <td>Time series of segments. The output of the <code>segmentBy</code> function, can be any type, including numeric, string, numeric array, and string array. For example: <code>[(1,[(1, 7.2), (3, 4.5)]), (5,[(5, 4.5), (5, 4.6), (5, 7.1)]), (7,[(7, 3.9), (9, 1.1)])]</code></td>
+              </tr>
+              <tr>
+                <td>dictionary</td>
+                <td>Time series of dictionaries. A dictionary can have arbitrary types inside it</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section id="section-time-series-functions">
+          <h2 id="time-series-functions">Time series functions</h2>
+          <p>You can use different functions in the provided time series packages to analyze time series data to extract meaningful information with which to create models that can be used to predict new values based on previously observed values. See
+            <a href="time-series-functions.html">Time series functions</a>.</p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p>To use the <code>tspy</code> Python SDK, see the <a href="https://ibm-cloud.github.io/tspy-docs/"><code>tspy</code> Python SDK documentation</a>.</p>
+          <p><strong>Parent topic:</strong> <a href="../spark/time-series-lib.html">Time series analysis</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="If you are using the watsonx.governance service, learn how to track and govern an AI asset, such as a machine learning model or a foundation model asset, in a notebook.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Tracking an AI asset in a notebook</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=case-tracking-assets-in-notebook"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="tracking-an-ai-asset-in-a-notebook" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-tracking-an-ai-asset-in-a-notebook">
+        <h1 id="tracking-an-ai-asset-in-a-notebook">Tracking an AI asset in a notebook</h1>
+        <p>If you are using the watsonx.governance service, learn how to track and govern an AI asset, such as a machine learning model or a foundation model asset, in a notebook.</p>
+        <p>To track an AI asset programmatically, use the <a href="https://ibm.github.io/watson-machine-learning-sdk/" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Python client documentation</a> or the <a href="https://s3.us.cloud-object-storage.appdomain.cloud/factsheets-client/index.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM_AIGOV_FACTS_CLIENT documentation</a> to register an asset and add it to an AI use case.</p>
+        <p>The sample code demonstrates how to register and track a machine learning model.</p>
+        <section id="section-register-model">
+          <h2 id="register-model">Tracking an AI asset</h2>
+          <p>If your model is in a notebook, you can insert code to register the model with an AI use case.</p>
+          <ol>
+            <li>Create a use case:</li>
+          </ol>
+          <pre class="codeblock"><code class="lang-python hljs">model_usecase_catalog_id = <span class="hljs-string">"b54179b3-d6f9-4886-bd48-a248c60d1f36"</span> <span class="hljs-comment"># Specify the catalog to store the use case</span>
+model_usecase_name=<span class="hljs-string">"model_usecase_name_here"</span>
+model_usecase_desc=<span class="hljs-string">"model usecase for data here"</span>
+
+model_usecase = facts_client.assets.create_model_usecase(catalog_id=model_usecase_catalog_id,name=model_usecase_name,description=model_usecase_desc)
+model_usecase.get_info(<span class="hljs-literal">True</span>)
+</code></pre>
+          <ol start="2">
+            <li>Create an approach in the use case:</li>
+          </ol>
+          <pre class="codeblock"><code class="lang-python hljs">name_approach = model_usecase.create_approach(name=<span class="hljs-string">"nameapproach"</span>,description=<span class="hljs-string">"approach for data here"</span>)
+name_approach.get_info()
+</code></pre>
+          <ol start="3">
+            <li>Retrieve the approach:</li>
+          </ol>
+          <pre class="codeblock"><code class="lang-python hljs">retrieve_approaches = model_usecase.get_approaches()
+name_approach = model_usecase.get_approach(approach_id=retrieve_approaches[<span class="hljs-number">0</span>].get_id())
+</code></pre>
+          <ol start="4">
+            <li>Track the model in the use case:</li>
+          </ol>
+          <pre class="codeblock"><code class="lang-python hljs">wml_model = facts_client.assets.get_model(model_id=<span class="hljs-string">"your model id "</span>,container_type=<span class="hljs-string">"project"</span>,container_id=<span class="hljs-string">"container id"</span>)<span class="hljs-comment">## model id is the auto ai model id</span>
+wml_model.track(model_usecase=model_usecase,approach=name_approach,version_number=<span class="hljs-string">"major"</span>,version_comment=<span class="hljs-string">"name model major version"</span>)
+</code></pre>
+          <p>For details on using Python commands to interact with AI use cases, see <a href="https://ibm.github.io/watson-machine-learning-sdk/" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Python client documentation</a>            and the <a href="https://s3.us.cloud-object-storage.appdomain.cloud/factsheets-client/index.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM_AIGOV_FACTS_CLIENT documentation</a>.</p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p><strong>Parent topic:</strong> <a href="xgov-tracking-overview.html">Tracking assets in an AI use case</a>.</p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

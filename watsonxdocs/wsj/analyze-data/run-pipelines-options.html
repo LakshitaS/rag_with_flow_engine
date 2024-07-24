@@ -1,0 +1,117 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="When you run a pipeline in a project, most resources are tracked and billed for the components included in the pipeline. For example, running a notebook in a pipeline consumes resources for that notebook according to the environment specified. One resource explicitly charged for a pipeline is execution time running a Bash script node.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Compute resource options for Watson Pipelines</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=tools-compute-options-watson-pipelines"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="compute-resource-options-for-watson-pipelines" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-compute-resource-options-for-watson-pipelines">
+        <h1 id="compute-resource-options-for-watson-pipelines">Compute resource options for Watson Pipelines</h1>
+        <p>When you run a pipeline in a project, most resources are tracked and billed for the components included in the pipeline. For example, running a notebook in a pipeline consumes resources for that notebook according to the environment specified.
+          One resource explicitly charged for a pipeline is execution time running a Bash script node.</p>
+        <section id="section-default">
+          <h2 id="default">Default hardware configurations</h2>
+          <p>You can specify a hardware configuration to use for executing a Bash script. The configuration you choose dictates the rate of CUH consumption billed to your Watson Studio plan.</p>
+          <section id="section-capacity-units-per-hour-for-bash-script">
+            <h3 id="capacity-units-per-hour-for-bash-script">Capacity units per hour for Bash script</h3>
+            <table>
+              <caption caption-side="top">Hardware configurations available in pipelines for executing Bash scripts</caption>
+              <thead>
+                <tr>
+                  <th>Size</th>
+                  <th>Capacity type</th>
+                  <th>Capacity units per hour</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>XXS</td>
+                  <td>1 vCPU and 2 GB RAM</td>
+                  <td>0.5</td>
+                </tr>
+                <tr>
+                  <td>XS</td>
+                  <td>1 vCPU and 4 GB RAM</td>
+                  <td>0.5</td>
+                </tr>
+                <tr>
+                  <td>S</td>
+                  <td>2 vCPU and 8 GB RAM</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>M</td>
+                  <td>4 vCPU and 16 GB RAM</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>ML</td>
+                  <td>4 vCPU and 32 GB RAM</td>
+                  <td>2</td>
+                </tr>
+              </tbody>
+            </table>
+            <p><strong>Notes:</strong></p>
+            <ul>
+              <li>The runtimes for Bash scripts stop automatically when processing is complete.</li>
+              <li>Resource consumption is measured in seconds, with a minimum of 1 second. For example, if the execution time is 52.1 seconds, the charge is for 53 seconds.</li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-compute">
+          <h2 id="compute">Compute usage in projects</h2>
+          <p>Watson Pipelines consumes compute resources as CUH from the Watson Studio service.</p>
+          <p>You can monitor the total monthly amount of CUH consumption for the Watson Machine Learning service on the <strong>Resource usage</strong> page on the <strong>Manage</strong> tab of your project.</p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="run-cuh-deploy-spaces.html">Compute resource options for assets and deployments in spaces</a></li>
+            <li><a href="../admin/monitor-resources.html">Monitoring account resource usage</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="../analyze-data/environments-parent.html">Choosing compute resources for tools</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

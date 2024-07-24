@@ -1,0 +1,136 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Watson OpenScale evaluate models for bias to ensure fair outcomes among different groups.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Configuring fairness evaluations in Watson OpenScale</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=evaluations-configuring-fairness"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="configuring-fairness-evaluations-in-watson-openscale" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-configuring-fairness-evaluations-in-watson-openscale">
+        <h1 id="configuring-fairness-evaluations-in-watson-openscale">Configuring fairness evaluations in Watson OpenScale</h1>
+        <p>Watson OpenScale evaluate models for bias to ensure fair outcomes among different groups.</p>
+        <section id="section-evaluating-the-model-for-fairness">
+          <h2 id="evaluating-the-model-for-fairness">Evaluating the model for fairness</h2>
+          <p>You can use fairness evaluations to determine whether your model produces biased outcomes. The fairness evaluation checks when the model shows a tendency to provide a favorable (preferable) outcome more often for one group over another.</p>
+          <p>The fairness evaluation generates a set of metrics every hour by default. You can generate these metrics on demand by clicking <strong>Evaluate fairness now</strong> or by using the <a href="https://client-docs.aiopenscale.cloud.ibm.com/html/index.html">Python client</a>.</p>
+          <p>When you test an evaluation in a pre-production environment, you evaluate fairness based on test data. Test data must have the same format and schema as the training data you used to train the model.</p>
+          <p>In a production environment, you monitor feedback data, which is the actual data logged with payload logging. For proper monitoring, you must regularly log feedback data to Watson OpenScale. You can provide feedback data by clicking <strong>Upload feedback data</strong>            on the <strong>Evaluations</strong> page of the Watson OpenScale <strong>Insights dashboard</strong>. You can also provide feedback data by using the Python client or REST API.</p>
+        </section>
+        <section id="section-before-you-begin">
+          <h2 id="before-you-begin">Before you begin</h2>
+          <p>Before configuring the fairness evaluation, you must <a href="wos-model-details.html">provide model details</a> and <a href="wos-manage-payload-data.html">upload payload data</a> to enable fairness evaluations.</p>
+          <p>To configure fairness evaluations unstructured text and image models, you must provide payload data that contains meta fields, such as Gender, to calculate disparate impact. To calculate performance metrics for unstructured text and image models,
+            you must also provide feedback data that contains meta fields with the correctly predicted outcomes.</p>
+          <p>You must complete similar requirements when you <a href="wos-indirect-bias.html">configure fairness evaluations for indirect bias</a>. When you configure fairness evaluations for unstructured text and image models, you don't have to provide
+            training data.</p>
+        </section>
+        <section id="section-configuring-the-evaluation">
+          <h2 id="configuring-the-evaluation">Configuring the evaluation</h2>
+          <p>You can configure fairness evaluations manually or you can run a <a href="https://github.com/IBM/watson-openscale-samples/blob/main/training%20statistics/4.6/training_statistics_notebook.ipynb">custom notebook</a> to generate a configuration
+            file. You can upload the configuration file to specify the settings for your evaluation.</p>
+          <p>When you configure fairness evaluations manually, you can specify the reference group (value) that you expect to represent favorable outcomes. You can also select the corresponding model attributes (features) to monitor for bias (for example,
+            Age or Sex), that will be compared against the reference group. Depending on your training data, you can also specify the minimum and maximum sample size that will be evaluated.</p>
+          <section id="section-favorable-and-unfavorable-outcomes">
+            <h3 id="favorable-and-unfavorable-outcomes">Favorable and unfavorable outcomes</h3>
+            <p>The output of the model is categorized as either favorable or unfavorable. For example, if the model is recommending whether a person gets a loan or not, then the Favorable outcome might be <code>Loan Granted</code> or <code>Loan Partially Granted</code>.
+              The unfavorable outcome might be <code>Loan Denied</code>.</p>
+            <p>The values that represent a favorable outcome are derived from the <code>label</code> column in the <a href="wos-manage-training-data.html">training data</a>. By default the <code>predictedLabel</code> column is set as the <code>prediction</code>              column. Favorable and unfavorable values must be specified by using the value of the <code>prediction</code> column as a string data type, such as <code>0</code> or <code>1</code> when you are uploading training data.</p>
+          </section>
+          <section id="section-metrics">
+            <h3 id="metrics">Metrics</h3>
+            <p>This section allows users to select all the metrics they want to configure. By default only Disparate impact metric is computed.</p>
+          </section>
+          <section id="section-mf-monitor-reqs-min">
+            <h3 id="mf-monitor-reqs-min">Minimum sample size </h3>
+            <p>The minimum sample size is set to delay the fairness evaluation until a minimum number of records are available in the evaluation data set. This function ensures that the sample size is not too small and skews results. By setting a minimum
+              sample size, you prevent measuring fairness until a minimum number of records are available in the evaluation data set. This ensures that the sample size is not too small to skew results. When the fairness monitor runs, it uses the minimum
+              sample size to decide the number of records that are evaluated.</p>
+          </section>
+          <section id="section-mf-monitor-reqs-refandmon">
+            <h3 id="mf-monitor-reqs-refandmon">Features: Reference and monitored groups </h3>
+            <p>The values of the features are specified as either a reference or monitored group. The monitored group represents the values that are most at risk for biased outcomes. For example, for the <strong><code>Sex</code></strong> feature, you can
+              set <code>Female</code> and <code>Non-binary</code> as the monitored groups. For a numeric feature, such as <strong><code>Age</code></strong>, you can set <code>[18-25]</code> as the monitored group. All other values for the feature are
+              then considered as the reference group, for example, <code>Sex=Male</code> or <code>Age=[26,100]</code>.</p>
+          </section>
+        </section>
+        <section id="section-configuring-thresholds-for-the-monitor">
+          <h2 id="configuring-thresholds-for-the-monitor">Configuring thresholds for the monitor</h2>
+          <p>To configure the model for fairness, follow these steps:</p>
+          <ol>
+            <li>Select a model deployment tile and click <strong>Configure monitors</strong>.</li>
+            <li>Select <strong>Fairness</strong> in the <strong>Evaluations</strong> section of the <strong>Configure</strong> tab.</li>
+            <li>For each configuration item, click <strong>Edit</strong> <img src="images/wos-edit-icon.png" alt="The edit icon"> to specify the Favorable outcomes, Sample Size, and the features to evaluate.</li>
+          </ol>
+          <section id="section-features">
+            <h3 id="features">Features</h3>
+            <p>The features are the model attributes that are evaluated to detect bias. For example, you can configure the fairness monitor to evaluate features such as <code>Sex</code> or <code>Age</code> for bias. Only features that are of categorical,
+              numeric (integer), float, or double fairness data type are supported.</p>
+          </section>
+          <section id="section-mf-monitor-reqs-thresh">
+            <h3 id="mf-monitor-reqs-thresh">Fairness alert threshold</h3>
+            <p>The fairness alert threshold specifies an acceptable difference between the percentage of favorable outcomes for the monitored group and the percentage of favorable outcomes for the reference group. For example, if the percentage of favorable
+              outcomes for a group in your model is 70% and the fairness threshold is set to 80%, then the fairness monitor detects bias in your model.</p>
+          </section>
+        </section>
+        <section id="section-testing-for-indirect-bias">
+          <h2 id="testing-for-indirect-bias">Testing for indirect bias</h2>
+          <p>If you select a field that is not a training feature, called an added field, Watson OpenScale will look for indirect bias by finding associated values in the training features. For example, the profession “student” may imply a younger individual
+            even though the Age field was excluded from model training.For details on configuring the Fairness monitor to consider indirect bias, see <a href="wos-indirect-bias.html">Configuring the Fairness monitor for indirect bias</a>.</p>
+        </section>
+        <section id="section-mitigating-bias">
+          <h2 id="mitigating-bias">Mitigating bias</h2>
+          <p>Watson OpenScale uses two types of debiasing: passive and active. Passive debiasing reveals bias, while active debiasing prevents you from carrying that bias forward by changing the model in real time for the current application. For details
+            on interpreting results and mitigating bias in a model, see <a href="wos-insight-debias.html">Reviewing results from a Fairness evaluation</a>.</p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="wos-fairness-metrics-ovr.html">Fairness metrics overview</a></li>
+            <li><a href="wos-fairness-impl-det.html">Calculating fairness</a></li>
+            <li><a href="wos-indirect-bias.html">Configuring the fairness monitor for indirect bias</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="wos-monitors-overview.html">Configuring model evaluations</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

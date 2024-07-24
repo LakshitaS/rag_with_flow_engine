@@ -1,0 +1,125 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can create, edit and execute Python and R code using Jupyter notebooks and scripts in code editors, for example   the notebook editor or an integrated development environment (IDE), like RStudio.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Notebooks and scripts</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=models-notebooks-scripts"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="notebooks-and-scripts" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-notebooks-and-scripts">
+        <h1 id="notebooks-and-scripts">Notebooks and scripts</h1>
+        <p>You can create, edit and execute Python and R code using Jupyter notebooks and scripts in code editors, for example the notebook editor or an integrated development environment (IDE), like RStudio.</p>
+        <dl>
+          <dt><strong>Notebooks</strong></dt>
+          <dd>A Jupyter notebook is a web-based environment for interactive computing. You can use notebooks to run small pieces of code that process your data, and you can immediately view the results of your computation. Notebooks include all of the building
+            blocks you need to work with data, namely the data, the code computations that process the data, the visualizations of the results, and text and rich media to enhance understanding.</dd>
+          <dt><strong>Scripts</strong></dt>
+          <dd>A script is a file containing a set of commands and comments. The script can be saved and used later to re-execute the saved commands. Unlike in a notebook, the commands in a script can only be executed in a linear fashion.</dd>
+        </dl>
+        <section id="section-notebooks">
+          <h2 id="notebooks">Notebooks</h2>
+          <dl>
+            <dt><strong>Required permissions</strong></dt>
+            <dd><strong>Editor</strong> or <strong>Admin</strong> role in a project</dd>
+            <dt><strong>Tools</strong></dt>
+            <dd>Notebook editor</dd>
+            <dt><strong>Programming languages</strong></dt>
+            <dd>Python and R</dd>
+            <dt><strong>Data format</strong></dt>
+            <dd>All types</dd>
+            <dt>Code support is available for loading and accessing data from project assets for:</dt>
+            <dd>Data assets, such as CSV, JSON and .xlsx and .xls files</dd>
+            <dd>Database connections and connected data assets</dd>
+          </dl>
+          <p>See <a href="data-load-support.html">Data load support</a>. for the supported file and database types.</p>
+          <dl>
+            <dt><strong>Data size</strong></dt>
+            <dd>5 GB. If your files are larger, you must load the data in multiple parts.</dd>
+          </dl>
+        </section>
+        <section id="section-scripts">
+          <h2 id="scripts">Scripts</h2>
+          <dl>
+            <dt><strong>Required permissions</strong></dt>
+            <dd><strong>Editor</strong> or <strong>Admin</strong> role in a project</dd>
+            <dt><strong>Tools</strong></dt>
+            <dd>RStudio</dd>
+            <dt><strong>Programming languages</strong></dt>
+            <dd>R</dd>
+            <dt><strong>Data format</strong></dt>
+            <dd>All types</dd>
+            <dt>Code support is available for loading and accessing data from project assets for:</dt>
+            <dd>Data assets, such as CSV, JSON and .xlsx and .xls files</dd>
+            <dd>Database connections and connected data assets</dd>
+          </dl>
+          <p>See <a href="data-load-support.html">Data load support</a>. for the supported file and database types.</p>
+          <dl>
+            <dt><strong>Data size</strong></dt>
+            <dd>5 GB. If your files are larger, you must load the data in multiple parts.</dd>
+          </dl>
+        </section>
+        <section id="section-working-in-the-notebook-editor">
+          <h2 id="working-in-the-notebook-editor">Working in the notebook editor</h2>
+          <p>The notebook editor is largely used for interactive, exploratory data analysis programming and data visualization. Only one person can edit a notebook at a time. All other users can access opened notebooks in view mode only, while they are locked.</p>
+          <p>You can use the preinstalled open source libraries that come with the notebook runtime environments, add your own libraries, and benefit from the IBM libraries provided at no extra cost.</p>
+          <p>When your notebooks are ready, you can create jobs to run the notebooks directly from the notebook editor. Your job configurations can use environment variables that are passed to the notebooks with different values when the notebooks run.</p>
+        </section>
+        <section id="section-working-in-rstudio">
+          <h2 id="working-in-rstudio">Working in RStudio</h2>
+          <p>RStudio is an integrated development environment for working with R scripts or Shiny apps. Although the RStudio IDE cannot be started in a Spark with R environment runtime, you can use Spark in your R scripts and Shiny apps by accessing Spark
+            kernels programmatically.</p>
+          <p>R scripts and Shiny apps can only be created and used in the RStudio IDE. You can't create jobs for R scripts or R Shiny deployments.</p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="../getting-started/get-started-analyze.html">Quick start: Analyze data in a Jupyter notebook</a></li>
+            <li><a href="rstudio-overview.html">RStudio</a></li>
+            <li><a href="notebook-editor.html">Notebook editor</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong>
+            <a href="../analyze-data/data-science.html">Analyzing data and building models</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

@@ -1,0 +1,488 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Supported data sources for Synthetic Data Generator.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Creating synthetic data from imported data</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=data-creating-synthetic-from-imported"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="creating-synthetic-data-from-imported-data" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-creating-synthetic-data-from-imported-data">
+        <h1 id="creating-synthetic-data-from-imported-data">Creating synthetic data from imported data</h1>
+        <p>Supported data sources for Synthetic Data Generator.</p>
+        <p>Using Synthetic Data Generator, you can connect to your data no matter where it lives, using either connectors or data files.</p>
+        <section id="section-data-size">
+          <h2 id="data-size">Data size</h2>
+          <p>The Synthetic Data Generator environment can import up to ~2.5GB of data.</p>
+        </section>
+        <section id="section-connectors">
+          <h2 id="connectors">Connectors</h2>
+          <p>The following table lists the data sources that you can connect to using Synthetic Data Generator.</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Connector</th>
+                <th>Read Only</th>
+                <th>Read &amp; Write</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><a href="../manage-data/conn-azrds-mysql.html">Amazon RDS for MySQL</a></td>
+                <td></td>
+                <td>✓</td>
+                <td><b>Replace the data set</b> option isn't supported for this connection.</td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-azrds-postresql.html">Amazon RDS for PostgreSQL</a></td>
+                <td></td>
+                <td>✓</td>
+                <td><b>Replace the data set</b> option isn't supported for this connection.</td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-redshift.html">Amazon Redshift</a></td>
+                <td></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-amazon-s3.html">Amazon S3</a></td>
+                <td></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-cassandra.html">Apache Cassandra</a></td>
+                <td></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-derby.html">Apache Derby</a></td>
+                <td></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-hdfs.html">Apache HDFS (formerly known as "Hortonworks HDFS")</a></td>
+                <td></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-hive.html">Apache Hive</a></td>
+                <td>✓</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-box.html">Box</a></td>
+                <td></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-cloudera.html">Cloudera Impala</a></td>
+                <td>✓</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-datastax-op.html">DataStax Enterprise</a></td>
+                <td></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-dropbox.html">Dropbox</a></td>
+                <td></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-ftp.html">FTP (remote file system transfer)</a></td>
+                <td></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-bigquery.html">Google BigQuery</a></td>
+                <td></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-cloud-storage.html">Google Cloud Storage</a></td>
+                <td></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-greenplum.html">Greenplum</a></td>
+                <td></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-http.html">HTTP</a></td>
+                <td>✓</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-cos.html">IBM Cloud Object-Storage</a></td>
+                <td></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-cos-infra.html">IBM Cloud Object-Storage (infrastructure)</a></td>
+                <td></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-sqlquery.html">IBM Cloud Data Engine</a></td>
+                <td>✓</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-mongodb.html">IBM Cloud Databases for MongoDB</a></td>
+                <td>✓</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-compose-mysql.html">IBM Cloud Databases for MySQL</a></td>
+                <td></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-dbase-postgresql.html">IBM Cloud Databases for PostgreSQL</a></td>
+                <td></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-cloudant.html">IBM Cloudant</a></td>
+                <td></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-cognos.html">IBM Cognos-Analytics</a></td>
+                <td>✓</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-datavirt-z.html">IBM Data Virtualization Manager for z/OS</a></td>
+                <td>✓</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-db2.html">IBM Db2</a></td>
+                <td></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-db2-bigsql.html">IBM Db2 Big SQL</a></td>
+                <td></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-db2i.html">IBM Db2 for i</a></td>
+                <td></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-db2zos.html">IBM Db2 for z/OS</a></td>
+                <td></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-db2-cloud.html">IBM Db2 on Cloud</a></td>
+                <td></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-db2-wh.html">IBM Db2 Warehouse</a></td>
+                <td></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-informix.html">IBM Informix</a></td>
+                <td></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-puredata.html">IBM Netezza Performance Server</a></td>
+                <td></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-plananalytics.html">IBM Planning Analytics (formerly known as "IBM TM1")</a></td>
+                <td></td>
+                <td>✓</td>
+                <td>Only the <b>Replace the data set</b> option is supported.</td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-looker.html">Looker</a></td>
+                <td>✓</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-mariadb.html">MariaDB</a></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-azureblob.html">Microsoft Azure Blob Storage</a></td>
+                <td></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-cosmosdb.html">Microsoft Azure Cosmos DB</a></td>
+                <td></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-azuredls.html">Microsoft Azure Data Lake Storage</a></td>
+                <td></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-azurefs.html">Microsoft Azure File Storage</a></td>
+                <td></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-azure-sql.html">Microsoft Azure SQL Database</a></td>
+                <td></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-sql-server.html">Microsoft SQL Server</a></td>
+                <td></td>
+                <td>✓</td>
+                <td>SQL pushback isn't supported when Active Directory is enabled.</td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-mongodb.html">MongoDB</a></td>
+                <td>✓</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-mysql.html">MySQL</a></td>
+                <td></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-odata.html">OData</a></td>
+                <td></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-oracle.html">Oracle</a></td>
+                <td></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-postgresql.html">PostgreSQL</a></td>
+                <td></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-presto.html">Presto</a></td>
+                <td>✓</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-salesforce.html">Salesforce.com</a></td>
+                <td>✓</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-sap-ase.html">SAP ASE</a></td>
+                <td></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-sap-iq.html">SAP IQ</a></td>
+                <td>✓</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-sapodata.html">SAP OData</a></td>
+                <td></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-singlestore.html">SingleStoreDB</a></td>
+                <td></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-snowflake.html">Snowflake</a></td>
+                <td></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-tableau.html">Tableau</a></td>
+                <td>✓</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-teradata.html">Teradata</a></td>
+                <td></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><a href="../manage-data/conn-datastax-op.html">DataStax Enterprise</a></td>
+                <td></td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section id="section-data-files">
+          <h2 id="data-files">Data files</h2>
+          <p>In addition to using data from remote data sources or integrated databases, you can use data from files. You can work with data from the following types of files using Synthetic Data Generator.</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Connector</th>
+                <th>Read Only</th>
+                <th>Read &amp; Write</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>AVRO</td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>CSV/delimited</td>
+                <td></td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>Excel (XLS, XLSX)</td>
+                <td></td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>JSON</td>
+                <td></td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>ORC</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Parquet</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>SAS</td>
+                <td>✓</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>SAV</td>
+                <td></td>
+                <td>✓</td>
+              </tr>
+              <tr>
+                <td>SHP</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>XML</td>
+                <td></td>
+                <td>✓</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

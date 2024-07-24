@@ -1,0 +1,132 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Learn how to manage versions of models, scripts, and functions in your deployment space.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Managing deployment of asset versions</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=spaces-managing-asset-versions"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="managing-deployment-of-asset-versions" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-managing-deployment-of-asset-versions">
+        <h1 id="managing-deployment-of-asset-versions">Managing deployment of asset versions</h1>
+        <p>Learn how to manage versions of models, scripts, and functions in your deployment space.</p>
+        <section id="section-creating-versions">
+          <h2 id="creating-versions">Creating versions</h2>
+          <p>Currently, you can create versions of a model, script, or function programmatically, by using the Watson Machine Learning <a href="https://cloud.ibm.com/apidocs/machine-learning">REST API</a>, the Watson Machine Learning <a href="https://ibm.github.io/watson-machine-learning-sdk/">Python client library</a>,
+            or the <a href="https://github.com/IBM/cpdctl/blob/master/README_command_reference.md">CPDCTL command-line interface tool</a>.</p>
+          <p>For example, by using REST API calls:</p>
+          <ul>
+            <li>
+              <p>To create a version, use:</p>
+              <pre class="codeblock"><code class="lang-bash hljs">POST /v2/assets/&lt;asset_id&gt;/revisions
+</code></pre>
+            </li>
+            <li>
+              <p>To reference the current state of an asset, use:</p>
+              <pre class="codeblock"><code class="lang-bash hljs">GET /v2/assets/&lt;asset_id&gt;
+</code></pre>
+            </li>
+            <li>
+              <p>To reference a specific version of an asset:</p>
+              <pre class="codeblock"><code class="lang-bash hljs">GET /v2/assets/&lt;asset_id&gt;/revision_id=&lt;rev_id&gt;
+</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section id="section-using-versions-in-a-deployment-space">
+          <h2 id="using-versions-in-a-deployment-space">Using versions in a deployment space</h2>
+          <p>In a space, versions you create programmatically can be used when you:</p>
+          <ul>
+            <li>Deploy a model, script, or function</li>
+            <li>Update your deployment</li>
+          </ul>
+          <p>For example, you can create a deployment by using a version that uses a specific hardware or software configuration. Then, you can update the deployment with a version that uses a different configuration seamlessly, without stopping the deployment.</p>
+        </section>
+        <section id="section-viewing-version-information-in-a-deployment-space">
+          <h2 id="viewing-version-information-in-a-deployment-space">Viewing version information in a deployment space</h2>
+          <p>If an asset has versions, you can view information about the versions from the asset detail page.</p>
+          <ol>
+            <li>From the <strong>Assets</strong> tab of the project or space, click the name of the model, script, or function to access the details.</li>
+            <li>Click the Versions(<img src="images/versions.png" alt="Picture of versions icon" height="20" style="vertical-align:text-bottom">) icon to access version-related information.</li>
+          </ol>
+          <p><img src="images/viewing-deployment-versions.png" alt="Viewing versions in a project" style="max-width:90%;height:auto;width:auto"></p>
+        </section>
+        <section id="section-promoting-an-asset-version-from-a-project-to-a-deployment-space">
+          <h2 id="promoting-an-asset-version-from-a-project-to-a-deployment-space">Promoting an asset version from a project to a deployment space</h2>
+          <p>When you promote a version of an asset to a space, the version information is not preserved. That is, if you promote Version B of Asset A to a space, the space shows Asset A and that is the current and only version available. However, if you
+            have access to the project that contains the promoted asset, you can view information about the versions from the asset information page.</p>
+          <p><img src="images/versions-space-project-detail.png" alt="Viewing version detail in a space"></p>
+          <p>In space, you can create new versions programmatically, in the same way that you create them in a project.</p>
+        </section>
+        <section id="section-viewing-version-information-in-a-deployment-space-2">
+          <h2 id="viewing-version-information-in-a-deployment-space-2">Viewing version information in a deployment space</h2>
+          <p>You can view your deployment version information by going to the <strong>Assets</strong> tab in your deployment space. The badge indicates that your deployed asset has versions available.</p>
+          <p><img src="images/deployments-versions.png" alt="Asset version in a deployment space" style="max-width:90%;height:auto;width:auto"></p>
+        </section>
+        <section id="section-deploying-a-version-of-an-asset">
+          <h2 id="deploying-a-version-of-an-asset">Deploying a version of an asset</h2>
+          <p>When you create a deployment of an asset, the default asset is the current, most recent version. You can optionally choose a different version to deploy.</p>
+          <p>To deploy your asset with a different version, follow these steps:</p>
+          <ol>
+            <li>Go to the <strong>Assets</strong> tab in your deployment space.</li>
+            <li>Click the action menu <img src="images/menu-icon.png" alt="Menu icon" height="20" style="vertical-align:text-bottom"> icon and choose <strong>Deploy</strong>.</li>
+            <li>In the dialog box, choose the version that you want to deploy in the <strong>Version</strong> field.</li>
+            <li>Enter the details and click <strong>Create</strong>.</li>
+          </ol>
+          <p><img src="images/creating-deployment-versions.png" alt="Creating deployment versions" style="max-width:90%;height:auto;width:auto"></p>
+        </section>
+        <section id="section-updating-a-deployment-with-a-different-version">
+          <h2 id="updating-a-deployment-with-a-different-version">Updating a deployment with a different version</h2>
+          <p>When you update a deployment, you can choose a different version of the model, script, or function to replace the deployed asset.</p>
+          <p>To update your deployment with a different version, follow these steps:</p>
+          <ol>
+            <li>Go to the <strong>Deployments</strong> tab in your deployment space.</li>
+            <li>Click the action menu <img src="images/menu-icon.png" alt="Menu icon" height="20" style="vertical-align:text-bottom"> icon and choose <strong>Edit</strong>.</li>
+            <li>In the <em>Edit deployment</em> dialog box, select the version with which you want to update your deployment and click <strong>Replace asset</strong>.</li>
+            <li>Click <strong>Save</strong>.</li>
+          </ol>
+          <p><img src="images/updating-deployment-version.png" alt="Updating a deployment with a new version" style="max-width:90%;height:auto;width:auto"></p>
+          <p><strong>Parent topic:</strong> <a href="../analyze-data/ml-space-add-assets-all.html">Assets in deployment spaces</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

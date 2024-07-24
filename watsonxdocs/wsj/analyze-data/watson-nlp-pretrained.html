@@ -1,0 +1,131 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Watson Natural Language Processing provides pre-trained models in over 20 languages. They are curated by a dedicated team of experts, and evaluated for quality on each specific language. These pre-trained models can be used in production environments without you having to worry about license or intellectual property infringements.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Working with pre-trained models</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=processing-working-pre-trained-models"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="working-with-pre-trained-models" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-working-with-pre-trained-models">
+        <h1 id="working-with-pre-trained-models">Working with pre-trained models</h1>
+        <p>Watson Natural Language Processing provides pre-trained models in over 20 languages. They are curated by a dedicated team of experts, and evaluated for quality on each specific language. These pre-trained models can be used in production environments
+          without you having to worry about license or intellectual property infringements.</p>
+        <section id="section-loading-and-running-a-model">
+          <h2 id="loading-and-running-a-model">Loading and running a model</h2>
+          <p>To load a model, you first need to know its name. Model names follow a standard convention encoding the type of model (like classification or entity extraction), type of algorithm (like BERT or SVM), language code, and details of the type system.</p>
+          <p>To find the model that matches your needs, use the task catalog. See <a href="../analyze-data/watson-nlp-block-catalog.html">Watson NLP task catalog</a>.</p>
+          <p>You can find the expected input for a given block class (for example to the Entity Mentions model) by using <code>help()</code> on the block class <code>run()</code> method:</p>
+          <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">import</span> watson_nlp
+
+<span class="hljs-built_in">help</span>(watson_nlp.blocks.keywords.TextRank.run)
+</code></pre>
+          <p>Watson Natural Language Processing encapsulates natural language functionality through blocks and workflows. Each block or workflow supports functions to:</p>
+          <ul>
+            <li><code>load()</code>: load a model</li>
+            <li><code>run()</code>: run the model on input arguments</li>
+            <li><code>train()</code>: train the model on your own data (not all blocks and workflows support training)</li>
+            <li><code>save()</code>: save the model that has been trained on your own data</li>
+          </ul>
+          <section id="section-blocks">
+            <h3 id="blocks">Blocks</h3>
+            <p>Two types of blocks exist:</p>
+            <ul>
+              <li><a href="#operate-data">Blocks that operate directly on the input document</a></li>
+              <li><a href="#operate-blocks">Blocks that depend on other blocks</a></li>
+            </ul>
+            <p><a href="#workflows">Workflows</a> run one more blocks on the input document, in a pipeline.</p>
+            <section id="section-operate-data">
+              <h4 id="operate-data">Blocks that operate directly on the input document</h4>
+              <p>An example of a block that operates directly on the input document is the Syntax block, which performs natural language processing operations such as tokenization, lemmatization, part of speech tagging or dependency parsing.</p>
+              <p>Example: running syntax analysis on a text snippet:</p>
+              <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">import</span> watson_nlp
+
+<span class="hljs-comment"># Load the syntax model for English</span>
+syntax_model = watson_nlp.load(<span class="hljs-string">'syntax_izumo_en_stock'</span>)
+
+<span class="hljs-comment"># Run the syntax model and print the result</span>
+syntax_prediction = syntax_model.run(<span class="hljs-string">'Welcome to IBM!'</span>)
+<span class="hljs-built_in">print</span>(syntax_prediction)
+</code></pre>
+            </section>
+            <section id="section-operate-blocks">
+              <h4 id="operate-blocks">Blocks that depend on other blocks</h4>
+              <p>Blocks that depend on other blocks cannot be applied on the input document directly. They are applied on the output of one or more preceeding blocks. For example, the Keyword Extraction block depends on the Syntax and Noun Phrases block.</p>
+              <p>These blocks can be loaded but can only be run in a particular order on the input document. For example:</p>
+              <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">import</span> watson_nlp
+text = <span class="hljs-string">"Anna went to school at University of California Santa Cruz. \
+        Anna joined the university in 2015."</span>
+
+<span class="hljs-comment"># Load Syntax, Noun Phrases and Keywords models for English</span>
+syntax_model = watson_nlp.load(<span class="hljs-string">'syntax_izumo_en_stock'</span>)
+noun_phrases_model = watson_nlp.load(<span class="hljs-string">'noun-phrases_rbr_en_stock'</span>)
+keywords_model = watson_nlp.load(<span class="hljs-string">'keywords_text-rank_en_stock'</span>)
+
+<span class="hljs-comment"># Run the Syntax and Noun Phrases models</span>
+syntax_prediction = syntax_model.run(text, parsers=(<span class="hljs-string">'token'</span>, <span class="hljs-string">'lemma'</span>, <span class="hljs-string">'part_of_speech'</span>))
+noun_phrases = noun_phrases_model.run(text)
+
+<span class="hljs-comment"># Run the keywords model</span>
+keywords = keywords_model.run(syntax_prediction, noun_phrases, limit=<span class="hljs-number">2</span>)
+<span class="hljs-built_in">print</span>(keywords)
+</code></pre>
+            </section>
+          </section>
+          <section id="section-workflows">
+            <h3 id="workflows">Workflows</h3>
+            <p>Workflows are predefined end-to-end pipelines from a raw document to a final block, where all necessary blocks are chained as part of the workflow pipeline.</p>
+            <p>Starting with Runtime 23.1, you can call the Entity Mentions workflow. Refer to this sample:</p>
+            <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">import</span> watson_nlp
+
+<span class="hljs-comment"># Load the workflow model</span>
+mentions_workflow = watson_nlp.load(<span class="hljs-string">'entity-mentions_transformer-workflow_multilingual_slate.153m.distilled'</span>)
+
+<span class="hljs-comment"># Run the entity extraction workflow on the input text</span>
+mentions_workflow.run(<span class="hljs-string">'IBM announced new advances in quantum computing'</span>, language_code=<span class="hljs-string">"en"</span>)
+</code></pre>
+            <p><strong>Parent topic:</strong> <a href="../analyze-data/watson-nlp.html">Watson Natural Language Processing library</a></p>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

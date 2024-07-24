@@ -1,0 +1,219 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="To make a plan for using Jupyter notebooks and scripts, first understand the choices that you have, the implications of those choices, and how those choices affect the order of implementation tasks.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Planning your notebooks and scripts experience</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=scripts-planning-your-notebooks-experience"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="planning-your-notebooks-and-scripts-experience" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-planning-your-notebooks-and-scripts-experience">
+        <h1 id="planning-your-notebooks-and-scripts-experience">Planning your notebooks and scripts experience</h1>
+        <p>To make a plan for using Jupyter notebooks and scripts, first understand the choices that you have, the implications of those choices, and how those choices affect the order of implementation tasks.</p>
+        <p>You can perform most tasks related to notebooks and scripts with Editor or Admin role in an analytics project.</p>
+        <p>Before you start working with notebooks and scripts, consider the following questions as most tasks need to be completed in a particular order:</p>
+        <ul>
+          <li>Which programming language do you want to work in?</li>
+          <li>What will your notebooks be doing?</li>
+          <li>What libraries do you want to work with?</li>
+          <li>How can you use the notebook or script in IBM watsonx?</li>
+        </ul>
+        <br>
+        <p>To create a plan for using Jupyter notebooks or scripts, determine which of the following tasks you must complete.</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Task</th>
+              <th>Mandatory?</th>
+              <th>Timing</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a href="#project">Creating a project</a></td>
+              <td>Yes</td>
+              <td>This must be your very first task</td>
+            </tr>
+            <tr>
+              <td><a href="#data-assets">Adding data assets to the project</a></td>
+              <td>Yes</td>
+              <td>Before you begin creating notebooks</td>
+            </tr>
+            <tr>
+              <td><a href="#programming-lang">Picking a programming language</a></td>
+              <td>Yes</td>
+              <td>Before you select the tool</td>
+            </tr>
+            <tr>
+              <td><a href="#select-tool">Selecting a tool</a></td>
+              <td>Yes</td>
+              <td>After selecting the language</td>
+            </tr>
+            <tr>
+              <td><a href="#programming-libs">Checking the library packages</a></td>
+              <td>Yes</td>
+              <td>Before you select a runtime environment</td>
+            </tr>
+            <tr>
+              <td><a href="#runtime-env">Choosing an appropriate runtime environment</a></td>
+              <td>Yes</td>
+              <td>Before you open the development environment</td>
+            </tr>
+            <tr>
+              <td><a href="#manage-lifecycle">Managing the notebooks and scripts lifecycle</a></td>
+              <td>No</td>
+              <td>When the notebook or script is ready</td>
+            </tr>
+            <tr>
+              <td><a href="#use-options">Uses for notebooks and scripts after creation</a></td>
+              <td>No</td>
+              <td>When the notebook is ready</td>
+            </tr>
+          </tbody>
+        </table>
+        <section id="section-project">
+          <h2 id="project">Creating a project</h2>
+          <p>You need to create a project before you can start working in notebooks.</p>
+          <p><strong>Projects</strong> You can create an empty project, one from file, or from URL. In this project:</p>
+          <ul>
+            <li>You can use the Jupyter Notebook and RStudio.</li>
+            <li>Notebooks are assets in the project.</li>
+            <li>Notebook collaboration is based on locking by user at the project level.</li>
+            <li>R scripts and Shiny apps are not assets in the project.</li>
+            <li>There is no collaboration on R scripts or Shiny apps.</li>
+          </ul>
+        </section>
+        <section id="section-programming-lang">
+          <h2 id="programming-lang">Picking a programming language</h2>
+          <p>You can choose to work in the following languages:</p>
+          <dl>
+            <dt><strong>Notebooks</strong></dt>
+            <dd>Python and R</dd>
+            <dt><strong>Scripts</strong></dt>
+            <dd>R scripts and R Shiny apps</dd>
+          </dl>
+        </section>
+        <section id="section-select-tool">
+          <h2 id="select-tool">Selecting a tool</h2>
+          <p>In IBM watsonx, you can work with notebook and scripts in the following tool:</p>
+          <dl>
+            <dt><strong>Jupyter Notebook editor</strong></dt>
+            <dd>In the Jupyter Notebook editor, you can create Python or R notebooks. Notebooks are assets in a project. Collaboration is only at the project level. The notebook is locked by a user when opened and can only be unlocked by the same user or
+              a project admin.</dd>
+            <dt><strong>RStudio</strong></dt>
+            <dd>In RStudio, you can create R scripts and Shiny apps. R scripts are not assets in a project, which means that there is no collaboration at the project level.</dd>
+          </dl>
+        </section>
+        <section id="section-programming-libs">
+          <h2 id="programming-libs">Checking the library packages</h2>
+          <p>When you open a notebook in a runtime environment, you have access to a large selection of preinstalled data science library packages. Many environments also include libraries provided by IBM at no extra charge, such as:</p>
+          <ul>
+            <li>The Watson Natural Language Processing library in Python environments</li>
+            <li>Libraries to help you access project assets</li>
+            <li>Libraries for time series or geo-spatial analysis in Spark environments</li>
+          </ul>
+          <p>For a list of the library packages and the versions included in an environment template, select the template on the <strong>Templates</strong> page from the <strong>Manage</strong> tab on the project's <strong>Environments</strong> page.</p>
+          <p>If libraries are missing in a template, you can add them:</p>
+          <dl>
+            <dt><strong>Through the notebook or script</strong></dt>
+            <dd>You can use familiar package install commands for your environment. For example, in Python notebooks, you can use <code>mamba</code>, <code>conda</code> or <code>pip</code>.</dd>
+            <dt><strong>By creating a custom environment template</strong></dt>
+            <dd>When you create a custom template, you can create a software customization and add the libraries that you want to include. For details, see <a href="customize-envs.html">Customizing environment templates</a>.</dd>
+          </dl>
+        </section>
+        <section id="section-runtime-env">
+          <h2 id="runtime-env">Choosing a runtime environment</h2>
+          <p>Choosing the compute environment for your notebook depends on the amount of data you want to process and the complexity of the data analysis processes.</p>
+          <p>Watson Studio offers many default environment templates with different hardware sizes and software configurations to help you quickly get started, without having to create your own templates. These included templates are listed on the <strong>Templates</strong>            page from the <strong>Manage</strong> tab on the project's <strong>Environments</strong> page. For more information about the included environments, see <a href="../analyze-data/environments-parent.html">Environments</a>.</p>
+          <p>If the available templates don't suit your needs, you can create custom templates and determine the hardware size and software configuration. For details, see <a href="customize-envs.html">Customizing environment templates</a>.</p>
+          <div class="note important"><span class="importanttitle">Important:</span> Make sure that the environment has enough memory to store the data that you load to the notebook. Oftentimes this means that the environment must have significantly more memory than the total size
+            of the data loaded to the notebook because some data frameworks, like pandas, can hold multiple copies of the data in memory.</div>
+        </section>
+        <section id="section-data-assets">
+          <h2 id="data-assets">Working with data</h2>
+          <p>To work with data in a notebook, you need to:</p>
+          <ul>
+            <li>Add the data to your project, which turns the data into a project asset. See <a href="..//manage-data/add-data-project.html">Adding data to a project</a> for the different methods for adding data to a project.</li>
+            <li>Use generated code that loads data from the asset to a data structure in your notebook. For a list of the supported data types, see <a href="data-load-support.html">Data load support</a>.</li>
+            <li>Write your own code to load data if the data source isn't added as a project asset or support for adding generated code isn't available for the project asset.</li>
+          </ul>
+        </section>
+        <section id="section-manage-lifecycle">
+          <h2 id="manage-lifecycle">Managing the notebooks and scripts lifecycle</h2>
+          <p>After you create and test a notebook in your tool, you can:</p>
+          <ul>
+            <li>Publish it to a catalog so that other catalog members can use the notebook in their projects. See <a href="../catalog/publish-asset-project.html">Publishing assets from a project into a catalog</a>.</li>
+            <li>Share a read-only copy outside of Watson Studio so that people who aren't collaborators in your projects can see and use it. See <a href="share-notebooks.html">Sharing notebooks with a URL</a>.</li>
+            <li>Publish it to a GitHub repository. See <a href="github-integration.html">Publishing notebooks on GitHub</a>.</li>
+            <li>Publish it as a gist. See <a href="create-gist.html">Publishing a notebook as a gist</a>.</li>
+          </ul>
+          <p>R scripts and Shiny apps can't be published or shared using functionality in a project.</p>
+        </section>
+        <section id="section-use-options">
+          <h2 id="use-options">Uses for notebooks and scripts after creation</h2>
+          <p>The options for a notebook that is created and ready to use in IBM watsonx include:</p>
+          <ul>
+            <li>
+              <p>Running it as a job in a project. See <a href="../manage-data/jobs.html">Creating and managing jobs in a project</a>.</p>
+            </li>
+            <li>
+              <p>Running it as part of a Watson Pipeline. See <a href="ml-orchestration-config.html">Configuring pipeline nodes</a>.</p>
+              <p>To ensure that a notebook can be run as a job or in a pipeline:</p>
+              <ul>
+                <li>Ensure that no cells require interactive input by a user.</li>
+                <li>Ensure that the notebook logs enough detailed information to enable understanding the progress and any failures by looking at the log.</li>
+                <li>Use environment variables in the code to access configurations if a notebook or script requires them, for example the input data file or the number of training runs.</li>
+              </ul>
+            </li>
+            <li>
+              <p>Using the Watson Machine Learning Python client to build, train and then deploy your models. See <a href="ml-samples-overview.html">Watson Machine Learning Python client samples and examples</a>.</p>
+            </li>
+            <li>
+              <p>Using the Watson Machine Learning REST API to build, train and then deploy your models.</p>
+            </li>
+          </ul>
+          <p>R scripts and Shiny apps can only be created and used in the RStudio IDE in IBM watsonx. You can't create jobs for R scripts or R Shiny deployments.</p>
+          <p><strong>Parent topic:</strong> <a href="notebooks-and-scripts.html">Notebooks and scripts</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

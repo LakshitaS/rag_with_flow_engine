@@ -1,0 +1,212 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can supply input data for a batch deployment job in several ways, including directly uploading a file or providing a link to database tables. The types of allowable input data vary according to the type of deployment job that you are creating.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Data sources for scoring batch deployments</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=deployments-data-sources-scoring-batch"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="data-sources-for-scoring-batch-deployments" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-data-sources-for-scoring-batch-deployments">
+        <h1 id="data-sources-for-scoring-batch-deployments">Data sources for scoring batch deployments</h1>
+        <p>You can supply input data for a batch deployment job in several ways, including directly uploading a file or providing a link to database tables. The types of allowable input data vary according to the type of deployment job that you are creating.</p>
+        <p>For supported input types by framework, refer to <a href="../analyze-data/deploy-batch-input-by-framework.html">Batch deployment input details by framework</a>.</p>
+        <p>Input data can be supplied to a batch job as <a href="#inline_data">inline data</a> or <a href="#data_ref">data reference</a>.</p>
+        <section id="section-available-input-types-for-batch-deployments-by-framework-and-asset-type">
+          <h2 id="available-input-types-for-batch-deployments-by-framework-and-asset-type">Available input types for batch deployments by framework and asset type</h2>
+          <table>
+            <caption caption-side="top">Available input types for batch deployments by framework and asset type</caption>
+            <thead>
+              <tr>
+                <th>Framework</th>
+                <th>Batch deployment type</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Decision optimization</td>
+                <td>Reference</td>
+              </tr>
+              <tr>
+                <td>Python function</td>
+                <td>Inline</td>
+              </tr>
+              <tr>
+                <td>PyTorch</td>
+                <td>Inline and Reference</td>
+              </tr>
+              <tr>
+                <td>Tensorflow</td>
+                <td>Inline and Reference</td>
+              </tr>
+              <tr>
+                <td>Scikit-learn</td>
+                <td>Inline and Reference</td>
+              </tr>
+              <tr>
+                <td>Python scripts</td>
+                <td>Reference</td>
+              </tr>
+              <tr>
+                <td>Spark MLlib</td>
+                <td>Inline and Reference</td>
+              </tr>
+              <tr>
+                <td>SPSS</td>
+                <td>Inline and Reference</td>
+              </tr>
+              <tr>
+                <td>XGBoost</td>
+                <td>Inline and Reference</td>
+              </tr>
+            </tbody>
+          </table>
+          <section id="section-inline_data">
+            <h3 id="inline_data">Inline data description</h3>
+            <p>Inline type input data for batch processing is specified in the batch deployment job's payload. For example, you can pass a CSV file as the deployment input in the UI or as a value for the <code>scoring.input_data</code> parameter in a notebook.
+              When the batch deployment job is completed, the output is written to the corresponding job's <code>scoring.predictions</code> metadata parameter.</p>
+          </section>
+          <section id="section-data_ref">
+            <h3 id="data_ref">Data reference description</h3>
+            <p>Input and output data of type <em>data reference</em> that is used for batch processing can be stored:</p>
+            <ul>
+              <li>In a remote data source, like a Cloud Object Storage bucket or an SQL or no-SQL database.</li>
+              <li>As a local or managed data asset in a deployment space.</li>
+            </ul>
+            <p>Details for data references include:</p>
+            <ul>
+              <li>
+                <p>Data source reference <code>type</code> depends on the asset type. Refer to <strong>Data source reference types</strong> section in <a href="ml-space-add-assets.html">Adding data assets to a deployment space</a>.</p>
+              </li>
+              <li>
+                <p>For <code>data_asset</code> type, the reference to input data must be specified as a <code>/v2/assets</code> href in the <code>input_data_references.location.href</code> parameter in the deployment job's payload. The data asset that is
+                  specified is a reference to a local or a connected data asset. Also, if the batch deployment job's output data must be persisted in a remote data source, the references to output data must be specified as a <code>/v2/assets</code> href
+                  in <code>output_data_reference.location.href</code> parameter in the deployment job's payload.</p>
+              </li>
+              <li>
+                <p>Any input and output <code>data_asset</code> references must be in the same space ID as the batch deployment.</p>
+              </li>
+              <li>
+                <p>If the batch deployment job's output data must be persisted in a deployment space as a local asset, <code>output_data_reference.location.name</code> must be specified. When the batch deployment job is completed successfully, the asset
+                  with the specified name is created in the space.</p>
+              </li>
+              <li>
+                <p>Output data can contain information on where in a remote database the data asset is located. In this situation, you can specify whether to append the batch output to the table or truncate the table and update the output data. Use the <code>output_data_references.location.write_mode</code>                  parameter to specify the values <code>truncate</code> or <code>append</code>.</p>
+                <ul>
+                  <li>Specifying <code>truncate</code> as value truncates the table and inserts the batch output data.</li>
+                  <li>Specifying <code>append</code> as value appends the batch output data to the remote database table.</li>
+                  <li><code>write_mode</code> is applicable only for the <code>output_data_references</code> parameter.</li>
+                  <li><code>write_mode</code> is applicable only for remote database-related data assets. This parameter is not applicable for a local data asset or a Cloud Object Storage based data asset.</li>
+                </ul>
+              </li>
+            </ul>
+            <section id="section-example-data_asset-payload">
+              <h4 id="example-data_asset-payload">Example data_asset payload</h4>
+              <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-string">"input_data_references"</span>: [{
+    <span class="hljs-string">"type"</span>: <span class="hljs-string">"data_asset"</span>,
+    <span class="hljs-string">"connection"</span>: {
+    },
+    <span class="hljs-string">"location"</span>: {
+        <span class="hljs-string">"href"</span>: <span class="hljs-string">"/v2/assets/&lt;asset_id&gt;?space_id=&lt;space_id&gt;"</span>
+    }
+}]
+</code></pre>
+            </section>
+            <section id="section-example-connection_asset-payload">
+              <h4 id="example-connection_asset-payload">Example connection_asset payload</h4>
+              <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-string">"input_data_references"</span>: [{
+    <span class="hljs-string">"type"</span>: <span class="hljs-string">"connection_asset"</span>,
+    <span class="hljs-string">"connection"</span>: {
+        <span class="hljs-string">"id"</span>: <span class="hljs-string">"&lt;connection_guid&gt;"</span>
+    },
+    <span class="hljs-string">"location"</span>: {
+        <span class="hljs-string">"bucket"</span>: <span class="hljs-string">"&lt;bucket name&gt;"</span>,
+        <span class="hljs-string">"file_name"</span>: <span class="hljs-string">"&lt;directory_name&gt;/&lt;file name&gt;"</span>
+    }
+    &lt;other wdp-properties supported by runtimes&gt;
+}]
+</code></pre>
+            </section>
+          </section>
+        </section>
+        <section id="section-structuring-the-input-data">
+          <h2 id="structuring-the-input-data">Structuring the input data</h2>
+          <p>How you structure the input data, also known as the payload, for the batch job depends on the framework for the asset you are deploying.</p>
+          <p>A .csv input file or other structured data formats must be formatted to match the schema of the asset. List the column names (fields) in the first row and values to be scored in subsequent rows. For example, see the following code snippet:</p>
+          <pre class="codeblock"><code class="lang-txt hljs">PassengerId, Pclass, Name, Sex, Age, SibSp, Parch, Ticket, Fare, Cabin, Embarked
+1,3,"Braund, Mr. Owen Harris",0,22,1,0,A/5 21171,7.25,,S
+4,1,"Winslet, Mr. Leo Brown",1,65,1,0,B/5 200763,7.50,,S
+</code></pre>
+          <p>A JSON input file must provide the same information on fields and values, by using this format:</p>
+          <pre class="codeblock"><code class="lang-json hljs"><span class="hljs-punctuation">{</span><span class="hljs-attr">"input_data"</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">[</span><span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"fields"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>&lt;field1&gt;<span class="hljs-punctuation">,</span> &lt;field2&gt;<span class="hljs-punctuation">,</span> ...<span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"values"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">[</span>&lt;value1&gt;<span class="hljs-punctuation">,</span> &lt;value2&gt;<span class="hljs-punctuation">,</span> ...<span class="hljs-punctuation">]</span><span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">}</span>
+</code></pre>
+          <p>For example:
+            <br></p>
+          <pre class="codeblock"><code class="lang-json hljs"><span class="hljs-punctuation">{</span><span class="hljs-attr">"input_data"</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">[</span><span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"fields"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">"PassengerId"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"Pclass"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"Name"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"Sex"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"Age"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"SibSp"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"Parch"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"Ticket"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"Fare"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"Cabin"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"Embarked"</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"values"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">[</span><span class="hljs-number">1</span><span class="hljs-punctuation">,</span><span class="hljs-number">3</span><span class="hljs-punctuation">,</span><span class="hljs-string">"Braund, Mr. Owen Harris"</span><span class="hljs-punctuation">,</span><span class="hljs-number">0</span><span class="hljs-punctuation">,</span><span class="hljs-number">22</span><span class="hljs-punctuation">,</span><span class="hljs-number">1</span><span class="hljs-punctuation">,</span><span class="hljs-number">0</span><span class="hljs-punctuation">,</span><span class="hljs-string">"A/5 21171"</span><span class="hljs-punctuation">,</span><span class="hljs-number">7.25</span><span class="hljs-punctuation">,</span><span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span><span class="hljs-string">"S"</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+                  <span class="hljs-punctuation">[</span><span class="hljs-number">4</span><span class="hljs-punctuation">,</span><span class="hljs-number">1</span><span class="hljs-punctuation">,</span><span class="hljs-string">"Winselt, Mr. Leo Brown"</span><span class="hljs-punctuation">,</span><span class="hljs-number">1</span><span class="hljs-punctuation">,</span><span class="hljs-number">65</span><span class="hljs-punctuation">,</span><span class="hljs-number">1</span><span class="hljs-punctuation">,</span><span class="hljs-number">0</span><span class="hljs-punctuation">,</span><span class="hljs-string">"B/5 200763"</span><span class="hljs-punctuation">,</span><span class="hljs-number">7.50</span><span class="hljs-punctuation">,</span><span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span><span class="hljs-string">"S"</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">}</span>
+</code></pre>
+          <section id="section-preparing-a-payload-that-matches-the-schema-of-an-existing-model">
+            <h3 id="preparing-a-payload-that-matches-the-schema-of-an-existing-model">Preparing a payload that matches the schema of an existing model</h3>
+            <p>Refer to this sample code:</p>
+            <pre class="codeblock"><code class="lang-python hljs">model_details = client.repository.get_details(<span class="hljs-string">"&lt;model_id&gt;"</span>)  <span class="hljs-comment"># retrieves details and includes schema</span>
+columns_in_schema = []
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(model_details[<span class="hljs-string">'entity'</span>][<span class="hljs-string">'schemas'</span>][<span class="hljs-string">'input'</span>][<span class="hljs-number">0</span>].get(<span class="hljs-string">'fields'</span>))):
+    columns_in_schema.append(model_details[<span class="hljs-string">'entity'</span>][<span class="hljs-string">'schemas'</span>][<span class="hljs-string">'input'</span>][<span class="hljs-number">0</span>].get(<span class="hljs-string">'fields'</span>)[i][<span class="hljs-string">'name'</span>])
+
+X = X[columns_in_schema] <span class="hljs-comment"># where X is a pandas dataframe that contains values to be scored</span>
+<span class="hljs-comment">#(...)</span>
+scoring_values = X.values.tolist()
+array_of_input_fields = X.columns.tolist()
+payload_scoring = {<span class="hljs-string">"input_data"</span>: [{<span class="hljs-string">"fields"</span>: [array_of_input_fields],<span class="hljs-string">"values"</span>: scoring_values}]}
+</code></pre>
+            <p><strong>Parent topic:</strong> <a href="deploy-batch-details.html">Creating a batch deployment</a></p>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

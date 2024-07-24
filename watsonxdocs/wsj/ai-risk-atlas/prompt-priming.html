@@ -1,0 +1,217 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Because generative models tend to produce output like the input provided, the model can be prompted to reveal specific kinds of information. For example, adding personal information in the prompt increases its likelihood of generating similar kinds of personal information in its output. If personal data was included as part of the model’s training, there is a possibility it could be revealed.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Prompt priming risk for AI</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=atlas-prompt-priming"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="prompt-priming-risk-for-ai" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-prompt-priming-risk-for-ai">
+        <h1 id="prompt-priming-risk-for-ai">Prompt priming risk for AI</h1>
+        <style type="text/css" keep="true">
+          .risk-detail-heading {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start;
+          }
+          
+          .risk-detail-heading .tags {
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 8px;
+          }
+          
+          .risk-detail-heading .tags .bx--tag {
+            line-height: normal;
+            font-size: 12px;
+          }
+        </style>
+        <div class="risk-detail-heading">
+          <div class="tags">
+            <div>
+              <svg class="risk-group-icon" version="1.1" id="risk-icon-multi-category-" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" width="32" height="32" xml:space="preserve">
+<path xmlns="http://www.w3.org/2000/svg" id="risk-icon-path-multi-category-" d="M31,31.36h-6c-0.199,0-0.36-0.161-0.36-0.36v-6c0-0.199,0.161-0.36,0.36-0.36h6c0.199,0,0.36,0.161,0.36,0.36v6C31.36,31.199,31.199,31.36,31,31.36z M25.36,30.64h5.279v-5.28H25.36V30.64z M19,31.36h-6c-0.199,0-0.36-0.161-0.36-0.36v-6c0-0.199,0.161-0.36,0.36-0.36h6c0.199,0,0.36,0.161,0.36,0.36v6C19.36,31.199,19.199,31.36,19,31.36z M13.36,30.64h5.28v-5.28h-5.28C13.36,25.36,13.36,30.64,13.36,30.64z M7,31.36H1c-0.199,0-0.36-0.161-0.36-0.36v-6c0-0.199,0.161-0.36,0.36-0.36h6c0.199,0,0.36,0.161,0.36,0.36v6C7.36,31.199,7.199,31.36,7,31.36z M1.36,30.64h5.28v-5.28H1.36V30.64z M28,29.36c-0.75,0-1.36-0.61-1.36-1.36s0.61-1.36,1.36-1.36s1.36,0.61,1.36,1.36S28.75,29.36,28,29.36z M28,27.36c-0.353,0-0.64,0.287-0.64,0.64s0.287,0.64,0.64,0.64s0.64-0.287,0.64-0.64S28.353,27.36,28,27.36zM31,19.36h-6c-0.199,0-0.36-0.161-0.36-0.36v-6c0-0.199,0.161-0.36,0.36-0.36h6c0.199,0,0.36,0.161,0.36,0.36v6C31.36,19.199,31.199,19.36,31,19.36z M25.36,18.64h5.279v-5.28H25.36V18.64z M19,19.36h-6c-0.199,0-0.36-0.161-0.36-0.36v-6c0-0.199,0.161-0.36,0.36-0.36h6c0.199,0,0.36,0.161,0.36,0.36v6C19.36,19.199,19.199,19.36,19,19.36z M13.36,18.64h5.28v-5.28h-5.28C13.36,13.36,13.36,18.64,13.36,18.64z M7,19.36H1c-0.199,0-0.36-0.161-0.36-0.36v-6c0-0.199,0.161-0.36,0.36-0.36h6c0.199,0,0.36,0.161,0.36,0.36v6C7.36,19.199,7.199,19.36,7,19.36z M1.36,18.64h5.28v-5.28H1.36V18.64z M16,17.36c-0.75,0-1.36-0.61-1.36-1.36s0.61-1.36,1.36-1.36s1.36,0.61,1.36,1.36S16.75,17.36,16,17.36z M16,15.36c-0.353,0-0.64,0.287-0.64,0.64s0.287,0.64,0.64,0.64s0.64-0.287,0.64-0.64S16.353,15.36,16,15.36z M4,17.36c-0.75,0-1.36-0.61-1.36-1.36S3.25,14.64,4,14.64S5.36,15.25,5.36,16S4.75,17.36,4,17.36z M4,15.36c-0.353,0-0.64,0.287-0.64,0.64S3.647,16.64,4,16.64S4.64,16.353,4.64,16S4.353,15.36,4,15.36z M31,7.36h-6c-0.199,0-0.36-0.161-0.36-0.36V1c0-0.199,0.161-0.36,0.36-0.36h6c0.199,0,0.36,0.161,0.36,0.36v6C31.36,7.199,31.199,7.36,31,7.36z M25.36,6.64h5.279V1.36H25.36V6.64z M19,7.36h-6c-0.199,0-0.36-0.161-0.36-0.36V1c0-0.199,0.161-0.36,0.36-0.36h6c0.199,0,0.36,0.161,0.36,0.36v6C19.36,7.199,19.199,7.36,19,7.36z M13.36,6.64h5.28V1.36h-5.28C13.36,1.36,13.36,6.64,13.36,6.64z M7,7.36H1C0.801,7.36,0.64,7.199,0.64,7V1c0-0.199,0.161-0.36,0.36-0.36h6c0.199,0,0.36,0.161,0.36,0.36v6C7.36,7.199,7.199,7.36,7,7.36zM1.36,6.64h5.28V1.36H1.36V6.64z M28,5.36c-0.75,0-1.36-0.61-1.36-1.36S27.25,2.64,28,2.64S29.36,3.25,29.36,4S28.75,5.36,28,5.36zM28,3.36c-0.353,0-0.64,0.287-0.64,0.64S27.647,4.64,28,4.64S28.64,4.353,28.64,4S28.353,3.36,28,3.36z"></path>
+<rect id="risk-icon-rect-multi-category-" style="fill:none;" width="32" height="32"></rect>
+</svg>
+            </div>
+            <div class="bx--tag bx--tag--blue">
+              Risks associated with input
+            </div>
+            <div class="bx--tag bx--tag--blue">Inference</div>
+            <div class="bx--tag bx--tag--blue">Multi-category</div>
+            <div class="bx--tag bx--tag--purple">Amplified by generative AI</div>
+          </div>
+        </div>
+        <section id="section-description">
+          <h3 id="description">Description</h3>
+          <p>Because generative models tend to produce output like the input provided, the model can be prompted to reveal specific kinds of information. For example, adding personal information in the prompt increases its likelihood of generating similar
+            kinds of personal information in its output. If personal data was included as part of the model’s training, there is a possibility it could be revealed.</p>
+          <style type="text/css" keep="true">
+            .content h3 {
+              margin-bottom: 8px !important;
+            }
+            
+            .risk-group-icon {
+              width: 24px;
+              height: 24px;
+            }
+            
+            .example {
+              border-radius: 8px;
+              background-color: #f4f4f4;
+              margin: 1rem 0;
+            }
+            
+            .example .heading {
+              position: relative;
+              overflow: hidden;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              padding: 48px 1.5rem;
+              border-radius: 8px 8px 0 0;
+              background: #393939;
+              background-position: center top;
+              background-repeat: no-repeat;
+              background-size: cover;
+            }
+            
+            .example .heading .overlay {
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              top: 0;
+              left: 0;
+              background: linear-gradient(90deg, rgba(244, 244, 244, 1) 45%, rgba(244, 244, 244, 0.2) 65%, rgba(244, 244, 244, 0.4) 70%, rgba(244, 244, 244, 0) 85%);
+            }
+            
+            .example .heading img {
+              position: absolute;
+              top: 0;
+              left: 0;
+            }
+            
+            .example .heading .bx--label {
+              line-height: 14px;
+              margin-bottom: 0;
+              z-index: 0;
+              font-weight: 500;
+              color: #000;
+            }
+            
+            .example .heading .example-title {
+              font-size: 20px;
+              z-index: 0;
+            }
+            
+            .example .heading.input {
+              background-image: url(images/bg_input.png);
+              background-color: #005D5D;
+            }
+            
+            .example .heading.output {
+              background-image: url(images/bg_output.png);
+              background-color: #00539A;
+            }
+            
+            .example .heading.challenges {
+              background-image: url(images/bg_challenges.png);
+              background-color: #6929C4;
+            }
+            
+            .example .example-content {
+              padding: 1.5rem;
+            }
+            
+            .example .sources {
+              display: flex;
+            }
+            
+            .example .sources p {
+              display: flex;
+              flex-wrap: wrap;
+              list-style: none;
+              padding-left: 8px;
+            }
+            
+            .example .sources p:first-child {
+              margin-top: unset;
+            }
+            
+            .example .sources a {
+              vertical-align: middle;
+              margin: 0;
+            }
+            
+            .bullet {
+              margin: 6px 1ch;
+              width: 3px;
+              height: 3px;
+              border-radius: 50%;
+              background-color: black;
+            }
+            
+            .example .sources,
+            .example .sources p,
+            .example .sources a {
+              line-height: normal;
+              font-size: 12px;
+              margin: 0;
+            }
+          </style>
+          <div>
+            <div class="content">
+              <!-- <h3>Description</h3>
+<p>Because generative models tend to produce output like the input provided, the model can be prompted to reveal specific kinds of information. For example, adding personal information in the prompt increases its likelihood of generating similar kinds of personal information in its output. If personal data was included as part of the model’s training, there is a possibility it could be revealed.</p> -->
+              <h3>Why is prompt priming a concern for foundation models?</h3>
+              <p>Depending on the content revealed, business entities could face fines, reputational harm, and other legal consequences.</p>
+            </div>
+          </div>
+          <p><strong>Parent topic:</strong> <a href="../ai-risk-atlas/ai-risk-atlas.html">AI risk atlas</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

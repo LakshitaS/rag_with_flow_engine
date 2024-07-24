@@ -1,0 +1,340 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can use Microsoft Azure ML Service to perform payload logging, feedback logging, and to measure performance accuracy, runtime bias detection, explainability, and auto-debias function in the IBM Watson OpenScale service.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Microsoft Azure ML Service frameworks</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=models-microsoft-azure-ml-service-frameworks"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="microsoft-azure-ml-service-frameworks" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-microsoft-azure-ml-service-frameworks">
+        <h1 id="microsoft-azure-ml-service-frameworks">Microsoft Azure ML Service frameworks</h1>
+        <p>You can use Microsoft Azure ML Service to perform payload logging, feedback logging, and to measure performance accuracy, runtime bias detection, explainability, and auto-debias function in the IBM Watson OpenScale service.</p>
+        <p>IBM Watson OpenScale fully supports the following Microsoft Azure Machine Learning Service frameworks:</p>
+        <p>Table 1. Framework support details</p>
+        <table>
+          <caption caption-side="top">Framework support details</caption>
+          <thead>
+            <tr>
+              <th style="text-align:left">Framework</th>
+              <th style="text-align:center">Problem type</th>
+              <th style="text-align:center">Data type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="text-align:left">Native</td>
+              <td style="text-align:center">Classification</td>
+              <td style="text-align:center">Structured</td>
+            </tr>
+            <tr>
+              <td style="text-align:left">scikit-learn</td>
+              <td style="text-align:center">Classification</td>
+              <td style="text-align:center">Structured</td>
+            </tr>
+            <tr>
+              <td style="text-align:left">scikit-learn</td>
+              <td style="text-align:center">Regression</td>
+              <td style="text-align:center">Structured</td>
+            </tr>
+          </tbody>
+        </table>
+        <p note="">To generate the drift detection model, you must use scikit-learn version 0.20.2 in Notebooks.</p>
+        <section id="section-frmwrks-azureservice-addsrvc">
+          <h2 id="frmwrks-azureservice-addsrvc">Adding Microsoft Azure ML Service to Watson OpenScale</h2>
+          <p>You can configure Watson OpenScale to work with Microsoft Azure ML Service by using one of the following methods:</p>
+          <ul>
+            <li>For the first time that you are adding a machine learning provider to Watson OpenScale, you can use the configuration interface. For more information, see <a href="#connect-azureservice">Specifying a Microsoft Azure ML Service instance</a>.</li>
+            <li>You can also add your machine learning provider by using the Python SDK. You must use this method if you want to have more than one provider. For more information, see <a href="#cml-azsrvbind">Add your Microsoft Azure machine learning engine</a>.</li>
+          </ul>
+          <p>Watson OpenScale calls various REST endpoints that are needed to interact with the Azure ML Service. To do this, you must bind the Azure Machine Learning Service Watson OpenScale.</p>
+          <ol>
+            <li>Create an Azure Active Directory Service Principal.</li>
+            <li>Specify the credential details when you add the Azure ML Service service binding, either through the UI or the Watson OpenScale Python SDK.</li>
+          </ol>
+        </section>
+        <section id="section-frmwrks-azureservice-JSON">
+          <h2 id="frmwrks-azureservice-JSON">Requirements for JSON request and response files</h2>
+          <p>For Watson OpenScale to work with Azure ML Service, the web service deployments you create must meet certain requirements. The web service deployments that you create must accept JSON requests and return JSON responses, according to the following
+            requirements.</p>
+          <section id="section-frmwrks-azureservice-JSON-sample-request">
+            <h3 id="frmwrks-azureservice-JSON-sample-request">Required web service JSON request format</h3>
+            <ul>
+              <li>The REST API request body must be a JSON document that contains one JSON array of JSON objects</li>
+              <li>The JSON array must be named <code>"input"</code>.</li>
+              <li>Each JSON object can include only simple key-value pairs, where the values can be a string, a number, <code>true</code>, <code>false</code>, or <code>null</code></li>
+              <li>The values cannot be a JSON object or array</li>
+              <li>Each JSON object in the array must all have the same keys (and hence number of keys) specified, regardless of whether there is a non-<code>null</code> value available</li>
+            </ul>
+            <p>The following sample JSON file meets the preceding requirements and can be used as a template for creating your own JSON request files:</p>
+            <pre class="codeblock"><code class="lang-JSON hljs"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"input"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"field1"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"value1"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"field2"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">31</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"field3"</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"field4"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">2.3</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"field1"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"value2"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"field2"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">15</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"field3"</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"field4"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.1</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"field1"</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">null</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"field2"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">5</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"field3"</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"field4"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">6.1</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+          </section>
+          <section id="section-frmwrks-azureservice-JSON-sample-response">
+            <h3 id="frmwrks-azureservice-JSON-sample-response">Required web service JSON response format</h3>
+            <p>Make note of the following items when you create a JSON response file:</p>
+            <ul>
+              <li>
+                <p>The REST API response body must be a JSON document that contains one JSON array of JSON objects</p>
+              </li>
+              <li>
+                <p>The JSON array must be named <code>"output"</code>.</p>
+              </li>
+              <li>
+                <p>Each JSON object can include only key-value pairs, where the values can be a string, a number, <code>true</code>, <code>false</code>, <code>null</code>, or an array that does not contain any other JSON objects or arrays</p>
+              </li>
+              <li>
+                <p>The values cannot be a JSON object</p>
+              </li>
+              <li>
+                <p>Each JSON object in the array must all have the same keys (and number of keys) specified, regardless of whether there is a non-<code>null</code> value available</p>
+              </li>
+              <li>
+                <p>For classification models: the web service must return an array of probabilities for each class and the ordering of the probabilities must be consistent for each JSON object in the array</p>
+                <ul>
+                  <li>Example: suppose you have a binary classification model that predicts credit risk, where the classes are <code>Risk</code> or <code>No Risk</code></li>
+                  <li>For every result returned back in the "output" array, the objects must contain a key-value pair that includes the probabilities in fixed order, in the form:</li>
+                </ul>
+                <pre class="codeblock"><code class="lang-JSON hljs"><span class="hljs-punctuation">{</span>
+<span class="hljs-attr">"output"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+  <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"Scored Probabilities"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">"Risk"</span> probability<span class="hljs-punctuation">,</span><span class="hljs-string">"No Risk"</span> probability
+    <span class="hljs-punctuation">]</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"Scored Probabilities"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">"Risk"</span> probability<span class="hljs-punctuation">,</span><span class="hljs-string">"No Risk"</span> probability
+        <span class="hljs-punctuation">]</span>
+       <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">]</span>
+</code></pre>
+              </li>
+            </ul>
+            <p>To be consistent with Azure ML visual tools that are used in both Azure ML Studio and Service, use the following key names:</p>
+            <ul>
+              <li>the key name <code>"Scored Labels"</code> for the output key that denotes the predicted value of the model</li>
+              <li>the key name <code>"Scored Probabilities"</code> for the output key that denotes an array of probabilities for each class</li>
+            </ul>
+            <p>The following sample JSON file meets the preceding requirements and can be used as a template for creating your own JSON response files:</p>
+            <pre class="codeblock"><code class="lang-JSON hljs"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"output"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"Scored Labels"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"No Risk"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"Scored Probabilities"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+        <span class="hljs-number">0.8922524675865824</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-number">0.10774753241341757</span>
+      <span class="hljs-punctuation">]</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"Scored Labels"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"No Risk"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"Scored Probabilities"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+        <span class="hljs-number">0.8335192848546905</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-number">0.1664807151453095</span>
+      <span class="hljs-punctuation">]</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+          </section>
+        </section>
+        <section id="section-frmwrks-azureservice-smpl-ntbks">
+          <h2 id="frmwrks-azureservice-smpl-ntbks">Sample Notebooks</h2>
+          <p>The following Notebooks show how to work with Microsoft Azure ML Service:</p>
+          <ul>
+            <li><a href="https://github.com/IBM/watson-openscale-samples/blob/main/IBM%20Cloud/Azure/notebooks/ML%20service/Credit%20model%20with%20Azure%20Service%20and%20scikit-learn.ipynb" target="_blank" class="external">Model creation with Azure Service and deployment</a></li>
+            <li><a href="https://github.com/IBM/watson-openscale-samples/blob/main/IBM%20Cloud/Azure/notebooks/ML%20service/Credit%20scoring%20endpoint%20wrapper%20with%20payload%20logging.ipynb" target="_blank" class="external">Data mart creation, deployment wrapper for payload logging, model deployment monitoring and data analysis</a></li>
+          </ul>
+        </section>
+        <section id="section-connect-azureservice">
+          <h2 id="connect-azureservice">Specifying a Microsoft Azure ML Service instance</h2>
+          <p>Your first step in the Watson OpenScale tool is to specify a Microsoft Azure ML Service instance. Your Azure ML Service instance is where you store your AI models and deployments.</p>
+          <p>Watson OpenScale connects to AI models and deployments in an Azure ML Service instance. To connect your service to Watson OpenScale, go to the <strong>Configure</strong> <img src="images/wos-config-tab.png" alt="The configuration tab icon">            tab, add a machine learning provider, and click the <strong>Edit</strong> <img src="images/wos-edit-icon.png" alt="The edit icon"> icon. In addition to a name and description and whether the environment is <strong>Pre-production</strong> or
+            <strong>Production</strong>, you must provide the following information:</p>
+          <ul>
+            <li>Client ID: The actual string value of your client ID, which verifies who you are and authenticates and authorizes calls that you make to Azure Service.</li>
+            <li>Client Secret: The actual string value of the secret, which verifies who you are and authenticates and authorizes calls that you make to Azure Service.</li>
+            <li>Tenant: Your tenant ID corresponds to your organization and is a dedicated instance of Azure AD. To find the tenant ID, hover over your account name to get the directory and tenant ID, or select Azure Active Directory &gt; Properties &gt;
+              Directory ID in the Azure portal.</li>
+            <li>Subscription ID: Subscription credentials that uniquely identify your Microsoft Azure subscription. The subscription IDforms part of the URI for every service call.</li>
+          </ul>
+          <p note="">See <a href="https://docs.microsoft.com/en-us/azure/" target="_blank" class="external">How to: Use the portal to create an Azure AD application and service principal that can access resources</a> for instructions about how to get your Microsoft
+            Azure credentials.</p>
+          <p>You are now ready to select deployed models and configure your monitors. Watson OpenScale lists your deployed models on the <strong>Insights</strong> dashboard where you can click <strong>Add to dashboard</strong>. Select the deployments that
+            you want to monitor and click <strong>Configure</strong>.</p>
+          <p>For more information, see <a href="wos-monitors-overview.html">Configure monitors</a>.</p>
+        </section>
+        <section id="section-cml-azsrvconfig">
+          <h2 id="cml-azsrvconfig">Payload logging with the Microsoft Azure ML Service engine</h2>
+          <section id="section-cml-azsrvbind">
+            <h3 id="cml-azsrvbind">Add your Microsoft Azure ML Service engine</h3>
+            <p>A non-IBM Watson Machine Learning engine is bound as Custom, and consists of metadata. There is no direct integration with the non-IBM Watson Machine Learning service.</p>
+            <pre class="codeblock"><code class="lang-python hljs">service_type = <span class="hljs-string">"azure_machine_learning_service"</span>
+added_service_provider_result = wos_client.service_providers.add(
+        name=SERVICE_PROVIDER_NAME,
+        description=SERVICE_PROVIDER_DESCRIPTION,
+        service_type = service_type,
+        credentials=AzureCredentials(
+            subscription_id= AZURE_ENGINE_CREDENTIALS[<span class="hljs-string">'subscription_id'</span>],
+            client_id = AZURE_ENGINE_CREDENTIALS[<span class="hljs-string">'client_id'</span>],
+            client_secret= AZURE_ENGINE_CREDENTIALS[<span class="hljs-string">'client_secret'</span>],
+            tenant = AZURE_ENGINE_CREDENTIALS[<span class="hljs-string">'tenant'</span>]
+        ),
+        background_mode=<span class="hljs-literal">False</span>
+    ).result
+</code></pre>
+            <p>You can see your service binding with the following command:</p>
+            <pre class="codeblock"><code class="lang-python hljs">client.service_providers.<span class="hljs-built_in">list</span>()
+</code></pre>
+            <p>The sample output:</p>
+            <pre class="codeblock"><code class="lang-python hljs">uid	                                   name	                      service_type	                   created
+410e730f-<span class="hljs-number">8462</span>-45fe-8b41-a029d6d6043a	My Azure ML Service engine azure_machine_learning_service2019-06-10T22:<span class="hljs-number">10</span>:<span class="hljs-number">29.398</span>Z
+</code></pre>
+          </section>
+          <section id="section-cml-azsrvsub">
+            <h3 id="cml-azsrvsub">Add Microsoft Azure ML Service subscription</h3>
+            <p>Add subscription</p>
+            <pre class="codeblock"><code class="lang-python hljs">asset_deployment_details = wos_client.service_providers.list_assets(data_mart_id=data_mart_id, service_provider_id=service_provider_id).result
+asset_deployment_details
+ 
+deployment_id=<span class="hljs-string">''</span>
+<span class="hljs-keyword">for</span> model_asset_details <span class="hljs-keyword">in</span> asset_deployment_details[<span class="hljs-string">'resources'</span>]:
+    <span class="hljs-keyword">if</span> model_asset_details[<span class="hljs-string">'metadata'</span>][<span class="hljs-string">'guid'</span>]==deployment_id:
+        <span class="hljs-keyword">break</span>
+ 
+azure_asset = Asset(
+            asset_id=model_asset_details[<span class="hljs-string">"entity"</span>][<span class="hljs-string">"asset"</span>][<span class="hljs-string">"asset_id"</span>],
+            name=model_asset_details[<span class="hljs-string">"entity"</span>][<span class="hljs-string">"asset"</span>][<span class="hljs-string">"name"</span>],
+            url=model_asset_details[<span class="hljs-string">"entity"</span>][<span class="hljs-string">"asset"</span>][<span class="hljs-string">"url"</span>],
+            asset_type=model_asset_details[<span class="hljs-string">'entity'</span>][<span class="hljs-string">'asset'</span>][<span class="hljs-string">'asset_type'</span>] <span class="hljs-keyword">if</span> <span class="hljs-string">'asset_type'</span> <span class="hljs-keyword">in</span> model_asset_details[<span class="hljs-string">'entity'</span>][<span class="hljs-string">'asset'</span>] <span class="hljs-keyword">else</span> <span class="hljs-string">'model'</span>,
+            input_data_type=InputDataType.STRUCTURED,
+            problem_type=ProblemType.BINARY_CLASSIFICATION
+        )
+ 
+deployment_scoring_endpoint = model_asset_details[<span class="hljs-string">'entity'</span>][<span class="hljs-string">'scoring_endpoint'</span>]
+scoring_endpoint = ScoringEndpointRequest(url = model_asset_details[<span class="hljs-string">'entity'</span>][<span class="hljs-string">'scoring_endpoint'</span>][<span class="hljs-string">'url'</span>],request_headers = model_asset_details[<span class="hljs-string">'entity'</span>][<span class="hljs-string">'scoring_endpoint'</span>][<span class="hljs-string">'request_headers'</span>],
+                                                 credentials = <span class="hljs-literal">None</span>)  
+ 
+deployment = AssetDeploymentRequest(
+    deployment_id=model_asset_details[<span class="hljs-string">'metadata'</span>][<span class="hljs-string">'guid'</span>],
+    url=model_asset_details[<span class="hljs-string">'metadata'</span>][<span class="hljs-string">'url'</span>],
+    name=model_asset_details[<span class="hljs-string">'entity'</span>][<span class="hljs-string">'name'</span>],
+    description=model_asset_details[<span class="hljs-string">'entity'</span>][<span class="hljs-string">'description'</span>],
+    deployment_type=model_asset_details[<span class="hljs-string">'entity'</span>][<span class="hljs-string">'type'</span>],
+    scoring_endpoint = scoring_endpoint
+)
+ 
+asset_properties = AssetPropertiesRequest(
+        label_column=<span class="hljs-string">"Risk "</span>,
+        prediction_field=<span class="hljs-string">'Scored Labels'</span>,
+        probability_fields=[<span class="hljs-string">'Scored Probabilities'</span>],
+        training_data_reference=training_data_reference,
+        training_data_schema=<span class="hljs-literal">None</span>,
+        input_data_schema=<span class="hljs-literal">None</span>,
+        output_data_schema=<span class="hljs-literal">None</span>,
+    )
+ 
+subscription_details = wos_client.subscriptions.add(
+        data_mart_id=data_mart_id,
+        service_provider_id=service_provider_id,
+        asset=azure_asset,
+        deployment=deployment,
+        asset_properties=asset_properties,
+        background_mode=<span class="hljs-literal">False</span>
+).result
+</code></pre>
+            <p>Get subscription list</p>
+            <pre class="codeblock"><code class="lang-python hljs">subscription_id = subscription_details.metadata.<span class="hljs-built_in">id</span>
+subscription_id
+ 
+details: wos_client.subscriptions.get(subscription_id).result.to_dict()
+</code></pre>
+          </section>
+          <section id="section-cml-azsrvenlog">
+            <h3 id="cml-azsrvenlog">Enable payload logging</h3>
+            <p>Enable payload logging in subscription</p>
+            <pre class="codeblock"><code class="lang-python hljs">payload_data_set_id = <span class="hljs-literal">None</span>
+payload_data_set_id = wos_client.data_sets.<span class="hljs-built_in">list</span>(<span class="hljs-built_in">type</span>=DataSetTypes.PAYLOAD_LOGGING, 
+                                                target_target_id=subscription_id, 
+                                                target_target_type=TargetTypes.SUBSCRIPTION).result.data_sets[<span class="hljs-number">0</span>].metadata.<span class="hljs-built_in">id</span>
+</code></pre>
+            <p>Get logging details</p>
+            <pre class="codeblock"><code class="lang-python hljs">subscription.payload_logging.get_details()
+</code></pre>
+          </section>
+          <section id="section-cml-azsrvscore">
+            <h3 id="cml-azsrvscore">Scoring and payload logging</h3>
+            <p>Score your model. For a full example, see the <a href="https://github.com/IBM/watson-openscale-samples/blob/main/IBM%20Cloud/Azure/notebooks/ML%20service/Credit%20model%20with%20Azure%20Service%20and%20scikit-learn.ipynb" target="_blank" class="external">Working with Azure Machine Learning Service Engine Notebook</a>.</p>
+            <p>Store the request and response in the payload logging table:</p>
+            <pre class="codeblock"><code class="lang-python hljs">wos_client.data_sets.store_records(data_set_id=payload_data_set_id, request_body=[PayloadRecord(
+           scoring_id=<span class="hljs-built_in">str</span>(uuid.uuid4()),
+           request=request_data,
+           response=response_data,
+           response_time=<span class="hljs-number">460</span>
+)])
+</code></pre>
+            <p note="">For languages other than Python, you can also log payload by using a REST API.</p>
+            <p><strong>Parent topic:</strong> <a href="../model/wos-frameworks-ovr.html">Supported machine learning engines, frameworks, and models</a></p>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

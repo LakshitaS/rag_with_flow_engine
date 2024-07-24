@@ -1,0 +1,102 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can create a job to run an SPSS Modeler flow.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Creating SPSS Modeler jobs</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=jobs-creating-in-spss-modeler"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="creating-spss-modeler-jobs" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-creating-spss-modeler-jobs">
+        <h1 id="creating-spss-modeler-jobs">Creating SPSS Modeler jobs</h1>
+        <p>You can create a job to run an SPSS Modeler flow.</p>
+        <p>To create an SPSS Modeler job:</p>
+        <ol>
+          <li>
+            <p>In SPSS Modeler, click the <strong>Create a job</strong> icon <img src="images/Run-schedule_Blue.png" alt="the jobs icon" height="20" style="vertical-align:text-bottom"> from the toolbar and select <strong>Create a job</strong>. A wizard will
+              appear. Click <strong>Next</strong> to proceed through each page of the wizard as described here.</p>
+          </li>
+          <li>
+            <p>Define the job details by entering a name and a description (optional). If desired, you can also specify retention settings for the job. Select <strong>Job run retention settings</strong> to set how long to retain finished job runs and job
+              run artifacts such as logs. You can select one of the following retention methods. Be mindful when changing the default as too many job run files can quickly use up project storage.</p>
+            <ul>
+              <li><strong>By duration (days)</strong>. Specify the number of days to retain job runs and job artifacts. The retention value is set to 7 days by default (the last 7 days of job runs retained).</li>
+              <li><strong>By amount</strong>. Specify the last number of finished job runs and job artifacts to keep. The retention value is set to 200 jobs by default.</li>
+            </ul>
+          </li>
+          <li>
+            <p>On the Flow parameters page, you can set values for flow parameters if any exist for the flow. They are, in effect, user-defined variables that are saved and persisted with the flow. Parameters are often used in scripting to control the behavior
+              of the script by providing information about fields and values that don't need to be hard coded in the script. See <a href="../../wsd/flow_properties.html">Setting properties for flows</a> for more information.</p>
+            <p>For example, your flow might contain a parameter called <strong>age_param</strong> that you choose to set to <strong>40</strong> here, and a parameter called <strong>bp_param</strong> you might set to <strong>HIGH</strong>.</p>
+          </li>
+          <li>
+            <p>On the Configuration page, you can choose whether the job will run the entire flow or one or more branches of the flow.</p>
+          </li>
+          <li>
+            <p>On the Schedule page, you can optionally add a one-time or repeating schedule.</p>
+            <p>If you define a start day and time without selecting <strong>Repeat</strong>, the job will run exactly one time at the specified day and time. If you define a start date and time and you select <strong>Repeat</strong>, the job will run for
+              the first time at the timestamp indicated in the Repeat section.</p>
+            <p>You can't change the time zone; you must set your job schedule in your web browser's time zone.&nbsp;The schedule will be translated to the time zone of the compute node where your job runs.</p>
+            <p>If you exclude certain weekdays, the job might not run as you would expect. The reason might be due to a discrepancy between the time zone of the user who creates the schedule, and the time zone of the compute node where the job runs.</p>
+            <div class="note note"><span class="notetitle">Note:</span> Your scheduled job can appear differently if your web browser’s time zone is set to your local time zone following Daylight Savings Time (DST). For example, your scheduled job appears at 3:00PM Eastern
+              Standard Time Zone (EST) daily corresponding to 8:00PM Coordinated Universal Time (UTC). When your local time zone changes to Eastern Daylight Time Zone (EDT), your scheduled job continues to run at 8:00PM (UTC) which will now appear as
+              4:00PM (EDT) daily.</div>
+          </li>
+          <li>
+            <p>Optionally turn on notifications for the job. You can select the type of alerts to receive.</p>
+          </li>
+          <li>
+            <p>Review the job settings. Click <strong>Save</strong> to create the job.</p>
+            <p>The SPSS Modeler job is listed under <strong>Jobs</strong> in your project.</p>
+          </li>
+        </ol>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="jobs.html#view-job-details">Viewing job details</a></li>
+            <li><a href="../../wsd/spss-modeler.html">SPSS Modeler documentation</a></li>
+          </ul>
+          <p><strong>Parent topic</strong>: <a href="jobs.html">Jobs</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

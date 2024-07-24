@@ -1,0 +1,71 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Use this information to resolve questions about using Data Refinery.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Troubleshooting Data Refinery</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=troubleshooting-data-refinery"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="troubleshooting-data-refinery" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-troubleshooting-data-refinery">
+        <h1 id="troubleshooting-data-refinery">Troubleshooting Data Refinery</h1>
+        <p>Use this information to resolve questions about using Data Refinery.</p>
+        <ul>
+          <li><a href="#dr-excel">Cannot refine data from an Excel data asset</a></li>
+          <li><a href="#bigdata-dr">Data Refinery flow job fails with a large data asset</a></li>
+        </ul>
+        <section id="section-dr-excel">
+          <h2 id="dr-excel">Cannot refine data from an Excel data asset</h2>
+          <p>The Data Refinery flow might fail if it cannot read the data. Confirm the format of the Excel file. By default, the first line of the file is treated as the header. You can change this setting in the Flow settings <img src="images/settings.png" alt="settings icon" height="20" style="vertical-align:text-bottom">. Go to the <strong>Source data sets</strong> tab and click the overflow menu (<img src="images/actions.png" alt="overflow menu" title="Three vertical dots that represent the overflow menu" height="20" style="vertical-align:text-bottom">) next to the data source, and select <strong>Edit format</strong>. You can also specify the first line property, which designates which row is the first row in the data set to be read. Changing
+            these properties affects how the data is displayed in Data Refinery as well as the Data Refinery job run and flow output.</p>
+        </section>
+        <section id="section-bigdata-dr">
+          <h2 id="bigdata-dr">Data Refinery flow job fails with a large data asset</h2>
+          <p>If your Data Refinery flow job fails with a large data asset, try these troubleshooting tips to fix the problem:</p>
+          <ul>
+            <li>Instead of using a project data asset as the target of the Data Refinery flow (default), use Cloud storage. For example, IBM Cloud Object Storage, Amazon S3, or Google Cloud Storage.</li>
+            <li>Select a <strong>Spark &amp; R</strong> environment for the Data Refinery flow job or create a new <strong>Spark &amp; R</strong> environment template.</li>
+          </ul>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

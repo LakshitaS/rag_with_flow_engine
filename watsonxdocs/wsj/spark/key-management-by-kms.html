@@ -1,0 +1,182 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Parquet modular encryption can work with arbitrary Key Management Service (KMS) servers. A custom KMS client class, able to communicate with the chosen KMS server, has to be provided to the Analytics Engine powered by Apache Spark instance. This class needs to implement the KmsClient interface (part of the Parquet modular encryption API). Analytics Engine powered by Apache Spark includes the VaultClient KmsClient, that can be used out of the box if you use Hashicorp Vault as the KMS server for the master keys. If you use or plan to use a different KMS system, you can develop a custom KmsClient class (taking the VaultClient code as an example).">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Key management by KMS</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=encryption-key-management-by-kms"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="key-management-kms" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-key-management-kms">
+        <h1 id="key-management-kms">Key management by KMS</h1>
+        <p>Parquet modular encryption can work with arbitrary Key Management Service (KMS) servers. A custom KMS client class, able to communicate with the chosen KMS server, has to be provided to the Analytics Engine powered by Apache Spark instance. This
+          class needs to implement the KmsClient interface (part of the Parquet modular encryption API). Analytics Engine powered by Apache Spark includes the VaultClient KmsClient, that can be used out of the box if you use Hashicorp Vault as the KMS
+          server for the master keys. If you use or plan to use a different KMS system, you can develop a custom KmsClient class (taking the VaultClient code as an example).</p>
+        <section id="section-custom-kmsclient-class">
+          <h2 id="custom-kmsclient-class">Custom KmsClient class</h2>
+          <p>Parquet modular encryption provides a simple interface called <code>org.apache.parquet.crypto.keytools.KmsClient</code> with the following two main functions that you must implement:</p>
+          <pre class="codeblock"><code class="lang-bash hljs">// Wraps a key - encrypts it with the master key, encodes the result and 
+// potentially adds KMS-specific metadata.
+public String wrapKey(byte[] keyBytes, String masterKeyIdentifier)
+// Decrypts (unwraps) a key with the master key.
+public byte[] unwrapKey(String wrappedKey, String masterKeyIdentifier)
+</code></pre>
+          <p>In addition, the interface provides the following initialization function that passes KMS parameters and other configuration:</p>
+          <pre class="codeblock"><code class="lang-bash hljs">public void initialize(Configuration configuration, String kmsInstanceID, String kmsInstanceURL, String accessToken)
+</code></pre>
+          <p>See <a href="https://github.com/apache/parquet-mr/blob/master/parquet-hadoop/src/test/java/org/apache/parquet/crypto/keytools/samples/VaultClient.java">Example of KmsClient implementation</a> to learn how to implement a KmsClient.</p>
+          <p>After you have developed the custom KmsClient class, add it to a jar supplied to Analytics Engine powered by Apache Spark, and pass its full name in the Spark Hadoop configuration, for example:</p>
+          <pre class="codeblock"><code class="lang-bash hljs">sc.hadoopConfiguration.set(<span class="hljs-string">"parquet.ecnryption.kms.client.class"</span>, <span class="hljs-string">"full.name.of.YourKmsClient"</span>
+</code></pre>
+        </section>
+        <section id="section-key-management-by-hashicorp-vault">
+          <h2 id="key-management-by-hashicorp-vault">Key management by Hashicorp Vault</h2>
+          <p>If you decide to use Hashicorp Vault as the KMS server, you can use the pre-packaged VaultClient:</p>
+          <pre class="codeblock"><code class="lang-bash hljs">sc.hadoopConfiguration.set(<span class="hljs-string">"parquet.ecnryption.kms.client.class"</span>, <span class="hljs-string">"com.ibm.parquet.key.management.VaultClient"</span>)
+</code></pre>
+          <section id="section-creating-master-keys">
+            <h3 id="creating-master-keys">Creating master keys</h3>
+            <p>Consult the Hashicorp Vault documentation for the specifics about actions on Vault. See:
+            </p>
+            <ul>
+              <li><a href="https://www.vaultproject.io/docs/secrets/transit">Transit Secrets Engine</a></li>
+              <li><a href="https://learn.hashicorp.com/tutorials/vault/eaas-transit">Encryption as a Service: Transit Secrets Engine</a></li>
+            </ul>
+            <ol>
+              <li>Enable the Transit Engine either at the default path or providing a custom path.</li>
+              <li>Create named encryption keys.</li>
+              <li>Configure access policies with which a user or machine is allowed to access these named keys.</li>
+            </ol>
+          </section>
+          <section id="section-writing-encrypted-data">
+            <h3 id="writing-encrypted-data">Writing encrypted data</h3>
+            <ol>
+              <li>
+                <p>Pass the following parameters:</p>
+                <ul>
+                  <li>
+                    <p>Set <code>"parquet.encryption.kms.client.class"</code> to <code>"com.ibm.parquet.key.management.VaultClient"</code>:</p>
+                    <pre class="codeblock"><code class="lang-bash hljs">sc.hadoopConfiguration.set(<span class="hljs-string">"parquet.ecnryption.kms.client.class"</span>, <span class="hljs-string">"com.ibm.parquet.key.management.VaultClient"</span>)
+</code></pre>
+                  </li>
+                  <li>
+                    <p>Optional: Set the custom path <code>"parquet.encryption.kms.instance.id"</code> to your transit engine:</p>
+                    <pre class="codeblock"><code class="lang-bash hljs">sc.hadoopConfiguration.set(<span class="hljs-string">"parquet.encryption.kms.instance.id"</span> , <span class="hljs-string">"north/transit1"</span>)
+</code></pre>
+                  </li>
+                  <li>
+                    <p>Set <code>"parquet.encryption.kms.instance.url"</code> to the URL of your Vault instance:</p>
+                    <pre class="codeblock"><code class="lang-bash hljs">sc.hadoopConfiguration.set(<span class="hljs-string">"parquet.encryption.kms.instance.url"</span> , <span class="hljs-string">"https://&lt;hostname&gt;:8200"</span>)
+</code></pre>
+                  </li>
+                  <li>
+                    <p>Set <code>"parquet.encryption.key.access.token"</code> to a valid access token with the access policy attached, which provides access rights to the required keys in your Vault instance:</p>
+                    <pre class="codeblock"><code class="lang-bash hljs">sc.hadoopConfiguration.set(<span class="hljs-string">"parquet.encryption.key.access.token"</span> , <span class="hljs-string">"&lt;token string&gt;"</span>)
+</code></pre>
+                  </li>
+                  <li>
+                    <p>If the token is located in a local file, load it:</p>
+                    <pre class="codeblock"><code class="lang-bash hljs">val token = scala.io.Source.fromFile(<span class="hljs-string">"&lt;token file&gt;"</span>).mkStringsc.hadoopConfiguration.set(<span class="hljs-string">"parquet.encryption.key.access.token"</span> , token) 
+</code></pre>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <p>Specify which columns need to be encrypted, and with which master keys. You must also specify the footer key. For example:</p>
+                <pre class="codeblock"><code class="lang-bash hljs">val k1 = <span class="hljs-string">"key1"</span>
+val k2 = <span class="hljs-string">"key2"</span>
+val k3 = <span class="hljs-string">"key3"</span>
+dataFrame.write
+.option(<span class="hljs-string">"parquet.encryption.footer.key"</span> , k1)
+.option(<span class="hljs-string">"parquet.encryption.column.keys"</span> , k2+<span class="hljs-string">":SSN,Address;"</span>+k3+<span class="hljs-string">":CreditCard"</span>)
+.parquet(<span class="hljs-string">"&lt;path to encrypted files&gt;"</span>)
+</code></pre>
+                <p>Note: If either the <code>"parquet.encryption.column.keys"</code> or the <code>"parquet.encryption.footer.key"</code> parameter is not set, an exception will be thrown.</p>
+              </li>
+            </ol>
+          </section>
+        </section>
+        <section id="section-reading-encrypted-data">
+          <h2 id="reading-encrypted-data">Reading encrypted data</h2>
+          <p>The required metadata, including the ID and URL of the Hashicorp Vault instance, is stored in the encrypted Parquet files.</p>
+          <p>To read the encrypted metadata:</p>
+          <ol>
+            <li>
+              <p>Set KMS client to the Vault client implementation:</p>
+              <pre class="codeblock"><code class="lang-bash hljs">sc.hadoopConfiguration.set(<span class="hljs-string">"parquet.ecnryption.kms.client.class"</span>, <span class="hljs-string">"com.ibm.parquet.key.management.VaultClient"</span>)
+</code></pre>
+            </li>
+            <li>
+              <p>Provide the access token with policy attached that grants access to the relevant keys:</p>
+              <pre class="codeblock"><code class="lang-bash hljs">sc.hadoopConfiguration.set(<span class="hljs-string">"parquet.encryption.key.access.token"</span> , <span class="hljs-string">"&lt;token string&gt;"</span>)
+</code></pre>
+            </li>
+            <li>
+              <p>Call the regular Parquet read commands, such as:</p>
+              <pre class="codeblock"><code class="lang-bash hljs">val dataFrame = spark.read.parquet(<span class="hljs-string">"&lt;path to encrypted files&gt;"</span>)
+</code></pre>
+            </li>
+          </ol>
+        </section>
+        <section id="section-key-rotation">
+          <h2 id="key-rotation">Key rotation</h2>
+          <p>If key rotation is required, an administrator with access rights to the KMS key rotation actions must rotate master keys in Hashicorp Vault using the procedure described in the Hashicorp Vault documentation. Thereafter the administrator can
+            trigger Parquet key rotation by calling:</p>
+          <pre class="codeblock"><code class="lang-bash hljs">public static void KeyToolkit.rotateMasterKeys(String folderPath, Configuration hadoopConfig)
+</code></pre>
+          <p>To enable Parquet key rotation, the following Hadoop configuration properties must be set:</p>
+          <ul>
+            <li>The parameters <code>"parquet.encryption.key.access.token"</code> and <code>"parquet.encryption.kms.instance.url"</code> must set set, and optionally <code>"parquet.encryption.kms.instance.id"</code></li>
+            <li>The parameter <code>"parquet.encryption.key.material.store.internally"</code> must be set to <code>"false"</code>.</li>
+            <li>The parameter <code>"parquet.encryption.kms.client.class"</code> must be set to <code>"com.ibm.parquet.key.management.VaultClient"</code></li>
+          </ul>
+          <p>For example:</p>
+          <pre class="codeblock"><code class="lang-bash hljs">sc.hadoopConfiguration.set(<span class="hljs-string">"parquet.encryption.kms.instance.url"</span> , <span class="hljs-string">"https://&lt;hostname&gt;:8200"</span>)sc.hadoopConfiguration.set(<span class="hljs-string">"parquet.encryption.key.access.token"</span> , <span class="hljs-string">"&lt;token string&gt;"</span>)
+sc.hadoopConfiguration.set(<span class="hljs-string">"parquet.encryption.kms.client.class"</span>,<span class="hljs-string">"com.ibm.parquet.key.management.VaultClient"</span>)
+sc.hadoopConfiguration.set(<span class="hljs-string">"parquet.encryption.key.material.store.internally"</span>, <span class="hljs-string">"false"</span>)
+KeyToolkit.rotateMasterKeys(<span class="hljs-string">"&lt;path to encrypted files&gt;"</span>, sc.hadoopConfiguration)
+</code></pre>
+          <p><strong>Parent topic:</strong> <a href="../spark/parquet-encryption.html">Parquet encryption</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

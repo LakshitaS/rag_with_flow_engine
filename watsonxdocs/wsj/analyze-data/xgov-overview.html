@@ -1,0 +1,111 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Use watsonx.governance to accelerate responsible, transparent, and explainable AI workflows with an AI governance solution that provides end-to-end monitoring for machine learning and generative AI models. Monitor your foundation model and machine learning assets from request to production. Collect facts about models that are built with IBM tools or third-party providers in a single dashboard to aid in meeting compliance and governance goals.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Watsonx.governance</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=governing-ai-assets"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="watsonxgovernance" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-watsonxgovernance">
+        <h1 id="watsonxgovernance">Watsonx.governance</h1>
+        <p>Use watsonx.governance to accelerate responsible, transparent, and explainable AI workflows with an AI governance solution that provides end-to-end monitoring for machine learning and generative AI models. Monitor your foundation model and machine
+          learning assets from request to production. Collect facts about models that are built with IBM tools or third-party providers in a single dashboard to aid in meeting compliance and governance goals.</p>
+        <section id="section-develop-a-comprehensive-governance-solution">
+          <h2 id="develop-a-comprehensive-governance-solution">Develop a comprehensive governance solution</h2>
+          <p>Using watsonx.governance, you can extend the best practices of AI governance from predictive machine learning models to generative AI while monitoring and mitigating the risks associated with models, users, and data sets. The benefits of this
+            approach include:</p>
+          <ul>
+            <li>Responsible AI: extend the practices of responsible AI from governing predictive machine learning models to the use of generative AI with any foundation or model provider.</li>
+            <li>Explainability: Use automation to improve transparency and explainability for tracked models. Use tools for detecting and mitigating risks that are associated with AI.</li>
+            <li>Transparent and regulatory policies: Mitigate AI risks by tracking the end-to-end AI lifecycle to aid compliance with internal policies and external regulations for enterprise-wide AI solutions.</li>
+          </ul>
+          <section id="section-use-the-ai-risk-atlas-as-a-guide">
+            <h3 id="use-the-ai-risk-atlas-as-a-guide">Use the AI risk atlas as a guide</h3>
+            <p>Start your governance journey by reviewing the <a href="../ai-risk-atlas/ai-risk-atlas.html">Risk Atlas</a> to learn about the potential risks of working with AI models. The Risk Atlas provides a guide to understanding some of the risks of
+              working with AI models, including generative AI, foundation models, and machine learning models. In addition to describing potential risks, it provides real-world context. It is intended as an educational resource and is not meant as a prescriptive
+              tool.</p>
+          </section>
+          <section id="section-governance-in-action">
+            <h3 id="governance-in-action">Governance in action</h3>
+            <p>This illustration depicts a typical governance flow, from request to monitoring in production.</p>
+            <p><img src="images/wastonx-gov-concept.svg" alt="watsonx.governance flow"></p>
+          </section>
+        </section>
+        <section id="section-components-of-watsonxgovernance">
+          <h2 id="components-of-watsonxgovernance">Components of watsonx.governance</h2>
+          <p>Watsonx.governance includes these tools for addressing your governance needs in an integrated solution:</p>
+          <ul>
+            <li><strong>Watson OpenScale</strong> provides tools for configuring monitors that evaluate your deployed assets against thresholds you specify. For example, you can configure threshold that alerts you when predictive machine learning models perform
+              below a specified threshold for fairness in monitored outcomes, or drift from accuracy. Alerts for foundation models can warn you when a threshold is breached for the presence of hateful or abusive language or the detection of personal identifiable
+              information. A Model Health monitor provides real-time performance tracking for deployed models.</li>
+            <li><strong>AI Factsheets</strong> collects the metadata for machine learning models and prompt templates you explicitly track. Develop AI use cases to gather all of the information for managing a model or prompt template from the request phase
+              through development and into production. Manage multiple versions or a model, or compare different approaches to solving a business problem within a use case. Factsheets display information about the models including creation information,
+              data that is used, and where the asset is in the lifecycle. A common model inventory dashboard gives you a view of all tracked assets, or you can view the details of a particular model, all in service of meeting policy and compliance goals.</li>
+            <li>Optionally integrate with <strong>IBM OpenPages Model Risk Governance</strong> to collect metadata about foundation models as well as machine learning models to help you achieve your governance goals. You can also use OpenPages to develop
+              workflows that support your governance processes.</li>
+          </ul>
+          <section id="section-extend-governance-with-watsonxai">
+            <h3 id="extend-governance-with-watsonxai">Extend governance with watsonx.ai</h3>
+            <p>To create an end-to-end experience for developing assets and then adding them to governance, use watsonx.ai with watsonx.governance. Watsonx.ai extends the Watson Studio and Watson Machine Learning services to work with foundation models,
+              including capabilities for saving prompt templates for a curated collection of large language model assets.</p>
+            <p>For more information on watsonx.ai, see:</p>
+            <ul>
+              <li><a href="../getting-started/overview-wx.html">Overview of IBM watsonx</a></li>
+              <li><a href="../getting-started/signup-wx.html">Signing up for IBM watsonx</a></li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-next-steps">
+          <h2 id="next-steps">Next steps</h2>
+          <ul>
+            <li>
+              <p><a href="xgov-plan.html">Develop a governance plan</a></p>
+            </li>
+            <li>
+              <p>To begin governance, follow the steps in <a href="../model/wos-provision-launch.html">Provisioning and launching IBM watsonx.governance</a> to provision Watson OpenScale with AI Factsheets.</p>
+            </li>
+          </ul>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

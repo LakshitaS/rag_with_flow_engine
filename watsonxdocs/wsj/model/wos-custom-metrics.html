@@ -1,0 +1,219 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="To create custom evaluations, select a set of custom metrics to quantitatively track your model deployment and business application. You can define these custom metrics and use them alongside the standard metrics monitored by Watson OpenScale: drift, fairness, and quality.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Creating custom evaluations and metrics in Watson OpenScale</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=evaluations-creating-custom-metrics"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="creating-custom-evaluations-and-metrics-in-watson-openscale" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-creating-custom-evaluations-and-metrics-in-watson-openscale">
+        <h1 id="creating-custom-evaluations-and-metrics-in-watson-openscale">Creating custom evaluations and metrics in Watson OpenScale</h1>
+        <p>To create custom evaluations, select a set of custom metrics to quantitatively track your model deployment and business application. You can define these custom metrics and use them alongside the standard metrics monitored by Watson OpenScale:
+          drift, fairness, and quality.</p>
+        <p>You can use one of the following methods to manage custom evaluations and metrics:</p>
+        <ul>
+          <li><a href="#cst_mtrc_mgmt">Managing custom metrics with the Python SDK</a></li>
+          <li><a href="#cst_mtrc_mgmt_wos">Managing custom metrics in Watson OpenScale</a></li>
+        </ul>
+        <section id="section-cst_mtrc_mgmt">
+          <h2 id="cst_mtrc_mgmt">Managing custom metrics with the Python SDK</h2>
+          <p>To manage custom metrics with the Python SDK, you must perform the following tasks:</p>
+          <ol>
+            <li><a href="#cst_mtrc_mgmt-step1">Register custom monitor with metrics definition</a>.</li>
+            <li><a href="#cst_mtrc_mgmt-step2">Enable custom monitor</a>.</li>
+            <li><a href="#cst_mtrc_mgmt-step3">Store metric values</a>.</li>
+          </ol>
+          <p>The following advanced tutorial shows how to do this:</p>
+          <ul>
+            <li><a href="https://github.com/IBM/watson-openscale-samples/blob/main/IBM%20Cloud/WML/notebooks/binary/spark/Watson%20OpenScale%20and%20Watson%20ML%20Engine.ipynb" target="_blank" class="external">Working with IBM Watson Machine Learning</a></li>
+          </ul>
+          <p>You can disable and enable again custom monitoring at any time. You can remove custom monitor if you do not need it anymore.</p>
+          <p>For more information, see the <a href="https://client-docs.aiopenscale.cloud.ibm.com/html/index.html" target="_blank" class="external">Python SDK documentation</a>.</p>
+          <section id="section-cst_mtrc_mgmt-step1">
+            <h3 id="cst_mtrc_mgmt-step1">Step 1: Register custom monitor with metrics definition.</h3>
+            <p>Before you can start by using custom metrics, you must register the custom monitor, which is the processor that tracks the metrics. You also must define the metrics themselves.</p>
+            <ol>
+              <li>Use the <code>get_definition(monitor_name)</code> method to import the <code>Metric</code> and <code>Tag</code> objects.</li>
+              <li>Use the <code>metrics</code> method to define the metrics, which require <code>name</code>, <code>thresholds</code>, and <code>type</code> values.</li>
+              <li>Use the <code>tags</code> method to define metadata.</li>
+            </ol>
+            <p>The following code is from the working sample notebook that was previously mentioned:</p>
+            <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_definition</span>(<span class="hljs-params">monitor_name</span>):
+    monitor_definitions = wos_client.monitor_definitions.<span class="hljs-built_in">list</span>().result.monitor_definitions
+   
+    <span class="hljs-keyword">for</span> definition <span class="hljs-keyword">in</span> monitor_definitions:
+        <span class="hljs-keyword">if</span> monitor_name == definition.entity.name:
+            <span class="hljs-keyword">return</span> definition
+   
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span>
+ 
+ 
+monitor_name = <span class="hljs-string">'my model performance'</span>
+metrics = [MonitorMetricRequest(name=<span class="hljs-string">'sensitivity'</span>,
+                                thresholds=[MetricThreshold(<span class="hljs-built_in">type</span>=MetricThresholdTypes.LOWER_LIMIT, default=<span class="hljs-number">0.8</span>)]),
+          MonitorMetricRequest(name=<span class="hljs-string">'specificity'</span>,
+                                thresholds=[MetricThreshold(<span class="hljs-built_in">type</span>=MetricThresholdTypes.LOWER_LIMIT, default=<span class="hljs-number">0.75</span>)])]
+tags = [MonitorTagRequest(name=<span class="hljs-string">'region'</span>, description=<span class="hljs-string">'customer geographical region'</span>)]
+ 
+existing_definition = get_definition(monitor_name)
+ 
+<span class="hljs-keyword">if</span> existing_definition <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+    custom_monitor_details = wos_client.monitor_definitions.add(name=monitor_name, metrics=metrics, tags=tags, background_mode=<span class="hljs-literal">False</span>).result
+<span class="hljs-keyword">else</span>:
+    custom_monitor_details = existing_definition
+</code></pre>
+            <p tip="">To check how you're doing, run the <code>client.data_mart.monitors.list() </code> command to see whether your newly created monitor and metrics are configured properly.</p>
+            <p>You can also get the monitor ID by running the following command:</p>
+            <pre class="codeblock"><code class="lang-python hljs">custom_monitor_id = custom_monitor_details.metadata.<span class="hljs-built_in">id</span>
+ 
+<span class="hljs-built_in">print</span>(custom_monitor_id)
+</code></pre>
+            <p>For a more detailed look, run the following command:</p>
+            <pre class="codeblock"><code class="lang-python hljs">custom_monitor_details = wos_client.monitor_definitions.get(monitor_definition_id=custom_monitor_id).result
+<span class="hljs-built_in">print</span>(<span class="hljs-string">'Monitor definition details:'</span>, custom_monitor_details)
+</code></pre>
+          </section>
+          <section id="section-cst_mtrc_mgmt-step2">
+            <h3 id="cst_mtrc_mgmt-step2">Step 2: Enable custom monitor.</h3>
+            <p>Next, you must enable the custom monitor for subscription. This activates the monitor and sets the thresholds.</p>
+            <ol>
+              <li>Use the <code>target</code> method to import the <code>Threshold</code> object.</li>
+              <li>Use the <code>thresholds</code> method to set the metric <code>lower_limit</code> value. Supply the <code>metric_id</code> value as one of the parameters. If you don't remember, you can always use the <code>custom_monitor_details</code>                command to get the details as shown in the previous example.</li>
+            </ol>
+            <p>The following code is from the working sample notebook that was previously mentioned:</p>
+            <pre class="codeblock"><code class="lang-python hljs">target = Target(
+        target_type=TargetTypes.SUBSCRIPTION,
+        target_id=subscription_id
+    )
+ 
+thresholds = [MetricThresholdOverride(metric_id=<span class="hljs-string">'sensitivity'</span>, <span class="hljs-built_in">type</span> = MetricThresholdTypes.LOWER_LIMIT, value=<span class="hljs-number">0.9</span>)]
+ 
+custom_monitor_instance_details = wos_client.monitor_instances.create(
+            data_mart_id=data_mart_id,
+            background_mode=<span class="hljs-literal">False</span>,
+            monitor_definition_id=custom_monitor_id,
+            target=target
+).result
+</code></pre>
+            <p>To check on your configuration details, use the <code>subscription.monitoring.get_details(monitor_uid=monitor_uid)</code> command.</p>
+          </section>
+          <section id="section-cst_mtrc_mgmt-step3">
+            <h3 id="cst_mtrc_mgmt-step3">Step 3: Store metric values.</h3>
+            <p>You must store, or save, your custom metrics to the region where your Watson OpenScale instance exists.</p>
+            <ol>
+              <li>Use the <code>metrics</code> method to set which metrics you are storing.</li>
+              <li>Use the <code>subscription.monitoring.store_metrics</code> method to commit the metrics.</li>
+            </ol>
+            <p>The following code is from the working sample notebook that was previously mentioned:</p>
+            <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">from</span> datetime <span class="hljs-keyword">import</span> datetime, timezone, timedelta
+<span class="hljs-keyword">from</span> ibm_watson_openscale.base_classes.watson_open_scale_v2 <span class="hljs-keyword">import</span> MonitorMeasurementRequest
+custom_monitoring_run_id = <span class="hljs-string">"11122223333111abc"</span>
+measurement_request = [MonitorMeasurementRequest(timestamp=datetime.now(timezone.utc),
+                                                 metrics=[{<span class="hljs-string">"specificity"</span>: <span class="hljs-number">0.78</span>, <span class="hljs-string">"sensitivity"</span>: <span class="hljs-number">0.67</span>, <span class="hljs-string">"region"</span>: <span class="hljs-string">"us-south"</span>}], run_id=custom_monitoring_run_id)]
+<span class="hljs-built_in">print</span>(measurement_request[<span class="hljs-number">0</span>])
+ 
+published_measurement_response = wos_client.monitor_instances.measurements.add(
+    monitor_instance_id=custom_monitor_instance_id,
+    monitor_measurement_request=measurement_request).result
+published_measurement_id = published_measurement_response[<span class="hljs-number">0</span>][<span class="hljs-string">"measurement_id"</span>]
+<span class="hljs-built_in">print</span>(published_measurement_response)
+</code></pre>
+            <p>To list all custom monitors, run the following command:</p>
+            <pre class="codeblock"><code class="lang-python hljs">published_measurement = wos_client.monitor_instances.measurements.get(monitor_instance_id=custom_monitor_instance_id, measurement_id=published_measurement_id).result
+<span class="hljs-built_in">print</span>(published_measurement)
+</code></pre>
+          </section>
+        </section>
+        <section id="section-cst_mtrc_mgmt_wos">
+          <h2 id="cst_mtrc_mgmt_wos">Managing custom metrics in Watson OpenScale</h2>
+          <section id="section-step-1-add-metric-groups">
+            <h3 id="step-1-add-metric-groups">Step 1: Add metric groups</h3>
+            <ol>
+              <li>On the <strong>Configure</strong> tab, click <strong>Add metric group</strong>.</li>
+              <li>If you want to configure a metric group manually, click <strong>Configure new group</strong>.<br> a. Specify a name and a description for the metric group.<br> The length of the name that you specify must be less than or equal to 48 characters.<br>                b. Click the <strong>Edit</strong> icon on the <strong>Input parameters</strong> tile and the specify the details for your input parameters.<br> The parameter name that you specify must match the parameter name that is specified in the
+                metric API.<br> c. If the parameter is required to configure your custom monitor, select the <strong>Required parameter</strong> checkbox.<br> d. Click <strong>Add</strong>.<br> After you add the input parameters, click <strong>Next</strong>.<br>                e. Select the model types that your evaluation supports and click <strong>Next</strong>.<br> f. If you don't want to specify an evaluation schedule, click <strong>Save</strong>.<br> g. If you want to specify an evaluation schedule, click
+                the toggle.<br> You must specify the interval for the evaluation schedule and click <strong>Save</strong>. h. Click <strong>Add metric</strong> and specify the metric details.<br> Click <strong>Save</strong>.</li>
+              <li>If you want to configure a metric group by using a JSON file, click <strong>Import from file</strong>.<br> Upload a JSON file and click <strong>Import</strong>.</li>
+            </ol>
+          </section>
+          <section id="section-step-2-add-metric-endpoints">
+            <h3 id="step-2-add-metric-endpoints">Step 2: Add metric endpoints</h3>
+            <ol>
+              <li>In the <strong>Metric endpoints</strong> section, click <strong>Add metric endpoint</strong>.</li>
+              <li>Specify a name and a description for the metric endpoint.</li>
+              <li>Click the <strong>Edit</strong> icon on the <strong>Connection</strong> tile and specify the connection details.<br> Click <strong>Next</strong>.</li>
+              <li>Select the metric groups that you want associate with the metric endpoint and click <strong>Save</strong>.</li>
+            </ol>
+          </section>
+          <section id="section-step-3-configure-custom-monitors">
+            <h3 id="step-3-configure-custom-monitors">Step 3: Configure custom monitors</h3>
+            <ol>
+              <li>On the <strong>Insights Dashboard</strong> page, select <strong>Configure monitors</strong> on a model deployment tile.</li>
+              <li>In the <strong>Evaluations</strong> section, select the name of the metric group that you added.</li>
+              <li>Select the <strong>Edit</strong> icon on the <strong>Metric endpoint</strong> tile.</li>
+              <li>Select a metric endpoint and click <strong>Next</strong>.<br> If you don't want to use a metric endpoint, select <strong>None</strong>.</li>
+              <li>Use the toggles to specify the metrics that you want to use to evaluate the model and provide threshold values.<br> Click <strong>Next</strong>.</li>
+              <li>Specify values for the input parameters. If you selected JSON as the data type for the metric group, add the JSON data.<br> Click <strong>Next</strong>.</li>
+            </ol>
+            <p>You can now evaluate models with a custom monitor.</p>
+          </section>
+        </section>
+        <section id="section-cst_mtrcs_viz">
+          <h2 id="cst_mtrcs_viz">Accessing and visualizing custom metrics</h2>
+          <p>To access and visualize custom metrics, you can use programmatic interface. The following advanced tutorial shows how to do this:</p>
+          <ul>
+            <li>
+              <p><a href="https://github.com/IBM/watson-openscale-samples/blob/main/IBM%20Cloud/WML/notebooks/binary/spark/Watson%20OpenScale%20and%20Watson%20ML%20Engine.ipynb" target="_blank" class="external">Working with IBM Watson Machine Learning</a></p>
+              <p>For more information, see <a href="https://client-docs.aiopenscale.cloud.ibm.com/html/index.html" target="_blank" class="external">the Python SDK documentation</a>.</p>
+            </li>
+          </ul>
+          <p>Visualization of your custom metrics appears on the Watson OpenScale Dashboard.</p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p><a href="wos-insight-timechart.html">Reviewing evaluation results</a></p>
+          <p><strong>Parent topic:</strong> <a href="wos-monitors-overview.html">Configuring model evaluations</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

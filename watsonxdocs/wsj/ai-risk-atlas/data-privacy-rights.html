@@ -1,0 +1,260 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Challenges around the ability to provide data subject rights such as opt-out, right to access, right to be forgotten.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Data privacy rights risk for AI</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=atlas-data-privacy-rights"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="data-privacy-rights-risk-for-ai" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-data-privacy-rights-risk-for-ai">
+        <h1 id="data-privacy-rights-risk-for-ai">Data privacy rights risk for AI</h1>
+        <style type="text/css" keep="true">
+          .risk-detail-heading {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start;
+          }
+          
+          .risk-detail-heading .tags {
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 8px;
+          }
+          
+          .risk-detail-heading .tags .bx--tag {
+            line-height: normal;
+            font-size: 12px;
+          }
+        </style>
+        <div class="risk-detail-heading">
+          <div class="tags">
+            <div>
+              <svg class="risk-group-icon" version="1.1" id="risk-icon-privacy-" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" width="32" height="32" xml:space="preserve">
+<path xmlns="http://www.w3.org/2000/svg" id="risk-icon-path-privacy-" d="M16,31.36C9.736,31.36,4.64,26.264,4.64,20V6.786L16,0.59l11.36,6.196V20 C27.36,26.264,22.264,31.36,16,31.36z M5.36,7.214V20c0,5.867,4.773,10.64,10.64,10.64S26.64,25.868,26.64,20V7.214L16,1.41 L5.36,7.214z M20,12.509l-2.255-2.255l0.51-0.509L20,11.491l3.745-3.745l0.51,0.509L20,12.509z M8.36,15.251 c0-1.694,1.151-3.15,2.799-3.541c0.15-0.035,0.261-0.163,0.275-0.316c0.014-0.154-0.071-0.3-0.212-0.363 c-0.693-0.308-1.141-0.997-1.141-1.753c0-1.058,0.861-1.918,1.918-1.918c1.06,0,1.922,0.86,1.922,1.918 c0,0.757-0.448,1.445-1.142,1.753c-0.141,0.063-0.226,0.209-0.212,0.363c0.014,0.153,0.125,0.281,0.275,0.316 c0.882,0.209,1.651,0.739,2.165,1.492l0.595-0.406c-0.467-0.684-1.111-1.214-1.856-1.54c0.559-0.494,0.894-1.21,0.894-1.979 c0-1.455-1.185-2.638-2.642-2.638c-1.455,0-2.638,1.183-2.638,2.638c0,0.768,0.335,1.484,0.893,1.978 c-1.571,0.681-2.614,2.23-2.614,3.996V21h0.72v-5.749H8.36z M22,17.36h-8c-0.199,0-0.36-0.161-0.36-0.36v-2 c0-0.199,0.161-0.36,0.36-0.36h8c0.199,0,0.36,0.161,0.36,0.36v2C22.36,17.199,22.199,17.36,22,17.36z M14.36,16.64h7.28v-1.28 h-7.28C14.36,15.36,14.36,16.64,14.36,16.64z M22,21.36h-8c-0.199,0-0.36-0.161-0.36-0.36v-2c0-0.199,0.161-0.36,0.36-0.36h8 c0.199,0,0.36,0.161,0.36,0.36v2C22.36,21.199,22.199,21.36,22,21.36z M14.36,20.64h7.28v-1.28h-7.28 C14.36,19.36,14.36,20.64,14.36,20.64z M22,25.36h-8c-0.199,0-0.36-0.161-0.36-0.36v-2c0-0.199,0.161-0.36,0.36-0.36h8 c0.199,0,0.36,0.161,0.36,0.36v2C22.36,25.199,22.199,25.36,22,25.36z M14.36,24.64h7.28v-1.28h-7.28 C14.36,23.36,14.36,24.64,14.36,24.64z"></path>	
+<rect id="risk-icon-rect-privacy-" style="fill:none;" width="32" height="32"></rect>
+</svg>
+            </div>
+            <div class="bx--tag bx--tag--blue">
+              Risks associated with input
+            </div>
+            <div class="bx--tag bx--tag--blue">Training and tuning phase</div>
+            <div class="bx--tag bx--tag--blue">Privacy</div>
+            <div class="bx--tag bx--tag--purple">Amplified by generative AI</div>
+          </div>
+        </div>
+        <section id="section-description">
+          <h3 id="description">Description</h3>
+          <p>Challenges around the ability to provide data subject rights such as opt-out, right to access, right to be forgotten.</p>
+          <style type="text/css" keep="true">
+            .content h3 {
+              margin-bottom: 8px !important;
+            }
+            
+            .risk-group-icon {
+              width: 24px;
+              height: 24px;
+            }
+            
+            .example {
+              border-radius: 8px;
+              background-color: #f4f4f4;
+              margin: 1rem 0;
+            }
+            
+            .example .heading {
+              position: relative;
+              overflow: hidden;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              padding: 48px 1.5rem;
+              border-radius: 8px 8px 0 0;
+              background: #393939;
+              background-position: center top;
+              background-repeat: no-repeat;
+              background-size: cover;
+            }
+            
+            .example .heading .overlay {
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              top: 0;
+              left: 0;
+              background: linear-gradient(90deg, rgba(244, 244, 244, 1) 45%, rgba(244, 244, 244, 0.2) 65%, rgba(244, 244, 244, 0.4) 70%, rgba(244, 244, 244, 0) 85%);
+            }
+            
+            .example .heading img {
+              position: absolute;
+              top: 0;
+              left: 0;
+            }
+            
+            .example .heading .bx--label {
+              line-height: 14px;
+              margin-bottom: 0;
+              z-index: 0;
+              font-weight: 500;
+              color: #000;
+            }
+            
+            .example .heading .example-title {
+              font-size: 20px;
+              z-index: 0;
+            }
+            
+            .example .heading.input {
+              background-image: url(images/bg_input.png);
+              background-color: #005D5D;
+            }
+            
+            .example .heading.output {
+              background-image: url(images/bg_output.png);
+              background-color: #00539A;
+            }
+            
+            .example .heading.challenges {
+              background-image: url(images/bg_challenges.png);
+              background-color: #6929C4;
+            }
+            
+            .example .example-content {
+              padding: 1.5rem;
+            }
+            
+            .example .sources {
+              display: flex;
+            }
+            
+            .example .sources p {
+              display: flex;
+              flex-wrap: wrap;
+              list-style: none;
+              padding-left: 8px;
+            }
+            
+            .example .sources p:first-child {
+              margin-top: unset;
+            }
+            
+            .example .sources a {
+              vertical-align: middle;
+              margin: 0;
+            }
+            
+            .bullet {
+              margin: 6px 1ch;
+              width: 3px;
+              height: 3px;
+              border-radius: 50%;
+              background-color: black;
+            }
+            
+            .example .sources,
+            .example .sources p,
+            .example .sources a {
+              line-height: normal;
+              font-size: 12px;
+              margin: 0;
+            }
+          </style>
+          <div>
+            <div class="content">
+              <!-- <h3>Description</h3>
+<p>Challenges around the ability to provide data subject rights such as opt-out, right to access, right to be forgotten.</p> -->
+              <h3>Why is data privacy rights a concern for foundation models?</h3>
+              <p>The identification or improper usage of data might lead to violation of privacy laws. Improper usage or a request for data removal might force organizations to retrain the model, which is expensive. In addition, business entities might face
+                fines, reputational harms, disruption to operations, and other legal consequences if they fail to comply with data privacy rules and regulations.</p>
+              <div class="example">
+                <div class="heading input">
+                  <img src="images/background-input-example.jpg" alt="Background image for risks associated with input">
+                  <div class="overlay"></div>
+                  <div class="bx--label">Example</div>
+                  <p class="bx--type-productive-heading-03 example-title">Right to Be Forgotten (RTBF)</p>
+                </div>
+                <div class="example-content">
+                  <p class="example-p">Laws in multiple locales, including Europe (GDPR), grant data subjects the right to request personal data to be deleted by organizations (‘Right To Be Forgotten’, or RTBF). However, emerging, and increasingly popular large language model
+                    (LLM) -enabled software systems present new challenges for this right. According to research by CSIRO’s Data61, data subjects can identify usage of their personal information in an LLM “by either inspecting the original training data
+                    set or perhaps prompting the model.” However, training data might not be public, or companies do not disclose it, citing safety and other concerns. Guardrails might also prevent users from accessing the information by prompting. Due
+                    to these barriers, data subjects might not be able to initiate RTBF procedures and companies that deploy LLMs might not be able to meet RTBF laws.</p>
+                  <div class="sources">
+                    Sources:
+                    <p>
+                    </p>
+                    <p><a href="https://arxiv.org/abs/2307.03941" target="_blank" rel="noreferrer" class="label">Zhang et al., September 2023</a></p>
+                    <p></p>
+                  </div>
+                </div>
+              </div>
+              <div class="example">
+                <div class="heading input">
+                  <img src="images/background-input-example.jpg" alt="Background image for risks associated with input">
+                  <div class="overlay"></div>
+                  <div class="bx--label">Example</div>
+                  <p class="bx--type-productive-heading-03 example-title">Lawsuit About LLM Unlearning</p>
+                </div>
+                <div class="example-content">
+                  <p class="example-p">According to the report, a lawsuit was filed against Google that alleges the use of copyright material and personal information as training data for its AI systems, which includes its Bard chatbot. Opt-out and deletion rights are guaranteed
+                    rights for California residents under the CCPA and children in the United States under the age of 13 with COPPA. The plaintiffs allege that because there is no way for Bard to “unlearn” or fully remove all the scraped PI it has been
+                    fed. The plaintiffs note that Bard’s privacy notice states that Bard conversations cannot be deleted by the user after they have been reviewed and annotated by the company and might be kept up to 3 years. P allege that these practices
+                    further contribute to noncompliance with these laws.</p>
+                  <div class="sources">
+                    Sources:
+                    <p>
+                    </p>
+                    <p><a href="https://www.reuters.com/legal/litigation/google-hit-with-class-action-lawsuit-over-ai-data-scraping-2023-07-11/" target="_blank" rel="noreferrer" class="label">Reuters, July 2023</a><span class="bullet"></span>
+                      <a href="https://fingfx.thomsonreuters.com/gfx/legaldocs/myvmodloqvr/GOOGLE%20AI%20LAWSUIT%20complaint.pdf" target="_blank" rel="noreferrer" class="label">J.L. v. Alphabet Inc., July 2023</a></p>
+                    <p></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p><strong>Parent topic:</strong> <a href="../ai-risk-atlas/ai-risk-atlas.html">AI risk atlas</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="The automatic setup option for Watson OpenScale sets up a machine learning environment, a database, and a sample model for you. Follow the steps in the guided tour to learn how to evaluate the sample model in Watson OpenScale. After the setup is complete, you can add your own model to the dashboard.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Configuring Watson OpenScale with automatic setup</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=openscale-configuring-watson-automatic-setup"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="configuring-watson-openscale-with-automatic-setup" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-configuring-watson-openscale-with-automatic-setup">
+        <h1 id="configuring-watson-openscale-with-automatic-setup">Configuring Watson OpenScale with automatic setup</h1>
+        <p>The automatic setup option for Watson OpenScale sets up a machine learning environment, a database, and a sample model for you. Follow the steps in the guided tour to learn how to evaluate the sample model in Watson OpenScale. After the setup
+          is complete, you can add your own model to the dashboard.</p>
+        <section id="section-sample-model">
+          <h2 id="sample-model">Sample model</h2>
+          <p>The automatic setup uses the sample data set German Credit Risk to demonstrate key features of Watson OpenScale.</p>
+          <section id="section-sample-overview">
+            <h3 id="sample-overview">Overview of the sample data</h3>
+            <p>The German Credit Risk sample data provides a collection of records for bank customers who were used to train the sample model. It contains 20 attributes for each loan applicant. The sample models provisioned as part of the automatic setup
+              are trained to predict level of credit risk for new customers. Two of the attributes considered for the prediction - sex and age - can be tested for bias to make sure that outcomes are consistent regarding gender or age of customers.</p>
+            <p>To evaluate the outcomes, results are divided into groups. The Reference groups are the groups that are considered most likely to have positive outcomes. In this case, the Reference groups are male customers and customers over the age of 25.
+              The Monitored groups are the groups that you want to review to ensure that the results do not differ greatly from the results for the monitored groups. In this case, the Monitored groups are females and customers aged 19 - 25.</p>
+          </section>
+        </section>
+        <section id="section-guided-tour-highlights">
+          <h2 id="guided-tour-highlights">Guided tour highlights</h2>
+          <p>The guided tour demonstrates these features:</p>
+          <ol>
+            <li><strong>Introduction to the user interface (UI)</strong>: The four main areas of the UI include Insights, Explanations, Configuration, and Support.</li>
+            <li><strong>Monitoring and viewing results for the German credit risk model</strong>: Use predefined monitors to evaluate your model for fairness, quality, and drift. You can also use custom monitors for model evaluation.</li>
+            <li><strong>Exploring Fairness monitor</strong>: Use the Fairness monitor to looks for biased outcomes from your model. If a fairness issue is found, an alert is triggered based on configurable thresholds.</li>
+            <li><strong>Exploring data sets</strong>: Toggle between balanced, payload, training, and debiased data sets to see how they affect the fairness score of your model.</li>
+            <li><strong>Introduction to transactions</strong>: Review transactions from the payload data set for group bias and individual bias.</li>
+            <li><strong>Explaining model outcomes</strong>: Understand the features that led to the model prediction to build trust in the model. Additionally, learn how to change feature values to receive more favorable model outcomes.</li>
+            <li><strong>Exploring Drift monitor</strong>: Use the Drift monitor to determine if the processing of data in the model is causing a drop in accuracy.</li>
+            <li><strong>Reviewing transactions</strong>: Review the transactions list to investigate the drop in accuracy.</li>
+          </ol>
+        </section>
+        <section id="section-touring-a-specific-page">
+          <h2 id="touring-a-specific-page">Touring a specific page</h2>
+          <p>To use the automatic setup guided tour for a specific page, follow these steps:</p>
+          <ol>
+            <li>Open the page for which you would like to follow the guided tour.</li>
+            <li>Open the <strong>Support</strong> tab and select <strong>Tour this page</strong>.</li>
+          </ol>
+        </section>
+        <section id="section-resetting-the-tour">
+          <h2 id="resetting-the-tour">Resetting the tour</h2>
+          <p>To reset the automatic setup tour, open the <strong>Support</strong> tab and select <strong>Reset auto setup</strong>.</p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li>
+              <p><a href="wos-manual-setup.html">Configuring Watson OpenScale with manual setup</a></p>
+            </li>
+            <li>
+              <p><a href="wos-auto-setup.html">Configuring Watson OpenScale with advanced setup</a></p>
+            </li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="wos-setup-options.html">Setup options for Watson OpenScale</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

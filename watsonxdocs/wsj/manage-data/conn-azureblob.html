@@ -1,0 +1,130 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="To access your data in Microsoft Azure Blob Storage, create a connection asset for it.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Microsoft Azure Blob Storage connection</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=connectors-microsoft-azure-blob-storage-connection"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="microsoft-azure-blob-storage-connection" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <!-- Content Design GitHub issue: https://github.ibm.com/dap/dsx-documentation-source/issues/2596 -->
+      <!--NLW: SME for doc review: Marcin Łuczyński-->
+      <section id="section-microsoft-azure-blob-storage-connection">
+        <h1 id="microsoft-azure-blob-storage-connection">Microsoft Azure Blob Storage connection</h1>
+        <p>To access your data in Microsoft Azure Blob Storage, create a connection asset for it.</p>
+        <p>Azure Blob Storage is used for storing large amounts of data in the cloud.</p>
+        <section id="section-create-a-connection-to-microsoft-azure-blob-storage">
+          <h2 id="create-a-connection-to-microsoft-azure-blob-storage">Create a connection to Microsoft Azure Blob Storage</h2>
+          <p>To create the connection asset, choose an authentication method.</p>
+          <p><strong>Connection string</strong>: Connection string from the storage account's <strong>Access keys</strong> page on the <a href="https://portal.azure.com/" target="_blank" class="external">Microsoft Azure portal</a>.</p>
+          <p>Example connection string, which you can find in the <strong>ApiKeys</strong> section of the container:</p>
+          <p><code>DefaultEndpointsProtocol=https;AccountName=sampleaccount;AccountKey=samplekey;EndpointSuffix=core.windows.net</code></p>
+        </section>
+        <section id="section-other-properties">
+          <h2 id="other-properties">Other properties</h2>
+          <p><strong>Container</strong>: The name of the container that contains the files to access.</p>
+          <section id="section-choose-the-method-for-creating-a-connection-based-on-where-you-are-in-the-platform">
+            <h3 id="choose-the-method-for-creating-a-connection-based-on-where-you-are-in-the-platform">Choose the method for creating a connection based on where you are in the platform</h3>
+            <dl>
+              <dt><strong>In a project</strong></dt>
+              <dd>Click <strong>Assets &gt; New asset &gt; Connect to a data source</strong>. See <a href="create-conn.html">Adding a connection to a project</a>.</dd>
+              <dt><strong>In a deployment space</strong></dt>
+              <dd>Click <strong>Add to space &gt; Connection</strong>. See <a href="../analyze-data/ml-space-add-assets.html">Adding connections to a deployment space</a>.</dd>
+              <dt><strong>In the Platform assets catalog</strong></dt>
+              <dd>Click <strong>New connection</strong>. See <a href="platform-conn.html">Adding platform connections</a>.</dd>
+            </dl>
+          </section>
+          <section id="section-next-step-add-data-assets-from-the-connection">
+            <h3 id="next-step-add-data-assets-from-the-connection">Next step: Add data assets from the connection</h3>
+            <ul>
+              <li>See <a href="connected-data.html">Add data from a connection in a project</a>.</li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-where-you-can-use-this-connection">
+          <h2 id="where-you-can-use-this-connection">Where you can use this connection</h2>
+          <p>You can use Azure Blob Storage connections in the following workspaces and tools:</p>
+          <p><strong>Projects</strong></p>
+          <ul>
+            <li>Data Refinery</li>
+            <li>SPSS Modeler</li>
+            <li>Synthetic Data Generator</li>
+          </ul>
+          <!-- Data Refinery confirmed here: https://github.ibm.com/dap/dap-planning/issues/12134#issue-14708053-->
+          <!-- - Notebooks -->
+          <!-- * Notebooks  -->
+          <!-- Notebooks: see: https://ibm.ent.box.com/notes/719984608729 -->
+          <!-- * SPSS Modeler  -->
+          <!-- NLW: SPSS Modeler support in CPD 3.5: https://github.ibm.com/dap/dap-planning/issues/12062#issuecomment-23593984 -->
+          <p><strong>Catalogs</strong></p>
+          <ul>
+            <li>Platform assets catalog</li>
+          </ul>
+          <!--
+## Restrictions 
+Although Azure Blob Storage can contain unstructured data, the tools in Watson Studio are restricted to supported structured file types. Supported file types are listed in the following topics:
+
+- [Data Refinery](../refinery/refining_data.html)
+- [Notebooks](../analyze-data/notebooks-and-scripts.html)
+- [SPSS Modeler](../../wsd/spss-modeler.html)
+<br> NLW: No maybe not. Reword or remove the above?^^
+    -->
+          <!--## Supported Azure Blob Storage versions-->
+          <!--## Supported encryption-->
+          <!--## Known issues-->
+        </section>
+        <section id="section-supported-file-types">
+          <h2 id="supported-file-types">Supported file types</h2>
+          <p>The Azure Blob Storage connection supports these file types:&nbsp; Avro, CSV, Delimited text, Excel, JSON, ORC, Parquet, SAS, SAV, SHP, and XML.</p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="https://learn.microsoft.com/en-us/azure/storage/common/storage-account-overview" target="_blank" class="external">Microsoft Azure Storage account overview</a></li>
+            <li><a href="https://docs.microsoft.com/en-us/azure/storage/blobs/storage-quickstart-blobs-portal" target="_blank" class="external">Quickstart: Upload, download, and list blobs with the Azure portal</a></li>
+            <li><a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-account-keys-manage" target="_blank" class="external">Manage storage account access keys</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="conn_types.html">Supported connections</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

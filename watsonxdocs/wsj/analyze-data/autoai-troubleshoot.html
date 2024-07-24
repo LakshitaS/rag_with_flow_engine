@@ -1,0 +1,107 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="The following list contains the common problems that are known for AutoAI. If your AutoAI experiment fails to run or deploy successfully, review some of these common problems and resolutions.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Troubleshooting AutoAI experiments</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=autoai-troubleshooting-experiments"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="troubleshooting-autoai-experiments" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-troubleshooting-autoai-experiments">
+        <h1 id="troubleshooting-autoai-experiments">Troubleshooting AutoAI experiments</h1>
+        <p>The following list contains the common problems that are known for AutoAI. If your AutoAI experiment fails to run or deploy successfully, review some of these common problems and resolutions.</p>
+        <section id="section-passing-incomplete-or-outlier-input-value-to-deployment-can-lead-to-outlier-prediction">
+          <h2 id="passing-incomplete-or-outlier-input-value-to-deployment-can-lead-to-outlier-prediction">Passing incomplete or outlier input value to deployment can lead to outlier prediction</h2>
+          <p>After you deploy your machine learning model, note that providing input data that is markedly different from data that is used to train the model can produce an outlier prediction. When linear regression algorithms such as Ridge and LinearRegression
+            are passed an out of scale input value, the model extrapolates the values and assigns a relatively large weight to it, producing a score that is not in line with conforming data.</p>
+        </section>
+        <section id="section-time-series-pipeline-with-supporting-features-fails-on-retrieval">
+          <h2 id="time-series-pipeline-with-supporting-features-fails-on-retrieval">Time Series pipeline with supporting features fails on retrieval</h2>
+          <p>If you train an AutoAI Time Series experiment by using supporting features and you get the error 'Error: name 'tspy_interpolators' is not defined' when the system tries to retrieve the pipeline for predictions, check to make sure your system
+            is running Java 8 or higher.</p>
+        </section>
+        <section id="section-running-a-pipeline-or-experiment-notebook-fails-with-a-software-specification-error">
+          <h2 id="running-a-pipeline-or-experiment-notebook-fails-with-a-software-specification-error">Running a pipeline or experiment notebook fails with a software specification error</h2>
+          <p>If supported software specifications for AutoAI experiments change, you might get an error when you run a notebook built with an older software specification, such as an older version of Python. In this case, run the experiment again, then save
+            a new notebook and try again.</p>
+        </section>
+        <section id="section-resolving-an-out-of-memory-error">
+          <h2 id="resolving-an-out-of-memory-error">Resolving an Out of Memory error</h2>
+          <p>If you get a memory error when you run a cell from an AutoAI generated notebook, create a notebook runtime with more resources for the AutoAI notebook and execute the cell again.</p>
+        </section>
+        <section id="section-notebook-for-an-experiment-with-subsampling-can-fail-generating-predictions">
+          <h2 id="notebook-for-an-experiment-with-subsampling-can-fail-generating-predictions">Notebook for an experiment with subsampling can fail generating predictions</h2>
+          <p>If you do pipeline refinery to prepare the model, and the experiment uses subsampling of the data during training, you might encounter an “unknown class” error when you run a notebook that is saved from the experiment.</p>
+          <p>The problem stems from an unknown class that is not included in the training data set. The workaround is to use the entire data set for training or re-create the subsampling that is used in the experiment.</p>
+          <p>To subsample the training data (before <code>fit()</code>), provide sample size by number of rows or by fraction of the sample (as done in the experiment).</p>
+          <ul>
+            <li>
+              <p>If number of records was used in subsampling settings, you can increase the value of <code>n</code>. For example:</p>
+              <pre class="codeblock"><code class="lang-shell hljs">train_df = train_df.sample(n=1000)
+</code></pre>
+            </li>
+            <li>
+              <p>If subsampling is represented as a fraction of the data set, increase the value of <code>frac</code>. For example:</p>
+              <pre class="codeblock"><code class="lang-shell hljs">train_df = train_df.sample(frac=0.4, random_state=experiment_metadata['random_state'])
+</code></pre>
+            </li>
+          </ul>
+        </section>
+        <section id="section-pipeline-creation-fails-for-binary-classification">
+          <h2 id="pipeline-creation-fails-for-binary-classification">Pipeline creation fails for binary classification</h2>
+          <p>AutoAI analyzes a subset of the data to determine the best fit for experiment type. If the sample data in the prediction column contains only two values, AutoAI recommends a binary classification experiment and applies the related algorithms.
+            However, if the full data set contains more than two values in the prediction column the binary classification fails and you get an error that indicates that AutoAI cannot create the pipelines.</p>
+          <p>In this case, manually change the experiment type from binary to either multiclass, for a defined set of values, or regression, for an unspecified set of values.</p>
+          <ol>
+            <li>Click the <strong>Reconfigure Experiment</strong> icon to edit the experiment settings.</li>
+            <li>On the <em>Prediction</em> page of Experiment Settings, change the prediction type to the one that best matches the data in the prediction column.</li>
+            <li>Save the changes and run the experiment again.</li>
+          </ol>
+        </section>
+        <section id="section-next-steps">
+          <h2 id="next-steps">Next steps</h2>
+          <p><a href="autoai-overview.html">AutoAI overview</a></p>
+          <p><strong>Parent topic:</strong> <a href="autoai-overview.html">AutoAI overview</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

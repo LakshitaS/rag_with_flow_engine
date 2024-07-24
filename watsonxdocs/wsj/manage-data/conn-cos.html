@@ -1,0 +1,165 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="To access your data in IBM Cloud Object Storage (COS), create a connection asset for it.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>IBM Cloud Object Storage connection</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=connectors-cloud-object-storage-connection"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="ibm-cloud-object-storage-connection" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-ibm-cloud-object-storage-connection">
+        <h1 id="ibm-cloud-object-storage-connection">IBM Cloud Object Storage connection</h1>
+        <p>To access your data in IBM Cloud Object Storage (COS), create a connection asset for it.</p>
+        <p>IBM Cloud Object Storage on IBM Cloud provides unstructured data storage for cloud applications. Cloud Object Storage offers S3 API and application binding with regional and cross-regional resiliency.</p>
+        <section id="section-create-a-connection-to-ibm-cloud-object-storage">
+          <h2 id="create-a-connection-to-ibm-cloud-object-storage">Create a connection to IBM Cloud Object Storage</h2>
+          <p>To create the connection asset, you need these connection details:</p>
+          <ul>
+            <li><strong>Bucket</strong> name. (Optional. If you do not enter the bucket name, then the credentials must have permission to list all the buckets.)</li>
+            <li><strong>Login URL</strong>. To find the <strong>Login URL</strong>:</li>
+          </ul>
+          <ol>
+            <li>Go to the Cloud Object Storage <strong>Resource list</strong> at <a href="https://cloud.ibm.com/resources" target="_blank" rel="noopener noreferrer">https://cloud.ibm.com/resources</a>.</li>
+            <li>Expand the <strong>Storage</strong> resource.</li>
+            <li>Click the Cloud Object Storage service. From the menu, select <strong>Endpoints</strong>.</li>
+            <li>Optional: Use the <strong>Select resiliency</strong> and <strong>Select location</strong> menus to filter the choices.</li>
+            <li>Copy the value of the public endpoint that is in the same region as the bucket that you want to use.</li>
+          </ol>
+          <ul>
+            <li><strong>SSL certificate</strong>: (Optional). A self-signed certificate that was created by a tool such as OpenSSL.</li>
+          </ul>
+          <section id="section-credentials">
+            <h3 id="credentials">Credentials</h3>
+            <p>Use one of the following combination of values for authentication:</p>
+            <ul>
+              <li>
+                <p><strong>Service credentials</strong></p>
+              </li>
+              <li>
+                <p><strong>Resource instance ID</strong> and <strong>API key</strong></p>
+              </li>
+              <li>
+                <p><strong>Resource instance ID</strong>, <strong>API key</strong>, <strong>Access key</strong>, and <strong>Secret key</strong> (In this combination, the <strong>Resource instance ID</strong> and <strong>API key</strong> are used for authentication.
+                  The <strong>Access key</strong> and <strong>Secret key</strong> are stored.)</p>
+              </li>
+              <li>
+                <p><strong>Access key</strong> and <strong>Secret key</strong></p>
+              </li>
+            </ul>
+            <p>To find the value for <strong>Service credentials</strong>:</p>
+            <ol>
+              <li>Go to the Cloud Object Storage <strong>Resource list</strong> at <a href="https://cloud.ibm.com/resources" target="_blank" rel="noopener noreferrer">https://cloud.ibm.com/resources</a>.</li>
+              <li>Expand the <strong>Storage</strong> resource.</li>
+              <li>Click the Cloud Object Storage service, and then click the <strong>Service credentials</strong> tab.</li>
+              <li>Expand the Key name that you want to use.</li>
+              <li>Copy the entire JSON file. Include the opening and closing braces <code>{ }</code> symbols.</li>
+            </ol>
+            <p>To find the values for the <strong>API key</strong>, <strong>Access key</strong>, <strong>Secret key</strong>, and the <strong>Resource instance ID</strong>:</p>
+            <ol>
+              <li>Go to the Cloud Object Storage <strong>Resource list</strong> at <a href="https://cloud.ibm.com/resources" target="_blank" rel="noopener noreferrer">https://cloud.ibm.com/resources</a>.</li>
+              <li>Expand the <strong>Storage</strong> resource.</li>
+              <li>Click the Cloud Object Storage service, and then click the <strong>Service credentials</strong> tab.</li>
+              <li>Expand the Key name that you want to use. Copy the values without the quotation marks:</li>
+            </ol>
+            <ul>
+              <li><strong>API key</strong>: <code>apikey</code></li>
+              <li><strong>Access key</strong>: <code>access_key_id</code></li>
+              <li><strong>Secret key</strong>: <code>secret_access_key</code></li>
+              <li><strong>Resource instance ID</strong>: <code>resource_instance_id</code></li>
+            </ul>
+          </section>
+          <section id="section-choose-the-method-for-creating-a-connection-based-on-where-you-are-in-the-platform">
+            <h3 id="choose-the-method-for-creating-a-connection-based-on-where-you-are-in-the-platform">Choose the method for creating a connection based on where you are in the platform</h3>
+            <dl>
+              <dt><strong>In a project</strong></dt>
+              <dd>Click <strong>Assets &gt; New asset &gt; Connect to a data source</strong>. See <a href="create-conn.html">Adding a connection to a project</a>.</dd>
+              <dt><strong>In a deployment space</strong></dt>
+              <dd>Click <strong>Add to space &gt; Connection</strong>. See <a href="../analyze-data/ml-space-add-assets.html">Adding connections to a deployment space</a>.</dd>
+              <dt><strong>In the Platform assets catalog</strong></dt>
+              <dd>Click <strong>New connection</strong>. See <a href="platform-conn.html">Adding platform connections</a>.</dd>
+            </dl>
+          </section>
+          <section id="section-next-step-add-data-assets-from-the-connection">
+            <h3 id="next-step-add-data-assets-from-the-connection">Next step: Add data assets from the connection</h3>
+            <ul>
+              <li>See <a href="connected-data.html">Add data from a connection in a project</a>.</li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-where-you-can-use-this-connection">
+          <h2 id="where-you-can-use-this-connection">Where you can use this connection</h2>
+          <p>You can use IBM Cloud Object Storage connections in the following workspaces and tools:</p>
+          <p><strong>Projects</strong></p>
+          <ul>
+            <li>AutoAI</li>
+            <li>Data Refinery</li>
+            <li>Decision Optimization</li>
+            <li>SPSS Modeler</li>
+            <li>Synthetic Data Generator</li>
+          </ul>
+          <p><strong>Catalogs</strong></p>
+          <ul>
+            <li>Platform assets catalog</li>
+          </ul>
+        </section>
+        <section id="section-connecting-to-the-cloud-object-storage-service-with-the-s3-api">
+          <h2 id="connecting-to-the-cloud-object-storage-service-with-the-s3-api">Connecting to the Cloud Object Storage service with the S3 API</h2>
+          <p>To connect to Cloud Object Storage with the S3 API, you need the <strong>Login URL</strong>, an <strong>Access key</strong> and a <strong>Secret key</strong>.</p>
+          <p>The <strong>API key</strong> is a token that is used to call the Watson IoT Platform HTTP APIs. Users are assigned roles and they can generate an API key that they can use to authorize calls to API endpoints. For more information, see the
+            <a href="https://cloud.ibm.com/docs/cloud-object-storage/api-reference?topic=cloud-object-storage-compatibility-api" target="_blank" rel="noopener noreferrer">IBM Cloud Object Storage S3 API documentation</a>.</p>
+        </section>
+        <section id="section-ibm-cloud-object-storage-setup">
+          <h2 id="ibm-cloud-object-storage-setup">IBM Cloud Object Storage setup</h2>
+          <p><a href="https://cloud.ibm.com/docs/cloud-object-storage" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Getting started with IBM Cloud Object Storage</a></p>
+        </section>
+        <section id="section-supported-file-types">
+          <h2 id="supported-file-types">Supported file types</h2>
+          <p>The IBM Cloud Object Storage connection supports these file types:&nbsp; Avro, CSV, Delimited text, Excel, JSON, ORC, Parquet, SAS, SAV, SHP, and XML.</p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p><a href="cos_buckets.html">Controlling access to COS buckets</a></p>
+          <p><strong>Parent topic:</strong> <a href="conn_types.html">Supported connections</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

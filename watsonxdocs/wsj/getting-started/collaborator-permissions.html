@@ -1,0 +1,231 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="When you add a collaborator to a project, you specify which actions that the user can do by assigning a role.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Project collaborator roles and permissions</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=projects-project-collaborator-roles"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="project-collaborator-roles-and-permissions" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-project-collaborator-roles-and-permissions">
+        <h1 id="project-collaborator-roles-and-permissions">Project collaborator roles and permissions</h1>
+        <p>When you add a collaborator to a project, you specify which actions that the user can do by assigning a role.</p>
+        <p>These roles provide these permissions for projects:</p>
+        <table>
+          <caption caption-side="top">Project permissions</caption>
+          <thead>
+            <tr>
+              <th>Action</th>
+              <th>Viewer</th>
+              <th>Editor</th>
+              <th>Admin</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>View all information for data assets</td>
+              <td>✓</td>
+              <td>✓</td>
+              <td>✓</td>
+            </tr>
+            <tr>
+              <td>View jobs</td>
+              <td>✓</td>
+              <td>✓</td>
+              <td>✓</td>
+            </tr>
+            <tr>
+              <td>Add and read data assets</td>
+              <td></td>
+              <td>✓</td>
+              <td>✓</td>
+            </tr>
+            <tr>
+              <td>View Data Refinery flows and SPSS Modeler flows</td>
+              <td></td>
+              <td>✓</td>
+              <td>✓</td>
+            </tr>
+            <tr>
+              <td>View all other types of assets</td>
+              <td>✓</td>
+              <td>✓</td>
+              <td>✓</td>
+            </tr>
+            <tr>
+              <td>Create, run, or delete tuning experiments</td>
+              <td></td>
+              <td>✓</td>
+              <td>✓</td>
+            </tr>
+            <tr>
+              <td>Deploy tuned models (Editor access to the deployment space is also required.)</td>
+              <td></td>
+              <td>✓</td>
+              <td>✓</td>
+            </tr>
+            <tr>
+              <td>Submit inference requests to foundation models, including tuned foundation models</td>
+              <td></td>
+              <td>✓</td>
+              <td>✓</td>
+            </tr>
+            <tr>
+              <td>Create, add, modify, or delete all types of assets</td>
+              <td></td>
+              <td>✓</td>
+              <td>✓</td>
+            </tr>
+            <tr>
+              <td>Promote assets to deployment spaces</td>
+              <td></td>
+              <td>✓</td>
+              <td>✓</td>
+            </tr>
+            <tr>
+              <td>Run and schedule assets that run in tools and jobs</td>
+              <td></td>
+              <td>✓</td>
+              <td>✓</td>
+            </tr>
+            <tr>
+              <td>Create and modify data asset visualizations</td>
+              <td>✓</td>
+              <td>✓</td>
+              <td>✓</td>
+            </tr>
+            <tr>
+              <td>Save visualizations to your project</td>
+              <td></td>
+              <td>✓</td>
+              <td>✓</td>
+            </tr>
+            <tr>
+              <td>Create and modify data asset profiles</td>
+              <td></td>
+              <td>✓</td>
+              <td>✓</td>
+            </tr>
+            <tr>
+              <td>Share notebooks</td>
+              <td></td>
+              <td>✓</td>
+              <td>✓</td>
+            </tr>
+            <tr>
+              <td>Edit the project readme</td>
+              <td></td>
+              <td>✓</td>
+              <td>✓</td>
+            </tr>
+            <tr>
+              <td>Use project access tokens</td>
+              <td></td>
+              <td>✓</td>
+              <td>✓</td>
+            </tr>
+            <tr>
+              <td>Manage environment templates</td>
+              <td></td>
+              <td>✓</td>
+              <td>✓</td>
+            </tr>
+            <tr>
+              <td>Stop your own environment runtimes</td>
+              <td></td>
+              <td>✓</td>
+              <td>✓</td>
+            </tr>
+            <tr>
+              <td>Export a project to desktop</td>
+              <td></td>
+              <td>✓</td>
+              <td>✓</td>
+            </tr>
+            <tr>
+              <td>Manage project collaborators <strong>*</strong></td>
+              <td></td>
+              <td></td>
+              <td>✓</td>
+            </tr>
+            <tr>
+              <td>Set up integrations</td>
+              <td></td>
+              <td></td>
+              <td>✓</td>
+            </tr>
+            <tr>
+              <td>Manage associated services</td>
+              <td></td>
+              <td></td>
+              <td>✓</td>
+            </tr>
+            <tr>
+              <td>Manage project access tokens</td>
+              <td></td>
+              <td></td>
+              <td>✓</td>
+            </tr>
+            <tr>
+              <td>Mark project as sensitive</td>
+              <td></td>
+              <td></td>
+              <td>✓</td>
+            </tr>
+          </tbody>
+        </table>
+        <p><strong>*</strong> To add collaborators or change collaborator roles, users with the <strong>Admin</strong> role in the project must also belong to the project creator's IBM Cloud account.</p>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li>
+              <p><a href="collaborate.html">Adding collaborators to a project</a></p>
+            </li>
+            <li>
+              <p><a href="../admin/your-roles.html">Determine your roles</a></p>
+            </li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="../manage-data/admin-project.html">Administering projects</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

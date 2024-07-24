@@ -1,0 +1,161 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Part art, part science, prompt engineering is the process of crafting prompt text to best effect for a specific foundation model with specific prompt parameter settings. When it comes to prompting foundation models, there isn't just one right answer. There are usually multiple ways to prompt a foundation model for a successful result.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Tips for writing foundation model prompts: prompt engineering</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=lab-prompt-tips"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="tips-for-writing-foundation-model-prompts-prompt-engineering" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-tips-for-writing-foundation-model-prompts-prompt-engineering">
+        <h1 id="tips-for-writing-foundation-model-prompts-prompt-engineering">Tips for writing foundation model prompts: prompt engineering</h1>
+        <p>Part art, part science, <em>prompt engineering</em> is the process of crafting prompt text to best effect for a specific foundation model with specific prompt parameter settings. When it comes to prompting foundation models, there isn't just one
+          right answer. There are usually multiple ways to prompt a foundation model for a successful result.</p>
+        <p>Use the Prompt Lab to experiment with crafting prompts.</p>
+        <ul>
+          <li>For help using the prompt editor, see <a href="fm-prompt-lab.html">Prompt Lab</a>.</li>
+          <li>Try the samples that are available from the <strong>Sample prompts</strong> tab of the Prompt Lab.</li>
+          <li>Learn from documented samples. See <a href="fm-prompt-samples.html">Sample prompts</a>.</li>
+        </ul>
+        <p>As you experiment, remember these tips. They will help you successfully prompt most text-generating foundation models.</p>
+        <section id="section-tip-1-remember-that-everything-is-text-completion">
+          <h2 id="tip-1-remember-that-everything-is-text-completion">Tip 1: Remember that everything is text completion</h2>
+          <p>Your <em>prompt</em> is the text you submit for processing by a foundation model.</p>
+          <p>For most models, simply asking a question or typing an instruction won't yield the best results. That's because the model isn't <em>answering</em> your prompt, the model is <em>appending text to it</em>.</p>
+          <p>This image demonstrates prompt text and generated output:</p>
+          <ul>
+            <li>Prompt text: "I took my dog "</li>
+            <li>Generated output: "to the park."</li>
+          </ul>
+          <p><img src="images/fm-prompt-lab-text-completion.png" alt="Text completion in Prompt Lab" style="width: 800px; max-width: 90%;" data-tearsheet="this"></p>
+        </section>
+        <section id="section-tip-2-include-all-the-needed-prompt-components">
+          <h2 id="tip-2-include-all-the-needed-prompt-components">Tip 2: Include all the needed prompt components</h2>
+          <p>Effective prompts usually have one or more of the following components: instruction, context, examples, and cue.</p>
+          <section id="section-instruction">
+            <h3 id="instruction">Instruction</h3>
+            <p>An instruction is an imperative statement that tells the model what to do. For example, if you want the model to list ideas for a dog-walking business, your instruction could be: "List ideas for starting a dog-walking business:"</p>
+          </section>
+          <section id="section-context">
+            <h3 id="context">Context</h3>
+            <p>Including background or contextual information in your prompt can nudge the model output in the right direction. Specifically, words that appear in your prompt text are more likely to be included in the generated output.</p>
+          </section>
+          <section id="section-examples">
+            <h3 id="examples">Examples</h3>
+            <p>To indicate the format or shape that you want the model response to be, include one or more pairs of example input and corresponding output that illustrate the pattern you want the generated text to follow.</p>
+            <p>Including one example in your prompt is called <em>one-shot prompting</em>, including two or more examples in your prompt is called <em>few-shot</em> prompting, and when your prompt has no examples, that's called <em>zero-shot</em> prompting.</p>
+            <p>When you prompt models that have been tuned, you might not need to include examples.</p>
+          </section>
+          <section id="section-cue">
+            <h3 id="cue">Cue</h3>
+            <p>A cue is text at the end of the prompt that is likely to start the generated output on the right path. Remember, as much as it seems like the model is <em>responding to your prompt</em>, the model is really <em>appending text to your prompt</em>              or <em>continuing your prompt</em>.</p>
+          </section>
+        </section>
+        <section id="section-tip-3-include-descriptive-details">
+          <h2 id="tip-3-include-descriptive-details">Tip 3: Include descriptive details</h2>
+          <p>The more guidance, the better. Experiment with including descriptive phrases related to aspects of your ideal result: content, style, and length. Including these details in your prompt can cause a more creative or more complete result to be
+            generated.</p>
+          <p>For example, you can improve the sample instruction by adding descriptive information as follows:</p>
+          <ul>
+            <li>Original: "List ideas for starting a dog-walking business"</li>
+            <li>Improved: "List ideas for starting a large, wildly successful dog-walking business"</li>
+          </ul>
+        </section>
+        <section id="section-example">
+          <h2 id="example">Example</h2>
+          <section id="section-before">
+            <h3 id="before">Before</h3>
+            <p>A prompt with a simple instruction:</p>
+            <p><em>List ideas for starting a dog-walking business.</em></p>
+            <p>The resulting foundation model output isn't great:</p>
+            <p><em>Take care of the dog and walk it in your neighborhood. You can create flyers and put them around the neighborhood, you can also put up ads on websites where dog lovers hang out.</em></p>
+          </section>
+          <section id="section-after">
+            <h3 id="after">After</h3>
+            <p>A prompt with all of the recommended prompt components:</p>
+            <p><em>Instruction</em>:</p>
+            <pre class="codeblock"><code class="lang-txt hljs">Based on the following industry research, suggest ideas for starting a large, wildly 
+successful dog-walking business.
+</code></pre>
+            <p><em>Context</em>:</p>
+            <pre class="codeblock"><code class="lang-txt hljs">Industry research:
+***
+The most successful dog-walking businesses cater to owners' needs and desires while
+also providing great care to the dogs. For example, owners want flexible hours, a
+shuttle to pick up and drop off dogs at home, and personalized services, such as
+custom meal and exercise plans. Consider too how social media has permeated our lives.
+Web-enabled interaction provide images and video that owners will love to share online,
+which is great advertising for the business.
+***
+</code></pre>
+            <p><em>Example</em>:</p>
+            <pre class="codeblock"><code class="lang-txt hljs">Ideas for starting a lemonade business:
+- Set up a lemonade stand
+- Partner with a restaurant
+- Get a celebrity to endorse the lemonade
+</code></pre>
+            <p><em>Cue</em>:</p>
+            <pre class="codeblock"><code class="lang-txt hljs">Ideas for starting a large, wildly successful dog-walking business:
+</code></pre>
+            <p>The resulting foundation model output is much more useful:</p>
+            <ul>
+              <li><em>Start by doing some basic market research. Interview dog owners in your area and ask them what they would want from their dog walker.</em></li>
+              <li><em>Offer a free sample or trial period - like several weeks - so you can see if they are really interested.</em></li>
+              <li><em>Give personalized service. Offer to train the owner's dog to get in a proper sit or down for the dog walker. Train the human too!</em></li>
+              <li><em>Be friendly and outgoing. Social media is huge and people love to post photos of themselves with their pets.</em></li>
+              <li><em>Use technology to help keep costs low, such as using web-enabled interactions. For example, you could offer a coupon on a popular pet food store website.</em></li>
+            </ul>
+            <p>You can experiment with this prompt yourself in the Prompt Lab. Depending on the foundation model you choose and the prompt parameter settings you use, the output might differ.</p>
+          </section>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="fm-prompt-samples.html">Sample prompts</a></li>
+            <li><a href="fm-hallucinations.html">Avoiding hallucinations</a></li>
+            <li><a href="fm-factual-accuracy.html">Generating accurate output</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="fm-prompt-lab.html">Prompt Lab</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

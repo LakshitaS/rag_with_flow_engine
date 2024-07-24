@@ -1,0 +1,89 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="To enable evaluations in the Watson OpenScale service, you must add deployments that are hosted by your machine learning providers to the Watson OpenScale Insights dashboard. To add deployments, you can click Add to dashboard to open a wizard that guides you through a series of steps to provide model details.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Adding deployments for evaluations</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=models-adding-deployments-evaluations"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="adding-deployments-for-evaluations" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-adding-deployments-for-evaluations">
+        <h1 id="adding-deployments-for-evaluations">Adding deployments for evaluations</h1>
+        <p>To enable evaluations in the Watson OpenScale service, you must add deployments that are hosted by your machine learning providers to the Watson OpenScale <strong>Insights</strong> dashboard. To add deployments, you can click <strong>Add to dashboard</strong>          to open a wizard that guides you through a series of steps to provide model details.</p>
+        <p>The following sections describe the steps that you must complete to add deployments in Watson OpenScale.</p>
+        <section id="section-model-location">
+          <h2 id="model-location">Select model location</h2>
+          <p>You can choose from a list of available deployment spaces or machine learning providers to specify where your model is located.</p>
+          <p><img src="images/wos-select-model-location.png" alt="List of deployment spaces and machine learning providers is displayed"></p>
+          <p>For Watson Machine Learning deployments, if you choose a deployment space that isn't associated with a machine learning provider, you must add a new provider on the <strong>Add new provider</strong> tab in the wizard before Watson OpenScale
+            displays a list of deployments.</p>
+        </section>
+        <section id="section-choose-model">
+          <h2 id="choose-model">Select a deployed model</h2>
+          <p>Select the deployment that you want to evaluate.
+            <img src="images/wos-select-deployment.png" alt="List of deployments that you can select is displayed"></p>
+          <p>If you select a custom machine learning provider, which doesn't provide a list of deployments, you must specify the deployment name and description. You can also specify a scoring endpoint.</p>
+        </section>
+        <section id="section-storage-type">
+          <h2 id="storage-type">Select a storage type</h2>
+          <p>You must choose the location where you want to store your model transactions and evaluation results. You must also specify the type of data that your deployment uses and the type of algorithm that you use to build your model. For some model
+            deployments, Watson OpenScale automatically discovers these details, depending on what metadata is available from your deployment. If you selected your deployment from a deployment list, the model endpoint is specified automatically. If you're
+            adding a production deployment, you can import these settings from existing pre-production deployments.</p>
+          <p><img src="images/wos-select-storage.png" alt="Select a location to store your model transactions and evaluation results"></p>
+        </section>
+        <section id="section-model-summary">
+          <h2 id="model-summary">Review model summary</h2>
+          <p>Watson OpenScale displays a summary of the model details that are discovered from your deployment. If Watson OpenScale discovers all of the required details automatically, you can click <strong>Finish</strong> and start configuring evaluations.
+            You can also edit the details to make changes.</p>
+          <p><img src="images/wos-view-summary-finish.png" alt="View summary of model details to verify accuracy and start configuring evaluations"></p>
+          <p>If Watson OpenScale does not automatically discover all the required model details, you must click <strong>Save and continue</strong> to continue the guided setup by manually providing details to enable evaluations.</p>
+          <p><img src="images/wos-model-summary.png" alt="View summary of model details to continue guided setup"></p>
+          <p>For more information, see <a href="wos-model-details.html">Providing model details</a>.</p>
+        </section>
+        <section id="section-next-steps">
+          <h2 id="next-steps">Next steps</h2>
+          <p><a href="wos-monitors-overview.html">Configuring model evaluations</a></p>
+          <p><strong>Parent topic:</strong> <a href="wos-deploy-prepare.html">Preparing to evaluate a model</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

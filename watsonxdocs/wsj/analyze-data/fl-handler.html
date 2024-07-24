@@ -1,0 +1,168 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Each party in a Federated Learning experiment must get a data handler to process their data. You or a data scientist must create the data handler. A data handler is a Python class that loads and transforms data so that all data for the experiment is in a consistent format.
+">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Create the data handler</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=experiment-create-data-handler"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="create-the-data-handler" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <!--AZ - Topic ready for 4.5 review-->
+      <section id="section-create-the-data-handler">
+        <h1 id="create-the-data-handler">Create the data handler</h1>
+        <p>Each party in a Federated Learning experiment must get a data handler to process their data. You or a data scientist must create the data handler. A data handler is a Python class that loads and transforms data so that all data for the experiment
+          is in a consistent format.<br>
+        </p>
+        <section id="section-about-the-data-handler-class">
+          <h2 id="about-the-data-handler-class">About the data handler class</h2>
+          <p>The data handler performs the following functions:</p>
+          <ul>
+            <li>Accesses the data that is required to train the model. For example, reads data from a CSV file into a Pandas data frame.</li>
+            <li>Pre-processes the data so data is in a consistent format across all parties. Some example cases are as follows:
+              <ul>
+                <li>The <strong>Date</strong> column might be stored as a time epoch or timestamp.</li>
+                <li>The <strong>Country</strong> column might be encoded or abbreviated.</li>
+              </ul>
+            </li>
+            <li>The data handler ensures that the data formatting is in agreement.
+              <ul>
+                <li><em>Optional:</em> feature engineer as needed.</li>
+              </ul>
+            </li>
+          </ul>
+          <p>The following illustration shows how a data handler is used to process data and make it consumable by the experiment:</p>
+          <p><img src="images/fl-data-handler.svg" alt="A use case of the data handler unifying data formats" height="50%" width="50%"></p>
+        </section>
+        <section id="section-data-handler-template">
+          <h2 id="data-handler-template">Data handler template</h2>
+          <p>A general data handler template is as follows:</p>
+          <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-comment"># your import statements</span>
+
+<span class="hljs-keyword">from</span> ibmfl.data.data_handler <span class="hljs-keyword">import</span> DataHandler
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">MyDataHandler</span>(<span class="hljs-title class_ inherited__">DataHandler</span>):
+    <span class="hljs-string">"""
+    Data handler for your dataset.
+    """</span>
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, data_config=<span class="hljs-literal">None</span></span>):
+        <span class="hljs-built_in">super</span>().__init__()
+        self.file_name = <span class="hljs-literal">None</span>
+        <span class="hljs-keyword">if</span> data_config <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
+            <span class="hljs-comment"># This can be any string field.</span>
+            <span class="hljs-comment"># For example, if your data set is in `csv` format,</span>
+            <span class="hljs-comment"># &lt;your_data_file_type&gt; can be "CSV", ".csv", "csv", "csv_file" and more.</span>
+            <span class="hljs-keyword">if</span> <span class="hljs-string">'&lt;your_data_file_type&gt;'</span> <span class="hljs-keyword">in</span> data_config:
+                self.file_name = data_config[<span class="hljs-string">'&lt;your_data_file_type&gt;'</span>]
+            <span class="hljs-comment"># extract other additional parameters from `info` if any.</span>
+
+        <span class="hljs-comment"># load and preprocess the training and testing data</span>
+        self.load_and_preprocess_data()
+
+        <span class="hljs-string">"""
+        # Example:
+        # (self.x_train, self.y_train), (self.x_test, self.y_test) = self.load_dataset()
+        """</span>
+
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">load_and_preprocess_data</span>(<span class="hljs-params">self</span>):
+        <span class="hljs-string">"""
+        Loads and pre-processeses local datasets, 
+        and updates self.x_train, self.y_train, self.x_test, self.y_test.
+
+        # Example:
+        # return (self.x_train, self.y_train), (self.x_test, self.y_test)
+        """</span>
+
+        <span class="hljs-keyword">pass</span>
+    
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">get_data</span>(<span class="hljs-params">self</span>):
+        <span class="hljs-string">"""
+        Gets the prepared training and testing data.
+        
+        :return: ((x_train, y_train), (x_test, y_test)) # most build-in training modules expect data is returned in this format
+        :rtype: `tuple` 
+
+        This function should be as brief as possible. Any pre-processing operations should be performed in a separate function and not inside get_data(), especially computationally expensive ones.
+
+        # Example:
+        # X, y = load_somedata()
+        # x_train, x_test, y_train, y_test = \
+        # train_test_split(X, y, test_size=TEST_SIZE, random_state=RANDOM_STATE)
+        # return (x_train, y_train), (x_test, y_test)
+        """</span>
+        <span class="hljs-keyword">pass</span>
+
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">preprocess</span>(<span class="hljs-params">self, X, y</span>):
+        <span class="hljs-keyword">pass</span>
+</code></pre>
+          <p><strong>Parameters</strong></p>
+          <ul>
+            <li><code>your_data_file_type</code>: This can be any string field. For example, if your data set is in <code>csv</code> format, <code>your_data_file_type</code> can be "CSV", ".csv", "csv", "csv_file" and
+              more.</li>
+          </ul>
+          <section id="section-dg-keras">
+            <h3 id="dg-keras">Return a data generator defined by Keras or Tensorflow</h3>
+            <p>The following is a code example that needs to be included as part of the <code>get_data</code> function to return a data generator defined by Keras or Tensorflow:</p>
+            <pre class="codeblock"><code class="lang-python hljs">train_gen = ImageDataGenerator(rotation_range=<span class="hljs-number">8</span>,
+                                width_sht_range=<span class="hljs-number">0.08</span>,
+                                shear_range=<span class="hljs-number">0.3</span>,
+                                height_shift_range=<span class="hljs-number">0.08</span>,
+                                zoom_range=<span class="hljs-number">0.08</span>)
+
+train_datagenerator = train_gen.flow(
+    x_train, y_train, batch_size=<span class="hljs-number">64</span>)
+
+<span class="hljs-keyword">return</span> train_datagenerator
+</code></pre>
+          </section>
+        </section>
+        <section id="section-data-handler-examples">
+          <h2 id="data-handler-examples">Data handler examples</h2>
+          <ul>
+            <li><a href="https://github.com/IBMDataScience/sample-notebooks/blob/master/Files/mnist_keras_data_handler.py" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">MNIST Keras data handler</a></li>
+            <li><a href="https://github.com/IBMDataScience/sample-notebooks/blob/master/Files/adult_sklearn_data_handler.py" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Adult XGBoost data handler</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="fl-start.html">Creating a Federated Learning experiment</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

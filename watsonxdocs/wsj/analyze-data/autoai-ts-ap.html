@@ -1,0 +1,414 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Create a time series anomaly prediction experiment to train a model that can detect anomalies, or unexpected results, when the model predicts results based on new data.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Creating a time series anomaly prediction (Beta)</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=autoai-building-time-series-anomaly-prediction-experiment"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="creating-a-time-series-anomaly-prediction-beta" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-creating-a-time-series-anomaly-prediction-beta">
+        <h1 id="creating-a-time-series-anomaly-prediction-beta">Creating a time series anomaly prediction (Beta)</h1>
+        <p>Create a time series anomaly prediction experiment to train a model that can detect anomalies, or unexpected results, when the model predicts results based on new data.</p>
+        <p class="beta"><span class="carbon-tag-magenta bx--tag bx--tag--magenta">Tech preview</span> This is a technology preview and is not yet supported for use in production environments.</p>
+        <section id="section-detecting-anomalies-in-predictions">
+          <h2 id="detecting-anomalies-in-predictions">Detecting anomalies in predictions</h2>
+          <p>You can use anomaly prediction to find outliers in model predictions. Consider the following scenarios for training a time series model with anomaly prediction. For example, suppose you have operational metrics from monitoring devices that were
+            collected in the date range of 2022.1.1 through 2022.3.31. You are confident that no anomalies exist in the data for that period, even if the data is unlabeled. You can use a time series anomaly prediction experiment to:</p>
+          <ul>
+            <li>Train model candidate pipelines and auto-select the top-ranked model candidate</li>
+            <li>Deploy a selected model to predict new observations if:
+              <ul>
+                <li>A new time point is an anomaly (for example, an online score predicts a time point 2022.4.1 that is outside of the expected range)</li>
+                <li>A new time range has anomalies (for example, a batch score predicts values of 2022.4.1 to 2022.4.7, outside the expected range)</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section id="section-working-with-a-sample">
+          <h2 id="working-with-a-sample">Working with a sample</h2>
+          <p>To create an AutoAI Time series experiment with anomaly prediction that uses a sample:</p>
+          <ol>
+            <li>
+              <p>Create an AutoAI experiment.</p>
+            </li>
+            <li>
+              <p>Select <em>Resource hub sample</em>.</p>
+              <p><img src="images/autoai-ts-ad1.png" alt="Select the Resource hub sample" style="max-width:90%;height:auto;width:auto"></p>
+            </li>
+            <li>
+              <p>Click the tile for <strong>Electricity usage anomalies sample data</strong>.</p>
+            </li>
+            <li>
+              <p>Follow the prompts to configure and run the experiment.</p>
+              <p><img src="images/autoai-ts-ad2.png" alt="Resource hub sample output" style="max-width:90%;height:auto;width:auto"></p>
+            </li>
+            <li>
+              <p>Review the details about the pipelines and explore the visualizations.</p>
+            </li>
+          </ol>
+        </section>
+        <section id="section-configuring-a-time-series-experiment-with-anomaly-prediction">
+          <h2 id="configuring-a-time-series-experiment-with-anomaly-prediction">Configuring a time series experiment with anomaly prediction</h2>
+          <ol>
+            <li>
+              <p>Load the data for your experiment.</p>
+              <div class="note restriction"><span class="restrictiontitle">Restriction:</span> You can upload only a single data file for an anomaly prediction experiment. If you upload a second data file (for holdout data) the Anomaly prediction option is disabled, and only the Forecast
+                option is available. By default, Anomaly prediction experiments use a subset of the training data for validation.</div>
+            </li>
+            <li>
+              <p>Click <strong>Yes</strong> to <strong>Enable time series</strong>.</p>
+            </li>
+            <li>
+              <p>Select <strong>Anomaly prediction</strong> as the experiment type.</p>
+            </li>
+            <li>
+              <p>Configure the feature columns from the data source that you want to predict based on the previous values. You can specify one or more columns to predict.</p>
+            </li>
+            <li>
+              <p>Select the date/time column.</p>
+            </li>
+          </ol>
+          <p>The prediction summary shows you the experiment type and the metric that is selected for optimizing the experiment.</p>
+        </section>
+        <section id="section-configuring-experiment-settings">
+          <h2 id="configuring-experiment-settings">Configuring experiment settings</h2>
+          <p>To configure more details for your time series experiment, open the <strong>Experiment settings</strong> pane. Options that are not available for anomaly prediction experiments are unavailable.</p>
+          <section id="section-general-prediction-settings">
+            <h3 id="general-prediction-settings">General prediction settings</h3>
+            <p>On the <em>General</em> panel for prediction settings, configure details for training the experiment.</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Field</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Prediction type</td>
+                  <td>View or change the prediction type based on prediction column for your experiment. For time series experiments, <strong>Time series anomaly prediction</strong> is selected by default. <strong>Note:</strong> If you change the prediction
+                    type, other prediction settings for your experiment are automatically changed.</td>
+                </tr>
+                <tr>
+                  <td>Optimized metric</td>
+                  <td>Choose a metric for optimizing and ranking the pipelines.</td>
+                </tr>
+                <tr>
+                  <td>Optimized algorithm selection</td>
+                  <td>Not supported for time series experiments.</td>
+                </tr>
+                <tr>
+                  <td>Algorithms to include</td>
+                  <td>Select <a href="#implementation">algorithms</a> based on which you want your experiment to create pipelines. The algorithms support anomaly prediction.</td>
+                </tr>
+                <tr>
+                  <td>Pipelines to complete</td>
+                  <td>View or change the number of pipelines to generate for your experiment.</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="section-time-series-configuration-details">
+            <h3 id="time-series-configuration-details">Time series configuration details</h3>
+            <p>On the Time series pane for prediction settings, configure the details for how to train the experiment and generate predictions.</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Field</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Date/time column</td>
+                  <td>View or change the date/time column for the experiment.</td>
+                </tr>
+                <tr>
+                  <td>Lookback window</td>
+                  <td>Not supported for anomaly prediction.</td>
+                </tr>
+                <tr>
+                  <td>Forecast window</td>
+                  <td>Not supported for anomaly prediction.</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </section>
+        <section id="section-configuring-data-source-settings">
+          <h2 id="configuring-data-source-settings">Configuring data source settings</h2>
+          <p>To configure details for your input data, open the <strong>Experiment settings</strong> panel and select the <strong>Data source</strong>.</p>
+          <section id="section-general-data-source-settings">
+            <h3 id="general-data-source-settings">General data source settings</h3>
+            <p>On the <em>General</em> panel for data source settings, you can choose options for how to use your experiment data.</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Field</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Duplicate rows</td>
+                  <td>Not supported for time series anomaly prediction experiments.</td>
+                </tr>
+                <tr>
+                  <td>Subsample data</td>
+                  <td>Not supported for time series anomaly prediction experiments.</td>
+                </tr>
+                <tr>
+                  <td>Text feature engineering</td>
+                  <td>Not supported for time series anomaly prediction experiments.</td>
+                </tr>
+                <tr>
+                  <td>Final training data set</td>
+                  <td>Anomaly prediction uses a single data source file, which is the final training data set.</td>
+                </tr>
+                <tr>
+                  <td>Supporting features</td>
+                  <td>Not supported for time series anomaly prediction experiments.</td>
+                </tr>
+                <tr>
+                  <td>Data imputation</td>
+                  <td>Not supported for time series anomaly prediction experiments.</td>
+                </tr>
+                <tr>
+                  <td>Training and holdout data</td>
+                  <td>Anomaly prediction does not support a separate holdout file. You can adjust how the data is split between training and holdout data. <strong>Note:</strong> In some cases, AutoAI can overwrite your holdout settings to ensure the split
+                    is valid for the experiment. In this case, you see a notification and the change is noted in the log file.</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </section>
+        <section id="section-reviewing-the-experiment-results">
+          <h2 id="reviewing-the-experiment-results">Reviewing the experiment results</h2>
+          <p>When you run the experiment, the progress indicator displays the pathways to pipeline creation. Ranked pipelines are listed on the leaderboard. Pipeline score represents how well the pipeline performed for the optimizing metric.</p>
+          <p>The <strong>Experiment summary</strong> tab displays a visualization of how metrics performed for the pipeline.</p>
+          <ul>
+            <li>Use the metric filter to focus on particular metrics.</li>
+            <li>Hover over the name of a metric to view details.</li>
+          </ul>
+          <p>Click a pipeline name to view details. On the <strong>Model evaluation</strong> page, you can review a table that summarizes details about the pipeline.</p>
+          <p><img src="images/autoai-ts-ad3.png" alt="Model evaluation details" style="max-width:90%;height:auto;width:auto"></p>
+          <ul>
+            <li>The rows represent five evaluation metrics: Area under ROC, Precision, Recall, F1, Average precision.</li>
+            <li>The columns represent four synthesized anomaly types: Level shift, Trend, Localized extreme, Variance.</li>
+            <li>Each value in a cell is an average of the metric based on three iterations of evaluation on the synthesized anomaly type.</li>
+          </ul>
+          <section id="section-evaluation-metrics">
+            <h3 id="evaluation-metrics">Evaluation metrics:</h3>
+            <p>These metrics are used to evaluate a pipeline:</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Metric</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Aggregate score (Recommended)</td>
+                  <td>This score is calculated based on an aggregation of the optimized metric (for example, Average precision) values for the 4 anomaly types. The scores for each pipeline are ranked, using the Borda count method, and then weighted for their
+                    contribution to the aggregate score. Unlike a standard metric score, this value is not between 0 and 1. A higher value indicates a stronger score.</td>
+                </tr>
+                <tr>
+                  <td>ROC AUC</td>
+                  <td>Measure of how well a parameter can distinguish between two groups.</td>
+                </tr>
+                <tr>
+                  <td>F1</td>
+                  <td>Harmonic average of the precision and recall, with best value of 1 (perfect precision and recall) and worst at 0.</td>
+                </tr>
+                <tr>
+                  <td>Precision</td>
+                  <td>Measures the accuracy of a prediction based on percent of positive predictions that are correct.</td>
+                </tr>
+                <tr>
+                  <td>Recall</td>
+                  <td>Measures the percentage of identified positive predictions against possible positives in data set.</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="section-anomaly-types">
+            <h3 id="anomaly-types">Anomaly types</h3>
+            <p>These are the anomaly types AutoAI detects.</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Anomaly type</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Localized extreme anomaly</td>
+                  <td>An unusual data point in a time series, which deviates significantly from the data points around it.</td>
+                </tr>
+                <tr>
+                  <td>Level shift anomaly</td>
+                  <td>A segment in which the mean value of a time series is changed.</td>
+                </tr>
+                <tr>
+                  <td>Trend anomaly</td>
+                  <td>A segment of time series, which has a trend change compared to the time series before the segment.</td>
+                </tr>
+                <tr>
+                  <td>Variance anomaly</td>
+                  <td>A segment of time series in which the variance of a time series is changed.</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </section>
+        <section id="section-saving-a-pipeline-as-a-model">
+          <h2 id="saving-a-pipeline-as-a-model">Saving a pipeline as a model</h2>
+          <p>To save a model candidate pipeline as a machine learning model, select <strong>Save as model</strong> for the pipeline you prefer. The model is saved as a project asset. You can promote the model to a space and create a deployment for it.</p>
+        </section>
+        <section id="section-saving-a-pipeline-as-a-notebook">
+          <h2 id="saving-a-pipeline-as-a-notebook">Saving a pipeline as a notebook</h2>
+          <p>To review the code for a pipeline, select <strong>Save as notebook</strong> for a pipeline. An automatically generated notebook is saved as a project asset. Review the code to explore how the pipeline was generated.</p>
+          <p>For details on the methods used in the pipeline code, see the documentation for the <a href="https://pypi.org/project/autoai-ts-libs/" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">autoai-ts-libs library</a>.</p>
+        </section>
+        <section id="section-scoring-the-model">
+          <h2 id="scoring-the-model">Scoring the model</h2>
+          <p>After you save a pipeline as a model, then promote the model to a space, you can score the model to generate predictions for input, or payload, data. Scoring the model and interpreting the results is similar to scoring a binary classification
+            model, as the score presents one of two possible values for each prediction:</p>
+          <ul>
+            <li>1 = no anomaly detected</li>
+            <li>-1 = anomaly detected</li>
+          </ul>
+          <section id="section-deployment-details">
+            <h3 id="deployment-details">Deployment details</h3>
+            <p>Note these requirements for deploying an anomaly prediction model.</p>
+            <ul>
+              <li>The schema for the deplyment input data must match the schema for the training data except for the prediction, or target column.</li>
+              <li>The order of the fields for model scoring must be the same as the order of the fields in the training data schema.</li>
+            </ul>
+          </section>
+          <section id="section-deployment-example">
+            <h3 id="deployment-example">Deployment example</h3>
+            <p>The following is valid input for an anomaly prediction model:</p>
+            <pre class="codeblock"><code class="lang-txt hljs">{
+    "input_data": [
+        {
+            "id": "observations",
+            "values": [
+                [12,34],
+                [22,23],
+                [35,45],
+                [46,34]
+            ]
+        }
+     ]
+}
+</code></pre>
+            <p>The score for this input is <code>[1,1,-1,1]</code> where <code>-1</code> means the value is an anomaly and <code>1</code> means the prediction is in the normal range.</p>
+          </section>
+        </section>
+        <section id="section-implementation">
+          <h2 id="implementation">Implementation details</h2>
+          <p>These algorithms support anomaly prediction in time series experiments.</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Algorithm</th>
+                <th>Type</th>
+                <th>Transformer</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Pipeline Name</td>
+                <td>Algorithm Type</td>
+                <td>Transformer</td>
+              </tr>
+              <tr>
+                <td>PointwiseBoundedHoltWintersAdditive</td>
+                <td>Forecasting</td>
+                <td>N/A</td>
+              </tr>
+              <tr>
+                <td>PointwiseBoundedBATS</td>
+                <td>Forecasting</td>
+                <td>N/A</td>
+              </tr>
+              <tr>
+                <td>PointwiseBoundedBATSForceUpdate</td>
+                <td>Forecasting</td>
+                <td>N/A</td>
+              </tr>
+              <tr>
+                <td>WindowNN</td>
+                <td>Window</td>
+                <td>Flatten</td>
+              </tr>
+              <tr>
+                <td>WindowPCA</td>
+                <td>Relationship</td>
+                <td>Flatten</td>
+              </tr>
+              <tr>
+                <td>WindowLOF</td>
+                <td>Window</td>
+                <td>Flatten</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>The algorithms are organized in these categories:</p>
+          <ul>
+            <li><strong>Forecasting:</strong> Algorithms for detecting anomalies using time series forecasting methods</li>
+            <li><strong>Relationship:</strong> Algorithms for detecting anomalies by analyzing the relationship among data points</li>
+            <li><strong>Window:</strong> Algorithms for detecting anomalies by applying transformations and ML techniques to rolling windows</li>
+          </ul>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p><a href="autoai-notebook.html">Saving an AutoAI generated notebook (Watson Machine Learning)</a></p>
+          <p><strong>Parent topic:</strong> <a href="autoai-timeseries.html">Building a time series experiment </a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

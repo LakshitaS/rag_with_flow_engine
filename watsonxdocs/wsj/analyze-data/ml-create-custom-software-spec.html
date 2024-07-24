@@ -1,0 +1,323 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="If your model requires custom components such as user-defined transformers, estimators, or user-defined tensors, you can create a custom software specification that is derived from a base, or a predefined specification. Python functions and Python scripts also support custom software specifications.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Customizing with third-party and private Python libraries</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=runtimes-customizing-third-party-private-python-libraries"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="customizing-with-third-party-and-private-python-libraries" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-customizing-with-third-party-and-private-python-libraries">
+        <h1 id="customizing-with-third-party-and-private-python-libraries">Customizing with third-party and private Python libraries</h1>
+        <p>If your model requires custom components such as user-defined transformers, estimators, or user-defined tensors, you can create a custom software specification that is derived from a base, or a predefined specification. Python functions and Python
+          scripts also support custom software specifications.</p>
+        <p>You can use custom software specification to reference any third-party libraries, user-created Python packages, or both. Third-party libraries or user-created Python packages must be specified as package extensions so that they can be referenced
+          in a custom software specification.</p>
+        <p>You can customize deployment runtimes in these ways:</p>
+        <ul>
+          <li><a href="#custom-ws">Define customizations in a Watson Studio project and then promote them to a deployment space</a></li>
+          <li><a href="#custom-wml">Create package extensions and custom software specifications in a deployment space by using the Watson Machine Learning Python client</a></li>
+        </ul>
+        <p>For more information, see <a href="#ts">Troubleshooting</a>.</p>
+        <section id="section-custom-ws">
+          <h2 id="custom-ws">Defining customizations in a Watson Studio project and then promoting them to a deployment space</h2>
+          <p>Environments in Watson Studio projects can be customized to include third-party libraries that can be installed from Anaconda or from the PyPI repository.</p>
+          <p>For more information, see <a href="../analyze-data/environments-parent.html">Environments</a>.</p>
+          <p>As part of custom environment creation, these steps are performed internally (visible to the user):</p>
+          <ul>
+            <li>A package extension that contains the details of third-party libraries is created in <code>conda YAML format</code>.</li>
+            <li>A custom software specification with the same name as the custom environment is created and the package extension that is created is associated with this custom software specification.</li>
+          </ul>
+          <p>The models or Python functions/scripts created with the custom environment must reference the custom software specification when they are saved in Watson Machine Learning repository in the project scope.</p>
+          <section id="section-propagating-software-specifications-and-package-extensions-from-projects-to-deployment-spaces">
+            <h3 id="propagating-software-specifications-and-package-extensions-from-projects-to-deployment-spaces">Propagating software specifications and package extensions from projects to deployment spaces</h3>
+            <p>To export custom software specifications and package extensions that were created in a Watson Studio project to a deployment space:</p>
+            <ol>
+              <li>From your project interface, click the <strong>Manage</strong> tab.</li>
+              <li>Select <strong>Environments</strong>.</li>
+              <li>Click the <strong>Templates</strong> tab.</li>
+              <li>From your custom environment's <strong>Options</strong> menu, select <strong>Promote to space</strong>.</li>
+            </ol>
+            <p><img src="images/promote-custom-env-from-ws.png" alt="Selecting &quot;Promote to space&quot; for a custom environment in Watson Studio interface"></p>
+            <p>Alternatively, when you promote any model or Python function that is associated with a custom environment from a Watson Studio project to a deployment space, the associated custom software specification and package extension is also promoted
+              to the deployment space.</p>
+            <p>If you want to update software specifications and package extensions after you promote them to deployment space, follow these steps:</p>
+            <ol>
+              <li>In the deployment space, delete the software specifications, package extensions, and associated models (optional) by using the Watson Machine Learning Python client.</li>
+              <li>In a project, promote the model, function, or script that is associated with the changed custom software specification and package extension to the space.</li>
+            </ol>
+            <p>Software specifications are also included when you import a project or space that includes one.</p>
+          </section>
+        </section>
+        <section id="section-custom-wml">
+          <h2 id="custom-wml">Creating package extensions and custom software specifications in a deployment space by using the Watson Machine Learning Python client</h2>
+          <p>You can use the Watson Machine Learning APIs or Python client to define a custom software specification that is derived from a base specification.</p>
+          <p>High-level steps to create a custom software specification that uses third-party libraries or user-created Python packages:</p>
+          <ol>
+            <li>
+              <p>Optional: <a href="#save-conda-yaml">Save a conda YAML file that contains a list of third-party libraries</a> or <a href="#save-user-created">save a user-created Python library and create a package extension</a>.</p>
+              <div class="note note"><span class="notetitle">Note:</span> This step is not required if the model does not have any dependency on a third-party library or a user-created Python library.</div>
+            </li>
+            <li>
+              <p>Create a custom software specification</p>
+            </li>
+            <li>
+              <p>Add a reference of the package extensions to the custom software specification that you created.</p>
+            </li>
+          </ol>
+          <section id="section-save-conda-yaml">
+            <h3 id="save-conda-yaml">Saving a conda YAML file that contains a list of third-party libraries</h3>
+            <p>To save a conda YAML file that contains a list of third-party libraries as a package extension and create a custom software specification that is linked to the package extension:</p>
+            <ol>
+              <li>
+                <p>Authenticate and create the client.</p>
+                <p>Refer to <a href="../analyze-data/ml-authentication.html">Authentication</a>.</p>
+              </li>
+              <li>
+                <p>Create and set the default deployment space, then list available software specifications.</p>
+                <pre class="codeblock"><code class="lang-Python hljs"> metadata = {
+     wml_client.spaces.ConfigurationMetaNames.NAME:
+         <span class="hljs-string">'examples-create-software-spec'</span>,
+     wml_client.spaces.ConfigurationMetaNames.DESCRIPTION:
+         <span class="hljs-string">'For my models'</span>
+ }
+ space_details = wml_client.spaces.store(meta_props=metadata)
+ space_uid = wml_client.spaces.get_id(space_details)
+
+ <span class="hljs-comment"># set the default space</span>
+ wml_client.<span class="hljs-built_in">set</span>.default_space(space_uid)
+
+ <span class="hljs-comment"># see available meta names for software specs</span>
+ <span class="hljs-built_in">print</span>(<span class="hljs-string">'Available software specs configuration:'</span>, wml_client.software_specifications.ConfigurationMetaNames.get())
+ wml_client.software_specifications.<span class="hljs-built_in">list</span>()
+
+ asset_id = <span class="hljs-string">'undefined'</span>
+ pe_asset_id = <span class="hljs-string">'undefined'</span>
+</code></pre>
+              </li>
+              <li>
+                <p>Create the metadata for package extensions to add to the base specification.</p>
+                <pre class="codeblock"><code class="lang-Python hljs">pe_metadata = {
+    wml_client.package_extensions.ConfigurationMetaNames.NAME:
+        <span class="hljs-string">'My custom library'</span>,
+    <span class="hljs-comment"># optional:</span>
+    <span class="hljs-comment"># wml_client.software_specifications.ConfigurationMetaNames.DESCRIPTION:</span>
+    wml_client.package_extensions.ConfigurationMetaNames.TYPE:
+        <span class="hljs-string">'conda_yml'</span>
+}
+</code></pre>
+              </li>
+              <li>
+                <p>Create a yaml file that contains the list of packages and then save it as <code>customlibrary.yaml</code>.</p>
+                <p>Example yaml file:</p>
+                <pre class="codeblock"><code class="lang-yaml hljs"><span class="hljs-attr">name:</span> <span class="hljs-string">add-regex-package</span>
+<span class="hljs-attr">dependencies:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">regex</span>
+</code></pre>
+                <p>For more information, see <a href="example-customizations.html">Examples of customizations</a>.</p>
+              </li>
+              <li>
+                <p>Store package extension information.</p>
+                <pre class="codeblock"><code class="lang-Python hljs">pe_asset_details = wml_client.package_extensions.store(
+    meta_props=pe_metadata,
+    file_path=<span class="hljs-string">'customlibrary.yaml'</span>
+)
+pe_asset_id = wml_client.package_extensions.get_id(pe_asset_details)
+</code></pre>
+              </li>
+              <li>
+                <p>Create the metadata for the software specification and store the software specification.</p>
+                <pre class="codeblock"><code class="lang-Python hljs"><span class="hljs-comment"># Get the id of the base software specification</span>
+base_id = wml_client.software_specifications.get_id_by_name(<span class="hljs-string">'default_py3.9'</span>)
+
+<span class="hljs-comment"># create the metadata for software specs</span>
+ss_metadata = {
+    wml_client.software_specifications.ConfigurationMetaNames.NAME:
+        <span class="hljs-string">'Python 3.9 with pre-installed ML package'</span>,
+    wml_client.software_specifications.ConfigurationMetaNames.DESCRIPTION:
+        <span class="hljs-string">'Adding some custom libraries like regex'</span>, <span class="hljs-comment"># optional</span>
+    wml_client.software_specifications.ConfigurationMetaNames.BASE_SOFTWARE_SPECIFICATION:
+        {<span class="hljs-string">'guid'</span>: base_id},
+    wml_client.software_specifications.ConfigurationMetaNames.PACKAGE_EXTENSIONS:
+        [{<span class="hljs-string">'guid'</span>: pe_asset_id}]
+}
+
+<span class="hljs-comment"># store the software spec</span>
+ss_asset_details = wml_client.software_specifications.store(meta_props=ss_metadata)
+
+<span class="hljs-comment"># get the id of the new asset</span>
+asset_id = wml_client.software_specifications.get_id(ss_asset_details)
+
+<span class="hljs-comment"># view new software specification details</span>
+<span class="hljs-keyword">import</span> pprint <span class="hljs-keyword">as</span> pp
+
+ss_asset_details = wml_client.software_specifications.get_details(asset_id)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">'Package extensions'</span>, pp.pformat(
+    ss_asset_details[<span class="hljs-string">'entity'</span>][<span class="hljs-string">'software_specification'</span>][<span class="hljs-string">'package_extensions'</span>]
+))
+</code></pre>
+              </li>
+            </ol>
+          </section>
+          <section id="section-save-user-created">
+            <h3 id="save-user-created">Saving a user-created Python library and creating a package extension</h3>
+            <p>For more information, see <a href="../analyze-data/ml-custom_libs_overview.html">Requirements for using custom components in models</a>.</p>
+            <p>To save a user-created Python package as a package extension and create a custom software specification that is linked to the package extension:</p>
+            <ol>
+              <li>
+                <p>Authenticate and create the client.</p>
+                <p>Refer to <a href="../analyze-data/ml-authentication.html">Authentication</a>.</p>
+              </li>
+              <li>
+                <p>Create and set the default deployment space, then list available software specifications.</p>
+                <pre class="codeblock"><code class="lang-Python hljs"> metadata = {
+     wml_client.spaces.ConfigurationMetaNames.NAME:
+         <span class="hljs-string">'examples-create-software-spec'</span>,
+     wml_client.spaces.ConfigurationMetaNames.DESCRIPTION:
+         <span class="hljs-string">'For my models'</span>
+ }
+ space_details = wml_client.spaces.store(meta_props=metadata)
+ space_uid = wml_client.spaces.get_id(space_details)
+
+ <span class="hljs-comment"># set the default space</span>
+ wml_client.<span class="hljs-built_in">set</span>.default_space(space_uid)
+
+ <span class="hljs-comment"># see available meta names for software specs</span>
+ <span class="hljs-built_in">print</span>(<span class="hljs-string">'Available software specs configuration:'</span>, wml_client.software_specifications.ConfigurationMetaNames.get())
+ wml_client.software_specifications.<span class="hljs-built_in">list</span>()
+
+ asset_id = <span class="hljs-string">'undefined'</span>
+ pe_asset_id = <span class="hljs-string">'undefined'</span>
+</code></pre>
+              </li>
+              <li>
+                <p>Create the metadata for package extensions to add to the base specification.</p>
+                <div class="note note"><span class="notetitle">Note:</span>
+                  <md-block>
+                    <p>You can specify <code>pip_zip</code> only as a value for the <code>wml_client.package_extensions.ConfigurationMetaNames.TYPE</code> metadata property.</p>
+                    <p></p>
+                  </md-block>
+                </div>
+                <p></p>
+                <pre class="codeblock"><code class="lang-Python hljs">pe_metadata = {
+    wml_client.package_extensions.ConfigurationMetaNames.NAME:
+        <span class="hljs-string">'My Python library'</span>,
+    <span class="hljs-comment"># optional:</span>
+    <span class="hljs-comment"># wml_client.software_specifications.ConfigurationMetaNames.DESCRIPTION:</span>
+    wml_client.package_extensions.ConfigurationMetaNames.TYPE:
+        <span class="hljs-string">'pip.zip'</span>
+}
+</code></pre>
+              </li>
+              <li>
+                <p>Specify the path of the user-created Python library.</p>
+                <pre class="codeblock"><code class="lang-python hljs">python_lib_file_path=<span class="hljs-string">"my-python-library-0.1.zip"</span>
+</code></pre>
+                <p>For more information, see <a href="../analyze-data/ml-custom_libs_overview.html">Requirements for using custom components in models</a>.</p>
+              </li>
+              <li>
+                <p>Store package extension information.</p>
+                <pre class="codeblock"><code class="lang-Python hljs">pe_asset_details = wml_client.package_extensions.store(
+    meta_props=pe_metadata,
+    file_path=python_lib_file_path
+)
+pe_asset_id = wml_client.package_extensions.get_id(pe_asset_details)
+</code></pre>
+              </li>
+              <li>
+                <p>Create the metadata for the software specification and store the software specification.</p>
+                <pre class="codeblock"><code class="lang-Python hljs"><span class="hljs-comment"># Get the id of the base software specification</span>
+base_id = wml_client.software_specifications.get_id_by_name(<span class="hljs-string">'default_py3.9'</span>)
+
+<span class="hljs-comment"># create the metadata for software specs</span>
+ss_metadata = {
+    wml_client.software_specifications.ConfigurationMetaNames.NAME:
+        <span class="hljs-string">'Python 3.9 with pre-installed ML package'</span>,
+    wml_client.software_specifications.ConfigurationMetaNames.DESCRIPTION:
+        <span class="hljs-string">'Adding some custom libraries like regex'</span>, <span class="hljs-comment"># optional</span>
+    wml_client.software_specifications.ConfigurationMetaNames.BASE_SOFTWARE_SPECIFICATION:
+        {<span class="hljs-string">'guid'</span>: base_id},
+    wml_client.software_specifications.ConfigurationMetaNames.PACKAGE_EXTENSIONS:
+        [{<span class="hljs-string">'guid'</span>: pe_asset_id}]
+}
+
+<span class="hljs-comment"># store the software spec</span>
+ss_asset_details = wml_client.software_specifications.store(meta_props=ss_metadata)
+
+<span class="hljs-comment"># get the id of the new asset</span>
+asset_id = wml_client.software_specifications.get_id(ss_asset_details)
+
+<span class="hljs-comment"># view new software specification details</span>
+<span class="hljs-keyword">import</span> pprint <span class="hljs-keyword">as</span> pp
+
+ss_asset_details = wml_client.software_specifications.get_details(asset_id)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">'Package extensions'</span>, pp.pformat(
+    ss_asset_details[<span class="hljs-string">'entity'</span>][<span class="hljs-string">'software_specification'</span>][<span class="hljs-string">'package_extensions'</span>]
+))
+</code></pre>
+              </li>
+            </ol>
+          </section>
+        </section>
+        <section id="section-ts">
+          <h2 id="ts">Troubleshooting</h2>
+          <p>When a conda yml based custom library installation fails with this error:
+            <code>Encountered error while installing custom library</code>, try these alternatives:</p>
+          <ul>
+            <li>
+              <p>Use a different version of the same package that is available in Anaconda for the concerned Python version.</p>
+            </li>
+            <li>
+              <p>Install the library from the pypi repository, by using pip. Edit the conda yml installation file contents:</p>
+              <pre class="codeblock"><code class="lang-bash hljs">name: &lt;conda yml file name&gt;
+dependencies:
+- numpy
+- pip:
+    - pandas==1.2.5
+</code></pre>
+            </li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="ml-customize.html">Customizing deployment runtimes</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

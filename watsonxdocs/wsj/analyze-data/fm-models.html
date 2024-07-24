@@ -1,0 +1,946 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="A collection of open source and IBM foundation models are deployed in IBM watsonx.ai.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Supported foundation models available with watsonx.ai</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=solutions-supported-foundation-models"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="supported-foundation-models-available-with-watsonxai" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-supported-foundation-models-available-with-watsonxai">
+        <h1 id="supported-foundation-models-available-with-watsonxai">Supported foundation models available with watsonx.ai</h1>
+        <p>A collection of open source and IBM foundation models are deployed in IBM watsonx.ai.</p>
+        <p>The following models are available in watsonx.ai:</p>
+        <ul>
+          <li>granite-13b-chat-v2</li>
+          <li>granite-13b-instruct-v2</li>
+          <li>granite-7b-lab</li>
+          <li>granite-8b-japanese</li>
+          <li>granite-20b-multilingual</li>
+          <li>codellama-34b-instruct</li>
+          <li>elyza-japanese-llama-2-7b-instruct</li>
+          <li>flan-t5-xl-3b</li>
+          <li>flan-t5-xxl-11b</li>
+          <li>flan-ul2-20b</li>
+          <li>jais-13b-chat</li>
+          <li>llama-3-8b-instruct</li>
+          <li>llama-3-70b-instruct</li>
+          <li>llama-2-13b-chat</li>
+          <li>llama-2-70b-chat</li>
+          <li>llama2-13b-dpo-v7</li>
+          <li>merlinite-7b</li>
+          <li>mixtral-8x7b-instruct-v01</li>
+          <li>mixtral-8x7b-instruct-v01-q</li>
+          <li>mt0-xxl-13b</li>
+          <li>starcoder-15.5b</li>
+        </ul>
+        <p>You can prompt these models in the Prompt Lab or programmatically.</p>
+        <p>To understand how the model provider, instruction tuning, token limits, and other factors can affect which model you choose, see <a href="fm-model-choose.html">Choosing a model</a>.</p>
+        <section id="section-ibm-provided">
+          <h2 id="ibm-provided">IBM foundation models</h2>
+          <p>The following table lists the supported foundation models that IBM provides for inferencing. All IBM models are instruction-tuned. For more information about contractual protections that are related to IBM indemnification, see the <a href="https://www.ibm.com/support/customer/csol/terms/?id=Z126-6548&amp;cc=us&amp;lc=en" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Client Relationship Agreement</a> and <a href="https://www.ibm.com/support/customer/csol/terms/?id=i126-6883" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM watsonx.ai service description</a>.</p>
+          <table>
+            <caption caption-side="top">Table 1. IBM foundation models in watsonx.ai</caption>
+            <thead>
+              <tr>
+                <th>Model name</th>
+                <th>IBM indemnification</th>
+                <th>Billing class</th>
+                <th>Maximum tokens<br>Context (input + output)</th>
+                <th>Supported tasks</th>
+                <th>More information</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><a href="#granite-13b-chat">granite-13b-chat-v2</a></td>
+                <td>Yes</td>
+                <td>Class 1</td>
+                <td>8192</td>
+                <td>• classification<br>• extraction<br>• generation<br>• question answering<br>• summarization</td>
+                <td>• <a href="https://dataplatform.cloud.ibm.com/wx/samples/models/ibm/granite-13b-chat-v2?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model card</a><br> • <a href="https://www.ibm.com/blog/watsonx-tailored-generative-ai/" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Website</a><br> • <a href="https://www.ibm.com/downloads/cas/X9W4O6BM" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Research paper</a></td>
+              </tr>
+              <tr>
+                <td><a href="#granite-13b-instruct">granite-13b-instruct-v2</a></td>
+                <td>Yes</td>
+                <td>Class 1</td>
+                <td>8192</td>
+                <td>• classification<br>• extraction<br>• generation<br>• question answering<br>• summarization</td>
+                <td>This foundation model can be tuned in Tuning Studio<br> • <a href="https://dataplatform.cloud.ibm.com/wx/samples/models/ibm/granite-13b-instruct-v2?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model card</a><br>                  • <a href="https://www.ibm.com/blog/watsonx-tailored-generative-ai/" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Website</a><br> • <a href="https://www.ibm.com/downloads/cas/X9W4O6BM" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Research paper</a></td>
+              </tr>
+              <tr>
+                <td><a href="#granite-7b-lab">granite-7b-lab</a></td>
+                <td>Yes</td>
+                <td>Class 1</td>
+                <td>8192</td>
+                <td>• classification<br>• extraction<br>• generation<br>• question answering<br>• retrieval-augmented generation<br>• summarization</td>
+                <td>• <a href="https://dataplatform.cloud.ibm.com/wx/samples/models/ibm/granite-7b-lab?context=wx">Model card</a><br>• <a href="https://arxiv.org/pdf/2403.01081.pdf" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Research paper (LAB)</a></td>
+              </tr>
+              <tr>
+                <td><a href="#granite-8b-japanese">granite-8b-japanese</a></td>
+                <td>Yes</td>
+                <td>Class 1</td>
+                <td>8192</td>
+                <td>• classification<br>• extraction<br>• generation<br>• question answering<br>• summarization</td>
+                <td>• <a href="fm-granite-8b-japanese.html">Model card</a><br> • <a href="https://www.ibm.com/blog/watsonx-tailored-generative-ai/" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Website</a><br> • <a href="https://www.ibm.com/downloads/cas/X9W4O6BM" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Research paper</a></td>
+              </tr>
+              <tr>
+                <td><a href="#granite-20b-multilingual">granite-20b-multilingual</a></td>
+                <td>Yes</td>
+                <td>Class 1</td>
+                <td>8192</td>
+                <td>• classification<br>• extraction<br>• generation<br>• question answering<br>• summarization</td>
+                <td>• <a href="https://dataplatform.cloud.ibm.com/wx/samples/models/ibm/granite-20b-multilingual?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model card</a><br> • <a href="https://www.ibm.com/blog/watsonx-tailored-generative-ai/" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Website</a><br> • <a href="https://www.ibm.com/downloads/cas/X9W4O6BM" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Research paper</a></td>
+              </tr>
+            </tbody>
+          </table>
+          <p>&nbsp;</p>
+          <p>For more information about the supported foundation models that IBM provides for embedding text, see <a href="fm-models-embed.html">Supported embedding models</a>.</p>
+        </section>
+        <section id="section-third-party-provided">
+          <h2 id="third-party-provided">Third-party foundation models</h2>
+          <p>The following table lists the supported foundation models that third parties provide through Hugging Face. All third-party models are instruction-tuned. IBM indemnification does not apply to any third-party models.</p>
+          <table>
+            <caption caption-side="top">Table 2. Supported third-party foundation models in watsonx.ai</caption>
+            <thead>
+              <tr>
+                <th>Model name</th>
+                <th>Provider</th>
+                <th>Billing class</th>
+                <th>Maximum tokens<br>Context (input + output)</th>
+                <th>Supported tasks</th>
+                <th>More information</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><a href="#codellama-34b-instruct">codellama-34b-instruct</a></td>
+                <td>Code Llama</td>
+                <td>Class 2</td>
+                <td>16,384</td>
+                <td>• code</td>
+                <td>• <a href="https://dataplatform.cloud.ibm.com/wx/samples/models/codellama/codellama-34b-instruct-hf?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model card</a><br>• <a href="https://ai.meta.com/blog/code-llama-large-language-model-coding/" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Meta AI Blog</a></td>
+              </tr>
+              <tr>
+                <td><a href="#elyza-llama2-7b-instruct">elyza-japanese-llama-2-7b-instruct</a></td>
+                <td>ELYZA, Inc</td>
+                <td>Class 2</td>
+                <td>4096</td>
+                <td>• classification<br>• extraction<br>• generation<br>• question answering<br>• retrieval augmented generation<br>• summarization<br>• translation</td>
+                <td>• <a href="https://huggingface.co/elyza/ELYZA-japanese-Llama-2-7b-instruct" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model card</a><br>• <a href="https://note.com/elyza/n/na405acaca130" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Blog on note.com</a></td>
+              </tr>
+              <tr>
+                <td><a href="#flan-t5-xl-3b">flan-t5-xl-3b</a></td>
+                <td>Google</td>
+                <td>Class 1</td>
+                <td>4096</td>
+                <td>• classification<br>• extraction<br>• generation<br>• question answering<br>• retrieval augmented generation<br>• summarization</td>
+                <td>This foundation model can be tuned in Tuning Studio<br>• <a href="https://dataplatform.cloud.ibm.com/wx/samples/models/google/flan-t5-xl?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model card</a><br>•
+                  <a href="https://arxiv.org/abs/2210.11416" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Research paper</a></td>
+              </tr>
+              <tr>
+                <td><a href="#flan-t5-xxl-11b">flan-t5-xxl-11b</a></td>
+                <td>Google</td>
+                <td>Class 2</td>
+                <td>4096</td>
+                <td>• classification<br>• extraction<br>• generation<br>• question answering<br>• retrieval augmented generation<br>• summarization</td>
+                <td>• <a href="https://dataplatform.cloud.ibm.com/wx/samples/models/google/flan-t5-xxl?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model card</a><br>• <a href="https://arxiv.org/abs/2210.11416" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Research paper</a></td>
+              </tr>
+              <tr>
+                <td><a href="#flan-ul2-20b">flan-ul2-20b</a></td>
+                <td>Google</td>
+                <td>Class 3</td>
+                <td>4096</td>
+                <td>• classification<br>• extraction<br>• generation<br>• question answering<br>• retrieval augmented generation<br>• summarization</td>
+                <td>• <a href="https://dataplatform.cloud.ibm.com/wx/samples/models/google/flan-ul2?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model card</a><br> • <a href="https://arxiv.org/abs/2205.05131v1" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">UL2 research paper</a><br> • <a href="https://arxiv.org/abs/2210.11416" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Flan research paper</a></td>
+              </tr>
+              <tr>
+                <td><a href="#jais-13b-chat">jais-13b-chat</a></td>
+                <td>Inception, Mohamed bin Zayed University of Artificial Intelligence (MBZUAI), and Cerebras Systems</td>
+                <td>Class 2</td>
+                <td>2048</td>
+                <td>• classification<br>• extraction<br>• generation<br>• question answering<br>• retrieval augmented generation<br>• summarization<br>• translation</td>
+                <td>• <a href="https://huggingface.co/core42/jais-13b-chat" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model card</a><br> • <a href="https://arxiv.org/pdf/2308.16149.pdf" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Research paper</a></td>
+              </tr>
+              <tr>
+                <td><a href="#llama-3">llama-3-8b-instruct</a></td>
+                <td>Meta</td>
+                <td>Class 1</td>
+                <td>8192</td>
+                <td>• classification<br>• code<br>• extraction<br>• generation<br>• question answering<br>• retrieval-augmented generation<br>• summarization</td>
+                <td>• <a href="https://dataplatform.cloud.ibm.com/wx/samples/models/meta-llama/llama-3-8b-instruct?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model card</a><br> • <a href="https://llama.meta.com/llama3/" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Meta AI website</a></td>
+              </tr>
+              <tr>
+                <td><a href="#llama-3">llama-3-70b-instruct</a></td>
+                <td>Meta</td>
+                <td>Class 2</td>
+                <td>8192</td>
+                <td>• classification<br>• code<br>• extraction<br>• generation<br>• question answering<br>• retrieval augmented generation<br>• summarization</td>
+                <td>• <a href="https://dataplatform.cloud.ibm.com/wx/samples/models/meta-llama/llama-3-70b-instruct?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model card</a><br> • <a href="https://llama.meta.com/llama3/" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Meta AI website</a></td>
+              </tr>
+              <tr>
+                <td><a href="#llama-2">llama-2-13b-chat</a></td>
+                <td>Meta</td>
+                <td>Class 1</td>
+                <td>4096</td>
+                <td>• classification<br>• code<br>• extraction<br>• generation<br>• question answering<br>• retrieval augmented generation<br>• summarization</td>
+                <td>This foundation model can be tuned in Tuning Studio<br>• <a href="https://dataplatform.cloud.ibm.com/wx/samples/models/meta-llama/llama-2-13b-chat?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model card</a><br>                  • <a href="https://arxiv.org/abs/2307.09288" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Research paper</a></td>
+              </tr>
+              <tr>
+                <td><a href="#llama-2">llama-2-70b-chat</a></td>
+                <td>Meta</td>
+                <td>Class 2</td>
+                <td>4096</td>
+                <td>• classification<br>• code<br>• extraction<br>• generation<br>• question answering<br>• retrieval augmented generation<br>• summarization</td>
+                <td>• <a href="https://dataplatform.cloud.ibm.com/wx/samples/models/meta-llama/llama-2-70b-chat?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model card</a><br> • <a href="https://arxiv.org/abs/2307.09288" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Research paper</a></td>
+              </tr>
+              <tr>
+                <td><a href="#llama2-13b-dpo-v7">llama2-13b-dpo-v7</a></td>
+                <td>Meta</td>
+                <td>Class 2</td>
+                <td>4096</td>
+                <td>• classification<br>• code<br>• extraction<br>• generation<br>• question answering<br>• retrieval augmented generation<br>• summarization</td>
+                <td>• <a href="https://huggingface.co/mncai/llama2-13b-dpo-v7" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model card</a><br> • <a href="https://arxiv.org/pdf/2305.18290.pdf" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Research paper (DPO)</a></td>
+              </tr>
+              <tr>
+                <td><a href="#merlinite-7b">merlinite-7b</a></td>
+                <td>Mistral AI and IBM</td>
+                <td>Class 1</td>
+                <td>32,768</td>
+                <td>• classification<br>• extraction<br>• generation<br>• retrieval_augmented_generation<br>• summarization</td>
+                <td>• <a href="https://dataplatform.cloud.ibm.com/wx/samples/models/ibm-mistralai/merlinite-7b?context=wx">Model card</a><br>• <a href="https://arxiv.org/pdf/2403.01081.pdf" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Research paper (LAB)</a></td>
+              </tr>
+              <tr>
+                <td><a href="#mixtral-8x7b-instruct-v01">mixtral-8x7b-instruct-v01</a></td>
+                <td>Mistral AI</td>
+                <td>Class 1</td>
+                <td>32,768</td>
+                <td>• classification<br>• code<br>• extraction<br>• generation<br>• retrieval_augmented_generation<br>• summarization<br>• translation</td>
+                <td>• <a href="https://dataplatform.cloud.ibm.com/wx/samples/models/ibm-mistralai/mixtral-8x7b-instruct-v01?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model card</a><br> • <a href="https://arxiv.org/abs/2401.04088.pdf" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Research paper</a></td>
+              </tr>
+              <tr>
+                <td><a href="#mixtral-8x7b-instruct-v01-q">mixtral-8x7b-instruct-v01-q</a> (Deprecated)</td>
+                <td>Mistral AI and IBM</td>
+                <td>Class 1</td>
+                <td>32,768</td>
+                <td>• classification<br>• code<br>• extraction<br>• generation<br>• retrieval_augmented_generation<br>• summarization<br>• translation</td>
+                <td>• <a href="https://dataplatform.cloud.ibm.com/wx/samples/models/ibm-mistralai/mixtral-8x7b-instruct-v01-q?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model card</a><br> • <a href="https://arxiv.org/abs/2401.04088" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Research paper</a></td>
+              </tr>
+              <tr>
+                <td><a href="#mt0-xxl-13b">mt0-xxl-13b</a></td>
+                <td>BigScience</td>
+                <td>Class 2</td>
+                <td>4096</td>
+                <td>• classification<br>• generation<br>• question answering<br>• summarization</td>
+                <td>• <a href="https://dataplatform.cloud.ibm.com/wx/samples/models/bigscience/mt0-xxl?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model card</a><br> • <a href="https://arxiv.org/abs/2211.01786" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Research paper</a></td>
+              </tr>
+              <tr>
+                <td><a href="#starcoder-15.5b">starcoder-15.5b</a> (Deprecated)</td>
+                <td>BigCode</td>
+                <td>Class 2</td>
+                <td>8192</td>
+                <td>• code</td>
+                <td>• <a href="https://dataplatform.cloud.ibm.com/wx/samples/models/bigcode/starcoder?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model card</a><br> • <a href="https://arxiv.org/abs/2305.06161" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Research paper</a></td>
+              </tr>
+            </tbody>
+          </table>
+          <p>&nbsp;</p>
+          <ul>
+            <li>For a list of which models are provided in each regional data center, see <a href="../getting-started/regional-datactr.html#data-centers">Regional availability of foundation model</a>.</li>
+            <li>For information about the billing classes and rate limiting, see <a href="../getting-started/wml-plans.html#ru-metering">Watson Machine Learning plans</a>.</li>
+          </ul>
+        </section>
+        <section id="section-foundation-model-details">
+          <h2 id="foundation-model-details">Foundation model details</h2>
+          <p>The available foundation models support a range of use cases for both natural languages and programming languages. To see the types of tasks that these models can do, review and try the <a href="fm-prompt-samples.html">sample prompts</a>.</p>
+          <section id="section-codellama-34b-instruct">
+            <h3 id="codellama-34b-instruct">codellama-34b-instruct</h3>
+            <p>A programmatic code generation model that is based on Llama 2 from Meta. Code Llama is fine-tuned for generating and discussing code.</p>
+            <p>When you inference this model from the Prompt Lab, disable AI guardrails.</p>
+            <p><strong>Usage</strong>: Use Code Llama to create prompts that generate code based on natural language inputs, explain code, or that complete and debug code.</p>
+            <p><strong>Cost</strong>: Class 2. For pricing details, see <a href="../getting-started/wml-plans.html">Watson Machine Learning plans</a>.</p>
+            <p><strong>Size</strong>: 34 billion parameters</p>
+            <p><strong>Token limits</strong></p>
+            <ul>
+              <li>Context window length (input + output): 16,384</li>
+              <li>Note: The maximum new tokens, which means the tokens generated by the foundation model, is limited to 4096.</li>
+            </ul>
+            <p><strong>Supported natural languages</strong>: English</p>
+            <p><strong>Supported programming languages</strong>: The codellama-34b-instruct-hf foundation model supports many programming languages, including Python, C++, Java, PHP, Typescript (Javascript), C#, Bash, and more.</p>
+            <p><strong>Instruction tuning information</strong>: The instruction fine-tuned version was fed natural language instruction input and the expected output to guide the model to generate helpful and safe answers in natural language.</p>
+            <p><strong>Model architecture</strong>: Decoder</p>
+            <p><strong>License</strong>: <a href="https://ai.meta.com/llama/license/" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">License</a></p>
+            <p><strong>Learn more</strong></p>
+            <ul>
+              <li><a href="https://dataplatform.cloud.ibm.com/wx/samples/models/codellama/codellama-34b-instruct-hf?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model card</a></li>
+              <li><a href="https://arxiv.org/pdf/2308.12950.pdf" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Research paper</a></li>
+              <li><a href="https://ai.meta.com/blog/code-llama-large-language-model-coding/" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Meta AI Blog</a></li>
+            </ul>
+          </section>
+          <section id="section-elyza-llama2-7b-instruct">
+            <h3 id="elyza-llama2-7b-instruct">elyza-japanese-llama-2-7b-instruct</h3>
+            <p>The elyza-japanese-llama-2-7b-instruct model is provided by ELYZA, Inc on Hugging Face. The elyza-japanese-llama-2-7b-instruct foundation model is a version of the Llama 2 model from Meta that is trained to understand and generate Japanese
+              text. The model is fine-tuned for solving various tasks that follow user instructions and for participating in a dialog.</p>
+            <div class="note note"><span class="notetitle">Note:</span> This foundation model is available only in the Tokyo data center. When you inference this model from the Prompt Lab, disable AI guardrails.</div>
+            <p><strong>Usage</strong>: General use with zero- or few-shot prompts. Works well for classification and extraction in Japanese and for translation between English and Japanese. Performs best when prompted in Japanese.</p>
+            <p><strong>Cost</strong>: Class 2. For pricing details, see <a href="../getting-started/wml-plans.html">Watson Machine Learning plans</a>.</p>
+            <p><strong>Try it out</strong></p>
+            <ul>
+              <li><a href="fm-prompt-samples.html#sample1d">Sample prompt: Classification</a></li>
+              <li><a href="fm-prompt-samples.html#sample8a">Sample prompt: Translation</a></li>
+            </ul>
+            <p><strong>Size</strong>: 7 billion parameters</p>
+            <p><strong>Token limits</strong>: Context window length (input + output): 4096</p>
+            <p><strong>Supported natural languages</strong>: Japanese, English</p>
+            <p><strong>Instruction tuning information</strong>: For Japanese language training, Japanese text from many sources were used, including Wikipedia and the Open Super-large Crawled ALMAnaCH coRpus (a multilingual corpus that is generated by classifying
+              and filtering language in the Common Crawl corpus). The model was fine-tuned on a dataset that was created by ELYZA. The <em>ELYZA Tasks 100</em> dataset contains 100 diverse and complex tasks that were created manually and evaluated by
+              humans. The ELYZA Tasks 100 dataset is publicly available from <a href="https://huggingface.co/datasets/elyza/elyza-tasks-100" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">HuggingFace</a>.</p>
+            <p><strong>Model architecture</strong>: Decoder</p>
+            <p><strong>License</strong>: <a href="https://ai.meta.com/llama/license/" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">License</a></p>
+            <p><strong>Learn more</strong></p>
+            <ul>
+              <li><a href="https://note.com/elyza/n/na405acaca130" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Blog post on note.com</a></li>
+              <li><a href="https://jp-tok.dataplatform.cloud.ibm.com/wx/samples/models/elyza/elyza-japanese-llama-2-7b-instruct?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model card (Tokyo data center)</a></li>
+              <li><a href="https://huggingface.co/elyza/ELYZA-japanese-Llama-2-7b-instruct" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model card</a></li>
+            </ul>
+          </section>
+          <section id="section-flan-t5-xl-3b">
+            <h3 id="flan-t5-xl-3b">flan-t5-xl-3b</h3>
+            <p>The flan-t5-xl-3b model is provided by Google on Hugging Face. This model is based on the pretrained text-to-text transfer transformer (T5) model and uses instruction fine-tuning methods to achieve better zero- and few-shot performance. The
+              model is also fine-tuned with chain-of-thought data to improve its ability to perform reasoning tasks.</p>
+            <div class="note note"><span class="notetitle">Note:</span> This foundation model can be tuned by using the Tuning Studio.</div>
+            <p><strong>Usage</strong>: General use with zero- or few-shot prompts.</p>
+            <p><strong>Cost</strong>: Class 1. For pricing details, see <a href="../getting-started/wml-plans.html">Watson Machine Learning plans</a>.</p>
+            <p><strong>Try it out</strong>: <a href="fm-prompt-samples.html">Sample prompts</a></p>
+            <p><strong>Size</strong>: 3 billion parameters</p>
+            <p><strong>Token limits</strong></p>
+            <ul>
+              <li>
+                <p>Context window length (input + output): 4096</p>
+                <p><strong>Note</strong>: Lite plan output is limited to 700</p>
+              </li>
+            </ul>
+            <p><strong>Supported natural languages</strong>: Multilingual</p>
+            <p><strong>Instruction tuning information</strong>: The model was fine-tuned on tasks that involve multiple-step reasoning from chain-of-thought data in addition to traditional natural language processing tasks. Details about the training data
+              sets used are published.</p>
+            <p><strong>Model architecture</strong>: Encoder-decoder</p>
+            <p><strong>License</strong>: <a href="https://www.apache.org/licenses/LICENSE-2.0.txt" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Apache 2.0 license</a></p>
+            <p><strong>Learn more</strong></p>
+            <ul>
+              <li><a href="https://arxiv.org/abs/2210.11416" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Research paper</a></li>
+              <li><a href="https://dataplatform.cloud.ibm.com/wx/samples/models/google/flan-t5-xl?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model card</a></li>
+              <li><a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/bf57e8896f3e50c638b5a378780f7502?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Sample notebook: Tune a model to classify CFPB documents in watsonx</a></li>
+              <li><a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/1a8e5c23-1dc0-4f6e-b67f-eaac343a11f8?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Sample notebook: Prompt Tuning for Multi-class Classification with watsonx</a></li>
+            </ul>
+          </section>
+          <section id="section-flan-t5-xxl-11b">
+            <h3 id="flan-t5-xxl-11b">flan-t5-xxl-11b</h3>
+            <p>The flan-t5-xxl-11b model is provided by Google on Hugging Face. This model is based on the pretrained text-to-text transfer transformer (T5) model and uses instruction fine-tuning methods to achieve better zero- and few-shot performance.
+              The model is also fine-tuned with chain-of-thought data to improve its ability to perform reasoning tasks.</p>
+            <p><strong>Usage</strong>: General use with zero- or few-shot prompts.</p>
+            <p><strong>Cost</strong>: Class 2. For pricing details, see <a href="../getting-started/wml-plans.html">Watson Machine Learning plans</a>.</p>
+            <p><strong>Try it out</strong></p>
+            <ul>
+              <li>
+                <p><a href="fm-prompt-samples.html">Sample prompts</a></p>
+              </li>
+              <li>
+                <p><a href="https://dataplatform.cloud.ibm.com/wx/samples/prompts/marketing-email-generation?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Sample prompt: Marketing email generation</a></p>
+              </li>
+              <li>
+                <p><a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/73243d67b49a6e05f4cdf351b4b35e21?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Sample notebook: Use watsonx and Google flan-t5-xxl to generate advertising copy</a></p>
+              </li>
+              <li>
+                <p><a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/c3dbf23a-9a56-4c4b-8ce5-5707828fc981?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Sample notebook: Use watsonx and LangChain to make a series of calls to a language model</a></p>
+              </li>
+            </ul>
+            <p><strong>Size</strong>: 11 billion parameters</p>
+            <p><strong>Token limits</strong></p>
+            <ul>
+              <li>
+                <p>Context window length (input + output): 4096</p>
+                <p><strong>Note</strong>: Lite plan output is limited to 700</p>
+              </li>
+            </ul>
+            <p><strong>Supported natural languages</strong>: English, German, French</p>
+            <p><strong>Instruction tuning information</strong>: The model was fine-tuned on tasks that involve multiple-step reasoning from chain-of-thought data in addition to traditional natural language processing tasks. Details about the training data
+              sets used are published.</p>
+            <p><strong>Model architecture</strong>: Encoder-decoder</p>
+            <p><strong>License</strong>: <a href="https://www.apache.org/licenses/LICENSE-2.0.txt" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Apache 2.0 license</a></p>
+            <p><strong>Learn more</strong></p>
+            <ul>
+              <li><a href="https://arxiv.org/abs/2210.11416" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Research paper</a></li>
+              <li><a href="https://dataplatform.cloud.ibm.com/wx/samples/models/google/flan-t5-xxl?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model card</a></li>
+            </ul>
+          </section>
+          <section id="section-flan-ul2-20b">
+            <h3 id="flan-ul2-20b">flan-ul2-20b</h3>
+            <p>The flan-ul2-20b model is provided by Google on Hugging Face. This model was trained by using the Unifying Language Learning Paradigms (UL2). The model is optimized for language generation, language understanding, text classification, question
+              answering, common sense reasoning, long text reasoning, structured-knowledge grounding, and information retrieval, in-context learning, zero-shot prompting, and one-shot prompting.</p>
+            <p><strong>Usage</strong>: General use with zero- or few-shot prompts.</p>
+            <p><strong>Cost</strong>: Class 3. For pricing details, see <a href="../getting-started/wml-plans.html">Watson Machine Learning plans</a>.</p>
+            <p><strong>Try it out</strong></p>
+            <ul>
+              <li>
+                <p><a href="fm-prompt-samples.html">Sample prompts</a></p>
+              </li>
+              <li>
+                <p><a href="https://dataplatform.cloud.ibm.com/wx/samples/prompts/earnings-call-summary?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Sample prompt: Earnings call summary</a></p>
+              </li>
+              <li>
+                <p><a href="https://dataplatform.cloud.ibm.com/wx/samples/prompts/meeting-transcript-summary?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Sample prompt: Meeting transcript summary</a></p>
+              </li>
+              <li>
+                <p><a href="https://dataplatform.cloud.ibm.com/wx/samples/prompts/scenario-classification?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Sample prompt: Scenario classification</a></p>
+              </li>
+              <li>
+                <p><a href="https://dataplatform.cloud.ibm.com/wx/samples/prompts/sentiment-classification?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Sample prompt: Sentiment classification</a></p>
+              </li>
+              <li>
+                <p><a href="https://dataplatform.cloud.ibm.com/wx/samples/prompts/thank-you-note-generation?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Sample prompt: Thank you note generation</a></p>
+              </li>
+              <li>
+                <p><a href="https://dataplatform.cloud.ibm.com/wx/samples/prompts/name-entity-extraction?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Sample prompt: Named entity extraction</a></p>
+              </li>
+              <li>
+                <p><a href="https://dataplatform.cloud.ibm.com/wx/samples/prompts/fact-extraction?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Sample prompt: Fact extraction</a></p>
+              </li>
+              <li>
+                <p><a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/1cb62d6a5847b8ed5cdb6531a08e9104?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Sample notebook: Use watsonx to summarize cybersecurity documents</a></p>
+              </li>
+              <li>
+                <p><a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/d3a5f957-a93b-46cd-82c1-c8d37d4f62c6?context=wx&amp;audience=wdp" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Sample notebook: Use watsonx and LangChain to answer questions by using retrieval-augmented generation (RAG)</a></p>
+              </li>
+              <li>
+                <p><a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/ebeb9fc0-9844-4838-aff8-1fa1997d0c13?context=wx&amp;audience=wdp" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Sample notebook: Use watsonx, Elasticsearch, and LangChain to answer questions (RAG)</a></p>
+              </li>
+              <li>
+                <p><a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/bdbc8ad4-9c1f-460f-99ee-5c3a1f374fa7?context=wx&amp;audience=wdp" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Sample notebook: Use watsonx, and Elasticsearch Python SDK to answer questions (RAG)</a></p>
+              </li>
+            </ul>
+            <p><strong>Size</strong>: 20 billion parameters</p>
+            <p><strong>Token limits</strong></p>
+            <ul>
+              <li>
+                <p>Context window length (input + output): 4096</p>
+                <p><strong>Note</strong>: Lite plan output is limited to 700</p>
+              </li>
+            </ul>
+            <p><strong>Supported natural languages</strong>: English</p>
+            <p><strong>Instruction tuning information</strong>: The flan-ul2-20b model is pretrained on the colossal, cleaned version of Common Crawl's web crawl corpus. The model is fine-tuned with multiple pretraining objectives to optimize it for various
+              natural language processing tasks. Details about the training data sets used are published.</p>
+            <p><strong>Model architecture</strong>: Encoder-decoder</p>
+            <p><strong>License</strong>: <a href="https://www.apache.org/licenses/LICENSE-2.0.txt" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Apache 2.0 license</a></p>
+            <p><strong>Learn more</strong></p>
+            <ul>
+              <li>
+                <p><a href="https://arxiv.org/abs/2205.05131v1" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Unifying Language Learning (UL2) research paper</a></p>
+              </li>
+              <li>
+                <p><a href="https://arxiv.org/abs/2210.11416" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Fine-tuned Language Model (Flan) research paper</a></p>
+              </li>
+              <li>
+                <p><a href="https://dataplatform.cloud.ibm.com/wx/samples/models/google/flan-ul2?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model card</a></p>
+              </li>
+            </ul>
+          </section>
+          <section id="section-granite-13b-chat">
+            <h3 id="granite-13b-chat">granite-13b-chat-v2</h3>
+            <p>The granite-13b-chat-v2 model is provided by IBM. This model is optimized for dialog use cases and works well with virtual agent and chat applications.</p>
+            <p><strong>Usage</strong>: Generates dialog output like a chatbot. Uses a model-specific prompt format. Includes a keyword in its output that can be used as a stop sequence to produce succinct answers.</p>
+            <p><strong>Cost</strong>: Class 1. For pricing details, see <a href="../getting-started/wml-plans.html">Watson Machine Learning plans</a>.</p>
+            <p><strong>Try it out</strong>: <a href="fm-prompt-samples.html#sample7c">Sample prompt</a></p>
+            <p><strong>Size</strong>: 13 billion parameters</p>
+            <p><strong>Token limits</strong>: Context window length (input + output): 8192</p>
+            <p><strong>Supported natural languages</strong>: English</p>
+            <p><strong>Instruction tuning information</strong>: The Granite family of models is trained on enterprise-relevant data sets from five domains: internet, academic, code, legal, and finance. Data used to train the models first undergoes IBM data
+              governance reviews and is filtered of text that is flagged for hate, abuse, or profanity by the IBM-developed HAP filter. IBM shares information about the training methods and data sets used.</p>
+            <p><strong>Model architecture</strong>: Decoder</p>
+            <p><strong>License</strong></p>
+            <ul>
+              <li><a href="https://www.ibm.com/support/customer/csol/terms/?id=i126-6883" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Terms of use</a></li>
+              <li>For more information about contractual protections related to IBM indemnification, see the <a href="https://www.ibm.com/support/customer/csol/terms/?id=Z126-6548&amp;cc=us&amp;lc=en" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Client Relationship Agreement</a>                and <a href="https://www.ibm.com/support/customer/csol/terms/?id=i126-7747" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM watsonx.ai service description</a>.</li>
+            </ul>
+            <p><strong>Learn more</strong></p>
+            <ul>
+              <li><a href="https://www.ibm.com/blog/watsonx-tailored-generative-ai/" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model information</a></li>
+              <li><a href="https://www.ibm.com/downloads/cas/X9W4O6BM" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Research paper</a></li>
+              <li><a href="https://dataplatform.cloud.ibm.com/wx/samples/models/ibm/granite-13b-chat-v2?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model card</a></li>
+              <li><a href="fm-models-ibm-chat.html">Prompting the granite-13b-chat-v2 foundation model from IBM</a></li>
+            </ul>
+          </section>
+          <section id="section-granite-13b-instruct">
+            <h3 id="granite-13b-instruct">granite-13b-instruct-v2</h3>
+            <p>The granite-13b-instruct-v2 model is provided by IBM. This model was trained with high-quality finance data, and is a top-performing model on finance tasks. Financial tasks evaluated include: providing sentiment scores for stock and earnings
+              call transcripts, classifying news headlines, extracting credit risk assessments, summarizing financial long-form text, and answering financial or insurance-related questions.</p>
+            <div class="note note"><span class="notetitle">Note:</span> This foundation model can be tuned by using the Tuning Studio.</div>
+            <p><strong>Usage</strong>: Supports extraction, summarization, and classification tasks. Generates useful output for finance-related tasks. Uses a model-specific prompt format. Accepts special characters, which can be used for generating structured
+              output.</p>
+            <p><strong>Cost</strong>: Class 1. For pricing details, see <a href="../getting-started/wml-plans.html">Watson Machine Learning plans</a>.</p>
+            <p><strong>Try it out</strong></p>
+            <ul>
+              <li>
+                <p><a href="fm-prompt-samples.html#sample3b">Sample 3b: Generate a numbered list on a particular theme</a></p>
+              </li>
+              <li>
+                <p><a href="fm-prompt-samples.html#sample4c">Sample 4c: Answer a question based on a document</a></p>
+              </li>
+              <li>
+                <p><a href="fm-prompt-samples.html#sample4d">Sample 4d: Answer general knowledge questions</a></p>
+              </li>
+              <li>
+                <p><a href="https://dataplatform.cloud.ibm.com/wx/samples/prompts/finance-questions?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Sample prompt: Finance Q&amp;A</a></p>
+              </li>
+              <li>
+                <p><a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/61c1e967-8d10-44bb-a846-cc1f27e9e69a?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Sample notebook: Use watsonx and ibm/granite-13b-instruct to analyze car rental customer satisfaction from text</a></p>
+              </li>
+            </ul>
+            <p><strong>Size</strong>: 13 billion parameters</p>
+            <p><strong>Token limits</strong>: Context window length (input + output): 8192</p>
+            <p><strong>Supported natural languages</strong>: English</p>
+            <p><strong>Instruction tuning information</strong>: The Granite family of models is trained on enterprise-relevant data sets from five domains: internet, academic, code, legal, and finance. Data used to train the models first undergoes IBM data
+              governance reviews and is filtered of text that is flagged for hate, abuse, or profanity by the IBM-developed HAP filter. IBM shares information about the training methods and data sets used.</p>
+            <p><strong>Model architecture</strong>: Decoder</p>
+            <p><strong>License</strong></p>
+            <ul>
+              <li><a href="https://www.ibm.com/support/customer/csol/terms/?id=i126-6883" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Terms of use</a></li>
+              <li>For more information about contractual protections related to IBM indemnification, see the <a href="https://www.ibm.com/support/customer/csol/terms/?id=Z126-6548&amp;cc=us&amp;lc=en" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Client Relationship Agreement</a>                and <a href="https://www.ibm.com/support/customer/csol/terms/?id=i126-7747" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM watsonx.ai service description</a>.</li>
+            </ul>
+            <p><strong>Learn more</strong></p>
+            <ul>
+              <li>
+                <p><a href="https://www.ibm.com/blog/watsonx-tailored-generative-ai/" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model information</a></p>
+              </li>
+              <li>
+                <p><a href="https://www.ibm.com/downloads/cas/X9W4O6BM" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Research paper</a></p>
+              </li>
+              <li>
+                <p><a href="https://dataplatform.cloud.ibm.com/wx/samples/models/ibm/granite-13b-instruct-v2?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model card</a></p>
+              </li>
+            </ul>
+          </section>
+          <section id="section-granite-7b-lab">
+            <h3 id="granite-7b-lab">granite-7b-lab</h3>
+            <p>The granite-7b-lab foundation model is provided by IBM. The granite-7b-lab foundation model uses a novel alignment tuning method from IBM Research. Large-scale Alignment for chatBots, or LAB is a method for adding new skills to existing foundation
+              models by generating synthetic data for the skills, and then using that data to tune the foundation model.</p>
+            <p><strong>Usage</strong>: Supports general purpose tasks, including extraction, summarization, classification, and more.</p>
+            <p><strong>Cost</strong>: Class 1. For pricing details, see <a href="../getting-started/wml-plans.html">Watson Machine Learning plans</a>.</p>
+            <p><strong>Size</strong>: 7 billion parameters</p>
+            <p><strong>Token limits</strong>:</p>
+            <ul>
+              <li>Context window length (input + output): 8192</li>
+              <li>Note: The maximum new tokens, which means the tokens generated by the foundation model, is limited to 4096.</li>
+            </ul>
+            <p><strong>Supported natural languages</strong>: English</p>
+            <p><strong>Instruction tuning information</strong>: The granite-7b-lab foundation model is trained iteratively by using the large-scale alignment for chatbots (LAB) methodology.</p>
+            <p><strong>Model architecture</strong>: Decoder</p>
+            <p><strong>License</strong></p>
+            <ul>
+              <li><a href="https://www.ibm.com/support/customer/csol/terms/?id=i126-6883" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Terms of use</a></li>
+              <li>For more information about contractual protections related to IBM indemnification, see the <a href="https://www.ibm.com/support/customer/csol/terms/?id=Z126-6548&amp;cc=us&amp;lc=en" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Client Relationship Agreement</a>                and <a href="https://www.ibm.com/support/customer/csol/terms/?id=i126-7747" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM watsonx.ai service description</a>.</li>
+            </ul>
+            <p><strong>Learn more</strong></p>
+            <ul>
+              <li><a href="https://dataplatform.cloud.ibm.com/wx/samples/models/ibm/granite-7b-lab?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model card</a></li>
+              <li><a href="https://arxiv.org/pdf/2403.01081.pdf" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Research paper (LAB)</a></li>
+            </ul>
+          </section>
+          <section id="section-granite-8b-japanese">
+            <h3 id="granite-8b-japanese">granite-8b-japanese</h3>
+            <p>The granite-8b-japanese model is provided by IBM. The granite-8b-japanese foundation model is based on the IBM Granite Instruct foundation model and is trained to understand and generate Japanese text.</p>
+            <div class="note note"><span class="notetitle">Note:</span> This foundation model is available only in the Tokyo data center. When you inference this model from the Prompt Lab, disable AI guardrails.</div>
+            <p><strong>Usage</strong>: Useful for general purpose tasks in the Japanese language, such as classification, extraction, question-answering, and for language translation between Japanese and English.</p>
+            <p><strong>Cost</strong>: Class 1. For pricing details, see <a href="../getting-started/wml-plans.html">Watson Machine Learning plans</a>.</p>
+            <p><strong>Try it out</strong></p>
+            <ul>
+              <li><a href="fm-prompt-samples.html#sample4e">Sample 4e: Answer a question based on a document</a></li>
+              <li><a href="fm-prompt-samples.html#sample7d">Sample 7d: Converse in a dialog</a></li>
+              <li><a href="fm-prompt-samples.html#sample8c">Sample 8c: Translate text</a></li>
+            </ul>
+            <p><strong>Size</strong>: 8 billion parameters</p>
+            <p><strong>Token limits</strong>: Context window length (input + output): 8192</p>
+            <p><strong>Supported natural languages</strong>: English, Japanese</p>
+            <p><strong>Instruction tuning information</strong>: The Granite family of models is trained on enterprise-relevant data sets from five domains: internet, academic, code, legal, and finance. The granite-8b-japanese model was pretrained on 1 trillion
+              tokens of English and 0.5 trillion tokens of Japanese text.</p>
+            <p><strong>Model architecture</strong>: Decoder</p>
+            <p><strong>License</strong></p>
+            <ul>
+              <li><a href="https://www.ibm.com/support/customer/csol/terms/?id=i126-6883" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Terms of use</a></li>
+              <li>For more information about contractual protections related to IBM indemnification, see the <a href="https://www.ibm.com/support/customer/csol/terms/?id=Z126-6548&amp;cc=us&amp;lc=en" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Client Relationship Agreement</a>                and <a href="https://www.ibm.com/support/customer/csol/terms/?id=i126-7747" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM watsonx.ai service description</a>.</li>
+            </ul>
+            <p><strong>Learn more</strong></p>
+            <ul>
+              <li><a href="https://www.ibm.com/blog/watsonx-tailored-generative-ai/" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model information</a></li>
+              <li><a href="https://www.ibm.com/downloads/cas/X9W4O6BM" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Research paper</a></li>
+              <li><a href="fm-granite-8b-japanese.html">Model card</a></li>
+            </ul>
+          </section>
+          <section id="section-granite-20b-multilingual">
+            <h3 id="granite-20b-multilingual">granite-20b-multilingual</h3>
+            <p>A foundation model from the IBM Granite family. The granite-20b-multilingual foundation model is based on the IBM Granite Instruct foundation model and is trained to understand and generate text in English, German, Spanish, French, and Portuguese.</p>
+            <p><strong>Usage</strong>: English, German, Spanish, French, and Portuguese closed-domain question answering, summarization, generation, extraction, and classification.</p>
+            <p><strong>Cost</strong>: Class 1. For pricing details, see <a href="../getting-started/wml-plans.html">Watson Machine Learning plans</a>.</p>
+            <p><strong>Size</strong>: 13 billion parameters</p>
+            <p><strong>Token limits</strong>: Context window length (input + output): 8192</p>
+            <p><strong>Supported natural languages</strong>: English, German, Spanish, French, and Portuguese</p>
+            <p><strong>Instruction tuning information</strong>: The Granite family of models is trained on enterprise-relevant data sets from five domains: internet, academic, code, legal, and finance. Data used to train the models first undergoes IBM data
+              governance reviews and is filtered of text that is flagged for hate, abuse, or profanity by the IBM-developed HAP filter. IBM shares information about the training methods and data sets used.</p>
+            <p><strong>Model architecture</strong>: Decoder</p>
+            <p><strong>License</strong>: <a href="https://www.ibm.com/support/customer/csol/terms/?id=i126-6883" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Terms of use</a></p>
+            <p><strong>Learn more</strong></p>
+            <ul>
+              <li>
+                <p><a href="https://www.ibm.com/blog/watsonx-tailored-generative-ai/" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model information</a></p>
+              </li>
+              <li>
+                <p><a href="https://www.ibm.com/downloads/cas/X9W4O6BM" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Research paper</a></p>
+              </li>
+              <li>
+                <p><a href="https://dataplatform.cloud.ibm.com/wx/samples/models/ibm/granite-20b-multilingual?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model card</a></p>
+              </li>
+            </ul>
+          </section>
+          <section id="section-jais-13b-chat">
+            <h3 id="jais-13b-chat">jais-13b-chat</h3>
+            <p>The jais-13b-chat foundation model is a bilingual large language model for Arabic and English that is fine-tuned to support conversational tasks.</p>
+            <div class="note note"><span class="notetitle">Note:</span> This foundation model is available only in the Frankfurt data center. When you inference this model from the Prompt Lab, disable AI guardrails.</div>
+            <p><strong>Usage</strong>: Supports Q&amp;A, summarization, classification, generation, extraction, and translation in Arabic.</p>
+            <p><strong>Cost</strong>: Class 2. For pricing details, see <a href="../getting-started/wml-plans.html">Watson Machine Learning plans</a>.</p>
+            <p><strong>Try it out</strong></p>
+            <ul>
+              <li><a href="fm-prompt-samples.html#sample7e">Sample prompt</a></li>
+            </ul>
+            <p><strong>Size</strong>: 13 billion parameters</p>
+            <p><strong>Token limits</strong>: Context window length (input + output): 2048</p>
+            <p><strong>Supported natural languages</strong>: Arabic (Modern Standard Arabic) and English</p>
+            <p><strong>Instruction tuning information</strong>: Jais-13b-chat is based on the Jais-13b model, which is a foundation model that is trained on 116 billion Arabic tokens and 279 billion English tokens. Jais-13b-chat is fine-tuned with a curated
+              set of 4 million Arabic and 6 million English prompt-and-response pairs.</p>
+            <p><strong>Model architecture</strong>: Decoder</p>
+            <p><strong>License</strong>: <a href="https://www.apache.org/licenses/LICENSE-2.0.txt" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Apache 2.0</a></p>
+            <p><strong>Learn more</strong></p>
+            <ul>
+              <li><a href="https://arxiv.org/pdf/2308.16149.pdf" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Research paper</a></li>
+              <li><a href="https://eu-de.dataplatform.cloud.ibm.com/wx/samples/models/core42/jais-13b-chat?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model card (Frankfurt data center)</a></li>
+              <li><a href="https://huggingface.co/core42/jais-13b-chat" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model card</a></li>
+            </ul>
+          </section>
+          <section id="section-llama-3">
+            <h3 id="llama-3">Llama 3 Chat</h3>
+            <p>Meta Llama 3 foundation models are accessible, open large language model that are built with Meta Llama 3 and provided by Meta on Hugging Face. The Llama 3 foundation models are instruction fine-tuned language models that can support various
+              use cases.</p>
+            <p><strong>Usage</strong>: Generates dialog output like a chatbot.</p>
+            <p><strong>Cost</strong></p>
+            <ul>
+              <li>8b: Class 1</li>
+              <li>70b: Class 2</li>
+              <li>For pricing details, see <a href="../getting-started/wml-plans.html">Watson Machine Learning plans</a>.</li>
+            </ul>
+            <p><strong>Try it out</strong></p>
+            <ul>
+              <li><a href="fm-prompt-samples.html#sample7a">Sample prompt</a></li>
+            </ul>
+            <p><strong>Available sizes</strong></p>
+            <ul>
+              <li>8 billion parameters</li>
+              <li>70 billion parameters</li>
+            </ul>
+            <p><strong>Token limits</strong></p>
+            <ul>
+              <li>Context window length (input + output): 8192</li>
+              <li>Note: The maximum new tokens, which means the tokens generated by the foundation model, is limited to 4096.</li>
+            </ul>
+            <p><strong>Supported natural languages</strong>: English</p>
+            <p><strong>Instruction tuning information</strong>: Llama 3 features improvements in post-training procedures that reduce false refusal rates, improve alignment, and increase diversity in the foundation model output. The result is better reasoning,
+              code generation, and instruction-following capabilities. Llama 3 has more training tokens (15T) that result in better language comprehension.</p>
+            <p><strong>Model architecture</strong>: Decoder-only</p>
+            <p><strong>License</strong>: <a href="https://llama.meta.com/llama3/license/" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">META LLAMA 3 Community License</a></p>
+            <p><strong>Learn more</strong></p>
+            <ul>
+              <li><a href="https://llama.meta.com/llama3/" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Meta AI website</a></li>
+              <li><a href="https://dataplatform.cloud.ibm.com/wx/samples/models/meta-llama/llama-3-8b-instruct?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">8b Model card</a></li>
+              <li><a href="https://dataplatform.cloud.ibm.com/wx/samples/models/meta-llama/llama-3-70b-instruct?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">70b Model card</a></li>
+            </ul>
+          </section>
+          <section id="section-llama-2">
+            <h3 id="llama-2">Llama 2 Chat</h3>
+            <p>The Llama 2 Chat model is provided by Meta on Hugging Face. The fine-tuned model is useful for chat generation. The model is pretrained with publicly available online data and fine-tuned using reinforcement learning from human feedback.</p>
+            <p>You can choose to use the 13 billion parameter or 70 billion parameter version of the model.</p>
+            <div class="note note"><span class="notetitle">Note:</span> The 13 billion parameter version of this foundation model can be tuned by using the Tuning Studio.</div>
+            <p><strong>Usage</strong>: Generates dialog output like a chatbot. Uses a model-specific prompt format.</p>
+            <p><strong>Cost</strong></p>
+            <ul>
+              <li>13b: Class 1</li>
+              <li>70b: Class 2</li>
+              <li>For pricing details, see <a href="../getting-started/wml-plans.html">Watson Machine Learning plans</a>.</li>
+            </ul>
+            <p><strong>Try it out</strong></p>
+            <ul>
+              <li>
+                <p><a href="fm-prompt-samples.html#sample7a">Sample prompt</a></p>
+              </li>
+              <li>
+                <p><a href="https://dataplatform.cloud.ibm.com/wx/samples/prompts/questions-article?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Sample prompt: Questions about an article</a></p>
+              </li>
+              <li>
+                <p><a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/b59922d8-678f-44e4-b5ef-18138890b444?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Sample notebook: Use watsonx and Meta llama-2-70b-chat to answer questions about an article</a></p>
+              </li>
+              <li>
+                <p><a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/b59922d8-678f-44e4-b5ef-18138890b444?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Sample notebook: Use watsonx and Meta llama-2-70b-chat to answer questions about an article</a></p>
+              </li>
+              <li>
+                <p><a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/7695ce52-99b5-4e18-b3d5-de906b9c604a?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Sample notebook: Use watsonx to tune Meta llama-2-13b-chat model with CFPB documents</a></p>
+              </li>
+            </ul>
+            <p><strong>Available sizes</strong></p>
+            <ul>
+              <li>13 billion parameters</li>
+              <li>70 billion parameters</li>
+            </ul>
+            <p><strong>Token limits</strong></p>
+            <ul>
+              <li>
+                <p>Context window length (input + output): 4096</p>
+              </li>
+              <li>
+                <p>Lite plan output is limited as follows:</p>
+                <ul>
+                  <li>70b version: 900</li>
+                  <li>13b version: 2048</li>
+                </ul>
+              </li>
+            </ul>
+            <p><strong>Supported natural languages</strong>: English</p>
+            <p><strong>Instruction tuning information</strong>: Llama 2 was pretrained on 2 trillion tokens of data from publicly available sources. The fine-tuning data includes publicly available instruction data sets and more than one million new examples
+              that were annotated by humans.</p>
+            <p><strong>Model architecture</strong>: Decoder-only</p>
+            <p><strong>License</strong>: <a href="https://ai.meta.com/llama/license/" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">License</a></p>
+            <p><strong>Learn more</strong></p>
+            <ul>
+              <li>
+                <p><a href="https://arxiv.org/abs/2307.09288" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Research paper</a></p>
+              </li>
+              <li>
+                <p><a href="https://dataplatform.cloud.ibm.com/wx/samples/models/meta-llama/llama-2-13b-chat?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">13b Model card</a></p>
+              </li>
+              <li>
+                <p><a href="https://dataplatform.cloud.ibm.com/wx/samples/models/meta-llama/llama-2-70b-chat?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">70b Model card</a></p>
+              </li>
+            </ul>
+          </section>
+          <section id="section-llama2-13b-dpo-v7">
+            <h3 id="llama2-13b-dpo-v7">llama2-13b-dpo-v7</h3>
+            <p>The llama2-13b-dpo-v7 foundation model is provided by Minds &amp; Company. The llama2-13b-dpo-v7 foundation model is a version of llama2-13b foundation model from Meta that is instruction-tuned and fine-tuned by using the direct preference
+              optimzation method to handle Korean.</p>
+            <div class="note note"><span class="notetitle">Note:</span> This foundation model is available only in the Tokyo data center. When you inference this model from the Prompt Lab, disable AI guardrails.</div>
+            <p><strong>Usage</strong>: Suitable for many tasks, including classification, extraction, summarization, code creation and conversion, question-answering, generation, and retreival-augmented generation in Korean.</p>
+            <p><strong>Cost</strong>: Class 2. For pricing details, see <a href="../getting-started/wml-plans.html">Watson Machine Learning plans</a>.</p>
+            <p><strong>Try it out</strong></p>
+            <ul>
+              <li><a href="fm-prompt-samples.html#sample5d">Sample summarization prompt</a></li>
+              <li><a href="fm-prompt-samples.html#sample7f">Sample chat prompt</a></li>
+            </ul>
+            <p><strong>Size</strong>: 13.2 billion parameters</p>
+            <p><strong>Token limits</strong>: Context window length (input + output): 4096</p>
+            <p><strong>Supported natural languages</strong>: English, Korean</p>
+            <p><strong>Instruction tuning information</strong>: Direct preference optimzation (DPO) is an alternative to reinforcement learning from human feedback. With reinforcement learning from human feedback, responses must be sampled from a language
+              model and an intermediate step of training a reward model is required. The direct preference optimzation uses a binary method of reinforcement learning where the model chooses the best of two answers based on preference data.</p>
+            <p><strong>Model architecture</strong>: Decoder-only</p>
+            <p><strong>License</strong>: <a href="https://ai.meta.com/llama/license/" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">License</a></p>
+            <p><strong>Learn more</strong></p>
+            <ul>
+              <li><a href="https://arxiv.org/pdf/2305.18290.pdf" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Research paper (DPO)</a></li>
+              <li><a href="https://huggingface.co/mncai/llama2-13b-dpo-v7" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model card</a></li>
+              <li><a href="https://jp-tok.dataplatform.cloud.ibm.com/wx/samples/models/mncai/llama2-13b-dpo-v7?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model card (Tokyo data center)</a></li>
+            </ul>
+          </section>
+          <section id="section-merlinite-7b">
+            <h3 id="merlinite-7b">merlinite-7b</h3>
+            <p>The merlinite-7b foundation model is provided by Mistral AI and tuned by IBM. The merlinite-7b foundation model is a derivative of the Mistral-7B-v0.1 model that is tuned with a novel alignment tuning method from IBM Research. Large-scale
+              Alignment for chatBots, or LAB is a method for adding new skills to existing foundation models by generating synthetic data for the skills, and then using that data to tune the foundation model.</p>
+            <p><strong>Usage</strong>: Supports general purpose tasks, including extraction, summarization, classification, and more.</p>
+            <p><strong>Cost</strong>: Class 1. For pricing details, see <a href="../getting-started/wml-plans.html">Watson Machine Learning plans</a>.</p>
+            <p><strong>Size</strong>: 7 billion parameters</p>
+            <p><strong>Token limits</strong></p>
+            <ul>
+              <li>Context window length (input + output): 32,768</li>
+              <li>Note: The maximum new tokens, which means the tokens generated by the foundation model, is limited to 8192.</li>
+            </ul>
+            <p><strong>Supported natural languages</strong>:</p>
+            <p><strong>Instruction tuning information</strong>: The merlinite-7b foundation model is trained iteratively by using the large-scale alignment for chatbots (LAB) methodology.</p>
+            <p><strong>Model architecture</strong>: Decoder</p>
+            <p><strong>License</strong>: <a href="https://www.apache.org/licenses/LICENSE-2.0.txt" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Apache 2.0 license</a></p>
+            <p><strong>Learn more</strong></p>
+            <ul>
+              <li><a href="https://arxiv.org/pdf/2403.01081.pdf" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Research paper (LAB)</a></li>
+              <li><a href="https://dataplatform.cloud.ibm.com/wx/samples/models/ibm-mistralai/merlinite-7b?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model card</a></li>
+            </ul>
+          </section>
+          <section id="section-mixtral-8x7b-instruct-v01">
+            <h3 id="mixtral-8x7b-instruct-v01">mixtral-8x7b-instruct-v01</h3>
+            <p>The mixtral-8x7b-instruct-v01 foundation model is provided by Mistral AI. The mixtral-8x7b-instruct-v01 foundation model is a pretrained generative sparse mixture-of-experts network that groups the model parameters, and then for each token
+              chooses a subset of groups (referred to as <em>experts</em>) to process the token. As a result, each token has access to 47 billion parameters, but only uses 13 billion active parameters for inferencing, which reduces costs and latency.</p>
+            <p><strong>Usage</strong>: Suitable for many tasks, including classification, summarization, generation, code creation and conversion, and language translation. Due to the model's unusually large context window, use the max tokens parameter to
+              specify a token limit when prompting the model.</p>
+            <p><strong>Cost</strong>: Class 1. For pricing details, see <a href="../getting-started/wml-plans.html">Watson Machine Learning plans</a>.</p>
+            <p><strong>Size</strong>: 46.7 billion parameters</p>
+            <p><strong>Token limits</strong></p>
+            <ul>
+              <li>Context window length (input + output): 32,768</li>
+              <li>Note: The maximum new tokens, which means the tokens generated by the foundation model, is limited to 16,384.</li>
+            </ul>
+            <p><strong>Supported natural languages</strong>: English, French, German, Italian, Spanish</p>
+            <p><strong>Instruction tuning information</strong>: The Mixtral foundation model is pretrained on internet data. The Mixtral 8x7B Instruct foundation model is fine-tuned to follow instructions.</p>
+            <p><strong>Model architecture</strong>: Decoder-only</p>
+            <p><strong>License</strong>: <a href="https://www.apache.org/licenses/LICENSE-2.0.txt" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Apache 2.0 license</a></p>
+            <p><strong>Learn more</strong></p>
+            <ul>
+              <li><a href="https://arxiv.org/pdf/2401.04088.pdf" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Research paper</a></li>
+              <li><a href="https://mistral.ai/news/mixtral-of-experts/" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Blog post for Mixtral 8x7B</a></li>
+              <li><a href="https://dataplatform.cloud.ibm.com/wx/samples/models/ibm-mistralai/mixtral-8x7b-instruct-v01?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model card</a></li>
+            </ul>
+          </section>
+          <section id="section-mixtral-8x7b-instruct-v01-q">
+            <h3 id="mixtral-8x7b-instruct-v01-q">mixtral-8x7b-instruct-v01-q (Deprecated)</h3>
+            <p><img src="images/deprecated.svg" alt="Warning icon" height="20" style="vertical-align:text-bottom"> This model is deprecated. For more information, see <a href="fm-model-lifecycle.html">Foundation model lifecycle</a>.</p>
+            <p>The mixtral-8x7b-instruct-v01-q model is provided by IBM. The mixtral-8x7b-instruct-v01-q foundation model is a quantized version of the Mixtral 8x7B Instruct foundation model from Mistral AI.</p>
+            <p>The underlying Mixtral 8x7B foundation model is a sparse mixture-of-experts network that groups the model parameters, and then for each token chooses a subset of groups (referred to as <em>experts</em>) to process the token. As a result, each
+              token has access to 47 billion parameters, but only uses 13 billion active parameters for inferencing, which reduces costs and latency.</p>
+            <p><strong>Usage</strong>: Suitable for many tasks, including classification, summarization, generation, code creation and conversion, and language translation. Due to the model's unusually large context window, use the max tokens parameter to
+              specify a token limit when prompting the model.</p>
+            <p><strong>Cost</strong>: Class 1. For pricing details, see <a href="../getting-started/wml-plans.html">Watson Machine Learning plans</a>.</p>
+            <p><strong>Try it out</strong>: <a href="fm-prompt-samples.html">Sample prompts</a></p>
+            <p><strong>Size</strong>: 8 x 7 billion parameters</p>
+            <p><strong>Token limits</strong></p>
+            <ul>
+              <li>Context window length (input + output): 32,768</li>
+              <li>Note: The maximum new tokens, which means the tokens generated by the foundation model, is limited to 4096.</li>
+            </ul>
+            <p><strong>Supported natural languages</strong>: English, French, German, Italian, Spanish</p>
+            <p><strong>Instruction tuning information</strong>: The Mixtral foundation model is pretrained on internet data. The Mixtral 8x7B Instruct foundation model is fine-tuned to follow instructions.</p>
+            <p>The IBM-tuned model uses the AutoGPTQ (Post-Training Quantization for Generative Pre-Trained Transformers) method to compress the model weight values from 16-bit floating point data types to 4-bit integer data types during data transfer. The
+              weights decompress at computation time. Compressing the weights to transfer data reduces the GPU memory and GPU compute engine size requirements of the model.</p>
+            <p><strong>Model architecture</strong>: Decoder-only</p>
+            <p><strong>License</strong>: <a href="https://www.apache.org/licenses/LICENSE-2.0.txt" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Apache 2.0 license</a></p>
+            <p><strong>Learn more</strong></p>
+            <ul>
+              <li><a href="https://arxiv.org/abs/2401.04088.pdf" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Research paper</a></li>
+              <li><a href="https://arxiv.org/pdf/2210.17323.pdf" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Research paper on the quantization method</a></li>
+              <li><a href="https://mistral.ai/news/mixtral-of-experts/" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Blog post for Mixtral 8x7B</a></li>
+              <li><a href="https://dataplatform.cloud.ibm.com/wx/samples/models/ibm-mistralai/mixtral-8x7b-instruct-v01-q?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model card</a></li>
+            </ul>
+          </section>
+          <section id="section-mt0-xxl-13b">
+            <h3 id="mt0-xxl-13b">mt0-xxl-13b</h3>
+            <p>The mt0-xxl-13b model is provided by BigScience on Hugging Face. The model is optimized to support language generation and translation tasks with English, languages other than English, and multilingual prompts.</p>
+            <p><strong>Usage</strong>: General use with zero- or few-shot prompts. For translation tasks, include a period to indicate the end of the text you want translated or the model might continue the sentence rather than translate it.</p>
+            <p><strong>Cost</strong>: Class 2. For pricing details, see <a href="../getting-started/wml-plans.html">Watson Machine Learning plans</a>.</p>
+            <p><strong>Try it out</strong></p>
+            <ul>
+              <li>
+                <p><a href="fm-prompt-samples.html">Sample prompts</a></p>
+              </li>
+              <li>
+                <p><a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/fed7cf6b-1c48-4d71-8c04-0fce0e000d43?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Sample notebook: Simple introduction to retrieval-augmented generation with watsonx.ai</a></p>
+              </li>
+            </ul>
+            <p><strong>Size</strong>: 13 billion parameters</p>
+            <p><strong>Supported natural languages</strong>: Multilingual</p>
+            <p><strong>Token limits</strong></p>
+            <ul>
+              <li>
+                <p>Context window length (input + output): 4096</p>
+                <p><strong>Note</strong>: Lite plan output is limited to 700</p>
+              </li>
+            </ul>
+            <p><strong>Supported natural languages</strong>: The model is pretrained on multilingual data in 108 languages and fine-tuned with multilingual data in 46 languages to perform multilingual tasks.</p>
+            <p><strong>Instruction tuning information</strong>: BigScience publishes details about its code and data sets.</p>
+            <p><strong>Model architecture</strong>: Encoder-decoder</p>
+            <p><strong>License</strong>: <a href="https://www.apache.org/licenses/LICENSE-2.0.txt" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Apache 2.0 license</a></p>
+            <p><strong>Learn more</strong></p>
+            <ul>
+              <li>
+                <p><a href="https://arxiv.org/abs/2211.01786" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Research paper</a></p>
+              </li>
+              <li>
+                <p><a href="https://dataplatform.cloud.ibm.com/wx/samples/models/bigscience/mt0-xxl?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model card</a></p>
+              </li>
+            </ul>
+          </section>
+          <section id="section-starcoder-15.5b">
+            <h3 id="starcoder-15.5b">starcoder-15.5b (Deprecated)</h3>
+            <p><img src="images/deprecated.svg" alt="Warning icon" height="20" style="vertical-align:text-bottom"> This model is deprecated. For more information, see <a href="fm-model-lifecycle.html">Foundation model lifecycle</a>.</p>
+            <p>The starcoder-15.5b model is provided by BigCode on Hugging Face. This model can generate code and convert code from one programming language to another. The model is meant to be used by developers to boost their productivity.</p>
+            <p><strong>Usage</strong>: Code generation and code conversion</p>
+            <p>Note: The model output might include code that is taken directly from its training data, which can be licensed code that requires attribution.</p>
+            <p><strong>Cost</strong>: Class 2. For pricing details, see <a href="../getting-started/wml-plans.html">Watson Machine Learning plans</a>.</p>
+            <p><strong>Try it out</strong></p>
+            <ul>
+              <li><a href="fm-prompt-samples.html#code">Sample prompts</a></li>
+              <li><a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/b5792ad4-555b-4b68-8b6f-ce368093fac6?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Sample notebook: Use watsonx and BigCode starcoder-15.5b to generate code based on instruction</a></li>
+            </ul>
+            <p><strong>Size</strong>: 15.5 billion parameters</p>
+            <p><strong>Token limits</strong>: Context window length (input + output): 8192</p>
+            <p><strong>Supported programming languages</strong>: Over 80 programming languages, with an emphasis on Python.</p>
+            <p><strong>Data used during training</strong>: This model was trained on over 80 programming languages from GitHub. A filter was applied to exclude from the training data any licensed code or code that is marked with opt-out requests. Nevertheless,
+              the model's output might include code from its training data that requires attribution. The model was not instruction-tuned. Submitting input with only an instruction and no examples might result in poor model output.</p>
+            <p><strong>Model architecture</strong>: Decoder</p>
+            <p><strong>License</strong>: <a href="https://huggingface.co/spaces/bigcode/bigcode-model-license-agreement" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">License</a></p>
+            <p><strong>Learn more</strong></p>
+            <ul>
+              <li><a href="https://arxiv.org/abs/2305.06161" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Research paper</a></li>
+              <li><a href="https://dataplatform.cloud.ibm.com/wx/samples/models/bigcode/starcoder?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Model card</a></li>
+            </ul>
+            <p>Any deprecated foundation models are highlighted with a warning icon (<img src="images/deprecated.svg" alt="Warning icon" height="20" style="vertical-align:text-bottom">). For more information about deprecation, including foundation model
+              withdrawal dates, see <a href="fm-model-lifecycle.html">Foundation model lifecycle</a>.</p>
+          </section>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="fm-model-choose.html">Choosing a model</a></li>
+            <li><a href="fm-model-lifecycle.html">Foundation model lifecycle</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="fm-overview.html">Developing generative AI solutions</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can create a job to run a notebook directly in the Notebook editor.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Creating jobs in the Notebook editor</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=jobs-creating-in-notebook-editor"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="creating-jobs-in-the-notebook-editor" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-creating-jobs-in-the-notebook-editor">
+        <h1 id="creating-jobs-in-the-notebook-editor">Creating jobs in the Notebook editor</h1>
+        <p>You can create a job to run a notebook directly in the Notebook editor.</p>
+        <p>To create a notebook job:</p>
+        <ol>
+          <li>
+            <p>In the Notebook editor, click <img src="../manage-data/images/Run-schedule_Blue.png" alt="the jobs icon" height="20" style="vertical-align:text-bottom"> from the menu bar and select <strong>Create a job</strong>.</p>
+          </li>
+          <li>
+            <p>Define the job details by entering a name and a description (optional).</p>
+          </li>
+          <li>
+            <p>On the Configure page, select:</p>
+            <ul>
+              <li>
+                <p>A notebook version. The most recently saved version of the notebook is used by default. If no version of the notebook exists, you must create a version by clicking <img src="../console/images/versions.png" alt="the versions icon" height="20" style="vertical-align:text-bottom"> from the notebook action bar.</p>
+              </li>
+              <li>
+                <p>A runtime. By default, the job uses the same environment template that was selected for the notebook.</p>
+              </li>
+              <li>
+                <p><strong>Advanced configuration</strong> to add environment variables and select the job run retention settings.</p>
+                <ul>
+                  <li>
+                    <p>The environment variables that are passed to the notebook when the job is started and affect the execution of the notebook.</p>
+                    <p>Each variable declaration must be made for a single variable in the following format <code>VAR_NAME=foo</code> and appear on its own line.</p>
+                    <p>For example, to determine which data source to access if the same notebook is used in different jobs, you can set the variable <code>DATA_SOURCE</code> to <code>DATA_SOURCE=jdbc:db2//db2.server.com:1521/testdata</code> in the notebook
+                      job that trains a model and to <code>DATA_SOURCE=jdbc:db2//db2.server.com:1521/productiondata</code> in the job where the model runs on real data. In another example, the variables <code>BATCH_SIZE</code>, <code>NUM_CLASSES</code>                      and <code>EPOCHS</code> that are required for a Keras model can be passed to the same notebook with different values in separate jobs.</p>
+                  </li>
+                  <li>
+                    <p>Select the job run result output. You can select:</p>
+                    <ul>
+                      <li>
+                        <p><strong>Log &amp; notebook</strong> to store the output files of specific runs, the log file, and the resulting notebook. This is the default that is set for all new jobs. Select:</p>
+                        <ul>
+                          <li>
+                            <p>To compare the results of different job runs, not just by viewing the log file. By keeping the output files of specific job runs, you can compare the results of job runs to fine tune your code. For example, by configuring different
+                              environment variables when the job is started, you can change the way the code in the notebook behaves and then compare these differences (including graphics) step by step between runs.</p>
+                            <p>Note:</p>
+                            <ul>
+                              <li>The job run retention value is set to 5 by default to avoid creating too many run output files. This means that the last 5 job run output files will be retained. You need to adjust this value if you want to compare more run
+                                output files.</li>
+                              <li>You cannot use the results of a specific job run to create a URL to enable "Sharing by URL". If you want to use a specific job result run as the source of what is shown via "Share by URL", you must create
+                                a new job and select <strong>Log &amp; updated version</strong>.</li>
+                            </ul>
+                          </li>
+                          <li>
+                            <p>To view the logs.</p>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <p><strong>Log only</strong> to store the log file only. The resulting notebook is discarded. Select:</p>
+                        <ul>
+                          <li>To view the logs.</li>
+                        </ul>
+                      </li>
+                      <li>
+                        <p><strong>Log &amp; updated version</strong> to store the log file and update the output cells of the version you used as input to this task. Select:</p>
+                        <ul>
+                          <li>To view the logs.</li>
+                          <li>To share the result of a job run via "Share by URL".</li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <p><strong>Retention configuration</strong> to set how long to retain finished job runs and job run artifacts like logs or notebook results. You can either select the number of days to retain the job runs or the last number of job runs to
+                  keep. The retention value is set to 5 by default (the last 5 job run output files are retained).</p>
+                <p>Be mindful when changing the default as too many job run files can quickly use up project storage.</p>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <p>On the Schedule page, you can optionally add a one-time or repeating schedule.</p>
+            <p>If you define a start day and time without selecting <strong>Repeat</strong>, the job will run exactly one time at the specified day and time. If you define a start date and time and you select <strong>Repeat</strong>, the job will run for
+              the first time at the timestamp indicated in the Repeat section.</p>
+            <p>You can't change the time zone; you must set your job schedule in your web browser's time zone.&nbsp;The schedule will be translated to the time zone of the compute node where your job runs.</p>
+            <p>If you exclude certain weekdays, the job might not run as you would expect. The reason might be due to a discrepancy between the time zone of the user who creates the schedule, and the time zone of the compute node where the job runs.</p>
+            <div class="note note"><span class="notetitle">Note:</span> Your scheduled job can appear differently if your web browser’s time zone is set to your local time zone following Daylight Savings Time (DST). For example, your scheduled job appears at 3:00PM Eastern
+              Standard Time Zone (EST) daily corresponding to 8:00PM Coordinated Universal Time (UTC). When your local time zone changes to Eastern Daylight Time Zone (EDT), your scheduled job continues to run at 8:00PM (UTC) which will now appear as
+              4:00PM (EDT) daily.</div>
+            <p>An API key is generated when you create a scheduled job, and future runs will use this API key. If you didn't create a scheduled job but choose to modify one, an API key is generated for you when you modify the job and future runs will use
+              this API key.</p>
+          </li>
+          <li>
+            <p>Optionally set to see notifications for the job. You can select the type of alerts to receive.</p>
+          </li>
+          <li>
+            <p>Review the job settings. Then create the job and run it immediately, or create the job and run it later. All notebook code cells are run and all output cells are updated.</p>
+            <p>The notebook job is listed under <strong>Jobs</strong> in your project. To view the notebook run output, click the job and then <strong>Run result</strong> on the Job run details page.</p>
+          </li>
+        </ol>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="jobs.html#view-job-details">Viewing job details</a></li>
+            <li><a href="../analyze-data/code-run-notebooks.html">Coding and running notebooks</a></li>
+            <li><a href="../analyze-data/notebook-environments.html">Environments for the Notebook editor</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="jobs.html">Creating and managing jobs</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

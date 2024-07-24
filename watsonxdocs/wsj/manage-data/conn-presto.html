@@ -1,0 +1,137 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="To access your data in Presto, create a connection asset for it.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Presto connection</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=connectors-presto-connection"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="presto-connection" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-presto-connection">
+        <h1 id="presto-connection">Presto connection</h1>
+        <p>To access your data in Presto, create a connection asset for it.</p>
+        <p>Presto is a fast and reliable SQL engine for Data Analytics and the Open Lakehouse.</p>
+        <section id="section-supported-versions">
+          <h2 id="supported-versions">Supported versions</h2>
+          <ul>
+            <li>Version 0.279 and earlier</li>
+          </ul>
+        </section>
+        <section id="section-create-a-connection-to-presto">
+          <h2 id="create-a-connection-to-presto">Create a connection to Presto</h2>
+          <p>To create the connection asset, you need these connection details:</p>
+          <ul>
+            <li>Hostname or IP address</li>
+            <li>Port</li>
+            <li>Username</li>
+            <li>Password (required if you connect to Presto with SSL enabled)</li>
+            <li>SSL certificate (if required by the Presto server)
+            </li>
+          </ul>
+          <section id="section-connecting-to-presto-within-ibm-watsonxdata">
+            <h3 id="connecting-to-presto-within-ibm-watsonxdata">Connecting to Presto within IBM watsonx.data</h3>
+            <p>To connect to a Presto server within watsonx.data on IBM Cloud, use these connection details:</p>
+            <ul>
+              <li>Username: <code>ibmlhapikey</code></li>
+              <li>Password (for SSL-enabled, which is the default): An IBM Cloud API key. For more information, see <a href="https://cloud.ibm.com/docs/watsonxdata?topic=watsonxdata-con-presto-serv" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Connecting to Presto server</a>.</li>
+            </ul>
+            <p>To connect to a Presto server within watsonx.data on Cloud Pak for Data or stand-alone watsonx.data, use the username and password that you use for the watsonx.data console.</p>
+          </section>
+          <section id="section-choose-the-method-for-creating-a-connection-based-on-where-you-are-in-the-platform">
+            <h3 id="choose-the-method-for-creating-a-connection-based-on-where-you-are-in-the-platform">Choose the method for creating a connection based on where you are in the platform</h3>
+            <dl>
+              <dt><strong>In a project</strong></dt>
+              <dd>Click <strong>Assets &gt; New asset &gt; Connect to a data source</strong>. See <a href="create-conn.html">Adding a connection to a project</a>.</dd>
+              <dt><strong>In a deployment space</strong></dt>
+              <dd>Click <strong>Add to space &gt; Connection</strong>. See <a href="../analyze-data/ml-space-add-assets.html">Adding connections to a deployment space</a>.
+                <br></dd>
+              <dt><strong>In the Platform assets catalog</strong></dt>
+              <dd>Click <strong>New connection</strong>. See <a href="platform-conn.html">Adding platform connections</a>.</dd>
+            </dl>
+          </section>
+          <section id="section-next-step-add-data-assets-from-the-connection">
+            <h3 id="next-step-add-data-assets-from-the-connection">Next step: Add data assets from the connection</h3>
+            <ul>
+              <li>See <a href="connected-data.html">Add data from a connection in a project</a>.</li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-where-you-can-use-this-connection">
+          <h2 id="where-you-can-use-this-connection">Where you can use this connection</h2>
+          <p>You can use the Presto connection in the following workspaces and tools:</p>
+          <p><strong>Projects</strong></p>
+          <ul>
+            <li>Data Refinery</li>
+            <li>Decision Optimization</li>
+            <li>SPSS Modeler</li>
+            <li>Synthetic Data Generator</li>
+          </ul>
+          <p><strong>Catalogs</strong></p>
+          <ul>
+            <li>Platform assets catalog</li>
+          </ul>
+        </section>
+        <section id="section-presto-setup">
+          <h2 id="presto-setup">Presto setup</h2>
+          <p>To set up Presto, see <a href="https://prestodb.io/docs/current/installation.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Presto installation</a>.</p>
+        </section>
+        <section id="section-restriction">
+          <h2 id="restriction">Restriction</h2>
+          <p>You can use this connection only for source data. You cannot write to data or export data with this connection.</p>
+        </section>
+        <section id="section-limitation">
+          <h2 id="limitation">Limitation</h2>
+          <p>The Presto connection does not support the Apache Cassandra Time data type.</p>
+          <section id="section-running-sql-statements">
+            <h3 id="running-sql-statements">Running SQL statements</h3>
+            <p>To ensure that your SQL statements run correctly, refer to the <a href="https://prestodb.io/docs/current/sql.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">SQL Statement Syntax</a> for the correct syntax.</p>
+          </section>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p><a href="https://prestodb.io/docs/current/index.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Presto documentation</a></p>
+          <p><strong>Related connection</strong>: <a href="conn-watsonxd.html">IBM watsonx.data connection</a></p>
+          <p><strong>Parent topic</strong>: <a href="conn_types.html">Supported connections</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="As an Administrator, you add the people in your organization who need access to IBM watsonx to the IBM Cloud account and then assign them the appropriate roles for their tasks.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Add users to the account</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=access-adding-users-account"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="add-users-to-the-account" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-add-users-to-the-account">
+        <h1 id="add-users-to-the-account">Add users to the account</h1>
+        <p>As an <strong>Administrator</strong>, you add the people in your organization who need access to IBM watsonx to the IBM Cloud account and then assign them the appropriate roles for their tasks.</p>
+        <ol>
+          <li><a href="#users">Add nonadministrative users</a> to the IBM Cloud account and assign access groups or roles so that they can work in IBM watsonx. The new users receive an email invitation to join the account. They must accept the invitation
+            to be added to the account.</li>
+          <li>Set up access groups to simplify permissions and role assignment.</li>
+          <li>Optional: <a href="#adminuser">Add administrative users</a> to the IBM Cloud account.</li>
+        </ol>
+        <section id="section-users">
+          <h2 id="users">Add nonadministrative users to your IBM Cloud account</h2>
+          <p>You invite users to your IBM Cloud account by sending an email invitation. The user accepts the invitation to join the account. You must assign them roles (or access groups) to provide the necessary permissions to work in IBM watsonx. For a
+            baseline role assignment, you can provide minimum permissions by assigning the following roles in the <strong>Manage &gt; Access(IAM) &gt; Users &gt; Invite users &gt; Access policy</strong> screen in IBM Cloud:</p>
+          <table>
+            <caption caption-side="top">Table 1. Minimum roles for new IBM watsonx users</caption>
+            <thead>
+              <tr>
+                <th>Level</th>
+                <th>Role</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Service</td>
+                <td><strong>All Identity and Access enabled services</strong></td>
+                <td>Can access all services that use IAM for access management; usually assigned only to administrators in a production environment</td>
+              </tr>
+              <tr>
+                <td>Resources</td>
+                <td><strong>All resources</strong></td>
+                <td>Scope of resources for which user has access</td>
+              </tr>
+              <tr>
+                <td>Resource group access</td>
+                <td><strong>Viewer</strong></td>
+                <td>Can view but not modify resource groups</td>
+              </tr>
+              <tr>
+                <td>Service access</td>
+                <td><strong>Reader</strong></td>
+                <td>Can perform read-only actions within a service</td>
+              </tr>
+              <tr>
+                <td>Platform access</td>
+                <td><strong>Viewer</strong></td>
+                <td>Can view but not modify service instances</td>
+              </tr>
+            </tbody>
+          </table>
+          <br>
+          <section id="section-ibm-account-membership">
+            <h3 id="ibm-account-membership">IBM account membership</h3>
+            <p>To be authorized for IBM watsonx, users must have existing IBMids. If the invited user does not have an IBMid, it is created for them when they join the account.</p>
+          </section>
+          <section id="section-roles">
+            <h3 id="roles">Assigning roles</h3>
+            <p>To assign minimum permissions to individual users:</p>
+            <ol>
+              <li>
+                <p>From IBM watsonx, click <strong>Administration &gt; Access (IAM)</strong> to open the <strong>Manage access and users</strong> page for your IBM Cloud account.</p>
+              </li>
+              <li>
+                <p>Click <strong>Users &gt; Invite users+</strong>.</p>
+              </li>
+              <li>
+                <p>Enter one or more email addresses that are separated by commas, spaces, or line breaks. The limit is 100 email addresses. The settings apply to all the email addresses.</p>
+              </li>
+              <li>
+                <p>Click the <strong>Access policy</strong> tile.</p>
+              </li>
+              <li>
+                <p>Select <strong>All Identity and Access enabled services</strong>, then click <strong>Next</strong> to assign Resource access.</p>
+              </li>
+              <li>
+                <p>For <strong>Resources</strong>, choose <strong>All resources</strong>. Click <strong>Next</strong>.</p>
+              </li>
+              <li>
+                <p>For <strong>Resource group access</strong>, choose <strong>Viewer</strong>. Click <strong>Next</strong></p>
+              </li>
+              <li>
+                <p>For <strong>Roles and action</strong>, choose the following minimum permissions:</p>
+                <ul>
+                  <li>In the <strong>Service access</strong> section, select <strong>Reader</strong></li>
+                  <li>In the <strong>Platform access</strong> section, select <strong>Viewer</strong>.</li>
+                </ul>
+              </li>
+              <li>
+                <p>Review the settings and edit if necessary.</p>
+              </li>
+              <li>
+                <p>Click <strong>Add</strong> to save the policy.</p>
+              </li>
+              <li>
+                <p>Click <strong>Invite</strong> to send an email invitation to each email address. The policies are assigned to the users when they accept the invitation to join the account.</p>
+              </li>
+            </ol>
+          </section>
+          <section id="section-modifying-a-users-role">
+            <h3 id="modifying-a-users-role">Modifying a user's role</h3>
+            <p>When you change a user's role, their access to services changes. Their ability to complete work in IBM watsonx can be impacted if they do not have the necessary access.</p>
+          </section>
+        </section>
+        <section id="section-adminuser">
+          <h2 id="adminuser">Optional: Add administrative users to your IBM Cloud account</h2>
+          <p>You can add administrative users with the <strong>Administrator</strong> role for account management. This role also provides the <strong>Manager</strong> role for all services in the account.</p>
+          <p>To add a user as an IBM Cloud account administrator:</p>
+          <ol>
+            <li>Follow the steps to <a href="#users">add a non-administrative user</a>, except change these settings for an individual user's roles:
+              <ul>
+                <li>In the <strong>Service access</strong> section, select <strong>Manager</strong>.</li>
+                <li>In the <strong>Platform access</strong> section, select <strong>Administrator</strong>.</li>
+              </ul>
+            </li>
+            <li>Alternatively, create an access group containing these roles and assign the user to the access group.</li>
+            <li>Click <strong>Invite</strong>. The new users receive an email invitation to join the account. They must accept the invitation to be added to the account.</li>
+            <li>After the user joins the account, add account management permissions. Click the user's name, then <strong>Access &gt; Assign access</strong> under <strong>Access policies</strong>.</li>
+            <li>For the service to assign access to, choose <strong>All Account Management Services</strong>.</li>
+            <li>Next, in the <strong>Platform access</strong> section, select <strong>Administrator</strong> and click <strong>Add</strong>.</li>
+            <li>Click <strong>Assign</strong>.</li>
+          </ol>
+        </section>
+        <section id="section-next-steps">
+          <h2 id="next-steps">Next steps</h2>
+          <ul>
+            <li>Finish <a href="setup-platform.html">setting up the platform</a>.</li>
+            <li><a href="../admin/upgrade.html#app">Upgrade your service instances</a> to billable plans.</li>
+          </ul>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="roles.html">Roles in IBM watsonx</a></li>
+            <li><a href="https://cloud.ibm.com/docs/account?topic=account-accounts" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud docs: Account types</a></li>
+            <li><a href="https://cloud.ibm.com/docs/account?topic=account-userroles" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud docs: IAM access</a></li>
+            <li><a href="https://cloud.ibm.com/docs/account?topic=account-iamoverview" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud docs: What is IBM Cloud Identity and Access Management</a></li>
+            <li><a href="https://cloud.ibm.com/docs/account?topic=account-groups" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud docs: Setting up access groups</a></li>
+            <li><a href="https://cloud.ibm.com/docs/account?topic=account-rgs_manage_access" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud docs: Giving access to resources in resource groups</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="setup-access.html">Managing users and access</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

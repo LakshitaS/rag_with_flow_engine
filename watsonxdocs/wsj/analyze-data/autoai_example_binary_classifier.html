@@ -1,0 +1,747 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="This tutorial guides you through training a model to predict if a customer is likely to buy a tent from an outdoor equipment store.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>AutoAI tutorial: Build a Binary Classification Model</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=autoai-tutorial"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="autoai-tutorial-build-a-binary-classification-model" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-autoai-tutorial-build-a-binary-classification-model">
+        <h1 id="autoai-tutorial-build-a-binary-classification-model">AutoAI tutorial: Build a Binary Classification Model</h1>
+        <p>This tutorial guides you through training a model to predict if a customer is likely to buy a tent from an outdoor equipment store.</p>
+        <p>Create an AutoAI experiment to build a model that analyzes your data and selects the best model type and algorithms to produce, train, and optimize pipelines. After you review the pipelines, save one as a model, deploy it, and then test it to
+          get a prediction.</p>
+        <p>Watch this video to see a preview of the steps in this tutorial.</p>
+        <div class="note Video disclaimer"><span class="Video disclaimertitle">Video disclaimer:</span> Some minor steps and graphical elements in this video might differ from your platform.</div>
+        <p style="font-size:smaller">This video provides a visual method to learn the concepts and tasks in this documentation.</p>
+        <iframe id="wml-binary-classification-model" src="https://video.ibm.com/embed/channel/23952663/video/wml-binary-classification-model" onload="executeEmbedScript()" lang="en-US" style="border: 0;" webkitallowfullscreen="" allowfullscreen="" frameborder="no" width="560" height="315" title="
+Run an AutoAI experiment to build a binary classification model.
+">
+</iframe>
+        <style type="text/css" keep="true">
+          .collapsibleList li>input+* {
+            display: none;
+          }
+          
+          .collapsibleList li>input:checked+* {
+            display: block;
+          }
+          
+          .collapsibleList li>input {
+            display: none;
+          }
+          
+          .collapsibleList label {
+            cursor: pointer;
+            color: #0062ff;
+            text-decoration: underline;
+          }
+          
+          .scrolling_table_div {
+            max-height: 300px;
+            overflow-y: auto;
+            padding-top: 20px;
+            margin-bottom: 30px;
+          }
+          
+          .transcript_sync_cb {
+            margin: 20px;
+          }
+          
+          .transcript_tbl {
+            border-collapse: collapse;
+            border: none;
+          }
+          
+          .transcript_tbl th,
+          .transcript_tbl td {
+            border: none;
+          }
+          
+          .clickable {
+            cursor: pointer;
+            color: #0062ff;
+            vertical-align: top;
+          }
+          
+          .clickable:hover {
+            text-decoration: underline;
+          }
+        </style>
+        <script keep="true" src="https://unpkg.com/ibm-video-streaming-web-player-api@1.1.0/dist/index.umd.min.js"></script>
+        <script keep="true">
+          var g_viewer = null;
+          var g_b_is_playing = false;
+          var g_b_do_retry = true;
+          var g_highlighted_row_num = -1;
+          var g_org_color = "";
+
+          var g_loop = setInterval(function() {
+            if (g_viewer && document.getElementById("sync_cb_wml-binary-classification-model").checked) {
+              synchronize();
+            }
+
+          }, 2 * 1000);
+
+          function executeEmbedScript() {
+            if (g_viewer) {
+              // Chrome is running this function twice??
+              return;
+            }
+
+            g_viewer = PlayerAPI("wml-binary-classification-model");
+
+            var url = window.location.href;
+            if (!url.match(/t\=\d+/i)) {
+              return;
+            }
+
+            g_viewer.addListener("playing", function(event_key, b_is_playing) {
+              g_b_is_playing = b_is_playing;
+
+              if (b_is_playing) {
+                g_b_do_retry = false;
+              }
+
+            });
+
+            document.getElementById("transcript_btn_wml-binary-classification-model").click();
+            var seconds = url.replace(/^.*t\=(\d+).*$/i, "$1");
+            synchronize(seconds);
+            jumpToTimeRetry(seconds, 5);
+          }
+
+          function jumpTo(obj) {
+            var seconds = obj.parentNode.id;
+            jumpToTime(seconds);
+          }
+
+          function jumpToTime(seconds) {
+            g_viewer.callMethod("seek", seconds);
+            g_viewer.callMethod("play");
+          }
+
+          function jumpToTimeRetry(seconds, iteration) {
+            if (iteration < 1) {
+              // Give up
+              return;
+            }
+
+            g_viewer.callMethod("seek", seconds);
+            g_viewer.callMethod("play");
+
+            setTimeout(function() {
+              // Wait 1.5 seconds and then try again
+              if (g_b_do_retry) {
+                jumpToTimeRetry(seconds, iteration - 1);
+              }
+
+            }, 1.5 * 1000);
+          }
+
+          function synchronize(seconds_in) {
+            if (seconds_in) {
+              scrollAndHighlight(seconds_in);
+              return;
+            }
+
+            g_viewer.getProperty("progress", function(seconds) {
+              scrollAndHighlight(seconds);
+
+            });
+
+          }
+
+          function scrollAndHighlight(seconds) {
+            var rows_arr = document.getElementsByClassName("video_tr");
+            for (var i = (rows_arr.length - 1); i >= 0; i--) {
+              if (parseInt(rows_arr[i].id) > seconds) {
+                continue;
+              }
+
+              if (i == g_highlighted_row_num) {
+                break;
+              }
+
+              if (-1 !== g_highlighted_row_num) {
+                unhighlight(rows_arr[g_highlighted_row_num]);
+              }
+
+              g_highlighted_row_num = i;
+              highlight(rows_arr[g_highlighted_row_num]);
+              scrollToRow(rows_arr[g_highlighted_row_num]);
+
+              break;
+            }
+
+          }
+
+          function scrollToRow(row_obj) {
+            var row_top = row_obj.offsetTop;
+            var row_bottom = row_top + row_obj.clientHeight;
+
+            var scroller = document.getElementById("transcript_div_wml-binary-classification-model");
+            var scroll_top = scroller.scrollTop;
+            var scroll_bottom = scroll_top + scroller.clientHeight;
+
+            if ((row_top < scroll_top) && (row_bottom > scroll_bottom)) {
+              // Edge case: Row taller than div
+              // Don't do anything
+            } else if ((row_top < scroll_top) || (row_bottom > scroll_bottom)) {
+              scroller.scrollTop = row_top;
+            }
+          }
+
+          function highlight(row_obj) {
+            var obj_arr = row_obj.childNodes;
+            for (var i = 0; i < obj_arr.length; i++) {
+              if ("TD" == obj_arr[i].nodeName) {
+                g_org_color = obj_arr[i].style.backgroundColor;
+                obj_arr[i].style.backgroundColor = "#c6c6c6";
+              }
+            }
+          }
+
+          function unhighlight(row_obj) {
+            var obj_arr = row_obj.childNodes;
+            for (var i = 0; i < obj_arr.length; i++) {
+              if ("TD" == obj_arr[i].nodeName) {
+                obj_arr[i].style.backgroundColor = g_org_color;
+              }
+            }
+          }
+
+          function toggleHighlighting() {
+            if (!document.getElementById("sync_cb_wml-binary-classification-model").checked && (-1 !== g_highlighted_row_num)) {
+              var rows_arr = document.getElementsByClassName("video_tr");
+              unhighlight(rows_arr[g_highlighted_row_num]);
+              g_highlighted_row_num = -1;
+            }
+          }
+        </script>
+        <ul data-accordion="" class="bx--accordion bx--accordion--start no-list-decoration" style="list-style: none; padding-left: 0px;">
+          <li data-accordion-item="" class="bx--accordion__item">
+            <button class="bx--accordion__heading" aria-expanded="false" aria-controls="pane_wml-binary-classification-model" id="transcript_btn_wml-binary-classification-model">
+<svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--accordion__arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"></path></svg>
+<div class="bx--accordion__title">Transcript</div>
+</button>
+            <div id="pane_wml-binary-classification-model" class="bx--accordion__content">
+              <input type="checkbox" id="sync_cb_wml-binary-classification-model" class="bx--checkbox transcript_sync_cb" onchange="toggleHighlighting();" checked=""><label for="sync_cb_wml-binary-classification-model" class="bx--checkbox-label"> Synchronize transcript with video</label>
+              <div id="transcript_div_wml-binary-classification-model" class="scrolling_table_div" tabindex="0">
+                <table class="bx--data-table bx--data-table--zebra" style="border-collapse: collapse; border: none;">
+                  <caption caption-side="top">Video transcript</caption>
+                  <thead>
+                    <tr>
+                      <th style="border: none;"><span class="bx--table-header-label">Time</span></th>
+                      <th style="border: none;"><span class="bx--table-header-label">Transcript</span></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="video_tr" id="0">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">00:00</td>
+                      <td style="border: none;">In this video, you will see how to build a binary classification model that assesses the likelihood that a customer of an outdoor equipment company will buy a tent. </td>
+                    </tr>
+                    <tr class="video_tr" id="11" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">00:11</td>
+                      <td style="border: none;">This video uses a data set called "GoSales", which you'll find in the Resource Hub. </td>
+                    </tr>
+                    <tr class="video_tr" id="16">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">00:16</td>
+                      <td style="border: none;">View the data set. </td>
+                    </tr>
+                    <tr class="video_tr" id="20" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">00:20</td>
+                      <td style="border: none;">The feature columns are "GENDER", "AGE", "MARITAL_STATUS", and "PROFESSION" and contain the attributes on which the machine learning model will base predictions. </td>
+                    </tr>
+                    <tr class="video_tr" id="31">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">00:31</td>
+                      <td style="border: none;">The label columns are "IS_TENT", "PRODUCT_LINE", and "PURCHASE_AMOUNT" and contain historical outcomes that the models could be trained to predict. </td>
+                    </tr>
+                    <tr class="video_tr" id="44" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">00:44</td>
+                      <td style="border: none;">Add this data set to the "Machine Learning" project and then go to the project. </td>
+                    </tr>
+                    <tr class="video_tr" id="56">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">00:56</td>
+                      <td style="border: none;">You'll find the GoSales.csv file with your other data assets. </td>
+                    </tr>
+                    <tr class="video_tr" id="62" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">01:02</td>
+                      <td style="border: none;">Add to the project an "AutoAI experiment". </td>
+                    </tr>
+                    <tr class="video_tr" id="68">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">01:08</td>
+                      <td style="border: none;">This project already has the Watson Machine Learning service associated. </td>
+                    </tr>
+                    <tr class="video_tr" id="73" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">01:13</td>
+                      <td style="border: none;">If you haven't done that yet, first, watch the video showing how to run an AutoAI experiment based on a sample. </td>
+                    </tr>
+                    <tr class="video_tr" id="82">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">01:22</td>
+                      <td style="border: none;">Just provide a name for the experiment and then click "Create". </td>
+                    </tr>
+                    <tr class="video_tr" id="90" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">01:30</td>
+                      <td style="border: none;">The AutoAI experiment builder displays. </td>
+                    </tr>
+                    <tr class="video_tr" id="93">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">01:33</td>
+                      <td style="border: none;">You first need to load the training data. </td>
+                    </tr>
+                    <tr class="video_tr" id="96" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">01:36</td>
+                      <td style="border: none;">In this case, the data set will be from the project. </td>
+                    </tr>
+                    <tr class="video_tr" id="100">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">01:40</td>
+                      <td style="border: none;">Select the GoSales.csv file from the list. </td>
+                    </tr>
+                    <tr class="video_tr" id="105" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">01:45</td>
+                      <td style="border: none;">AutoAI reads the data set and lists the columns found in the data set. </td>
+                    </tr>
+                    <tr class="video_tr" id="110">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">01:50</td>
+                      <td style="border: none;">Since you want the model to predict the likelihood that a given customer will purchase a tent, select "IS_TENT" as the column to predict. </td>
+                    </tr>
+                    <tr class="video_tr" id="119" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">01:59</td>
+                      <td style="border: none;">Now, edit the experiment settings. </td>
+                    </tr>
+                    <tr class="video_tr" id="123">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">02:03</td>
+                      <td style="border: none;">First, look at the settings for the data source. </td>
+                    </tr>
+                    <tr class="video_tr" id="126" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">02:06</td>
+                      <td style="border: none;">If you have a large data set, you can run the experiment on a subsample of rows and you can configure how much of the data will be used for training and how much will be used for evaluation. </td>
+                    </tr>
+                    <tr class="video_tr" id="139">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">02:19</td>
+                      <td style="border: none;">The default is a 90%/10% split, where 10% of the data is reserved for evaluation. </td>
+                    </tr>
+                    <tr class="video_tr" id="147" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">02:27</td>
+                      <td style="border: none;">You can also select which columns from the data set to include when running the experiment. </td>
+                    </tr>
+                    <tr class="video_tr" id="155">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">02:35</td>
+                      <td style="border: none;">On the "Prediction" panel, you can select a prediction type. </td>
+                    </tr>
+                    <tr class="video_tr" id="159" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">02:39</td>
+                      <td style="border: none;">In this case, AutoAI analyzed your data and determined that the "IS_TENT" column contains true-false information, making this data suitable for a "Binary classification" model. </td>
+                    </tr>
+                    <tr class="video_tr" id="172">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">02:52</td>
+                      <td style="border: none;">The positive class is "TRUE" and the recommended metric is "Accuracy". </td>
+                    </tr>
+                    <tr class="video_tr" id="181" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">03:01</td>
+                      <td style="border: none;">If you'd like, you can choose specific algorithms to consider for this experiment and the number of top algorithms for AutoAI to test, which determines the number of pipelines generated. </td>
+                    </tr>
+                    <tr class="video_tr" id="196">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">03:16</td>
+                      <td style="border: none;">On the "Runtime" panel, you can review other details about the experiment. </td>
+                    </tr>
+                    <tr class="video_tr" id="201" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">03:21</td>
+                      <td style="border: none;">In this case, accepting the default settings makes the most sense. </td>
+                    </tr>
+                    <tr class="video_tr" id="205">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">03:25</td>
+                      <td style="border: none;">Now, run the experiment. </td>
+                    </tr>
+                    <tr class="video_tr" id="208" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">03:28</td>
+                      <td style="border: none;">AutoAI first loads the data set, then splits the data into training data and holdout data. </td>
+                    </tr>
+                    <tr class="video_tr" id="217">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">03:37</td>
+                      <td style="border: none;">Then wait, as the "Pipeline leaderboard" fills in to show the generated pipelines using different estimators, such as XGBoost classifier, or enhancements such as hyperparameter optimization and feature engineering, with the pipelines
+                        ranked based on the accuracy metric. </td>
+                    </tr>
+                    <tr class="video_tr" id="238" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">03:58</td>
+                      <td style="border: none;">Hyperparameter optimization is a mechanism for automatically exploring a search space for potential hyperparameters, building a series of models and comparing the models using metrics of interest. </td>
+                    </tr>
+                    <tr class="video_tr" id="250">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">04:10</td>
+                      <td style="border: none;">Feature engineering attempts to transform the raw data into the combination of features that best represents the problem to achieve the most accurate prediction. </td>
+                    </tr>
+                    <tr class="video_tr" id="261" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">04:21</td>
+                      <td style="border: none;">Okay, the run has completed. </td>
+                    </tr>
+                    <tr class="video_tr" id="264">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">04:24</td>
+                      <td style="border: none;">By default, you'll see the "Relationship map". </td>
+                    </tr>
+                    <tr class="video_tr" id="268" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">04:28</td>
+                      <td style="border: none;">But you can swap views to see the "Progress map". </td>
+                    </tr>
+                    <tr class="video_tr" id="272">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">04:32</td>
+                      <td style="border: none;">You may want to start with comparing the pipelines. </td>
+                    </tr>
+                    <tr class="video_tr" id="276" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">04:36</td>
+                      <td style="border: none;">This chart provides metrics for the eight pipelines, viewed by cross validation score or by holdout score. </td>
+                    </tr>
+                    <tr class="video_tr" id="286">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">04:46</td>
+                      <td style="border: none;">You can see the pipelines ranked based on other metrics, such as average precision. </td>
+                    </tr>
+                    <tr class="video_tr" id="295" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">04:55</td>
+                      <td style="border: none;">Back on the "Experiment summary" tab, expand a pipeline to view the model evaluation measures and ROC curve. </td>
+                    </tr>
+                    <tr class="video_tr" id="303">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">05:03</td>
+                      <td style="border: none;">During AutoAI training, your data set is split into two parts: training data and holdout data. </td>
+                    </tr>
+                    <tr class="video_tr" id="311" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">05:11</td>
+                      <td style="border: none;">The training data is used by the AutoAI training stages to generate the model pipelines, and cross validation scores are used to rank them. </td>
+                    </tr>
+                    <tr class="video_tr" id="321">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">05:21</td>
+                      <td style="border: none;">After training, the holdout data is used for the resulting pipeline model evaluation and computation of performance information, such as ROC curves and confusion matrices. </td>
+                    </tr>
+                    <tr class="video_tr" id="333" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">05:33</td>
+                      <td style="border: none;">You can view an individual pipeline to see more details in addition to the confusion matrix, precision recall curve, model information, and feature importance. </td>
+                    </tr>
+                    <tr class="video_tr" id="346">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">05:46</td>
+                      <td style="border: none;">This pipeline had the highest ranking, so you can save this as a machine learning model. </td>
+                    </tr>
+                    <tr class="video_tr" id="352" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">05:52</td>
+                      <td style="border: none;">Just accept the defaults and save the model. </td>
+                    </tr>
+                    <tr class="video_tr" id="356">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">05:56</td>
+                      <td style="border: none;">Now that you've trained the model, you're ready to view the model and deploy it. </td>
+                    </tr>
+                    <tr class="video_tr" id="364" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">06:04</td>
+                      <td style="border: none;">The "Overview" tab shows a model summary and the input schema. </td>
+                    </tr>
+                    <tr class="video_tr" id="369">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">06:09</td>
+                      <td style="border: none;">To deploy the model, you'll need to promote it to a deployment space. </td>
+                    </tr>
+                    <tr class="video_tr" id="375" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">06:15</td>
+                      <td style="border: none;">Select the deployment space from the list, add a description for the model, and click "Promote". </td>
+                    </tr>
+                    <tr class="video_tr" id="384">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">06:24</td>
+                      <td style="border: none;">Use the link to go to the deployment space. </td>
+                    </tr>
+                    <tr class="video_tr" id="388" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">06:28</td>
+                      <td style="border: none;">Here's the model you just created, which you can now deploy. </td>
+                    </tr>
+                    <tr class="video_tr" id="393">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">06:33</td>
+                      <td style="border: none;">In this case, it will be an online deployment. </td>
+                    </tr>
+                    <tr class="video_tr" id="397" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">06:37</td>
+                      <td style="border: none;">Just provide a name for the deployment and click "Create". </td>
+                    </tr>
+                    <tr class="video_tr" id="401">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">06:41</td>
+                      <td style="border: none;">Then wait, while the model is deployed. </td>
+                    </tr>
+                    <tr class="video_tr" id="404" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">06:44</td>
+                      <td style="border: none;">When the model deployment is complete, view the deployment. </td>
+                    </tr>
+                    <tr class="video_tr" id="409">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">06:49</td>
+                      <td style="border: none;">On the "API reference" tab, you'll find the scoring endpoint for future reference. </td>
+                    </tr>
+                    <tr class="video_tr" id="416" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">06:56</td>
+                      <td style="border: none;">You'll also find code snippets for various programming languages to utilize this deployment from your application. </td>
+                    </tr>
+                    <tr class="video_tr" id="425">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">07:05</td>
+                      <td style="border: none;">On the "Test" tab, you can test the model prediction. </td>
+                    </tr>
+                    <tr class="video_tr" id="429" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">07:09</td>
+                      <td style="border: none;">You can either enter test input data or paste JSON input data, and click "Predict". </td>
+                    </tr>
+                    <tr class="video_tr" id="440">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">07:20</td>
+                      <td style="border: none;">This shows that there's a very high probability that the first customer will buy a tent and a very high probability that the second customer will not buy a tent. </td>
+                    </tr>
+                    <tr class="video_tr" id="453" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">07:33</td>
+                      <td style="border: none;">And back in the project, you'll find the AutoAI experiment and the model on the "Assets" tab. </td>
+                    </tr>
+                    <tr class="video_tr" id="464">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">07:44</td>
+                      <td style="border: none;">Find more videos in the Cloud Pak for Data as a Service documentation. </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <section id="section-overview-of-the-data-sets">
+          <h2 id="overview-of-the-data-sets">Overview of the data sets</h2>
+          <p>The sample data is structured (in rows and columns) and saved in a .csv file format.</p>
+          <p>You can view the sample data file in a text editor or spreadsheet program: <br>
+            <img src="images/autoai_binary_sample_data.png" alt="Spreadsheet of the Go Sales data set that contains customer and purchase information" style="max-width:90%;height:auto;width:auto"></p>
+          <section id="section-what-do-you-want-to-predict">
+            <h4 id="what-do-you-want-to-predict">What do you want to predict?</h4>
+            <p>Choose the column whose values that your model predicts.</p>
+            <p>In this tutorial, the model predicts the values of the <code>IS_TENT</code> column:</p>
+            <ul>
+              <li><code>IS_TENT</code>: Whether the customer bought a tent</li>
+            </ul>
+            <p>The model that is built in this tutorial predicts whether a customer is likely to purchase a tent.</p>
+          </section>
+        </section>
+        <section id="section-tasks-overview">
+          <h2 id="tasks-overview">Tasks overview</h2>
+          <p>This tutorial presents the basic steps for building and training a machine learning model with AutoAI:</p>
+          <ol>
+            <li><a href="#step0">Create a project</a></li>
+            <li><a href="#step1">Create an AutoAI experiment</a></li>
+            <li><a href="#step2">Training the experiment</a></li>
+            <li><a href="#step3">Deploy the trained model</a></li>
+            <li><a href="#step4">Test the deployed model</a></li>
+            <li><a href="#step5">Creating a batch to score the model</a></li>
+          </ol>
+        </section>
+        <section id="section-step0">
+          <h2 id="step0">Task 1: Create a project</h2>
+          <ol>
+            <li>From the <em>Resource hub</em>, download the <a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/aa07a773f71cf1172a349f33e2028e4e?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">GoSales</a>              data set file to your local computer.</li>
+            <li>From the Projects page, to create a new project, select <strong>New Project</strong>. <br> b. Type your project name. <br> c. Click <strong>Create</strong>. <br></li>
+          </ol>
+        </section>
+        <section id="section-step1">
+          <h2 id="step1">Task 2: Create an AutoAI experiment</h2>
+          <ol>
+            <li>
+              <p>On the <em>Assets</em> tab from within your project, click <strong>New asset &gt; Build machine learning models automatically</strong>.</p>
+            </li>
+            <li>
+              <p>Specify a name and optional description for your new experiment.</p>
+            </li>
+            <li>
+              <p>Select the <strong>Associate a Machine Learning service instance</strong> link to associate the Watson Machine Learning Server instance with your project. Click <strong>Reload</strong> to confirm your configuration.</p>
+            </li>
+            <li>
+              <p>To add a data source, you can choose one of these options: <br> a. If you downloaded your file locally, upload the training data file, <em>GoSales.csv</em>, from your local computer. Drag the file onto the data panel or click <strong>browse</strong>                and follow the prompts. <br> b. If you already uploaded your file to your project, click <strong>select from project</strong>, then select the <strong>data asset</strong> tab and choose <em>GoSales.csv</em>.<br></p>
+            </li>
+          </ol>
+        </section>
+        <section id="section-step2">
+          <h2 id="step2">Task 3: Training the experiment</h2>
+          <ol>
+            <li>
+              <p>In <strong>Configuration details</strong>, select <strong>No</strong> for the option to create a Time Series Forecast.</p>
+            </li>
+            <li>
+              <p>Choose <code>IS_TENT</code> as the column to predict. AutoAI analyzes your data and determines that the <code>IS_TENT</code> column contains True and False information, making this data suitable for a binary classification model. The default
+                metric for a binary classification is ROC/AUC.</p>
+              <p><img src="images/autoai_binary_run_configuration_test.png" alt="Configuring experiment details. No to time series forecast and IS TENT as the column to predict." style="max-width:90%;height:auto;width:auto"></p>
+            </li>
+            <li>
+              <p>Click <strong>Run experiment</strong>. As the model trains, an infographic shows the process of building the pipelines.</p>
+              <div class="note note"><span class="notetitle">Note:</span>
+                <md-block>
+                  <p>You might see slight differences in results based on the Cloud Pak for Data platform and version you use.</p>
+                  <p></p>
+                </md-block>
+              </div>
+              <p></p>
+              <p><img src="images/autoai_binary_pipeline_build.png" alt="Experiment summary of AutoAI generated pipelines" style="max-width:90%;height:auto;width:auto"></p>
+              <p>For a list of algorithms or estimators that are available with each machine learning technique in AutoAI, see <a href="autoai-details.html">AutoAI implementation detail</a>.</p>
+            </li>
+            <li>
+              <p>When all the pipelines are created, you can compare their accuracy on the <strong>Pipeline leaderboard</strong>.</p>
+              <p><img src="images/autoai_binary_pipeline_leaderboard.png" alt="Pipeline leaderboard that ranks generated pipelines based on accuracy" style="max-width:90%;height:auto;width:auto"></p>
+            </li>
+            <li>
+              <p>Select the pipeline with Rank 1 and click <strong>Save as</strong> to create your model. Then, select <strong>Create</strong>. This option saves the pipeline under the <strong>Models</strong> section in the <strong>Assets</strong> tab.</p>
+            </li>
+          </ol>
+        </section>
+        <section id="section-step3">
+          <h2 id="step3">Task 4: Deploy the trained model</h2>
+          <ol>
+            <li>
+              <p>You can deploy the model from the model details page. You can access the model details page in one of these ways:</p>
+              <ol>
+                <li>Clicking the model’s name in the notification displayed when you save the model.</li>
+                <li>Open the <strong>Assets</strong> tab for the project, select the <strong>Models</strong> section and select the model’s name.</li>
+              </ol>
+            </li>
+            <li>
+              <p>Click the <strong>Promote to deployment space</strong> <img src="../getting-started/images/promote.svg" alt="Promote to deployment space icon" title="Promote to deployment space" height="20" style="vertical-align:text-bottom"> icon, and
+                then select an existing space, or or create a new space where the model will be deployed.</p>
+              <ol>
+                <li>Type a name for the deployment space.</li>
+                <li>Associate it with a Machine Learning Service.</li>
+                <li>Click <strong>Create</strong>.</li>
+              </ol>
+            </li>
+            <li>
+              <p>After you create your deployment space or select an existing one, select <strong>Promote</strong>.</p>
+            </li>
+            <li>
+              <p>Click the deployment space link from the notification.</p>
+            </li>
+            <li>
+              <p>From the <strong>Assets</strong> tab of the deployment space:</p>
+              <ol>
+                <li>Hover over the model’s name and click the deployment icon <img src="images/deploy-icon.png" alt="Deploy icon" height="20" style="vertical-align:text-bottom">.
+                  <ol>
+                    <li>In the page that opens, complete the fields:
+                      <ol>
+                        <li>Select <strong>Online</strong> as the <strong>Deployment type</strong>.</li>
+                        <li>Specify a name for the deployment.</li>
+                        <li>Click <strong>Create</strong>.</li>
+                      </ol>
+                    </li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+          </ol>
+          <p><img src="images/autoai_binary_deployment.png" alt="Creating an online deployment space to promote the model" style="max-width:90%;height:auto;width:auto"></p>
+          <p>After the deployment is complete, click <strong>Deployments</strong> and select the deployment name to view the details page.</p>
+        </section>
+        <section id="section-step4">
+          <h2 id="step4">Task 5: Test the deployed model</h2>
+          <p>You can test the deployed model from the deployment details page:</p>
+          <ol>
+            <li>
+              <p>On the <strong>Test</strong> tab of the deployment details page, complete the form with test values or enter JSON test data by clicking the terminal icon <img src="images/terminal-icon.png" alt="Terminal icon" height="20" style="vertical-align:text-bottom">                to provide the following JSON input data.</p>
+              <pre class="codeblock"><code class="lang-JSON hljs">
+<span class="hljs-punctuation">{</span><span class="hljs-attr">"input_data"</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">[</span><span class="hljs-punctuation">{</span>
+
+<span class="hljs-attr">"fields"</span><span class="hljs-punctuation">:</span>
+
+<span class="hljs-punctuation">[</span><span class="hljs-string">"GENDER"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"AGE"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"MARITAL_STATUS"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"PROFESSION"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"PRODUCT_LINE"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"PURCHASE_AMOUNT"</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+
+<span class="hljs-attr">"values"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">[</span><span class="hljs-string">"M"</span><span class="hljs-punctuation">,</span><span class="hljs-number">27</span><span class="hljs-punctuation">,</span><span class="hljs-string">"Single"</span><span class="hljs-punctuation">,</span> <span class="hljs-string">"Professional"</span><span class="hljs-punctuation">,</span><span class="hljs-string">"Camping Equipment"</span><span class="hljs-punctuation">,</span><span class="hljs-number">144.78</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">]</span>
+
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">}</span>
+</code></pre>
+              <p>Note: The test data replicates the data fields for the model, except for the prediction field.</p>
+            </li>
+            <li>
+              <p>Click <strong>Predict</strong> to predict whether a customer with the entered attributes is likely to buy a tent. The resulting prediction indicates that a customer with the attributes entered has a high probability of purchasing a tent.</p>
+            </li>
+          </ol>
+          <p><img src="images/autoai_binary_test.png" alt="Result of the Tent model prediction. Prediction equals true, likely to buy a tent" style="max-width:90%;height:auto;width:auto"></p>
+        </section>
+        <section id="section-step5">
+          <h2 id="step5">Task 6: Creating a batch job to score the model</h2>
+          <p>For a batch deployment, you provide input data, also known as the model payload, in a CSV file. The data must be structured like the training data, with the same column headers. The batch job processes each row of data and creates a corresponding
+            prediction.</p>
+          <p>In a real scenario, you would submit new data to the model to get a score. However, this tutorial uses the same training data GoSales-updated.csv that you downloaded as part of the tutorial setup. Ensure that you delete the <code>IS_TENT</code>            column and save the file before you upload it to the batch job. When deploying a model, you can add the payload data to a project, upload it to a space, or link to it in a storage repository such as a Cloud Object Storage bucket. For this
+            tutorial, upload the file directly to the deployment space.</p>
+          <section id="section-step-1-add-data-to-space">
+            <h3 id="step-1-add-data-to-space">Step 1: Add data to space</h3>
+            <p>From the <strong>Assets</strong> page of the deployment space:</p>
+            <ol>
+              <li>Click <strong>Add to space</strong> then choose <strong>Data</strong>.</li>
+              <li>Upload the file GoSales-updated.csv file that you saved locally.</li>
+            </ol>
+          </section>
+          <section id="section-step-2-create-the-batch-deployment">
+            <h3 id="step-2-create-the-batch-deployment">Step 2: Create the batch deployment</h3>
+            <p>Now you can define the batch deployment.</p>
+            <ol>
+              <li>Click the deployment icon next to the model’s name.</li>
+              <li>Enter a name a name for the deployment.
+                <ol>
+                  <li>Select <strong>Batch</strong> as the <strong>Deployment type</strong>.</li>
+                  <li>Choose the smallest hardware specification.</li>
+                  <li>Click <strong>Create</strong>.</li>
+                </ol>
+              </li>
+            </ol>
+          </section>
+          <section id="section-step-3-create-the-batch-job">
+            <h3 id="step-3-create-the-batch-job">Step 3: Create the batch job</h3>
+            <p>The batch job runs the deployment. To create the job, you must specify the input data and the name for the output file. You can set up a job to run on a schedule or run immediately.</p>
+            <ol>
+              <li>Click <strong>New job</strong>.</li>
+              <li>Specify a name for the job</li>
+              <li>Configure to the smallest hardware specification</li>
+              <li>(Optional): To set a schedule and receive notifications.</li>
+              <li>Upload the input file: <em>GoSales-updated.csv</em></li>
+              <li>Name the output file: <em>GoSales-output.csv</em></li>
+              <li>Review and click <strong>Create</strong> to run the job.</li>
+            </ol>
+          </section>
+          <section id="section-step-4-view-the-output">
+            <h3 id="step-4-view-the-output">Step 4: View the output</h3>
+            <p>When the deployment status changes to <em>Deployed</em>, return to the <strong>Assets</strong> page for the deployment space. The file <em>GoSales-output.csv</em> was created and added to your assets list.</p>
+            <p>Click the download icon next to the output file and open the file in an editor. You can review the prediction results for the customer information that is submitted for batch processing.</p>
+            <p>For each case, the prediction that is returned indicates the confidence score of whether a customer will buy a tent.</p>
+          </section>
+        </section>
+        <section id="section-next-steps">
+          <h2 id="next-steps">Next steps</h2>
+          <p><a href="autoai-build.html">Building an AutoAI experiment</a></p>
+          <p><strong>Parent topic:</strong> <a href="autoai-overview.html">AutoAI overview</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

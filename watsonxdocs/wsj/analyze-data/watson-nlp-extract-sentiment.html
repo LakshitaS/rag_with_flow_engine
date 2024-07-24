@@ -1,0 +1,144 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can train your own models for sentiment extraction based on the Slate IBM Foundation model. This pretrained model can be find-tuned for your use case by training it on your specific input data.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Extracting sentiment with a custom transformer model</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=models-extracting-sentiment-custom-transformer-model"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="extracting-sentiment-with-a-custom-transformer-model" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-extracting-sentiment-with-a-custom-transformer-model">
+        <h1 id="extracting-sentiment-with-a-custom-transformer-model">Extracting sentiment with a custom transformer model</h1>
+        <p>You can train your own models for sentiment extraction based on the Slate IBM Foundation model. This pretrained model can be find-tuned for your use case by training it on your specific input data.</p>
+        <p>The Slate IBM Foundation model is available only in Runtime 23.1.</p>
+        <div class="note note"><span class="notetitle">Note:</span> Training transformer models is CPU and memory intensive. Depending on the size of your training data, the environment might not be large enough to complete the training. If you run into issues with the notebook
+          kernel during training, create a custom notebook environment with a larger amount of CPU and memory, and use that to run your notebook. Use a GPU-based environment for training and also inference time, if it is available to you. See <a href="create-customize-env-definition.html" target="_blank">Creating your own environment template</a>.</div>
+        <ul>
+          <li><a href="#input">Input data format for training</a></li>
+          <li><a href="#load">Loading the pretrained model resources</a></li>
+          <li><a href="#train">Training the model</a></li>
+          <li><a href="#apply">Applying the model on new data</a></li>
+        </ul>
+        <section id="section-input">
+          <h2 id="input">Input data format for training</h2>
+          <p>You need to provide a training and development data set to the training function. The development data is usually around 10% of the training data. Each training or development sample is represented as a JSON object. It must have a <strong>text</strong>            and a <strong>labels</strong> field. The <strong>text</strong> represents the training example text, and the <strong>labels</strong> field is an array, which contains exactly one label of <strong>positive</strong>, <strong>neutral</strong>,
+            or <strong>negative</strong>.</p>
+          <p>The following is an example of an array with sample training data:</p>
+          <pre class="codeblock"><code class="hljs">  [
+      {
+      "text": "I am happy",
+      "labels": ["positive"]
+      },
+      {
+      "text": "I am sad",
+      "labels": ["negative"]
+      },
+      {
+      "text": "The sky is blue",
+      "labels": ["neutral"]
+      }
+  ]
+</code></pre>
+          <p>The training and development data sets are created as data streams from arrays of JSON objects. To create the data streams, you might use the utility method <code>prepare_data_from_json</code>:</p>
+          <pre class="codeblock"><code class="hljs">import watson_nlp
+from watson_nlp.toolkit.sentiment_analysis_utils.training import train_util as utils
+
+training_data_file = "train_data.json"
+dev_data_file = "dev_data.json"
+
+train_stream = utils.prepare_data_from_json(training_data_file)
+dev_stream = utils.prepare_data_from_json(dev_data_file)
+</code></pre>
+        </section>
+        <section id="section-load">
+          <h2 id="load">Loading the pretrained model resources</h2>
+          <p>The pretrained Slate IBM Foundation model needs to be loaded before it passes to the training algorithm. In addition, you need to load the syntax analysis models for the languages that are used in your input texts.</p>
+          <p>To load the model:</p>
+          <pre class="codeblock"><code class="lang-txt hljs"># Load the pretrained Slate IBM Foundation model
+pretrained_model_resource = watson_nlp.load('pretrained-model_slate.153m.distilled_many_transformer_multilingual_uncased')
+
+# Download relevant syntax analysis models
+syntax_model_en = watson_nlp.load('syntax_izumo_en_stock')
+syntax_model_de = watson_nlp.load('syntax_izumo_de_stock')
+
+# Create a list of all syntax analysis models
+syntax_models = [syntax_model_en, syntax_model_de]
+</code></pre>
+        </section>
+        <section id="section-train">
+          <h2 id="train">Training the model</h2>
+          <p>For all options that are available for configuring sentiment transformer training, enter:</p>
+          <pre class="codeblock"><code class="lang-txt hljs">help(watson_nlp.workflows.sentiment.AggregatedSentiment.train_transformer)
+</code></pre>
+          <p>The <code>train_transformer</code> method creates a workflow model, which automatically runs syntax analysis and the trained sentiment classification. In a subsequent step, enable language detection so that the workflow model can run on input
+            text without any prerequisite information.</p>
+          <p>The following is a sample call using the input data and pretrained model from the previous section (Training the model):</p>
+          <pre class="codeblock"><code class="hljs">from watson_nlp.workflows.sentiment import AggregatedSentiment
+
+sentiment_model = AggregatedSentiment.train_transformer(
+          train_data_stream = train_stream,
+          dev_data_stream = dev_stream,
+          syntax_model=syntax_models,
+         	pretrained_model_resource=pretrained_model_resource,
+          label_list=['negative', 'neutral', 'positive'],
+          learning_rate=2e-5,
+          num_train_epochs=10,
+          combine_approach="NON_NEUTRAL_MEAN",
+          keep_model_artifacts=True
+        )
+lang_detect_model = watson_nlp.load('lang-detect_izumo_multi_stock')
+
+sentiment_model.enable_lang_detect(lang_detect_model)
+</code></pre>
+        </section>
+        <section id="section-apply">
+          <h2 id="apply">Applying the model on new data</h2>
+          <p>After you train the model on a data set, apply the model on new data by using the <code>run()</code> method, as you would use on any of the existing pre-trained blocks.</p>
+          <p>Sample code:</p>
+          <pre class="codeblock"><code class="hljs">input_text = 'new input text'
+sentiment_predictions = sentiment_model.run(input_text)
+</code></pre>
+          <p><strong>Parent topic:</strong> <a href="watson-nlp-create-model_cloud.html">Creating your own models</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

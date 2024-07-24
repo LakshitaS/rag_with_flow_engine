@@ -1,0 +1,138 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="When you create or edit a Data Refinery flow in a project, you use the Default Data Refinery XS runtime environment. However, when you run a Data Refinery flow in a job, you choose an environment template for the runtime environment. The environment template specifies the type, size, and power of the hardware configuration, plus the software template.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Compute resource options for Data Refinery in projects</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=tools-compute-options-data-refinery"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="compute-resource-options-for-data-refinery-in-projects" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-compute-resource-options-for-data-refinery-in-projects">
+        <h1 id="compute-resource-options-for-data-refinery-in-projects">Compute resource options for Data Refinery in projects</h1>
+        <p>When you create or edit a Data Refinery flow in a project, you use the <code>Default Data Refinery XS</code> runtime environment. However, when you run a Data Refinery flow in a job, you choose an environment template for the runtime environment.
+          The environment template specifies the type, size, and power of the hardware configuration, plus the software template.</p>
+        <ul>
+          <li><a href="#types">Types of environments</a></li>
+          <li><a href="#default">Default environment templates</a></li>
+          <li><a href="#compute">Compute usage</a></li>
+          <li><a href="#change-env">Changing the runtime</a></li>
+          <li><a href="#logs">Runtime logs for jobs</a></li>
+        </ul>
+        <section id="section-types">
+          <h2 id="types">Types of environments</h2>
+          <p>You can use these types of environments with Data Refinery:</p>
+          <ul>
+            <li><code>Default Data Refinery XS</code> runtime environment for running jobs on small data sets.</li>
+            <li>Spark environments for running jobs on larger data sets. The Spark environments have <a href="#default">default environment templates</a> so you can get started quickly. Otherwise, you can <a href="../analyze-data/create-customize-env-definition.html">create custom environment templates</a>              for Spark environments. You should use a Spark &amp; R environment only if you are working on a large data set. If your data set is small, you should select the <code>Default Data Refinery XS</code> runtime. The reason is that, although
+              the SparkR cluster in a Spark &amp; R environment is fast and powerful, it requires time to create, which is noticeable when you run a Data Refinery job on small data set.</li>
+          </ul>
+        </section>
+        <section id="section-default">
+          <h2 id="default">Default environment templates</h2>
+          <p>When you work in Data Refinery, the <code>Default Data Refinery XS</code> environment runtime is started and appears as an active runtime under <strong>Tool runtimes</strong> on the <strong>Environments</strong> page on the <strong>Manage</strong>            tab of your project. This runtime stops after an hour of inactivity in the Data Refinery interface. However, you can stop it manually under <strong>Tool runtimes</strong> on the <strong>Environments</strong> page.</p>
+          <p>When you create a job to run a Data Refinery flow in a project, you select an environment template. After a runtime for a job is started, it is listed as an active runtime under <strong>Tool runtimes</strong> on the <strong>Environments</strong>            page on the <strong>Manage</strong> tab of your project. The runtime for a job stops when the Data Refinery job stops running.</p>
+          <p>Compute usage is tracked by capacity unit hours (CUH).</p>
+          <table>
+            <caption caption-side="top">Preset environment templates available in projects for Data Refinery</caption>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Hardware configuration</th>
+                <th>Capacity units per hour (CUH)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Default Data Refinery XS</td>
+                <td>3 vCPU and 12 GB RAM</td>
+                <td>1.5</td>
+              </tr>
+              <tr>
+                <td>Default Spark 3.4 &amp; R 4.2</td>
+                <td>2 Executors each: 1 vCPU and 4 GB RAM; <br> Driver: 1 vCPU and 4 GB RAM</td>
+                <td>1.5</td>
+              </tr>
+              <tr>
+                <td>Default Spark 3.3 &amp; R 4.2 <br>Deprecated</td>
+                <td>2 Executors each: 1 vCPU and 4 GB RAM; <br> Driver: 1 vCPU and 4 GB RAM</td>
+                <td>1.5</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>All default environment templates for Data Refinery are HIPAA ready.</p>
+          <p>The Spark default environment templates are listed under <strong>Templates</strong> on the <strong>Environments</strong> page on the <strong>Manage</strong> tab of your project.</p>
+        </section>
+        <section id="section-compute">
+          <h2 id="compute">Compute usage in projects</h2>
+          <p>You can monitor the Watson Studio CUH consumption on the <strong>Resource usage</strong> page on the <strong>Manage</strong> tab of your project.</p>
+        </section>
+        <section id="section-change-env">
+          <h2 id="change-env">Changing the runtime</h2>
+          <p>You can't change the runtime for working in Data Refinery.</p>
+          <p>You can change the runtime for a Data Refinery flow job by editing the job template. See <a href="../manage-data/jobs.html#create-jobs-in-dr">Creating jobs in Data Refinery</a>.</p>
+        </section>
+        <section id="section-logs">
+          <h2 id="logs">Runtime logs for jobs</h2>
+          <p>To view the accumulated logs for a Data Refinery job:</p>
+          <ol>
+            <li>From the project's <strong>Jobs</strong> page, click the job that ran the Data Refinery flow for which you want to see logs.</li>
+            <li>Click the job run. You can view the log tail or download the complete log file.</li>
+          </ol>
+        </section>
+        <section id="section-next-steps">
+          <h2 id="next-steps">Next steps</h2>
+          <ul>
+            <li><a href="create-customize-env-definition.html">Creating your own environment template</a></li>
+            <li><a href="../manage-data/jobs.html#create-jobs-in-dr">Creating jobs in Data Refinery</a></li>
+            <li><a href="manage-envs-new.html#stop-active-runtimes">Stopping active runtimes</a></li>
+          </ul>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="../admin/monitor-resources.html">Monitoring account resource usage</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="../analyze-data/environments-parent.html">Choosing compute resources for tools</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

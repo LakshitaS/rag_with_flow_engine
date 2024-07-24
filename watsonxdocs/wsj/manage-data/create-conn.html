@@ -1,0 +1,428 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You need to create a connection asset for a data source before you can access or load data to or from it. A connection asset contains the information necessary to establish a connection to a data source.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Adding connections to data sources in a project</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=project-adding-connections-projects"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="adding-connections-to-data-sources-in-a-project" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-adding-connections-to-data-sources-in-a-project">
+        <h1 id="adding-connections-to-data-sources-in-a-project">Adding connections to data sources in a project</h1>
+        <p>You need to create a connection asset for a data source before you can access or load data to or from it. A connection asset contains the information necessary to establish a connection to a data source.</p>
+        <p>Create connections to multiple types of data sources, including IBM Cloud services, other cloud services, on-prem databases, and more.</p>
+        <p>See <a href="conn_types.html">Connectors</a> for the list of data sources.</p>
+        <p>To create a new connection in a project:</p>
+        <ol>
+          <li>
+            <p>Go to the project page, and click the <strong>Assets</strong> tab.</p>
+          </li>
+          <li>
+            <p>Click <strong>New asset &gt; Connect to a data source</strong>.</p>
+          </li>
+          <li>
+            <p>Choose the kind of connection:</p>
+            <ul>
+              <li>Select <strong>New connection</strong> (the default) to create a new connection in the project.</li>
+              <li>Select <strong>Platform connections</strong> to select a connection that has already been created at the platform level.</li>
+              <li>Select <strong>Deployed services</strong> to connect to a data source from a cloud service this is integrated with IBM watsonx.</li>
+            </ul>
+          </li>
+          <li>
+            <p>Choose a data source.</p>
+          </li>
+          <li>
+            <p>Enter the connection information that is required for the data source. Typically, you need to provide information like the hostname, port number, username, and password. If you enter an asset name that is the same as an existing asset with
+              the same data source type, then the existing asset is updated. If the data source type is not the same, then the existing connection asset is deleted and a new one is created.</p>
+          </li>
+          <li>
+            <p>If prompted, specify whether you want to use personal or shared credentials. You cannot change this option after you create the connection. The credentials type for the connection, either Personal or Shared, is set by the account owner on
+              the <a href="../admin/account-settings.html">Account page</a>. The default setting is <strong>Shared</strong>.</p>
+            <ul>
+              <li><strong>Personal</strong>: With personal credentials, each user must specify their own credentials to access the connection. Each user's credentials are saved but are not shared with any other users. Use personal credentials instead of shared
+                credentials to protect credentials. For example, if you use personal credentials and another user changes the connection properties (such as the hostname or port number), the credentials are invalidated to prevent malicious redirection.</li>
+              <li><strong>Shared</strong>: With shared credentials, all users access the connection with the credentials that you provide. Shared credentials can potentially be retrieved by a user who has access to the connection asset. Because the credentials
+                are shared, it is difficult to audit access to the connection, to identify the source of data loss, or identify the source of a security breach. <br><br></li>
+            </ul>
+          </li>
+          <li>
+            <p>For <strong>Private connectivity</strong>: To connect to a database that is not externalized to the internet (for example, behind a firewall), see <a href="securingconn.html">Securing connections</a>.</p>
+          </li>
+          <li>
+            <p>If available, click <strong>Test connection</strong>.</p>
+          </li>
+          <li>
+            <p>Click <strong>Create</strong>. The connection appears on the <strong>Assets</strong> page. You can edit the connection by clicking the connection name on the <strong>Assets</strong> page.</p>
+          </li>
+          <li>
+            <p>Add tables, files, or other types of data from the connection by <a href="connected-data.html">creating a connected data asset</a>.</p>
+          </li>
+        </ol>
+        <p>Connections with personal credentials are marked with a key icon <img src="../manage-data/images/privatekey.png" alt="the key symbol for private connections"> on the <strong>Assets</strong> page and are locked. If you are authorized to access
+          the connection, you can unlock it by entering your credentials the first time you select it. This is a one-time step that permanently unlocks the connection for you. After you unlock the connection, the key icon is no longer displayed. Connections
+          with personal credentials are already unlocked if you created the connections yourself.</p>
+        <p>Watch this video to see how to create a connection and add connected data to a project.</p>
+        <div class="note Video disclaimer"><span class="Video disclaimertitle">Video disclaimer:</span> Some minor steps and graphical elements in this video might differ from your platform.</div>
+        <p style="font-size:smaller">This video provides a visual method to learn the concepts and tasks in this documentation.</p>
+        <iframe id="ws-connected-data" src="https://video.ibm.com/embed/channel/23952663/video/ws-connected-data" onload="executeEmbedScript()" lang="en-US" style="border: 0;" webkitallowfullscreen="" allowfullscreen="" frameborder="no" width="560" height="315" title="Create a connection and add connected data to a project">
+</iframe>
+        <style type="text/css" keep="true">
+          .collapsibleList li>input+* {
+            display: none;
+          }
+          
+          .collapsibleList li>input:checked+* {
+            display: block;
+          }
+          
+          .collapsibleList li>input {
+            display: none;
+          }
+          
+          .collapsibleList label {
+            cursor: pointer;
+            color: #0062ff;
+            text-decoration: underline;
+          }
+          
+          .scrolling_table_div {
+            max-height: 300px;
+            overflow-y: auto;
+            padding-top: 20px;
+            margin-bottom: 30px;
+          }
+          
+          .transcript_sync_cb {
+            margin: 20px;
+          }
+          
+          .transcript_tbl {
+            border-collapse: collapse;
+            border: none;
+          }
+          
+          .transcript_tbl th,
+          .transcript_tbl td {
+            border: none;
+          }
+          
+          .clickable {
+            cursor: pointer;
+            color: #0062ff;
+            vertical-align: top;
+          }
+          
+          .clickable:hover {
+            text-decoration: underline;
+          }
+        </style>
+        <script keep="true" src="https://unpkg.com/ibm-video-streaming-web-player-api@1.1.0/dist/index.umd.min.js"></script>
+        <script keep="true">
+          var g_viewer = null;
+          var g_b_is_playing = false;
+          var g_b_do_retry = true;
+          var g_highlighted_row_num = -1;
+          var g_org_color = "";
+
+          var g_loop = setInterval(function() {
+            if (g_viewer && document.getElementById("sync_cb_ws-connected-data").checked) {
+              synchronize();
+            }
+
+          }, 2 * 1000);
+
+          function executeEmbedScript() {
+            if (g_viewer) {
+              // Chrome is running this function twice??
+              return;
+            }
+
+            g_viewer = PlayerAPI("ws-connected-data");
+
+            var url = window.location.href;
+            if (!url.match(/t\=\d+/i)) {
+              return;
+            }
+
+            g_viewer.addListener("playing", function(event_key, b_is_playing) {
+              g_b_is_playing = b_is_playing;
+
+              if (b_is_playing) {
+                g_b_do_retry = false;
+              }
+
+            });
+
+            document.getElementById("transcript_btn_ws-connected-data").click();
+            var seconds = url.replace(/^.*t\=(\d+).*$/i, "$1");
+            synchronize(seconds);
+            jumpToTimeRetry(seconds, 5);
+          }
+
+          function jumpTo(obj) {
+            var seconds = obj.parentNode.id;
+            jumpToTime(seconds);
+          }
+
+          function jumpToTime(seconds) {
+            g_viewer.callMethod("seek", seconds);
+            g_viewer.callMethod("play");
+          }
+
+          function jumpToTimeRetry(seconds, iteration) {
+            if (iteration < 1) {
+              // Give up
+              return;
+            }
+
+            g_viewer.callMethod("seek", seconds);
+            g_viewer.callMethod("play");
+
+            setTimeout(function() {
+              // Wait 1.5 seconds and then try again
+              if (g_b_do_retry) {
+                jumpToTimeRetry(seconds, iteration - 1);
+              }
+
+            }, 1.5 * 1000);
+          }
+
+          function synchronize(seconds_in) {
+            if (seconds_in) {
+              scrollAndHighlight(seconds_in);
+              return;
+            }
+
+            g_viewer.getProperty("progress", function(seconds) {
+              scrollAndHighlight(seconds);
+
+            });
+
+          }
+
+          function scrollAndHighlight(seconds) {
+            var rows_arr = document.getElementsByClassName("video_tr");
+            for (var i = (rows_arr.length - 1); i >= 0; i--) {
+              if (parseInt(rows_arr[i].id) > seconds) {
+                continue;
+              }
+
+              if (i == g_highlighted_row_num) {
+                break;
+              }
+
+              if (-1 !== g_highlighted_row_num) {
+                unhighlight(rows_arr[g_highlighted_row_num]);
+              }
+
+              g_highlighted_row_num = i;
+              highlight(rows_arr[g_highlighted_row_num]);
+              scrollToRow(rows_arr[g_highlighted_row_num]);
+
+              break;
+            }
+
+          }
+
+          function scrollToRow(row_obj) {
+            var row_top = row_obj.offsetTop;
+            var row_bottom = row_top + row_obj.clientHeight;
+
+            var scroller = document.getElementById("transcript_div_ws-connected-data");
+            var scroll_top = scroller.scrollTop;
+            var scroll_bottom = scroll_top + scroller.clientHeight;
+
+            if ((row_top < scroll_top) && (row_bottom > scroll_bottom)) {
+              // Edge case: Row taller than div
+              // Don't do anything
+            } else if ((row_top < scroll_top) || (row_bottom > scroll_bottom)) {
+              scroller.scrollTop = row_top;
+            }
+          }
+
+          function highlight(row_obj) {
+            var obj_arr = row_obj.childNodes;
+            for (var i = 0; i < obj_arr.length; i++) {
+              if ("TD" == obj_arr[i].nodeName) {
+                g_org_color = obj_arr[i].style.backgroundColor;
+                obj_arr[i].style.backgroundColor = "#c6c6c6";
+              }
+            }
+          }
+
+          function unhighlight(row_obj) {
+            var obj_arr = row_obj.childNodes;
+            for (var i = 0; i < obj_arr.length; i++) {
+              if ("TD" == obj_arr[i].nodeName) {
+                obj_arr[i].style.backgroundColor = g_org_color;
+              }
+            }
+          }
+
+          function toggleHighlighting() {
+            if (!document.getElementById("sync_cb_ws-connected-data").checked && (-1 !== g_highlighted_row_num)) {
+              var rows_arr = document.getElementsByClassName("video_tr");
+              unhighlight(rows_arr[g_highlighted_row_num]);
+              g_highlighted_row_num = -1;
+            }
+          }
+        </script>
+        <ul data-accordion="" class="bx--accordion bx--accordion--start no-list-decoration" style="list-style: none; padding-left: 0px;">
+          <li data-accordion-item="" class="bx--accordion__item">
+            <button class="bx--accordion__heading" aria-expanded="false" aria-controls="pane_ws-connected-data" id="transcript_btn_ws-connected-data">
+<svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--accordion__arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"></path></svg>
+<div class="bx--accordion__title">Transcript</div>
+</button>
+            <div id="pane_ws-connected-data" class="bx--accordion__content">
+              <input type="checkbox" id="sync_cb_ws-connected-data" class="bx--checkbox transcript_sync_cb" onchange="toggleHighlighting();" checked=""><label for="sync_cb_ws-connected-data" class="bx--checkbox-label"> Synchronize transcript with video</label>
+              <div id="transcript_div_ws-connected-data" class="scrolling_table_div" tabindex="0">
+                <table class="bx--data-table bx--data-table--zebra" style="border-collapse: collapse; border: none;">
+                  <caption caption-side="top">Video transcript</caption>
+                  <thead>
+                    <tr>
+                      <th style="border: none;"><span class="bx--table-header-label">Time</span></th>
+                      <th style="border: none;"><span class="bx--table-header-label">Transcript</span></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="video_tr" id="0">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">00:00</td>
+                      <td style="border: none;">This video shows you how to set up a connection to a data source and add connected data to a Watson Studio project. </td>
+                    </tr>
+                    <tr class="video_tr" id="8" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">00:08</td>
+                      <td style="border: none;">If you have data stored in a data source, you can set up a connection to that data source from any project. </td>
+                    </tr>
+                    <tr class="video_tr" id="16">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">00:16</td>
+                      <td style="border: none;">From here, you can add different elements to the project. </td>
+                    </tr>
+                    <tr class="video_tr" id="20" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">00:20</td>
+                      <td style="border: none;">In this case, you want to add a connection. </td>
+                    </tr>
+                    <tr class="video_tr" id="24">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">00:24</td>
+                      <td style="border: none;">You can create a new connection to an IBM service, such as IBM Db2 and Cloud Object Storage, or to a service from third parties, such as Amazon, Microsoft or Apache. </td>
+                    </tr>
+                    <tr class="video_tr" id="39" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">00:39</td>
+                      <td style="border: none;">And you can filter the list based on compatible services. </td>
+                    </tr>
+                    <tr class="video_tr" id="45">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">00:45</td>
+                      <td style="border: none;">You can also add a connection that was created at the platform level, which can be used across projects and catalogs. </td>
+                    </tr>
+                    <tr class="video_tr" id="54" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">00:54</td>
+                      <td style="border: none;">Or you can create a connection to one of your provisioned IBM Cloud services. </td>
+                    </tr>
+                    <tr class="video_tr" id="59">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">00:59</td>
+                      <td style="border: none;">In this case, select the provisioned IBM Cloud service for Db2 Warehouse on Cloud. </td>
+                    </tr>
+                    <tr class="video_tr" id="68" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">01:08</td>
+                      <td style="border: none;">If the credentials are not prepopulated, you can get the credentials for the instance from the IBM Cloud service launch page. </td>
+                    </tr>
+                    <tr class="video_tr" id="77">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">01:17</td>
+                      <td style="border: none;">First, test the connection and then create the connection. </td>
+                    </tr>
+                    <tr class="video_tr" id="85" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">01:25</td>
+                      <td style="border: none;">The new connection now displays in the list of data assets. </td>
+                    </tr>
+                    <tr class="video_tr" id="90">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">01:30</td>
+                      <td style="border: none;">Next, add connected data assets to this project. </td>
+                    </tr>
+                    <tr class="video_tr" id="97" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">01:37</td>
+                      <td style="border: none;">Select the source - in this case, it's the Db2 Warehouse on Cloud connection just created. </td>
+                    </tr>
+                    <tr class="video_tr" id="103">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">01:43</td>
+                      <td style="border: none;">Then select the schema and table. </td>
+                    </tr>
+                    <tr class="video_tr" id="110" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">01:50</td>
+                      <td style="border: none;">You can see that this will add a reference to the data within this connection and include it in the target project. </td>
+                    </tr>
+                    <tr class="video_tr" id="118">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">01:58</td>
+                      <td style="border: none;">Provide a name and a description and click "Create". </td>
+                    </tr>
+                    <tr class="video_tr" id="126" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">02:06</td>
+                      <td style="border: none;">The data now displays in the list of data assets. </td>
+                    </tr>
+                    <tr class="video_tr" id="129">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">02:09</td>
+                      <td style="border: none;">Open the data set to get a preview; and from here you can move directly into refining the data. </td>
+                    </tr>
+                    <tr class="video_tr" id="137" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">02:17</td>
+                      <td style="border: none;">Find more videos in the Cloud Pak for Data as a Service documentation. </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <section id="section-next-step">
+          <h2 id="next-step">Next step</h2>
+          <p>Go to <a href="../refinery/asset_browser.html">Data Refinery</a>, and select the connection. Drill down to a schema, and table or view.</p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="platform-conn.html">Adding platform connections</a></li>
+            <li><a href="../admin/int-cloud.html">Integrations with other cloud platforms</a></li>
+            <li><a href="cos_buckets.html">Controlling access to Cloud Object Storage buckets</a></li>
+          </ul>
+          <p><strong>Parent topic</strong>: <a href="add-data-project.html">Adding data to a project</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

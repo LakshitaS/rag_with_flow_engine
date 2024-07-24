@@ -1,0 +1,91 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Using the Synthetic Data Generator graphical editor flow tool, you can generate a structured synthetic data set based on your production data. You can import data, anonymize, mimic (to generate synthetic data), export, and review your data.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Creating synthetic data from production data</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=data-creating-synthetic-from-production"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="creating-synthetic-data-from-production-data" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-creating-synthetic-data-from-production-data">
+        <h1 id="creating-synthetic-data-from-production-data">Creating synthetic data from production data</h1>
+        <p>Using the <em>Synthetic Data Generator</em> graphical editor flow tool, you can generate a structured synthetic data set based on your production data. You can import data, <em>anonymize</em>, <em>mimic</em> (to generate synthetic data), export,
+          and review your data.</p>
+        <p>Before you can use <em>mimic</em> and <em>mask</em> to create synthetic data, you need <a href="synthetic_data_overview_sd.html#create-synthetic">to create a task</a>.</p>
+        <p>1. The <strong>Generate synthetic tabular data flow</strong> window opens. Select use case <strong>Leverage your existing data</strong>. Click <strong>Next</strong>.
+          <img src="images/sd-mimic-mask-flow.png" alt="Generate synthetic tabular data flow window" title="Generate synthetic tabular data flow window"></p>
+        <p>2. Select <strong>Import data</strong>. You can also drag-and-drop a data file into your project. You can also select data from a project. For more information, see <a href="import_data_sd.html">Importing data</a>. <img src="images/sd-import-data.png" alt="Import data" title="Import data"></p>
+        <p>3. Once you have imported your data, you can use the <em>Synthetic Data Generator</em> graphical flow editor tool to <em>anonymize</em> your production data, masking the data. You can disguise column names, column values, or both, when working
+          with data that is to be included in a model downstream of the node. For example, you can use bank customer data and hide marital status.
+          <img src="images/sd-anonymize.png" alt="Anonymize data" title="Anonymize data"></p>
+        <p>4. You can then use the <em>Synthetic Data Generator</em> tool to <em>mimic</em> your production data. This will generate synthetic data, based on your production data, using a set of candidate statistical distributions to modify each column in
+          your data.
+          <img src="images/sd-mimic-options.png" alt="Mimic data" title="Mimic data"></p>
+        <p>5. You can export your synthetic data and review it. For more information, see <a href="export_data_sd.html">Exporting synthetic data</a>.
+          <img src="images/sd-export.png" alt="Export data" title="Export data"></p>
+        <section id="section-using-differential-privacy">
+          <h2 id="using-differential-privacy">Using differential privacy</h2>
+          <p>Differential privacy protects user data from being traced back to individual users. The parameters involved are known as the privacy budget. This is a metric of privacy loss based on adding or removing one entry in a data set.</p>
+          <p>To implement differential privacy in your synthetic data created from production data:</p>
+          <p>1. Select the <strong>Mimic</strong> node. Select <strong>Edit</strong>.
+            <img src="images/sd-mimic-edit.png" alt="Select Edit on Mimic node" title="Select Edit on Mimic node"></p>
+          <p>2. Scroll down and select <strong>Privacy</strong>. In the <strong>Privacy</strong> section, turn on <strong>Enable differential privacy</strong>. This will ensure that no sensitive data specific to any individual is exposed in the synthetic
+            output. You can control the level of privacy protection by adjusting the privacy budget (epsilon) and leakage (delta) parameters.</p>
+          <p>3. Adjust the <strong>Privacy budget (epsilon)</strong>. The privacy budget allows you to tune the level of privacy protection required in your synthetic output. A smaller value provides greater privacy protection, with some loss in accuracy.
+            A larger value provides greater accuracy, with less privacy protection.</p>
+          <p>4. Adjust the <strong>Privacy leakage probability (delta)</strong>. Delta is usually referred to as the maximum allowable probability of a privacy leakage. Delta should be less than or equal to 1/n*n, where n = sample size. The smaller the delta
+            is, the better the privacy is preserved.</p>
+          <p>5. Generate a <strong>Random seed</strong>. When differential privacy is enabled, this random seed value will enable you to reproduce your differentially private synthetic output. When differential privacy is disabled, the random seed value
+            can be adjusted in the <strong>Generate</strong> node.</p>
+          <p>6. Manually adjust the <strong>Column bounds (optional)</strong>. Column bounds are automatically applied, but you can manually adjust these bounds to restrict the range of values used for fitting. You can only select numeric columns.</p>
+          <p>7. After updating the <strong>Privacy</strong> options, select <strong>Save</strong>.
+            <img src="images/sd-save-privacy.png" alt="Save privacy options" title="Save privacy options"></p>
+          <p>8. Select <strong>Run all</strong>.</p>
+          <p>Note that parameters that are based on the synthetically generated dataset where differential privacy has been enabled will differ from the parameters in your original dataset.</p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p><a href="generate_data_sd.html">Creating synthetic data from a custom data schema</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

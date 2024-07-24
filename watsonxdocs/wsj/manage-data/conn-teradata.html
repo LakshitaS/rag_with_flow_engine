@@ -1,0 +1,141 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="To access your data in Teradata, you must create a connection asset for it.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Teradata connection</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=connectors-teradata-connection"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="teradata-connection" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-teradata-connection">
+        <h1 id="teradata-connection">Teradata connection</h1>
+        <p>To access your data in Teradata, you must create a connection asset for it.</p>
+        <p>Teradata provides database and analytics-related services and products.</p>
+        <section id="section-supported-versions">
+          <h2 id="supported-versions">Supported versions</h2>
+          <p>Teradata databases 15.10, 16.10, 17.00, 17.10, and 17.20</p>
+        </section>
+        <section id="section-create-a-connection-to-teradata">
+          <h2 id="create-a-connection-to-teradata">Create a connection to Teradata</h2>
+          <p>To create the connection asset, you need the following connection details:</p>
+          <ul>
+            <li>
+              <p><strong>Database name</strong></p>
+            </li>
+            <li>
+              <p><strong>Hostname or IP address</strong></p>
+            </li>
+            <li>
+              <p><strong>Port</strong></p>
+            </li>
+            <li>
+              <p><strong>Client character set</strong>: <strong>IMPORTANT</strong>: Do not enter a value unless you are instructed by IBM support. The character set value overrides the Teradata JDBC drivers normal mapping of the Teradata session character
+                sets. Data corruption can occur if you specify the wrong character set. If no value is specified, UTF16 is used.</p>
+            </li>
+            <li>
+              <p><strong>Query band expression</strong>: Semicolon-separated list of name-value pairs to use in the generated query band statement for the session. A query band is a set of user-defined parameters that can be set on a session, a transaction,
+                or both to identify the originating source of a query. After you define a query band, it is passed to the Teradata database as a list of <code>name=value</code> pairs in a single quoted string. For example, <code>'ProjectName=dstage1'</code>.</p>
+            </li>
+            <li>
+              <p><strong>Authentication method</strong>: Select the security mechanism to use to authenticate the user:</p>
+              <ul>
+                <li><strong>TD2 (Teradata Method 2)</strong>: Use the Teradata security mechanism.</li>
+                <li><strong>LDAP</strong>: Use an LDAP security mechanism for external authentication.</li>
+              </ul>
+            </li>
+            <li>
+              <p><strong>Username</strong> and <strong>password</strong></p>
+            </li>
+            <li>
+              <p><strong>SSL certificate</strong> (if required by the database server)</p>
+            </li>
+          </ul>
+          <p>For <strong>Private connectivity</strong>, to connect to a database that is not externalized to the internet (for example, behind a firewall), you must set up a <a href="securingconn.html">secure connection</a>.</p>
+          <section id="section-choose-the-method-for-creating-a-connection-based-on-where-you-are-in-the-platform">
+            <h3 id="choose-the-method-for-creating-a-connection-based-on-where-you-are-in-the-platform">Choose the method for creating a connection based on where you are in the platform</h3>
+            <dl>
+              <dt><strong>In a project</strong></dt>
+              <dd>Click <strong>Assets &gt; New asset &gt; Connect to a data source</strong>. See <a href="create-conn.html">Adding a connection to a project</a>.</dd>
+              <dt><strong>In a deployment space</strong></dt>
+              <dd>Click <strong>Add to space &gt; Connection</strong>. See <a href="../analyze-data/ml-space-add-assets.html">Adding connections to a deployment space</a>.</dd>
+              <dt><strong>In the Platform assets catalog</strong></dt>
+              <dd>Click <strong>New connection</strong>. See <a href="platform-conn.html">Adding platform connections</a>.</dd>
+            </dl>
+          </section>
+          <section id="section-next-step-add-data-assets-from-the-connection">
+            <h3 id="next-step-add-data-assets-from-the-connection">Next step: Add data assets from the connection</h3>
+            <ul>
+              <li>See <a href="connected-data.html">Add data from a connection in a project</a>.</li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-where-you-can-use-this-connection">
+          <h2 id="where-you-can-use-this-connection">Where you can use this connection</h2>
+          <p>You can use Teradata connections in the following workspaces and tools:</p>
+          <p><strong>Projects</strong></p>
+          <ul>
+            <li>Decision Optimization</li>
+            <li>SPSS Modeler</li>
+            <li>Synthetic Data Generator</li>
+          </ul>
+          <p><strong>Catalogs</strong></p>
+          <ul>
+            <li>Platform assets catalog</li>
+          </ul>
+          <section id="section-running-sql-statements">
+            <h3 id="running-sql-statements">Running SQL statements</h3>
+            <p>To ensure that your SQL statements run correctly, refer to the <a href="https://docs.teradata.com/reader/eWpPpcMoLGQcZEoyt5AjEg/9iudpbZXGZ_rAb7c6PL54g" target="_blank" rel="noopener noreferrer">Teradata SQL documentation</a> for the correct
+              syntax.</p>
+          </section>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="https://docs.teradata.com/" target="_blank" rel="noopener noreferrer">Teradata documentation</a></li>
+            <li><a href="https://support.teradata.com/community" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Teradata Community</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="conn_types.html">Supported connections</a></p>
+          <p><br> <em>Teradata JDBC Driver 17.00.00.03 Copyright (C) 2024 by Teradata. All rights reserved. IBM provides embedded usage of the Teradata JDBC Driver under license from Teradata solely for use as part of the IBM Watson service offering.</em></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="To tune a foundation model, create a tuning experiment that guides the foundation model to return the output you want in the form you want.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Tuning a foundation model</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=studio-tuning-model"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="tuning-a-foundation-model" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-tuning-a-foundation-model">
+        <h1 id="tuning-a-foundation-model">Tuning a foundation model</h1>
+        <p>To tune a foundation model, create a tuning experiment that guides the foundation model to return the output you want in the form you want.</p>
+        <section id="section-tuning-reqs">
+          <h2 id="tuning-reqs">Requirements</h2>
+          <p>The Tuning Studio is not available with all plans or in all data centers. The foundation models that are available for tuning in the Tuning Studio can also differ by data center. For more information, see <a href="../getting-started/wml-plans.html">Watson Machine Learning plans</a>            and <a href="../getting-started/regional-datactr.html">Regional availability for services and features</a>.</p>
+          <p>Typically, the Tuning Studio is available from a project that is created for you automatically when you sign up for watsonx.ai. The project is named <em>sandbox</em> and you can use it to get started with testing and customizing foundation models.</p>
+          <p>If you don't have a project, create one. From the main menu, expand <strong>Projects</strong>, and then click <strong>All projects</strong>.</p>
+          <ol>
+            <li>
+              <p>Click <strong>New project</strong>.</p>
+            </li>
+            <li>
+              <p>Name the project, and then optionally add a description.</p>
+              <p>For more information about project options, such as reporting or logging, see <a href="../getting-started/projects.html">Creating a project</a>.</p>
+            </li>
+            <li>
+              <p>Click <strong>Create</strong>.</p>
+            </li>
+          </ol>
+        </section>
+        <section id="section-tuning-prereq">
+          <h2 id="tuning-prereq">Before you begin</h2>
+          <p>Find the foundation model that works best for your use case. For more information, see <a href="fm-tuning-model-choose.html">Choosing a foundation model to tune</a>.</p>
+          <p>Create a set of example prompts that follow the pattern that generates the best results based on your prompt engineering work. For more information, see <a href="fm-tuning-data.html">Data formats</a>.</p>
+        </section>
+        <section id="section-tune-a-model">
+          <h2 id="tune-a-model">Tune a model</h2>
+          <p>From the <a href="https://dataplatform.cloud.ibm.com/wx/home?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">watsonx.ai home page</a>, choose your project, and then click <strong>Tune a foundation model with labeled data</strong>.</p>
+          <ol>
+            <li>
+              <p>Name the tuning experiment.</p>
+            </li>
+            <li>
+              <p><strong>Optional</strong>: Add a description and tags. Add a description as a reminder to yourself and to help collaborators understand the goal of the tuned model. Assigning a tag gives you a way to filter your tuning assets later to show
+                only the assets associated with a tag.</p>
+            </li>
+            <li>
+              <p>Click <strong>Create</strong>.</p>
+            </li>
+            <li>
+              <p>Click <strong>Select a foundation model</strong> to choose the foundation model that you want to tune.</p>
+              <p>Click a tile to see a model card with details about the foundation model. When you find the foundation model that you want to use, click <strong>Select</strong>.</p>
+              <p>For more information, see <a href="fm-tuning-model-choose.html">Choosing a foundation model to tune</a>.</p>
+            </li>
+            <li>
+              <p>Choose how to initialize the prompt from the following options:</p>
+              <dl>
+                <dt><strong>Text</strong></dt>
+                <dd>Uses text that you specify.</dd>
+                <dt><strong>Random</strong></dt>
+                <dd>Uses values that are generated for you as part of the tuning experiment.</dd>
+              </dl>
+              <p>These options are related to the prompt tuning method for tuning models. For more information about how each option affects the tuning experiment, see <a href="fm-tuning-methods.html##how-prompt-tuning-works">How prompt-tuning works</a>.</p>
+            </li>
+            <li>
+              <p><strong>Required for the <em>Text</em> initialization method only</strong>: Add the initialization text that you want to include with the prompt.</p>
+              <ul>
+                <li>For a classification task, give an instruction that describes what you want to classify and lists the class labels to be used. For example, <em>Classify whether the sentiment of each comment is Positive or Negative</em>.</li>
+                <li>For a generative task, describe what you want the model to provide in the output. For example, <em>Make the case for allowing employees to work from home a few days a week</em>.</li>
+                <li>For a summarization task, give an instruction such as, <em>Summarize the main points from a meeting transcript</em>.</li>
+              </ul>
+            </li>
+            <li>
+              <p>Choose a task type.</p>
+              <p>Choose the task type that most closely matches what you want the model to do:</p>
+              <dl>
+                <dt><strong>Classification</strong></dt>
+                <dd>Predicts categorical labels from features. For example, given a set of customer comments, you might want to label each statement as a question or a problem. By separating out customer problems, you can find and address them more quickly.</dd>
+                <dt><strong>Generation</strong></dt>
+                <dd>Generates text. For example, writes a promotional email.</dd>
+                <dt><strong>Summarization</strong></dt>
+                <dd>Generates text that describes the main ideas that are expressed in a body of text. For example, summarizes a research paper.</dd>
+              </dl>
+              <p>Whichever task you choose, the input is submitted to the underlying foundation model as a generative request type during the experiment. For classification tasks, class names are taken into account in the prompts that are used to tune the
+                model. As models and tuning methods evolve, task-specific enhancements are likely to be added that you can leverage if tasks are represented accurately.</p>
+            </li>
+            <li>
+              <p><strong>Required for classification tasks only</strong>: In the <strong>Classification output (verbalizer)</strong> field, add the class labels that you want the model to use one at a time.</p>
+              <div class="note important"><span class="importanttitle">Important:</span> Specify the same labels that are used in your training data.</div>
+              <p>During the tuning experiment, class label information is submitted along with the input examples from the training data.</p>
+            </li>
+            <li>
+              <p>Add the training data that will be used to tune the model. You can upload a file or use an asset from your project.</p>
+              <p>To see examples of how to format your file, expand <em>What should your data look like?</em>, and then click <strong>Preview template</strong>. For more information, see <a href="fm-tuning-data.html">Data formats</a>.</p>
+            </li>
+            <li>
+              <p><strong>Optional</strong>: If you want to limit the size of the input or output examples that are used during training, adjust the maximum number of tokens that are allowed.</p>
+              <p>Expand <strong>What should your data look like?</strong>, and then scroll to see the <strong>Maximum input tokens</strong> and <strong>Maximum output tokens</strong> fields. Drag the sliders to change the values. Limiting the size can reduce
+                the time that it takes to run the tuning experiment. For more information, see <a href="#tuning-tokens">Controlling the number of tokens used</a>.</p>
+            </li>
+            <li>
+              <p><strong>Optional</strong>: Click <strong>Configure parameters</strong> to edit the parameters that are used by the tuning experiment.</p>
+              <p>The tuning run is configured with parameter values that represent a good starting point for tuning a model. You can adjust them if you want.</p>
+              <p>For more information about the available parameters and what they do, see <a href="fm-tuning-parameters.html">Tuning parameters</a>.</p>
+              <p>After you change parameter values, click <strong>Save</strong>.</p>
+            </li>
+            <li>
+              <p>Click <strong>Start tuning</strong>.</p>
+            </li>
+          </ol>
+          <p>The tuning experiment begins. It might take a few minutes to a few hours depending on the size of your training data and the availability of compute resources. When the experiment is finished, the status shows as completed.</p>
+          <p>A tuned model asset is not created until after you create a deployment from a completed tuning experiment. For more information, see <a href="fm-tuning-deploy.html">Deploying a tuned model</a>.</p>
+        </section>
+        <section id="section-tuning-tokens">
+          <h2 id="tuning-tokens">Controlling the number of tokens used</h2>
+          <p>You can change the number of tokens that are allowed in the model input and output during a tuning experiment.</p>
+          <table>
+            <caption caption-side="top">Table 1: Token number parameters</caption>
+            <thead>
+              <tr>
+                <th>Parameter name</th>
+                <th>Default value</th>
+                <th>Value options</th>
+                <th>Value options for flan-t5-xl-3b only</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Maximum input tokens</td>
+                <td>256</td>
+                <td>1–1024</td>
+                <td>1–256</td>
+              </tr>
+              <tr>
+                <td>Maximum output tokens</td>
+                <td>128</td>
+                <td>1–512</td>
+                <td>1–128</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>The larger the number of allowed input and output tokens, the longer it takes to tune the model. Use the smallest number of tokens in your examples that is possible to use but still represent your use case properly.</p>
+          <p>You already have some control over the input size. The input text that is used during a tuning experiment comes from your training data. So, you can manage the input size by keeping your example inputs to a set length. However, you might be
+            getting uncurated training data from another team or process. In that case, you can use the <strong>Maximum input tokens</strong> slider to manage the input size. If you set the parameter to 200 and the training data has an example input with
+            1,000 tokens, for example, the example is truncated. Only the first 200 tokens of the example input are used.</p>
+          <p>The <strong>Max output tokens</strong> value is important because it controls the number of tokens that the model is allowed to generate as output at training time. You can use the slider to limit the output size, which helps the model to generate
+            concise output.</p>
+          <div class="note tip"><span class="tiptitle">Tip:</span> For classification tasks, minimizing the size of the output is a good way to force a generative model to return the class label only, without repeating the classification pattern in the output.</div>
+          <p>For natural language models, words are converted to tokens. 256 tokens is equal to approximately 130—170 words. 128 tokens is equal to approximately 65—85 words. However, token numbers are difficult to estimate and can differ by model. For more
+            information, see <a href="fm-tokens.html">Tokens and tokenization</a>.</p>
+        </section>
+        <section id="section-tuning-evaluate">
+          <h2 id="tuning-evaluate">Evaluating the tuning experiment</h2>
+          <p>When the experiment is finished, a loss function graph is displayed that illustrates the improvement in the model output over time. The epochs are shown on the x-axis and a measure of the difference between predicted and actual results per epoch
+            is shown on the y-axis. The value that is shown per epoch is calculated from the average gradient value from all of the accumulation steps in the epoch.</p>
+          <p>For more information about how to evaluate the results, see <a href="fm-tuning-methodology.html">Evaluating the results of a tuning experiment</a>.</p>
+          <p>When you are satisfied with the tuning experiment results, deploy the tuned foundation model. For more information, see <a href="fm-tuning-deploy.html">Deploying a tuned model</a>.</p>
+        </section>
+        <section id="section-tuning-rerun">
+          <h2 id="tuning-rerun">Running a tuning experiment again</h2>
+          <p>To rerun a tuning experiment, complete the following steps:</p>
+          <ol>
+            <li>From the project's <em>Assets</em> page, filter your assets by the <em>Tuning experiments</em> asset type.</li>
+            <li>Find and open your tuning experiment asset, and then click <strong>New tuned model</strong>.</li>
+          </ol>
+          <p>The loss function for the tuning experiment is shown in the same graph with loss functions from previous runs so that you can compare them.</p>
+          <p><img src="images/fm-tuning-exp-many.png" alt="Shows a loss function graph with data from nine experiment runs in one graph" style="max-width:90%;height:auto;width:auto"></p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li>
+              <p><a href="fm-tuning-data.html">Data formats</a></p>
+            </li>
+            <li>
+              <p><a href="fm-tuning-parameters.html">Tuning parameters</a></p>
+            </li>
+            <li>
+              <p><a href="fm-tuning-deploy.html">Deploying a tuned model</a></p>
+            </li>
+            <li>
+              <p><a href="../getting-started/get-started-tuning-studio.html">Quick start: Tune a foundation model</a></p>
+            </li>
+            <li>
+              <p><a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/bf57e8896f3e50c638b5a378780f7502" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Sample notebook: Tune a model to classify CFPB documents in watsonx</a></p>
+            </li>
+            <li>
+              <p><a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/7695ce52-99b5-4e18-b3d5-de906b9c604a?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Sample notebook: Use watsonx.ai to tune Meta llama-2-13b-chat model with CFPB documents</a></p>
+            </li>
+            <li>
+              <p><a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/1a8e5c23-1dc0-4f6e-b67f-eaac343a11f8?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Sample notebook: Prompt tuning for multi-class classification with watsonx</a></p>
+            </li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="fm-tuning-studio.html">Tuning Studio</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

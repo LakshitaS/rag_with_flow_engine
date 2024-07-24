@@ -1,0 +1,294 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Data Refinery provides interactive templates for you to code operations, functions, and logical operators. Access the templates from the command-line text box at the top of the page. The templates include interactive assistance to help you with the syntax options.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Interactive code templates in Data Refinery</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=data-interactive-code-templates"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="interactive-code-templates-in-data-refinery" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-interactive-code-templates-in-data-refinery">
+        <h1 id="interactive-code-templates-in-data-refinery">Interactive code templates in Data Refinery</h1>
+        <p>Data Refinery provides interactive templates for you to code operations, functions, and logical operators. Access the templates from the command-line text box at the top of the page. The templates include interactive assistance to help you with
+          the syntax options.</p>
+        <div class="note important"><span class="importanttitle">Important:</span> Support is for the operations and functions in the user interface. If you insert other operations or functions from an open source library, the Data Refinery flow might fail. See the command-line
+          help and be sure to use the list of operations or functions from the templates. Use the examples in the templates to further customize the syntax as needed.</div>
+        <ul>
+          <li><a href="#operations">Operations</a></li>
+          <li><a href="#functions">Functions</a></li>
+          <li><a href="#logical_operators">Logical operators</a></li>
+        </ul>
+        <section id="section-operations">
+          <h2 id="operations">Operations</h2>
+          <section id="section-arrange">
+            <h3 id="arrange">arrange</h3>
+            <p>arrange(`<code>&lt;column&gt;</code>`)<br> Sort rows, in ascending order, by the specified columns.<br></p>
+            <p>arrange(desc(`<code>&lt;column&gt;</code>`))<br> Sort rows, in descending order, by the specified column.<br></p>
+            <p>arrange(`<code>&lt;column&gt;</code>`, `<code>&lt;column&gt;</code>`)<br> Sort rows, in ascending order, by each specified, successive column, keeping the order from the prior sort intact.</p>
+          </section>
+          <section id="section-count">
+            <h3 id="count">count</h3>
+            <p>count()<br> Total the data by group.</p>
+            <p>count(`<code>&lt;column&gt;</code>`)<br> Group the data by the specified column and return the number of rows with unique values (for string values) or return the total for each group (for numeric values).</p>
+            <p>count(`<code>&lt;column&gt;</code>`, wt=`<code>&lt;column&gt;</code>`)<br> Group the data by the specified column and return the number of rows with unique values (for string values) or return the total for each group (for numeric values)
+              in the specified weight column.</p>
+            <p>count(`<code>&lt;column&gt;</code>`, wt=<code>&lt;func&gt;</code>(`<code>&lt;column&gt;</code>`))<br> Group the data by the specified column and return the result of the function applied to the specified weight column.</p>
+            <p>count(`<code>&lt;column&gt;</code>`, wt=<code>&lt;func&gt;</code>(`<code>&lt;column&gt;</code>`), sort = <code>&lt;logical&gt;</code>)<br> Group the data by the specified column and return the result of the function applied to the specified
+              weight column, sorted or not.</p>
+          </section>
+          <section id="section-distinct">
+            <h3 id="distinct">distinct</h3>
+            <p>distinct()<br> Keep distinct, unique rows based on all columns or on specified columns.</p>
+          </section>
+          <section id="section-filter">
+            <h3 id="filter">filter</h3>
+            <p>filter(`<code>&lt;column&gt;</code>` <code>&lt;logicalOperator&gt;</code> provide_value)<br> Keep rows that meet the specified condition and filter out all other rows. <br> For the Boolean column type, provide_value should be uppercase TRUE
+              or FALSE.</p>
+            <p>filter(`<code>&lt;column&gt;</code>`== <code>&lt;logical&gt;</code>)<br> Keep rows that meet the specified filter conditions based on logical value TRUE or FALSE.</p>
+            <p>filter(<code>&lt;func&gt;</code>(`<code>&lt;column&gt;</code>`) <code>&lt;logicalOperator&gt;</code> provide_value)<br> Keep rows that meet the specified condition and filter out all other rows. The condition can apply a function to a column
+              on the left side of the operator.</p>
+            <p>filter(`<code>&lt;column&gt;</code>` <code>&lt;logicalOperator&gt;</code> <code>&lt;func(column)&gt;</code>) <br> Keep rows that meet the specified condition and filter out all other rows. The condition can apply a function to a column on
+              the right side of the operator.</p>
+            <p>filter(<code>&lt;logicalfunc(column)&gt;</code>)<br> Keep rows that meet the specified condition and filter out all other rows. The condition can apply a logical function to a column.</p>
+            <p>filter(`<code>&lt;column&gt;</code>` <code>&lt;logicalOperator&gt;</code> provide_value <code>&lt;andor&gt;</code> `<code>&lt;column&gt;</code>` <code>&lt;logicalOperator&gt;</code> provide_value )<br> Keep rows that meet the specified conditions
+              and filter out all other rows.</p>
+          </section>
+          <section id="section-group_by">
+            <h3 id="group_by">group_by</h3>
+            <p>group_by(`<code>&lt;column&gt;</code>`)<br> Group the data based on the specified column.</p>
+            <p>group_by(desc(`<code>&lt;column&gt;</code>`))<br> Group the data, in descending order, based on the specified column.</p>
+          </section>
+          <section id="section-mutate">
+            <h3 id="mutate">mutate</h3>
+            <p>mutate(provide_new_column = `<code>&lt;column&gt;</code>`)<br> Add a new column and keep existing columns.</p>
+            <p>mutate(provide_new_column = <code>&lt;func(column)&gt;</code>)<br> Add a new column by using the specified expression, which applies a function to a column. Keep existing columns.</p>
+            <p>mutate(provide_new_column = case_when(`<code>&lt;column&gt;</code>` <code>&lt;operator&gt;</code> provide_value_or_column_to_compare ~ provide_value_or_column_to_replace, `<code>&lt;column&gt;</code>` <code>&lt;operator&gt;</code> provide_value_or_column_to_compare
+              ~ provide_value_or_column_to_replace, TRUE ~ provide_default_value_or_column))<br> Add a new column by using the specified conditional expression.</p>
+            <p>mutate(provide_new_column = `<code>&lt;column&gt;</code>` <code>&lt;operator&gt;</code> `<code>&lt;column&gt;</code>`)<br> Add a new column by using the specified expression, which performs a calculation with existing columns. Keep existing
+              columns.</p>
+            <p>mutate(provide_new_column = coalesce(`<code>&lt;column&gt;</code>`, `<code>&lt;column&gt;</code>`))<br> Add a new column by using the specified expression, which replaces missing values in the new column with values from another, specified
+              column. As an alternative to specifying another column, you can specify a value, a function on a column, or a function on a value. Keep existing columns.</p>
+            <p>mutate(provide_new_column = if_else(`<code>&lt;column&gt;</code>` <code>&lt;logicalOperator&gt;</code> provide_value, provide_value_for_true, provide_value_for_false))<br> Add a new column by using the specified conditional expression. Keep
+              existing columns.</p>
+            <p>mutate(provide_new_column = `<code>&lt;column&gt;</code>`, provide_new_column = `<code>&lt;column&gt;</code>`)<br> Add multiple new columns and keep existing columns.</p>
+            <p>mutate(provide_new_column = n())<br> Count the values in the groups. Ensure grouping is done already using group_by. Keep existing columns.</p>
+          </section>
+          <section id="section-mutate_all">
+            <h3 id="mutate_all">mutate_all</h3>
+            <p>mutate_all(funs(<code>&lt;func&gt;</code>))<br> Apply the specified function to all of the columns and overwrite the existing values in those columns. Specify whether to remove missing values.</p>
+            <p>mutate_all(funs(. <code>&lt;operator&gt;</code> provide_value))<br> Apply the specified operator to all of the columns and overwrite the existing values in those columns.</p>
+            <p>mutate_all(funs("provide_value" = . <code>&lt;operator&gt;</code> provide_value))<br> Apply the specified operator to all of the columns and create new columns to hold the results. Give the new columns names that end with the specified
+              value.</p>
+          </section>
+          <section id="section-mutate_at">
+            <h3 id="mutate_at">mutate_at</h3>
+            <p>mutate_at(vars(`<code>&lt;column&gt;</code>`), funs(<code>&lt;func&gt;</code>))<br> Apply functions to the specified columns.</p>
+          </section>
+          <section id="section-mutate_if">
+            <h3 id="mutate_if">mutate_if</h3>
+            <p>mutate_if(<code>&lt;predicateFunc&gt;</code>, <code>&lt;func&gt;</code>)<br> Apply functions to the columns that meet the specified condition.</p>
+            <p>mutate_if(<code>&lt;predicateFunc&gt;</code>, funs( . <code>&lt;operator&gt;</code> provide_value))<br> Apply the specified operator to the columns that meet the specified condition.</p>
+            <p>mutate_if(<code>&lt;predicateFunc&gt;</code>, funs(<code>&lt;func&gt;</code>))<br> Apply functions to the columns that meet the specified condition. Specify whether to remove missing values.</p>
+          </section>
+          <section id="section-rename">
+            <h3 id="rename">rename</h3>
+            <p>rename(provide_new_column = `<code>&lt;column&gt;</code>`)<br> Rename the specified column.</p>
+          </section>
+          <section id="section-sample_frac">
+            <h3 id="sample_frac">sample_frac</h3>
+            <p>sample_frac(provide_number_between_0_and_1, weight=`<code>&lt;column&gt;</code>`,replace=<code>&lt;logical&gt;</code>)<br> Generate a random sample based on a percentage of the data. weight is optional and is the ratio of probability the row
+              will be chosen. Provide a numeric column. replace is optional and its Default is FALSE.</p>
+          </section>
+          <section id="section-sample_n">
+            <h3 id="sample_n">sample_n</h3>
+            <p>sample_n(provide_number_of_rows,weight=`<code>&lt;column&gt;</code>`,replace=<code>&lt;logical&gt;</code>) <br> Generate a random sample of data based on a number of rows. weight is optional and is the ratio of probability the row will be
+              chosen. Provide a numeric column. replace is optional and its default is FALSE.</p>
+          </section>
+          <section id="section-select">
+            <h3 id="select">select</h3>
+            <p>select(`<code>&lt;column&gt;</code>`)<br> Keep the specified column.</p>
+            <p>select(-`<code>&lt;column&gt;</code>`)<br> Remove the specified column.</p>
+            <p>select(starts_with("provide_text_value"))<br> Keep columns with names that start with the specified value.</p>
+            <p>select(ends_with("provide_text_value"))<br> Keep columns with names that end with the specified value.</p>
+            <p>select(contains("provide_text_value"))<br> Keep columns with names that contain the specified value.</p>
+            <p>select(matches ("provide_text_value"))<br> Keep columns with names that match the specified value. The specified value can be text or a regular expression.</p>
+            <p>select(`<code>&lt;column&gt;</code>`:`<code>&lt;column&gt;</code>`)<br> Keep the columns in the specified range. Specify the range as from one column to another column.</p>
+            <!--select(everything()) - Sonali submitted a GH issue to delete this template, so don't doc it-->
+            <p>select(`<code>&lt;column&gt;</code>`, everything())<br> Keep all of the columns, but make the specified column the first column.</p>
+            <p>select(`<code>&lt;column&gt;</code>`, `<code>&lt;column&gt;</code>`)<br> Keep the specified columns.</p>
+          </section>
+          <section id="section-select_if">
+            <h3 id="select_if">select_if</h3>
+            <p>select_if(<code>&lt;predicateFunc&gt;</code>) Keep columns that meet the specified condition. Supported functions include:</p>
+            <ul>
+              <li>contains</li>
+              <li>ends_with</li>
+              <li>matches</li>
+              <li>num_range</li>
+              <li>starts_with</li>
+            </ul>
+          </section>
+          <section id="section-summarize">
+            <h3 id="summarize">summarize</h3>
+            <p>summarize(provide_new_column = <code>&lt;func&gt;</code>(`<code>&lt;column&gt;</code>`))<br> Apply aggregate functions to the specified columns to reduce multiple column values to a single value. Be sure to group the column data first by using
+              the group_by operation.</p>
+          </section>
+          <section id="section-summarize_all">
+            <h3 id="summarize_all">summarize_all</h3>
+            <p>summarize_all(<code>&lt;func&gt;</code>)<br> Apply an aggregate function to all of the columns to reduce multiple column values to a single value. Specify whether to remove missing values. Be sure to group the column data first by using the
+              group_by operation.</p>
+            <p>summarize_all(funs(<code>&lt;func&gt;</code>))<br> Apply multiple aggregate functions to all of the columns to reduce multiple column values to a single value. Create new columns to hold the results. Specify whether to remove missing values.
+              Be sure to group the column data first by using the group_by operation.</p>
+          </section>
+          <section id="section-summarize_if">
+            <h3 id="summarize_if">summarize_if</h3>
+            <p>summarize_if(<code>&lt;predicate_conditions&gt;</code>,...)<br> Apply aggregate functions to columns that meet the specified conditions to reduce multiple column values to a single value. Specify whether to remove missing values. Be sure to
+              group the column data first by using the group_by operation. Supported functions include:</p>
+            <ul>
+              <li>count</li>
+              <li>max</li>
+              <li>mean</li>
+              <li>min</li>
+              <li>standard deviation</li>
+              <li>sum</li>
+            </ul>
+          </section>
+          <section id="section-tally">
+            <h3 id="tally">tally</h3>
+            <p>tally()<br> Counts the number of rows (for string columns) or totals the data (for numeric values) by group. Be sure to group the column data first by using the group_by operation.</p>
+            <p>tally(wt=`<code>&lt;column&gt;</code>`)<br> Counts the number of rows (for string columns) or totals the data (for numeric columns) by group for the weighted column.</p>
+            <p>tally( wt=<code>&lt;func&gt;</code>(`<code>&lt;column&gt;</code>`), sort = <code>&lt;logical&gt;</code>)<br> Applies a function to the specified weighted column and returns the result, by group, sorted or not.</p>
+          </section>
+          <section id="section-top_n">
+            <h3 id="top_n">top_n</h3>
+            <p>top_n(provide_value)<br> Select the top or bottom N rows (by value) in each group. Specify a positive integer to select the top N rows; specify a negative integer to select the bottom N rows.</p>
+            <p>top_n(provide_value, `<code>&lt;column&gt;</code>`)<br> Select the top or bottom N rows (by value) in each group, based on the specified column. Specify a positive integer to select the top N rows; specify a negative integer to select the
+              bottom N rows.</p>
+            <p>If duplicate rows affect the count, use the <strong>Remove duplicates</strong> GUI operation prior to using the top_n() operation.</p>
+          </section>
+          <section id="section-transmute">
+            <h3 id="transmute">transmute</h3>
+            <p>transmute(<code>&lt;new_or_existing_column&gt;</code> = `<code>&lt;column&gt;</code>`)<br> Add a new column or overwrite an existing one by using the specified expression. Keep only columns that are mentioned in the expression.</p>
+            <p>transmute(<code>&lt;new_or_existing_column&gt;</code> = <code>&lt;func(column)&gt;</code>)<br> Add a new column or overwrite an existing one by applying a function to the specified column. Keep only columns that are mentioned in the expression.</p>
+            <p>transmute(<code>&lt;new_or_existing_column&gt;</code> = `<code>&lt;column&gt;</code>` <code>&lt;operator&gt;</code> `<code>&lt;column&gt;</code>`)<br> Add a new column or overwrite an existing one by applying an operator to the specified column.
+              Keep only columns that are mentioned in the expression.</p>
+            <p>transmute(<code>&lt;new_or_existing_column&gt;</code> = `<code>&lt;column&gt;</code>`, <code>&lt;new_or_existing_column&gt;</code> = `<code>&lt;column&gt;</code>`)<br> Add multiple new columns. Keep only columns that are mentioned in the expression.</p>
+            <p>transmute(<code>&lt;new_or_existing_column&gt;</code> = if_else( provide_value, provide_value_for_true, provide_value_for_false))<br> Add a new column or overwrite an existing one by using the specified conditional expressions. Keep only columns
+              that are mentioned in the expressions.</p>
+          </section>
+          <section id="section-ungroup">
+            <h3 id="ungroup">ungroup</h3>
+            <p>ungroup()<br> Ungroup the data.</p>
+          </section>
+        </section>
+        <section id="section-functions">
+          <h2 id="functions">Functions</h2>
+          <section id="section-aggregate">
+            <h3 id="aggregate">Aggregate</h3>
+            <ul>
+              <li>mean</li>
+              <li>min</li>
+              <li>n</li>
+              <li>sd</li>
+              <li>sum</li>
+            </ul>
+          </section>
+          <section id="section-logical">
+            <h3 id="logical">Logical</h3>
+            <ul>
+              <li>is.na</li>
+            </ul>
+          </section>
+          <section id="section-numerical">
+            <h3 id="numerical">Numerical</h3>
+            <ul>
+              <li>abs</li>
+              <li>coalesce</li>
+              <li>cut</li>
+              <li>exp</li>
+              <li>floor</li>
+            </ul>
+          </section>
+          <section id="section-text">
+            <h3 id="text">Text</h3>
+            <ul>
+              <li>c</li>
+              <li>coalesce</li>
+              <li>paste</li>
+              <li>tolower</li>
+              <li>toupper</li>
+            </ul>
+          </section>
+          <section id="section-type">
+            <h3 id="type">Type</h3>
+            <ul>
+              <li>as.character</li>
+              <li>as.double</li>
+              <li>as.integer</li>
+              <li>as.logical</li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-logical_operators">
+          <h2 id="logical_operators">Logical operators</h2>
+          <ul>
+            <li>&lt; <br></li>
+            <li>&lt;= <br></li>
+            <li>&gt;= <br></li>
+            <li>&gt; <br></li>
+            <li>between<br></li>
+            <li>!=<br></li>
+            <li>==<br></li>
+            <li>%in%<br></li>
+          </ul>
+          <!--XX
+## Learn more
+
+- [Manipulating Data with dplyr](http://spark.rstudio.com/dplyr.html)
+- [Introducing dplyr, RStudio Blog](https://blog.rstudio.org/2014/01/17/introducing-dplyr/)
+- [dplyr, A Grammar of Data Manipulation](https://www.rdocumentation.org/packages/dplyr/versions/0.5.0)
+-->
+          <p><strong>Parent topic:</strong> <a href="../refinery/refining_data.html">Refining data</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

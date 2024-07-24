@@ -1,0 +1,144 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="After you created a notebook to use in the notebook editor, you need to add libraries, code, and data so you can do your analysis.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Coding and running a notebook</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=editor-coding-running-notebooks"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="coding-and-running-a-notebook" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-coding-and-running-a-notebook">
+        <h1 id="coding-and-running-a-notebook">Coding and running a notebook</h1>
+        <p>After you created a notebook to use in the notebook editor, you need to add libraries, code, and data so you can do your analysis.</p>
+        <p>To develop analytic applications in a notebook, follow these general steps:</p>
+        <ol>
+          <li>
+            <p>Open the notebook in edit mode: click the edit icon (<img src="images/pencil-icon.png" alt="Edit icon" title="Edit icon" height="20" style="vertical-align:text-bottom">). If the notebook is locked, you might be able to <a href="../manage-data/manage-assets.html#editassets">unlock and edit</a>              it.</p>
+          </li>
+          <li>
+            <p>If the notebook is marked as being <em>untrusted</em>, tell the Jupyter service to trust your notebook content and allow executing all cells by:</p>
+            <ol>
+              <li>Clicking <strong>Not Trusted</strong> in the upper right corner of the notebook.</li>
+              <li>Clicking <strong>Trust</strong> to execute all cells.</li>
+            </ol>
+          </li>
+          <li>
+            <p>Determine if the environment template that is associated with the notebook has the correct hardware size for the anticipated analysis processing throughput.</p>
+            <ol>
+              <li>
+                <p>Check the size of the environment by clicking the View notebook info icon (<img src="../manage-data/images/info_panel.png" alt="Edit icon" title="Info icon" height="20" style="vertical-align:text-bottom">) from the notebook toolbar and
+                  selecting the <strong>Environments</strong> page.</p>
+              </li>
+              <li>
+                <p>If you need to change the environment, select another one from the list or, if none fits your needs, create your own environment template. See <a href="create-customize-env-definition.html">Creating emvironment template</a>.</p>
+                <p>If you create an environment template, you can add your own libraries to the template that are preinstalled at the time the environment is started. See <a href="customize-envs.html">Customize your environment</a> for Python and R.</p>
+              </li>
+            </ol>
+          </li>
+          <li>
+            <p>Import preinstalled libraries. See <a href="libraries.html">Libraries and scripts for notebooks</a>.</p>
+          </li>
+          <li>
+            <p>Load and access data. You can access data from project assets by running code that is generated for you when you select the asset or programmatically by using preinstalled library functions. See <a href="load-and-access-data.html">Load and access data</a>.</p>
+          </li>
+          <li>
+            <p>Prepare and analyze the data with the appropriate methods:</p>
+            <ul>
+              <li><a href="ml-overview.html">Build Watson Machine Learning models</a></li>
+              <li><a href="../../DO/DOWS-Cloud_home.html">Build Decision Optimization models</a></li>
+              <li><a href="watson-nlp.html">Use Watson Natural Language Processing</a></li>
+              <li><a href="spss-algorithms.html">Use SPSS predictive analytics algorithms</a></li>
+              <li><a href="geo-spatial-lib.html">Use geospatial location analysis methods</a></li>
+              <li><a href="data-skipping-spark-sql.html">Use Data skipping for Spark SQL</a></li>
+              <li><a href="../spark/parquet-encryption.html">Apply Parquet encryption</a></li>
+              <li><a href="../spark/time-series-lib.html">Use Time series analysis methods</a></li>
+            </ul>
+          </li>
+          <li>
+            <p>If necessary, schedule the notebook to run at a regular time. See <a href="../manage-data/create-job-nb-editor.html">Schedule a notebook</a>.</p>
+            <ol>
+              <li>Monitor the status of your job runs from the project's <strong>Jobs</strong> page.</li>
+              <li>Click your job to open the job's details page to view the runs for your job and the status of each run. If a run failed, you can select the run and view the log tail or download the entire log file to troubleshoot the run.</li>
+            </ol>
+          </li>
+          <li>
+            <p>When you're not actively working on the notebook, click <strong>File &gt; Stop Kernel</strong> to stop the notebook kernel and free up resources.</p>
+          </li>
+          <li>
+            <p>Stop the active runtime (and unnecessary capacity unit consumption) if no other notebook kernels are active under <strong>Tool runtimes</strong> on the <strong>Environments</strong> page on the <strong>Manage</strong> tab of your project.</p>
+          </li>
+        </ol>
+        <div class="note Video disclaimer"><span class="Video disclaimertitle">Video disclaimer:</span> Some minor steps and graphical elements in these videos may differ from your deployment.</div>
+        <p>Watch this short video to see how to create a Jupyter notebook and custom environment.</p>
+        <div>
+          <p style="font-size:smaller">This video provides a visual method to learn the concepts and tasks in this documentation.</p><iframe id="wm-ws-custom-environment" src="https://video.ibm.com/embed/channel/23952663/video/ws-custom-environment" lang="en-US" style="border: 0;" webkitallowfullscreen="" allowfullscreen="" frameborder="no" width="560" height="315" title="Create a Jupyter notebook and custom environment" alt="Create a Jupyter notebook and custom environment"></iframe></div>
+        <p>Watch this short video to see how to run basic SQL queries on Db2 Warehouse data in a Python notebook.</p>
+        <div>
+          <p style="font-size:smaller">This video provides a visual method to learn the concepts and tasks in this documentation.</p><iframe id="wm-ws-db2-notebook" src="https://video.ibm.com/embed/channel/23952663/video/ws-db2-notebook" lang="en-US" style="border: 0;" webkitallowfullscreen="" allowfullscreen="" frameborder="no" width="560" height="315" title="
+Analyze Db2 Warehouse data in a Jupyter notebook.
+" alt="
+Analyze Db2 Warehouse data in a Jupyter notebook.
+"></iframe></div>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li>
+              <p><a href="markd-jupyter.html">Markdown cheatsheet</a></p>
+            </li>
+            <li>
+              <p><a href="parts-of-a-notebook.html">Notebook interface</a></p>
+            </li>
+            <li>
+              <p><a href="../analyze-data/manage-envs-new.html#stop-active-runtimes">Stop active runtimes</a></p>
+            </li>
+            <li>
+              <p><a href="load-and-access-data.html">Load and access data</a></p>
+            </li>
+            <li>
+              <p><a href="../manage-data/create-job-nb-editor.html">Schedule a notebook</a></p>
+            </li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="notebook-editor.html">Jupyter Notebook editor</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

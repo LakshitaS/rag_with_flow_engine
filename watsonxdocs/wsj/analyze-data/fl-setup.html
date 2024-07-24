@@ -1,0 +1,123 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Before you can use IBM Federated Learning, ensure that you have the required hardware, software, and dependencies.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Set up your system</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=experiment-set-up-your-system"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="set-up-your-system" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <!--AZ - Topic ready for 4.5 review-->
+      <section id="section-set-up-your-system">
+        <h1 id="set-up-your-system">Set up your system</h1>
+        <p>Before you can use IBM Federated Learning, ensure that you have the required hardware, software, and dependencies.</p>
+        <section id="section-core-requirements-by-role">
+          <h2 id="core-requirements-by-role">Core requirements by role</h2>
+          <p>Each entity that participates in a Federated Learning experiment must meet the requirements for their role.</p>
+          <section id="section-admin-software-requirements">
+            <h3 id="admin-software-requirements">Admin software requirements</h3>
+            <p>Designate an admin for the Federated Learning experiment. The admin must have:</p>
+            <ul>
+              <li>Access to the platform with Watson Studio and Watson Machine Learning enabled. <br> You must <a href="https://cloud.ibm.com/catalog/services/machine-learning">create a Watson Machine Learning service instance</a>.</li>
+              <li>A <a href="../getting-started/projects.html">project</a> for assembling the global model. You must <a href="../getting-started/assoc-services.html">associate the Watson Machine Learning service instance with your project</a>.</li>
+            </ul>
+          </section>
+          <section id="section-party-hardware-and-software-requirements">
+            <h3 id="party-hardware-and-software-requirements">Party hardware and software requirements</h3>
+            <p>Each party must have a system that meets these minimum requirements.</p>
+            <div class="note note"><span class="notetitle">Note:</span> Remote parties participating in the same Federated Learning experiment can use different hardware specs and architectures, as long as they each meet the minimum requirement.</div>
+            <section id="section-supported-architectures">
+              <h4 id="supported-architectures">Supported architectures</h4>
+              <ul>
+                <li>x86 64-bit</li>
+                <li>PPC</li>
+                <li>Mac M-series</li>
+                <li>4 GB memory or greater</li>
+              </ul>
+            </section>
+            <section id="section-supported-environments">
+              <h4 id="supported-environments">Supported environments</h4>
+              <ul>
+                <li>Linux</li>
+                <li>Mac OS/Unix</li>
+                <li>Windows</li>
+              </ul>
+            </section>
+            <section id="section-software-dependencies">
+              <h4 id="software-dependencies">Software dependencies</h4>
+              <ul>
+                <li>A supported <a href="fl-frames.html">Python version and a machine learning framework</a>.</li>
+                <li>The Watson Machine Learning Python client.
+                  <ol>
+                    <li>If you are using Linux, run <code>pip install 'ibm-watson-machine-learning[fl-rt22.2-py3.10]'</code>.</li>
+                    <li>If you are using Mac OS with M-series CPU and Conda, download the installation script and then run <code>./install_fl_rt22.2_macos.sh &lt;name for new conda environment&gt;</code>.</li>
+                  </ol>
+                </li>
+              </ul>
+            </section>
+          </section>
+        </section>
+        <section id="section-network-requirements">
+          <h2 id="network-requirements">Network requirements</h2>
+          <p>An outbound connection from the remote party to aggregator is required. Parties can use firewalls that restrict internal connections with each other.</p>
+        </section>
+        <section id="section-data-sources-requirements">
+          <h2 id="data-sources-requirements">Data sources requirements</h2>
+          <p>Data must comply with these requirements.</p>
+          <ul>
+            <li>Data must be in a directory or storage repository that is accessible to the party that uses them.</li>
+            <li>Each data source for a federate model must have the same features. IBM Federated Learning supports horizontal federated learning only.</li>
+            <li>Data must be in a readable format, but the formats can vary by data source. Suggested formats include:
+              <ul>
+                <li>Hive</li>
+                <li>Excel</li>
+                <li>CSV</li>
+                <li>XML</li>
+                <li>Database</li>
+              </ul>
+            </li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="fl-start.html">Creating a Federated Learning experiment</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

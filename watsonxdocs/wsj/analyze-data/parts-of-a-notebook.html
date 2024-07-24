@@ -1,0 +1,158 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can see some information about a notebook before you open it on the Assets page of a project. When you open a notebook in edit mode, you can do much more with the notebook by using multiple menu options, toolbars, an information pane, and by editing and running the notebook cells.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>The parts of a notebook</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=notebooks-parts-notebook"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="the-parts-of-a-notebook" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-the-parts-of-a-notebook">
+        <h1 id="the-parts-of-a-notebook">The parts of a notebook</h1>
+        <p>You can see some information about a notebook before you open it on the Assets page of a project. When you open a notebook in edit mode, you can do much more with the notebook by using multiple menu options, toolbars, an information pane, and
+          by editing and running the notebook cells.</p>
+        <p>You can view the following information about a notebook by clicking the <strong>Notebooks</strong> asset type in the <strong>Assets</strong> page of your project:</p>
+        <ul>
+          <li>The name of the notebook</li>
+          <li>The date when the notebook was last modified and the person who made the change</li>
+          <li>The programming language of the notebook</li>
+          <li>Whether the notebook is currently locked</li>
+        </ul>
+        <p>When you open a notebook in edit mode, the notebook editor includes the following features:</p>
+        <ul>
+          <li>
+            <p><a href="#menu-bar-and-toolbar">Menu bar and toolbar</a></p>
+          </li>
+          <li>
+            <p><a href="#notebook-action-bar">Notebook action bar</a></p>
+          </li>
+          <li>
+            <p><a href="#the-cells-in-a-jupyter-notebook">The cells in a Jupyter notebook</a></p>
+            <ul>
+              <li><a href="#jupyter-code-cells">Jupyter Code cells</a></li>
+              <li><a href="#jupyter-markdown-cells">Jupyter markdown cells</a></li>
+              <li><a href="#raw-jupyter-nbconvert-cells">Raw Jupyter NBConvert cells</a></li>
+            </ul>
+          </li>
+          <li>
+            <p><a href="#spark-job-progress-bar">Spark job progress bar</a></p>
+          </li>
+          <li>
+            <p><a href="token.html">Project token for authorization</a></p>
+          </li>
+        </ul>
+        <section id="section-menu-bar-and-toolbar">
+          <h2 id="menu-bar-and-toolbar">Menu bar and toolbar</h2>
+          <p><img src="images/toolbar.png" alt="menu and toolbar"></p>
+          <p>You can select notebook features that affect the way the notebook functions and perform the most-used operations within the notebook by clicking an icon.</p>
+        </section>
+        <section id="section-notebook-action-bar">
+          <h2 id="notebook-action-bar">Notebook action bar</h2>
+          <p><img src="images/action-bar-Blue.png" alt="Notebook action bar"></p>
+          <p>You can select features that enhance notebook collaboration. From the action bar, you can:</p>
+          <ul>
+            <li>Publish your notebook as a gist or on GitHub.</li>
+            <li>Create a permanent URL so that anyone with the link can view your notebook.</li>
+            <li>Create jobs in which to run your notebook. See <a href="../manage-data/create-job-nb-editor.html">Schedule a notebook</a>.</li>
+            <li>Download your notebook.</li>
+            <li>Add a project token so that code can access the project resources. See <a href="token.html">Add code to set the project token</a>.</li>
+            <li>Generate code snippets to add data from a data asset or a connection to a notebook cell.</li>
+            <li>View your notebook information. You can:
+              <ul>
+                <li>Change the name of your notebook by editing it in the <strong>Name</strong> field.</li>
+                <li>Edit the description of your notebook in the <strong>Description</strong> field.</li>
+                <li>View the date when the notebook was created.</li>
+                <li>View the environment details and runtime status; you can change the notebook runtime from here. See <a href="notebook-environments.html">Notebook environments</a>.</li>
+              </ul>
+            </li>
+            <li>Save versions of your notebook.</li>
+            <li>Upload assets to the project.</li>
+          </ul>
+        </section>
+        <section id="section-the-cells-in-a-jupyter-notebook">
+          <h2 id="the-cells-in-a-jupyter-notebook">The cells in a Jupyter notebook</h2>
+          <p>A Jupyter notebook consists of a sequence of cells. The flow of a notebook is sequential. You enter code into an input cell, and when you run the cell, the notebook executes the code and prints the output of the computation to an output cell.</p>
+          <p>You can change the code in an input cell and re-run the cell as often as you like. In this way, the notebook follows a read-evaluate-print loop paradigm. You can choose to use tags to describe cells in a notebook.</p>
+          <p>The behavior of a cell is determined by a cell’s type. The different types of cells include:</p>
+          <section id="section-jupyter-code-cells">
+            <h3 id="jupyter-code-cells">Jupyter code cells</h3>
+            <p>Where you can edit and write new code.</p>
+            <p><img src="images/code_cells_notebook_bigger.png" alt="code cells"></p>
+          </section>
+          <section id="section-jupyter-markdown-cells">
+            <h3 id="jupyter-markdown-cells">Jupyter markdown cells</h3>
+            <p>Where you can document the computational process. You can input headings to structure your notebook hierarchically.</p>
+            <p>You can also add and edit image files as attachments to the notebook. The markdown code and images are rendered when the cell is run.</p>
+            <p><img src="images/markdownCells_notebook.png" alt="markdown cells"></p>
+            <p>See <a href="markd-jupyter.html">Markdown for Jupyter notebooks cheatsheet</a>.</p>
+          </section>
+          <section id="section-raw-jupyter-nbconvert-cells">
+            <h3 id="raw-jupyter-nbconvert-cells">Raw Jupyter NBConvert cells</h3>
+            <p>Where you can write output directly or put code that you don’t want to run. Raw cells are not evaluated by the notebook.</p>
+            <p><img src="images/rawconvert_cells_notebook_bigger.png" alt="raw convert cells"></p>
+          </section>
+        </section>
+        <section id="section-spark-job-progress-bar">
+          <h2 id="spark-job-progress-bar">Spark job progress bar</h2>
+          <p>When you run code in a notebook that triggers Spark jobs, it is often challenging to determine why your code is not running efficiently.</p>
+          <p>To help you better understand what your code is doing and assist you in code debugging, you can monitor the execution of the Spark jobs for a code cell.</p>
+          <p>To enable Spark monitoring for a cell in a notebook:</p>
+          <ul>
+            <li>Select the code cell you want to monitor.</li>
+            <li>Click the <strong>Enable Spark Monitoring</strong> icon (<img src="images/ProgressBars-Active.png" alt="Shows the enable Spark monitoring icon." height="20" style="vertical-align:text-bottom">) on the notebook toolbar.</li>
+          </ul>
+          <p>The progress bars you see display the real time runtime progress of your jobs on the Spark cluster. Each Spark job runs on the cluster in one or more stages, where each stage is a list of tasks that can be run in parallel. The monitoring pane
+            can become very large is the Spark job has many stages.</p>
+          <p>The job monitoring pane also displays the duration of each job and the status of the job stages. A stage can have one of the following statuses:</p>
+          <ul>
+            <li><code>Running</code>: Stage active and started.</li>
+            <li><code>Completed</code>: Stage completed.</li>
+            <li><code>Skipped</code>: The results of this stage were cached from a earlier operation and so the task doesn't have to run again.</li>
+            <li><code>Pending</code>: Stage hasn't started yet.</li>
+          </ul>
+          <p>Click the icon again to disable monitoring in a cell.</p>
+          <div class="note note"><span class="notetitle">Note:</span> Spark monitoring is currently only supported in notebooks that run on Python.</div>
+          <p><strong>Parent topic:</strong> <a href="../analyze-data/creating-notebooks.html">Creating notebooks</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

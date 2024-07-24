@@ -1,0 +1,178 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="If you don't have a fixed set of terms or you cannot express entities that you like to detect as regular expressions, you can build a custom transformer model. The model is based on the pretrained Slate IBM Foundation model.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Detecting entities with a custom transformer model</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=models-detecting-entities-custom-transformer-model"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="detecting-entities-with-a-custom-transformer-model" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-detecting-entities-with-a-custom-transformer-model">
+        <h1 id="detecting-entities-with-a-custom-transformer-model">Detecting entities with a custom transformer model</h1>
+        <p>If you don't have a fixed set of terms or you cannot express entities that you like to detect as regular expressions, you can build a custom transformer model. The model is based on the pretrained Slate IBM Foundation model.</p>
+        <p>When you use the pretrained model, you can build multi-lingual models. You don't have to have separate models for each language.</p>
+        <p>You need sufficient training data to achieve high quality (2000 – 5000 per entity type). If you have GPUs available, use them for training.</p>
+        <div class="note note"><span class="notetitle">Note:</span>
+          <md-block>
+            <p>Training transformer models is CPU and memory intensive. The predefined environments are not large enough to complete the training. Create a custom notebook environment with a larger amount of CPU and memory, and use that to run your notebook.
+              If you have GPUs available, it's highly recommended to use them. See <a href="create-customize-env-definition.html">Creating your own environment template</a>.</p>
+            <p></p>
+          </md-block>
+        </div>
+        <p></p>
+        <section id="section-input-data-format">
+          <h2 id="input-data-format">Input data format</h2>
+          <p>The training data is represented as an array with multiple JSON objects. Each JSON object represents one training instance, and must have a <code>text</code> and a <code>mentions</code> field. The <code>text</code> field represents the training
+            sentence text, and <code>mentions</code> is an array of JSON objects with the text, type, and location of each mention:</p>
+          <pre class="codeblock"><code class="lang-json hljs"><span class="hljs-punctuation">[</span>
+  <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"text"</span><span class="hljs-punctuation">:</span> str<span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"mentions"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"location"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"begin"</span><span class="hljs-punctuation">:</span> int<span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"end"</span><span class="hljs-punctuation">:</span> int
+      <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"text"</span><span class="hljs-punctuation">:</span> str<span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> str
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>...<span class="hljs-punctuation">]</span>
+  <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>...
+<span class="hljs-punctuation">]</span>
+</code></pre>
+          <p>Example:</p>
+          <pre class="codeblock"><code class="lang-json hljs"><span class="hljs-punctuation">[</span>
+    <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">38863234</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"text"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"I'm moving to Colorado in a couple months."</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"mentions"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"text"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Colorado"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Location"</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"location"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+                <span class="hljs-attr">"begin"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">14</span><span class="hljs-punctuation">,</span>
+                 <span class="hljs-attr">"end"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">22</span>
+                 <span class="hljs-punctuation">}</span>
+            <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-punctuation">{</span>
+                <span class="hljs-attr">"text"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"couple months"</span><span class="hljs-punctuation">,</span>
+                <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Duration"</span><span class="hljs-punctuation">,</span>
+                <span class="hljs-attr">"location"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+                    <span class="hljs-attr">"begin"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">28</span><span class="hljs-punctuation">,</span>
+                     <span class="hljs-attr">"end"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">41</span>
+                     <span class="hljs-punctuation">}</span>
+            <span class="hljs-punctuation">}</span><span class="hljs-punctuation">]</span>
+    <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">]</span>
+</code></pre>
+        </section>
+        <section id="section-training-your-model">
+          <h2 id="training-your-model">Training your model</h2>
+          <p>The transformer algorithm is using the pretrained Slate model. The pretrained Slate model is only available in Runtime 23.1.</p>
+          <p>To get the options available for configuring Transformer training, enter:</p>
+          <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-built_in">help</span>(watson_nlp.workflows.entity_mentions.transformer.Transformer.train)
+</code></pre>
+          <p><strong>Sample code</strong></p>
+          <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">import</span> watson_nlp
+<span class="hljs-keyword">from</span> watson_nlp.toolkit.entity_mentions_utils.train_util <span class="hljs-keyword">import</span> prepare_stream_of_train_records_from_JSON_collection
+
+<span class="hljs-comment"># load the syntax models for all languages to be supported</span>
+syntax_model = watson_nlp.load(<span class="hljs-string">'syntax_izumo_en_stock'</span>)
+syntax_models = [syntax_model]
+
+<span class="hljs-comment"># load the pretrained Slate model</span>
+pretrained_model_resource = watson_nlp.load(<span class="hljs-string">'pretrained-model_slate.153m.distilled_many_transformer_multilingual_uncased'</span>)
+
+<span class="hljs-comment"># prepare the train and dev data</span>
+<span class="hljs-comment"># entity_train_data is a directory with one or more json files in the input format specified above</span>
+train_data_stream = prepare_stream_of_train_records_from_JSON_collection(<span class="hljs-string">'entity_train_data'</span>)
+dev_data_stream = prepare_stream_of_train_records_from_JSON_collection(<span class="hljs-string">'entity_train_data'</span>)
+
+<span class="hljs-comment"># train a transformer workflow model</span>
+trained_workflow = watson_nlp.workflows.entity_mentions.transformer.Transformer.train(
+    train_data_stream=train_data_stream,
+    dev_data_stream=dev_data_stream,
+    syntax_models=syntax_models,
+    template_resource=pretrained_model_resource,
+    num_train_epochs=<span class="hljs-number">3</span>,
+)
+</code></pre>
+        </section>
+        <section id="section-applying-the-model-on-new-data">
+          <h2 id="applying-the-model-on-new-data">Applying the model on new data</h2>
+          <p>Apply the trained transformer workflow model on new data by using the <code>run()</code> method, as you would use on any of the existing pre-trained blocks.</p>
+          <p><strong>Code sample</strong></p>
+          <pre class="codeblock"><code class="lang-python hljs">trained_workflow.run(<span class="hljs-string">'Bruce is at Times Square'</span>)
+</code></pre>
+        </section>
+        <section id="section-store">
+          <h2 id="store">Storing and loading the model</h2>
+          <p>The custom transformer model can be stored as any other model as described in <a href="../analyze-data/watson-nlp-create-model.html#saving-and-loading-custom-models">Saving and loading custom models</a>, using <code>ibm_watson_studio_lib</code>.</p>
+          <p>To load the custom transformer model, extra steps are required:</p>
+          <ol>
+            <li>
+              <p>Ensure that you have an access token on the <strong>Access control</strong> page on the <strong>Manage</strong> tab of your project. Only project admins can create access tokens. The access token can have <strong>Viewer</strong> or <strong>Editor</strong>                access permissions. Only editors can inject the token into a notebook.</p>
+            </li>
+            <li>
+              <p>Add the project token to the notebook by clicking <strong>More &gt; Insert project token</strong> from the notebook action bar and then run the cell.</p>
+              <p>By running the inserted hidden code cell, a <code>wslib</code> object is created that you can use for functions in the <code>ibm-watson-studio-lib</code> library. For information on the available <code>ibm-watson-studio-lib</code> functions,
+                see <a href="ws-lib-python.html">Using ibm-watson-studio-lib for Python</a>.</p>
+            </li>
+            <li>
+              <p>Download and extract the model to your local runtime environment:</p>
+              <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">import</span> zipfile
+model_zip = <span class="hljs-string">'trained_workflow_file'</span>
+model_folder = <span class="hljs-string">'trained_workflow_folder'</span>
+wslib.download_file(<span class="hljs-string">'trained_workflow'</span>, file_name=model_zip)
+
+<span class="hljs-keyword">with</span> zipfile.ZipFile(model_zip, <span class="hljs-string">'r'</span>) <span class="hljs-keyword">as</span> zip_ref:
+  zip_ref.extractall(model_folder)
+</code></pre>
+            </li>
+            <li>
+              <p>Load the model from the extracted folder:</p>
+              <pre class="codeblock"><code class="lang-python hljs">trained_workflow = watson_nlp.load(model_folder)
+</code></pre>
+            </li>
+          </ol>
+          <p><strong>Parent topic:</strong> <a href="watson-nlp-create-model.html">Creating your own models</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

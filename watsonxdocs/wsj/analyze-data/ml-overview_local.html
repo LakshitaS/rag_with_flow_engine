@@ -1,0 +1,139 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Using IBM Watson Machine Learning, you can deploy machine learning models, scripts, and functions, and prompt templates for generative AI models. After you create deployments, you can test and manage them, and prepare your assets to deploy into pre-production and production environments to generate predictions and insights.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Deploying AI assets</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=assets-deploying-ai"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="deploying-ai-assets" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-deploying-ai-assets">
+        <h1 id="deploying-ai-assets">Deploying AI assets</h1>
+        <p>Using IBM Watson Machine Learning, you can deploy machine learning models, scripts, and functions, and prompt templates for generative AI models. After you create deployments, you can test and manage them, and prepare your assets to deploy into
+          pre-production and production environments to generate predictions and insights.</p>
+        <p><span class="carbon-tag-blue bx--tag bx--tag--blue">Service</span> The administrator must install the Watson Machine Learning service on Cloud Pak for Data platform to use its capabilities.</p>
+        <section id="section-deployments-overview">
+          <h2 id="deployments-overview">Deployments overview</h2>
+          <p>You can use Watson Machine Learning to create an online, batch, or application deployment for machine learning, foundation model, and Decison Optimization assets.</p>
+          <p>The following graphic shows the typical activities to deploy AI assets:</p>
+          <p><img src="images/deploy-ai-assets.svg" alt="Deployment details" style="max-width:90%;height:auto;width:auto"></p>
+          <section id="section-types-of-deployments">
+            <h3 id="types-of-deployments">Types of deployments</h3>
+            <p>The most common types of deployments are as follows:</p>
+            <ul>
+              <li>
+                <p><strong><a href="deploy-online.html">Online deployment</a>:</strong> Create an online deployment to process input data in real-time. To test the online deployment in real-time, you can submit new customer data to the deployment endpoint
+                  to get a prediction in real-time.</p>
+              </li>
+              <li>
+                <p><strong><a href="deploy-batch-details.html">Batch deployment</a>:</strong> Create a batch deployment to process a large batch of input data from a data source and write the output to a selected destination. You can configure the batch
+                  deployment job and run the job on a schedule or on demand.</p>
+              </li>
+              <li>
+                <p><strong><a href="deploy-shiny-app.html">Application deployment</a>:</strong> Create an application deployment to deploy your application assets, such as R Shiny applications.</p>
+              </li>
+            </ul>
+          </section>
+          <section id="section-types-of-deployable-assets">
+            <h3 id="types-of-deployable-assets">Types of deployable assets</h3>
+            <p>The type of asset that you deploy dictates the type of deployment that you can create. For example, Python functions, scripts, and models, such as AutoAI or Decision Optimization models support online and batch deployments. However, you can
+              create online deployments only for models that are imported from a file. The different types of deployable assets are as follows:</p>
+            <ul>
+              <li>
+                <p><strong><a href="deploy-found-assets.html">Foundation model assets</a>:</strong> You can deploy foundation model assets such as tuned model, prompt template assets, or custom foundation models with watsonx.ai.</p>
+              </li>
+              <li>
+                <p><strong><a href="ml-deploy-general.html">Machine Learning assets</a>:</strong> You can deploy machine learning Machine Learning assets such as Python functions, R Shiny applications, NLP models, scripts, and more with Watson Machine Learning.</p>
+              </li>
+              <li>
+                <p><strong><a href="../../DO/wml_cpd_home.html">Decision Optimization models</a>:</strong> You can deploy Decision Optimization model with Watson Machine Learning.</p>
+              </li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-ways-to-deploy-assets">
+          <h2 id="ways-to-deploy-assets">Ways to deploy assets</h2>
+          <p>You can deploy and manage your assets in the following ways:</p>
+          <ul>
+            <li>
+              <p><strong><a href="#deploy-spaces">Deploy and manage assets in a deployment space</a></strong> by using a no-code approach.</p>
+            </li>
+            <li>
+              <p><strong><a href="#deploy_programmatically">Deploy and manage assets programmatically</a></strong> by using a custom-code approach.</p>
+            </li>
+          </ul>
+        </section>
+        <section id="section-deploy-spaces">
+          <h2 id="deploy-spaces">Deploying and managing assets in deployment spaces</h2>
+          <p>Create a deployment space to collaborate with stakeholders and deploy and manage assets in a deployment space.</p>
+          <p>To manage your assets within a deployment space, you must promote your assets from a project to your deployment space. You can also import or export assets from your deployment space. You can manage assets and deployments in your deployment
+            space by updating details, scaling the number of copies, monitoring performance, or deleting the deployment to free up resources.</p>
+          <p>To use you deployed asset in applications for making predictions, retrieve the endpoint URL for <a href="deploy-online.html#online-endpoint">online</a> and <a href="deploy-batch-details.html#batch-endpoint">batch</a> deployments. The model endpoint
+            provides access to an interface to invoke and manage model deployments.</p>
+          <p>Use the <a href="operator-view.html">deployments dashboard</a> to get an aggregate view of your deployments and monitor deployment activity. You can use the dashboard to monitor the status of your batch deployment jobs, such as active runs and
+            finished runs based on job schedule that you defined when you created the job. You can also get information about the number of successful and failed online deployments.</p>
+        </section>
+        <section id="section-deploy_programmatically">
+          <h2 id="deploy_programmatically">Deploying and managing assets programmatically</h2>
+          <p>You can deploy and manage assets programmatically by using <a href="https://www.ibm.com/links?url=https%3A%2F%2Fibm.github.io%2Fwatson-machine-learning-sdk%2F">Python client</a> or <a href="https://cloud.ibm.com/apidocs/machine-learning-cp">Watson Machine Learning API</a>.
+            .</p>
+          <section id="section-managing-frameworks-and-software-specifications-for-deployments">
+            <h3 id="managing-frameworks-and-software-specifications-for-deployments">Managing frameworks and software specifications for deployments</h3>
+            <p><a href="ml-manage-frame-and-specs.html">Software specifications and frameworks</a> contain bundles of packages with corresponding versions of the packages.</p>
+            <p>You can use predefined software specifications or create custom software specifications by adding new packages to existing frameworks, create new packages, or updating package versions in software specifications.</p>
+          </section>
+          <section id="section-managing-runtime-environments-for-deployments">
+            <h3 id="managing-runtime-environments-for-deployments">Managing runtime environments for deployments</h3>
+            <p>Runtime envionments provide the necessary functions that are required to run your deployment.</p>
+            <div class="note important"><span class="importanttitle">Important:</span> You must use the same runtime environment to build and deploy your model.</div>
+            <p>You can use predefined runtime environments or create <a href="ml-customize.html">custom runtime environments</a> to include more components, depending on your use case. To create a custom runtime environment for your deployment, you must
+              create a Dockerfile and add a base image. Further, you can add the <code>docker</code> commands to build the runtime environment for your deployment.</p>
+          </section>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p><a href="ml-spaces_local.html">Deployment spaces</a></p>
+          <p><strong>Parent topic</strong>: <a href="../wmls/wmls-deploy-overview.html">Deploying and managing AI assets</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

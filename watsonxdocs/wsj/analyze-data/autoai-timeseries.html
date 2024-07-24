@@ -1,0 +1,548 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Use AutoAI to create a time series experiment to predict future activity, such as stock prices or temperatures, over a specified date or time range.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Building a time series experiment</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=autoai-building-time-series-forecast-experiment"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="building-a-time-series-experiment" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-building-a-time-series-experiment">
+        <h1 id="building-a-time-series-experiment">Building a time series experiment</h1>
+        <p>Use AutoAI to create a time series experiment to predict future activity, such as stock prices or temperatures, over a specified date or time range.</p>
+        <section id="section-time-series-overview">
+          <h2 id="time-series-overview">Time series overview</h2>
+          <p>A time series experiment is a method of forecasting that uses historical observations to predict future values. The experiment automatically builds many pipelines using machine learning models, such as random forest regression and Support Vector
+            Machines (SVMs), as well as statistical time series models, such as ARIMA and Holt-Winters. Then, the experiment recommends the best pipeline according to the pipeline performance evaluated on a holdout data set or backtest data sets.</p>
+          <p>Unlike a standard AutoAI experiment, which builds a set of pipelines to completion then ranks them. A time series experiment evaluates pipelines earlier in the process and only completes and test the best-performing pipelines.</p>
+          <p><img src="images/ts-pipelines.png" alt="AutoAI time series pipeline generation process" style="max-width:90%;height:auto;width:auto"></p>
+          <p>For details on the various stages of training and testing a time series experiment, see <a href="autoai-timeseries-details.html">Time series implementation details</a>.</p>
+        </section>
+        <section id="section-predicting-anomalies-in-a-time-series-experiment">
+          <h2 id="predicting-anomalies-in-a-time-series-experiment">Predicting anomalies in a time series experiment</h2>
+          <p>You can configure your time series experiment to predict anomalies (outliers) in your data or predictions. To configure anomaly prediction for your experiment, follow the steps in <a href="autoai-ts-ap.html">Creating a time series anomaly prediction model</a>.</p>
+        </section>
+        <section id="section-using-supporting-features-to-improve-predictions">
+          <h2 id="using-supporting-features-to-improve-predictions">Using supporting features to improve predictions</h2>
+          <p>When you configure your time series experiment, you can choose to specify <em>supporting features</em>, also known as <em>exogenous features</em>. Supporting features are features that influence or add context to the prediction target. For example,
+            if you are forecasting ice cream sales, daily temperature would be a logical supporting feature that would make the forecast more accurate.</p>
+          <section id="section-leveraging-future-values-for-supporting-features">
+            <h3 id="leveraging-future-values-for-supporting-features">Leveraging future values for supporting features</h3>
+            <p>If you know the future values for the supporting features, you can leverage those future values when you deploy the model. For example, if you are training a model to forecast future t-shirt sales, you can include promotional discounts as
+              a supporting feature to enhance the prediction. Inputting the <em>future value</em> of the promotion then makes the forecast more accurate.</p>
+          </section>
+        </section>
+        <section id="section-data-requirements">
+          <h2 id="data-requirements">Data requirements</h2>
+          <p>These are the current data requirements for training a time series experiment:</p>
+          <ul>
+            <li>
+              <p>The training data must be a single file in CSV format.</p>
+            </li>
+            <li>
+              <p>The file must contain one or more time series columns and optionally contain a timestamp column. For a list of supported date/time formats, see <a href="autoai-timeseries-details.html">AutoAI time series implementation details</a>.</p>
+            </li>
+            <li>
+              <p>If the data source contains a timestamp column, ensure that the data is sampled at uniform frequency. That is, the difference in timestamps of adjacent rows is the same. For example, data can be in increments of 1 minute, 1 hour, or one
+                day. The specified timestamp is used to determine the lookback window to improve the model accuracy.</p>
+              <div class="note note"><span class="notetitle">Note:</span>
+                <md-block>
+                  <p>If the file size is larger than 1 GB, sort the data in <em>descending</em> order by the timestamp, and only the first 1 GB is used to train the experiment.</p>
+                  <p></p>
+                </md-block>
+              </div>
+              <p></p>
+            </li>
+            <li>
+              <p>If the data source does not contain a timestamp column, ensure that the data is sampled at regular intervals and sorted in <em>ascending</em> order according to the sample date/time. That is, the value in the first row is the oldest, and
+                the value in the last row is the most recent.</p>
+              <div class="note note"><span class="notetitle">Note:</span> If the file size is larger than 1 GB, truncate the file so it is smaller than 1 GB.</div>
+            </li>
+            <li>
+              <p>Select what data to use when training the final pipelines. If you choose to include training data only, the generated notebooks will include a cell for retrieving the holdout data used to evaluate each pipeline.</p>
+            </li>
+          </ul>
+          <p>Choose data from your project or upload it from your file system or from the asset browser, then click <strong>Continue</strong>. Click the preview icon <img src="images/autoai-preview-icon.png" alt="AutoAI preview data set icon" height="20" style="vertical-align:text-bottom">, after the data source name to review your data. Optionally, you can add a second file as holdout data for testing the trained pipelines.</p>
+        </section>
+        <section id="section-configuring-a-time-series-experiment">
+          <h2 id="configuring-a-time-series-experiment">Configuring a time series experiment</h2>
+          <p>When you configure the details for an experiment, click <strong>Yes</strong> to <em>Enable time series</em> and complete the experiment details.</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Field</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Prediction columns</td>
+                <td>The time series columns that you want to predict based on the previous values. You can specify one or more columns to predict.</td>
+              </tr>
+              <tr>
+                <td>Date/time column</td>
+                <td>The column that indicates the date/time at which the time series values occur.</td>
+              </tr>
+              <tr>
+                <td>Lookback window</td>
+                <td>A parameter that indicates how many previous time series values are used to predict the current time point.</td>
+              </tr>
+              <tr>
+                <td>Forecast window</td>
+                <td>The range that you want to predict based on the data in the lookback window.</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>The prediction summary shows you the experiment type and the metric that is selected for optimizing the experiment.</p>
+        </section>
+        <section id="section-configuring-experiment-settings">
+          <h2 id="configuring-experiment-settings">Configuring experiment settings</h2>
+          <p>To configure more details for your time series experiment, click <strong>Experiment settings</strong>.</p>
+          <section id="section-general-prediction-settings">
+            <h3 id="general-prediction-settings">General prediction settings</h3>
+            <p>On the <em>General</em> panel for prediction settings, you can optionally change the metric used to optimize the experiment or specify the algorithms to consider or the number of pipelines to generate.</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Field</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Prediction type</td>
+                  <td>View or change the prediction type based on prediction column for your experiment. For time series experiments, <em>Time series forecast</em> is selected by default. <br> <strong>Note:</strong> If you change the prediction type, other
+                    prediction settings for your experiment are automatically changed.</td>
+                </tr>
+                <tr>
+                  <td>Optimized metric</td>
+                  <td>View or change the recommended optimized metric for your experiment.</td>
+                </tr>
+                <tr>
+                  <td>Optimized algorithm selection</td>
+                  <td>Not supported for time series experiments.</td>
+                </tr>
+                <tr>
+                  <td>Algorithms to include</td>
+                  <td>Select algorithms based on which you want your experiment to create pipelines. Algorithms and pipelines that support the use of supporting features, are indicated by a checkmark.</td>
+                </tr>
+                <tr>
+                  <td>Pipelines to complete</td>
+                  <td>View or change the number of pipelines to generate for your experiment.</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="section-time-series-configuration-details">
+            <h3 id="time-series-configuration-details">Time series configuration details</h3>
+            <p>On the Time series pane for prediction settings, configure the details for how to train the experiment and generate predictions.</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Field</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Date/time column</td>
+                  <td>View or change the date/time column for the experiment.</td>
+                </tr>
+                <tr>
+                  <td>Lookback window</td>
+                  <td>View or update the number of previous time series values used to predict the current time point.</td>
+                </tr>
+                <tr>
+                  <td>Forecast window</td>
+                  <td>View or update the range that you want to predict based.</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </section>
+        <section id="section-configuring-data-source-settings">
+          <h2 id="configuring-data-source-settings">Configuring data source settings</h2>
+          <p>To configure details for your input data, click <strong>Experiment settings</strong> and select <strong>Data source</strong>.</p>
+          <section id="section-general-data-source-settings">
+            <h3 id="general-data-source-settings">General data source settings</h3>
+            <p>On the <em>General</em> panel for data source settings, you can modify your dataset to interpolate missing values, split your dataset into training and holdout data, and input supporting features.</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Field</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Duplicate rows</td>
+                  <td>Not supported for time series experiments.</td>
+                </tr>
+                <tr>
+                  <td>Subsample data</td>
+                  <td>Not supported for time series experiments.</td>
+                </tr>
+                <tr>
+                  <td>Text feature engineering</td>
+                  <td>Not supported for time series experiments.</td>
+                </tr>
+                <tr>
+                  <td>Final training data set</td>
+                  <td>Select what data to use when training the final pipelines: just the training data or the training and holdout data. If you choose to include training data only, generated notebooks for this experiment will include a cell for retrieving
+                    the holdout data used to evaluate each pipeline.</td>
+                </tr>
+                <tr>
+                  <td>Supporting features</td>
+                  <td>Choose additional columns from your data set as Supporting features to support predictions and increase your model’s accuracy. You can also use future values for Supporting features by enabling <strong>Leverage future values of supporting features</strong>.
+                    <br> <strong>Note:</strong> You can only use supporting features with selected algorithms and pipelines. For more information on algorithms and pipelines that support the use of supporting features, see <a href="autoai-timeseries-details.html">Time series implementation details</a>.</td>
+                </tr>
+                <tr>
+                  <td>Data imputation</td>
+                  <td>Use data imputation to replace missing values in your dataset with substituted values. By enabling this option, you can specify how missing values should be interpolated in your data. To learn more about data imputation, see Data imputation
+                    in AutoAI experiments.</td>
+                </tr>
+                <tr>
+                  <td>Training and holdout data</td>
+                  <td>Choose to reserve some data from your training data set to test the experiment. Alternatively, upload a separate file of holdout data. The holdout data file must match the schema of the training data.</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </section>
+        <section id="section-configuring-time-series-data">
+          <h2 id="configuring-time-series-data">Configuring time series data</h2>
+          <p>To configure the time series data, you can adjust the settings for the time series data that is related to <em>backtesting</em> the experiment. Backtesting provides a means of validating a time-series model by using historical data.</p>
+          <p>In a typical machine learning experiment, you can hold back part of the data randomly to test the resulting model for accuracy. To validate a time series model, you must preserve the time order relationship between the training data and testing
+            data.</p>
+          <p>The following steps describe the backtest method:</p>
+          <ol>
+            <li>The training data length is determined based on the number of backtests, gap length, and holdout size. To learn more about these parameters, see <a href="">Building a time series experiment</a>.</li>
+            <li>Starting from the oldest data, the experiment is trained using the training data.</li>
+            <li>The experiment is evaluated on the first validation data set. If the gap length is non-zero, any data in the gap is skipped over.</li>
+            <li>The training data window is advanced by increasing the holdout size and gap length to form a new training set.</li>
+            <li>A fresh experiment is trained with this new data and evaluated with the next validation data set.</li>
+            <li>The prior two steps are repeated for the remaining backtesting periods.</li>
+          </ol>
+          <p>To adjust the backtesting configuration:</p>
+          <ol>
+            <li>Open <strong>Experiment settings</strong>.</li>
+            <li>From <em>Data sources</em>, click the <strong>Time series</strong>.</li>
+            <li>(Optional): Adjust the settings as shown in the table.</li>
+          </ol>
+          <table>
+            <thead>
+              <tr>
+                <th>Field</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Number of backtests</td>
+                <td>Backtesting is similar to cross-validation for date/time periods. Optionally customize the number of backtests for your experiment.</td>
+              </tr>
+              <tr>
+                <td>Holdout</td>
+                <td>The size of the holdout set and each validation set for backtesting. The validation length can be adjusted by changing the holdout length.</td>
+              </tr>
+              <tr>
+                <td>Gap length</td>
+                <td>The number of time points between the training data set and validation data set for each backtest. When the parameter value is non-zero, the time series values in the gap will not be used to train the experiment or evaluate the current
+                  backtest.</td>
+              </tr>
+            </tbody>
+          </table>
+          <p><img src="images/autoai_uni_exp_settings.png" alt="Experiment settings on Data Source page" style="max-width:90%;height:auto;width:auto"></p>
+          <p>The visualization for the configuration settings illustrates the backtesting flow. The graphic is interactive, so you can manipulate the settings from the graphic or from the configuration fields. For example, by adjusting the gap length, you
+            can see model validation results on earlier time periods of the data without increasing the number of backtests.</p>
+        </section>
+        <section id="section-interpreting-the-experiment-results">
+          <h2 id="interpreting-the-experiment-results">Interpreting the experiment results</h2>
+          <p>After you run your time series experiment, you can examine the resulting pipelines to get insights into the experiment details. Pipelines that use Supporting features are indicated by SUP enhancement tag to distinguish them from pipelines that
+            don’t use these features. To view details:</p>
+          <ul>
+            <li>Hover over nodes on the visualization to get details about the pipelines as they are being generated.</li>
+            <li>Toggle to the Progress Map view to see a different view of the training process. You can hover over each node in the process for details.</li>
+            <li>After the final pipelines are completed and written to the leaderboard, you can click a pipeline to see the performance details.</li>
+            <li>Click <strong>View discarded pipelines</strong> to view the algorithms that are used for the pipelines that are not selected as top performers.</li>
+            <li>Save the experiment code as notebook that you can review.</li>
+            <li>Save a particular pipeline as a notebook that you can review.</li>
+          </ul>
+          <p>Watch this video to see how to run a time series experiment and create a model in a Jupyter notebook using training and holdout data.</p>
+          <div class="note Video disclaimer"><span class="Video disclaimertitle">Video disclaimer:</span> Some minor steps and graphical elements in this video might differ from your platform.</div>
+          <p style="font-size:smaller">This video provides a visual method to learn the concepts and tasks in this documentation.</p>
+          <iframe id="wml-autoai-timeseries-notebook" src="https://video.ibm.com/embed/channel/23952663/video/wml-autoai-timeseries-notebook" onload="executeEmbedScript()" lang="en-US" style="border: 0;" webkitallowfullscreen="" allowfullscreen="" frameborder="no" width="560" height="315" title="Run a time series experiment and create a model in a Jupyter notebook using training and holdout data">
+</iframe>
+          <style type="text/css" keep="true">
+            .collapsibleList li>input+* {
+              display: none;
+            }
+            
+            .collapsibleList li>input:checked+* {
+              display: block;
+            }
+            
+            .collapsibleList li>input {
+              display: none;
+            }
+            
+            .collapsibleList label {
+              cursor: pointer;
+              color: #0062ff;
+              text-decoration: underline;
+            }
+            
+            .scrolling_table_div {
+              max-height: 300px;
+              overflow-y: auto;
+              padding-top: 20px;
+              margin-bottom: 30px;
+            }
+            
+            .transcript_sync_cb {
+              margin: 20px;
+            }
+            
+            .transcript_tbl {
+              border-collapse: collapse;
+              border: none;
+            }
+            
+            .transcript_tbl th,
+            .transcript_tbl td {
+              border: none;
+            }
+            
+            .clickable {
+              cursor: pointer;
+              color: #0062ff;
+              vertical-align: top;
+            }
+            
+            .clickable:hover {
+              text-decoration: underline;
+            }
+          </style>
+          <script keep="true" src="https://unpkg.com/ibm-video-streaming-web-player-api@1.1.0/dist/index.umd.min.js"></script>
+          <script keep="true">
+            var g_viewer = null;
+            var g_b_is_playing = false;
+            var g_b_do_retry = true;
+            var g_highlighted_row_num = -1;
+            var g_org_color = "";
+
+            var g_loop = setInterval(function() {
+              if (g_viewer && document.getElementById("sync_cb_wml-autoai-timeseries-notebook").checked) {
+                synchronize();
+              }
+
+            }, 2 * 1000);
+
+            function executeEmbedScript() {
+              if (g_viewer) {
+                // Chrome is running this function twice??
+                return;
+              }
+
+              g_viewer = PlayerAPI("wml-autoai-timeseries-notebook");
+
+              var url = window.location.href;
+              if (!url.match(/t\=\d+/i)) {
+                return;
+              }
+
+              g_viewer.addListener("playing", function(event_key, b_is_playing) {
+                g_b_is_playing = b_is_playing;
+
+                if (b_is_playing) {
+                  g_b_do_retry = false;
+                }
+
+              });
+
+              document.getElementById("transcript_btn_wml-autoai-timeseries-notebook").click();
+              var seconds = url.replace(/^.*t\=(\d+).*$/i, "$1");
+              synchronize(seconds);
+              jumpToTimeRetry(seconds, 5);
+            }
+
+            function jumpTo(obj) {
+              var seconds = obj.parentNode.id;
+              jumpToTime(seconds);
+            }
+
+            function jumpToTime(seconds) {
+              g_viewer.callMethod("seek", seconds);
+              g_viewer.callMethod("play");
+            }
+
+            function jumpToTimeRetry(seconds, iteration) {
+              if (iteration < 1) {
+                // Give up
+                return;
+              }
+
+              g_viewer.callMethod("seek", seconds);
+              g_viewer.callMethod("play");
+
+              setTimeout(function() {
+                // Wait 1.5 seconds and then try again
+                if (g_b_do_retry) {
+                  jumpToTimeRetry(seconds, iteration - 1);
+                }
+
+              }, 1.5 * 1000);
+            }
+
+            function synchronize(seconds_in) {
+              if (seconds_in) {
+                scrollAndHighlight(seconds_in);
+                return;
+              }
+
+              g_viewer.getProperty("progress", function(seconds) {
+                scrollAndHighlight(seconds);
+
+              });
+
+            }
+
+            function scrollAndHighlight(seconds) {
+              var rows_arr = document.getElementsByClassName("video_tr");
+              for (var i = (rows_arr.length - 1); i >= 0; i--) {
+                if (parseInt(rows_arr[i].id) > seconds) {
+                  continue;
+                }
+
+                if (i == g_highlighted_row_num) {
+                  break;
+                }
+
+                if (-1 !== g_highlighted_row_num) {
+                  unhighlight(rows_arr[g_highlighted_row_num]);
+                }
+
+                g_highlighted_row_num = i;
+                highlight(rows_arr[g_highlighted_row_num]);
+                scrollToRow(rows_arr[g_highlighted_row_num]);
+
+                break;
+              }
+
+            }
+
+            function scrollToRow(row_obj) {
+              var row_top = row_obj.offsetTop;
+              var row_bottom = row_top + row_obj.clientHeight;
+
+              var scroller = document.getElementById("transcript_div_wml-autoai-timeseries-notebook");
+              var scroll_top = scroller.scrollTop;
+              var scroll_bottom = scroll_top + scroller.clientHeight;
+
+              if ((row_top < scroll_top) && (row_bottom > scroll_bottom)) {
+                // Edge case: Row taller than div
+                // Don't do anything
+              } else if ((row_top < scroll_top) || (row_bottom > scroll_bottom)) {
+                scroller.scrollTop = row_top;
+              }
+            }
+
+            function highlight(row_obj) {
+              var obj_arr = row_obj.childNodes;
+              for (var i = 0; i < obj_arr.length; i++) {
+                if ("TD" == obj_arr[i].nodeName) {
+                  g_org_color = obj_arr[i].style.backgroundColor;
+                  obj_arr[i].style.backgroundColor = "#c6c6c6";
+                }
+              }
+            }
+
+            function unhighlight(row_obj) {
+              var obj_arr = row_obj.childNodes;
+              for (var i = 0; i < obj_arr.length; i++) {
+                if ("TD" == obj_arr[i].nodeName) {
+                  obj_arr[i].style.backgroundColor = g_org_color;
+                }
+              }
+            }
+
+            function toggleHighlighting() {
+              if (!document.getElementById("sync_cb_wml-autoai-timeseries-notebook").checked && (-1 !== g_highlighted_row_num)) {
+                var rows_arr = document.getElementsByClassName("video_tr");
+                unhighlight(rows_arr[g_highlighted_row_num]);
+                g_highlighted_row_num = -1;
+              }
+            }
+          </script>
+        </section>
+        <section id="section-next-steps">
+          <h2 id="next-steps">Next steps</h2>
+          <ul>
+            <li>Follow a step-by-step tutorial to <a href="autoai-ts-uni-tutorial.html">train a univariate time series model to predict minimum temperatures by using sample data</a>.</li>
+            <li>Follow a step-by-step tutorial to <a href="autoai-ts-tut-sup.html">train a time series experiment with supporting features</a>.</li>
+            <li>Learn about <a href="autoai-ts-score.html">scoring a deployed time series model</a>.</li>
+            <li>Learn about using the <a href="https://lukasz-cmielowski.medium.com/predicting-covid19-cases-with-autoai-time-series-api-f6793acee48d" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">API for AutoAI time series experiments</a>.</li>
+          </ul>
+        </section>
+        <section id="section-additional-resources">
+          <h2 id="additional-resources">Additional resources</h2>
+          <ul>
+            <li>For an introduction to forecasting with AutoAI time series experiments, see the blog post <a href="https://medium.com/ibm-data-ai/right-on-time-series-introducing-watson-studios-autoai-time-series-5175dbe66154" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Right on time(series): Introducing Watson Studio’s AutoAI Time Series</a>.</li>
+            <li>For more information about creating a time series experiment, see this blog post about <a href="https://medium.com/ibm-data-ai/right-on-time-series-introducing-watson-studios-autoai-time-series-5175dbe66154" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">creating a new time series experiment</a>.</li>
+            <li>Read a blog post about <a href="https://medium.com/ibm-data-ai/improve-autoai-time-series-forecasts-with-supporting-features-using-ibm-cloud-pak-for-data-as-a-ff24cc85f6b8" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">adding supporting features to a time series experiment</a>.</li>
+            <li>Review a <a href="https://github.com/IBM/watson-machine-learning-samples/blob/master/cloud/notebooks/python_sdk/experiments/autoai/Use%20AutoAI%20and%20timeseries%20data%20with%20supporting%20features%20to%20predict%20PM2.5.ipynb" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">sample notebook</a> for a time series experiment with supporting features.</li>
+            <li>Read a blog post about <a href="https://medium.com/ibm-data-ai/forecasting-pm2-5-using-autoai-time-series-api-with-supporting-features-12bbad18cb36" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">adding supporting features to a time series experiment using the API</a>.</li>
+          </ul>
+        </section>
+        <section id="section-next-steps-2">
+          <h2 id="next-steps-2">Next steps</h2>
+          <ul>
+            <li><a href="autoai-ts-uni-tutorial.html">Tutorial: AutoAI univariate time series experiment</a></li>
+            <li><a href="autoai-ts-tut-sup.html">Tutorial: AutoAI supporting features time series experiment</a></li>
+            <li><a href="autoai-timeseries-details.html">Time series experiment implementation details</a></li>
+            <li><a href="autoai-ts-score.html">Scoring a time series model</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="autoai-overview.html">AutoAI overview</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

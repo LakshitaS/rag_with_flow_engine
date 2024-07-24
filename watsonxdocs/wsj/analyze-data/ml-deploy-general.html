@@ -1,0 +1,139 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="For proper deployment, you must set up a deployment space and then select and configure a specific deployment type. After you deploy assets, you can manage and update them to make sure they perform well and to monitor their accuracy.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Managing predictive deployments</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=assets-deploying-machine-learning"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="managing-predictive-deployments" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-managing-predictive-deployments">
+        <h1 id="managing-predictive-deployments">Managing predictive deployments</h1>
+        <p>For proper deployment, you must set up a deployment space and then select and configure a specific deployment type. After you deploy assets, you can manage and update them to make sure they perform well and to monitor their accuracy.</p>
+        <p>To be able to deploy assets from a space, you must have a machine learning service instance that is provisioned and associated with that space.</p>
+        <p>Online and batch deployments provide simple ways to create an online scoring endpoint or do batch scoring with your models.</p>
+        <p>If you want to implement a custom logic:</p>
+        <ul>
+          <li>Create a Python function to use for creating your online endpoint</li>
+          <li>Write a notebook or script for batch scoring</li>
+        </ul>
+        <div class="note note"><span class="notetitle">Note:</span> If you create a notebook or a script to perform batch scoring such an asset runs as a platform job, not as a batch deployment.</div>
+        <section id="section-deployable">
+          <h3 id="deployable">Deployable assets</h3>
+          <p>Following is the list of assets that you can deploy from a Watson Machine Learning space, with information on applicable deployment types:</p>
+          <table>
+            <caption caption-side="top">List of assets that you can deploy</caption>
+            <thead>
+              <tr>
+                <th>Asset type</th>
+                <th>Batch deployment</th>
+                <th>Online deployment</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Functions</td>
+                <td>Yes</td>
+                <td>Yes</td>
+              </tr>
+              <tr>
+                <td>Models</td>
+                <td>Yes</td>
+                <td>Yes</td>
+              </tr>
+              <tr>
+                <td>Scripts</td>
+                <td>Yes</td>
+                <td>No</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>An R Shiny app is the only asset type that is supported for web app deployments.</p>
+          <p><strong>Notes:</strong><br></p>
+          <ul>
+            <li>A deployment job is a way of running a batch deployment, or a self-contained asset like a flow in Watson Machine Learning. You can select the input and output for your job and choose to run it manually or on a schedule. For more information,
+              see <a href="../analyze-data/create-jobs.html">Creating a deployment job</a>.</li>
+            <li>Notebooks and flows use notebook environments. You can run them in a deployment space, but they are not deployable.</li>
+          </ul>
+          <p>For more information, see:</p>
+          <ul>
+            <li><a href="../analyze-data/deploy-online.html">Creating online deployments</a></li>
+            <li><a href="../analyze-data/deploy-batch-details.html">Creating batch deployments</a></li>
+            <li><a href="../analyze-data/ml-deploy-py-function.html">Deploying Python functions</a></li>
+            <li><a href="../analyze-data/deploy-script.html">Deploying scripts</a></li>
+          </ul>
+          <p>After you deploy assets, you can manage and update them to make sure they perform well and to monitor their accuracy. Some ways to manage or update a deployment are as follows:</p>
+          <ul>
+            <li>
+              <p><a href="../analyze-data/deploy-jobs.html">Manage deployment jobs</a>. After you create one or more jobs, you can view and manage them from the <strong>Jobs</strong> tab of your deployment space.</p>
+            </li>
+            <li>
+              <p><a href="../analyze-data/ml-deploy-update.html">Update a deployment</a>. For example, you can replace a model with a better-performing version without having to create a new deployment.</p>
+            </li>
+            <li>
+              <p><a href="../analyze-data/ml-deploy-scaling.html">Scale a deployment</a> to increase availability and throughput by creating replicas of the deployment.</p>
+            </li>
+            <li>
+              <p><a href="../analyze-data/ml-deploy-delete.html">Delete a deployment</a> to remove a deployment and free up resources.</p>
+            </li>
+          </ul>
+        </section>
+        <section id="section-configuring-api-gateways-to-provide-stable-endpoints">
+          <h2 id="configuring-api-gateways-to-provide-stable-endpoints">Configuring API gateways to provide stable endpoints</h2>
+          <p>Watson Machine Learning provides stable endpoints to prevent downtime. However, you might experience downtime if you move to a new Cloud Pak for Data instance or add a new instance for increased availability.</p>
+          <p>API gateways provide a stable URL that can be used with your Watson Machine Learning REST API endpoint. You can use an API gateway (available in Cloud Pak for Integration) with your deployment endpoints in the following cases:</p>
+          <ul>
+            <li>If you have more than one instance of Cloud Pak for Data in a high-availability configuration, and one of the available instances fail. In this case, you can use an API gateway to switch automatically to another instance and prevent complete
+              failure.</li>
+            <li>If you have more than one application that uses the same endpoint, and the deployment is accidentally deleted. In this case, you can update the endpoint in the API gateway to ensure that applications continue to use it.</li>
+          </ul>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="../analyze-data/ml-space-add-assets-all.html">Full list of asset types that can be added to a deployment space</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="ml-overview.html">Deploying assets with Watson Machine Learning</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Inbound firewall access allows IBM watsonx to connect to Redshift on AWS through the firewall. You need inbound firewall access to work with your data stored in Redshift.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Firewall access for AWS Redshift</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=access-firewall-redshift"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="firewall-access-for-aws-redshift" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-firewall-access-for-aws-redshift">
+        <h1 id="firewall-access-for-aws-redshift">Firewall access for AWS Redshift</h1>
+        <p>Inbound firewall access allows IBM watsonx to connect to Redshift on AWS through the firewall. You need inbound firewall access to work with your data stored in Redshift.</p>
+        <p>To connect to Redshift from IBM watsonx, you configure inbound access through the Redshift firewall by entering the IP ranges for IBM watsonx into the inbound firewall rules (also called ingress rules). Inbound access through the firewall is configurable
+          if Redshift resides on a public subnet. If Redshift resides on a private subnet, then no access is possible.</p>
+        <p>Follow these steps to configure inbound firewall access to AWS Redshift:</p>
+        <ol>
+          <li>
+            <p>Go to your provisioned Amazon Redshift cluster.</p>
+          </li>
+          <li>
+            <p>Select <strong>Properties</strong> and then scroll down to <strong>Network and security settings</strong>.</p>
+          </li>
+          <li>
+            <p>Click the <strong>VPC security group</strong>.</p>
+            <p><img src="images/int-aws-active.png" alt="AWS VPC security group" style="max-width:90%;height:auto;width:auto"></p>
+          </li>
+          <li>
+            <p>Edit the active/default security group.</p>
+            <p><img src="images/int-aws-vpc.png" alt="AWS active security group" style="max-width:90%;height:auto;width:auto"></p>
+          </li>
+          <li>
+            <p>Under <strong>Inbound rules</strong>, change the port range to 5439 to specify the Redshift port. Then select <strong>Edit inbound rules &gt; Add rule</strong>.</p>
+            <p><img src="images/int-aws-IPs.png" alt="Edit inbound rules" style="max-width:90%;height:auto;width:auto"></p>
+          </li>
+          <li>
+            <p>From IBM watsonx, go to the <strong>Administration &gt; Cloud integrations</strong> page.</p>
+          </li>
+          <li>
+            <p>Click the <strong>Firewall configuration</strong> link to view the list of IP ranges used by IBM watsonx. IP addresses can be viewed in either CIDR notation or as Start and End addresses.</p>
+          </li>
+          <li>
+            <p>Copy each of the IP ranges listed and paste them into the <strong>Source</strong> field for inbound firewall rules.</p>
+          </li>
+        </ol>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="https://docs.aws.amazon.com/redshift/latest/mgmt/managing-cluster-cross-vpc.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Working with Redshift-managed VPC endpoints in Amazon Redshift</a></li>
+          </ul>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

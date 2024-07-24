@@ -1,0 +1,140 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can share assets in a project with others and copy a project by exporting them as a ZIP file to your desktop. The project readme file is added to the exported ZIP file by default.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Exporting a project</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=projects-exporting-project"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="exporting-a-project" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-exporting-a-project">
+        <h1 id="exporting-a-project">Exporting a project</h1>
+        <p>You can share assets in a project with others and copy a project by exporting them as a ZIP file to your desktop. The project readme file is added to the exported ZIP file by default.</p>
+        <section id="section-requirements-and-restrictions">
+          <h2 id="requirements-and-restrictions">Requirements and restrictions</h2>
+          <dl>
+            <dt><strong>Required role</strong></dt>
+            <dd>You need <strong>Admin</strong> or <strong>Editor</strong> role in the project to export a project.</dd>
+            <dt><strong>Restrictions</strong></dt>
+            <dd>
+              <ul>
+                <li>You cannot export assets larger than 500 MB</li>
+              </ul>
+            </dd>
+            <dd>
+              <ul>
+                <li>If your project is marked as sensitive, you can't export data assets, connections or connected data from the project.</li>
+              </ul>
+            </dd>
+            <dd>
+              <ul>
+                <li>Be mindful when selecting assets to always also include the dependencies of those assets, for example the data assets or connections for a data flow, a notebook, connected data, or jobs. There is no check for dependencies. If you don't
+                  include the dependencies, subsequent project imports do not work.</li>
+              </ul>
+            </dd>
+            <dd>
+              <ul>
+                <li>You can only export and share assets across projects created in watsonx.ai. You can't export a project from Cloud Pak for Data as a Service and import it into watsonx.ai, or the other way around. You can however, move projects between
+                  Cloud Pak for Data as a Service and watsonx.ai. See <a href="switch-platform.html">Switching the platform for a project</a>.</li>
+              </ul>
+            </dd>
+            <dd>
+              <ul>
+                <li>Exporting a project from one region and importing the assets to a project or space in another region can result in an error creating the assets. The error message <code>An unexpected response was returned when creating asset</code> is
+                  a symptom of this restriction.</li>
+              </ul>
+            </dd>
+            <dd>
+              <ul>
+                <li>Exporting a project is not available for all Watson Studio plans. See <a href="../getting-started/ws-plans.html">Watson Studio plans</a>.</li>
+              </ul>
+            </dd>
+          </dl>
+        </section>
+        <section id="section-export-desktop">
+          <h2 id="export-desktop">Exporting a project to desktop</h2>
+          <p>Exporting a project packs the project assets that you select into a single ZIP file that can be shared like any other file.</p>
+          <p>To export project assets to desktop:</p>
+          <ol>
+            <li>
+              <p>Open the project you want to export assets from.</p>
+            </li>
+            <li>
+              <p>Check whether the assets that you include in your export, for example notebooks or connections, don't contain credentials or other sensitive information that you don't want to share. You should remove this information before you begin the
+                export. Only private connection credentials are removed.</p>
+            </li>
+            <li>
+              <p>Optional. Add information to the readme on the <strong>Overview</strong> page of your project about the assets that you include in the export. For example, you can give a brief description of the analytics use case of the added assets and
+                the data analysis methods that are used.</p>
+            </li>
+            <li>
+              <p>Click <img src="images/export-proj.png" alt=" the Export to desktop icon" height="20" style="vertical-align:text-bottom"> from the project toolbar.</p>
+            </li>
+            <li>
+              <p>Select the assets to add. You can filter by asset type or customize the project export settings by selecting preferences (the settings icon to the right of the window title) which are applied each time you export the project.</p>
+            </li>
+            <li>
+              <p>Optional: Change the name of the project export file.</p>
+            </li>
+            <li>
+              <p>Supply a password if you want to export connections that have shared credentials. Note that this password must be provided to decrypt these credentials on project import.</p>
+            </li>
+            <li>
+              <p>Click <strong>Export</strong>. Do not leave the page while the export is running.</p>
+              <p>When you export to desktop, the file is saved to the <code>Downloads</code> folder by default. If a ZIP file with the same name already exists, the existing file isn't overwritten.</p>
+              <p>Ensure that your browser settings download the ZIP file to the desktop as a .zip file and not as a folder. Compressing this folder to enable project import leads to an error. Note also that you cannot manually add other assets to an exported
+                project ZIP file on your desktop.</p>
+              <p>The status of a project export is tracked on the project's <strong>Overview</strong> page.</p>
+            </li>
+          </ol>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="admin-project.html">Administering a project</a></li>
+            <li><a href="import-project.html">Importing a project</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="admin-project.html">Administering projects</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

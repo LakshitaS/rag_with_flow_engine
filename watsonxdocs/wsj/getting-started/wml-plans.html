@@ -1,0 +1,494 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You use Watson Machine Learning resources, which are measured in capacity unit hours (CUH), when you train AutoAI models, run machine learning models, or score deployed models. You use Watson Machine Learning resources, measured in resource units (RU), when you run inferencing services with foundation models. This topic describes the various plans you can choose, what services are included, and how computing resources are calculated.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Watson Machine Learning plans and compute usage</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=learning-watson-machine-plans"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="watson-machine-learning-plans-and-compute-usage" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-watson-machine-learning-plans-and-compute-usage">
+        <h1 id="watson-machine-learning-plans-and-compute-usage">Watson Machine Learning plans and compute usage</h1>
+        <p>You use Watson Machine Learning resources, which are measured in capacity unit hours (CUH), when you train AutoAI models, run machine learning models, or score deployed models. You use Watson Machine Learning resources, measured in resource units
+          (RU), when you run inferencing services with foundation models. This topic describes the various plans you can choose, what services are included, and how computing resources are calculated.</p>
+        <section id="section-watson-machine-learning-in-cloud-pak-for-data-as-a-service-and-watsonx">
+          <h2 id="watson-machine-learning-in-cloud-pak-for-data-as-a-service-and-watsonx">Watson Machine Learning in Cloud Pak for Data as a Service and watsonx</h2>
+          <div class="note important"><span class="importanttitle">Important:</span>
+            <md-block>
+              <p>The Watson Machine Learning plan includes details for watsonx.ai. Watsonx.ai is a studio of integrated tools for working with generative AI, powered by foundation models, and machine learning models. If you are using Cloud Pak for Data as
+                a Service, then the details for working with foundation models and metering prompt inferencing using Resource Units do not apply to your plan.</p>
+            </md-block>
+          </div>
+          <p>For more information on watsonx.ai, see:</p>
+          <ul>
+            <li><a href="overview-wx.html">Overview of IBM watsonx.ai</a></li>
+            <li><a href="compare-platforms.html">Comparison of IBM watsonx and Cloud Pak for Data as a Service</a></li>
+            <li><a href="signup-wx.html">Signing up for IBM watsonx.ai</a></li>
+          </ul>
+          <p>If you are enabled for both watsonx and Cloud Pak for Data as a Service, you can switch between the two platforms.</p>
+        </section>
+        <section id="section-choosing-a-watson-machine-learning-plan">
+          <h2 id="choosing-a-watson-machine-learning-plan">Choosing a Watson Machine Learning plan</h2>
+          <p>View a comparison of plans and consider the details to choose a plan that fits your needs.</p>
+          <ul>
+            <li><a href="#wml-plan">Watson Machine Learning plans</a></li>
+            <li><a href="#wml-meters">Capacity Unit Hours (CUH), tokens, and Resource Units (RU)</a></li>
+            <li><a href="#wml-plan-details">Watson Machine Learning plan details</a></li>
+            <li><a href="#cuh-metering">Capacity Unit Hours metering</a></li>
+            <li><a href="#wml-track-usage">Monitoring CUH and RU usage</a></li>
+          </ul>
+          <section id="section-wml-plan">
+            <h3 id="wml-plan">Watson Machine Learning plans</h3>
+            <p>Watson Machine Learning plans govern how you are billed for models you train and deploy with Watson Machine Learning and for prompts you use with foundation models. Choose a plan based on your needs:</p>
+            <ul>
+              <li><strong>Lite</strong> is a free plan with limited capacity. Choose this plan if you are evaluating Watson Machine Learning and want to try out the capabilities. The Lite plan does not support running a foundation model tuning experiment
+                on watsonx.</li>
+              <li><strong>Essentials</strong> is a pay-as-you-go plan that gives you the flexibility to build, deploy, and manage models to match your needs.</li>
+              <li><strong>Standard</strong> is a high-capacity enterprise plan that is designed to support all of an organization's machine learning needs. Capacity unit hours are provided at a flat rate, while resource unit consumption is pay-as-you-go.</li>
+            </ul>
+            <p>For plan details and pricing, see <a href="https://cloud.ibm.com/catalog/services/watson-machine-learning" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud Machine Learning</a>.</p>
+          </section>
+          <section id="section-wml-meters">
+            <h3 id="wml-meters">Capacity Unit Hours (CUH), tokens, and Resource Units (RU)</h3>
+            <p>For metering and billing purposes, machine learning models and deployments or foundation models are measured with these units:</p>
+            <ul>
+              <li>
+                <p><em>Capacity Unit Hours</em> (CUH) measure compute resource consumption per unit hour for usage and billing purposes. CUH measures all Watson Machine Learning activity except for Foundation Model inferencing.</p>
+              </li>
+              <li>
+                <p><em>Resource Units</em> (RU) measure foundation model inferencing consumption. Inferencing is the process of calling the foundation model to generate output in response to a prompt. Each RU equals 1,000 <em>tokens</em>. A token is a basic
+                  unit of text (typically 4 characters or 0.75 words) used in the input or output for a foundation model prompt. Choose a plan that corresponds to your usage requirements. For details on tokens, see <a href="../analyze-data/fm-tokens.html">Tokens and tokenization</a>.</p>
+              </li>
+              <li>
+                <p>A <em>rate limit</em> monitors and restricts the number of inferencing requests per second processed for foundation models for a given Watson Machine Learning plan instance. The rate limit is higher for paid plans than for the free Lite
+                  plan.</p>
+              </li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-wml-plan-details">
+          <h2 id="wml-plan-details">Watson Machine Learning plan details</h2>
+          <p>The Lite plan provides enough free resources for you to evaluate the capabilities of watsonx.ai. You can then choose a paid plan that matches the needs of your organization, based on plan features and capacity.</p>
+          <table>
+            <caption caption-side="top">Table 1. Plan details</caption>
+            <thead>
+              <tr>
+                <th>Plan features</th>
+                <th>Lite</th>
+                <th>Essentials</th>
+                <th>Standard</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Machine Learning usage in CUH</td>
+                <td>20 CUH per month</td>
+                <td>CUH billing based on CUH rate multiplied by hours of consumption</td>
+                <td>2500 CUH per month</td>
+              </tr>
+              <tr>
+                <td>Foundation model inferencing in tokens or Resource Units (RU)</td>
+                <td>50,000 tokens per month</td>
+                <td>Billed for usage (1000 tokens = 1 RU)</td>
+                <td>Billed for usage (1000 tokens = 1 RU)</td>
+              </tr>
+              <tr>
+                <td>Max parallel Decision Optimization batch jobs per deployment</td>
+                <td>2</td>
+                <td>5</td>
+                <td>100</td>
+              </tr>
+              <tr>
+                <td>Deployment jobs retained per space</td>
+                <td>100</td>
+                <td>1000</td>
+                <td>3000</td>
+              </tr>
+              <tr>
+                <td>Deployment time to idle</td>
+                <td>1 day</td>
+                <td>3 days</td>
+                <td>3 days</td>
+              </tr>
+              <tr>
+                <td>HIPAA support</td>
+                <td>NA</td>
+                <td>NA</td>
+                <td>Dallas region only<br>Must be enabled in your <a href="security.html#hipaa">IBM Cloud account</a></td>
+              </tr>
+              <tr>
+                <td>Rate limit per plan ID</td>
+                <td>2 inference requests per second</td>
+                <td>8 inference requests per second</td>
+                <td>8 inference requests per second</td>
+              </tr>
+            </tbody>
+          </table>
+          <br>
+          <div class="note Note"><span class="Notetitle">Note:</span> If you upgrade from Essentials to Standard, you cannot revert to an Essentials plan. You must create a new plan.</div>
+          <p>For all plans:</p>
+          <ul>
+            <li>Foundational Model inferencing Resource Units (RU) can be used for Prompt Lab inferencing, including input and output. That is, the prompt you enter for input is counted in addition to the generated output. (watsonx only)</li>
+            <li>Foundation model inferencing is available only for the Dallas, Frankfurt, and Tokyo data centers. (watsonx only)</li>
+            <li>Foundation model tuning in the Tuning Studio is available only for the Dallas, Frankfurt, and Tokyo data centers. (watsonx only)</li>
+            <li>Three model classes determine the RU rate. The price per RU differs according to model class. (watsonx only)</li>
+            <li>Capacity-unit-hour (CUH) rate consumption for training is based on training tool, hardware specification, and runtime environment.</li>
+            <li>Capacity-unit-hour (CUH) rate consumption for deployment is based on deployment type, hardware specification, and software specification.</li>
+            <li>Watson Machine Learning places limits on the number of <a href="../analyze-data/deploy-batch-details.html">deployment jobs</a> retained for each single <a href="../analyze-data/ml-spaces_local.html">deployment space</a>. If you exceed your
+              limit, you cannot create new deployment jobs until you delete existing jobs or upgrade your plan. By default, jobs metadata will be auto-delete after 30 days. You can override this value when creating a job. See <a href="../analyze-data/deploy-jobs.html">Managing jobs</a>.</li>
+            <li>Time to idle refers to the amount of time to consider a deployment active between scoring requests. If a deployment does not receive scoring requests for a given duration, it is treated as inactive, or idle, and billing stops for all frameworks
+              other than SPSS.</li>
+            <li>A plan allows for at least the stated rate limit, and the actual rate limit can be higher than the stated limit. For example, the Lite plan might process more than 2 requests per second without issuing an error. If you have a paid plan and
+              believe you are reaching the rate limit in error, contact IBM Support for assistance.</li>
+          </ul>
+          <p>For plan details and pricing, see <a href="https://cloud.ibm.com/catalog/services/watson-machine-learning" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud Machine Learning</a>.</p>
+        </section>
+        <section id="section-ru-metering">
+          <h2 id="ru-metering">Resource unit metering (watsonx)</h2>
+          <p>Resource Units billing is based on the rate of the billing class for the foundation model multipled by the number of Resource Units (RU). A Resource Unit is equal to 1000 tokens from the input and output of foundation model inferencing. The
+            three foundation model billing classes have different RU rates. Embeddings models that vectorize text strings are billed at a different rate.</p>
+          <section id="section-resource-unit-billing-rates-for-foundation-models">
+            <h3 id="resource-unit-billing-rates-for-foundation-models">Resource unit billing rates for foundation models</h3>
+            <table>
+              <caption caption-side="top">Table 2. Foundation model billing details</caption>
+              <thead>
+                <tr>
+                  <th>Model</th>
+                  <th>Origin</th>
+                  <th>Billing class</th>
+                  <th>Price per RU</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>granite-13b-instruct-v2</td>
+                  <td>IBM</td>
+                  <td>Class 1</td>
+                  <td>$0.0006 per RU</td>
+                </tr>
+                <tr>
+                  <td>granite-13b-chat-v2</td>
+                  <td>IBM</td>
+                  <td>Class 1</td>
+                  <td>$0.0006 per RU</td>
+                </tr>
+                <tr>
+                  <td>granite-8b-japanese</td>
+                  <td>IBM</td>
+                  <td>Class 1</td>
+                  <td>$0.0006 per RU</td>
+                </tr>
+                <tr>
+                  <td>granite-20b-multilingual</td>
+                  <td>IBM</td>
+                  <td>Class 1</td>
+                  <td>$0.0006 per RU</td>
+                </tr>
+                <tr>
+                  <td>codellama-34b-instruct-hf</td>
+                  <td>Open source</td>
+                  <td>Class 2</td>
+                  <td>$0.0018 per RU</td>
+                </tr>
+                <tr>
+                  <td>elyza-japanese-llama-2-7b-instruct</td>
+                  <td>Open source</td>
+                  <td>Class 2</td>
+                  <td>$0.0018 per RU</td>
+                </tr>
+                <tr>
+                  <td>flan-t5-xl-3b</td>
+                  <td>Open source</td>
+                  <td>Class 1</td>
+                  <td>$0.0006 per RU</td>
+                </tr>
+                <tr>
+                  <td>flan-t5-xxl-11b</td>
+                  <td>Open source</td>
+                  <td>Class 2</td>
+                  <td>$0.0018 per RU</td>
+                </tr>
+                <tr>
+                  <td>flan-ul2-20b</td>
+                  <td>Open source</td>
+                  <td>Class 3</td>
+                  <td>$0.0050 per RU</td>
+                </tr>
+                <tr>
+                  <td>jais-13b-chat</td>
+                  <td>Open source</td>
+                  <td>Class 2</td>
+                  <td>$0.0018 per RU</td>
+                </tr>
+                <tr>
+                  <td>llama-3-8b-instruct</td>
+                  <td>Open source</td>
+                  <td>Class 1</td>
+                  <td>$0.0006 per RU</td>
+                </tr>
+                <tr>
+                  <td>llama-3-70b-instruct</td>
+                  <td>Open source</td>
+                  <td>Class 2</td>
+                  <td>$0.0018 per RU</td>
+                </tr>
+                <tr>
+                  <td>llama-2-13b-chat</td>
+                  <td>Open source</td>
+                  <td>Class 1</td>
+                  <td>$0.0006 per RU</td>
+                </tr>
+                <tr>
+                  <td>llama-2-70b-chat</td>
+                  <td>Open source</td>
+                  <td>Class 2</td>
+                  <td>$0.0018 per RU</td>
+                </tr>
+                <tr>
+                  <td>llama2-13b-dpo-v7</td>
+                  <td>Open source</td>
+                  <td>Class 2</td>
+                  <td>$0.0018 per RU</td>
+                </tr>
+                <tr>
+                  <td>mixtral-8x7b-instruct-v01</td>
+                  <td>Open source</td>
+                  <td>Class 1</td>
+                  <td>$0.0006 per RU</td>
+                </tr>
+                <tr>
+                  <td>mixtral-8x7b-instruct-v01-q</td>
+                  <td>Open source</td>
+                  <td>Class 1</td>
+                  <td>$0.0006 per RU</td>
+                </tr>
+                <tr>
+                  <td>mt0-xxl-13b</td>
+                  <td>Open source</td>
+                  <td>Class 2</td>
+                  <td>$0.0018 per RU</td>
+                </tr>
+                <tr>
+                  <td>starcoder-15.5b</td>
+                  <td>Open source</td>
+                  <td>Class 2</td>
+                  <td>$0.0018 per RU</td>
+                </tr>
+                <tr>
+                  <td>merlinite-7b</td>
+                  <td>Open source</td>
+                  <td>Class 1</td>
+                  <td>$0.0006 per RU</td>
+                </tr>
+                <tr>
+                  <td>granite-7b-lab</td>
+                  <td>IBM</td>
+                  <td>Class 1</td>
+                  <td>$0.0006 per RU</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="section-resource-unit-billing-rates-for-embedding-models">
+            <h3 id="resource-unit-billing-rates-for-embedding-models">Resource unit billing rates for embedding models</h3>
+            <p>Embedding models transform sentences into vectors to more accurately compare and retrieve similar text.</p>
+            <table>
+              <caption caption-side="top">Table 3. Embedding model billing details</caption>
+              <thead>
+                <tr>
+                  <th>Model</th>
+                  <th>Origin</th>
+                  <th>Billing class</th>
+                  <th>Price per RU</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>slate.125m.english.rtrvr</td>
+                  <td>IBM</td>
+                  <td>Class C1</td>
+                  <td>$0.0001 per RU</td>
+                </tr>
+                <tr>
+                  <td>slate.30m.english.rtrvr</td>
+                  <td>IBM</td>
+                  <td>Class C1</td>
+                  <td>$0.0001 per RU</td>
+                </tr>
+              </tbody>
+            </table>
+            <br>
+          </section>
+          <section id="section-notes-on-generative-ai-models">
+            <h3 id="notes-on-generative-ai-models">Notes on generative AI models</h3>
+            <ul>
+              <li>A prompt tuned foundation model is assigned to the same billing class as the underlying foundation model. For example, if you prompt tune a class 1 foundation model, the cost for inferencing the tuned model is measured at the class 1 billing
+                rate. For information about tuned foundation models, see <a href="../analyze-data/fm-tuning-studio.html">Tuning Studio</a>.</li>
+              <li>For more information about each model, see <a href="../analyze-data/fm-models.html">Supported foundation models</a>.</li>
+              <li>For information about regional support for each model, see <a href="regional-datactr.html#data-centers">Regional availability for foundation models</a>.</li>
+            </ul>
+            <div class="note note"><span class="notetitle">Note:</span> You do not consume tokens when you use the generative AI search and answer app for this documentation site.</div>
+          </section>
+        </section>
+        <section id="section-cuh-metering">
+          <h2 id="cuh-metering">Capacity Unit Hours metering (watsonx and Watson Machine Learning)</h2>
+          <p>CUH consumption is affected by the computational hardware resources you apply for a task as well as other factors such as the software specification and model type.</p>
+          <section id="section-cuh-consumption-rates-by-asset-type">
+            <h3 id="cuh-consumption-rates-by-asset-type">CUH consumption rates by asset type</h3>
+            <table>
+              <caption caption-side="top">Table 3. CUH consumption rates by asset type</caption>
+              <thead>
+                <tr>
+                  <th>Asset type</th>
+                  <th>Capacity type</th>
+                  <th>Capacity units per hour</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>AutoAI experiment</td>
+                  <td>8 vCPU and 32 GB RAM</td>
+                  <td>20</td>
+                </tr>
+                <tr>
+                  <td>Decision Optimization training</td>
+                  <td>2 vCPU and 8 GB RAM<br>4 vCPU and 16 GB RAM<br>8 vCPU and 32 GB RAM<br>16 vCPU and 64 GB RAM</td>
+                  <td>6<br>7<br>9<br>13</td>
+                </tr>
+                <tr>
+                  <td>Decision Optimization deployments</td>
+                  <td>2 vCPU and 8 GB RAM<br>4 vCPU and 16 GB RAM<br>8 vCPU and 32 GB RAM<br>16 vCPU and 64 GB RAM</td>
+                  <td>30<br>40<br>50<br>60</td>
+                </tr>
+                <tr>
+                  <td>Machine Learning models<br> (training, evaluating, or scoring)</td>
+                  <td>1 vCPU and 4 GB RAM<br>2 vCPU and 8 GB RAM<br>4 vCPU and 16 GB RAM<br>8 vCPU and 32 GB RAM<br>16 vCPU and 64 GB RAM</td>
+                  <td>0.5<br>1<br>2<br>4<br>8</td>
+                </tr>
+                <tr>
+                  <td>Foundation model tuning experiment <br>(watsonx only)</td>
+                  <td>NVIDIA A100 80GB GPU</td>
+                  <td>43</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="section-cuh-consumption-by-deployment-and-framework-type">
+            <h3 id="cuh-consumption-by-deployment-and-framework-type">CUH consumption by deployment and framework type</h3>
+            <p>CUH consumption for deployments is calculated using these formulas:</p>
+            <table>
+              <caption caption-side="top">Table 4. CUH consumption by deployment and framework type</caption>
+              <thead>
+                <tr>
+                  <th>Deployment type</th>
+                  <th>Framework</th>
+                  <th>CUH calculation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Online</td>
+                  <td>AutoAI, Python functions and scripts, SPSS, Scikit-Learn custom libraries, Tensorflow, RShiny</td>
+                  <td>deployment_active_duration * no_of_nodes * CUH_rate_for_capacity_type_framework</td>
+                </tr>
+                <tr>
+                  <td>Online</td>
+                  <td>Spark, PMML, Scikit-Learn, Pytorch, XGBoost</td>
+                  <td>score_duration_in_seconds * no_of_nodes * CUH_rate_for_capacity_type_framework</td>
+                </tr>
+                <tr>
+                  <td>Batch</td>
+                  <td>all frameworks</td>
+                  <td>job_duration_in_seconds * no_of_nodes * CUH_rate_for_capacity_type_framework</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </section>
+        <section id="section-wml-track-usage">
+          <h2 id="wml-track-usage">Monitoring resource usage</h2>
+          <p>You can track CUH or RU usage for assets you own or collaborate on in a project or space. If you are an account owner or administrator, you can track CUH or RU usage for an entire account.</p>
+          <section id="section-tracking-cuh-or-ru-usage-in-a-project">
+            <h3 id="tracking-cuh-or-ru-usage-in-a-project">Tracking CUH or RU usage in a project</h3>
+            <p>To monitor CUH or RU consumption in a project:</p>
+            <ol>
+              <li>
+                <p>Navigate to the <strong>Manage</strong> tab for a project.</p>
+              </li>
+              <li>
+                <p>Click <strong>Resources</strong> to review a summary of resource consumption for assets in the project or space, or to review resource consumption details for particular assets.</p>
+                <p><img src="images/Resource-tracking.png" alt="Tracking resources in a project" width="70%"></p>
+              </li>
+            </ol>
+          </section>
+          <section id="section-tracking-cuh-usage-for-an-account">
+            <h3 id="tracking-cuh-usage-for-an-account">Tracking CUH usage for an account</h3>
+            <p>You can track the runtime usage for an account on the <strong>Environment Runtimes</strong> page if you are the IBM Cloud account owner or administrator or the Watson Machine Learning service owner. For details, see <a href="../admin/monitor-resources.html">Monitoring resources</a>.</p>
+          </section>
+          <section id="section-track-notebook">
+            <h3 id="track-notebook">Tracking CUH consumption for machine learning in a notebook</h3>
+            <p>To calculate capacity unit hours in a notebook, use:</p>
+            <pre class="codeblock"><code class="hljs">CP =  client.service_instance.get_details()
+CUH = CUH["entity"]["usage"]["capacity_units"]["current"]/(3600*1000)
+print(CUH)
+</code></pre>
+            <p>For example:</p>
+            <pre class="codeblock"><code class="hljs">'capacity_units': {'current': 19773430}
+
+19773430/(3600*1000)
+</code></pre>
+            <p>returns 5.49 CUH</p>
+            <p>For details, see the Service Instances section of the <a href="https://cloud.ibm.com/apidocs/machine-learning" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Watson Machine Learning API</a> documentation.</p>
+          </section>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="../analyze-data/run-autoai.html">Compute options for AutoAI experiments</a></li>
+            <li><a href="../analyze-data/run-cuh-deploy-spaces.html">Compute options for model training and scoring</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong>
+            <a href="../../svc-welcome/wml.html">Watson Machine Learning</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

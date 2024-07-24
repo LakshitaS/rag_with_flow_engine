@@ -1,0 +1,91 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can configure an integration with the Google Cloud Platform (GCP) to allow IBM watsonx users to access data sources from GCP. Before proceeding, make sure you have proper permissions.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Integrating with Google Cloud Platform</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=platforms-integrating-google"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="integrating-with-google-cloud-platform" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-integrating-with-google-cloud-platform">
+        <h1 id="integrating-with-google-cloud-platform">Integrating with Google Cloud Platform</h1>
+        <p>You can configure an integration with the Google Cloud Platform (GCP) to allow IBM watsonx users to access data sources from GCP. Before proceeding, make sure you have proper permissions.</p>
+        <p>After you configure an integration, you'll see it under <strong>Service instances</strong>. For example, you'll see a new <strong>GCP</strong> tab that lists your BigQuery data sets and Storage buckets.</p>
+        <p>To configure an integration with GCP:</p>
+        <ol>
+          <li>
+            <p>Log on to the Google Cloud Platform at <a href="https://console.cloud.google.com" target="_blank" rel="noopener noreferrer">https://console.cloud.google.com</a>.</p>
+          </li>
+          <li>
+            <p>Go to <strong>IAM &amp; Admin &gt; Service Accounts</strong>.</p>
+          </li>
+          <li>
+            <p>Open your project and then click <strong>CREATE SERVICE ACCOUNT</strong>.1. Specify a name and description for the new service account and click <strong>CREATE</strong>. Specify other options as desired and click <strong>DONE</strong>.1. Click
+              the actions menu next to the service instance and select <strong>Create key</strong>. For key type, select <strong>JSON</strong> and then click <strong>CREATE</strong>. The JSON key file will be downloaded to your machine.
+              </p><div class="note important"><span class="importanttitle">Important:</span> Write down your key ID and secret and store them in a sStore the key file in a secure location.</div>
+            <p></p>
+          </li>
+          <li>
+            <p>In IBM watsonx, under <strong>Administrator &gt; Cloud integrations</strong>, go to the <strong>GCP</strong> tab, enable integration, and then paste the contents from the JSON key file into the text field. Only certain properties from the
+              JSON will be stored, and the <code>private_key</code> property will be encrypted.</p>
+          </li>
+          <li>
+            <p>Go back to Google Cloud Platform and edit the service account you created previously. Add the following roles:</p>
+          </li>
+          <li>
+            <p>Confirm that you can see your GCP services. From the main menu, choose <strong>Administration &gt; Services &gt; Services instances</strong>. Click the <strong>GCP</strong> tab to see those services, for example, BigQuery data sets and Storage
+              buckets.</p>
+          </li>
+        </ol>
+        <p>Now users who have credentials to your GCP services can can <a href="../manage-data/create-conn.html">create connections</a> to them by selecting them on the <strong>Add connection</strong> page. Then they can access data from those connections
+          by <a href="../manage-data/connected-data.html">creating connected data assets</a>.</p>
+        <section id="section-next-steps">
+          <h2 id="next-steps">Next steps</h2>
+          <ul>
+            <li><a href="../getting-started/projects.html">Set up a project</a></li>
+            <li><a href="../manage-data/create-conn.html">Create connections in a project</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="IBM Federated Learning has two main components: the aggregator and the remote training parties. ">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Federated Learning architecture</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=started-architecture"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="federated-learning-architecture" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-federated-learning-architecture">
+        <h1 id="federated-learning-architecture">Federated Learning architecture</h1>
+        <p>IBM Federated Learning has two main components: the aggregator and the remote training parties. </p>
+        <section id="section-aggregator">
+          <h2 id="aggregator">Aggregator</h2>
+          <p>The aggregator is a model fusion processor. The admin manages the aggregator.</p>
+          <p>The aggregator runs the following tasks:</p>
+          <ul>
+            <li>Runs as a platform service in regions Dallas, Frankfurt, London, or Tokyo.</li>
+            <li>Starts with a Federated Learning experiment.</li>
+          </ul>
+        </section>
+        <section id="section-party">
+          <h2 id="party">Party</h2>
+          <p>A party is a user that provides model input to the Federated Learning experiment aggregator. The party can be:</p>
+          <ul>
+            <li>
+              <p>on any system that can run the Watson Machine Learning Python client and compatible with Watson Machine Learning frameworks.</p>
+              <div class="note note"><span class="notetitle">Note:</span>
+                <md-block>
+                  <p>The system does not have to be specifically IBM watsonx. For a list of system requirements, see <a href="fl-setup.html">Set up your system</a>.</p>
+                  <p></p>
+                </md-block>
+              </div>
+              <p></p>
+            </li>
+            <li>
+              <p>running on the system in any geographical location. You are recommended to locate each party in the same region where the data is to avoid data extraction out of different regions.</p>
+            </li>
+          </ul>
+          <p>This illustration shows the architecture of IBM Federated Learning.</p>
+          <p>A Remote Training System is used to authenticate the party's identity to the aggregator during training.</p>
+          <p><img src="images/fl-arch.svg" alt="Illustration of the Federated Learning architecture" height="70%" width="70%"></p>
+        </section>
+        <section id="section-user-workflow">
+          <h2 id="user-workflow">User workflow</h2>
+          <ol>
+            <li>The data scientist:
+              <ol>
+                <li>Identifies the data sources.</li>
+                <li>Creates an initial "untrained" model.</li>
+                <li>Creates a data handler file. <br>These tasks might overlap with a training party entity.</li>
+              </ol>
+            </li>
+            <li>A party connects to the aggregator on their system, which can be remote.</li>
+            <li>An admin controls the Federated Learning experiment by:
+              <ol>
+                <li>Configuring the experiment to accommodate remote parties.</li>
+                <li>Starting the aggregator.</li>
+              </ol>
+            </li>
+          </ol>
+          <p>This illustration shows the actions that are associated with each role in the Federated Learning process.</p>
+          <p><img src="images/fl-workflow.svg" alt="Illustration of the Federated Learning group workflow process" height="50%" width="50%"></p>
+          <p><strong>Parent topic:</strong> <a href="fl-get-started.html">Get started</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

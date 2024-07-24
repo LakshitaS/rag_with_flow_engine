@@ -1,0 +1,176 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="To use App ID for user authentication for IBM watsonx, you configure App ID as a service on IBM Cloud. You configure an identity provider (IdP) such as Azure Active Directory. You then configure App ID and the identity provider to communicate with each other to grant access to authorized users.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Configuring App ID with your identity provider</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=overview-configuring-app-id-your-identity-provider"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="configuring-app-id-with-your-identity-provider" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-configuring-app-id-with-your-identity-provider">
+        <h1 id="configuring-app-id-with-your-identity-provider">Configuring App ID with your identity provider</h1>
+        <p>To use App ID for user authentication for IBM watsonx, you configure App ID as a service on IBM Cloud. You configure an identity provider (IdP) such as Azure Active Directory. You then configure App ID and the identity provider to communicate
+          with each other to grant access to authorized users.</p>
+        <p>To configure App ID and your identity provider to work together, follow these steps:</p>
+        <ul>
+          <li><a href="#cfg_idp">Configure your identity provider to communicate with IBM Cloud</a></li>
+          <li><a href="#cfg_appid">Configure App ID to communicate with your identify provider</a></li>
+          <li><a href="#cfg_iam">Configure IAM to enable login through your identity provider</a></li>
+        </ul>
+        <section id="section-cfg_idp">
+          <h2 id="cfg_idp">Configuring your identity provider</h2>
+          <p>To configure your identity provider to communicate with IBM Cloud, you enter the <strong>entityID</strong> and <strong>Location</strong> into your SAML configuration for your identity provider. An overview of the steps for configuring Azure
+            Active Directory is provided as an example. Refer to the documentation for your identity provider for detailed instructions for its platform.</p>
+          <p>The prerequisites for configuring App ID with an identity provider are:</p>
+          <ul>
+            <li>An IBM Cloud account</li>
+            <li>An App ID instance</li>
+            <li>An identity provider, for example, Azure Active Directory</li>
+          </ul>
+          <p>To configure your identity provider for SAML-based single sign-on:</p>
+          <p>1. Download the SAML metadata file from App ID to find the values for <strong>entityID</strong> and <strong>Location</strong>. These values are entered into the identity provider configuration screen to establish communication with App ID on
+            IBM Cloud. (The corresponding values from the identity provider, plus the primary certificate, are entered in App ID. See <a href="#cfg_appid">Configuring App ID</a>).</p>
+          <ul>
+            <li>In App ID, choose <strong>Identity providers &gt; SAML 2.0 federation</strong>.</li>
+            <li>Download the <strong>appid-metadata.xml</strong> file.</li>
+            <li>Find the values for <strong>entityID</strong> and <strong>Location</strong>.</li>
+          </ul>
+          <p>2. Copy the values for <strong>entityID</strong> and <strong>Location</strong> from the SAML metadata file and paste them into the corresponding fields on your identity provider. For Azure Active Directory, the fields are located in <strong>Section 1: Basic SAML Configuration</strong>            in the Enterprise applications configuration screen.</p>
+          <table>
+            <thead>
+              <tr>
+                <th>App ID value</th>
+                <th>Active Directory field</th>
+                <th>Example</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>entityID</td>
+                <td>Identifier (Entity ID)</td>
+                <td>urn:ibm:cloud:services:appid:value</td>
+              </tr>
+              <tr>
+                <td>Location</td>
+                <td>Reply URL (Assertion Consumer Service URL)</td>
+                <td><code>https://us-south.appid.cloud.ibm.com/saml2/v1/value/login-acs</code></td>
+              </tr>
+            </tbody>
+          </table>
+          <p>3. In <strong>Section 2: Attributes &amp; Claims</strong> for Azure Active Directory, you map the username parameter to <strong>user.mail</strong> to identify the users by their unique email address. IBM watsonx requires that you set username
+            to the <strong>user.mail</strong> attribute. For other identity providers, a similar field that uniquely identifies users must be mapped to <strong>user.mail</strong>.</p>
+        </section>
+        <section id="section-cfg_appid">
+          <h2 id="cfg_appid">Configuring App ID</h2>
+          <p>You establish communication between App ID and your identity provider by entering the SAML values from the identity provider into the corresponding App ID fields. An example is provided for configuring App ID to communicate with an Active Directory
+            Enterprise Application.</p>
+          <p>1. Choose <strong>Identity providers &gt; SAML 2.0 federation</strong> and complete the <strong>Provide metadata from SAML IdP</strong> section.</p>
+          <p>2. Download the Base64 certificate from <strong>Section 3: SAML Certificates</strong> in Active Directory (or your identity provider) and paste it into the <strong>Primary certificate</strong> field.</p>
+          <p>3. Copy the values from <strong>Section 4: Set up your-enterprise-application</strong> in Active Directory into the corresponding fields in <strong>Provide metadata from SAML IdP</strong> in IBM App ID.</p>
+          <table>
+            <thead>
+              <tr>
+                <th>App ID field</th>
+                <th>Value from Active Directory</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Entity ID</td>
+                <td>Azure AD Identifier</td>
+              </tr>
+              <tr>
+                <td>Sign in URL</td>
+                <td>Login URL</td>
+              </tr>
+              <tr>
+                <td>Primary certificate</td>
+                <td>Certificate (Base64)</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>4. Click <strong>Test</strong> on the App ID page to test that App ID can connect to the identity provider. The happy face response indicates that App ID can communicate with the identity provider.</p>
+          <p><img src="images/appid_good_job.png" alt="Successful test" title="App ID successfully communicated with the identity provider." height="100px"></p>
+        </section>
+        <section id="section-cfg_iam">
+          <h2 id="cfg_iam">Configuring IAM</h2>
+          <p>You must assign the appropriate role to the users in IBM Cloud IAM and also configure your identity provider in IAM. Users require at least the <strong>Viewer</strong> role for <strong>All Identity and IAM enabled services</strong>.</p>
+          <section id="section-create-an-identity-provider-reference-in-ibm-cloud-iam">
+            <h3 id="create-an-identity-provider-reference-in-ibm-cloud-iam">Create an identity provider reference in IBM Cloud IAM</h3>
+            <p>Create an identity provider reference to connect your external repository to your IBM Cloud account.</p>
+            <ol>
+              <li>Navigate to <strong>Manage &gt; Access(IAM) &gt; Identity providers</strong>.</li>
+              <li>For the type, choose <strong>IBM Cloud App ID</strong>.</li>
+              <li>Click <strong>Create</strong>.</li>
+              <li>Enter a name for the identity provider.</li>
+              <li>Select the App ID service instance.</li>
+              <li>Select how to on board users. Static adds users when they log in for the first time.</li>
+              <li>Enable the identity provider for logging in by checking the <strong>Enable for account login?</strong> box.</li>
+              <li>If you have more than one identity providers, set the identity provider as the default by checking the box.</li>
+              <li>Click <strong>Create</strong>.</li>
+            </ol>
+          </section>
+          <section id="section-cfg_alias">
+            <h3 id="cfg_alias">Change the App ID login alias</h3>
+            <p>A login alias is generated for App ID. Users enter the alias when logging on to IBM Cloud. You can change the default alias string to be easier to remember.</p>
+            <ol>
+              <li>Navigate to <strong>Manage &gt; Access(IAM) &gt; Identity providers</strong>.</li>
+              <li>Select <strong>IBM Cloud App ID</strong> as the type.</li>
+              <li>Edit the <strong>Default IdP URL</strong> to make it simpler. For example, <strong><code>https://cloud.ibm.com/authorize/540f5scc241a24a70513961</code></strong> can be changed to <strong><code>https://cloud.ibm.com/authorize/my-company</code></strong>.
+                Users log in with the alias <strong>my-company</strong> instead of <strong>540f5scc241a24a70513961</strong>.</li>
+            </ol>
+          </section>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="https://cloud.ibm.com/docs/appid?topic=appid-managing-idp" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud docs: Managing authentication</a></li>
+            <li><a href="https://cloud.ibm.com/docs/appid?topic=appid-enterprise#enterprise" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud docs: Configuring federated identity providers: SAML</a></li>
+            <li><a href="https://www.ibm.com/cloud/blog/ibm-cloud-saml-federation-guide" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud SAML Federation Guide</a></li>
+            <li><a href="https://www.ibm.com/cloud/blog/setting-ibm-cloud-app-id-azure-active-directory" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Setting up IBM Cloud App ID with your Azure Active Directory</a></li>
+            <li><a href="https://www.ibm.com/cloud/blog/reusing-existing-red-hat-sso-and-keycloak-for-applications-that-run-on-ibm-cloud-with-app-id" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Reusing Existing Red Hat SSO and Keycloak for Applications That Run on IBM Cloud with App ID</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="admin-appid.html">Setting up IBM Cloud App ID (beta)</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

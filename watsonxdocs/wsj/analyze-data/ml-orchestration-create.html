@@ -1,0 +1,179 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Create a pipeline to run an end-to-end scenario to automate all or part of the AI lifecycle. For example, create a pipeline that creates and trains an asset, promotes it to a space, creates a deployment, then scores the model.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Creating a pipeline</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=pipelines-creating-pipeline"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="creating-a-pipeline" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-creating-a-pipeline">
+        <h1 id="creating-a-pipeline">Creating a pipeline</h1>
+        <p>Create a pipeline to run an end-to-end scenario to automate all or part of the AI lifecycle. For example, create a pipeline that creates and trains an asset, promotes it to a space, creates a deployment, then scores the model.</p>
+        <p>Watch this video to see how to create and run a sample pipeline.</p>
+        <div>
+          <p style="font-size:smaller">This video provides a visual method to learn the concepts and tasks in this documentation.</p><iframe id="wm-wx-pipeline" src="https://video.ibm.com/embed/channel/23952663/video/wx-pipeline" lang="en-US" style="border: 0;" webkitallowfullscreen="" allowfullscreen="" frameborder="no" width="560" height="315" title="Create and run a sample pipeline" alt="Create and run a sample pipeline"></iframe></div>
+        <section id="section-overview-adding-a-pipeline-to-a-project">
+          <h2 id="overview-adding-a-pipeline-to-a-project">Overview: Adding a pipeline to a project</h2>
+          <p>Follow these steps to add a pipeline to a project:</p>
+          <ol>
+            <li>
+              <p>Open a project.</p>
+            </li>
+            <li>
+              <p>Click <strong>New task &gt; Automate model lifecycle</strong>.</p>
+            </li>
+            <li>
+              <p>Enter a name and an optional description.</p>
+            </li>
+            <li>
+              <p>Click <strong>Create</strong> to open the canvas.</p>
+            </li>
+          </ol>
+          <section id="section-pipeline-access">
+            <h3 id="pipeline-access">Pipeline access</h3>
+            <p>When you use a pipeline to automate a flow, you must have access to all of the elements in the pipeline. Make sure that you create and run pipelines with the proper access to all assets, projects, and spaces used in the pipeline.</p>
+          </section>
+          <section id="section-related-services">
+            <h3 id="related-services">Related services</h3>
+            <p>In addition to access to all elements in a pipeline, you must have the services available to run all assets you add to a pipeline. For example, if you automate a pipeline that trains and deploys a model, you must have the Watson Studio and
+              Watson Machine Learning services. If a required service is missing, the pipeline will not run. This table lists assets that require services in addition to Watson Studio:</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Asset</th>
+                  <th>Required service</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>AutoAI experiment</td>
+                  <td>Watson Machine Learning</td>
+                </tr>
+                <tr>
+                  <td>Batch deployment job</td>
+                  <td>Watson Machine Learning</td>
+                </tr>
+                <tr>
+                  <td>Online deployment (web service)</td>
+                  <td>Watson Machine Learning</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </section>
+        <section id="section-overview-building-a-pipeline">
+          <h2 id="overview-building-a-pipeline">Overview: Building a pipeline</h2>
+          <p>Follow these high-level steps to build and run a pipeline.</p>
+          <ol>
+            <li>Drag any node objects onto the canvas. For example, drag a <strong>Run notebook job</strong> node onto the canvas.</li>
+            <li>Use the action menu for each node to view and select options.</li>
+            <li>Configure a node as required. You are prompted to supply the required input options. For some nodes, you can view or configure output options as well. For examples of configuring nodes, see <a href="ml-orchestration-config.html">Configuring pipeline components</a>.</li>
+            <li>Drag from one node to another to connect and order the pipeline.</li>
+            <li>Optional: Click the <strong>Global objects</strong> icon <img src="images/global-objects-icon.png" alt="global objects icon"> in the toolbar to configure runtime options for the pipeline.</li>
+            <li>When the pipeline is complete, click the <strong>Run</strong> icon on the toolbar to run the pipeline. You can run a trial to test the pipeline, or you can schedule a job when you are confident in the pipeline.</li>
+          </ol>
+          <section id="section-configuring-nodes">
+            <h3 id="configuring-nodes">Configuring nodes</h3>
+            <p>As you add nodes to a pipeline, you must configure them to provide all of the required details. For example, if you add a node to run an AutoAI experiment, you must configure the node to specify the experiment, load the training data, and
+              specify the output file:</p>
+            <p><img src="images/OE-run-autoai-node.png" alt="AutoAI node parameters"></p>
+          </section>
+          <section id="section-connecting-nodes">
+            <h3 id="connecting-nodes">Connecting nodes</h3>
+            <p>When you build a complete pipeline, the nodes must be connected in the order in which they run in the pipeline. To connect nodes, hover over a node and drag a connection to the target node. Disconnected nodes are run in parallel.</p>
+            <p><img src="images/pipelines_conecting_nodes_gif.gif" alt="Connecting nodes" width="560"></p>
+            <p>You can re-link nodes by dragging the links on canvas from one node to another. General conditions attached to the links will refer to the new node, including conditions that refer to node status.</p>
+            <!--AZ add screenshot-->
+            <p>Change the connection between nodes can result in errors. Error messages will notify if you must update the node configuration. For example, if you refer to an inaccessible node, this will result in an error.</p>
+            <!--AZ add screenshot-->
+          </section>
+          <section id="section-defining-pipeline-parameters">
+            <h3 id="defining-pipeline-parameters">Defining pipeline parameters</h3>
+            <p>A pipeline parameter defines a global variable for the whole pipeline. Use pipeline parameters to specify data from one of these categories:</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Parameter type</th>
+                  <th>Can specify</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Basic</td>
+                  <td>JSON types such as string, integer, or a JSON object</td>
+                </tr>
+                <tr>
+                  <td>CPDPath</td>
+                  <td>Resources available within the platform, such as assets, asset containers, connections, notebooks, hardware specs, projects, spaces, or jobs</td>
+                </tr>
+                <tr>
+                  <td>InstanceCRN</td>
+                  <td>Storage, machine learning instances, and other services.</td>
+                </tr>
+                <tr>
+                  <td>Other</td>
+                  <td>Various configuration types, such as status, timeout length, estimator, error policies and other various configuration types.</td>
+                </tr>
+              </tbody>
+            </table>
+            <p>To specify a pipeline parameter:</p>
+            <ol>
+              <li>Click the global objects icon <img src="images/global-objects-icon.png" alt="global objects icon"> in the toolbar to open the <strong>Manage global objects</strong> window.</li>
+              <li>Select the <strong>Pipeline parameters</strong> tab to configure parameters.</li>
+              <li>Click <strong>Add pipeline parameter</strong>.</li>
+              <li>Specify a name and an optional description.</li>
+              <li>Select a type and provide any required information.</li>
+              <li>Click <strong>Add</strong> when the definition is complete, and repeat the previous steps until you finish defining the parameters.</li>
+              <li>Close the <strong>Manage global objects</strong> dialog.</li>
+            </ol>
+            <p>The parameters are now available to the pipeline.</p>
+          </section>
+        </section>
+        <section id="section-next-steps">
+          <h2 id="next-steps">Next steps</h2>
+          <p><a href="ml-orchestration-config.html">Configure pipeline components</a></p>
+          <p><strong>Parent topic:</strong> <a href="ml-orchestration-overview.html">IBM Watson Pipelines</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

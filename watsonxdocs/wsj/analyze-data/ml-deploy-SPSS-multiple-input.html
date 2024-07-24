@@ -1,0 +1,202 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="In an SPSS Modeler flow, it's common to have multiple import and export nodes, where multiple import nodes can be fetching data from one or more relational databases. Learn how to use Watson Machine Learning to create an SPSS Modeler batch job with multiple data sources from relational databases.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Creating an SPSS Modeler batch job with multiple data sources</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=framework-deploying-spss-model-multiple-inputs"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="creating-an-spss-modeler-batch-job-with-multiple-data-sources" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-creating-an-spss-modeler-batch-job-with-multiple-data-sources">
+        <h1 id="creating-an-spss-modeler-batch-job-with-multiple-data-sources">Creating an SPSS Modeler batch job with multiple data sources</h1>
+        <p>In an SPSS Modeler flow, it's common to have multiple import and export nodes, where multiple import nodes can be fetching data from one or more relational databases. Learn how to use Watson Machine Learning to create an SPSS Modeler batch job
+          with multiple data sources from relational databases.</p>
+        <div class="note note"><span class="notetitle">Note:</span>
+          <md-block>
+            <p>The examples use IBM Db2 and IBM Db2 Warehouse, referred to in examples as <em>dashdb</em>.</p>
+            <p></p>
+          </md-block>
+        </div>
+        <p></p>
+        <section id="section-connecting-to-multiple-relational-databases-as-input-to-a-batch-job">
+          <h2 id="connecting-to-multiple-relational-databases-as-input-to-a-batch-job">Connecting to multiple relational databases as input to a batch job</h2>
+          <p>The number of import nodes in an SPSS Modeler flow can vary. You might use as many as 60 or 70. However, the number of distinct connections to databases in these cases are just a few, though the table names that are accessed through the connections
+            vary. Rather than specifying the details for every table connection, the approach that is described here focuses on the database connections. Therefore, the batch jobs accept a list of data connections or references by <em>node name</em> that
+            are mapped to connection names in the SPSS Modeler flow's import nodes.</p>
+          <p>For example, assume that if a flow has 30 nodes, only three database connections are used to connect to 30 different tables. In this case, you submit three connections (C1, C2, and C3) to the batch job. C1, C2, and C3 are connection names in
+            the import node of the flow and the <em>node name</em> in the input of the batch job.</p>
+          <p>When a batch job runs, the data reference for a node is provided by mapping the <em>node name</em> with the <em>connection name</em> in the import node. This example illustrates the steps for creating the mapping.</p>
+          <p>The following diagram shows the flow from model creation to job submission:</p>
+          <p><img src="images/word_SPSS-multiple-input-job.svg" alt="SPSS Modeler job with multiple inputs"></p>
+          <p><strong>Limitation:</strong> The connection reference for a node in a flow is overridden by the reference that is received from the batch job. However, the table name in the import or export node is not overridden.</p>
+        </section>
+        <section id="section-deployment-scenario-with-example">
+          <h2 id="deployment-scenario-with-example">Deployment scenario with example</h2>
+          <p>In this example, an SPSS model is built by using 40 import nodes and a single output. The model has the following configuration:</p>
+          <ul>
+            <li>Connections to three databases: 1 Db2 Warehouse (dashDB) and 2 Db2.</li>
+            <li>The import nodes are read from 40 tables (30 from Db2 Warehouse and 5 each from the Db2 databases).</li>
+            <li>A single output table is written to a Db2 database.</li>
+          </ul>
+          <p><img src="images/word_SPSS-multiple-input-job2.svg" alt="SPSS Modeler flow with multiple inputs"></p>
+          <section id="section-example">
+            <h3 id="example">Example</h3>
+            <p>These steps demonstrate how to create the connections and identify the tables.</p>
+            <ol>
+              <li>
+                <p>Create a connection in your project.</p>
+                <p>To run the SPSS Modeler flow, you start in your project and create a connection for each of the three databases your model connects to. You then configure each import node in the flow to point to a table in one of the connected databases.</p>
+                <p>For this example, the database connections in the project are named <code>dashdb_conn</code>, <code>db2_conn1</code>, and <code>db2_conn2</code>.</p>
+              </li>
+              <li>
+                <p>Configure Data Asset to import nodes in your SPSS Modeler flow with connections.</p>
+                <p>Configure each node in the flow to reference one of the three connections you created (<code>dashdb_conn</code>, <code>db2_conn1</code>, and <code>db2_conn2</code>), then specify a table for each node.</p>
+                <div class="note note"><span class="notetitle">Note:</span> You can change the name of the connection at the time of the job run. The table names that you select in the flow are referenced when the job runs. You can't overwrite or change them.</div>
+              </li>
+              <li>
+                <p>Save the SPSS model to the Watson Machine Learning repository.</p>
+                <p>For this example, it's helpful to provide the input and output schema when you are saving the model. It simplifies the process of identifying each input when you create and submit the batch job in the Watson Studio user interface. Connections
+                  that are referenced in the Data Asset nodes of the SPSS Modeler flow must be provided in the <em>node name</em> field of the input schema. To find the <em>node name</em>, double-click the Data Asset import node in your flow to open its
+                  properties:</p>
+                <p><img src="images/spss-node-name.png" alt="Data Asset import node name"></p>
+                <div class="note note"><span class="notetitle">Note:</span>
+                  <md-block>
+                    <p>SPSS models that are saved without schemas are still supported for jobs, but you must enter <em>node name</em> fields manually and provide the data asset when you submit the job.</p>
+                    <p></p>
+                  </md-block>
+                </div>
+                <p></p>
+                <p>This code sample shows how to save the input schema when you save the model (Endpoint: <code>POST /v4/models</code>).</p>
+                <pre class="codeblock"><code class="lang-json hljs">     <span class="hljs-punctuation">{</span>
+           <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"SPSS Drug Model"</span><span class="hljs-punctuation">,</span>
+           <span class="hljs-attr">"label_column"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"label"</span><span class="hljs-punctuation">,</span>
+           <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"spss-modeler_18.1"</span><span class="hljs-punctuation">,</span>
+           <span class="hljs-attr">"runtime"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+                   <span class="hljs-attr">"href"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"/v4/runtimes/spss-modeler_18.1"</span>
+            <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"space"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+                   <span class="hljs-attr">"href"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"/v4/spaces/&lt;space_id&gt;"</span>
+            <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"schemas"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+                      <span class="hljs-attr">"input"</span><span class="hljs-punctuation">:</span>  <span class="hljs-punctuation">[</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"dashdb_conn"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"fields"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">]</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+                                        <span class="hljs-punctuation">{</span> <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"db2_conn1 "</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"fields"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">]</span> <span class="hljs-punctuation">}</span> <span class="hljs-punctuation">,</span>
+                                        <span class="hljs-punctuation">{</span> <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"db2_conn2"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"fields"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">]</span> <span class="hljs-punctuation">}</span> <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+                       <span class="hljs-attr">"output"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">{</span> <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"db2_conn2 "</span><span class="hljs-punctuation">,</span><span class="hljs-attr">"fields"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">]</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">]</span>
+             <span class="hljs-punctuation">}</span>
+     <span class="hljs-punctuation">}</span>
+</code></pre>
+                <div class="note note"><span class="notetitle">Note:</span> The number of fields in each of these connections doesn't matter. They’re not validated or used. What's important is the number of connections that are used.</div>
+              </li>
+              <li>
+                <p>Create the batch deployment for the SPSS model.</p>
+                <p>For SPSS models, the creation process of the batch deployment job is the same. You can submit the deployment request with the model that was created in the previous step.</p>
+              </li>
+              <li>
+                <p>Submit SPSS batch jobs.</p>
+                <p>You can submit a batch job from the Watson Studio user interface or by using the REST API. If the schema is saved with the model, the Watson Studio user interface makes it simple to accept input from the connections specified in the schema.
+                  Because you already created the data connections, you can select a connected data asset for each <em>node name</em> field that displays in the Watson Studio user interface as you define the job.</p>
+                <p>The name of the connection that is created at the time of job submission can be different from the one used at the time of model creation. However, it must be assigned to the <em>node name</em> field.</p>
+              </li>
+            </ol>
+          </section>
+          <section id="section-submitting-a-job-when-schema-is-not-provided">
+            <h3 id="submitting-a-job-when-schema-is-not-provided">Submitting a job when schema is not provided</h3>
+            <p>If the schema isn't provided in the model metadata at the time the model is saved, you must enter the <em>import node name</em> manually. Further, you must select the data asset in the Watson Studio user interface for each connection. Connections
+              that are referenced in the Data Asset import nodes of the SPSS Modeler flow must be provided in the <em>node name</em> field of the import/export data references.</p>
+            <section id="section-conn-data-asset">
+              <h4 id="conn-data-asset">Specifying the connections for a job with data asset</h4>
+              <p>This code sample demonstrates how to specify the connections for a job that is submitted by using the REST API (Endpoint: <code>/v4/deployment_jobs</code>).</p>
+              <pre class="codeblock"><code class="lang-json hljs">         <span class="hljs-punctuation">{</span>
+                     <span class="hljs-attr">"deployment"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+                                    <span class="hljs-attr">"href"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"/v4/deployments/&lt;deploymentID&gt;"</span>
+                        <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+                        <span class="hljs-attr">"scoring"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+                                    <span class="hljs-attr">"input_data_references"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+                                       <span class="hljs-punctuation">{</span>
+                                          <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"dashdb_conn"</span><span class="hljs-punctuation">,</span>
+                                          <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"dashdb_conn"</span><span class="hljs-punctuation">,</span>
+                                          <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"data_asset"</span><span class="hljs-punctuation">,</span>
+                                          <span class="hljs-attr">"connection"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span><span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+                                          <span class="hljs-attr">"location"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+                                                      <span class="hljs-attr">"href"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"/v2/assets/&lt;asset_id&gt;?space_id=&lt;space_id&gt;"</span>
+                                             <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+                                             <span class="hljs-attr">"schema"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span><span class="hljs-punctuation">}</span>
+                                    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+                                    <span class="hljs-punctuation">{</span>
+                                             <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"db2_conn1 "</span><span class="hljs-punctuation">,</span>
+                                             <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"db2_conn1 "</span><span class="hljs-punctuation">,</span>
+                                             <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"data_asset"</span><span class="hljs-punctuation">,</span>
+                                             <span class="hljs-attr">"connection"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span><span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+                                             <span class="hljs-attr">"location"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+                                                      <span class="hljs-attr">"href"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"/v2/assets/&lt;asset_id&gt;?space_id=&lt;space_id&gt;"</span>
+                                             <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+                                             <span class="hljs-attr">"schema"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span><span class="hljs-punctuation">}</span>
+                                    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+                                    <span class="hljs-punctuation">{</span>
+                                             <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"db2_conn2 "</span><span class="hljs-punctuation">,</span>
+                                             <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"db2_conn2"</span><span class="hljs-punctuation">,</span>
+                                             <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"data_asset"</span><span class="hljs-punctuation">,</span>
+                                             <span class="hljs-attr">"connection"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span><span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+                                             <span class="hljs-attr">"location"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+                                                      <span class="hljs-attr">"href"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"/v2/assets/&lt;asset_id&gt;?space_id=&lt;space_id&gt;"</span>
+                                             <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+                                             <span class="hljs-attr">"schema"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span><span class="hljs-punctuation">}</span>
+                                    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+                                    <span class="hljs-attr">"output_data_reference"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+                                             <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"db2_conn2"</span>
+                                             <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"db2_conn2"</span><span class="hljs-punctuation">,</span>
+                                             <span class="hljs-attr">"type"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"data_asset "</span><span class="hljs-punctuation">,</span>
+                                             <span class="hljs-attr">"connection"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span><span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+                                             <span class="hljs-attr">"location"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+                                                      <span class="hljs-attr">"href"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"/v2/assets/&lt;asset_id&gt;?space_id=&lt;space_id&gt;"</span>
+                                             <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+                                             <span class="hljs-attr">"schema"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span><span class="hljs-punctuation">}</span>
+                                    <span class="hljs-punctuation">}</span>
+         <span class="hljs-punctuation">}</span>
+</code></pre>
+              <p><strong>Parent topic:</strong> <a href="../analyze-data/deploy-batch-input-by-framework.html">Batch deployment input details by framework</a></p>
+            </section>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

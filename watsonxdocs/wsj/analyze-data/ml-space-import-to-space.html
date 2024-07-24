@@ -1,0 +1,137 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can import assets that you export from a deployment space or a project (either a project export or a Git archive) into a new or existing deployment space. This way, you can add assets or update existing assets (for example, replacing a model with its newer version) to use for your deployments.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Importing space and project assets into deployment spaces</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=spaces-importing-projects"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="importing-space-and-project-assets-into-deployment-spaces" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-importing-space-and-project-assets-into-deployment-spaces">
+        <h1 id="importing-space-and-project-assets-into-deployment-spaces">Importing space and project assets into deployment spaces</h1>
+        <p>You can import assets that you export from a deployment space or a project (either a project export or a Git archive) into a new or existing deployment space. This way, you can add assets or update existing assets (for example, replacing a model
+          with its newer version) to use for your deployments.</p>
+        <p>You can import a space or a project export file to <a href="#import-to-new">a new deployment space</a> or an <a href="#import-to-existing">existing deployment space</a> to populate the space with assets.</p>
+        <div class="note tip"><span class="tiptitle">Tip:</span> The export file can come from a Git-enabled project and a Watson Studio project. To create the file to export, create a compressed file for the project that contains the assets to import. Then, follow the steps
+          for importing the compressed file into a new or existing space.</div>
+        <section id="section-import-to-new">
+          <h2 id="import-to-new">Importing a space or a project to a new deployment space</h2>
+          <p>To import a space or a project when you are creating a new deployment space:</p>
+          <ol>
+            <li>Click <strong>New deployment space</strong>.</li>
+            <li>Enter the details for the space. For more information, see <a href="ml-space-create.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Creating deployment spaces</a>.</li>
+            <li>In the <em>Upload space assets</em> section, upload the exported compressed file that contains data assets and click <strong>Create</strong>.</li>
+          </ol>
+          <p>The assets from the exported file is added as space assets.</p>
+        </section>
+        <section id="section-import-to-existing">
+          <h2 id="import-to-existing">Importing a space or a project to an existing deployment space</h2>
+          <p>To import a space or a project into an existing space:</p>
+          <ol>
+            <li>From your deployment space, click the import and export space (<img src="images/import-export-icon.png" alt="Import or Export space icon" height="20" style="vertical-align:text-bottom">) icon. From the list, select <strong>Import space</strong>.</li>
+            <li>Add your compressed file that contains assets from a Watson Studio project or deployment space. <br>
+              <strong>Tip:</strong> If the space that you are importing is encrypted, enter the password in the <strong>Password</strong> field.</li>
+            <li>After your asset is imported, click <strong>Done</strong>.</li>
+          </ol>
+          <p>The assets from the exported file is added as space assets.</p>
+        </section>
+        <section id="section-resolving-duplicates">
+          <h2 id="resolving-duplicates">Resolving issues with asset duplication</h2>
+          <p>The importing mechanism compares assets that exist in your space with the assets that are being imported. If it encounters an asset with the same name and of the same type:</p>
+          <ul>
+            <li>If the asset type supports revisions, the importing mechanism creates a new revision of the existing asset and fixes the new revision.</li>
+            <li>If the asset type does not support revisions, the importing mechanism fixes the existing asset.</li>
+          </ul>
+          <p>This table describes how import works to resolve cases where assets are duplicated between the import file and the existing space.</p>
+          <table>
+            <caption caption-side="top">Scenarios for importing duplicated assets</caption>
+            <thead>
+              <tr>
+                <th>Your space</th>
+                <th>File being imported</th>
+                <th>Result</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>No assets with matching name or type</td>
+                <td>One or more assets with matching name or type</td>
+                <td>All assets are imported. If multiple assets in the import file have the same name, they are imported as duplicate assets in the target space.</td>
+              </tr>
+              <tr>
+                <td>One asset with matching name or type</td>
+                <td>One asset with matching name or type</td>
+                <td>Matching asset is updated with new version. Other assets are imported normally.</td>
+              </tr>
+              <tr>
+                <td>One asset with matching name or type</td>
+                <td>More than one asset with matching name or type</td>
+                <td>The first matching asset that is processed is imported as a new version for the existing asset in the space, extra assets with matching name are created as duplicates in the space. Other assets are imported normally.</td>
+              </tr>
+              <tr>
+                <td>Multiple assets with matching name or type</td>
+                <td>One or more assets with matching name or type</td>
+                <td>Assets with matching names fail to import. Other assets are imported normally.</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="note warning"><span class="warningtitle">Warning:</span> Multiple assets of the same name in an existing space or multiple assets of the same name in an import file are not fully supported scenarios. The import works as described for the scenarios listed
+            in the table, but you cannot use versioning capabilities specific to the import.</div>
+          <p>For more information, see <a href="ml-versions-spaces.html">Managing asset versions</a>.</p>
+          <p>Existing deployments get updated differently, depending on deployment type:</p>
+          <ul>
+            <li>If a batch deployment was created by using the previous version of the asset, the next invocation of the batch deployment job will refer to the updated state of the asset.</li>
+            <li>If an online deployment was created by using the previous version of the asset, the next "restart" of the deployment refers to the updated state of the asset.</li>
+          </ul>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li>For an example of how to export and import a deployment space by using the Watson Machine Learning <a href="https://ibm.github.io/watson-machine-learning-sdk/">Python client library</a>, view or download this <a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/1cee7a866bf97eae90da80602fa25dba?context=cpdaas">sample notebook</a>.</li>
+            <li>To learn about adding other types of assets to a space, refer to <a href="../analyze-data/ml-space-add-assets-all.html">Assets in deployment spaces</a>.</li>
+            <li>To learn about exporting assets from a deployment space, refer to <a href="../analyze-data/ml-space-export.html">Exporting space assets</a>.</li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="../analyze-data/ml-spaces_local.html">Deployment spaces</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

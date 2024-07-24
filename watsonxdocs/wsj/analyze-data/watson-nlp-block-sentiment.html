@@ -1,0 +1,206 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="The Watson Natural Language Processing Sentiment classification models classify the sentiment of the input text.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Sentiment classification</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=catalog-sentiment-extraction"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="sentiment-classification" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-sentiment-classification">
+        <h1 id="sentiment-classification">Sentiment classification</h1>
+        <p>The Watson Natural Language Processing Sentiment classification models classify the sentiment of the input text.</p>
+        <p><strong>Supported languages</strong></p>
+        <p>Sentiment classification is available for the following languages. For a list of the language codes and the corresponding language, see <a href="watson-nlp-block-catalog.html#lang-codes">Language codes</a>.</p>
+        <p>ar, cs, da, de, en, es, fi, fr, he, hi, it, ja, ko, nb, nl, nn, pl, pt, ro, ru, sk, sv, tr, zh-cn</p>
+        <section id="section-sentiment">
+          <h2 id="sentiment">Sentiment</h2>
+          <p>The sentiment of text can be positive, negative or neutral.</p>
+          <p>The sentiment model computes the sentiment for each sentence in the input document. The aggregated sentiment for the entire document is also calculated using the sentiment transformer workflow in Runtime 23.1.</p>
+          <p>The classifications returned contain a probability. The sentiment score varies from -1 to 1. A score greater than 0 denotes a positive sentiment, a score less than 0 a negative sentiment, and a score of 0 a neutral sentiment.</p>
+          <section id="section-sentence-sentiment-workflows-in-runtime-231">
+            <h3 id="sentence-sentiment-workflows-in-runtime-231">Sentence sentiment workflows in runtime 23.1</h3>
+            <p><strong>Workflow names</strong></p>
+            <ul>
+              <li><code>sentiment-aggregated_transformer-workflow_multilingual_slate.153m.distilled</code></li>
+              <li><code>sentiment-aggregated_transformer-workflow_multilingual_slate.153m.distilled-cpu</code></li>
+            </ul>
+            <p>The <code>sentiment-aggregated_transformer-workflow_multilingual_slate.153m.distilled</code> workflow can be used on both CPUs and GPUs.</p>
+            <p>The <code>sentiment-aggregated_transformer-workflow_multilingual_slate.153m.distilled-cpu</code> workflow is optimized for CPU-based runtimes.</p>
+            <p><strong>Code sample using the <code>sentiment-aggregated_transformer-workflow_multilingual_slate.153m.distilled</code>
+workflow</strong></p>
+            <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-comment"># Load the Sentiment workflow</span>
+sentiment_model = watson_nlp.load(<span class="hljs-string">'sentiment-aggregated_transformer-workflow_multilingual_slate.153m.distilled-cpu'</span>)
+
+<span class="hljs-comment"># Run the sentiment model on the result of the syntax results</span>
+sentiment_result = sentiment_model.run(<span class="hljs-string">'The rooms are nice. But the beds are not very comfortable.'</span>)
+
+<span class="hljs-comment"># Print the sentence sentiment results</span>
+<span class="hljs-built_in">print</span>(sentiment_result)
+</code></pre>
+            <p><strong>Output of the code sample</strong></p>
+            <pre class="codeblock"><code class="lang-json hljs"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"document_sentiment"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"score"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">-0.339735</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"label"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"SENT_NEGATIVE"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"mixed"</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"sentiment_mentions"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+      <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"span"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+          <span class="hljs-attr">"begin"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"end"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">19</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"text"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"The rooms are nice."</span>
+        <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"sentimentprob"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+          <span class="hljs-attr">"positive"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.9720447063446045</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"neutral"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.011838269419968128</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"negative"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.016117043793201447</span>
+        <span class="hljs-punctuation">}</span>
+      <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"span"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+          <span class="hljs-attr">"begin"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">20</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"end"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">58</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"text"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"But the beds are not very comfortable."</span>
+        <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"sentimentprob"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+          <span class="hljs-attr">"positive"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.0011594508541747928</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"neutral"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.006315878126770258</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"negative"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.9925248026847839</span>
+        <span class="hljs-punctuation">}</span>
+      <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">]</span>
+  <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"targeted_sentiments"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"targeted_sentiments"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span><span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"producer_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Aggregated Sentiment Workflow"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"version"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"0.0.1"</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"producer_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Aggregated Sentiment Workflow"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"version"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"0.0.1"</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+          </section>
+        </section>
+        <section id="section-targets-sentiment-extraction">
+          <h2 id="targets-sentiment-extraction">Targets sentiment extraction</h2>
+          <p>Targets sentiment extraction extracts sentiments expressed in text and identifies the targets of those sentiments.</p>
+          <p>It can handle multiple targets with different sentiment in one sentence as opposed to the sentiment block described above.</p>
+          <p>For example, given the input sentence <em>The served food was delicious, yet the service was slow.</em>, the Targets sentiment block identifies that there is a positive sentiment expressed in the target "food", and a negative sentiment
+            expressed in "service".</p>
+          <p>The model has been fine-tuned on English data only. Although you can use the model on the other languages listed under Supported languages, the results might vary.</p>
+          <section id="section-targets-sentiment-workflows-in-runtime-231">
+            <h3 id="targets-sentiment-workflows-in-runtime-231">Targets sentiment workflows in Runtime 23.1</h3>
+            <p><strong>Workflow names</strong></p>
+            <ul>
+              <li><code>targets-sentiment_transformer-workflow_multilingual_slate.153m.distilled</code></li>
+              <li><code>targets-sentiment_transformer-workflow_multilingual_slate.153m.distilled-cpu</code></li>
+            </ul>
+            <p>The <code>targets-sentiment_transformer-workflow_multilingual_slate.153m.distilled</code> workflow can be used on both CPUs and GPUs.</p>
+            <p>The <code>targets-sentiment_transformer-workflow_multilingual_slate.153m.distilled-cpu</code> workflow is optimized for CPU-based runtimes.</p>
+            <p><strong>Code sample for the <code>targets-sentiment_transformer-workflow_multilingual_slate.153m.distilled</code> workflow</strong></p>
+            <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">import</span> watson_nlp
+<span class="hljs-comment"># Load Targets Sentiment model for English</span>
+targets_sentiment_model = watson_nlp.load(<span class="hljs-string">'targets-sentiment_transformer-workflow_multilingual_slate.153m.distilled'</span>)
+<span class="hljs-comment"># Run the targets sentiment model on the input text</span>
+targets_sentiments = targets_sentiment_model.run(<span class="hljs-string">'The rooms are nice, but the bed was not very comfortable.'</span>)
+<span class="hljs-comment"># Print the targets with the associated sentiment</span>
+<span class="hljs-built_in">print</span>(targets_sentiments)
+</code></pre>
+            <p><strong>Output of the code sample:</strong></p>
+            <pre class="codeblock"><code class="lang-json hljs"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"targeted_sentiments"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"rooms"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"score"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.990798830986023</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"label"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"SENT_POSITIVE"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"mixed"</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"sentiment_mentions"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+        <span class="hljs-punctuation">{</span>
+          <span class="hljs-attr">"span"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"begin"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"end"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">9</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"text"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"rooms"</span>
+          <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"sentimentprob"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"positive"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.990798830986023</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"neutral"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.0</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"negative"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.00920116901397705</span>
+          <span class="hljs-punctuation">}</span>
+        <span class="hljs-punctuation">}</span>
+      <span class="hljs-punctuation">]</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"bed"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"score"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">-0.9920912981033325</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"label"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"SENT_NEGATIVE"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"mixed"</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"sentiment_mentions"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+        <span class="hljs-punctuation">{</span>
+          <span class="hljs-attr">"span"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"begin"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">28</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"end"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">31</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"text"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"bed"</span>
+          <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+          <span class="hljs-attr">"sentimentprob"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+            <span class="hljs-attr">"positive"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.00790870189666748</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"neutral"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.0</span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">"negative"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0.9920912981033325</span>
+          <span class="hljs-punctuation">}</span>
+        <span class="hljs-punctuation">}</span>
+      <span class="hljs-punctuation">]</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"producer_id"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Transformer-based Targets Sentiment Extraction Workflow"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"version"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"0.0.1"</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+            <p><strong>Parent topic:</strong> <a href="watson-nlp-block-catalog.html">Watson Natural Language Processing task catalog</a></p>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

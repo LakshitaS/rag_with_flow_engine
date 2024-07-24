@@ -1,0 +1,157 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="When you train or score a model or function, you choose the type, size, and power of the hardware configuration that matches your computing needs.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Compute options for model training and scoring</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=assets-compute-options-model-training-scoring"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="compute-options-for-model-training-and-scoring" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-compute-options-for-model-training-and-scoring">
+        <h1 id="compute-options-for-model-training-and-scoring">Compute options for model training and scoring</h1>
+        <p>When you train or score a model or function, you choose the type, size, and power of the hardware configuration that matches your computing needs.</p>
+        <ul>
+          <li><a href="#default">Default hardware configurations</a></li>
+          <li><a href="#compute">Compute usage</a></li>
+        </ul>
+        <section id="section-default">
+          <h2 id="default">Default hardware configurations</h2>
+          <p>Choose the hardware configuration for your Watson Machine Learning asset when you train the asset or when you deploy it.</p>
+          <table>
+            <caption caption-side="top">Hardware configurations available for training and deploying assets</caption>
+            <thead>
+              <tr>
+                <th>Capacity type</th>
+                <th>Capacity units per hour</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Extra small: 1x4 = 1 vCPU and 4 GB RAM</td>
+                <td>0.5</td>
+              </tr>
+              <tr>
+                <td>Small: 2x8 = 2 vCPU and 8 GB RAM</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>Medium: 4x16 = 4 vCPU and 16 GB RAM</td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td>Large: 8x32 = 8 vCPU and 32 GB RAM</td>
+                <td>4</td>
+              </tr>
+              <tr>
+                <td>Extra large: 16x64 = 16 vCPU and 64 GB RAM</td>
+                <td>8</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section id="section-compute">
+          <h2 id="compute">Compute usage for Watson Machine Learning assets</h2>
+          <p>Deployments and scoring consume compute resources as capacity unit hours (CUH) from the Watson Machine Learning service.</p>
+          <p>To check the total monthly CUH consumption for your Watson Machine Learning services, from the navigation menu, select <strong>Administration</strong> -&gt; <strong>Environment runtimes</strong>.</p>
+          <p>Additionally, you can monitor the monthly resource usage in each specific deployment space. To do that, from your deployment space, go to the <strong>Manage</strong> tab and then select <strong>Resource usage</strong>. The summary shows CUHs
+            used by deployment type: separately for AutoAI deployments, Federated Learning deployments, batch deployments, and online deployments.</p>
+          <section id="section-compute-usage-details">
+            <h3 id="compute-usage-details">Compute usage details</h3>
+            <p>The rate of consumed CUHs is determined by the computing requirements of your deployments. It is based on such variables as:</p>
+            <ul>
+              <li>type of deployment</li>
+              <li>type of framework</li>
+              <li>complexity of scoring Scaling a deployment to support more concurrent users and requests also increases CUH consumption. As many variables affect resource consumption for a deployment, it is recommended that you run tests on your models
+                and deployments to analyze CUH consumption.</li>
+            </ul>
+            <p>The way that online deployments consume capacity units is based on framework. For some frameworks, CUHs are charged for the number of hours that the deployment asset is active in a deployment space. For example, SPSS models in online deployment
+              mode that run for 24 hours a day, seven days a week, consume CUHs and are charged for that period. An active online deployment has no idle time. For other frameworks, CUHs are charged according to scoring duration. Refer to the CUH consumption
+              table for details on how CUH usage is calculated.</p>
+            <p>Compute time is calculated to the millisecond, with a 1-minute minimum for each distinct operation. For example:</p>
+            <ul>
+              <li>A training run that takes 12 seconds is billed as 1 minute</li>
+              <li>A training run that takes 83.555 seconds is billed exactly as calculated</li>
+            </ul>
+          </section>
+          <section id="section-cuh-consumption-by-deployment-and-framework-type">
+            <h3 id="cuh-consumption-by-deployment-and-framework-type">CUH consumption by deployment and framework type</h3>
+            <p>CUH consumption is calculated by using these formulas:</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Deployment type</th>
+                  <th>Framework</th>
+                  <th>CUH calculation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Online</td>
+                  <td>AutoAI, AI function, SPSS, Scikit-Learn custom libraries, Tensorflow, RShiny</td>
+                  <td>Deployment active duration <code>*</code> Number of nodes <code>*</code> CUH rate for capacity type framework</td>
+                </tr>
+                <tr>
+                  <td>Online</td>
+                  <td>Spark, PMML, Scikit-Learn, Pytorch, XGBoost</td>
+                  <td>Score duration in seconds <code>*</code> Number of nodes <code>*</code> CUH rate for capacity type framework</td>
+                </tr>
+                <tr>
+                  <td>Batch</td>
+                  <td>all frameworks</td>
+                  <td>Job duration in seconds <code>*</code> Number of nodes <code>*</code> CUH rate for capacity type framework</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="../wmls/wmls-deploy-overview.html">Deploying assets</a></li>
+            <li><a href="../getting-started/wml-plans.html">Watson Machine Learning service</a></li>
+            <li><a href="../admin/monitor-resources.html">Monitoring account resource usage</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="../analyze-data/ml-deploy-general.html">Managing predictive deployments</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

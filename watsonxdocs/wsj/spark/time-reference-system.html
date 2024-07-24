@@ -1,0 +1,239 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Time reference system (TRS) is a local, regional or global system used to identify time.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Time reference system</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=analysis-time-reference-system"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="time-reference-system" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-time-reference-system">
+        <h1 id="time-reference-system">Time reference system</h1>
+        <p>Time reference system (TRS) is a local, regional or global system used to identify time.</p>
+        <p>A time reference system defines a specific projection for forward and reverse mapping between a timestamp and its numeric representation. A common example that most users are familiar with is UTC time, which maps a timestamp, for example, (1 Jan
+          2019, 12 midnight (GMT) into a 64-bit integer value (1546300800000), which captures the number of milliseconds that have elapsed since 1 Jan 1970, 12 midnight (GMT). Generally speaking, the timestamp value is better suited for human readability,
+          while the numeric representation is better suited for machine processing.</p>
+        <p>In the time series library, a time series can be associated with a TRS. A TRS is composed of a:</p>
+        <ul>
+          <li>Time tick that captures time granularity, for example 1 minute</li>
+          <li>Zoned date time that captures a start time, for example <code>1 Jan 2019,  12 midnight US Eastern Daylight Savings time (EDT)</code>. A timestamp is mapped into a numeric representation by computing the number of elapsed time ticks since the
+            start time. A numeric representation is scaled by the granularity and shifted by the start time when it is mapped back to a timestamp.</li>
+        </ul>
+        <p>Note that this forward + reverse projection might lead to time loss. For instance, if the true time granularity of a time series is in seconds, then forward and reverse mapping of the time stamps <code>09:00:01</code> and <code>09:00:02</code>          (to be read as <code>hh:mm:ss</code>) to a granularity of one minute would result in the time stamps <code>09:00:00</code> and <code>09:00:00</code> respectively. In this example, a time series, whose granularity is in seconds, is being mapped
+          to minutes and thus the reverse mapping looses information. However, if the mapped granularity is higher than the granularity of the input time series (more specifically, if the time series granularity is an integral multiple of the mapped granularity)
+          then the forward + reverse projection is guaranteed to be lossless. For example, mapping a time series, whose granularity is in minutes, to seconds and reverse projecting it to minutes would result in lossless reconstruction of the timestamps.</p>
+        <section id="section-setting-trs">
+          <h2 id="setting-trs">Setting TRS</h2>
+          <p>When a time series is created, it is associated with a TRS (or None if no TRS is specified). If the TRS is None, then the numeric values cannot be mapped to timestamps. Note that TRS can only be set on a time series at construction time. The
+            reason is that a time series by design is an immutable object. Immutability comes in handy when the library is used in multi-threaded environments or in distributed computing environments such as Apache Spark. While a TRS can be set only at
+            construction time, it can be changed using the <code>with_trs</code> method as described in the next section. <code>with_trs</code> produces a new time series and thus has no impact on immutability.</p>
+          <p>Let us consider a simple time series created from an in-memory list:</p>
+          <pre class="codeblock"><code class="lang-python hljs">values = [<span class="hljs-number">1.0</span>, <span class="hljs-number">2.0</span>, <span class="hljs-number">4.0</span>]
+x = tspy.time_series(values)
+x
+</code></pre>
+          <p>This returns:</p>
+          <pre class="codeblock"><code class="hljs">TimeStamp: 0     Value: 1.0
+TimeStamp: 1     Value: 2.0
+TimeStamp: 2     Value: 4.0
+</code></pre>
+          <p>At construction time, the time series can be associated with a TRS. Associating a TRS with a time series allows its numeric timestamps to be as per the time tick and offset/timezone. The following example shows <code>1 minute and 1 Jan 2019, 12 midnight (GMT)</code>:</p>
+          <pre class="codeblock"><code class="lang-python hljs">zdt = datetime.datetime(<span class="hljs-number">2019</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,tzinfo=datetime.timezone.utc)
+x_trs = tspy.time_series(data, granularity=datetime.timedelta(minutes=<span class="hljs-number">1</span>), start_time=zdt)
+x_trs
+</code></pre>
+          <p>This returns:</p>
+          <pre class="codeblock"><code class="hljs">TimeStamp: 2019-01-01T00:00Z     Value: 1.0
+TimeStamp: 2019-01-01T00:01Z     Value: 2.0
+TimeStamp: 2019-01-01T00:02Z     Value: 4.0
+</code></pre>
+          <p>Here is another example where the numeric timestamps are reinterpreted with a time tick of one hour and offset/timezone as <code>1 Jan 2019, 12 midnight US Eastern Daylight Savings time (EDT)</code>.</p>
+          <pre class="codeblock"><code class="lang-python hljs">tz_edt = datetime.timezone.edt
+zdt = datetime.datetime(<span class="hljs-number">2019</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,tzinfo=tz_edt)
+x_trs = tspy.time_series(data, granularity=datetime.timedelta(hours=<span class="hljs-number">1</span>), start_time=zdt)
+x_trs
+</code></pre>
+          <p>This returns:</p>
+          <pre class="codeblock"><code class="hljs">TimeStamp: 2019-01-01T00:00-04:00     Value: 1.0
+TimeStamp: 2019-01-01T00:01-04:00     Value: 2.0
+TimeStamp: 2019-01-01T00:02-04:00     Value: 4.0
+</code></pre>
+          <p>Note that the timestamps now indicate an offset of -4 hours from GMT (EDT timezone) and captures the time tick of one hour. Also note that setting a TRS does NOT change the numeric timestamps - it only specifies a way of interpreting numeric
+            timestamps.</p>
+          <pre class="codeblock"><code class="lang-python hljs">x_trs.<span class="hljs-built_in">print</span>(human_readable=<span class="hljs-literal">False</span>)
+</code></pre>
+          <p>This returns:</p>
+          <pre class="codeblock"><code class="hljs">TimeStamp: 0     Value: 1.0
+TimeStamp: 1     Value: 2.0
+TimeStamp: 2     Value: 4.0
+</code></pre>
+        </section>
+        <section id="section-changing-trs">
+          <h2 id="changing-trs">Changing TRS</h2>
+          <p>You can change the TRS associated with a time series using the <code>with_trs</code> function. Note that this function will throw an exception if the input time series is not associated with a TRS (if TRS is None). Using <code>with_trs</code>            changes the numeric timestamps.</p>
+          <p>The following code sample shows TRS set at contructions time without using <code>with_trs</code>:</p>
+          <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-comment"># 1546300800 is the epoch time in seconds for 1 Jan 2019, 12 midnight GMT</span>
+zdt1 = datetime.datetime(<span class="hljs-number">1970</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,tzinfo=datetime.timezone.utc)
+y = tspy.observations.of(tspy.observation(<span class="hljs-number">1546300800</span>, <span class="hljs-number">1.0</span>),tspy.observation(<span class="hljs-number">1546300860</span>, <span class="hljs-number">2.0</span>), tspy.observation(<span class="hljs-number">1546300920</span>,
+    <span class="hljs-number">4.0</span>)).to_time_series(granularity=datetime.timedelta(seconds=<span class="hljs-number">1</span>), start_time=zdt1)
+y.<span class="hljs-built_in">print</span>()
+y.<span class="hljs-built_in">print</span>(human_readable=<span class="hljs-literal">False</span>)
+</code></pre>
+          <p>This returns:</p>
+          <pre class="codeblock"><code class="hljs">TimeStamp: 2019-01-01T00:00Z     Value: 1.0
+TimeStamp: 2019-01-01T00:01Z     Value: 2.0
+TimeStamp: 2019-01-01T00:02Z     Value: 4.0
+
+# TRS has been set during construction time - no changes to numeric timestamps
+TimeStamp: 1546300800     Value: 1.0
+TimeStamp: 1546300860     Value: 2.0
+TimeStamp: 1546300920     Value: 4.0
+</code></pre>
+          <p>The following example shows how to apply <code>with_trs</code> to change <code>granularity</code> to one minute and retain the original time offset (1 Jan 1970, 12 midnight GMT):</p>
+          <pre class="codeblock"><code class="lang-python hljs">y_minutely_1970 = y.with_trs(granularity=datetime.timedelta(minutes=<span class="hljs-number">1</span>), start_time=zdt1)
+y_minutely_1970.<span class="hljs-built_in">print</span>()
+y_minutely_1970.<span class="hljs-built_in">print</span>(human_readable=<span class="hljs-literal">False</span>)
+</code></pre>
+          <p>This returns:</p>
+          <pre class="codeblock"><code class="hljs">TimeStamp: 2019-01-01T00:00Z     Value: 1.0
+TimeStamp: 2019-01-01T00:01Z     Value: 2.0
+TimeStamp: 2019-01-01T00:02Z     Value: 4.0
+
+# numeric timestamps have changed to number of elapsed minutes since 1 Jan 1970, 12 midnight GMT
+TimeStamp: 25771680     Value: 1.0
+TimeStamp: 25771681     Value: 2.0
+TimeStamp: 25771682     Value: 4.0
+</code></pre>
+          <p>Now apply <code>with_trs</code> to change <code>granularity</code> to one minute and the offset to 1 Jan 2019, 12 midnight GMT:</p>
+          <pre class="codeblock"><code class="lang-python hljs">zdt2 = datetime.datetime(<span class="hljs-number">2019</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,tzinfo=datetime.timezone.utc)
+y_minutely = y.with_trs(granularity=datetime.timedelta(minutes=<span class="hljs-number">1</span>), start_time=zdt2)
+y_minutely.<span class="hljs-built_in">print</span>()
+y_minutely.<span class="hljs-built_in">print</span>(human_readable=<span class="hljs-literal">False</span>)
+</code></pre>
+          <p>This returns:</p>
+          <pre class="codeblock"><code class="hljs">TimeStamp: 2019-01-01T00:00Z     Value: 1.0
+TimeStamp: 2019-01-01T00:01Z     Value: 2.0
+TimeStamp: 2019-01-01T00:02Z     Value: 4.0
+
+# numeric timestamps are now minutes elapsed since 1 Jan 2019, 12 midnight GMT
+TimeStamp: 0     Value: 1.0
+TimeStamp: 1     Value: 2.0
+TimeStamp: 2     Value: 4.0
+</code></pre>
+          <p>To better understand how it impacts post processing, let's examine the following. Note that <code>materialize</code> on numeric timestamps operates on the underlying numeric timestamps associated with the time series.</p>
+          <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-built_in">print</span>(y.materialize(<span class="hljs-number">0</span>,<span class="hljs-number">2</span>))
+<span class="hljs-built_in">print</span>(y_minutely_1970.materialize(<span class="hljs-number">0</span>,<span class="hljs-number">2</span>))
+<span class="hljs-built_in">print</span>(y_minutely.materialize(<span class="hljs-number">0</span>,<span class="hljs-number">2</span>))
+</code></pre>
+          <p>This returns:</p>
+          <pre class="codeblock"><code class="hljs"># numeric timestamps in y are in the range 1546300800, 1546300920 and thus y.materialize(0,2) is empty
+[]
+# numeric timestamps in y_minutely_1970 are in the range 25771680, 25771682 and thus y_minutely_1970.materialize(0,2) is empty
+[]
+# numeric timestamps in y_minutely are in the range 0, 2
+[(0,1.0),(1,2.0),(2,4.0)]
+</code></pre>
+          <p>The method <code>materialize</code> can also be applied to datetime objects. This results in an exception if the underlying time series is not associated with a TRS (if TRS is None). Assuming the underlying time series has a TRS, the datetime
+            objects are mapped to a numeric range using the TRS.</p>
+          <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-comment"># Jan 1 2019, 12 midnight GMT</span>
+dt_beg = datetime.datetime(<span class="hljs-number">2019</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,tzinfo=datetime.timezone.utc)
+<span class="hljs-comment"># Jan 1 2019, 12:02 AM GMT</span>
+dt_end = datetime.datetime(<span class="hljs-number">2019</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">2</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,tzinfo=datetime.timezone.utc)
+
+<span class="hljs-built_in">print</span>(y.materialize(dt_beg, dt_end))
+<span class="hljs-built_in">print</span>(y_minutely_1970.materialize(dt_beg, dt_end))
+<span class="hljs-built_in">print</span>(y_minutely.materialize(dt_beg, dt_end))
+
+<span class="hljs-comment"># materialize on y in UTC millis</span>
+[(<span class="hljs-number">1546300800</span>,<span class="hljs-number">1.0</span>),(<span class="hljs-number">1546300860</span>,<span class="hljs-number">2.0</span>), (<span class="hljs-number">1546300920</span>,<span class="hljs-number">4.0</span>)]
+<span class="hljs-comment"># materialize on y_minutely_1970 in UTC minutes</span>
+[(<span class="hljs-number">25771680</span>,<span class="hljs-number">1.0</span>),(<span class="hljs-number">25771681</span>,<span class="hljs-number">2.0</span>),(<span class="hljs-number">25771682</span>,<span class="hljs-number">4.0</span>)]
+<span class="hljs-comment"># materialize on y_minutely in minutes offset by 1 Jan 2019, 12 midnight</span>
+[(<span class="hljs-number">0</span>,<span class="hljs-number">1.0</span>),(<span class="hljs-number">1</span>,<span class="hljs-number">2.0</span>),(<span class="hljs-number">2</span>,<span class="hljs-number">4.0</span>)]
+</code></pre>
+        </section>
+        <section id="section-duplicate-timestamps">
+          <h2 id="duplicate-timestamps">Duplicate timestamps</h2>
+          <p>Changing the TRS can result in duplicate timestamps. The following example changes the granularity to one hour which results in duplicate timestamps. The time series library handles duplicate timestamps seamlessly and provides convenience combiners
+            to reduce values associated with duplicate timestamps into a single value, for example by calculating an average of the values grouped by duplicate timestamps.</p>
+          <pre class="codeblock"><code class="lang-python hljs">y_hourly = y_minutely.with_trs(granularity=datetime.timedelta(hours=<span class="hljs-number">1</span>), start_time=zdt2)
+<span class="hljs-built_in">print</span>(y_minutely)
+<span class="hljs-built_in">print</span>(y_minutely.materialize(<span class="hljs-number">0</span>,<span class="hljs-number">2</span>))
+
+<span class="hljs-built_in">print</span>(y_hourly)
+<span class="hljs-built_in">print</span>(y_hourly.materialize(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>))
+</code></pre>
+          <p>This returns:</p>
+          <pre class="codeblock"><code class="hljs"># y_minutely - minutely time series
+TimeStamp: 2019-01-01T00:00Z     Value: 1.0
+TimeStamp: 2019-01-01T00:01Z     Value: 2.0
+TimeStamp: 2019-01-01T00:02Z     Value: 4.0
+
+# y_minutely has numeric timestamps 0, 1 and 2
+[(0,1.0),(1,2.0),(2,4.0)]
+
+# y_hourly - hourly time series has duplicate timestamps
+TimeStamp: 2019-01-01T00:00Z     Value: 1.0
+TimeStamp: 2019-01-01T00:00Z     Value: 2.0
+TimeStamp: 2019-01-01T00:00Z     Value: 4.0
+
+# y_hourly has numeric timestamps of all 0
+[(0,1.0),(0,2.0),(0,4.0)]
+</code></pre>
+          <p>Duplicate timestamps can be optionally combined as follows:</p>
+          <pre class="codeblock"><code class="lang-python hljs">y_hourly_averaged = y_hourly.transform(transformers.combine_duplicate_granularity(<span class="hljs-keyword">lambda</span> x: <span class="hljs-built_in">sum</span>(x)/<span class="hljs-built_in">len</span>(x))
+<span class="hljs-built_in">print</span>(y_hourly_averaged.materialize(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>))
+</code></pre>
+          <p>This returns:</p>
+          <pre class="codeblock"><code class="hljs"># values corresponding to the duplicate numeric timestamp 0 have been combined using average
+# average = (1+2+4)/3 = 2.33
+[(0,2.33)]
+</code></pre>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p>To use the <code>tspy</code> Python SDK, see the <a href="https://ibm-cloud.github.io/tspy-docs/"><code>tspy</code> Python SDK documentation</a>.</p>
+          <p><strong>Parent topic:</strong> <a href="../spark/time-series-lib.html">Time series analysis</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

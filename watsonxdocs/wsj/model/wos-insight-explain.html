@@ -1,0 +1,118 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can analyze model transactions in the Watson OpenScale service to understand how your model predicts outcomes. For example, you can review the predicted biased outcomes in payload transactions, or analyze a drop in accuracy, to get a better understanding of how your deployment is performing.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Reviewing model transactions</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=insights-reviewing-model-transactions"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="reviewing-model-transactions" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-reviewing-model-transactions">
+        <h1 id="reviewing-model-transactions">Reviewing model transactions</h1>
+        <p>You can analyze model transactions in the Watson OpenScale service to understand how your model predicts outcomes. For example, you can review the predicted biased outcomes in payload transactions, or analyze a drop in accuracy, to get a better
+          understanding of how your deployment is performing.</p>
+        <p>Watson OpenScale provides the following different methods to help you analyze your model transactions:</p>
+        <hr id="accordion01">
+        <details>
+          <summary>Reviewing payload transactions</summary>
+          <md-block>
+            <p>When you <a href="wos-insight-timechart.html#analyze-fairness">review results from fairness evaluations</a>, you can select <strong>View payload transactions</strong> to view a list of all of the model transactions that Watson OpenScale processes
+              to predict any biased outcomes for each monitored attribute.</p>
+            <p><img src="images/wos-payload-transactions.png" alt="List of payload of transactions displays">
+            </p>
+          </md-block>
+          <p></p>
+        </details>
+        <hr>
+        <hr id="accordion02">
+        <details>
+          <summary>Reviewing drift transactions</summary>
+          <md-block>
+            <p>When you <a href="wos-insight-timechart.html#analyze-drift">review results from drift evaluations</a>, you can click the <strong>Number of transactions</strong> link on a transactions summary tile to view the transactions that are responsible
+              for drift. The <strong>Transactions</strong> page specifies reasons for the drop in accuracy or drop in data consistency and provides a recommendation to help fix the drift of your model.</p>
+            <p><img src="images/wos-drift-transactions-details.png" alt="Model drift transactions details page is displayed">
+            </p>
+          </md-block>
+          <p></p>
+        </details>
+        <hr>
+        <hr id="accordion03">
+        <details>
+          <summary>Reviewing performance</summary>
+          <md-block>
+            <p>When you <a href="wos-insight-timechart.html">review evaluation results</a>, you can review performance to understand how your model processes scoring requests. Performance evaluations are enabled by default when you add deployments. To evaluate
+              performance, Watson OpenScale calculates the total number of transaction records and the average number of transaction records per minute that your model processes.</p>
+            <p><img src="images/wos-performance-transactions.png" alt="Performance evaluation transaction details page is displayed">
+            </p>
+          </md-block>
+          <p></p>
+        </details>
+        <hr>
+        <hr id="accordion04">
+        <details>
+          <summary>Reviewing analytics</summary>
+          <md-block>
+            <p>When you <a href="wos-insight-timechart.html">review evaluation results</a>, you can use the <strong>Predictions by confidence</strong> chart to analyze the transactions that are sent to your deployment in the date range that you select by
+              reviewing prediction classes and confidence distribution in each class. You can also use the <strong>Chart builder</strong> to create custom visualizations to help you better understand model predictions and inputs at run time.</p>
+            <p>The chart builder displays the output of the model’s prediction against the features or data ranges that you specify. For example, you can use the chart builder to see the split in predicted classes or confidence scores for different ranges
+              of an attribute. You can also analyze the transactions that are sent to your deployment during a data range by creating a custom chart and choosing between featues, prediction classes, and confidence.</p>
+            <p><img src="images/wos-analyzing-scoring-payload.png" alt="Chart builder displaying metrics for model transactions is displayed"></p>
+            <p>When you review any transactions on the <strong>Transactions</strong> page in Watson OpenScale, you can choose to view explanations that provide details about how the predictions for each transaction are determined. For more information, see
+              <a href="wos-insights-transaction-details.html">Explaining model transactions</a>.</p>
+            <div class="note note"><span class="notetitle">Note:</span>
+              <md-block>
+                <p>If your data includes a feature name containing a period (<code>.</code>), rendering a chart will fail with this error: <code>Failed to get data</code></p>
+                <p></p>
+              </md-block>
+            </div>
+            <p></p>
+          </md-block>
+        </details>
+        <hr>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p><a href="wos-insights-transaction-details.html">Explaining model transactions</a></p>
+          <p><strong>Parent topic:</strong> <a href="wos-insight-overview.html">Reviewing model insights with Watson OpenScale</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

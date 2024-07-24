@@ -1,0 +1,130 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="To access your data in an IBM Informix database, create a connection asset for it.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>IBM Informix connection</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=connectors-informix-connection"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="ibm-informix-connection" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-ibm-informix-connection">
+        <h1 id="ibm-informix-connection">IBM Informix connection</h1>
+        <p>To access your data in an IBM Informix database, create a connection asset for it.</p>
+        <p>IBM Informix is a database that contains relational, object-relational, or dimensional data. You can use the Informix connection to access data from an on-prem Informix database server or from IBM Informix on Cloud.</p>
+        <section id="section-supported-informix-versions-on-prem">
+          <h2 id="supported-informix-versions-on-prem">Supported Informix versions (on-prem)</h2>
+          <ul>
+            <li>Informix 14.10 and later. This version does not support the Progress DataDirect JDBC driver, which is used by the Informix connection. The Informix connection supports Informix 14.10 features that are comparable to previous Informix versions,
+              but not the new features. Issues related to DataDirect's JDBC driver are not supported.</li>
+            <li>Informix 12.10 and later</li>
+            <li>Informix 11.0 and later</li>
+            <li>Informix 10.0 and later</li>
+            <li>Informix 9.2 and later</li>
+          </ul>
+        </section>
+        <section id="section-create-a-connection-to-informix">
+          <h2 id="create-a-connection-to-informix">Create a connection to Informix</h2>
+          <p>To create the connection asset, you need these connection details:</p>
+          <ul>
+            <li>Name of the database server</li>
+            <li>Name of the database</li>
+            <li>Hostname or IP address of the database</li>
+            <li>Port number (Default is <code>1526</code>)</li>
+            <li>Username and password</li>
+          </ul>
+          <p>On-prem Informix database servers: For <strong>Private connectivity</strong>, to connect to a database that is not externalized to the internet (for example, behind a firewall), you must set up a <a href="securingconn.html">secure connection</a>.</p>
+          <section id="section-choose-the-method-for-creating-a-connection-based-on-where-you-are-in-the-platform">
+            <h3 id="choose-the-method-for-creating-a-connection-based-on-where-you-are-in-the-platform">Choose the method for creating a connection based on where you are in the platform</h3>
+            <dl>
+              <dt><strong>In a project</strong></dt>
+              <dd>Click <strong>Assets &gt; New asset &gt; Connect to a data source</strong>. See <a href="create-conn.html">Adding a connection to a project</a>.</dd>
+              <dt><strong>In a deployment space</strong></dt>
+              <dd>Click <strong>Add to space &gt; Connection</strong>. See <a href="../analyze-data/ml-space-add-assets.html">Adding connections to a deployment space</a>.</dd>
+              <dt><strong>In the Platform assets catalog</strong></dt>
+              <dd>Click <strong>New connection</strong>. See <a href="platform-conn.html">Adding platform connections</a>.</dd>
+            </dl>
+          </section>
+          <section id="section-next-step-add-data-assets-from-the-connection">
+            <h3 id="next-step-add-data-assets-from-the-connection">Next step: Add data assets from the connection</h3>
+            <ul>
+              <li>See <a href="connected-data.html">Add data from a connection in a project</a>.</li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-where-you-can-use-this-connection">
+          <h2 id="where-you-can-use-this-connection">Where you can use this connection</h2>
+          <p>You can use Informix connections in the following workspaces and tools:</p>
+          <p><strong>Projects</strong></p>
+          <ul>
+            <li>Decision Optimization</li>
+            <li>SPSS Modeler</li>
+            <li>Synthetic Data Generator</li>
+          </ul>
+          <p><strong>Catalogs</strong></p>
+          <ul>
+            <li>Platform assets catalog</li>
+          </ul>
+        </section>
+        <section id="section-informix-setup">
+          <h2 id="informix-setup">Informix setup</h2>
+          <p>To set up Informix, see these topics:</p>
+          <ul>
+            <li>Informix on-prem: <a href="https://www.ibm.com/docs/SSGU8G_14.1.0/com.ibm.inst.doc/ids_inst_023.htm" target="_blank" rel="noopener noreferrer">Creating a database server after installation</a></li>
+            <li>Informix on Cloud: <a href="https://cloud.ibm.com/docs/InformixOnCloud/InformixOnCloud.html" target="_blank" rel="noopener noreferrer">Getting started with Informix on Cloud</a></li>
+          </ul>
+          <section id="section-running-sql-statements">
+            <h3 id="running-sql-statements">Running SQL statements</h3>
+            <p>To ensure that your SQL statements run correctly, refer to the <a href="https://www.ibm.com/docs/SSGU8G_14.1.0/com.ibm.sqls.doc/sqls.htm" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Guide to SQL: Syntax</a>              in the product documentation for the correct syntax.</p>
+          </section>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="https://www.ibm.com/docs/informix-servers/14.10" target="_blank" rel="noopener noreferrer">Informix product documentation</a> (on-prem)</li>
+            <li><a href="https://www.ibm.com/cloud/informix" target="_blank" rel="noopener noreferrer">IBM Informix on Cloud</a></li>
+            <li><a href="https://www.ibm.com/cloud/informix/faq" target="_blank" rel="noopener noreferrer">IBM Informix on Cloud FAQ</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="conn_types.html">Supported connections</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

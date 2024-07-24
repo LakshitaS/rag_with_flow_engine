@@ -1,0 +1,245 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Attempt to make a model output incorrect results by perturbing the data sent to the trained model.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Evasion attack risk for AI</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=atlas-evasion-attack"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="evasion-attack-risk-for-ai" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-evasion-attack-risk-for-ai">
+        <h1 id="evasion-attack-risk-for-ai">Evasion attack risk for AI</h1>
+        <style type="text/css" keep="true">
+          .risk-detail-heading {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start;
+          }
+          
+          .risk-detail-heading .tags {
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 8px;
+          }
+          
+          .risk-detail-heading .tags .bx--tag {
+            line-height: normal;
+            font-size: 12px;
+          }
+        </style>
+        <div class="risk-detail-heading">
+          <div class="tags">
+            <div>
+              <svg class="risk-group-icon" version="1.1" id="risk-icon-robustness-" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" width="32" height="32" xml:space="preserve">
+<path xmlns="http://www.w3.org/2000/svg" id="risk-icon-path-robustness-" d="M25.128,31.48c-1.653,0-3.285-0.644-4.505-1.862c-1.697-1.698-2.29-4.224-1.542-6.493L8.874,12.92c-2.271,0.747-4.794,0.153-6.491-1.543c-1.904-1.903-2.404-4.813-1.244-7.24c0.05-0.105,0.148-0.18,0.264-0.2c0.118-0.018,0.233,0.018,0.315,0.101L5.72,8.04c0.64,0.638,1.68,0.639,2.32,0c0.639-0.64,0.639-1.68,0-2.32L4.038,1.718c-0.083-0.083-0.12-0.2-0.101-0.315c0.02-0.115,0.094-0.213,0.2-0.264c2.427-1.161,5.336-0.66,7.239,1.243c1.698,1.698,2.292,4.224,1.542,6.494l10.206,10.205c2.271-0.752,4.796-0.156,6.493,1.542c1.902,1.903,2.402,4.812,1.243,7.24c-0.051,0.105-0.149,0.18-0.265,0.199c-0.108,0.022-0.231-0.018-0.315-0.1l-4.002-4.002c-0.639-0.639-1.68-0.639-2.318,0c-0.64,0.64-0.64,1.68,0,2.318l4.002,4.002c0.082,0.083,0.12,0.2,0.1,0.315s-0.094,0.214-0.199,0.265C26.991,31.277,26.057,31.48,25.128,31.48z M8.968,12.146c0.094,0,0.186,0.037,0.254,0.105L19.75,22.775c0.1,0.1,0.132,0.248,0.083,0.38c-0.765,2.062-0.255,4.399,1.3,5.953c1.564,1.564,3.896,2.06,5.942,1.305l-3.624-3.624c-0.919-0.92-0.919-2.417,0-3.338c0.924-0.918,2.42-0.917,3.338,0l3.624,3.624c0.755-2.047,0.26-4.378-1.305-5.942c-1.554-1.555-3.889-2.065-5.953-1.3c-0.132,0.048-0.279,0.017-0.38-0.083L12.25,9.225c-0.1-0.099-0.132-0.248-0.083-0.38c0.766-2.062,0.255-4.399-1.299-5.954c-1.564-1.564-3.896-2.06-5.943-1.304l3.624,3.624C8.993,5.655,9.237,6.248,9.237,6.88S8.992,8.105,8.548,8.548c-0.888,0.889-2.45,0.888-3.337,0L1.587,4.925c-0.755,2.046-0.26,4.378,1.304,5.943c1.554,1.554,3.892,2.064,5.952,1.3C8.884,12.153,8.926,12.146,8.968,12.146z M2.858,31.24c-0.092,0-0.185-0.036-0.254-0.105l-1.743-1.743c-0.136-0.136-0.141-0.354-0.012-0.497l2.936-3.229c0.066-0.073,0.159-0.115,0.258-0.118c0.077,0,0.193,0.036,0.263,0.105l0.764,0.764l7.476-7.477l0.509,0.51l-7.476,7.477l0.763,0.763c0.07,0.07,0.108,0.165,0.105,0.264s-0.045,0.191-0.118,0.258L3.1,31.148C3.032,31.209,2.945,31.24,2.858,31.24z M1.613,29.125l1.257,1.258l2.695-2.451L4.063,26.43L1.613,29.125z M21.361,14.518l-0.51-0.509l9.311-9.311c0.384-0.383,0.595-0.892,0.595-1.433s-0.211-1.05-0.595-1.433c-0.788-0.788-2.074-0.79-2.864,0l-9.311,9.311l-0.51-0.509l9.311-9.311c1.038-1.038,2.848-1.036,3.884,0c0.519,0.519,0.805,1.208,0.805,1.942s-0.286,1.423-0.805,1.942L21.361,14.518z M19.674,12.831l-0.51-0.509l9.282-9.282l0.51,0.509L19.674,12.831z"></path>
+<rect id="risk-icon-rect-robustness-" style="fill:none;" width="32" height="32"></rect>
+</svg>
+            </div>
+            <div class="bx--tag bx--tag--blue">
+              Risks associated with input
+            </div>
+            <div class="bx--tag bx--tag--blue">Inference</div>
+            <div class="bx--tag bx--tag--blue">Robustness</div>
+            <div class="bx--tag bx--tag--purple">Amplified by generative AI</div>
+          </div>
+        </div>
+        <section id="section-description">
+          <h3 id="description">Description</h3>
+          <p>Attempt to make a model output incorrect results by perturbing the data sent to the trained model.</p>
+          <style type="text/css" keep="true">
+            .content h3 {
+              margin-bottom: 8px !important;
+            }
+            
+            .risk-group-icon {
+              width: 24px;
+              height: 24px;
+            }
+            
+            .example {
+              border-radius: 8px;
+              background-color: #f4f4f4;
+              margin: 1rem 0;
+            }
+            
+            .example .heading {
+              position: relative;
+              overflow: hidden;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              padding: 48px 1.5rem;
+              border-radius: 8px 8px 0 0;
+              background: #393939;
+              background-position: center top;
+              background-repeat: no-repeat;
+              background-size: cover;
+            }
+            
+            .example .heading .overlay {
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              top: 0;
+              left: 0;
+              background: linear-gradient(90deg, rgba(244, 244, 244, 1) 45%, rgba(244, 244, 244, 0.2) 65%, rgba(244, 244, 244, 0.4) 70%, rgba(244, 244, 244, 0) 85%);
+            }
+            
+            .example .heading img {
+              position: absolute;
+              top: 0;
+              left: 0;
+            }
+            
+            .example .heading .bx--label {
+              line-height: 14px;
+              margin-bottom: 0;
+              z-index: 0;
+              font-weight: 500;
+              color: #000;
+            }
+            
+            .example .heading .example-title {
+              font-size: 20px;
+              z-index: 0;
+            }
+            
+            .example .heading.input {
+              background-image: url(images/bg_input.png);
+              background-color: #005D5D;
+            }
+            
+            .example .heading.output {
+              background-image: url(images/bg_output.png);
+              background-color: #00539A;
+            }
+            
+            .example .heading.challenges {
+              background-image: url(images/bg_challenges.png);
+              background-color: #6929C4;
+            }
+            
+            .example .example-content {
+              padding: 1.5rem;
+            }
+            
+            .example .sources {
+              display: flex;
+            }
+            
+            .example .sources p {
+              display: flex;
+              flex-wrap: wrap;
+              list-style: none;
+              padding-left: 8px;
+            }
+            
+            .example .sources p:first-child {
+              margin-top: unset;
+            }
+            
+            .example .sources a {
+              vertical-align: middle;
+              margin: 0;
+            }
+            
+            .bullet {
+              margin: 6px 1ch;
+              width: 3px;
+              height: 3px;
+              border-radius: 50%;
+              background-color: black;
+            }
+            
+            .example .sources,
+            .example .sources p,
+            .example .sources a {
+              line-height: normal;
+              font-size: 12px;
+              margin: 0;
+            }
+          </style>
+          <div>
+            <div class="content">
+              <!-- <h3>Description</h3>
+<p>Attempt to make a model output incorrect results by perturbing the data sent to the trained model.</p> -->
+              <h3>Why is evasion attack a concern for foundation models?</h3>
+              <p>Evasion attacks alter model behavior, usually to benefit the attacker. If not properly accounted for, business entities could face fines, reputational harms, and other legal consequences.</p>
+              <div class="example">
+                <div class="heading input">
+                  <img src="images/background-input-example.jpg" alt="Background image for risks associated with input">
+                  <div class="overlay"></div>
+                  <div class="bx--label">Example</div>
+                  <p class="bx--type-productive-heading-03 example-title">Adversarial attacks on autonomous vehicles' AI components</p>
+                </div>
+                <div class="example-content">
+                  <p class="example-p">A report from the European Union Agency for Cybersecurity (ENISA) found that autonomous vehicles are “highly vulnerable to a wide range of attacks” that could be dangerous for passengers, pedestrians, and people in other vehicles. The
+                    report states that an adversarial attack might be used to make the AI 'blind' to pedestrians by manipulating the image recognition component to misclassify pedestrians. This attack could lead to havoc on the streets, as autonomous
+                    cars might hit pedestrians on the roads or crosswalks.</p>
+                  <p class="example-p">Other studies demonstrated potential adversarial attacks on autonomous vehicles: </p>
+                  <p class="example-p">
+                    </p><ul>
+                      <li>Fooling machine learning algorithms by making minor changes to street sign graphics, such as adding stickers. </li>
+                      <li>Security researchers from Tencent demonstrated how adding three small stickers in an intersection could cause Tesla's autopilot system to swerve into the wrong lane.</li>
+                      <li>Two McAfee researchers demonstrated how using only black electrical tape could trick a 2016 Tesla into a dangerous burst of acceleration by changing a speed limit sign from 35 mph to 85 mph.</li>
+                      <ul></ul>
+                    </ul>
+                  <p></p>
+                  <div class="sources">
+                    Sources:
+                    <p>
+                    </p>
+                    <p><a href="https://www.marketwatch.com/story/85-in-a-35-hackers-show-how-easy-it-is-to-manipulate-a-self-driving-tesla-2020-02-19" target="_blank" rel="noreferrer" class="label">Market Watch, February 2020</a></p>
+                    <p></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p><strong>Parent topic:</strong> <a href="../ai-risk-atlas/ai-risk-atlas.html">AI risk atlas</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

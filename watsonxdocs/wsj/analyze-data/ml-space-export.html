@@ -1,0 +1,109 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can export assets from a deployment space so that you can share the space with others or reuse the assets in another space.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Exporting space assets from deployment spaces</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=spaces-exporting-space-assets"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="exporting-space-assets-from-deployment-spaces" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-exporting-space-assets-from-deployment-spaces">
+        <h1 id="exporting-space-assets-from-deployment-spaces">Exporting space assets from deployment spaces</h1>
+        <p>You can export assets from a deployment space so that you can share the space with others or reuse the assets in another space.</p>
+        <p>For a list of assets that you can export from space, refer to <a href="../analyze-data/ml-space-add-assets-all.html">Assets in a deployment space</a>.</p>
+        <section id="section-exporting-space-assets-from-the-ui">
+          <h2 id="exporting-space-assets-from-the-ui">Exporting space assets from the UI</h2>
+          <div class="note important"><span class="importanttitle">Important:</span>
+            <md-block>
+              <p>To avoid problems with importing the space, export all dependencies together with the space. For more information, see <a href="../manage-data/export-project.html">Exporting a project</a>.</p>
+              <p></p>
+            </md-block>
+          </div>
+          <p></p>
+          <p>To export space assets from the UI:</p>
+          <ol>
+            <li>From your deployment space, click the import and export space (<img src="images/import-export-icon.png" alt="Import or Export space icon" height="20" style="vertical-align:text-bottom">) icon. From the list, select <strong>Export space</strong>.</li>
+            <li>Click <strong>New export file</strong>. Specify a file name and an optional description. <br>
+              <strong>Tip:</strong> To encrypt sensitive data in the exported archive, type the password in the <strong>Password</strong> field.</li>
+            <li>Select the assets that you want to export with the space.</li>
+            <li>Click <strong>Create</strong> to create the export file.</li>
+            <li>After the space is exported, click the download (<img src="images/download-icon.png" alt="Download icon" height="20" style="vertical-align:text-bottom">) to save the file.</li>
+          </ol>
+          <p>You can reuse this space by choosing <strong>Create a space from a file</strong> when you create a new space.</p>
+        </section>
+        <section id="section-exporting-space-assets-by-using-the-cpdctl-tool">
+          <h2 id="exporting-space-assets-by-using-the-cpdctl-tool">Exporting space assets by using the cpdctl tool</h2>
+          <p>By using the <code>cpdctl</code> tool, you can export these types of assets:</p>
+          <ul>
+            <li><code>wml_model</code></li>
+            <li><code>wml_model_definition</code></li>
+            <li><code>wml_pipeline</code></li>
+            <li><code>wml_function</code></li>
+            <li><code>wml_experiment</code></li>
+          </ul>
+          <p>Refer to this example code:</p>
+          <pre class="codeblock"><code class="lang-bash hljs">$ cpdctl asset <span class="hljs-built_in">export</span> start --space-id &lt;space id&gt; --assets <span class="hljs-string">'{"all_assets": true}'</span> --name &lt;my exported space&gt;
+...
+
+ID:        &lt;<span class="hljs-built_in">export</span> id&gt;
+Name:      &lt;my exported space&gt;
+Created:   &lt;date&gt;
+State:     completed
+
+$ cpdctl asset <span class="hljs-built_in">export</span> download --space-id &lt;my exported space&gt; --export-id &lt;<span class="hljs-built_in">export</span> id&gt; --output-file /tmp/space.zip
+...
+</code></pre>
+          <p>The following output is written to the <code>/tmp/space.zip</code> file:</p>
+          <pre class="codeblock"><code class="lang-bash hljs">OK
+</code></pre>
+          <p>For more information, see <a href="https://github.com/IBM/cpdctl/blob/master/README_command_reference.md">cpdctl tool documentation</a>.</p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="../analyze-data/ml-space-import-to-space.html">Importing spaces and projects into existing deployment spaces</a>.</li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="../analyze-data/ml-spaces_local.html">Deployment spaces</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

@@ -1,0 +1,402 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="When you configure fairness evaluations in IBM Watson OpenScale, you can generate a set of metrics to evaluate the fairness of your model. You can use the fairness metrics to determine whether your model produces biased outcomes.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Watson OpenScale fairness metrics</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=evaluations-fairness-metrics"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="watson-openscale-fairness-metrics" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-watson-openscale-fairness-metrics">
+        <h1 id="watson-openscale-fairness-metrics">Watson OpenScale fairness metrics</h1>
+        <p>When you configure fairness evaluations in IBM Watson OpenScale, you can generate a set of metrics to evaluate the fairness of your model. You can use the fairness metrics to determine whether your model produces biased outcomes.</p>
+        <p>You can view the results of your fairness evaluations on the <strong>Insights</strong> dashboard in Watson OpenScale. To view results, you can select a model deployment tile and click the arrow <img src="../model/images/wos-nav-arrow.png" alt="navigation arrow">          in the <strong>Fairness</strong> evaluation section to display a summary of fairness metrics from your last evaluation. For more information, see <a href="wos-insight-timechart.html#analyze-fairness">Reviewing fairness results</a>.</p>
+        <p>Fairness metrics are calculated with the payload data that you provide to Watson OpenScale. For more information, see <a href="wos-payload-logging.html">Managing payload data</a>.</p>
+        <section id="section-anlz_metrics_supfairmets">
+          <h2 id="anlz_metrics_supfairmets">Supported fairness metrics</h2>
+          <p>Watson OpenScale supports the following fairness metrics:</p>
+          <!-- Disparate impact -->
+          <hr id="accordion01">
+          <details>
+            <summary>Disparate impact</summary>
+            <md-block>
+              In Watson OpenScale, disparate impact is specified as the fairness scores for different groups. Disparate impact compares the percentage of favorable outcomes for a monitored group to the percentage of favorable outcomes for a reference group.
+              <ul>
+                <li>
+                  <p><strong>How it works:</strong> When you view the details of a model deployment, the <strong>Fairness</strong> section of the model summary that is displayed, provides the fairness scores for different groups that are described as metrics.
+                    The fairness scores are calculated with the disparate impact formula.</p>
+                </li>
+                <li>
+                  <p><strong>Uses the confusion matrix to measure performance</strong>: No</p>
+                </li>
+                <li>
+                  <p><strong>Do the math:</strong></p>
+                </li>
+              </ul>
+              <pre class="codeblock"><code class="hljs">                    (num_positives(privileged=False) / num_instances(privileged=False))
+Disparate impact =   ______________________________________________________________________
+                    (num_positives(privileged=True) / num_instances(privileged=True))              
+</code></pre>
+              <p>The <code>num_positives</code> value represents the number of individuals in the group who received a positive outcome, and the <code>num_instances</code> value represents the total number of individuals in the group. The <code>privileged=False</code>                label specifies unprivileged groups and the <code>privileged=True</code> label specifies privileged groups. In Watson OpenScale, the positive outcomes are designated as the favorable outcomes, and the negative outcomes are designated as
+                the unfavorable outcomes. The privileged group is designated as the reference group, and the unprivileged group is designated as the monitored group.</p>
+              <p>The calculation produces a percentage that specifies how often the rate that the unprivileged group receives the positive outcome is the same rate that the privileged group receives the positive outcome. For example, if a credit risk model
+                assigns the “no risk” prediction to 80% of unprivileged applicants and to 100% of privileged applicants, that model has a disparate impact of 80%.</p>
+              <ul id="anlz_metrics_supfairdets">
+                <li>
+                  <p><strong>Supported fairness details</strong></p>
+                  <ul>
+                    <li>Watson OpenScale supports the following details for fairness metrics:
+                      <ul>
+                        <li>The favorable percentages for each of the groups</li>
+                        <li>Fairness averages for all the fairness groups</li>
+                        <li>Distribution of the data for each of the monitored groups</li>
+                        <li>Distribution of payload data
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </md-block>
+
+
+
+
+
+          </details>
+          <hr>
+          <!-- Statistical parity difference -->
+          <hr id="accordion02">
+          <details>
+            <summary>Statistical parity difference</summary>
+            <md-block>
+              The statistical parity difference compares the percentage of favorable outcomes for monitored groups to reference groups in Watson OpenScale.
+              <ul>
+                <li>
+                  <p><strong>Description</strong>: Fairness metric that describes the fairness for the model predictions. It is the difference between the ratio of favorable outcomes in monitored and reference groups</p>
+                  <ul>
+                    <li><strong>Under 0</strong>: Higher benefits for the monitored group.</li>
+                    <li><strong>At 0</strong>: Both groups have equal benefit.</li>
+                    <li><strong>Over 0</strong> Implies higher benefit for the reference group.</li>
+                  </ul>
+                </li>
+                <li>
+                  <p><strong>Uses the confusion matrix to measure performance</strong>: Yes</p>
+                </li>
+                <li>
+                  <p><strong>Do the math</strong>:</p>
+                </li>
+              </ul>
+              <pre class="codeblock"><code class="hljs">                                    num_positives(privileged=False)     num_positives(privileged=True) 
+Statistical parity difference =  ________________________________ -  ________________________________
+                                    num_instances(privileged=False)     num_instances(privileged=True)
+</code></pre>
+            </md-block>
+          </details>
+          <hr>
+          <!-- False negative rate difference -->
+          <hr id="accordion03">
+          <details>
+            <summary>False negative rate difference</summary>
+            <md-block>
+              The false negative rate difference gives the percentage of positive transactions that were incorrectly scored as *negative* by your model in Watson OpenScale.
+              <ul>
+                <li>
+                  <p><strong>Description</strong>: Returns the difference in false negative rates for the monitored and reference groups</p>
+                  <ul>
+                    <li><strong>At 0</strong>: Both groups have equal benefit.</li>
+                  </ul>
+                </li>
+                <li>
+                  <p><strong>Uses the confusion matrix to measure performance</strong>: Yes</p>
+                </li>
+                <li>
+                  <p><strong>Do the math</strong>:</p>
+                </li>
+              </ul>
+              <p>The following formula is used for calculating false negative rate (FNR):</p>
+              <pre class="codeblock"><code class="hljs">                                        false negatives         
+            False negative rate  =  __________________________
+                                        all positives
+</code></pre>
+              <p>The following formula is used for calculating false negative rate difference:</p>
+              <pre class="codeblock"><code class="hljs">            False negative rate difference  =  FNR of monitored group - FNR of reference group
+</code></pre>
+            </md-block>
+          </details>
+          <hr>
+          <!-- False positive rate difference -->
+          <hr id="accordion04">
+          <details>
+            <summary>False positive rate difference</summary>
+            <md-block>
+              <p>The false positive rate difference gives the percentage of negative transactions that were incorrectly scored as <em>positive</em> by your model in Watson OpenScale.</p>
+              <ul>
+                <li>
+                  <p><strong>Description</strong>: Returns the ratio of false positive rate for the monitored group and reference groups.</p>
+                  <ul>
+                    <li><strong>At 0</strong>: Both groups have equal odds.</li>
+                  </ul>
+                </li>
+                <li>
+                  <p><strong>Uses the confusion matrix to measure performance</strong>: Yes</p>
+                </li>
+                <li>
+                  <p><strong>Do the math</strong>:</p>
+                </li>
+              </ul>
+              <p>The following formula is used for calculating false positive rate (FPR):</p>
+              <pre class="codeblock"><code class="hljs">                                        false positives       
+            False positive rate   =   ________________________
+                                        total negatives
+</code></pre>
+              <p>The following formula is used for calculating false positive rate difference:</p>
+              <pre class="codeblock"><code class="hljs">            False positive rate difference  =   FPR of monitored group - FPR of reference group
+</code></pre>
+            </md-block>
+          </details>
+          <hr>
+          <!-- False discovery rate difference -->
+          <hr id="accordion05">
+          <details>
+            <summary>False discovery rate difference</summary>
+            <md-block>
+              The false discovery rate difference gives the amount of false positive transactions as a percentage of all transactions with a positive outcome in Watson OpenScale. It describes the pervasiveness of false positives among all positive transactions.
+              <ul>
+                <li>
+                  <p><strong>Description</strong>: Returns the difference in false discovery rate for the monitored and reference groups.</p>
+                  <ul>
+                    <li><strong>At 0</strong>: Both groups have equal odds.</li>
+                  </ul>
+                </li>
+                <li>
+                  <p><strong>Uses the confusion matrix to measure performance</strong>: Yes</p>
+                </li>
+                <li>
+                  <p><strong>Do the math</strong>:</p>
+                </li>
+              </ul>
+              <p>The following formula is used for calculating the false discovery rate (FDR):</p>
+              <pre class="codeblock"><code class="hljs">                                                false positives        
+            False discovery rate  =   _________________________________________
+                                        true positives + false positives
+</code></pre>
+              <p>The following formula is used for calculating the false discovery rate difference:</p>
+              <pre class="codeblock"><code class="hljs">            False discovery rate difference  = FDR of monitored group - FDR of reference group
+</code></pre>
+            </md-block>
+          </details>
+          <hr>
+          <!-- False omission rate difference -->
+          <hr id="accordion06">
+          <details>
+            <summary>False omission rate difference</summary>
+            <md-block>
+              The false omission rate difference gives the number of false negative transactions as a percentage of all transactions with a negative outcome in Watson OpenScale. It describes the pervasiveness of false negatives among all negative transactions.
+              <ul>
+                <li>
+                  <p><strong>Description</strong>: Returns the difference in false omission rate for the monitored and reference groups</p>
+                  <ul>
+                    <li><strong>At 0</strong>: Both groups have equal odds.</li>
+                  </ul>
+                </li>
+                <li>
+                  <p><strong>Uses the confusion matrix to measure performance</strong>: Yes</p>
+                </li>
+                <li>
+                  <p><strong>Do the math</strong>:</p>
+                </li>
+              </ul>
+              <p>The following formula is used for calculating the false omission rate (FOR):</p>
+              <pre class="codeblock"><code class="hljs">                                                false negatives        
+            False omission rate   =   ________________________________________
+                                        true negatives + false negatives
+</code></pre>
+              <p>The following formula is used for the false omission rate difference:</p>
+              <pre class="codeblock"><code class="hljs">            False omission rate difference  =   FOR of monitored group - FOR of reference group                                         
+</code></pre>
+            </md-block>
+          </details>
+          <hr>
+          <!-- Error rate difference -->
+          <hr id="accordion07">
+          <details>
+            <summary>Error rate difference</summary>
+            <md-block>
+              The error rate difference gives the percentage of transactions that was incorrectly scored by your model in Watson OpenScale.
+              <ul>
+                <li>
+                  <p><strong>Description</strong>: Returns the difference in error rate for the monitored and reference groups.</p>
+                  <ul>
+                    <li><strong>At 0</strong>: Both groups have equal odds.</li>
+                  </ul>
+                </li>
+                <li>
+                  <p><strong>Uses the confusion matrix to measure performance</strong>: Yes</p>
+                </li>
+                <li>
+                  <p><strong>Do the math</strong>:</p>
+                </li>
+              </ul>
+              <p>The following formula is used for calculating the the error rate (ER):</p>
+              <pre class="codeblock"><code class="hljs">                                false positives + false negatives        
+            Error rate  =   ___________________________________________
+                                all positives + all negatives
+</code></pre>
+              <p>The following formula is used for calculating the error rate difference:</p>
+              <pre class="codeblock"><code class="hljs">            Error rate difference  = ER of monitored group - ER of reference group
+</code></pre>
+            </md-block>
+          </details>
+          <hr>
+          <!-- Average odds difference -->
+          <hr id="accordion08">
+          <details>
+            <summary>Average odds difference</summary>
+            <md-block>
+              The average odds difference gives the percentage of transactions that was incorrectly scored by your model in Watson OpenScale.
+              <ul>
+                <li>
+                  <p><strong>Description</strong>: Returns the difference in error rate for the monitored and reference groups.</p>
+                  <ul>
+                    <li><strong>At 0</strong>: Both groups have equal odds.</li>
+                  </ul>
+                </li>
+                <li>
+                  <p><strong>Uses the confusion matrix to measure performance</strong>: Yes</p>
+                </li>
+                <li>
+                  <p><strong>Do the math</strong>:</p>
+                </li>
+              </ul>
+              <p>The following formula is used for calculating false positive rate (FPR):</p>
+              <pre class="codeblock"><code class="hljs">                                        false positives       
+            False positive rate   =   _________________________
+                                        total negatives
+</code></pre>
+              <p>The following formula is used for calculating true positive rate (TPR):</p>
+              <pre class="codeblock"><code class="hljs">                                        True positives      
+            True positive rate   =   ______________________
+                                        All positives
+</code></pre>
+              <p>The following formula is used for calculating average odds difference:</p>
+              <pre class="codeblock"><code class="hljs">                                        (FPR monitored group - FPR reference group) + (TPR monitored group - TPR reference group)       
+            Average odds difference  =   ___________________________________________________________________________________________
+
+                                                                                    2
+</code></pre>
+            </md-block>
+          </details>
+          <hr>
+          <!-- Average absolute odds difference -->
+          <hr id="accordion09">
+          <details>
+            <summary>Average absolute odds difference</summary>
+            <md-block>
+              The average absolute odds difference compares the average of absolute difference in false positive rates and true positive rates between monitored groups and reference groups in Watson OpenScale.
+              <ul>
+                <li>
+                  <p><strong>Description</strong>: Returns the average of the absolute difference in false positive rate and true positive rate for the monitored and reference groups.</p>
+                  <ul>
+                    <li><strong>At 0</strong>: Both groups have equal odds.</li>
+                  </ul>
+                </li>
+                <li>
+                  <p><strong>Uses the confusion matrix to measure performance</strong>: Yes</p>
+                </li>
+                <li>
+                  <p><strong>Do the math</strong>:</p>
+                </li>
+              </ul>
+              <p>The following formula is used for calculating false positive rate (FPR):</p>
+              <pre class="codeblock"><code class="hljs">                                            false positives       
+            False positive rate   =   ____________________________
+                                            all negatives
+</code></pre>
+              <p>The following formula is used for calculating true positive rate (TPR):</p>
+              <pre class="codeblock"><code class="hljs">                                        True positives      
+            True positive rate   =   ________________________
+                                        All positives
+</code></pre>
+              <p>The following formula is used for calculating average absolute odds difference:</p>
+              <pre class="codeblock"><code class="hljs">                                                |FPR monitored group - FPR reference group| + |TPR monitored group - TPR reference group|      
+            Average absolute odds difference  =   ______________________________________________________________________________________________
+
+                                                                                            2
+</code></pre>
+            </md-block>
+          </details>
+          <hr>
+          <section id="section-performance_measures">
+            <h3 id="performance_measures">Measure Performance with Confusion Matrix</h3>
+            <p>Watson OpenScale uses a confusion matrix to measure performance. The confusion matrix categorizes positive and negative predictions into four quadrants that represent the measurement of actual and predicted values as shown in the following
+              example:</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Actual/Predicted</th>
+                  <th>Negative</th>
+                  <th>Positive</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Negative</td>
+                  <td>TN</td>
+                  <td>FP</td>
+                </tr>
+                <tr>
+                  <td>Positive</td>
+                  <td>FN</td>
+                  <td>TP</td>
+                </tr>
+              </tbody>
+            </table>
+            <p>The true negative (TN) quadrant represents values that are actually negative and predicted as negative and the true positive (TP) quadrant represents values that are actually positive and predicted as positive. The false positive (FP) quadrant
+              represents values that are actually negative but are predicted as positive and the the false negative (FN) quadrant represents values that are actually positive but predicted as negative.</p>
+            <div class="note note"><span class="notetitle">Note:</span> Watson OpenScale doesn't support performance measures for regression models.</div>
+            <p><strong>Parent topic:</strong> <a href="wos-monitor-fairness.html">Configuring fairness evaluations</a></p>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

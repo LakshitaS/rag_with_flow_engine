@@ -1,0 +1,889 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="The following are the answers to common troubleshooting questions about using IBM Watson Machine Learning.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Troubleshoot Watson Machine Learning</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=troubleshooting-watson-machine-learning"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="troubleshoot-watson-machine-learning" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-troubleshoot-watson-machine-learning">
+        <h1 id="troubleshoot-watson-machine-learning">Troubleshoot Watson Machine Learning</h1>
+        <p>The following are the answers to common troubleshooting questions about using IBM Watson Machine Learning.</p>
+        <section id="section-gettinghelp">
+          <h2 id="gettinghelp">Getting help and support for Watson Machine Learning</h2>
+          <p>If you have problems or questions when you use Watson Machine Learning, you can get help by searching for information or by asking questions through a forum. You can also open a support ticket.</p>
+          <p>When you use the forums to ask a question, tag your question so that it is seen by the Watson Machine Learning development teams.</p>
+          <p>If you have technical questions about Watson Machine Learning, post your question on <a href="http://stackoverflow.com/search?q=machine-learning+ibm-bluemix" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Stack Overflow <img src="../console/images/launch-glyph.png" alt="External link icon"></a>            and tag your question with <em>ibm-bluemix</em> and <em>machine-learning</em>.</p>
+          <p>For questions about the service and getting started instructions, use the <a href="https://developer.ibm.com/answers/topics/machine-learning/?smartspace=bluemix" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM developerWorks dW Answers <img src="../console/images/launch-glyph.png" alt="External link icon"></a>            forum. You must include the <em>machine-learning</em> and <em>bluemix</em> tags.</p>
+        </section>
+        <section id="section-contents">
+          <h2 id="contents">Contents</h2>
+          <ul>
+            <li><a href="#ts-inactive-wml-instance">Inactive Watson Machine Learning instance</a></li>
+            <li><a href="#ts_missing_authorization_token">The authorization token is not provided</a></li>
+            <li><a href="#ts_invalid_authorization_token">Invalid authorization token</a></li>
+            <li><a href="#ts_not_matching_authorization_token">The authorization token and instance_id that was used in the request are not the same</a></li>
+            <li><a href="#ts_expired_authorization_token">Authorization token is expired</a></li>
+            <li><a href="#ts_missing_public_key">The public key that is needed for authentication is not available</a></li>
+            <li><a href="#ts_operation_timeout">Operation that is timed out after {{timeout}}</a></li>
+            <li><a href="#ts_unhandled_exception_with_status">Unhandled exception of type {{type}} with {{status}}</a></li>
+            <li><a href="#ts_unhandled_exception_with_response">Unhandled exception of type {{type}} with {{response}}</a></li>
+            <li><a href="#ts_unhandled_exception_with_json">Unhandled exception of type {{type}} with {{json}}</a></li>
+            <li><a href="#ts_unhandled_exception_with_message">Unhandled exception of type {{type}} with {{message}}</a></li>
+            <li><a href="#ts_not_found">The requested object might not be found</a></li>
+            <li><a href="#ts_too_many_cloudant_requests">The underlying database reported too many requests</a></li>
+            <li><a href="#ts_missing_evaluation_definition">The definition of the evaluation is not defined either in the artifactModelVersion or in the deployment. It needs to be specified " +\n      "at least in one of the places</a></li>
+            <li><a href="#fl_data_module_missing">Data module not found in IBM Federated Learning</a></li>
+            <li><a href="#ts_missing_learning_configuration">Evaluation requires a learning configuration that is specified for the model</a></li>
+            <li><a href="#ts_missing_spark_definition_for_evaluation">Evaluation requires spark instance to be provided in <code>X-Spark-Service-Instance</code> header</a></li>
+            <li><a href="#ts_missing_latest_model_version">Model does not contain any version</a></li>
+            <li><a href="#ts_patch_non_existing_learning_configuration">Patch operation can modify existing learning configuration only</a></li>
+            <li><a href="#ts_patch_multiple_ops">Patch operation expects exactly one replace operation</a></li>
+            <li><a href="#ts_invalid_request_payload">The payload is missing the required fields: FIELD or the values of the fields are corrupted</a></li>
+            <li><a href="#ts_evaluation_method_not_supported">Provided evaluation method: METHOD is not supported. Supported values: VALUE</a></li>
+            <li><a href="#ts_active_evaluation_conflict">You can have only one active evaluation per model. The request might not be completed because of existing active evaluation: {{url}}</a></li>
+            <li><a href="#ts_not_supported_deployment_type">The deployment type {{type}} is not supported</a></li>
+            <li><a href="#ts_deserialization_error">Incorrect input: ({{message}})</a></li>
+            <li><a href="#ts_missing_metric">Insufficient data - metric {{name}} might not be calculated</a></li>
+            <li><a href="#ts_missing_prediction_spark_definition">For type {{type}} spark instance must be provided in <code>X-Spark-Service-Instance</code> header</a></li>
+            <li><a href="#ts_http_client_error">The action {{action}} failed with message {{message}}</a></li>
+            <li><a href="#ts_wrong_stream_patch_path">Path <code>{{path}}</code> is not allowed. The only allowed path for Patch stream is <code>/status</code></a></li>
+            <li><a href="#ts_patch_not_supported">Patch operation is not allowed, for instance, of type <code>{{$type}}</code></a></li>
+            <li><a href="#ts_invalid_feedback_data_connection">Data connection <code>{{data}}</code> is invalid for feedback_data_ref</a></li>
+            <li><a href="#ts_patch_model_path_not_allowed">Path {{path}} is not allowed. The only allowed path for Patch model is <code>/deployed_version/url</code> or <code>/deployed_version/href</code> for V2</a></li>
+            <li><a href="#ts_parsing_error">Parsing failure: {{msg}}</a></li>
+            <li><a href="#ts_runtime_env_not_supported">Runtime environment for selected model: {{env}} is not supported for <code>learning configuration</code>. Supported environments: - [{{supported_envs}}]</a></li>
+            <li><a href="#ts_deployments_plan_limit_reached">Current plan '{{plan}}' allows {{limit}} deployments only</a></li>
+            <li><a href="#ts_sql_error">Database connection definition is not valid ({{code}})</a></li>
+            <li><a href="#ts_stream_tcp_error">Problems connecting underlying {{system}}</a></li>
+            <li><a href="#ts_spark_header_deserialization_error">Error extracting X-Spark-Service-Instance header: ({{message}})</a></li>
+            <li><a href="#ts_not_beta_user">This function is forbidden for nonbeta users</a></li>
+            <li><a href="#ts_underlying_api_error">{{code}} {{message}}</a></li>
+            <li><a href="#ts_rate_limit_exceeded">Rate limit exceeded</a></li>
+            <li><a href="#ts_invalid_query_parameter_value">Invalid query parameter <code>{{paramName}}</code> value: {{value}}</a></li>
+            <li><a href="#ts_invalid_token_type">Invalid token type: {{type}}</a></li>
+            <li><a href="#ts_invalid_token_format">Invalid token format. You must use bearer token format.</a></li>
+            <li><a href="#os_invalid_input">Input JSON file is missing or invalid: 400</a></li>
+            <li><a href="#os_expired_authorization_token">The authorization token expired: 401</a></li>
+            <li><a href="#os_unkown_depid">Unknown deployment identification: 404</a></li>
+            <li><a href="#os_internal_error">Internal server error: 500</a></li>
+            <li><a href="#os_invalid_type_artifact">Invalid type for ml_artifact: Pipeline</a></li>
+            <li><a href="#pipeline_error">ValueError: Training_data_ref name and connection cannot be None, if Pipeline Artifact is not given.</a></li>
+          </ul>
+        </section>
+        <section id="section-ts-inactive-wml-instance">
+          <h2 id="ts-inactive-wml-instance">Inactive Watson Machine Learning instance</h2>
+          <section id="section-symptoms">
+            <h3 id="symptoms">Symptoms</h3>
+            <p>After you try to submit an inference request to a foundation model by clicking the <strong>Generate</strong> button in the Prompt Lab, the following error message is displayed:</p>
+            <pre class="screen"><code class="hljs">'code': 'no_associated_service_instance_error',
+'message': 'WML instance {instance_id} status is not active, current status: Inactive'
+</code></pre>
+          </section>
+          <section id="section-possible-causes">
+            <h3 id="possible-causes">Possible causes</h3>
+            <p>The association between your watsonx.ai project and the related Watson Machine Learning service instance was lost.</p>
+          </section>
+          <section id="section-possible-solutions">
+            <h3 id="possible-solutions">Possible solutions</h3>
+            <p>Recreate or refresh the association between your watsonx.ai project and the related Watson Machine Learning service instance. To do so, complete the following steps:</p>
+            <ol>
+              <li>From the main menu, expand <strong>Projects</strong>, and then click <strong>View all projects</strong>.</li>
+              <li>Click your watsonx.ai project.</li>
+              <li>From the <strong>Manage</strong> tab, click <strong>Services &amp; integrations</strong>.</li>
+              <li>If the the appropriate Watson Machine Learning service instance is listed, disassociate it temporarily by selecting the instance, and then clicking <strong>Remove</strong>. Confirm the removal.</li>
+              <li>Click <strong>Associate service</strong>.</li>
+              <li>Choose the appropriate Watson Machine Learning service instance from the list, and then click <strong>Associate</strong>.</li>
+            </ol>
+          </section>
+        </section>
+        <section id="section-ts_missing_authorization_token">
+          <h2 id="ts_missing_authorization_token">The authorization token is not provided.</h2>
+          <section id="section-whats-happening">
+            <h3 id="whats-happening">What's happening</h3>
+            <p>The REST API cannot be invoked successfully.</p>
+          </section>
+          <section id="section-why-its-happening">
+            <h3 id="why-its-happening">Why it's happening</h3>
+            <p>The authorization token is not provided in the <code>Authorization</code> header.</p>
+          </section>
+          <section id="section-how-to-fix-it">
+            <h3 id="how-to-fix-it">How to fix it</h3>
+            <p>Pass the authorization token in the <code>Authorization</code> header.</p>
+          </section>
+        </section>
+        <section id="section-ts_invalid_authorization_token">
+          <h2 id="ts_invalid_authorization_token">Invalid authorization token.</h2>
+          <section id="section-whats-happening-2">
+            <h3 id="whats-happening-2">What's happening</h3>
+            <p>The REST API cannot be invoked successfully.</p>
+          </section>
+          <section id="section-why-its-happening-2">
+            <h3 id="why-its-happening-2">Why it's happening</h3>
+            <p>The authorization token that is provided cannot be decoded or parsed.</p>
+          </section>
+          <section id="section-how-to-fix-it-2">
+            <h3 id="how-to-fix-it-2">How to fix it</h3>
+            <p>Pass the correct authorization token in the <code>Authorization</code> header.</p>
+          </section>
+        </section>
+        <section id="section-ts_not_matching_authorization_token">
+          <h2 id="ts_not_matching_authorization_token">The authorization token and instance_id that was used in the request are not the same.</h2>
+          <section id="section-whats-happening-3">
+            <h3 id="whats-happening-3">What's happening</h3>
+            <p>The REST API cannot be invoked successfully.</p>
+          </section>
+          <section id="section-why-its-happening-3">
+            <h3 id="why-its-happening-3">Why it's happening</h3>
+            <p>The Authorization token that is used is not generated for the service instance against which it was used.</p>
+          </section>
+          <section id="section-how-to-fix-it-3">
+            <h3 id="how-to-fix-it-3">How to fix it</h3>
+            <p>Pass an authorization token in the <code>Authorization</code> header, which corresponds to the service instance that is being used.</p>
+          </section>
+        </section>
+        <section id="section-ts_expired_authorization_token">
+          <h2 id="ts_expired_authorization_token">The authorization token is expired.</h2>
+          <section id="section-whats-happening-4">
+            <h3 id="whats-happening-4">What's happening</h3>
+            <p>The REST API cannot be invoked successfully.</p>
+          </section>
+          <section id="section-why-its-happening-4">
+            <h3 id="why-its-happening-4">Why it's happening</h3>
+            <p>The authorization token is expired.</p>
+          </section>
+          <section id="section-how-to-fix-it-4">
+            <h3 id="how-to-fix-it-4">How to fix it</h3>
+            <p>Pass not expired authorization token in the <code>Authorization</code> header.</p>
+          </section>
+        </section>
+        <section id="section-ts_missing_public_key">
+          <h2 id="ts_missing_public_key">The public key that is needed for authentication is not available.</h2>
+          <section id="section-whats-happening-5">
+            <h3 id="whats-happening-5">What's happening</h3>
+            <p>The REST API cannot be invoked successfully.</p>
+          </section>
+          <section id="section-why-its-happening-5">
+            <h3 id="why-its-happening-5">Why it's happening</h3>
+            <p>This problem can happen due to internal service issues.</p>
+          </section>
+          <section id="section-how-to-fix-it-5">
+            <h3 id="how-to-fix-it-5">How to fix it</h3>
+            <p>Contact the support team.</p>
+          </section>
+        </section>
+        <section id="section-ts_operation_timeout">
+          <h2 id="ts_operation_timeout">Operation that is timed out after {{timeout}}</h2>
+          <section id="section-whats-happening-6">
+            <h3 id="whats-happening-6">What's happening</h3>
+            <p>The REST API cannot be invoked successfully.</p>
+          </section>
+          <section id="section-why-its-happening-6">
+            <h3 id="why-its-happening-6">Why it's happening</h3>
+            <p>The timeout occurred while performing the requested operation.</p>
+          </section>
+          <section id="section-how-to-fix-it-6">
+            <h3 id="how-to-fix-it-6">How to fix it</h3>
+            <p>Try to invoke the operation again.</p>
+          </section>
+        </section>
+        <section id="section-ts_unhandled_exception_with_status">
+          <h2 id="ts_unhandled_exception_with_status">Unhandled exception of type {{type}} with {{status}}</h2>
+          <section id="section-whats-happening-7">
+            <h3 id="whats-happening-7">What's happening</h3>
+            <p>The REST API cannot be invoked successfully.</p>
+          </section>
+          <section id="section-why-its-happening-7">
+            <h3 id="why-its-happening-7">Why it's happening</h3>
+            <p>This problem can happen due to internal service issues.</p>
+          </section>
+          <section id="section-how-to-fix-it-7">
+            <h3 id="how-to-fix-it-7">How to fix it</h3>
+            <p>Try to invoke the operation again. If it happens again, contact the support team.</p>
+          </section>
+        </section>
+        <section id="section-ts_unhandled_exception_with_response">
+          <h2 id="ts_unhandled_exception_with_response">Unhandled exception of type {{type}} with {{response}}</h2>
+          <section id="section-whats-happening-8">
+            <h3 id="whats-happening-8">What's happening</h3>
+            <p>The REST API cannot be invoked successfully.</p>
+          </section>
+          <section id="section-why-its-happening-8">
+            <h3 id="why-its-happening-8">Why it's happening</h3>
+            <p>This problem can happen due to internal service issues.</p>
+          </section>
+          <section id="section-how-to-fix-it-8">
+            <h3 id="how-to-fix-it-8">How to fix it</h3>
+            <p>Try to invoke the operation again. If it happens again, contact the support team.</p>
+          </section>
+        </section>
+        <section id="section-ts_unhandled_exception_with_json">
+          <h2 id="ts_unhandled_exception_with_json">Unhandled exception of type {{type}} with {{json}}</h2>
+          <section id="section-whats-happening-9">
+            <h3 id="whats-happening-9">What's happening</h3>
+            <p>The REST API cannot be invoked successfully.</p>
+          </section>
+          <section id="section-why-its-happening-9">
+            <h3 id="why-its-happening-9">Why it's happening</h3>
+            <p>This problem can happen due to internal service issues.</p>
+          </section>
+          <section id="section-how-to-fix-it-9">
+            <h3 id="how-to-fix-it-9">How to fix it</h3>
+            <p>Try to invoke the operation again. If it happens again, contact the support team.</p>
+          </section>
+        </section>
+        <section id="section-ts_unhandled_exception_with_message">
+          <h2 id="ts_unhandled_exception_with_message">Unhandled exception of type {{type}} with {{message}}</h2>
+          <section id="section-whats-happening-10">
+            <h3 id="whats-happening-10">What's happening</h3>
+            <p>The REST API cannot be invoked successfully.</p>
+          </section>
+          <section id="section-why-its-happening-10">
+            <h3 id="why-its-happening-10">Why it's happening</h3>
+            <p>This problem can happen due to internal service issues.</p>
+          </section>
+          <section id="section-how-to-fix-it-10">
+            <h3 id="how-to-fix-it-10">How to fix it</h3>
+            <p>Try to invoke the operation again. If it happens again, contact the support team.</p>
+          </section>
+        </section>
+        <section id="section-ts_not_found">
+          <h2 id="ts_not_found">The requested object is not found.</h2>
+          <section id="section-whats-happening-11">
+            <h3 id="whats-happening-11">What's happening</h3>
+            <p>The REST API cannot be invoked successfully.</p>
+          </section>
+          <section id="section-why-its-happening-11">
+            <h3 id="why-its-happening-11">Why it's happening</h3>
+            <p>The request resource is not found.</p>
+          </section>
+          <section id="section-how-to-fix-it-11">
+            <h3 id="how-to-fix-it-11">How to fix it</h3>
+            <p>Make sure that you are referring to the existing resource.</p>
+          </section>
+        </section>
+        <section id="section-ts_too_many_cloudant_requests">
+          <h2 id="ts_too_many_cloudant_requests">The underlying database reported too many requests.</h2>
+          <section id="section-whats-happening-12">
+            <h3 id="whats-happening-12">What's happening</h3>
+            <p>The REST API cannot be invoked successfully.</p>
+          </section>
+          <section id="section-why-its-happening-12">
+            <h3 id="why-its-happening-12">Why it's happening</h3>
+            <p>The user sent too many requests in a specific time.</p>
+          </section>
+          <section id="section-how-to-fix-it-12">
+            <h3 id="how-to-fix-it-12">How to fix it</h3>
+            <p>Try to invoke the operation again.</p>
+          </section>
+        </section>
+        <section id="section-ts_missing_evaluation_definition">
+          <h2 id="ts_missing_evaluation_definition">The definition of the evaluation is not defined in the artifactModelVersion or deployment. It must be specified " +\n "at least in one of the places.</h2>
+          <section id="section-whats-happening-13">
+            <h3 id="whats-happening-13">What's happening</h3>
+            <p>The REST API cannot be invoked successfully.</p>
+          </section>
+          <section id="section-why-its-happening-13">
+            <h3 id="why-its-happening-13">Why it's happening</h3>
+            <p>Learning Configuration does not contain all the required information</p>
+          </section>
+          <section id="section-how-to-fix-it-13">
+            <h3 id="how-to-fix-it-13">How to fix it</h3>
+            <p>Provide <code>definition</code> in <code>learning configuration</code></p>
+          </section>
+        </section>
+        <section id="section-ts_missing_learning_configuration">
+          <h2 id="ts_missing_learning_configuration">Evaluation requires a learning configuration that is specified for the model.</h2>
+          <section id="section-whats-happening-14">
+            <h3 id="whats-happening-14">What's happening</h3>
+            <p>It is not possible to create <code>learning iteration</code>.</p>
+          </section>
+          <section id="section-why-its-happening-14">
+            <h3 id="why-its-happening-14">Why it's happening</h3>
+            <p><code>learning configuration</code> isn't defined for the model.</p>
+          </section>
+          <section id="section-how-to-fix-it-14">
+            <h3 id="how-to-fix-it-14">How to fix it</h3>
+            <p>Create <code>learning configuration</code> and try to create <code>learning iteration</code> again.</p>
+          </section>
+        </section>
+        <section id="section-ts_missing_spark_definition_for_evaluation">
+          <h2 id="ts_missing_spark_definition_for_evaluation">Evaluation requires spark instance to be provided in <code>X-Spark-Service-Instance</code> header</h2>
+          <section id="section-whats-happening-15">
+            <h3 id="whats-happening-15">What's happening</h3>
+            <p>The REST API cannot be invoked successfully.</p>
+          </section>
+          <section id="section-why-its-happening-15">
+            <h3 id="why-its-happening-15">Why it's happening</h3>
+            <p><code>learning configuration</code> does not have the required information.</p>
+          </section>
+          <section id="section-how-to-fix-it-15">
+            <h3 id="how-to-fix-it-15">How to fix it</h3>
+            <p>Provide <code>spark_service</code> in Learning Configuration or in <code>X-Spark-Service-Instance</code> header.</p>
+          </section>
+        </section>
+        <section id="section-ts_missing_latest_model_version">
+          <h2 id="ts_missing_latest_model_version">Model does not contain any version.</h2>
+          <section id="section-whats-happening-16">
+            <h3 id="whats-happening-16">What's happening</h3>
+            <p>It is not possible to create deployment or set the <code>learning configuration</code>.</p>
+          </section>
+          <section id="section-why-its-happening-16">
+            <h3 id="why-its-happening-16">Why it's happening</h3>
+            <p>This problem can happen due to inconsistency that is related to the persistence of the model.</p>
+          </section>
+          <section id="section-how-to-fix-it-16">
+            <h3 id="how-to-fix-it-16">How to fix it</h3>
+            <p>Try to persist the model again and try to perform the action again.</p>
+          </section>
+        </section>
+        <section id="section-fl_data_module_missing">
+          <h2 id="fl_data_module_missing">Data module not found in IBM Federated Learning.</h2>
+          <section id="section-whats-happening-17">
+            <h3 id="whats-happening-17">What's happening</h3>
+            <p>The data handler for IBM Federated Learning is trying to extract a data module from the FL library but is unable to find it. You might see the following error message:</p>
+            <pre class="codeblock"><code class="hljs">ModuleNotFoundError: No module named 'ibmfl.util.datasets'
+</code></pre>
+          </section>
+          <section id="section-why-its-happening-17">
+            <h3 id="why-its-happening-17">Why it's happening</h3>
+            <p>Possibly an outdated DataHandler.</p>
+          </section>
+          <section id="section-how-to-fix-it-17">
+            <h3 id="how-to-fix-it-17">How to fix it</h3>
+            <p>Review and update your DataHandler to conform to the most recent <a href="https://github.com/IBMDataScience/sample-notebooks/blob/master/Files/mnist_keras_data_handler.py">MNIST data handler</a> or make sure that your sample versions are up
+              to date.</p>
+          </section>
+        </section>
+        <section id="section-ts_patch_non_existing_learning_configuration">
+          <h2 id="ts_patch_non_existing_learning_configuration">Patch operation can modify existing learning configuration only.</h2>
+          <section id="section-whats-happening-18">
+            <h3 id="whats-happening-18">What's happening</h3>
+            <p>It is not possible to invoke patch REST API method to patch learning configuration.</p>
+          </section>
+          <section id="section-why-its-happening-18">
+            <h3 id="why-its-happening-18">Why it's happening</h3>
+            <p><code>learning configuration</code> isn't set for this model or the model does not exist.</p>
+          </section>
+          <section id="section-how-to-fix-it-18">
+            <h3 id="how-to-fix-it-18">How to fix it</h3>
+            <p>Endure that model exists and has already learning configuration set.</p>
+          </section>
+        </section>
+        <section id="section-ts_patch_multiple_ops">
+          <h2 id="ts_patch_multiple_ops">Patch operation expects exactly one replace operation.</h2>
+          <section id="section-whats-happening-19">
+            <h3 id="whats-happening-19">What's happening</h3>
+            <p>The deployment cannot be patched.</p>
+          </section>
+          <section id="section-why-its-happening-19">
+            <h3 id="why-its-happening-19">Why it's happening</h3>
+            <p>The patch payload contains more than one operation or the patch operation is different than <code>replace</code>.</p>
+          </section>
+          <section id="section-how-to-fix-it-19">
+            <h3 id="how-to-fix-it-19">How to fix it</h3>
+            <p>Use only one operation in the patch payload, which is <code>replace</code> operation.</p>
+          </section>
+        </section>
+        <section id="section-ts_invalid_request_payload">
+          <h2 id="ts_invalid_request_payload">The payload is missing the required fields: FIELD or the values of the fields are corrupted.</h2>
+          <section id="section-whats-happening-20">
+            <h3 id="whats-happening-20">What's happening</h3>
+            <p>It is not possible to process action that is related to access to the underlying data set.</p>
+          </section>
+          <section id="section-why-its-happening-20">
+            <h3 id="why-its-happening-20">Why it's happening</h3>
+            <p>The access to the data set is not properly defined.</p>
+          </section>
+          <section id="section-how-to-fix-it-20">
+            <h3 id="how-to-fix-it-20">How to fix it</h3>
+            <p>Correct the access definition for the data set.</p>
+          </section>
+        </section>
+        <section id="section-ts_evaluation_method_not_supported">
+          <h2 id="ts_evaluation_method_not_supported">Provided evaluation method: METHOD is not supported. Supported values: VALUE.</h2>
+          <section id="section-whats-happening-21">
+            <h3 id="whats-happening-21">What's happening</h3>
+            <p>It is not possible to create learning configuration.</p>
+          </section>
+          <section id="section-why-its-happening-21">
+            <h3 id="why-its-happening-21">Why it's happening</h3>
+            <p>The wrong evaluation method was used to create learning configuration.</p>
+          </section>
+          <section id="section-how-to-fix-it-21">
+            <h3 id="how-to-fix-it-21">How to fix it</h3>
+            <p>Use a supported evaluation method, which is one of: <code>regression</code>, <code>binary</code>, <code>multiclass</code>.</p>
+          </section>
+        </section>
+        <section id="section-ts_active_evaluation_conflict">
+          <h2 id="ts_active_evaluation_conflict">You can have only one active evaluation per model. The request cannot be completed because of existing active evaluation: {{url}}</h2>
+          <section id="section-whats-happening-22">
+            <h3 id="whats-happening-22">What's happening</h3>
+            <p>It is not possible to create another learning iteration.</p>
+          </section>
+          <section id="section-why-its-happening-22">
+            <h3 id="why-its-happening-22">Why it's happening</h3>
+            <p>You can have only one running evaluation for the model.</p>
+          </section>
+          <section id="section-how-to-fix-it-22">
+            <h3 id="how-to-fix-it-22">How to fix it</h3>
+            <p>See the already running evaluation or wait for the evaluation to end and start the new one.</p>
+          </section>
+        </section>
+        <section id="section-ts_not_supported_deployment_type">
+          <h2 id="ts_not_supported_deployment_type">The deployment type {{type}} is not supported.</h2>
+          <section id="section-whats-happening-23">
+            <h3 id="whats-happening-23">What's happening</h3>
+            <p>It is not possible to create the deployment.</p>
+          </section>
+          <section id="section-why-its-happening-23">
+            <h3 id="why-its-happening-23">Why it's happening</h3>
+            <p>Not supported deployment type was used.</p>
+          </section>
+          <section id="section-how-to-fix-it-23">
+            <h3 id="how-to-fix-it-23">How to fix it</h3>
+            <p>A supported deployment type must be used.</p>
+          </section>
+        </section>
+        <section id="section-ts_deserialization_error">
+          <h2 id="ts_deserialization_error">Incorrect input: ({{message}})</h2>
+          <section id="section-whats-happening-24">
+            <h3 id="whats-happening-24">What's happening</h3>
+            <p>The REST API cannot be invoked successfully.</p>
+          </section>
+          <section id="section-why-its-happening-24">
+            <h3 id="why-its-happening-24">Why it's happening</h3>
+            <p>This problem happens due to an issue with parsing JSON.</p>
+          </section>
+          <section id="section-how-to-fix-it-24">
+            <h3 id="how-to-fix-it-24">How to fix it</h3>
+            <p>Make sure that the correct JSON is passed in the request.</p>
+          </section>
+        </section>
+        <section id="section-ts_missing_metric">
+          <h2 id="ts_missing_metric">Insufficient data - metric {{name}} cannot be calculated</h2>
+          <section id="section-whats-happening-25">
+            <h3 id="whats-happening-25">What's happening</h3>
+            <p>Learning iteration failed.</p>
+          </section>
+          <section id="section-why-its-happening-25">
+            <h3 id="why-its-happening-25">Why it's happening</h3>
+            <p>Value for metric with defined threshold cannot be calculated because of insufficient feedback data.</p>
+          </section>
+          <section id="section-how-to-fix-it-25">
+            <h3 id="how-to-fix-it-25">How to fix it</h3>
+            <p>Review and improve data in data source <code>feedback_data_ref</code> in <code>learning configuration</code></p>
+          </section>
+        </section>
+        <section id="section-ts_missing_prediction_spark_definition">
+          <h2 id="ts_missing_prediction_spark_definition">For type {{type}} spark instance must be provided in <code>X-Spark-Service-Instance</code> header</h2>
+          <section id="section-whats-happening-26">
+            <h3 id="whats-happening-26">What's happening</h3>
+            <p>Deployment cannot be created</p>
+          </section>
+          <section id="section-why-its-happening-26">
+            <h3 id="why-its-happening-26">Why it's happening</h3>
+            <p><code>batch</code> and <code>streaming</code> deployments require spark instance to be provided</p>
+          </section>
+          <section id="section-how-to-fix-it-26">
+            <h3 id="how-to-fix-it-26">How to fix it</h3>
+            <p>Provide spark instance in <code>X-Spark-Service-Instance</code> header</p>
+          </section>
+        </section>
+        <section id="section-ts_http_client_error">
+          <h2 id="ts_http_client_error">Action {{action}} failed with message {{message}}</h2>
+          <section id="section-whats-happening-27">
+            <h3 id="whats-happening-27">What's happening</h3>
+            <p>The REST API cannot be invoked successfully.</p>
+          </section>
+          <section id="section-why-its-happening-27">
+            <h3 id="why-its-happening-27">Why it's happening</h3>
+            <p>This problem happens due to an issue with invoking underlying service.</p>
+          </section>
+          <section id="section-how-to-fix-it-27">
+            <h3 id="how-to-fix-it-27">How to fix it</h3>
+            <p>If the message provides a suggestion to fix the issue, follow the suggestion. Otherwise, contact the support team.</p>
+          </section>
+        </section>
+        <section id="section-ts_wrong_stream_patch_path">
+          <h2 id="ts_wrong_stream_patch_path">Path <code>{{path}}</code> is not allowed. The only allowed path for patch stream is <code>/status</code></h2>
+          <section id="section-whats-happening-28">
+            <h3 id="whats-happening-28">What's happening</h3>
+            <p>Stream deployment cannot be patched.</p>
+          </section>
+          <section id="section-why-its-happening-28">
+            <h3 id="why-its-happening-28">Why it's happening</h3>
+            <p>The wrong path was used to patch the <code>stream</code> deployment.</p>
+          </section>
+          <section id="section-how-to-fix-it-28">
+            <h3 id="how-to-fix-it-28">How to fix it</h3>
+            <p>Patch the <code>stream</code> deployment with supported path option, which is <code>/status</code> (it allows to start/stop stream processing).</p>
+          </section>
+        </section>
+        <section id="section-ts_patch_not_supported">
+          <h2 id="ts_patch_not_supported">Patch operation is not allowed, for instance, of type <code>{{$type}}</code></h2>
+          <section id="section-whats-happening-29">
+            <h3 id="whats-happening-29">What's happening</h3>
+            <p>Deployment cannot be patched.</p>
+          </section>
+          <section id="section-why-its-happening-29">
+            <h3 id="why-its-happening-29">Why it's happening</h3>
+            <p>The wrong deployment type is being patched.</p>
+          </section>
+          <section id="section-how-to-fix-it-29">
+            <h3 id="how-to-fix-it-29">How to fix it</h3>
+            <p>Patch the <code>stream</code> deployment type.</p>
+          </section>
+        </section>
+        <section id="section-ts_invalid_feedback_data_connection">
+          <h2 id="ts_invalid_feedback_data_connection">Data connection <code>{{data}}</code> is invalid for feedback_data_ref</h2>
+          <section id="section-whats-happening-30">
+            <h3 id="whats-happening-30">What's happening</h3>
+            <p><code>learning configuration</code> cannot be created for the model.</p>
+          </section>
+          <section id="section-why-its-happening-30">
+            <h3 id="why-its-happening-30">Why it's happening</h3>
+            <p>Supported data source was not used when <code>feedback_data_ref</code> was defined.</p>
+          </section>
+          <section id="section-how-to-fix-it-30">
+            <h3 id="how-to-fix-it-30">How to fix it</h3>
+            <p>Use only the supported data source type <code>dashdb</code>.</p>
+          </section>
+        </section>
+        <section id="section-ts_patch_model_path_not_allowed">
+          <h2 id="ts_patch_model_path_not_allowed">Path {{path}} is not allowed. The only allowed path for patch model is <code>/deployed_version/url</code> or <code>/deployed_version/href</code> for V2</h2>
+          <section id="section-whats-happening-31">
+            <h3 id="whats-happening-31">What's happening</h3>
+            <p>No option to patch model.</p>
+          </section>
+          <section id="section-why-its-happening-31">
+            <h3 id="why-its-happening-31">Why it's happening</h3>
+            <p>The wrong path was used during patching of the model.</p>
+          </section>
+          <section id="section-how-to-fix-it-31">
+            <h3 id="how-to-fix-it-31">How to fix it</h3>
+            <p>Patch model with supported path that you can use to update the version of the deployed model.</p>
+          </section>
+        </section>
+        <section id="section-ts_parsing_error">
+          <h2 id="ts_parsing_error">Parsing failure: {{msg}}</h2>
+          <section id="section-whats-happening-32">
+            <h3 id="whats-happening-32">What's happening</h3>
+            <p>The REST API cannot be invoked successfully.</p>
+          </section>
+          <section id="section-why-its-happening-32">
+            <h3 id="why-its-happening-32">Why it's happening</h3>
+            <p>The requested payload cannot be parsed successfully.</p>
+          </section>
+          <section id="section-how-to-fix-it-32">
+            <h3 id="how-to-fix-it-32">How to fix it</h3>
+            <p>Make sure that your request payload is correct and can be parsed correctly.</p>
+          </section>
+        </section>
+        <section id="section-ts_runtime_env_not_supported">
+          <h2 id="ts_runtime_env_not_supported">Runtime environment for selected model: {{env}} is not supported for <code>learning configuration</code>. Supported environments: [{{supported_envs}}].</h2>
+          <section id="section-whats-happening-33">
+            <h3 id="whats-happening-33">What's happening</h3>
+            <p>No option to create <code>learning configuration</code>.</p>
+          </section>
+          <section id="section-why-its-happening-33">
+            <h3 id="why-its-happening-33">Why it's happening</h3>
+            <p>The model for which the <code>learning_configuration</code> was tried to be created is not supported.</p>
+          </section>
+          <section id="section-how-to-fix-it-33">
+            <h3 id="how-to-fix-it-33">How to fix it</h3>
+            <p>Create <code>learning configuration</code> for model, which has the supported runtime.</p>
+          </section>
+        </section>
+        <section id="section-ts_deployments_plan_limit_reached">
+          <h2 id="ts_deployments_plan_limit_reached">Current plan '{{plan}}' allows {{limit}} deployments only</h2>
+          <section id="section-whats-happening-34">
+            <h3 id="whats-happening-34">What's happening</h3>
+            <p>It is not possible to create the deployment.</p>
+          </section>
+          <section id="section-why-its-happening-34">
+            <h3 id="why-its-happening-34">Why it's happening</h3>
+            <p>The limit for number of deployments was reached for the current plan.</p>
+          </section>
+          <section id="section-how-to-fix-it-34">
+            <h3 id="how-to-fix-it-34">How to fix it</h3>
+            <p>Upgrade to the plan that does not have such limitation.</p>
+          </section>
+        </section>
+        <section id="section-ts_sql_error">
+          <h2 id="ts_sql_error">Database connection definition is not valid ({{code}})</h2>
+          <section id="section-whats-happening-35">
+            <h3 id="whats-happening-35">What's happening</h3>
+            <p>It is not possible to use the <code>learning configuration</code> function.</p>
+          </section>
+          <section id="section-why-its-happening-35">
+            <h3 id="why-its-happening-35">Why it's happening</h3>
+            <p>The database connection definition is invalid.</p>
+          </section>
+          <section id="section-how-to-fix-it-35">
+            <h3 id="how-to-fix-it-35">How to fix it</h3>
+            <p>Try to fix the issue that is described by <code>code</code> returned by the underlying database.</p>
+          </section>
+        </section>
+        <section id="section-ts_stream_tcp_error">
+          <h2 id="ts_stream_tcp_error">Problems connecting underlying {{system}}</h2>
+          <section id="section-whats-happening-36">
+            <h3 id="whats-happening-36">What's happening</h3>
+            <p>The REST API cannot be invoked successfully.</p>
+          </section>
+          <section id="section-why-its-happening-36">
+            <h3 id="why-its-happening-36">Why it's happening</h3>
+            <p>This problem might happen due to an issue during connection to the underlying system. It might be a temporary network issue.</p>
+          </section>
+          <section id="section-how-to-fix-it-36">
+            <h3 id="how-to-fix-it-36">How to fix it</h3>
+            <p>Try to invoke the operation again. If you get an error again, contact the support team.</p>
+          </section>
+        </section>
+        <section id="section-ts_spark_header_deserialization_error">
+          <h2 id="ts_spark_header_deserialization_error">Error extracting X-Spark-Service-Instance header: ({{message}})</h2>
+          <section id="section-whats-happening-37">
+            <h3 id="whats-happening-37">What's happening</h3>
+            <p>This problem might happen if REST API that requires Spark credentials cannot be invoked.</p>
+          </section>
+          <section id="section-why-its-happening-37">
+            <h3 id="why-its-happening-37">Why it's happening</h3>
+            <p>This problem might happen due to an issue with base-64 decoding or parsing Spark credentials.</p>
+          </section>
+          <section id="section-how-to-fix-it-37">
+            <h3 id="how-to-fix-it-37">How to fix it</h3>
+            <p>Make sure that the correct Spark credentials were correctly base-64 encoded. For more information, see the documentation.</p>
+          </section>
+        </section>
+        <section id="section-ts_not_beta_user">
+          <h2 id="ts_not_beta_user">This function is forbidden for non-beta users.</h2>
+          <section id="section-whats-happening-38">
+            <h3 id="whats-happening-38">What's happening</h3>
+            <p>The REST API cannot be invoked successfully.</p>
+          </section>
+          <section id="section-why-its-happening-38">
+            <h3 id="why-its-happening-38">Why it's happening</h3>
+            <p>The REST API that was invoked is in beta.</p>
+          </section>
+          <section id="section-how-to-fix-it-38">
+            <h3 id="how-to-fix-it-38">How to fix it</h3>
+            <p>If you are interested in participating, add yourself to the wait list. The details can be found in the documentation.</p>
+          </section>
+        </section>
+        <section id="section-ts_underlying_api_error">
+          <h2 id="ts_underlying_api_error">{{code}} {{message}}</h2>
+          <section id="section-whats-happening-39">
+            <h3 id="whats-happening-39">What's happening</h3>
+            <p>The REST API cannot be invoked successfully.</p>
+          </section>
+          <section id="section-why-its-happening-39">
+            <h3 id="why-its-happening-39">Why it's happening</h3>
+            <p>This problem might happen due to an issue with invoking underlying service.</p>
+          </section>
+          <section id="section-how-to-fix-it-39">
+            <h3 id="how-to-fix-it-39">How to fix it</h3>
+            <p>If the message provides a suggestion to fix the issue, follow the suggestion. Otherwise, contact the support team.</p>
+          </section>
+        </section>
+        <section id="section-ts_rate_limit_exceeded">
+          <h2 id="ts_rate_limit_exceeded">Rate limit exceeded.</h2>
+          <section id="section-whats-happening-40">
+            <h3 id="whats-happening-40">What's happening</h3>
+            <p>Rate limit exceeded.</p>
+          </section>
+          <section id="section-why-its-happening-40">
+            <h3 id="why-its-happening-40">Why it's happening</h3>
+            <p>The rate limit for current plan is exceeded.</p>
+          </section>
+          <section id="section-how-to-fix-it-40">
+            <h3 id="how-to-fix-it-40">How to fix it</h3>
+            <p>To solve this problem, acquire another plan with a greater rate limit</p>
+          </section>
+        </section>
+        <section id="section-ts_invalid_query_parameter_value">
+          <h2 id="ts_invalid_query_parameter_value">Invalid query parameter <code>{{paramName}}</code> value: {{value}}</h2>
+          <section id="section-whats-happening-41">
+            <h3 id="whats-happening-41">What's happening</h3>
+            <p>Validation error as passed incorrect value for query parameter.</p>
+          </section>
+          <section id="section-why-its-happening-41">
+            <h3 id="why-its-happening-41">Why it's happening</h3>
+            <p>Error in getting result for query.</p>
+          </section>
+          <section id="section-how-to-fix-it-41">
+            <h3 id="how-to-fix-it-41">How to fix it</h3>
+            <p>Correct query parameter value. The details can be found in the documentation.</p>
+          </section>
+        </section>
+        <section id="section-ts_invalid_token_type">
+          <h2 id="ts_invalid_token_type">Invalid token type: {{type}}</h2>
+          <section id="section-whats-happening-42">
+            <h3 id="whats-happening-42">What's happening</h3>
+            <p>Error regarding token type.</p>
+          </section>
+          <section id="section-why-its-happening-42">
+            <h3 id="why-its-happening-42">Why it's happening</h3>
+            <p>Error in authorization.</p>
+          </section>
+          <section id="section-how-to-fix-it-42">
+            <h3 id="how-to-fix-it-42">How to fix it</h3>
+            <p>Token must be started with <code>Bearer</code> prefix.</p>
+          </section>
+        </section>
+        <section id="section-ts_invalid_token_format">
+          <h2 id="ts_invalid_token_format">Invalid token format. You must use bearer token format.</h2>
+          <section id="section-whats-happening-43">
+            <h3 id="whats-happening-43">What's happening</h3>
+            <p>Error regarding token format.</p>
+          </section>
+          <section id="section-why-its-happening-43">
+            <h3 id="why-its-happening-43">Why it's happening</h3>
+            <p>Error in authorization.</p>
+          </section>
+          <section id="section-how-to-fix-it-43">
+            <h3 id="how-to-fix-it-43">How to fix it</h3>
+            <p>The token must be a bearer token and must start with <code>Bearer</code> prefix.</p>
+          </section>
+        </section>
+        <section id="section-os_invalid_input">
+          <h2 id="os_invalid_input">Input JSON file is missing or invalid: 400</h2>
+          <section id="section-whats-happening-44">
+            <h3 id="whats-happening-44">What's happening</h3>
+            <p>The following message displays when you try to score online: <strong>Input JSON file is missing or invalid</strong>.</p>
+          </section>
+          <section id="section-why-its-happening-44">
+            <h3 id="why-its-happening-44">Why it's happening</h3>
+            <p>This message displays when the scoring input payload doesn't match the expected input type that is required for scoring the model. Specifically, the following reasons might apply:</p>
+            <ul>
+              <li>The input payload is empty.</li>
+              <li>The input payload schema is not valid.</li>
+              <li>The input data types do not match the expected data types.</li>
+            </ul>
+          </section>
+          <section id="section-how-to-fix-it-44">
+            <h3 id="how-to-fix-it-44">How to fix it</h3>
+            <p>Correct the input payload. Make sure that the payload has correct syntax, a valid schema, and proper data types. After you make corrections, try to score online again. For syntax issues, verify the JSON file by using the <code>jsonlint</code>              command.</p>
+          </section>
+        </section>
+        <section id="section-os_expired_authorization_token">
+          <h2 id="os_expired_authorization_token">The authorization token is expired: 401</h2>
+          <section id="section-whats-happening-45">
+            <h3 id="whats-happening-45">What's happening</h3>
+            <p>The following message displays when you try to score online: <strong>Authorization failed</strong>.</p>
+          </section>
+          <section id="section-why-its-happening-45">
+            <h3 id="why-its-happening-45">Why it's happening</h3>
+            <p>This message displays when the token that is used for scoring is expired.</p>
+          </section>
+          <section id="section-how-to-fix-it-45">
+            <h3 id="how-to-fix-it-45">How to fix it</h3>
+            <p>Regenerate the token for this IBM Watson Machine Learning instance and then retry. If you still see this issue contact IBM Support.</p>
+          </section>
+        </section>
+        <section id="section-os_unkown_depid">
+          <h2 id="os_unkown_depid">Unknown deployment identification: 404</h2>
+          <section id="section-whats-happening-46">
+            <h3 id="whats-happening-46">What's happening</h3>
+            <p>The following message displays when you try to score online <strong>Unknown deployment identification</strong>.</p>
+          </section>
+          <section id="section-why-its-happening-46">
+            <h3 id="why-its-happening-46">Why it's happening</h3>
+            <p>This message displays when the deployment ID that is used for scoring does not exist.</p>
+          </section>
+          <section id="section-how-to-fix-it-46">
+            <h3 id="how-to-fix-it-46">How to fix it</h3>
+            <p>Make sure you are providing the correct deployment ID. If not, deploy the model with the deployment ID and then try scoring it again.</p>
+          </section>
+        </section>
+        <section id="section-os_internal_error">
+          <h2 id="os_internal_error">Internal server error: 500</h2>
+          <section id="section-whats-happening-47">
+            <h3 id="whats-happening-47">What's happening</h3>
+            <p>The following message displays when you try to score online: <strong>Internal server error</strong></p>
+          </section>
+          <section id="section-why-its-happening-47">
+            <h3 id="why-its-happening-47">Why it's happening</h3>
+            <p>This message displays if the downstream data flow on which the online scoring depends fails.</p>
+          </section>
+          <section id="section-how-to-fix-it-47">
+            <h3 id="how-to-fix-it-47">How to fix it</h3>
+            <p>Wait for some time and try to score online again. If it fails again, contact IBM Support.</p>
+          </section>
+        </section>
+        <section id="section-os_invalid_type_artifact">
+          <h2 id="os_invalid_type_artifact">Invalid type for ml_artifact: Pipeline</h2>
+          <section id="section-whats-happening-48">
+            <h3 id="whats-happening-48">What's happening</h3>
+            <p>The following message displays when you try to publish a Spark model by using Common API client library on your workstation.</p>
+          </section>
+          <section id="section-why-its-happening-48">
+            <h3 id="why-its-happening-48">Why it's happening</h3>
+            <p>This message displays if you have an invalid pyspark set up in the operating system.</p>
+          </section>
+          <section id="section-how-to-fix-it-48">
+            <h3 id="how-to-fix-it-48">How to fix it</h3>
+            <p>Set up system environment paths according to the instruction:</p>
+            <pre class="codeblock"><code class="hljs">SPARK_HOME={installed_spark_path}
+JAVA_HOME={installed_java_path}
+PYTHONPATH=$SPARK_HOME/python/
+</code></pre>
+          </section>
+        </section>
+        <section id="section-pipeline_error">
+          <h2 id="pipeline_error">ValueError: Training_data_ref name and connection cannot be None, if Pipeline Artifact is not given.</h2>
+          <section id="section-whats-happening-49">
+            <h3 id="whats-happening-49">What's happening</h3>
+            <p>The training data set is missing or is not referenced properly.</p>
+          </section>
+          <section id="section-why-its-happening-49">
+            <h3 id="why-its-happening-49">Why it's happening</h3>
+            <p>The Pipeline Artifact is a training data set in this instance.</p>
+          </section>
+          <section id="section-how-to-fix-it-49">
+            <h3 id="how-to-fix-it-49">How to fix it</h3>
+            <p>You must supply a training data set when you persist a Spark PipelineModel. If you don't, the client says it doesn't support PipelineModels, rather than saying a PipelineModel must be accompanied by the training set.</p>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="After you create a project and you create connections or you add data assets to the project, you can then add data to Data Refinery and start prepping that data for analysis.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Adding data to Data Refinery</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=data-adding-refinery"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="adding-data-to-data-refinery" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-adding-data-to-data-refinery">
+        <h1 id="adding-data-to-data-refinery">Adding data to Data Refinery</h1>
+        <p>After you <a href="../getting-started/projects.html">create a project</a> and you <a href="../manage-data/create-conn.html">create connections</a> or you <a href="../manage-data/add-data-project.html">add data assets</a> to the project, you can
+          then add data to Data Refinery and start prepping that data for analysis.</p>
+        <p>You can add data to Data Refinery in one of several ways:</p>
+        <ul>
+          <li>Select <strong>Prepare data</strong> from the overflow menu (<img src="images/actions.png" alt="overflow menu" title="Three vertical dots that represent the overflow menu" height="20" style="vertical-align:text-bottom">) of a data asset in the
+            <strong>All assets</strong> list for the project</li>
+          <li>Preview a data asset in the project and then click <strong>Prepare data</strong></li>
+          <li>Navigate to Data Refinery first and then add data to it</li>
+        </ul>
+        <section id="section-navigate-to-data-refinery">
+          <h2 id="navigate-to-data-refinery">Navigate to Data Refinery</h2>
+          <ol>
+            <li>
+              <p>Access Data Refinery from within a project. Click the <strong>Assets</strong> tab.</p>
+            </li>
+            <li>
+              <p>Click <strong>New asset &gt; Prepare and visualize data</strong>.</p>
+            </li>
+            <li>
+              <p>Select the data that you want to work with from <strong>Data assets</strong> or from <strong>Connections</strong>.<br></p>
+              <p>From <strong>Data assets</strong>:</p>
+              <ul>
+                <li>Select a data file (the selection includes data files that were already shaped with Data Refinery)</li>
+                <li>Select a connected data asset</li>
+              </ul>
+              <p>From <strong>Connections</strong>:</p>
+              <ul>
+                <li>Select a connection and file</li>
+                <li>Select a connection, folder, and file</li>
+                <li>Select a connection, schema, and table or view<br><br></li>
+              </ul>
+              <p>Data Refinery supports these file types: Avro, CSV, delimited text files, JSON, Microsoft Excel (xls and xlsx formats. First sheet only, except for connections and connected data assets.), Parquet, SAS with the "sas7bdat" extension
+                (read only), TSV (read only)</p>
+              <p>Data Refinery operates on a sample subset of rows in the data set. The sample size is 1 MB or 10,000 rows, whichever comes first. However, when you run a job for the Data Refinery flow, the entire data set is processed. If the Data Refinery
+                flow fails with a large data asset, see workarounds in <a href="../refinery/ts_index.html">Troubleshooting Data Refinery</a>.</p>
+              <p>Data connections marked with a key icon (<img src="../manage-data/images/privatekey.png" alt="the key symbol for private connections">) are locked. If you are authorized to access the data source, you are asked to enter your personal credentials
+                the first time you select it. This one-time step permanently unlocks the connection for you. After you have unlocked the connection, the key icon is no longer displayed. See <a href="../manage-data/create-conn.html">Adding connections to projects</a>.</p>
+            </li>
+            <li>
+              <p>Click <strong>Add</strong> to load the data into Data Refinery.</p>
+            </li>
+          </ol>
+        </section>
+        <section id="section-next-steps">
+          <h2 id="next-steps">Next steps</h2>
+          <ul>
+            <li><a href="refining_data.html">Refine your data</a></li>
+            <li><a href="metrics.html">Validate your data</a></li>
+            <li><a href="visualizations.html">Use visualizations to gain insights into your data</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="../refinery/refining_data.html">Refining data</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

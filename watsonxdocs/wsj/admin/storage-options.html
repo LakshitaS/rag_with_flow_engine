@@ -1,0 +1,441 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You must choose an IBM Cloud Object Storage instance when you create a project, catalog, or deployment space workspace. Information that is stored in IBM Cloud Object Storage is encrypted and resilient. Each workspace has its own dedicated bucket.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Object storage for workspaces</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=project-object-storage"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="object-storage-for-workspaces" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-object-storage-for-workspaces">
+        <h1 id="object-storage-for-workspaces">Object storage for workspaces</h1>
+        <p>You must choose an IBM Cloud Object Storage instance when you create a project, catalog, or deployment space workspace. Information that is stored in IBM Cloud Object Storage is encrypted and resilient. Each workspace has its own dedicated bucket.</p>
+        <p>You can encrypt the Cloud Object Storage instance that you use for workspaces with your own key. See <a href="../console/wdp_admin_cos.html#byok">Encrypt IBM Cloud Object Storage with your own key</a>. The Locations in each user's Profile must
+          include the <strong>Global</strong> location to allow access to Cloud Object Storage.</p>
+        <p>When you create a workspace, the Cloud Object Storage bucket defaults to Regional resiliency. Regional buckets distribute data across several data centers that are within the same metropolitan area. If one of these data centers suffers an outage
+          or destruction, availability and performance are not affected.</p>
+        <p>If you are the account owner or administrator, you administer Cloud Object Storage from the <strong>Resource list &gt; Storage</strong> page on the IBM Cloud dashboard. For example, you can upload and download assets, manage buckets, and configure
+          credentials and other security settings for the Cloud Object Storage instance.</p>
+        <p>Follow these steps to manage the Cloud Object Storage instance on IBM Cloud:</p>
+        <ol>
+          <li>Select a project from the Project list.</li>
+          <li>Click the <strong>Manage</strong> tab.</li>
+          <li>On the <strong>General</strong> page, locate the <strong>Storage</strong> section that displays the bucket name for the project.</li>
+          <li>Select <strong>Manage in IBM Cloud</strong> to open the Cloud Object Storage <strong>Buckets</strong> list.</li>
+          <li>Select the bucket name for the project to display a list of assets.</li>
+          <li>Checkmark an asset to download it or perform other tasks as needed.</li>
+        </ol>
+        <p>Watch this video to see how to manage an object storage instance.</p>
+        <div class="note Video disclaimer"><span class="Video disclaimertitle">Video disclaimer:</span> Some minor steps and graphical elements in this video might differ from your platform.</div>
+        <p style="font-size:smaller">This video provides a visual method to learn the concepts and tasks in this documentation.</p>
+        <iframe id="ws-manage-cos" src="https://video.ibm.com/embed/channel/23952663/video/ws-manage-cos" onload="executeEmbedScript()" lang="en-US" style="border: 0;" webkitallowfullscreen="" allowfullscreen="" frameborder="no" width="560" height="315" title="Manage object storage">
+</iframe>
+        <style type="text/css" keep="true">
+          .collapsibleList li>input+* {
+            display: none;
+          }
+          
+          .collapsibleList li>input:checked+* {
+            display: block;
+          }
+          
+          .collapsibleList li>input {
+            display: none;
+          }
+          
+          .collapsibleList label {
+            cursor: pointer;
+            color: #0062ff;
+            text-decoration: underline;
+          }
+          
+          .scrolling_table_div {
+            max-height: 300px;
+            overflow-y: auto;
+            padding-top: 20px;
+            margin-bottom: 30px;
+          }
+          
+          .transcript_sync_cb {
+            margin: 20px;
+          }
+          
+          .transcript_tbl {
+            border-collapse: collapse;
+            border: none;
+          }
+          
+          .transcript_tbl th,
+          .transcript_tbl td {
+            border: none;
+          }
+          
+          .clickable {
+            cursor: pointer;
+            color: #0062ff;
+            vertical-align: top;
+          }
+          
+          .clickable:hover {
+            text-decoration: underline;
+          }
+        </style>
+        <script keep="true" src="https://unpkg.com/ibm-video-streaming-web-player-api@1.1.0/dist/index.umd.min.js"></script>
+        <script keep="true">
+          var g_viewer = null;
+          var g_b_is_playing = false;
+          var g_b_do_retry = true;
+          var g_highlighted_row_num = -1;
+          var g_org_color = "";
+
+          var g_loop = setInterval(function() {
+            if (g_viewer && document.getElementById("sync_cb_ws-manage-cos").checked) {
+              synchronize();
+            }
+
+          }, 2 * 1000);
+
+          function executeEmbedScript() {
+            if (g_viewer) {
+              // Chrome is running this function twice??
+              return;
+            }
+
+            g_viewer = PlayerAPI("ws-manage-cos");
+
+            var url = window.location.href;
+            if (!url.match(/t\=\d+/i)) {
+              return;
+            }
+
+            g_viewer.addListener("playing", function(event_key, b_is_playing) {
+              g_b_is_playing = b_is_playing;
+
+              if (b_is_playing) {
+                g_b_do_retry = false;
+              }
+
+            });
+
+            document.getElementById("transcript_btn_ws-manage-cos").click();
+            var seconds = url.replace(/^.*t\=(\d+).*$/i, "$1");
+            synchronize(seconds);
+            jumpToTimeRetry(seconds, 5);
+          }
+
+          function jumpTo(obj) {
+            var seconds = obj.parentNode.id;
+            jumpToTime(seconds);
+          }
+
+          function jumpToTime(seconds) {
+            g_viewer.callMethod("seek", seconds);
+            g_viewer.callMethod("play");
+          }
+
+          function jumpToTimeRetry(seconds, iteration) {
+            if (iteration < 1) {
+              // Give up
+              return;
+            }
+
+            g_viewer.callMethod("seek", seconds);
+            g_viewer.callMethod("play");
+
+            setTimeout(function() {
+              // Wait 1.5 seconds and then try again
+              if (g_b_do_retry) {
+                jumpToTimeRetry(seconds, iteration - 1);
+              }
+
+            }, 1.5 * 1000);
+          }
+
+          function synchronize(seconds_in) {
+            if (seconds_in) {
+              scrollAndHighlight(seconds_in);
+              return;
+            }
+
+            g_viewer.getProperty("progress", function(seconds) {
+              scrollAndHighlight(seconds);
+
+            });
+
+          }
+
+          function scrollAndHighlight(seconds) {
+            var rows_arr = document.getElementsByClassName("video_tr");
+            for (var i = (rows_arr.length - 1); i >= 0; i--) {
+              if (parseInt(rows_arr[i].id) > seconds) {
+                continue;
+              }
+
+              if (i == g_highlighted_row_num) {
+                break;
+              }
+
+              if (-1 !== g_highlighted_row_num) {
+                unhighlight(rows_arr[g_highlighted_row_num]);
+              }
+
+              g_highlighted_row_num = i;
+              highlight(rows_arr[g_highlighted_row_num]);
+              scrollToRow(rows_arr[g_highlighted_row_num]);
+
+              break;
+            }
+
+          }
+
+          function scrollToRow(row_obj) {
+            var row_top = row_obj.offsetTop;
+            var row_bottom = row_top + row_obj.clientHeight;
+
+            var scroller = document.getElementById("transcript_div_ws-manage-cos");
+            var scroll_top = scroller.scrollTop;
+            var scroll_bottom = scroll_top + scroller.clientHeight;
+
+            if ((row_top < scroll_top) && (row_bottom > scroll_bottom)) {
+              // Edge case: Row taller than div
+              // Don't do anything
+            } else if ((row_top < scroll_top) || (row_bottom > scroll_bottom)) {
+              scroller.scrollTop = row_top;
+            }
+          }
+
+          function highlight(row_obj) {
+            var obj_arr = row_obj.childNodes;
+            for (var i = 0; i < obj_arr.length; i++) {
+              if ("TD" == obj_arr[i].nodeName) {
+                g_org_color = obj_arr[i].style.backgroundColor;
+                obj_arr[i].style.backgroundColor = "#c6c6c6";
+              }
+            }
+          }
+
+          function unhighlight(row_obj) {
+            var obj_arr = row_obj.childNodes;
+            for (var i = 0; i < obj_arr.length; i++) {
+              if ("TD" == obj_arr[i].nodeName) {
+                obj_arr[i].style.backgroundColor = g_org_color;
+              }
+            }
+          }
+
+          function toggleHighlighting() {
+            if (!document.getElementById("sync_cb_ws-manage-cos").checked && (-1 !== g_highlighted_row_num)) {
+              var rows_arr = document.getElementsByClassName("video_tr");
+              unhighlight(rows_arr[g_highlighted_row_num]);
+              g_highlighted_row_num = -1;
+            }
+          }
+        </script>
+        <ul data-accordion="" class="bx--accordion bx--accordion--start no-list-decoration" style="list-style: none; padding-left: 0px;">
+          <li data-accordion-item="" class="bx--accordion__item">
+            <button class="bx--accordion__heading" aria-expanded="false" aria-controls="pane_ws-manage-cos" id="transcript_btn_ws-manage-cos">
+<svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--accordion__arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"></path></svg>
+<div class="bx--accordion__title">Transcript</div>
+</button>
+            <div id="pane_ws-manage-cos" class="bx--accordion__content">
+              <input type="checkbox" id="sync_cb_ws-manage-cos" class="bx--checkbox transcript_sync_cb" onchange="toggleHighlighting();" checked=""><label for="sync_cb_ws-manage-cos" class="bx--checkbox-label"> Synchronize transcript with video</label>
+              <div id="transcript_div_ws-manage-cos" class="scrolling_table_div" tabindex="0">
+                <table class="bx--data-table bx--data-table--zebra" style="border-collapse: collapse; border: none;">
+                  <caption caption-side="top">Video transcript</caption>
+                  <thead>
+                    <tr>
+                      <th style="border: none;"><span class="bx--table-header-label">Time</span></th>
+                      <th style="border: none;"><span class="bx--table-header-label">Transcript</span></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="video_tr" id="0">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">00:00</td>
+                      <td style="border: none;">This video shows how to manage an IBM Cloud Object Storage instance. </td>
+                    </tr>
+                    <tr class="video_tr" id="6" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">00:06</td>
+                      <td style="border: none;">When you create a Watson Studio project, an IBM Cloud Object Storage instance is associated with the project. </td>
+                    </tr>
+                    <tr class="video_tr" id="15">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">00:15</td>
+                      <td style="border: none;">On the Manage tab, you'll see the associated object storage instance and have the option to manage it in IBM Cloud. </td>
+                    </tr>
+                    <tr class="video_tr" id="24" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">00:24</td>
+                      <td style="border: none;">IBM Cloud Object Storage uses buckets to organize your data. </td>
+                    </tr>
+                    <tr class="video_tr" id="30">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">00:30</td>
+                      <td style="border: none;">You can see that this instance contains a bucket with the "jupyternotebooks" prefix, which was created when the "Jupyter Notebooks" project was created. </td>
+                    </tr>
+                    <tr class="video_tr" id="41" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">00:41</td>
+                      <td style="border: none;">If you open that bucket, you'll see all of the files that you added to that project. </td>
+                    </tr>
+                    <tr class="video_tr" id="47">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">00:47</td>
+                      <td style="border: none;">From here, you can download an object or delete it from the bucket. </td>
+                    </tr>
+                    <tr class="video_tr" id="53" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">00:53</td>
+                      <td style="border: none;">You can also view the object SQL URL to access that object from your application. </td>
+                    </tr>
+                    <tr class="video_tr" id="60">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">01:00</td>
+                      <td style="border: none;">You can add objects to the bucket from here. </td>
+                    </tr>
+                    <tr class="video_tr" id="63" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">01:03</td>
+                      <td style="border: none;">Just browse to select the file and wait for it to upload to storage. </td>
+                    </tr>
+                    <tr class="video_tr" id="70">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">01:10</td>
+                      <td style="border: none;">And then that file will be available in the Files slide-out panel in the project. </td>
+                    </tr>
+                    <tr class="video_tr" id="76" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">01:16</td>
+                      <td style="border: none;">Let's create a bucket. </td>
+                    </tr>
+                    <tr class="video_tr" id="80">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">01:20</td>
+                      <td style="border: none;">You can create a Standard or Archive bucket, based on predefined settings, or create a custom bucket. </td>
+                    </tr>
+                    <tr class="video_tr" id="88" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">01:28</td>
+                      <td style="border: none;">Provide a bucket name, which must be unique across the IBM Cloud Object Storage system. </td>
+                    </tr>
+                    <tr class="video_tr" id="95">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">01:35</td>
+                      <td style="border: none;">Select a resiliency. </td>
+                    </tr>
+                    <tr class="video_tr" id="98" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">01:38</td>
+                      <td style="border: none;">Cross Region provides higher availability and durability and Regional provides higher performance. </td>
+                    </tr>
+                    <tr class="video_tr" id="105">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">01:45</td>
+                      <td style="border: none;">The Single Site option will only distribute data across devices within a single site. </td>
+                    </tr>
+                    <tr class="video_tr" id="112" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">01:52</td>
+                      <td style="border: none;">Then select the location based on workload proximity. </td>
+                    </tr>
+                    <tr class="video_tr" id="117">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">01:57</td>
+                      <td style="border: none;">Next, select a storage class, which defines the cost of storing data based on frequency of access. </td>
+                    </tr>
+                    <tr class="video_tr" id="125" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">02:05</td>
+                      <td style="border: none;">Smart Tier provides automatic cost optimization for your storage. </td>
+                    </tr>
+                    <tr class="video_tr" id="131">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">02:11</td>
+                      <td style="border: none;">Standard indicates frequent access. </td>
+                    </tr>
+                    <tr class="video_tr" id="134" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">02:14</td>
+                      <td style="border: none;">Vault is for less frequent access. </td>
+                    </tr>
+                    <tr class="video_tr" id="138">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">02:18</td>
+                      <td style="border: none;">And Cold Vault is for rare access. </td>
+                    </tr>
+                    <tr class="video_tr" id="141" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">02:21</td>
+                      <td style="border: none;">There are other, optional settings to add rules, keys, and services. </td>
+                    </tr>
+                    <tr class="video_tr" id="147">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">02:27</td>
+                      <td style="border: none;">Refer to the documentation for more details on these options. </td>
+                    </tr>
+                    <tr class="video_tr" id="152" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">02:32</td>
+                      <td style="border: none;">When you're ready, create the bucket. </td>
+                    </tr>
+                    <tr class="video_tr" id="155">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">02:35</td>
+                      <td style="border: none;">And, from here, you could add files to that bucket. </td>
+                    </tr>
+                    <tr class="video_tr" id="160" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">02:40</td>
+                      <td style="border: none;">On the Access policies panel, you can manage access to buckets using IAM policies - that's Identity and Access Management. </td>
+                    </tr>
+                    <tr class="video_tr" id="170">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">02:50</td>
+                      <td style="border: none;">On the Configuration panel, you'll find information about Key Protect encryption keys, as well as the bucket instance CRN and endpoints to access the data in the buckets from your application. </td>
+                    </tr>
+                    <tr class="video_tr" id="181" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">03:01</td>
+                      <td style="border: none;">You can also find some of the same information on the Endpoints panel. </td>
+                    </tr>
+                    <tr class="video_tr" id="186">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">03:06</td>
+                      <td style="border: none;">On the Service credentials panel, you'll find the API and access keys to authenticate with your instance from your application. </td>
+                    </tr>
+                    <tr class="video_tr" id="195" style="background-color: #f4f4f4;">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">03:15</td>
+                      <td style="border: none;">You can also connect the object storage to a Cloud Foundry application, check usage details, and view your plan details. </td>
+                    </tr>
+                    <tr class="video_tr" id="206">
+                      <td class="clickable" onclick="jumpTo(this);" title="Play video from this time" style="border: none; color: #0062ff;">03:26</td>
+                      <td style="border: none;">Find more videos in the Cloud Pak for Data as a Service documentation. </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="../console/wdp_admin_cos.html">Setting up IBM Cloud Object Storage</a></li>
+            <li><a href="https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-getting-started-cloud-object-storage" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud docs: Getting started with IBM Cloud Object Storage</a></li>
+            <li><a href="https://cloud.ibm.com/docs/cloud-object-storage/basics?topic=cloud-object-storage-endpoints" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud docs: Endpoints and storage locations</a></li>
+            <li><a href="../troubleshoot/troubleshoot-cos.html">Troubleshooting Cloud Object Storage for projects</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="../getting-started/projects.html">Creating a project</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

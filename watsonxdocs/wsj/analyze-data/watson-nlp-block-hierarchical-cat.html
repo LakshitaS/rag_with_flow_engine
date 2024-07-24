@@ -1,0 +1,111 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="The Watson Natural Language Processing Categories block assigns individual nodes within a hierarchical taxonomy to an input document. For example, in the text IBM announces new advances in quantum computing, examples of extracted categories are technology and computing/hardware/computer and technology and computing/operating systems. These categories represent level 3 and level 2 nodes in a hierarchical taxonomy.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Hierarchical text categorization</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=catalog-hierarchical-categorization"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="hierarchical-categorization-block" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-hierarchical-categorization-block">
+        <h1 id="hierarchical-categorization-block">Hierarchical text categorization</h1>
+        <p>The Watson Natural Language Processing Categories block assigns individual nodes within a hierarchical taxonomy to an input document. For example, in the text <em>IBM announces new advances in quantum computing</em>, examples of extracted categories
+          are <code>technology and computing/hardware/computer</code> and <code>technology and computing/operating systems</code>. These categories represent level 3 and level 2 nodes in a hierarchical taxonomy.</p>
+        <p>This block differs from the Classification block in that training starts from a set of seed phrases associated with each node in the taxonomy, and does not require labeled documents.</p>
+        <p>Note that the Hierarchical text categorization block can only be used in a notebook that is started in an environment based on Runtime 23.1 that includes the Watson Natural Language Processing library.</p>
+        <p><strong>Block name</strong></p>
+        <p><code>categories_esa_en_stock</code></p>
+        <p><strong>Supported languages</strong></p>
+        <p>The Categories block is available for the following languages. For a list of the language codes and the corresponding language, see <a href="watson-nlp-block-catalog.html#lang-codes">Language codes</a>.</p>
+        <p>de, en</p>
+        <p><strong>Capabilities</strong></p>
+        <p>Use this block to determine the topics of documents on the web by categorizing web pages into a taxonomy of general domain topics, for ad placement and content recommendation. The model was tested on data from news reports and general web pages.</p>
+        <p>For a list of the categories that can be returned, see <a href="watson-nlp-returned-categories.html">Category types</a>.</p>
+        <p><strong>Dependencies on other blocks</strong></p>
+        <p>The following block must run before you can run the hierarchical categorization block:</p>
+        <ul>
+          <li><code>syntax_izumo_&lt;language&gt;_stock</code></li>
+        </ul>
+        <p><strong>Code sample</strong></p>
+        <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">import</span> watson_nlp
+
+<span class="hljs-comment"># Load Syntax and a Categories model for English</span>
+syntax_model = watson_nlp.load(<span class="hljs-string">'syntax_izumo_en_stock'</span>)
+categories_model = watson_nlp.load(<span class="hljs-string">'categories_esa_en_stock'</span>)
+
+<span class="hljs-comment"># Run the syntax model on the input text</span>
+syntax_prediction = syntax_model.run(<span class="hljs-string">'IBM announced new advances in quantum computing'</span>)
+
+<span class="hljs-comment"># Run the categories model on the result of syntax</span>
+categories = categories_model.run(syntax_prediction)
+<span class="hljs-built_in">print</span>(categories)
+</code></pre>
+        <p>Output of the code sample:</p>
+        <pre class="codeblock"><code class="lang-text hljs">{
+  "categories": [
+    {
+      "labels": [
+        "technology &amp; computing",
+        "computing"
+      ],
+      "score": 0.992489,
+      "explanation": []
+    },
+    {
+      "labels": [
+        "science",
+        "physics"
+      ],
+      "score": 0.945449,
+      "explanation": []
+    }
+  ],
+  "producer_id": {
+    "name": "ESA Hierarchical Categories",
+    "version": "1.0.0"
+  }
+}
+</code></pre>
+        <p><strong>Parent topic:</strong> <a href="watson-nlp-block-catalog.html">Watson Natural Language Processing task catalog</a></p>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

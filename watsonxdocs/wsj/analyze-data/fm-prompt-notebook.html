@@ -1,0 +1,274 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can prompt foundation models in IBM watsonx.ai programmatically by using the Python library.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Inferencing a foundation model with a notebook</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=library-inferencing-foundation-model-notebook"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="inferencing-a-foundation-model-with-a-notebook" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-inferencing-a-foundation-model-with-a-notebook">
+        <h1 id="inferencing-a-foundation-model-with-a-notebook">Inferencing a foundation model with a notebook</h1>
+        <p>You can prompt foundation models in IBM watsonx.ai programmatically by using the Python library.</p>
+        <p>After you create a prompt in the Prompt Lab, you can save the prompt as a notebook, and then edit the notebook. Using the generated notebook as a starting point is useful because it handles the initial setup steps, such as getting credentials
+          and the project ID information for you.</p>
+        <p>Alternatively, you can work with foundation models directly from a notebook by using the watsonx.ai Python library. For more information about the library and prerequisite steps, see <a href="fm-python-lib.html">Foundation models Python library</a>.</p>
+        <section id="section-sample-notebook">
+          <h2 id="sample-notebook">Sample notebook</h2>
+          <p>The <em><a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/61c1e967-8d10-44bb-a846-cc1f27e9e69a?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Use watsonx to analyze car rentals reviews</a></em>            is a sample notebook that you can run to learn the steps involved in inferencing a foundation model in watsonx.ai.</p>
+          <p>The following examples show you how to use the library to perform a few basic tasks in a notebook.</p>
+        </section>
+        <section id="section-example-list-available-foundation-models">
+          <h2 id="example-list-available-foundation-models">Example: List available foundation models</h2>
+          <p>You can view <a href="https://ibm.github.io/watsonx-ai-python-sdk/fm_model.html#ibm_watsonx_ai.foundation_models.utils.enums.ModelTypes" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab"><code>ModelTypes</code></a>            to see available foundation models.</p>
+          <p><b>Python code</b><br></p>
+          <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">from</span> ibm_watsonx_ai.foundation_models.utils.enums <span class="hljs-keyword">import</span> ModelTypes
+<span class="hljs-keyword">import</span> json
+
+<span class="hljs-built_in">print</span>( json.dumps( ModelTypes._member_names_, indent=<span class="hljs-number">2</span> ) )
+</code></pre>
+          <p><b>Sample output</b><br></p>
+          <pre class="screen"><code class="hljs">[
+  "FLAN_T5_XXL",
+  "FLAN_UL2",
+  "MT0_XXL",
+  ...
+]
+</code></pre>
+          <p>&nbsp;</p>
+        </section>
+        <section id="section-example-view-details-of-a-foundation-model">
+          <h2 id="example-view-details-of-a-foundation-model">Example: View details of a foundation model</h2>
+          <p>You can view details, such as a short description and foundation model limits, by using <a href="https://ibm.github.io/watsonx-ai-python-sdk/foundation_models.html#ibm_watsonx_ai.foundation_models.Model.get_details" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab"><code>get_details()</code></a>.</p>
+          <p><b>Python code</b><br></p>
+          <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">from</span> ibm_watsonx_ai.foundation_models.utils.enums <span class="hljs-keyword">import</span> ModelTypes
+<span class="hljs-keyword">from</span> ibm_watsonx_ai.foundation_models <span class="hljs-keyword">import</span> ModelInference
+<span class="hljs-keyword">import</span> json
+
+my_credentials = { 
+    <span class="hljs-string">"url"</span>    : <span class="hljs-string">"https://us-south.ml.cloud.ibm.com"</span>, 
+    <span class="hljs-string">"apikey"</span> : {my-IBM-Cloud-API-key}
+}
+
+model_id    = ModelTypes.FLAN_T5_XXL
+gen_parms   = <span class="hljs-literal">None</span>
+project_id  = {my-project-ID}
+space_id    = <span class="hljs-literal">None</span>
+verify      = <span class="hljs-literal">False</span>
+
+model = ModelInference( model_id, my_credentials, gen_parms, project_id, space_id, verify )
+
+model_details = model.get_details()
+
+<span class="hljs-built_in">print</span>( json.dumps( model_details, indent=<span class="hljs-number">2</span> ) )
+</code></pre>
+          <div class="note note"><span class="notetitle">Note:</span>
+            <md-block>
+              <p>Replace <code>{my-IBM-Cloud-API-key}</code> and <code>{my-project-ID}</code> with your API key and project ID.</p>
+              <p></p>
+            </md-block>
+          </div>
+          <p></p>
+          <p><b>Sample output</b><br></p>
+          <pre class="screen"><code class="hljs">{
+  "model_id": "google/flan-t5-xxl",
+  "label": "flan-t5-xxl-11b",
+  "provider": "Google",
+  "source": "Hugging Face",
+  "short_description": "flan-t5-xxl is an 11 billion parameter model based on the Flan-T5 family.",
+  ...
+}
+</code></pre>
+          <p>&nbsp;</p>
+        </section>
+        <section id="section-prompt">
+          <h2 id="prompt">Example: Prompt a foundation model</h2>
+          <p>Prompt a foundation model to generate a response.</p>
+          <p><b>Python code</b><br></p>
+          <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">from</span> ibm_watsonx_ai.foundation_models.utils.enums <span class="hljs-keyword">import</span> ModelTypes
+<span class="hljs-keyword">from</span> ibm_watsonx_ai.foundation_models <span class="hljs-keyword">import</span> ModelInference
+<span class="hljs-keyword">import</span> json
+
+my_credentials = { 
+    <span class="hljs-string">"url"</span>    : <span class="hljs-string">"https://us-south.ml.cloud.ibm.com"</span>, 
+    <span class="hljs-string">"apikey"</span> : {my-IBM-Cloud-API-key}
+}      
+
+model_id    = ModelTypes.FLAN_T5_XXL
+gen_parms   = <span class="hljs-literal">None</span>
+project_id  = {my-project-ID}
+space_id    = <span class="hljs-literal">None</span>
+verify      = <span class="hljs-literal">False</span>
+
+model = ModelInference( model_id, my_credentials, gen_parms, project_id, space_id, verify )   
+ 
+prompt_txt = <span class="hljs-string">"In today's sales meeting, we "</span>
+gen_parms_override = <span class="hljs-literal">None</span>
+
+generated_response = model.generate( prompt_txt, gen_parms_override )
+
+<span class="hljs-built_in">print</span>( json.dumps( generated_response, indent=<span class="hljs-number">2</span> ) )
+</code></pre>
+          <div class="note note"><span class="notetitle">Note:</span>
+            <md-block>
+              <p>Replace <code>{my-IBM-Cloud-API-key}</code> and <code>{my-project-ID}</code> with your API key and project ID.</p>
+              <p></p>
+            </md-block>
+          </div>
+          <p></p>
+          <p><b>Sample output</b></p>
+          <pre class="screen"><code class="hljs">{
+  "model_id": "google/flan-t5-xxl",
+  "created_at": "2023-07-27T03:40:17.575Z",
+  "results": [
+    {
+      "generated_text": "will discuss the new product line.",
+      "generated_token_count": 8,
+      "input_token_count": 10,
+      "stop_reason": "EOS_TOKEN"
+    }
+  ],
+  ...
+}
+</code></pre>
+          <p>&nbsp;</p>
+        </section>
+        <section id="section-example-inferencing-a-foundation-model-by-using-a-prompt-template">
+          <h2 id="example-inferencing-a-foundation-model-by-using-a-prompt-template">Example: Inferencing a foundation model by using a prompt template</h2>
+          <p>You can use a prompt template in the following ways:</p>
+          <ul>
+            <li>Deploy the prompt template, and then use the deployed template in an inference request.</li>
+            <li>Add text to a prompt based on a prompt template, and then inference a foundation model (without deploying the prompt template).</li>
+          </ul>
+          <p>For more information about the steps to follow, see <a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/f0fb547f-da9e-4614-8d70-e4e233ca6c10?context=wx" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Sample notebook: Use watsonx to manage prompt template assets and create a deployment</a>.</p>
+          <p>Inferencing a foundation model by using a deployed prompt template involves the following steps. For the complete steps and more options, see the sample notebook.</p>
+          <ol>
+            <li>
+              <p>Import and instantiate the <a href="https://ibm.github.io/watsonx-ai-python-sdk/prompt_template_manager.html#prompt-template-manager" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">PromptTemplateManager</a> object.</p>
+            </li>
+            <li>
+              <p>Define a prompt template.</p>
+              <pre class="codeblock"><code class="lang-python hljs">prompt_template = PromptTemplate(name=<span class="hljs-string">"New prompt"</span>,
+model_id=ModelTypes.FLAN_T5_XXL,
+model_params = {GenParams.DECODING_METHOD: <span class="hljs-string">"sample"</span>},
+description=<span class="hljs-string">"My example"</span>,
+task_ids=[<span class="hljs-string">"generation"</span>],
+input_variables=[<span class="hljs-string">"object"</span>],
+instruction=<span class="hljs-string">"Answer the following question"</span>,
+input_prefix=<span class="hljs-string">"Human"</span>,
+output_prefix=<span class="hljs-string">"Assistant"</span>,
+input_text=<span class="hljs-string">"What is {object} and how does it work?"</span>,
+examples=[[<span class="hljs-string">"What is a loan and how does it work?"</span>, 
+  <span class="hljs-string">"A loan is a debt that is repaid with interest over time."</span>]]
+)
+</code></pre>
+            </li>
+            <li>
+              <p>Store the prompt template in your project to generate a prompt template ID.</p>
+              <pre class="codeblock"><code class="lang-python hljs">stored_prompt_template = prompt_mgr.store_prompt(prompt_template=prompt_template)
+<span class="hljs-built_in">print</span>(<span class="hljs-string">f"Asset id: <span class="hljs-subst">{stored_prompt_template.prompt_id}</span>"</span>)
+</code></pre>
+            </li>
+            <li>
+              <p>Load the text in the prompt template.</p>
+              <pre class="codeblock"><code class="lang-python hljs">prompt_input_text = prompt_mgr.load_prompt(prompt_id=stored_prompt_template.prompt_id, 
+ astype=PromptTemplateFormats.STRING)
+<span class="hljs-built_in">print</span>(prompt_input_text)
+</code></pre>
+            </li>
+            <li>
+              <p>Create a prompt template deployment and generate a deployment ID.</p>
+              <pre class="codeblock"><code class="lang-python hljs">meta_props = {
+ client.deployments.ConfigurationMetaNames.NAME: <span class="hljs-string">"SAMPLE DEPLOYMENT PROMPT TEMPLATE"</span>,
+ client.deployments.ConfigurationMetaNames.ONLINE: {},
+ client.deployments.ConfigurationMetaNames.BASE_MODEL_ID: <span class="hljs-string">"ibm/granite-13b-chat-v2"</span>}
+
+deployment_details = client.deployments.create(artifact_uid=stored_prompt_template.prompt_id, meta_props=meta_props)
+</code></pre>
+            </li>
+            <li>
+              <p>Import and instantiate the <a href="https://ibm.github.io/watsonx-ai-python-sdk/fm_deployments.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">ModelInference</a> object to use for inferencing the foundation
+                model by using the deployed prompt template.</p>
+              <pre class="codeblock"><code class="lang-python hljs">model_inference = ModelInference(
+ deployment_id=deployment_id,
+ api_client=client)
+</code></pre>
+            </li>
+            <li>
+              <p>Inference the foundation model. Be sure to specify values for any prompt variables that are defined in the prompt template.</p>
+              <pre class="codeblock"><code class="lang-python hljs">model_inference.generate_text(params={<span class="hljs-string">"prompt_variables"</span>: {<span class="hljs-string">"object"</span>: <span class="hljs-string">"a mortgage"</span>},
+  GenParams.DECODING_METHOD: DecodingMethods.GREEDY,
+  GenParams.STOP_SEQUENCES: [<span class="hljs-string">'\n\n'</span>],
+  GenParams.MAX_NEW_TOKENS: <span class="hljs-number">50</span>})
+</code></pre>
+            </li>
+          </ol>
+          <p>&nbsp;</p>
+          <p>Inferencing a foundation model by using a prompt template that is not deployed involves the following steps. For the complete steps and more options, see the sample notebook.</p>
+          <ol>
+            <li>
+              <p>List all of the available prompt templates.</p>
+              <p>For more information, see <a href="https://ibm.github.io/watsonx-ai-python-sdk/prompt_template_manager.html#ibm_watsonx_ai.foundation_models.prompts.PromptTemplateManager.list" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">List all prompt templates</a>.</p>
+            </li>
+            <li>
+              <p>Load the prompt template that you want to use. The prompt template does not need to be deployed. Convert the template to prompt text.</p>
+              <p>For more information, see <a href="https://ibm.github.io/watsonx-ai-python-sdk/prompt_template_manager.html#ibm_watsonx_ai.foundation_models.prompts.PromptTemplateManager.load_prompt" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Load prompt</a>.</p>
+              <pre class="codeblock"><code class="lang-python hljs">prompt_text = prompt_mgr.load_prompt(prompt_id=stored_prompt_template.prompt_id, astype=PromptTemplateFormats.STRING)
+<span class="hljs-built_in">print</span>(prompt_text)
+</code></pre>
+            </li>
+            <li>
+              <p>Substitute any prompt variables with the values that you want to use.</p>
+              <pre class="codeblock"><code class="lang-python hljs">filled_prompt_text = prompt_text.<span class="hljs-built_in">format</span>(<span class="hljs-built_in">object</span>=<span class="hljs-string">'credit card'</span>)
+</code></pre>
+              <p>For more information about prompt variables, see <a href="fm-prompt-variables.html">Building reusable prompts</a>.</p>
+            </li>
+            <li>
+              <p>Send the filled prompt text to a foundation model for inferencing.</p>
+              <p>For example, <code>generated_response = model.generate_text(prompt=filled_prompt_input, ...</code></p>
+            </li>
+          </ol>
+          <p><strong>Parent topic:</strong> <a href="fm-python-lib.html">Python library</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

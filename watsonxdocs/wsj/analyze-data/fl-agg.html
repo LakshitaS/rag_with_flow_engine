@@ -1,0 +1,150 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="An administrator completes the following steps to start the experiment and train the global model.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Starting the aggregator (Admin)</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=experiment-starting-aggregator-admin"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="starting-the-aggregator-admin" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-starting-the-aggregator-admin">
+        <h1 id="starting-the-aggregator-admin">Starting the aggregator (Admin)</h1>
+        <p>An administrator completes the following steps to start the experiment and train the global model.</p>
+        <ul>
+          <li><a href="#fl-setup">Step 1: Set up the Federated Learning experiment</a></li>
+          <li><a href="#rts">Step 2: Create the remote training system</a></li>
+          <li><a href="#start">Step 3: Start the experiment</a></li>
+        </ul>
+        <section id="section-fl-setup">
+          <h2 id="fl-setup">Step 1: Set up the Federated Learning experiment</h2>
+          <p>Set up a Federated Learning experiment from a project.</p>
+          <ol>
+            <li>From the project, click <strong>New asset &gt; Federated Learning</strong>.</li>
+            <li>Name the experiment.<br>
+              <em>Optional:</em> Add an optional description and tags.</li>
+            <li><a href="../getting-started/collaborate.html">Add new collaborators</a> to the project.</li>
+            <li>In the <strong>Configure</strong> tab, choose the training framework and model type. See <a href="fl-frames.html">Frameworks, fusion methods, and Python versions</a> for a table listing supported frameworks, fusion methods, and their attributes.
+              <em>Optional:</em> You can choose to enable the homomorphic encryption feature. For more details, see <a href="fl-homo.html">Applying encryption</a>.</li>
+            <li>Click <strong>Select</strong> under <strong>Model specification</strong> and upload the <code>.zip</code> file that contains your initial model.</li>
+            <li>In the <strong>Define hyperparameters</strong> tab, you can choose hyperparameter options available for your framework and fusion method to tune your model.</li>
+          </ol>
+        </section>
+        <section id="section-rts">
+          <h2 id="rts">Step 2: Create the Remote Training System</h2>
+          <p>Create Remote Training Systems (RTS) that authenticates the participating parties of the experiment.</p>
+          <ol>
+            <li>
+              <p>At <strong>Select remote training system</strong>, click <strong>Add new systems</strong>. <br>
+                <img src="../analyze-data/images/fl-rts.png" alt="Screenshot of Remote Training System UI" height="70%" width="70%"></p>
+            </li>
+            <li>
+              <p>Configure the RTS.</p>
+              <table>
+                <caption>Configuring the RTS</caption>
+                <thead>
+                  <tr>
+                    <th>Field name</th>
+                    <th>Definition</th>
+                    <th>Example</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Name</td>
+                    <td>A name to identify this RTS instance.</td>
+                    <td><code>Canada Bank Model: Federated Learning Experiment</code></td>
+                  </tr>
+                  <tr>
+                    <td>Description<br>(Optional)</td>
+                    <td>Description of the training system.</td>
+                    <td>This Remote Training System is for a <br>Federated Learning experiment to train a model for <br>predicting credit card fraud with data from Canadian banks.</td>
+                  </tr>
+                  <tr>
+                    <td>System administrator<br>(Optional)</td>
+                    <td>Specify a user with read-only access to this RTS. They can see system details, logs, and scripts, but not necessarily participate in the experiment. They should be contacted if issues occur when running the experiment.</td>
+                    <td><code>Admin (admin@example.com)</code></td>
+                  </tr>
+                  <tr>
+                    <td>Allowed identities</td>
+                    <td>List project collaborators who can participate in the Federated Learning experiment training. Multiple collaborators can be registered in this RTS, but only one can participate in the experiment. Multiple RTS's are needed to authenticate
+                      all participating collaborators.</td>
+                    <td><code>John Doe (john.doe@example.com)</code><br><code>Jane Doe (jane.doe@example.com)</code></td>
+                  </tr>
+                  <tr>
+                    <td>Allowed IP addresses<br>(Optional)</td>
+                    <td>Restrict individual parties from connecting to Federated Learning outside of a specified IP address. <br><br>1. To configure this, click <strong>Configure</strong>.<br>2. For <em>Allowed identities</em>, select the user to place IP
+                      constraints on.<br>3. For <em>Allowed IP addresses for user</em>, enter a comma seperated list of IPs and or CIDRs that can connect to the Remote Training System. Note: Both IPv4 and IPv6 are supported.</td>
+                    <td>John<br> 1234:5678:90ab:cdef:1234:5678:90ab:cdef: (John’s office IP), 123.123.123.123 (John’s home IP), 0987.6543.21ab.cdef (Remote VM IP) <br>Jane<br> 123.123.123.0/16 (Jane's home IP), 0987.6543.21ab.cdef (Remote machine IP)</td>
+                  </tr>
+                  <tr>
+                    <td>Tags <br>(Optional)</td>
+                    <td>Associate keywords with the Remote Training System to make it easier to find.</td>
+                    <td><code>Canada</code><br><code>Bank</code><br><code>Model</code><br><code>Credit</code><br><code>Fraud</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </li>
+            <li>
+              <p>Click <strong>Add</strong> to save the RTS instance. If you are creating multiple remote training instances, you can repeat these steps.</p>
+            </li>
+            <li>
+              <p>Click <strong>Add systems</strong> to save the RTS as an asset in the project.</p>
+              <div class="note tip"><span class="tiptitle">Tip:</span> You can use an RTS definition for future experiments. For example, in the __Select remote training system__ tab, you can select any Remote Training System that you previously created.</div>
+            </li>
+            <li>
+              <p>Each RTS can only authenticate one of its allowed party identities. Create an RTS for each new participating part(ies).</p>
+            </li>
+          </ol>
+        </section>
+        <section id="section-start">
+          <h2 id="start">Step 3: Start the experiment</h2>
+          <p>Start the Federated Learning aggregator to initiate training of the global model.</p>
+          <ol>
+            <li>Click <strong>Review and create</strong> to view the settings of your current Federated Learning experiment. Then, click <strong>Create</strong>.
+              <img src="../analyze-data/images/fl-rev.png" alt="Screenshot of Review and Create Experiment UI" height="70%" width="70%"></li>
+            <li>The Federated Learning experiment will be in <code>Pending</code> status while the aggregator is starting. When the aggregator starts, the status will change to <code>Setup – Waiting for remote systems</code>.</li>
+          </ol>
+          <p><strong>Parent topic:</strong> <a href="fl-start.html">Creating a Federated Learning experiment</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

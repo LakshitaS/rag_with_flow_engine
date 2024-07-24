@@ -1,0 +1,159 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="AutoAI automatically prepares data, applies algorithms, and builds model pipelines that are best suited for your data and use case. Learn how to generate the model pipelines that you can save as machine learning models.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Building an AutoAI model</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=autoai-building-experiment"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="building-an-autoai-model" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-building-an-autoai-model">
+        <h1 id="building-an-autoai-model">Building an AutoAI model</h1>
+        <p>AutoAI automatically prepares data, applies algorithms, and builds model pipelines that are best suited for your data and use case. Learn how to generate the model pipelines that you can save as machine learning models.</p>
+        <p>Follow these steps to upload data and have AutoAI create the best model for your data and use case.</p>
+        <ol>
+          <li><a href="#train-data">Collect your input data</a></li>
+          <li><a href="#open-autoai">Open the AutoAI tool</a></li>
+          <li><a href="#model-details">Specify details of your model and training data and start AutoAI</a></li>
+          <li><a href="#view-results">View the results</a></li>
+        </ol>
+        <section id="section-train-data">
+          <h2 id="train-data">Collect your input data</h2>
+          <p>Collect and prepare your training data. For details on allowable data sources, see <a href="autoai-overview.html">AutoAI overview</a>.</p>
+          <div class="note note"><span class="notetitle">Note:</span>
+            <md-block>
+              <p>If you are creating an experiment with a single training data source, you have the option of using a second data source specifically as testing, or <em>holdout</em>, data for validating the pipelines.</p>
+              <p></p>
+            </md-block>
+          </div>
+          <p></p>
+        </section>
+        <section id="section-open-autoai">
+          <h2 id="open-autoai">Open the AutoAI tool</h2>
+          <p>For your convenience, your AutoAI model creation uses the default storage that is associated with your project to store your data and to save model results.</p>
+          <ol>
+            <li>
+              <p>Open your project.</p>
+            </li>
+            <li>
+              <p>Click the <strong>Assets</strong> tab.</p>
+            </li>
+            <li>
+              <p>Click <strong>New asset &gt; Build machine learning models automatically</strong>.</p>
+            </li>
+          </ol>
+          <div class="note note"><span class="notetitle">Note:</span> After you create an AutoAI asset it displays on the Assets page for your project in the **AutoAI experiments** section, so you can return to it.</div>
+        </section>
+        <section id="section-model-details">
+          <h2 id="model-details">Specify details of your experiment</h2>
+          <ol>
+            <li>
+              <p>Specify a name and description for your experiment.</p>
+            </li>
+            <li>
+              <p>Select a machine learning service instance and click <strong>Create</strong>.</p>
+            </li>
+            <li>
+              <p>Choose data from your project or upload it from your file system or from the asset browser, then press <strong>Continue</strong>. Click the preview icon to review your data. (Optional) Add a second file as holdout data for testing the trained
+                pipelines.</p>
+            </li>
+            <li>
+              <p>Choose the <strong>Column to predict</strong> for the data you want the experiment to predict.</p>
+              <ul>
+                <li>
+                  <p>Based on analyzing a subset of the data set, AutoAI selects a default model type: binary classification, multiclass classification, or regression. Binary is selected if the target column has two possible values. Multiclass has a discrete
+                    set of 3 or more values. Regression has a continuous numeric variable in the target column. You can optionally override this selection. <br></p>
+                  <div class="note note"><span class="notetitle">Note:</span> The limit on values to classify is 200. Creating a classification experiment with many unique values in the prediction column is resource-intensive and affects the experiment's performance and training
+                    time. To maintain the quality of the experiment:<br>- AutoAI chooses a default metric for optimizing. For example, the default metric for a binary classification model is *Accuracy*.<br>- By default, 10% of the training data is held
+                    out to test the performance of the model.</div>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>(Optional): Click <strong>Experiment settings</strong> to view or customize options for your AutoAI run. For details on experiment settings, see <a href="autoai-config-class.html">Configuring a classification or regression experiment</a>.</p>
+            </li>
+            <li>
+              <p>Click <strong>Run Experiment</strong> to begin model pipeline creation.</p>
+            </li>
+          </ol>
+          <p>An infographic shows you the creation of pipelines for your data. The duration of this phase depends on the size of your data set. A notification message informs you if the processing time will be brief or require more time. You can work in
+            other parts of the product while the pipelines build.</p>
+          <p><img src="images/autoai_bank_sample_pipeline_build2.png" alt="Relationship map of AutoAI generated pipelines" style="max-width:90%;height:auto;width:auto"></p>
+          <p>Hover over nodes in the infographic to explore the factors that pipelines share and their unique properties. You can see the factors that pipelines share and the properties that make a pipeline unique. For a guide to the data in the infographic,
+            click the Legend tab in the information panel. Or, to see a different view of the pipeline creation, click the Experiment details tab of the notification pane, then click <strong>Switch views</strong> to view the progress map. In either view,
+            click a pipeline node to view the associated pipeline in the leaderboard.</p>
+        </section>
+        <section id="section-view-results">
+          <h2 id="view-results">View the results</h2>
+          <p>When the pipeline generation process completes, you can view the ranked model candidates and evaluate them before you save a pipeline as a model.</p>
+          <section id="section-next-steps">
+            <h3 id="next-steps">Next steps</h3>
+            <ul>
+              <li>
+                <p><a href="../getting-started/get-started-build.html">Build an experiment from sample data</a></p>
+              </li>
+              <li>
+                <p><a href="autoai-config-class.html">Configuring experiment settings</a></p>
+              </li>
+              <li>
+                <p><a href="autoai-text-analysis.html">Configure a text analysis experiment</a></p>
+                <div class="note Video disclaimer"><span class="Video disclaimertitle">Video disclaimer:</span> Some minor steps and graphical elements in this video might differ from your platform.</div>
+              </li>
+              <li>
+                <p>Watch this video to see how to build a binary classification model</p>
+                <div>
+                  <p style="font-size:smaller">This video provides a visual method to learn the concepts and tasks in this documentation.</p><iframe id="wm-wml-binary-classification-model" src="https://video.ibm.com/embed/channel/23952663/video/wml-binary-classification-model" lang="en-US" style="border: 0;" webkitallowfullscreen="" allowfullscreen="" frameborder="no" width="560" height="315" title="Build a binary classification model" alt="Build a binary classification model"></iframe></div>
+              </li>
+              <li>
+                <p>Watch this video to see how to build a multiclass classification model</p>
+                <div>
+                  <p style="font-size:smaller">This video provides a visual method to learn the concepts and tasks in this documentation.</p><iframe id="wm-wml-multi-classification-model" src="https://video.ibm.com/embed/channel/23952663/video/wml-multi-classification-model" lang="en-US" style="border: 0;" webkitallowfullscreen="" allowfullscreen="" frameborder="no" width="560" height="315" title="Build a multiclass classification model" alt="Build a multiclass classification model"></iframe></div>
+              </li>
+            </ul>
+            <br>
+            <br>
+            <p><strong>Parent topic:</strong> <a href="autoai-overview.html">AutoAI overview</a></p>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

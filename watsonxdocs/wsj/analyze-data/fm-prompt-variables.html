@@ -1,0 +1,375 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Prompt engineering to find effective prompts for a model takes time and effort. Stretch the benefits of your work by building prompts that you can reuse and share with others.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Building reusable prompts</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=lab-building-reusable-prompts"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="building-reusable-prompts" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-building-reusable-prompts">
+        <h1 id="building-reusable-prompts">Building reusable prompts</h1>
+        <p>Prompt engineering to find effective prompts for a model takes time and effort. Stretch the benefits of your work by building prompts that you can reuse and share with others.</p>
+        <p>A great way to add flexibility to a prompt is to add <em>prompt variables</em>. A prompt variable is a placeholder keyword that you include in the static text of your prompt at creation time and replace with text dynamically at run time.</p>
+        <div class="note note"><span class="notetitle">Note:</span> You cannot define prompt variables in chat mode.</div>
+        <section id="section-using-variables-to-change-prompt-text-dynamically">
+          <h2 id="using-variables-to-change-prompt-text-dynamically">Using variables to change prompt text dynamically</h2>
+          <p>Foundation model input variables help you to generalize a prompt so that it can be reused more easily.</p>
+          <p>For example, a prompt for a generative task might contain the following static text:</p>
+          <p><code>Write a story about a dog.</code></p>
+          <p>If you replace the text <em>dog</em> with a variable that is named <code>{animal}</code>, you add support for dynamic content to the prompt.</p>
+          <p><code>Write a story about a {animal}.</code></p>
+          <p>With the variable <code>{animal}</code>, the text can still be used to prompt the model for a story about a dog. But now it can be reused to ask for a story about a cat, a mouse, or another animal, simply by swapping the value that is specified
+            for the <code>{animal}</code> variable.</p>
+        </section>
+        <section id="section-creating-prompt-variables">
+          <h2 id="creating-prompt-variables">Creating prompt variables</h2>
+          <p>To create a prompt variable, complete the following steps:</p>
+          <ol>
+            <li>
+              <p>From the Prompt Lab, review the text in your prompt for words or phrases that, when converted to a variable, will make the prompt easier to reuse.</p>
+            </li>
+            <li>
+              <p>Click the <strong>Prompt variables</strong> icon <img src="images/parameter.svg" alt="{#}" height="20" style="vertical-align:text-bottom"> at the start of the page.</p>
+              <p>The <em>Prompt variables</em> panel is displayed where you can add variable name-and-value pairs.</p>
+              <p><strong>Note</strong>: The <em>Prompt variables</em> panel is not available in chat mode.</p>
+            </li>
+            <li>
+              <p>Click <strong>New variable</strong>.</p>
+            </li>
+            <li>
+              <p>Click to add a variable name, tab to the next field, and then add a default value.</p>
+              <p>The variable name can contain alphanumeric characters or an underscore (_), but cannot begin with a number.</p>
+              <p>The default value for the variable is a fallback value; it is used every time that the prompt is submitted, unless someone overwrites the default value by specifying a new value for the variable.</p>
+            </li>
+            <li>
+              <p>Repeat the previous step to add more variables.</p>
+              <p>The following table shows some examples of the types of variables that you might want to add.</p>
+              <table>
+                <caption caption-side="top">Table 1. Example variable name and value pairs</caption>
+                <thead>
+                  <tr>
+                    <th>Variable name</th>
+                    <th>Default value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>country</td>
+                    <td>Ireland</td>
+                  </tr>
+                  <tr>
+                    <td>city</td>
+                    <td>Boston</td>
+                  </tr>
+                  <tr>
+                    <td>project</td>
+                    <td>Project X</td>
+                  </tr>
+                  <tr>
+                    <td>company</td>
+                    <td>IBM</td>
+                  </tr>
+                </tbody>
+              </table>
+            </li>
+            <li>
+              <p>Replace static text in the prompt with your variables.</p>
+              <p>Select the word or phrase in the prompt that you want to replace, and then click the <strong>Prompt variables</strong> icon <img src="images/parameter.svg" alt="{#}" height="20" style="vertical-align:text-bottom"> within the text box to
+                see a list of available variables. Click the variable that you want to use from the list.</p>
+              <p>The variable replaces the selected text. It is formatted with the syntax <code>{variable name}</code>, where the variable name is surrounded by braces.</p>
+              <p>If your static text already contains variables that are formatted with braces, they are ignored unless prompt variables of the same name exist.</p>
+              <p>You can click the text icon <img src="images/fm-txt.svg" alt="View full prompt text" title="View full prompt text" height="20" style="vertical-align:text-bottom"> to see the full prompt text with variables replaced by values.</p>
+            </li>
+            <li>
+              <p>To specify a value for a variable at run time, open the <em>Prompt variables</em> panel, click <strong>Preview</strong>, and then add a value for the variable.</p>
+              <p>You can also change the variable value from the edit view of the <em>Prompt variables</em> panel, but the value you specify will become the new default value.</p>
+            </li>
+          </ol>
+          <p>When you find a set of prompt static text, prompt variables, and prompt engineering parameters that generates the results you want from a model, save the prompt as a prompt template asset. After you save the prompt template asset, you can reuse
+            the prompt or share it with collaborators in the current project. For more information, see <a href="fm-prompt-save.html">Saving prompts</a>.</p>
+        </section>
+        <section id="section-examples-of-reusing-prompts">
+          <h2 id="examples-of-reusing-prompts">Examples of reusing prompts</h2>
+          <p>The following examples help illustrate ways that using prompt variables can add versatility to your prompts.</p>
+          <ul>
+            <li><a href="#thank-you-example">Thank you note example</a></li>
+            <li><a href="#devil-example">Devil's advocate example</a></li>
+          </ul>
+          <section id="section-thank-you-example">
+            <h3 id="thank-you-example">Thank you note example</h3>
+            <p>Replace static text in the <em>Thank you note generation</em> built-in sample prompt with variables to make the prompt reusable.</p>
+            <p>To add versatility to a built-in prompt, complete the following steps:</p>
+            <ol>
+              <li>
+                <p>From the Prompt Lab, click <strong>Sample prompts</strong> to list the built-in sample prompts. From the <em>Generation</em> section, click <strong>Thank you note generation</strong>.</p>
+                <p>The input for the built-in sample prompt is added to the prompt editor and the flan-ul2-20b model is selected.</p>
+                <pre class="codeblock"><code class="lang-txt hljs">Write a thank you note for attending a workshop.
+
+Attendees: interns
+Topic: codefest, AI
+Tone: energetic
+</code></pre>
+              </li>
+              <li>
+                <p>Review the text for words or phrases that make good variable candidates.</p>
+                <p>In this example, if the following words are replaced, the prompt meaning will change:</p>
+                <ul>
+                  <li>workshop</li>
+                  <li>interns</li>
+                  <li>codefest</li>
+                  <li>AI</li>
+                  <li>energetic</li>
+                </ul>
+              </li>
+              <li>
+                <p>Create a variable to represent each word in the list. Add the current value as the default value for the variable.</p>
+                <table>
+                  <caption caption-side="top">Table 2. Variables for the thank you note sample</caption>
+                  <thead>
+                    <tr>
+                      <th>Variable name</th>
+                      <th>Value</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>event</td>
+                      <td>workshop</td>
+                    </tr>
+                    <tr>
+                      <td>attendees</td>
+                      <td>interns</td>
+                    </tr>
+                    <tr>
+                      <td>topic1</td>
+                      <td>codefest</td>
+                    </tr>
+                    <tr>
+                      <td>topic2</td>
+                      <td>AI</td>
+                    </tr>
+                    <tr>
+                      <td>tone</td>
+                      <td>energetic</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </li>
+              <li>
+                <p>Click <strong>Preview</strong> to review the variables that you added.</p>
+              </li>
+              <li>
+                <p>Update the static prompt text to use variables in place of words.</p>
+                <pre class="codeblock"><code class="lang-txt hljs">Write a thank you note for attending a {event}.
+
+Attendees: {attendees}
+Topic: {topic1}, {topic2}
+Tone: {tone}
+</code></pre>
+                <p><img src="images/fm-prompt-var-replacement.png" alt="Screenshot that shows static text in the prompt editor being replaced with variables." style="max-width:90%;height:auto;width:auto"></p>
+                <p>The original meaning of the prompt is maintained.</p>
+              </li>
+              <li>
+                <p>Now, change the values of the variables to change the meaning of the prompt.</p>
+                <p>From the <em>Fill in prompt variables</em> view of the prompt variables panel, add values for the variables.</p>
+                <table>
+                  <caption caption-side="top">Table 3. New values for the variables</caption>
+                  <thead>
+                    <tr>
+                      <th>Variable name</th>
+                      <th>Value</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>event</td>
+                      <td>human resources presentation</td>
+                    </tr>
+                    <tr>
+                      <td>attendees</td>
+                      <td>expecting parents</td>
+                    </tr>
+                    <tr>
+                      <td>topic1</td>
+                      <td>resources for new parents</td>
+                    </tr>
+                    <tr>
+                      <td>topic2</td>
+                      <td>parental leave</td>
+                    </tr>
+                    <tr>
+                      <td>tone</td>
+                      <td>supportive</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <p>You effectively converted the original prompt into the following prompt:</p>
+                <pre class="codeblock"><code class="lang-txt hljs">Write a thank you note for attending a human resources presentation.
+
+Attendees: expecting parents
+Topic: resources for new parents, parental leave
+Tone: supportive
+</code></pre>
+                <p>Click <strong>Generate</strong> to see how the model responds.</p>
+              </li>
+              <li>
+                <p>Swap the values for the variables to reuse the same prompt again to generate thank you notes for usability test attendees.</p>
+                <table>
+                  <caption caption-side="top">Table 4. Another set of values for the variables</caption>
+                  <thead>
+                    <tr>
+                      <th>Variable name</th>
+                      <th>Value</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>event</td>
+                      <td>usability test</td>
+                    </tr>
+                    <tr>
+                      <td>attendees</td>
+                      <td>user volunteers</td>
+                    </tr>
+                    <tr>
+                      <td>topic1</td>
+                      <td>testing out new features</td>
+                    </tr>
+                    <tr>
+                      <td>topic2</td>
+                      <td>sharing early feedback</td>
+                    </tr>
+                    <tr>
+                      <td>tone</td>
+                      <td>appreciative</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <p>Click <strong>Generate</strong> to see how the model responds.</p>
+              </li>
+            </ol>
+          </section>
+          <section id="section-devil-example">
+            <h3 id="devil-example">Devil's advocate example</h3>
+            <p>Use prompt variables to reuse effective examples that you devise for a prompt.</p>
+            <p>You can guide a foundation model to answer in an expected way by adding a few examples that establish a pattern for the model to follow. This kind of prompt is called a <em>few-shot prompt</em>. Inventing good examples for a prompt requires
+              imagination and testing and can be time-consuming. If you successfully create a few-shot prompt that proves to be effective, you can make it reusable by adding prompt variables.</p>
+            <p>Maybe you want to use the granite-13b-instruct-v1 model to help you consider risks or problems that might arise from an action or plan under consideration.</p>
+            <p>For example, the prompt might have the following instruction and examples:</p>
+            <pre class="codeblock"><code class="lang-txt hljs">You are playing the role of devil's advocate. Argue against the proposed plans. List 3 detailed, unique, compelling reasons why moving forward with the plan would be a bad choice. Consider all types of risks.
+
+Plan we are considering:
+Extend our store hours.
+Three problems with this plan are:
+1. We'll have to pay more for staffing.
+2. Risk of theft increases late at night.
+3. Clerks might not want to work later hours.
+
+Plan we are considering:
+Open a second location for our business.
+Three problems with this plan are:
+1. Managing two locations will be more than twice as time-consuming than managed just one.
+2. Creating a new location doesn't guarantee twice as many customers.
+3. A new location means added real estate, utility, and personnel expenses.
+
+Plan we are considering:
+Refreshing our brand image by creating a new logo.
+Three problems with this plan are:
+
+</code></pre>
+            <p>You can reuse the prompt by completing the following steps:</p>
+            <ol>
+              <li>
+                <p>Replace the text that describes the action that you are considering with a variable.</p>
+                <p>For example, you can add the following variable:</p>
+                <table>
+                  <caption caption-side="top">Table 5. Variable that represents the possible action</caption>
+                  <thead>
+                    <tr>
+                      <th>Variable name</th>
+                      <th>Default value</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>plan</td>
+                      <td>Refreshing our brand image by creating a new logo.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </li>
+              <li>
+                <p>Replace the static text that defines the plan with the <code>{plan}</code> variable.</p>
+                <pre class="codeblock"><code class="lang-txt hljs">You are playing the role of devil's advocate. Argue against the proposed plans. List 3 detailed, unique, compelling reasons why moving forward with the plan would be a bad choice. Consider all types of risks.
+
+Plan we are considering:
+Extend our store hours.
+Three problems with this plan are:
+1. We'll have to pay more for staffing.
+2. Risk of theft increases late at night.
+3. Clerks might not want to work later hours.
+
+Plan we are considering:
+Open a second location for our business.
+Three problems with this plan are:
+1. Managing two locations will be more than twice as time-consuming than managed just one.
+2. Creating a new location doesn't guarantee twice as many customers.
+3. A new location means added real estate, utility, and personnel expenses.
+
+Plan we are considering:
+{plan}
+Three problems with this plan are:
+
+</code></pre>
+                <p>Now you can use the same prompt to prompt the model to brainstorm about other actions.</p>
+              </li>
+              <li>
+                <p>Change the text in the <code>{plan}</code> variable to describe a different plan, and then click <strong>Generate</strong> to send the new input to the model.</p>
+              </li>
+            </ol>
+            <p><strong>Parent topic:</strong> <a href="fm-prompt-lab.html">Prompt Lab</a></p>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

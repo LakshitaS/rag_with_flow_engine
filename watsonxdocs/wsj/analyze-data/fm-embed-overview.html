@@ -1,0 +1,90 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Use the embedding models and embeddings API that are available from watsonx.ai to create text embeddings that capture the meaning of sentences or passages for use in your generative AI applications.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Text embedding generation</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=solutions-text-embedding-generation"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="text-embedding-generation" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-text-embedding-generation">
+        <h1 id="text-embedding-generation">Text embedding generation</h1>
+        <p>Use the embedding models and embeddings API that are available from watsonx.ai to create text embeddings that capture the meaning of sentences or passages for use in your generative AI applications.</p>
+        <p>Converting text into text embeddings helps with document comparison, question-answering, and in retrieval-augmented generation (RAG) tasks, where you need to retrieve relevant content quickly.</p>
+        <ul>
+          <li>For more information about using embeddings in a RAG use case, see <a href="fm-embedding.html">Using text embeddings to ground prompts in factual information</a>.</li>
+          <li>For more information about the supported embedding models, see <a href="fm-models-embed.html">Supported embedding models</a>.</li>
+          <li>For more information about the embeddings API, see <a href="https://cloud.ibm.com/apidocs/watsonx-ai#text-embeddings" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Text embeddings API reference</a>.</li>
+        </ul>
+        <section id="section-what-are-text-embeddings">
+          <h2 id="what-are-text-embeddings">What are text embeddings?</h2>
+          <p>A text embedding is a numerical representation of a sentence or passage as a vector of real-valued numbers. By converting sentences to number vectors, operations on sentences become more like math equations, which is something computers can
+            quickly, and can do well.</p>
+          <p>When an embedding model creates a vector representation of a sentence, the embedding model assigns values that capture the semantic meaning of the sentence. The embedding model also positions the vector within a multidimensional space based
+            on its assigned values. The size of the dimensional space varies by model, which means the exact vector values vary also. However, all models position the vectors such that sentences with similar meanings are nearer to one another.</p>
+          <p>Most embedding models generate vectors in so many dimensions, ranging from hundreds to thousands of dimensions, that it's impossible to visualize. Hypothetically, if an embedding model were to generate a 3-dimensional vector, it might look as
+            follows.</p>
+          <p><img src="images/fm-embedding-space.svg" alt="A 3-dimensional cube with three data points that represent three sentence embeddings" style="max-width:90%;height:auto;width:auto"></p>
+          <p>A few things to notice about the image:</p>
+          <ul>
+            <li>The position of each sentence within the 3-dimensional space is defined by its 3-value array.</li>
+            <li>The two sentences that share the subject of artwork (<em>Jan bought a painting of dogs playing cards</em> and <em>The Degas reproduction is hanging in the den</em>) are nearest to each other.</li>
+            <li>The third sentence, <em>I took my dogs for a walk</em>, is nearer to the sentence about the dogs painting because the sentences share the keyword <em>dogs</em>. However, a shared keyword affects the positioning of the vectors less than a similarity
+              in meaning.</li>
+            <li>The values in the arrays in the image, such as <code>0.021</code>, are fictional. The values in an array for higher-dimensional models are more precise, for example, <code>0.020891575</code>.</li>
+          </ul>
+          <p>You can store generated vectors in a vector database. When the same embedding model is used to convert all of the sentences in the database, the vector store can leverage the inherent groupings and relationships that exist among the sentences
+            based on their vector values to return relevant search results quickly.</p>
+          <p>Unlike traditional indexes that store text and rely on keyword search for information retrieval, vector stores support semantic searches that retrieve information that is similar in meaning. For example, where keyword search checks only whether
+            the keyword is present, semantic search weighs the context in which the keyword is used, which typically produces better search results.</p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="fm-models-embed.html">Supported embedding models</a></li>
+            <li><a href="fm-embedding.html">Using text embeddings to ground prompts in factual information </a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="fm-code.html">Coding generative AI solutions</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

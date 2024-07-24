@@ -1,0 +1,125 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="To access your data in Planning Analytics, create a connection asset for it.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>IBM Planning Analytics connection</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=connectors-planning-analytics-connection"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="ibm-planning-analytics-connection" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-ibm-planning-analytics-connection">
+        <h1 id="ibm-planning-analytics-connection">IBM Planning Analytics connection</h1>
+        <p>To access your data in Planning Analytics, create a connection asset for it.</p>
+        <p>Planning Analytics (formerly known as "TM1") is an enterprise performance management database that stores data in in-memory multidimensional OLAP cubes.</p>
+        <section id="section-supported-versions">
+          <h2 id="supported-versions">Supported versions</h2>
+          <p>IBM Planning Analytics, version 2.0.5 or later</p>
+        </section>
+        <section id="section-create-a-connection-to-planning-analytics">
+          <h2 id="create-a-connection-to-planning-analytics">Create a connection to Planning Analytics</h2>
+          <p>To create the connection asset, you need these connection details:</p>
+          <ul>
+            <li>TM1 server API root URL</li>
+            <li>Authentication type (Basic or CAM Credentials)</li>
+            <li>Username and password</li>
+            <li>SSL certificate (if required by the database server)</li>
+          </ul>
+          <p>For authentication setup information, see <a href="https://www.ibm.com/docs/SSD29G_2.0.0/com.ibm.swg.ba.cognos.tm1_rest_api.2.0.0.doc/dg_tm1_odata_auth.html" target="_blank" rel="noopener noreferrer">Authenticating and managing sessions</a>.</p>
+          <p></p>
+          <section id="section-choose-the-method-for-creating-a-connection-based-on-where-you-are-in-the-platform">
+            <h3 id="choose-the-method-for-creating-a-connection-based-on-where-you-are-in-the-platform">Choose the method for creating a connection based on where you are in the platform</h3>
+            <dl>
+              <dt><strong>In a project</strong></dt>
+              <dd>Click <strong>Assets &gt; New asset &gt; Connect to a data source</strong>. See <a href="create-conn.html">Adding a connection to a project</a>.</dd>
+              <dt><strong>In a deployment space</strong></dt>
+              <dd>Click <strong>Add to space &gt; Connection</strong>. See <a href="../analyze-data/ml-space-add-assets.html">Adding connections to a deployment space</a>.</dd>
+              <dt><strong>In the Platform assets catalog</strong></dt>
+              <dd>Click <strong>New connection</strong>. See <a href="platform-conn.html">Adding platform connections</a>.</dd>
+            </dl>
+          </section>
+          <section id="section-next-step-add-data-assets-from-the-connection">
+            <h3 id="next-step-add-data-assets-from-the-connection">Next step: Add data assets from the connection</h3>
+            <ul>
+              <li>See <a href="connected-data.html">Add data from a connection in a project</a>.</li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-where-you-can-use-this-connection">
+          <h2 id="where-you-can-use-this-connection">Where you can use this connection</h2>
+          <p>You can use Planning Analytics connections in the following workspaces and tools:</p>
+          <p><strong>Projects</strong></p>
+          <ul>
+            <li>Data Refinery</li>
+            <li>Decision Optimization experiments</li>
+            <li>Notebooks. Click <strong>Read data</strong> on the <strong>Code snippets</strong> pane to get the connection credentials and load the data into a data structure. See <a href="../analyze-data/load-and-access-data.html#conns">Load data from data source connections</a>.</li>
+            <li>SPSS Modeler</li>
+            <li>Synthetic Data Generator</li>
+          </ul>
+          <p><strong>Catalogs</strong></p>
+          <ul>
+            <li>Platform assets catalog</li>
+          </ul>
+        </section>
+        <section id="section-planning-analytics-setup">
+          <h2 id="planning-analytics-setup">Planning Analytics setup</h2>
+          <p>Enable TM1 REST APIs on the TM1 Server. See TMI REST API <a href="https://www.ibm.com/docs/SSD29G_2.0.0/com.ibm.swg.ba.cognos.tm1_rest_api.2.0.0.doc/dg_tm1_odata_install.html" target="_blank" rel="noopener noreferrer">Installation and configuration</a>.</p>
+        </section>
+        <section id="section-cube-dimension-order">
+          <h2 id="cube-dimension-order">Cube dimension order</h2>
+          <p><strong>Versions earlier than TM1 11.4</strong><br> For best performance, do not combine string and numeric data in a single cube. However, if the cube does include both string and numeric data, the string elements must be in the last dimension
+            when the cube is created. Reordering dimensions later is ignored.</p>
+          <p><strong>Version TM1 11.4 or later</strong> <br> The default setting in Planning Analytics for cube creation is <code>current</code>. This setting might cause errors or unexpected results when you use the Planning Analytics connection. Instead,
+            set the interaction property <code>use_creation_order</code> value to <code>true</code>.</p>
+        </section>
+        <section id="section-restriction">
+          <h2 id="restriction">Restriction</h2>
+          <p>For Data Refinery, you can use this connection only as a source. You cannot use this connection as a target connection or as a target connected data asset.</p>
+          <!--## Known issues-->
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p><a href="https://www.ibm.com/docs/planning-analytics/2.0.0" target="_blank" rel="noopener noreferrer">Planning Analytics product documentation</a></p>
+          <p><strong>Parent topic:</strong> <a href="conn_types.html">Supported connections</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

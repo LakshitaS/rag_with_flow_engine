@@ -1,0 +1,236 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Insufficient documentation of the model development process makes it difficult to understand how and why a model was built and who built it, thus increasing the possibility of model unintended misuse.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Lack of model transparency risk for AI</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=atlas-lack-model-transparency"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="lack-of-model-transparency-risk-for-ai" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-lack-of-model-transparency-risk-for-ai">
+        <h1 id="lack-of-model-transparency-risk-for-ai">Lack of model transparency risk for AI</h1>
+        <style type="text/css" keep="true">
+          .risk-detail-heading {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start;
+          }
+          
+          .risk-detail-heading .tags {
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 8px;
+          }
+          
+          .risk-detail-heading .tags .bx--tag {
+            line-height: normal;
+            font-size: 12px;
+          }
+        </style>
+        <div class="risk-detail-heading">
+          <div class="tags">
+            <div>
+              <svg class="risk-group-icon" version="1.1" id="risk-icon-governance-" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32" width="32" height="32" xml:space="preserve">
+<path d="M15.9999 31.3601C14.6989 31.3601 13.6399 30.3011 13.6399 29.0001C13.6399 27.6991 14.6989 26.6401 15.9999 26.6401C17.1049 26.6401 18.0359 27.4051 18.2909 28.4331C22.8109 27.6031 26.6109 24.2831 28.0299 19.8901L28.7159 20.1111C27.2079 24.7761 23.1609 28.2961 18.3559 29.1531C18.2759 30.3831 17.2499 31.3601 15.9999 31.3601ZM15.9999 27.3601C15.0959 27.3601 14.3599 28.0951 14.3599 29.0001C14.3599 29.9051 15.0959 30.6401 15.9999 30.6401C16.9039 30.6401 17.6399 29.9051 17.6399 29.0001C17.6399 28.0951 16.9039 27.3601 15.9999 27.3601ZM11.8889 28.7161C7.22489 27.2081 3.70489 23.1611 2.84689 18.3561C1.61689 18.2761 0.639893 17.2501 0.639893 16.0001C0.639893 14.6991 1.69889 13.6401 2.99989 13.6401C4.30089 13.6401 5.35989 14.6991 5.35989 16.0001C5.35989 17.1051 4.59489 18.0361 3.56689 18.2911C4.39789 22.8111 7.71789 26.6111 12.1109 28.0301L11.8889 28.7161ZM2.99989 14.3601C2.09589 14.3601 1.35989 15.0961 1.35989 16.0001C1.35989 16.9041 2.09589 17.6401 2.99989 17.6401C3.90389 17.6401 4.63989 16.9041 4.63989 16.0001C4.63989 15.0961 3.90389 14.3601 2.99989 14.3601ZM15.9999 23.3601H15.9989C15.9979 23.3601 15.9969 23.3601 15.9959 23.3601C15.9949 23.3601 15.9939 23.3601 15.9939 23.3601H15.9929C15.9349 23.3581 15.8789 23.3421 15.8299 23.3151L15.8289 23.3141C15.8069 23.3011 15.7859 23.2871 15.7659 23.2701C15.7659 23.2691 15.7659 23.2691 15.7659 23.2691C15.7659 23.2691 15.7659 23.2691 15.7649 23.2681C15.7649 23.2681 15.7699 23.2681 15.7629 23.2671C15.7519 23.2561 15.7409 23.2461 15.7309 23.2341L8.73289 15.2361C8.61389 15.1011 8.61389 14.8981 8.73289 14.7621L12.2329 10.7621C12.3009 10.6831 12.3999 10.6391 12.5039 10.6391H19.5039C19.6079 10.6391 19.7059 10.6831 19.7749 10.7621L23.2749 14.7621C23.3939 14.8971 23.3939 15.1001 23.2749 15.2361L16.2769 23.2341C16.2669 23.2461 16.2559 23.2561 16.2449 23.2671C16.2439 23.2671 16.2439 23.2681 16.2429 23.2681C16.2429 23.2691 16.2419 23.2691 16.2419 23.2691C16.2419 23.2691 16.2419 23.2691 16.2419 23.2701C16.2219 23.2871 16.2009 23.3011 16.1789 23.3141C16.1789 23.3141 16.1789 23.3151 16.1779 23.3151C16.1289 23.3421 16.0729 23.3581 16.0149 23.3601C16.0149 23.3601 16.0129 23.3601 16.0119 23.3601C16.0109 23.3601 16.0109 23.3601 16.0099 23.3601C16.0019 23.3601 15.9999 23.3601 15.9999 23.3601ZM13.5199 15.3601L15.9999 21.9751L18.4799 15.3601C18.4799 15.3601 13.5199 15.3601 13.5199 15.3601ZM19.2489 15.3601L17.0309 21.2751L22.2069 15.3601H19.2489ZM9.79289 15.3601L14.9679 21.2751L12.7499 15.3601H9.79289ZM19.1799 14.6401H22.2069L19.3369 11.3601H16.7199L19.1799 14.6401ZM13.7199 14.6401H18.2799L15.9999 11.6001L13.7199 14.6401ZM9.79289 14.6401H12.8189L15.2789 11.3601H12.6629L9.79289 14.6401ZM28.9999 18.3601C27.6979 18.3601 26.6399 17.3011 26.6399 16.0001C26.6399 14.8951 27.4049 13.9641 28.4329 13.7091C27.6029 9.18914 24.2829 5.38914 19.8899 3.97014L20.1109 3.28414C24.7759 4.79114 28.2959 8.83814 29.1529 13.6451C30.3829 13.7241 31.3609 14.7501 31.3609 16.0001C31.3599 17.3021 30.3019 18.3601 28.9999 18.3601ZM28.9999 14.3601C28.0959 14.3601 27.3599 15.0961 27.3599 16.0001C27.3599 16.9041 28.0949 17.6401 28.9999 17.6401C29.9049 17.6401 30.6399 16.9051 30.6399 16.0001C30.6399 15.0951 29.9039 14.3601 28.9999 14.3601ZM3.96989 12.1111L3.28389 11.8891C4.79089 7.22514 8.83789 3.70514 13.6449 2.84714C13.7239 1.61714 14.7499 0.640137 15.9999 0.640137C17.3019 0.640137 18.3599 1.69914 18.3599 3.00014C18.3599 4.30114 17.3019 5.36014 15.9999 5.36014C14.8939 5.36014 13.9629 4.59514 13.7089 3.56714C9.18789 4.39814 5.38889 7.71814 3.96989 12.1111ZM15.9999 1.36014C15.0959 1.36014 14.3599 2.09614 14.3599 3.00014C14.3599 3.90414 15.0959 4.64014 15.9999 4.64014C16.9039 4.64014 17.6399 3.90414 17.6399 3.00014C17.6399 2.09614 16.9039 1.36014 15.9999 1.36014Z" fill="black"></path>
+<rect id="risk-icon-rect-governance-" style="fill:none;" width="32" height="32"></rect>
+</svg>
+            </div>
+            <div class="bx--tag bx--tag--blue">
+              Non-technical risks
+            </div>
+            <div class="bx--tag bx--tag--blue">Governance</div>
+            <div class="bx--tag bx--tag--teal">Traditional AI risk</div>
+          </div>
+        </div>
+        <section id="section-description">
+          <h3 id="description">Description</h3>
+          <p>Insufficient documentation of the model development process makes it difficult to understand how and why a model was built and who built it, thus increasing the possibility of model unintended misuse.</p>
+          <style type="text/css" keep="true">
+            .content h3 {
+              margin-bottom: 8px !important;
+            }
+            
+            .risk-group-icon {
+              width: 24px;
+              height: 24px;
+            }
+            
+            .example {
+              border-radius: 8px;
+              background-color: #f4f4f4;
+              margin: 1rem 0;
+            }
+            
+            .example .heading {
+              position: relative;
+              overflow: hidden;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              padding: 48px 1.5rem;
+              border-radius: 8px 8px 0 0;
+              background: #393939;
+              background-position: center top;
+              background-repeat: no-repeat;
+              background-size: cover;
+            }
+            
+            .example .heading .overlay {
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              top: 0;
+              left: 0;
+              background: linear-gradient(90deg, rgba(244, 244, 244, 1) 45%, rgba(244, 244, 244, 0.2) 65%, rgba(244, 244, 244, 0.4) 70%, rgba(244, 244, 244, 0) 85%);
+            }
+            
+            .example .heading img {
+              position: absolute;
+              top: 0;
+              left: 0;
+            }
+            
+            .example .heading .bx--label {
+              line-height: 14px;
+              margin-bottom: 0;
+              z-index: 0;
+              font-weight: 500;
+              color: #000;
+            }
+            
+            .example .heading .example-title {
+              font-size: 20px;
+              z-index: 0;
+            }
+            
+            .example .heading.input {
+              background-image: url(images/bg_input.png);
+              background-color: #005D5D;
+            }
+            
+            .example .heading.output {
+              background-image: url(images/bg_output.png);
+              background-color: #00539A;
+            }
+            
+            .example .heading.challenges {
+              background-image: url(images/bg_challenges.png);
+              background-color: #6929C4;
+            }
+            
+            .example .example-content {
+              padding: 1.5rem;
+            }
+            
+            .example .sources {
+              display: flex;
+            }
+            
+            .example .sources p {
+              display: flex;
+              flex-wrap: wrap;
+              list-style: none;
+              padding-left: 8px;
+            }
+            
+            .example .sources p:first-child {
+              margin-top: unset;
+            }
+            
+            .example .sources a {
+              vertical-align: middle;
+              margin: 0;
+            }
+            
+            .bullet {
+              margin: 6px 1ch;
+              width: 3px;
+              height: 3px;
+              border-radius: 50%;
+              background-color: black;
+            }
+            
+            .example .sources,
+            .example .sources p,
+            .example .sources a {
+              line-height: normal;
+              font-size: 12px;
+              margin: 0;
+            }
+          </style>
+          <div>
+            <div class="content">
+              <!-- <h3>Description</h3>
+<p>Insufficient documentation of the model development process makes it difficult to understand how and why a model was built and who built it, thus increasing the possibility of model unintended misuse.</p> -->
+              <h3>Why is lack of model transparency a concern for foundation models?</h3>
+              <p>Transparency is important for legal compliance, AI ethics, and guiding appropriate use of models. Missing information might make it more difficult to evaluate risks, to change the model, or reuse it. Knowledge about who built a model can
+                also be an important factor in deciding whether to trust it.</p>
+              <div class="example">
+                <div class="heading non-technical">
+                  <img src="images/background-non-technical-example.jpg" alt="Background image for risks associated with input">
+                  <div class="overlay"></div>
+                  <div class="bx--label">Example</div>
+                  <p class="bx--type-productive-heading-03 example-title">Data and Model Metadata Disclosure</p>
+                </div>
+                <div class="example-content">
+                  <p class="example-p">OpenAI's technical report is an example of the dichotomy around disclosing data and model metadata. While many model developers see value in enabling transparency for consumers, disclosure poses real safety issues and might increase
+                    the ability to misuse the models. In the GPT-4 technical report, they state: ”Given both the competitive landscape and the safety implications of large-scale models like GPT-4, this report contains no further details about the architecture
+                    (including model size), hardware, training compute, data set construction, training method, or similar.”</p>
+                  <div class="sources">
+                    Sources:
+                    <p>
+                    </p>
+                    <p><a href="https://arxiv.org/pdf/2303.08774.pdf" target="_blank" rel="noreferrer" class="label">OpenAI, March 2023</a></p>
+                    <p></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p><strong>Parent topic:</strong> <a href="../ai-risk-atlas/ai-risk-atlas.html">AI risk atlas</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

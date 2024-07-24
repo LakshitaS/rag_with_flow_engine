@@ -1,0 +1,140 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="The Watson Natural Language Processing Concepts block extracts general DBPedia concepts (concepts drawn from language-specific Wikipedia versions) that are directly referenced or alluded to, but not directly referenced, in the input text.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Concepts extraction block</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=catalog-concepts-extraction"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="concept-ext-block" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-concept-ext-block">
+        <h1 id="concept-ext-block">Concepts extraction block</h1>
+        <p>The Watson Natural Language Processing Concepts block extracts general DBPedia concepts (concepts drawn from language-specific Wikipedia versions) that are directly referenced or alluded to, but not directly referenced, in the input text.</p>
+        <p><strong>Block name</strong></p>
+        <p><code>concepts_alchemy_&lt;language&gt;_stock</code></p>
+        <p><strong>Supported languages</strong></p>
+        <p>The Concepts block is available for the following languages. For a list of the language codes and the corresponding language, see <a href="watson-nlp-block-catalog.html#lang-codes">Language codes</a>.</p>
+        <p>de, en, es, fr, it, ja, ko, pt</p>
+        <p><strong>Capabilities</strong></p>
+        <p>Use this block to assign concepts from <a href="https://www.dbpedia.org/">DBPedia</a> (2016 edition). The output types are based on DBPedia.</p>
+        <p><strong>Dependencies on other blocks</strong></p>
+        <p>The following block must run before you can run the Concepts extraction block:</p>
+        <ul>
+          <li><code>syntax_izumo_&lt;language&gt;_stock</code></li>
+        </ul>
+        <p><strong>Code sample</strong></p>
+        <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">import</span> watson_nlp
+
+<span class="hljs-comment"># Load Syntax and a Concepts model for English</span>
+syntax_model = watson_nlp.load(<span class="hljs-string">'syntax_izumo_en_stock'</span>)
+concepts_model = watson_nlp.load(<span class="hljs-string">'concepts_alchemy_en_stock'</span>)
+<span class="hljs-comment"># Run the syntax model on the input text</span>
+syntax_prediction = syntax_model.run(<span class="hljs-string">'IBM announced new advances in quantum computing'</span>)
+
+<span class="hljs-comment"># Run the concepts model on the result of syntax</span>
+concepts = concepts_model.run(syntax_prediction)
+<span class="hljs-built_in">print</span>(concepts)
+</code></pre>
+        <p>Output of the code sample:</p>
+        <pre class="codeblock"><code class="lang-text hljs">{
+  "concepts": [
+    {
+      "text": "IBM",
+      "relevance": 0.9842190146446228,
+      "dbpedia_resource": "http://dbpedia.org/resource/IBM"
+    },
+    {
+      "text": "Quantum_computing",
+      "relevance": 0.9797260165214539,
+      "dbpedia_resource": "http://dbpedia.org/resource/Quantum_computing"
+    },
+    {
+      "text": "Computing",
+      "relevance": 0.9080164432525635,
+      "dbpedia_resource": "http://dbpedia.org/resource/Computing"
+    },
+    {
+      "text": "Shor's_algorithm",
+      "relevance": 0.7580527067184448,
+      "dbpedia_resource": "http://dbpedia.org/resource/Shor's_algorithm"
+    },
+    {
+      "text": "Quantum_dot",
+      "relevance": 0.7069802284240723,
+      "dbpedia_resource": "http://dbpedia.org/resource/Quantum_dot"
+    },
+    {
+      "text": "Quantum_algorithm",
+      "relevance": 0.7063655853271484,
+      "dbpedia_resource": "http://dbpedia.org/resource/Quantum_algorithm"
+    },
+    {
+      "text": "Qubit",
+      "relevance": 0.7063655853271484,
+      "dbpedia_resource": "http://dbpedia.org/resource/Qubit"
+    },
+    {
+      "text": "DNA_computing",
+      "relevance": 0.7044616341590881,
+      "dbpedia_resource": "http://dbpedia.org/resource/DNA_computing"
+    },
+    {
+      "text": "Computation",
+      "relevance": 0.7044616341590881,
+      "dbpedia_resource": "http://dbpedia.org/resource/Computation"
+    },
+    {
+      "text": "Computer",
+      "relevance": 0.7044616341590881,
+      "dbpedia_resource": "http://dbpedia.org/resource/Computer"
+    }
+  ],
+  "producer_id": {
+    "name": "Alchemy Concepts",
+    "version": "0.0.1"
+  }
+}
+</code></pre>
+        <p><strong>Parent topic:</strong> <a href="watson-nlp-block-catalog.html">Watson Natural Language Processing block catalog</a></p>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

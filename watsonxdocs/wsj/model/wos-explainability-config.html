@@ -1,0 +1,100 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can configure explainability in Watson OpenScale to reveal which features contribute to the model's predicted outcome for a transaction and predict what changes would result in a different outcome.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Configuring explainability in Watson OpenScale</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=models-configuring-explainability"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="configuring-explainability-in-watson-openscale" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-configuring-explainability-in-watson-openscale">
+        <h1 id="configuring-explainability-in-watson-openscale">Configuring explainability in Watson OpenScale</h1>
+        <p>You can configure explainability in Watson OpenScale to reveal which features contribute to the model's predicted outcome for a transaction and predict what changes would result in a different outcome.</p>
+        <p>In the <strong>Explainability</strong> section of your model configuration page, configure explainability to analyze the factors that influence your model outcomes. You can choose to configure local explanations to analyze the impact of factors
+          for specific model transactions and configure global explanations to analyze general factors that impact model outcomes.</p>
+        <section id="section-config-general-settings">
+          <h2 id="config-general-settings">Configure general settings</h2>
+          <p>On the <strong>General settings</strong> tab, you can configure explainability settings manually or you can run a <a href="https://github.com/IBM/watson-openscale-samples/blob/main/training%20statistics/4.7/training_statistics_notebook.ipynb">custom notebook</a>            to generate an explainability archive. You can upload the archive to specify the settings for your evaluation.</p>
+          <p>If you configure the settings manually, you must specify the explanation methods that you want to use. The methods that you select determines the type of insights that Watson OpenScale provides for explainability. By enabling <em>Global explanation</em>,
+            users can choose either SHAP (Shapley Additive explanations) or LIME (Local Interpretable Model-Agnostic explanations) as the global explanation method. <br> For more information, see <a href="wos-insight-explain.html">Explaining transactions</a>.
+            If you do not provide training data, you will need to upload an explainability archive.</p>
+          <p>You can also choose to specify controllable features and enable language support. Controllable features are features that can be changed and have a significant impact on your model outcomes. Watson OpenScale analyzes the controllable features
+            that you specify to identify changes that might produce different outcomes.</p>
+          <p>If you enable language support, Watson OpenScale can analyze languages that are not space-delimited to determine explainability. You can configure Watson OpenScale to automatically detect supported languages or you can manually specify any supported
+            languages that you want analyzed. You can't configure language support for structured and image models.</p>
+        </section>
+        <section id="section-config-SHAP-explanation">
+          <h2 id="config-SHAP-explanation">Configure SHAP explanation</h2>
+          <p>If you use SHAP as the local explanation method or enable SHAP global explanation, you must specify settings that determine how SHAP explanations are measured on the <strong>SHAP</strong> tab. To configure common settings, you must specify the
+            number of perturbations that the model generates for each local explanation and select an option for using background data. Watson OpenScale uses background data to determine the influence of features on outcomes for global and local explanations.</p>
+          <p>If you enable SHAP global explanation, you must also configure settings for global explanation. You must specify the sample size of model transactions that is used to generate ongoing explanations and a schedule that determines when the explanations
+            are generated. You must also specify a global explanation stability threshold and select an option that specifies how Watson OpenScale generates a baseline global explanation. These settings are used to calculate <a href="wos-explainability-global-stability.html">global explanation stability</a>.</p>
+          <section id="section-limitations">
+            <h3 id="limitations">Limitations</h3>
+            <ul>
+              <li>When you configure settings for SHAP global explanations, Watson OpenScale has the following limitations:
+                <ul>
+                  <li>The sample size that you use to configure explanations can affect the number of explanations that Watson OpenScale can generate during specific time periods. If you attempt to generate multiple explanations for large sample sizes, Watson
+                    OpenScale might fail to process your transactions.</li>
+                  <li>If you configure explanations for multiple Watson OpenScale subscriptions, you must specify the default values for the sample size and number of perturbations settings when your deployment contains 20 features or less.</li>
+                </ul>
+              </li>
+              <li>Watson OpenScale does not support equal signs (=) in column names in your data. The equal sign might cause an error.</li>
+              <li>Explainability is not supported for SPSS multiclass models that return only the winning class probability.</li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li>
+              <p><a href="wos-explainability-global-stability.html">Global explanation stability</a></p>
+            </li>
+            <li>
+              <p><a href="wos-insights-transaction-details.html">Explaining model transactions</a></p>
+            </li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="getting-started.html">Evaluating AI models with Watson OpenScale</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

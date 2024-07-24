@@ -1,0 +1,125 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Watson OpenScale drift evaluations detect drops in accuracy and data consistency in a model. The model accuracy drops if there is an increase in transactions similar to those that the model did not evaluate correctly in the training data.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Configuring drift evaluations in Watson OpenScale</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=evaluations-configuring-drift"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="configuring-drift-evaluations-in-watson-openscale" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-configuring-drift-evaluations-in-watson-openscale">
+        <h1 id="configuring-drift-evaluations-in-watson-openscale">Configuring drift evaluations in Watson OpenScale</h1>
+        <p>Watson OpenScale drift evaluations detect drops in accuracy and data consistency in a model. The model accuracy drops if there is an increase in transactions similar to those that the model did not evaluate correctly in the training data.</p>
+        <section id="section-drift-evaluation-examples">
+          <h2 id="drift-evaluation-examples">Drift evaluation examples</h2>
+          <p>When configuring Drift in Watson OpenScale, you have to specify the tolerable accuracy drift magnitude. The drift is measured as the drop in accuracy as compared to the model accuracy at training time. For example, if the model accuracy at training
+            time was 90% and at runtime the estimated accuracy of the model is 80%, then the model is said to have drifted by 10%. Depending on the use case, model owners will be willing to tolerate different amounts of drift. Hence Watson OpenScale allows
+            you to specify the accuracy drift magnitude (called as Drift alert threshold) for each model being monitored in Watson OpenScale. If the drift for a model drops below the specified threshold, an alert will be generated.</p>
+          <p>If you use IBM Watson Machine Learning and your data does not exceed 500 MB, you can train your model online by using Watson OpenScale. Otherwise, you must use a notebook to train the model.</p>
+        </section>
+        <section id="section-behavior-drift-config-steps-wos-reqs">
+          <h2 id="behavior-drift-config-steps-wos-reqs">Before you begin</h2>
+          <p>You must configure drift detection before it can analyze your model. You can train your drift detection model online by using the user interface or by running code inside a notebook. Drift configuration is supported for structured data only.
+            The classification models support both data and accuracy drift, regression models support only data drift.</p>
+          <p>These are the requirements for configuring the Drift monitor:</p>
+          <ul>
+            <li>The Machine Learning Provider must be Watson Machine Learning</li>
+            <li>The training data size must be less than 500MB</li>
+            <li>The training data must be hosted in IBM Cloud Object Storage/Db2.</li>
+          </ul>
+          <p>To upload the training data and set the <strong>Model details</strong> for drift detection:</p>
+          <ul>
+            <li>Click <strong>Upload training data</strong> and upload a file with the labeled data.</li>
+          </ul>
+          <p>For details, see <a href="wos-model-details.html">Providing model details</a>.</p>
+          <p>Throughout this process, IBM Watson OpenScale analyzes your model and makes recommendations based on the most logical outcome. For drift detection to work properly, the data type of your prediction column in the training data must match the
+            data type of the same column in the payload data. Assign matching string or numeric types to the prediction and label columns. To confirm data types, click <strong>Model details</strong> &gt; <strong>Model output details</strong> &gt; <strong>Edit</strong>.
+            These selections ensure that you have accurate information for the following configuration steps. If for some reason you must change data types, you must redeploy the evaluation to effect the changes.</p>
+          <p>On the successive pages of the <strong>Drift</strong> tab, you must provide the following information:</p>
+          <section id="section-behavior-drift-config-steps-wos-reqs-alert">
+            <h3 id="behavior-drift-config-steps-wos-reqs-alert">Alert threshold</h3>
+            <p>Required only for classification type models: IBM Watson OpenScale tracks the degree of change in model accuracy when compared to accuracy at training time. The alert threshold, which must be at least 5%, indicates the degree of tolerance
+              for change over time.</p>
+          </section>
+          <section id="section-behavior-drift-config-steps-wos-reqs-sample">
+            <h3 id="behavior-drift-config-steps-wos-reqs-sample">Sample size</h3>
+            <p>By setting a minimum sample size, you prevent measuring drift until a minimum number of records are available in the evaluation data set. This setting ensures that the sample size is not too small to skew results. Every time drift checking
+              runs, it uses the minimum sample size to decide the number of records on which it does the computation.</p>
+          </section>
+        </section>
+        <section id="section-behavior-drift-config-steps-wos" help="" support="">
+          <h2 id="behavior-drift-config-steps-wos">Steps to configure drift evaluation</h2>
+          <p>If you use IBM Watson Machine Learning, you have the option of using the Watson OpenScale user interface to configure drift detection.</p>
+          <p>To start the configuration process, from the <strong>Drift</strong> tab, in the <strong>Drift model</strong> box, click the <strong>Edit</strong> <img src="images/wos-edit-icon.png" alt="The edit icon"> icon. Use the <strong>Train in Watson OpenScale</strong>            option.</p>
+          <p>Follow the prompts and enter required information. When you finish, a summary of your selections is presented for review. If you want to change anything, click the <strong>Edit</strong> icon for that section. Otherwise, save your work.</p>
+        </section>
+        <section id="section-behavior-drift-config-steps-no-training">
+          <h2 id="behavior-drift-config-steps-no-training">Steps to configure drift without retraining</h2>
+          <p>Reconfigure the drift evaluation without retraining the drift model to update parameters without more processing. You update the minimum sample size and threshold to produce more data on the currently trained model without incurring more processing
+            costs. It is one way to avoid intensive CPU usage when the underlying data is stable and you want to view drift magnitude with different thresholds.</p>
+          <p>Note: Your drift model requires retraining only when training data or schema changes.</p>
+          <p>To start the configuration process, from the <strong>Drift</strong> tab, in the <strong>Drift threshold</strong> box or <strong>Sample size</strong> box, click <strong>Edit</strong> <img src="images/wos-edit-icon.png" alt="The edit icon">. Update
+            the current setting and save it.</p>
+          <!-- check UI element to add what to edit -->
+        </section>
+        <section id="section-behavior-drift-config-steps-ntbk">
+          <h2 id="behavior-drift-config-steps-ntbk">Steps to configure drift by using a notebook</h2>
+          <p>Use a notebook to configure drift in the following circumstances:</p>
+          <ul>
+            <li>You do not want to share the training data with Watson OpenScale.</li>
+            <li>You do not have a means to share the training data on Db2 or IBM Cloud Object Storage, which are the only two training data locations that are supported by Watson OpenScale.</li>
+          </ul>
+          <p>This option is useful if the training data is not stored in Db2 or IBM Cloud Object Storage. Using a notebook, you must read the training data into a dataframe. The specialized notebook that you can download from Watson OpenScale then creates
+            a specialized output that you can upload to Watson OpenScale.</p>
+          <p>To generate the drift detection model, you can run the cell that installs the <code>ibm-wos-utils&gt;=4.5.0</code> package and sci-kit learn version 1.0.2. Scikit-learn version 1.0.2 is required to build the model.</p>
+          <p>Create a notebook to generate the drift detection model. Use the <a href="https://github.com/IBM/watson-openscale-samples/blob/main/training%20statistics/4.6/training_statistics_notebook.ipynb" target="_blank" class="external">sample notebook</a>            that is available in Watson OpenScale. The drift detection model is converted into a .tar.gz file for you.</p>
+          <p>To start the configuration process, from the <strong>Drift</strong> tab, in the <strong>Drift model</strong> box, click <strong>Edit</strong> <img src="images/wos-edit-icon.png" alt="The edit icon">. Use the <strong>Train in a data science notebook</strong>            option. You can drag your compressed drift detection model to the drop zone.</p>
+          <p>Follow the prompts and enter required information. When you finish, a summary of your selections is presented for review. If you want to change anything, click <strong>Edit</strong> for that section. Otherwise, save your work.</p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p><a href="wos-behavior-overview.html">Drift metrics</a></p>
+          <p><strong>Parent topic:</strong> <a href="wos-monitors-overview.html">Configuring model evaluations</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

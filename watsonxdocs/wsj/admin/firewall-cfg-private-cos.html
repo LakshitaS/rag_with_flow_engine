@@ -1,0 +1,74 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Private IP addresses are required when IBM watsonx and Cloud Object Storage are located on the same network. When creating a connection to a Cloud Object Storage bucket that is protected by a firewall on the same network as IBM watsonx, the connector automatically maps to private IP addresses for IBM watsonx. The private IP addresses must be added to a Bucket access policy to allow inbound connections from IBM watsonx.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Firewall access for Cloud Object Storage</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=access-firewall-cloud-object-storage"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="firewall-access-for-cloud-object-storage" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-firewall-access-for-cloud-object-storage">
+        <h1 id="firewall-access-for-cloud-object-storage">Firewall access for Cloud Object Storage</h1>
+        <p>Private IP addresses are required when IBM watsonx and Cloud Object Storage are located on the same network. When creating a connection to a Cloud Object Storage bucket that is protected by a firewall on the same network as IBM watsonx, the connector
+          automatically maps to private IP addresses for IBM watsonx. The private IP addresses must be added to a <strong>Bucket access policy</strong> to allow inbound connections from IBM watsonx.</p>
+        <p>Follow these steps to search the private IP addresses for the IBM watsonx cluster and add them to the <strong>Bucket access policy</strong>:</p>
+        <ol>
+          <li>Go to the <strong>Administration &gt; Cloud integrations</strong> page.</li>
+          <li>Click the <strong>Firewall configuration</strong> link to view the list of IP ranges used by IBM watsonx.</li>
+          <li>Choose <strong>Include private IPs</strong> to view the private IP addresses for the IBM watsonx cluster.
+            <img src="images/ip-ranges-private.png" alt="A list of private IP addresses for the IBM watsonx cluster"></li>
+          <li>From your IBM Cloud Object Storage instance on IBM Cloud, open the <strong>Buckets</strong> list and choose the Bucket for the connection.</li>
+          <li>Copy each of the private IP ranges listed and paste them into the <strong>Buckets &gt; Permissions &gt; IP address</strong> field on IBM Cloud.
+            <img src="images/bucket-ips.png" alt="A list of permitted private IP addresses for the IBM watsonx cluster"></li>
+        </ol>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="../manage-data/conn-cos.html">IBM Cloud Object Storage connection</a></li>
+            <li><a href="https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-setting-a-firewall#firewall" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud docs: Setting a firewall</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong>
+            <a href="firewall_ovrvw.html">Configuring firewall access</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

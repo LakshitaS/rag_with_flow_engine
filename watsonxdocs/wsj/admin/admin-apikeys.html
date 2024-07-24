@@ -1,0 +1,115 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Certain operations in IBM watsonx require an API key for secure authorization. You can generate and rotate a user API key as needed to help ensure your operations run smoothly.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Managing the user API key</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=administration-managing-user-api-key"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="managing-the-user-api-key" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-managing-the-user-api-key">
+        <h1 id="managing-the-user-api-key">Managing the user API key</h1>
+        <p>Certain operations in IBM watsonx require an API key for secure authorization. You can generate and rotate a user API key as needed to help ensure your operations run smoothly.</p>
+        <section id="section-user-api-key-overview">
+          <h2 id="user-api-key-overview">User API key overview</h2>
+          <p>Operations running within services in IBM watsonx require credentials for secure authorization. These operations use an API key for authorization. A valid API key is required for many long-running tasks, including the following:</p>
+          <ul>
+            <li>Model training in Watson Machine Learning</li>
+            <li>Problem solving with Decision Optimization</li>
+            <li>Data transformation with DataStage flows</li>
+            <li>Other runtime services (for example, Data Refinery and Pipelines) that accept API key references</li>
+          </ul>
+          <p>Both scheduled and ad hoc jobs require an API key for authorization. An API key is used for jobs when:</p>
+          <ul>
+            <li>Creating a job schedule with a predefined key</li>
+            <li>Updating the API key for a scheduled job</li>
+            <li>Providing an API key for an ad hoc job</li>
+          </ul>
+          <p>User API keys give control to the account owner to secure and renew credentials, thus helping to ensure operations run without interruption. Keys are unique to the IBMid and account. If you change the account you are working in, you must generate
+            a new key.</p>
+          <dl>
+            <dt><strong>Required roles</strong></dt>
+            <dd>IAM Platform role: <strong>Admin</strong> or Account owner</dd>
+          </dl>
+          <section id="section-active-and-phased-out-keys">
+            <h3 id="active-and-phased-out-keys">Active and Phased out keys</h3>
+            <p>When you create an API key, it is placed in <strong>Active</strong> state. The <strong>Active key</strong> is used for authorization for operations in IBM watsonx.</p>
+            <p>When you rotate a key, a new key is created in <strong>Active</strong> state and the existing key is changed to <strong>Phased out</strong> state. A Phased out key is not used for authorization and can be deleted.</p>
+          </section>
+        </section>
+        <section id="section-viewing-the-current-api-key">
+          <h2 id="viewing-the-current-api-key">Viewing the current API key</h2>
+          <p>Click your avatar and select <strong>Profile and settings</strong> to open your account profile. Select <strong>User API key</strong> to view the <strong>Active</strong> and <strong>Phased out</strong> keys.</p>
+        </section>
+        <section id="section-creating-an-api-key">
+          <h2 id="creating-an-api-key">Creating an API key</h2>
+          <p>If you do not have an API key, you can create a key by clicking <strong>Create a key</strong>.</p>
+          <p>A new key is created in <strong>Active</strong> state. The key automatically authorizes operations that require a secure credential. The key is stored in both IBM Cloud and IBM watsonx. You can view the API keys for your IBM Cloud account at
+            <a href="https://cloud.ibm.com/iam/apikeys" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">API keys</a>.</p>
+          <p>User API Keys take the form <strong>cpd-apikey-{username}-{timeStamp}</strong>, where username is the IBMid of the account owner and timestamp indicates when the key was created.</p>
+        </section>
+        <section id="section-rotating-an-api-key">
+          <h2 id="rotating-an-api-key">Rotating an API key</h2>
+          <p>If the API key becomes stale or invalid, you can generate a new <strong>Active</strong> key for use by all operations.</p>
+          <p>To rotate a key, click <strong>Rotate</strong>.</p>
+          <p>A new key is created to replace the current key. The rotated key is placed in <strong>Phased out</strong> status. A <strong>Phased out</strong> key is not available for use.</p>
+        </section>
+        <section id="section-deleting-a-phased-out-api-key">
+          <h2 id="deleting-a-phased-out-api-key">Deleting a phased out API key</h2>
+          <p>When you are certain the phased out key is no longer needed for operations, click the minus sign to delete it. Deleting keys might cause running operations to fail.</p>
+        </section>
+        <section id="section-deleting-all-api-keys">
+          <h2 id="deleting-all-api-keys">Deleting all API keys</h2>
+          <p>Delete all keys (both <strong>Active</strong> and <strong>Phased out</strong>) by clicking the trash can. Deleting keys might cause running operations to fail.</p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="../manage-data/jobs.html">Creating and managing jobs in a project</a></li>
+            <li><a href="../manage-data/task-credentials.html">Adding task credentials</a></li>
+            <li><a href="https://cloud.ibm.com/docs/account?topic=account-manapikey&amp;interface=ui" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Understanding API keys</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="../admin/administer-accounts.html">Administering your accounts and services</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

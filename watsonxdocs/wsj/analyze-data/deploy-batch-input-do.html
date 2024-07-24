@@ -1,0 +1,127 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Follow these rules when you are specifying input details for batch deployments of Decision Optimization models.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Batch deployment input details for Decision Optimization models</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=framework-decision-optimization-models"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="batch-deployment-input-details-for-decision-optimization-models" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-batch-deployment-input-details-for-decision-optimization-models">
+        <h1 id="batch-deployment-input-details-for-decision-optimization-models">Batch deployment input details for Decision Optimization models</h1>
+        <p>Follow these rules when you are specifying input details for batch deployments of Decision Optimization models.</p>
+        <p>Data type summary table:</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Type</td>
+              <td>inline and data references</td>
+            </tr>
+            <tr>
+              <td>File formats</td>
+              <td>Refer to <a href="../../DO/WML_Deployment/ModelIODataDefn.html">Model input and output data file formats</a>.</td>
+            </tr>
+          </tbody>
+        </table>
+        <section id="section-data-sources">
+          <h2 id="data-sources">Data sources</h2>
+          <p>Input/output inline data:</p>
+          <ul>
+            <li>Inline input data is converted to CSV files and used by the engine.</li>
+            <li>CSV output data is converted to output inline data.</li>
+            <li>Base64-encoded raw data is supported as input and output.</li>
+          </ul>
+          <p>Input/output data references:</p>
+          <ul>
+            <li>Tabular data is loaded from CSV, XLS, XLSX, JSON files or database data sources supported by the WDP connection library, converted to CSV files, and used by the engine.</li>
+            <li>CSV output data is converted to tabular data and saved to CSV, XLS, XLSX, JSON files, or database data sources supported by the WDP connection library.</li>
+            <li>Raw data can be loaded and saved from or to any file data sources that are supported by the WDP connection library.</li>
+            <li>No support for compressed files.</li>
+            <li>The environment variables parameter of deployment jobs is not applicable.</li>
+          </ul>
+          <p>If you are specifying input/output data references programmatically:</p>
+          <ul>
+            <li>
+              <p>Data source reference <code>type</code> depends on the asset type. Refer to the <strong>Data source reference types</strong> section in <a href="../analyze-data/ml-space-add-assets.html">Adding data assets to a deployment space</a>.</p>
+            </li>
+            <li>
+              <p>For S3 or Db2, connection details must be specified in the <code>input_data_references.connection</code> parameter, in the deployment job’s payload.</p>
+            </li>
+            <li>
+              <p>For S3 or Db2, location details such as table name, bucket name, or path must be specified in the <code>input_data_references.location.path</code> parameter, in the deployment job’s payload.</p>
+            </li>
+            <li>
+              <p>For <code>data_asset</code>, a managed asset can be updated or created. For creation, you can set the name and description for the created asset.</p>
+            </li>
+            <li>
+              <p>You can use a pattern in ID or connection properties. For example, see the following code snippet:</p>
+              <ul>
+                <li>To collect all output CSV as inline data:</li>
+              </ul>
+              <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-string">"output_data"</span>: [ { <span class="hljs-string">"id"</span>:<span class="hljs-string">".*\\.csv"</span>}]
+</code></pre>
+              <ul>
+                <li>To collect job output in a particular S3 folder:</li>
+              </ul>
+              <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-string">"output_data_references"</span>: [ {<span class="hljs-string">"id"</span>:<span class="hljs-string">".*"</span>, <span class="hljs-string">"type"</span>: <span class="hljs-string">"s3"</span>, <span class="hljs-string">"connection"</span>: {...}, <span class="hljs-string">"location"</span>: { <span class="hljs-string">"bucket"</span>: <span class="hljs-string">"do-wml"</span>, <span class="hljs-string">"path"</span>: <span class="hljs-string">"${job_id}/${attachment_name}"</span> }}]
+</code></pre>
+            </li>
+          </ul>
+          <div class="note note"><span class="notetitle">Note:</span>
+            <md-block>
+              <p>Support for <code>s3</code> and <code>db2</code> values for <code>scoring.input_data_references.type</code> and <code>scoring.output_data_references.type</code> is deprecated and will be removed in the future. Use <code>connection_asset</code>                or <code>data_asset</code> instead. See the documentation for the Watson Machine Learning <a href="https://cloud.ibm.com/apidocs/machine-learning">REST API</a> or Watson Machine Learning <a href="https://ibm.github.io/watson-machine-learning-sdk/" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Python client library</a> for details and examples.</p>
+              <p></p>
+            </md-block>
+          </div>
+          <p></p>
+          <p>For more information, see <a href="../../DO/WML_Deployment/ModelIODataDefn.html">Model input and output data adaptation</a>.</p>
+          <p><strong>Parent topic:</strong> <a href="../analyze-data/deploy-batch-input-by-framework.html">Batch deployment input details by framework</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="If you have a fixed set of terms that you want to detect, like a list of product names or organizations, you can create a dictionary. Dictionary matching is very fast and resource-efficient.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Detecting entities with a custom dictionary</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=models-detecting-entities-custom-dictionary"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="detecting-entities-with-a-custom-dictionary" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-detecting-entities-with-a-custom-dictionary">
+        <h1 id="detecting-entities-with-a-custom-dictionary">Detecting entities with a custom dictionary</h1>
+        <p>If you have a fixed set of terms that you want to detect, like a list of product names or organizations, you can create a dictionary. Dictionary matching is very fast and resource-efficient.</p>
+        <p>Watson Natural Language Processing dictionaries contain advanced matching capabilities that go beyond a simple string match, including:</p>
+        <ul>
+          <li>Dictionary terms can consist of a single token, for example <em>wheel</em>, or multiple tokens, for example, <em>steering wheel</em>.</li>
+          <li>Dictionary term matching can be case-sensitive or case-insensitive. With a case-sensitive match, you can ensure that acronyms, like <em>ABS</em> don't match terms in the regular language, like <em>abs</em> that have a different meaning.</li>
+          <li>You can specify how to consolidate matches when multiple dictionary entries match the same text. Given the two dictionary entries, <em>Watson</em> and <em>Watson Natural Language Processing</em>, you can configure which entry should match in
+            "I like Watson Natural Language Processing": either only <em>Watson Natural Language Processing</em>, as it contains <em>Watson</em>, or both.</li>
+          <li>You can specify to match the lemma instead of enumerating all inflections. This way, the single dictionary entry <em>mouse</em> will detect both <em>mouse</em> and <em>mice</em> in the text.</li>
+          <li>You can attach a label to each dictionary entry, for example <em>Organization category</em> to include additional metadata in the match.</li>
+        </ul>
+        <p>All of these capabilities can be configured, so you can pick the right option for your use case.</p>
+        <section id="section-types-of-dictionary-files">
+          <h2 id="types-of-dictionary-files">Types of dictionary files</h2>
+          <p>Watson Natural Language Processing supports two types of dictionary files:</p>
+          <ul>
+            <li>
+              <p>Term list (ending in <code>.dict</code>)</p>
+              <p>Example of a term list:</p>
+              <pre class="codeblock"><code class="lang-text hljs">Arthur
+Allen
+Albert
+Alexa
+</code></pre>
+            </li>
+            <li>
+              <p>Table (ending in <code>.csv</code>)</p>
+              <p>Example of a table:</p>
+              <pre class="codeblock"><code class="lang-text hljs">"label", "entry"
+"ORGANIZATION", "NASA"
+"COUNTRY", "USA"
+"ACTOR", "Christian Bale"
+</code></pre>
+            </li>
+          </ul>
+          <p>You can use multiple dictionaries during the same extraction. You can also use both types at the same time, for example, run a single extraction with three dictionaries, one term list and two tables.</p>
+        </section>
+        <section id="section-creating-dictionary-files">
+          <h2 id="creating-dictionary-files">Creating dictionary files</h2>
+          <p>Begin by creating a module directory inside your notebook. This is a directory inside the notebook file system that will be used temporarily to store your dictionary files.</p>
+          <p>To create dictionary files in your notebook:</p>
+          <ol>
+            <li>Create a module directory. Note that the name of the module folder cannot contain any dashes as this will cause errors.<pre class="codeblock"><code class="lang-python hljs"><span class="hljs-keyword">import</span> os
+<span class="hljs-keyword">import</span> watson_nlp
+module_folder = <span class="hljs-string">"NLP_Dict_Module_1"</span>
+os.makedirs(module_folder, exist_ok=<span class="hljs-literal">True</span>)
+</code></pre>
+            </li>
+            <li>Create dictionary files, and store them in the module directory. You can either read in an external list or CSV file, or you can create dictionary files like so:<pre class="codeblock"><code class="lang-python hljs"><span class="hljs-comment"># Create a term list dictionary</span>
+term_file = <span class="hljs-string">"names.dict"</span>
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(os.path.join(module_folder, term_file), <span class="hljs-string">'w'</span>) <span class="hljs-keyword">as</span> dictionary:
+    dictionary.write(<span class="hljs-string">'Bruce'</span>)
+    dictionary.write(<span class="hljs-string">'\n'</span>)
+    dictionary.write(<span class="hljs-string">'Peter'</span>)
+    dictionary.write(<span class="hljs-string">'\n'</span>)
+
+<span class="hljs-comment"># Create a table dictionary</span>
+table_file = <span class="hljs-string">'Places.csv'</span>
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(os.path.join(module_folder, table_file), <span class="hljs-string">'w'</span>) <span class="hljs-keyword">as</span> places:
+    places.write(<span class="hljs-string">"\"label\", \"entry\""</span>)
+    places.write(<span class="hljs-string">"\n"</span>)
+    places.write(<span class="hljs-string">"\"SIGHT\", \"Times Square\""</span>)
+    places.write(<span class="hljs-string">"\n"</span>)
+    places.write(<span class="hljs-string">"\"PLACE\", \"5th Avenue\""</span>)
+    places.write(<span class="hljs-string">"\n"</span>)
+</code></pre>
+            </li>
+          </ol>
+        </section>
+        <section id="section-loading-the-dictionaries-and-configuring-matching-options">
+          <h2 id="loading-the-dictionaries-and-configuring-matching-options">Loading the dictionaries and configuring matching options</h2>
+          <p>The dictionaries can be loaded using the following helper methods.</p>
+          <ul>
+            <li>To load a single dictionary, use <code>watson_nlp.toolkit.rule_utils.DictionaryConfig (&lt;dictionary configuration&gt;)</code></li>
+            <li>To load multiple dictionaries, use <code>watson_nlp.toolkit.rule_utils.DictionaryConfig.load_all([&lt;dictionary configuration&gt;)])</code></li>
+          </ul>
+          <p>For each dictionary, you need to specify a dictionary configuration. The dictionary configuration is a Python dictionary, with the following attributes:</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Attribute</th>
+                <th>Value</th>
+                <th>Description</th>
+                <th>Required</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>name</code></td>
+                <td>string</td>
+                <td>The name of the dictionary</td>
+                <td>Yes</td>
+              </tr>
+              <tr>
+                <td><code>source</code></td>
+                <td>string</td>
+                <td>The path to the dictionary, relative to <code>module_folder</code></td>
+                <td>Yes</td>
+              </tr>
+              <tr>
+                <td><code>dict_type</code></td>
+                <td>file or table</td>
+                <td>Whether the dictionary artifact is a term list (file) or a table of mappings (table)</td>
+                <td>No. The default is file</td>
+              </tr>
+              <tr>
+                <td><code>consolidate</code></td>
+                <td>ContainedWithin (Keep the longest match and deduplicate) / NotContainedWithin (Keep the shortest match and deduplicate) / ContainsButNotEqual (Keep longest match but keep duplicate matches) / ExactMatch (Deduplicate) / LeftToRight (Keep
+                  the leftmost longest non-overlapping span)</td>
+                <td>What to do with dictionary matches that overlap.</td>
+                <td>No. The default is to not consolidate matches.</td>
+              </tr>
+              <tr>
+                <td><code>case</code></td>
+                <td>exact / insensitive</td>
+                <td>Either match exact case or be case insensitive.</td>
+                <td>No. The default is exact match.</td>
+              </tr>
+              <tr>
+                <td><code>lemma</code></td>
+                <td>True / False</td>
+                <td>Match the terms in the dictionary with the lemmas from the text. The dictionary should contain only lemma forms. For example, add <code>mouse</code> in the dictionary to match both <code>mouse</code> and <code>mice</code> in text. Do not
+                  add <code>mice</code> in the dictionary. To match terms that consist of multiple tokens in text, separate the lemmas of those terms in the dictionary by a space character.</td>
+                <td>No. The default is False.</td>
+              </tr>
+              <tr>
+                <td><code>mappings.columns</code> (columns <code>as attribute of</code> mappings: {})</td>
+                <td>list [ string ]</td>
+                <td>List of column headers in the same order as present in the table csv</td>
+                <td>Yes if <code>dict_type: table</code></td>
+              </tr>
+              <tr>
+                <td><code>mappings.entry</code> (entry <code>as attribute of</code> mappings: {})</td>
+                <td>string</td>
+                <td>The name of the column header that contains the string to match against the document.</td>
+                <td>Yes if <code>dict_type: table</code></td>
+              </tr>
+              <tr>
+                <td><code>label</code></td>
+                <td>string</td>
+                <td>The label to attach to matches.</td>
+                <td>No</td>
+              </tr>
+            </tbody>
+          </table>
+          <p><strong>Code sample</strong></p>
+          <pre class="codeblock"><code class="lang-python hljs"><span class="hljs-comment"># Load the dictionaries</span>
+dictionaries = watson_nlp.toolkit.rule_utils.DictionaryConfig.load_all([{
+    <span class="hljs-string">'name'</span>: <span class="hljs-string">'Names'</span>,
+    <span class="hljs-string">'source'</span>: term_file,
+    <span class="hljs-string">'case'</span>:<span class="hljs-string">'insensitive'</span>
+}, {
+    <span class="hljs-string">'name'</span>: <span class="hljs-string">'places_and_sights_mappings'</span>,
+    <span class="hljs-string">'source'</span>: table_file,
+    <span class="hljs-string">'dict_type'</span>: <span class="hljs-string">'table'</span>,
+    <span class="hljs-string">'mappings'</span>: {
+        <span class="hljs-string">'columns'</span>: [<span class="hljs-string">'label'</span>, <span class="hljs-string">'entry'</span>],
+        <span class="hljs-string">'entry'</span>: <span class="hljs-string">'entry'</span>
+    }
+}])
+</code></pre>
+        </section>
+        <section id="section-training-a-model-that-contains-dictionaries">
+          <h2 id="training-a-model-that-contains-dictionaries">Training a model that contains dictionaries</h2>
+          <p>After you have loaded the dictionaries, create a dictionary model and train the model using the <code>RBR.train()</code> method. In the method, specify:</p>
+          <ul>
+            <li>The module directory</li>
+            <li>The language of the dictionary entries</li>
+            <li>The dictionaries to use</li>
+          </ul>
+          <p><strong>Code sample</strong></p>
+          <pre class="codeblock"><code class="lang-python hljs">custom_dict_block = watson_nlp.resources.feature_extractor.RBR.train(module_folder,
+language=<span class="hljs-string">'en'</span>, dictionaries=dictionaries)
+</code></pre>
+        </section>
+        <section id="section-applying-the-model-on-new-data">
+          <h2 id="applying-the-model-on-new-data">Applying the model on new data</h2>
+          <p>After you have trained the dictionaries, apply the model on new data using the <code>run()</code> method, as you would use on any of the existing pre-trained blocks.</p>
+          <p><strong>Code sample</strong></p>
+          <pre class="codeblock"><code class="lang-python hljs">custom_dict_block.run(<span class="hljs-string">'Bruce is at Times Square'</span>)
+</code></pre>
+          <p>Output of the code sample:</p>
+          <pre class="codeblock"><code class="lang-text hljs">{(0, 5): ['Names'], (12, 24): ['SIGHT']}
+</code></pre>
+          <p>To show the labels or the name of the dictionary:</p>
+          <pre class="codeblock"><code class="lang-python hljs">RBR_result = custom_dict_block.executor.get_raw_response(<span class="hljs-string">'Bruce is at Times Square'</span>, language=<span class="hljs-string">'en'</span>)
+<span class="hljs-built_in">print</span>(RBR_result)
+</code></pre>
+          <p>Output showing the labels:</p>
+          <pre class="codeblock"><code class="lang-text hljs">{'annotations': {'View_Names': [{'label': 'Names', 'match': {'location': {'begin': 0, 'end': 5}, 'text': 'Bruce'}}], 'View_places_and_sights_mappings': [{'label': 'SIGHT', 'match': {'location': {'begin': 12, 'end': 24}, 'text': 'Times Square'}}]}, 'instrumentationInfo': {'annotator': {'version': '1.0', 'key': 'Text match extractor for NLP_Dict_Module_1'}, 'runningTimeMS': 3, 'documentSizeChars': 32, 'numAnnotationsTotal': 2, 'numAnnotationsPerType': [{'annotationType': 'View_Names', 'numAnnotations': 1}, {'annotationType': 'View_places_and_sights_mappings', 'numAnnotations': 1}], 'interrupted': False, 'success': True}}
+</code></pre>
+          <p><strong>Parent topic:</strong> <a href="watson-nlp-create-model.html">Creating your own models</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

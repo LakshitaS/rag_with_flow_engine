@@ -1,0 +1,96 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can use the scalable Two-Step or the Cluster model evaluation algorithm to cluster data in notebooks.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>SPSS predictive analytics clustering algorithms in notebooks</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=algorithms-clustering"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="spss-predictive-analytics-clustering-algorithms-in-notebooks" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-spss-predictive-analytics-clustering-algorithms-in-notebooks">
+        <h1 id="spss-predictive-analytics-clustering-algorithms-in-notebooks">SPSS predictive analytics clustering algorithms in notebooks</h1>
+        <p>You can use the scalable Two-Step or the Cluster model evaluation algorithm to cluster data in notebooks.</p>
+        <section id="section-two-step-cluster">
+          <h2 id="two-step-cluster">Two-Step Cluster</h2>
+          <p>Scalable Two-Step is based on the familiar two-step clustering algorithm, but extends both its functionality and performance in several directions.
+          </p>
+          <p>First, it can effectively work with large and distributed data supported by Spark that provides the Map-Reduce computing paradigm.</p>
+          <p>Second, the algorithm provides mechanisms for selecting the most relevant features for clustering the given data, as well as detecting rare outlier points. Moreover, it provides an enhanced set of evaluation and diagnostic features for enabling
+            insight.</p>
+          <p>The two-step clustering algorithm first performs a pre-clustering step by scanning the entire dataset and storing the dense regions of data cases in terms of summary statistics called cluster features. The cluster features are stored in memory
+            in a data structure called the CF-tree. Finally, an agglomerative hierarchical clustering algorithm is applied to cluster the set of cluster features.</p>
+          <p><strong>Python example code:</strong></p>
+          <pre class="codeblock"><code class="hljs">from spss.ml.clustering.twostep import TwoStep
+
+cluster = TwoStep(). \
+    setInputFieldList(["region", "happy", "age"]). \
+    setDistMeasure("LOGLIKELIHOOD"). \
+    setFeatureImportanceMethod("CRITERION"). \
+    setAutoClustering(True)
+
+clusterModel = cluster.fit(data)
+predictions = clusterModel.transform(data)
+predictions.show()
+</code></pre>
+        </section>
+        <section id="section-cluster-model-evaluation">
+          <h2 id="cluster-model-evaluation">Cluster model evaluation</h2>
+          <p>Cluster model evaluation (CME) aims to interpret cluster models and discover useful insights based on various evaluation measures.</p>
+          <p>It's a post-modeling analysis that's generic and independent from any types of cluster models.</p>
+          <p><strong>Python example code:</strong></p>
+          <pre class="codeblock"><code class="hljs">from spss.ml.clustering.twostep import TwoStep
+
+cluster = TwoStep(). \
+    setInputFieldList(["region", "happy", "age"]). \
+    setDistMeasure("LOGLIKELIHOOD"). \
+    setFeatureImportanceMethod("CRITERION"). \
+    setAutoClustering(True)
+
+clusterModel = cluster.fit(data)
+predictions = clusterModel.transform(data)
+predictions.show()
+</code></pre>
+          <p><strong>Parent topic:</strong> <a href="../analyze-data/spss-algorithms.html">SPSS predictive analytics algorithms</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

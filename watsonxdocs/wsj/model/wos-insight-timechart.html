@@ -1,0 +1,159 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="When you configure evaluations in the Watson OpenScale service, you can analyze evaluation results to gain insights about your model performance. A dashboard provides the tools for reviewing performance details, sharing information about alerts, or printing reports.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Reviewing evaluation results</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=insights-reviewing-evaluation-results"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="reviewing-evaluation-results" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-reviewing-evaluation-results">
+        <h1 id="reviewing-evaluation-results">Reviewing evaluation results</h1>
+        <p>When you configure evaluations in the Watson OpenScale service, you can analyze evaluation results to gain insights about your model performance. A dashboard provides the tools for reviewing performance details, sharing information about alerts,
+          or printing reports.</p>
+        <p>Some of the details you can review from the dashboard include:</p>
+        <ul>
+          <li>Review quality results to see a confusion matrix that helps you determine whether your deployed model analyzed your transactions correctly.</li>
+          <li>View drift results to see the transactions that are responsible for a drop in accuracy, a drop in data consistency, or both.</li>
+          <li>Inspect model health evaluation results, where you can see a summary of the metrics that are generated during your last evaluation with scorecard tiles that correlate with different dimensions.</li>
+        </ul>
+        <p><img src="images/wos-evaluation-results.png" alt="Model deployment evaluation chart is displayed with each evaluation showing details for how the model meets set thresholds."></p>
+        <p>To view results in the <strong>Insights dashboard</strong>:</p>
+        <ol>
+          <li>
+            <p>In Watson Openscale, click the <strong>Activity</strong> icon <img src="images/wos_insight-dash-tab.png" alt="activity icon"> to open the Insights Dashboard.</p>
+          </li>
+          <li>
+            <p>Select the deployment model tile you want to view results. Watson OpenScale displays the results from your last evaluation.</p>
+          </li>
+          <li>
+            <p>Click the arrow <img src="../model/images/wos-nav-arrow.png" alt="navigation arrow"> in an evaluation section to view data visualizations of evaluation results within the <strong>timeframe</strong> and <strong>Date range</strong> settings
+              that you specify. The last evaluation for the timeframe that you select is also displayed during the associated data range.</p>
+          </li>
+          <li>
+            <p>Use the <strong>Actions</strong> menu to view details about your model by selecting any of the following analysis options:</p>
+            <ul>
+              <li><strong>All evaluations</strong>: For pre-production models, display a history of your evaluations to understand how your results change over time.</li>
+              <li><strong>Compare</strong>: Compare models with a matrix chart that highlights key metrics to help you determine which version of a model is ready for production or which models might need more training.</li>
+              <li><strong>View model information</strong>: View details about your model to understand how your deployment environment is set up.</li>
+              <li><strong>Download report PDF</strong>: Generate a model summary report that provides which gives you all of the metrics and the explanation for why they were scored the way they were.</li>
+              <li><strong>Set up alert</strong>: Send alerts about threshold violations to an email address.</li>
+            </ul>
+          </li>
+        </ol>
+        <p>You can also use the <strong>Actions</strong> menu to manage data for model evaluations. For more information, see <a href="wos-send-model-transactions.html">Sending model transactions</a>.</p>
+        <p>With time series charts, Watson OpenScale displays aggregated evaluations as data points that you can select to view results for a specific time. The timestamp of each datapoint that displays when you hover on time series charts does not match
+          the timestamp of the latest evaluation due to the default Watson OpenScale aggregation behaviour.</p>
+        <section id="section-analyze-results">
+          <h2 id="analyze-results">Analyzing results</h2>
+          <p>The following sections describe how you can analyze results from your Watson OpenScale model evaluations:</p>
+          <hr id="accordion01">
+          <details>
+            <summary>Reviewing fairness results</summary>
+            <md-block>
+              <p>To help you review fairness results, Watson OpenScale provides calculations for the following types of data sets:</p>
+              <ul>
+                <li><strong>Balanced</strong>: Balanced calculation includes the scoring request that is received for the selected hour. The calculation also includes more records from previous hours if the minimum number of records that are required for
+                  evaluation was not met. Includes more perturbed and synthesized records that are used to test the model's response when the value of the monitored feature changes.</li>
+                <li><strong>Payload</strong>: The actual scoring requests that are received by the model for the selected hour.</li>
+                <li><strong>Training</strong>: The training data records that are used to train the model.</li>
+                <li><strong>Debiased</strong>: The output of the debiasing algorithm after processing the runtime and perturbed data.</li>
+              </ul>
+              <p><img src="images/wos-fairness-insights.png" alt="data visualization of fairness metrics for each monitored group"></p>
+              <p>With the chart, you can observe the groups that experience bias and see the percentage of expected outcomes for these groups. You can also see the percentage of expected outcomes for reference groups, which is the average of expected outcomes
+                across all reference groups. The charts indicates the presence of bias by comparing the ratio of the percentage of expected outcomes for monitored groups in a data range to the percentage of outcomes for reference groups.</p>
+              <p>The chart also shows the distribution of the reference and monitored values for each distinct value of the attribute in the data from the payload table that was analyzed to identify bias. The distribution of the payload data is shown for
+                each distinct value of the attributes. You can use this data to correlate the amount of bias with the amount of data that is received by the model. You can also see the percentage of groups with expected outcomes to identify sources of
+                bias that skewed results and led to increases in the percentage of expected outcomes for reference groups.</p>
+            </md-block>
+          </details>
+          <hr>
+          <hr id="accordion02">
+          <details>
+            <summary>Reviewing quality results</summary>
+            <md-block>
+              <p>To help you review quality results, Watson OpenScale displays a confusion matrix to help you determine whether your deployed model analyzed your transactions incorrectly. For binary classification models, the records are classified as false
+                positives or false negatives and as incorrect class assignments for multi-class models. For binary classification problems, IBM Watson OpenScale assigns the target category to either the <code>positive</code> or <code>negative</code> level.
+                In the confusion matrix, the label for the positive category is located in the second row or column.</p>
+              <p><img src="images/wos-quality-confusion-matrix.png" alt="detail table of quality metrics"></p>
+            </md-block>
+          </details>
+          <hr>
+          <hr id="accordion03">
+          <details>
+            <summary>Reviewing drift results</summary>
+            <md-block>
+              <p>For drift evaluations, you can view the transactions that are responsible for a drop in accuracy, a drop in data consistency, or both. You can also view the number of transactions that are identified and the features of your model that are
+                responsible for reduced accuracy or data consistency.</p>
+              <p><img src="images/wos-drift-transactions.png" alt="Model drift transactions page is displayed"></p>
+              <p>For more information, see <a href="wos-insight-explain.html#review-drift-transactions">Reviewing drift transactions</a>.</p>
+            </md-block>
+          </details>
+          <hr>
+          <hr id="accordion04">
+          <details>
+            <summary>Reviewing drift v2 results</summary>
+            <md-block>
+              <p>When you review drift v2 evaluation results, Watson OpenScale displays collapsible tiles that you can open to view different details about the metrics. You can view the history of how each metric score changes over time with a time series
+                chart or view details how the scores output and feature drifts are calculated. You can also view details about each feature to understand how they contribute to the scores that Watson OpenScale generates.</p>
+              <p><img src="images/wos-drift-v2-insights.png" alt="Drift v2 evaluation results are displayed"></p>
+            </md-block>
+          </details>
+          <hr>
+          <hr id="accordion05">
+          <details>
+            <summary>Reviewing model health results</summary>
+            <md-block>
+              <p>When you review model health evaluation results, Watson OpenScale provides a summary of the metrics that are generated during your last evaluation with scorecard tiles that correlate with different dimensions. For metrics with multiple dimensions,
+                you can click a dropdown menu on the tiles to select the metric that you want to analyze. To analyze how your metrics change over time, you can click the collapsible tiles for each category to view timeseries charts.</p>
+              <p><img src="images/wos-model-health-insights.png" alt="Model health metrics are displayed">
+              </p>
+            </md-block>
+            <p></p>
+          </details>
+          <hr>
+          <p>For more information, see <a href="wos-model-health-metrics.html">Model health evaluation metrics</a>.</p>
+          <p><strong>Parent topic:</strong> <a href="wos-insight-overview.html">Getting insights with Watson OpenScale</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

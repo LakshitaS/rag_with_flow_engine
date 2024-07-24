@@ -1,0 +1,145 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Use IBM embedding models that are deployed in IBM watsonx.ai to help with semantic search and document comparison tasks.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Supported embedding models available with watsonx.ai</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=generation-supported-embedding-models"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="supported-embedding-models-available-with-watsonxai" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-supported-embedding-models-available-with-watsonxai">
+        <h1 id="supported-embedding-models-available-with-watsonxai">Supported embedding models available with watsonx.ai</h1>
+        <p>Use IBM embedding models that are deployed in IBM watsonx.ai to help with semantic search and document comparison tasks.</p>
+        <p>Embedding models are encoder-only foundation models that create text embeddings. A text embedding encodes the meaning of a sentence or passage in an array of numbers known as a <em>vector</em>. For more information, see <a href="fm-embeddings.html">Converting sentences into text embeddings</a>.</p>
+        <p>The following embedding models from the Slate family of foundation models by IBM are available in watsonx.ai:</p>
+        <ul>
+          <li>slate-30m-english-rtrvr</li>
+          <li>slate-125m-english-rtrvr</li>
+        </ul>
+        <p>&nbsp;</p>
+        <p>You can use the watsonx.ai Python library or REST API to submit text to one of the supported embedding models.</p>
+        <p>For more information about generative foundation models, see <a href="fm-models.html">Supported foundation models</a>.</p>
+        <section id="section-ibm-provided">
+          <h2 id="ibm-provided">IBM embedding models</h2>
+          <p>The following table lists the supported embedding models that IBM provides.</p>
+          <table>
+            <caption caption-side="top">Table 1. IBM embedding model in watsonx.ai</caption>
+            <thead>
+              <tr>
+                <th>Model name</th>
+                <th>API model_id</th>
+                <th>Billing class</th>
+                <th>Maximum input tokens</th>
+                <th>Number of dimensions</th>
+                <th>More information</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><a href="#slate-125m-english-rtrvr">slate-125m-english-rtrvr</a></td>
+                <td><code>ibm/slate-125m-english-rtrvr</code></td>
+                <td>Class C1</td>
+                <td>512</td>
+                <td>768</td>
+                <td><a href="fm-slate-125m-english-rtrvr-model-card.html">Model card</a></td>
+              </tr>
+              <tr>
+                <td><a href="#slate-30m-english-rtrvr">slate-30m-english-rtrvr</a></td>
+                <td><code>ibm/slate-30m-english-rtrvr</code></td>
+                <td>Class C1</td>
+                <td>512</td>
+                <td>384</td>
+                <td><a href="fm-slate-30m-english-rtrvr-model-card.html">Model card</a></td>
+              </tr>
+            </tbody>
+          </table>
+          <p>&nbsp;</p>
+          <ul>
+            <li>For a list of which models are provided in each regional data center, see <a href="../getting-started/regional-datactr.html#data-centers">Regional availability of foundation models</a>.</li>
+            <li>For information about billing classes, see <a href="../getting-started/wml-plans.html#ru-metering">Watson Machine Learning plans</a>.</li>
+          </ul>
+          <p>&nbsp;</p>
+        </section>
+        <section id="section-embedding-model-details">
+          <h2 id="embedding-model-details">Embedding model details</h2>
+          <p>Use the watsonx.ai API or Python library to pass text to one of the supported embedding models.</p>
+          <section id="section-slate-125m-english--rtrvr">
+            <h3 id="slate-125m-english--rtrvr">slate-125m-english-rtrvr</h3>
+            <p>The slate-125m-english-rtrvr foundation model is provided by IBM. The slate-125m-english-rtrvr foundation model generates embeddings for various inputs such as queries, passages, or documents. The training objective is to maximize cosine similarity
+              between a query and a passage. This process yields two sentence embeddings, one that represents the question and one that represents the passage, allowing for comparison of the two through cosine similarity.</p>
+            <p><strong>Usage</strong>: Two to three times slower but performs slightly better than the slate-30m-english-rtrvr model.</p>
+            <p><strong>Cost</strong>: Class C1. For pricing details, see <a href="../getting-started/wml-plans.html">Watson Machine Learning plans</a>.</p>
+            <p><strong>Try it out</strong></p>
+            <p><strong>Number of dimensions</strong>: 384</p>
+            <p><strong>Input token limits</strong>: 512</p>
+            <p><strong>Supported natural languages</strong>: English</p>
+            <p><strong>Fine-tuning information</strong>: This version of the model was fine-tuned to be better at retrieval-based tasks.</p>
+            <p><strong>Model architecture</strong>: Encoder-only</p>
+            <p><strong>License</strong>: <a href="https://www.ibm.com/support/customer/csol/terms/?id=i126-6883&amp;lc=en">Terms of use</a></p>
+            <p><strong>Learn more</strong></p>
+            <ul>
+              <li><a href="fm-slate-125m-english-rtrvr-model-card.html">Model card</a></li>
+            </ul>
+          </section>
+          <section id="section-slate-30m-english--rtrvr">
+            <h3 id="slate-30m-english--rtrvr">slate-30m-english-rtrvr</h3>
+            <p>The slate-30m-english-rtrvr foundation model is a distilled version of the slate-125m-english-rtrvr, which are both provided by IBM. The slate-30m-english-rtrvr embedding model is trained to maximize the cosine similarity between two text
+              inputs so that embeddings can be evaluated based on similarity later.</p>
+            <p>The embedding model architecture has 6 layers that are used sequentially to process data.</p>
+            <p><strong>Usage</strong>: Two to three times faster and has slightly lower performance scores than the slate-125m-english-rtrvr model.</p>
+            <p><strong>Cost</strong>: Class C1. For pricing details, see <a href="../getting-started/wml-plans.html">Watson Machine Learning plans</a>.</p>
+            <p><strong>Try it out</strong></p>
+            <p><strong>Number of dimensions</strong>: 384</p>
+            <p><strong>Input token limits</strong>: 512</p>
+            <p><strong>Supported natural languages</strong>: English</p>
+            <p><strong>Fine-tuning information</strong>: This version of the model was fine-tuned to be better at retrieval-based tasks.</p>
+            <p><strong>Model architecture</strong>: Encoder-only</p>
+            <p><strong>License</strong>: <a href="https://www.ibm.com/support/customer/csol/terms/?id=i126-6883&amp;lc=en">Terms of use</a></p>
+            <p><strong>Learn more</strong></p>
+            <ul>
+              <li><a href="fm-slate-30m-english-rtrvr-model-card.html">Model card</a></li>
+            </ul>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

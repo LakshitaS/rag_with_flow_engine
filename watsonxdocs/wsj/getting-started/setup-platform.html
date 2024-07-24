@@ -1,0 +1,158 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="To set up the watsonx platform for your organization, sign up for IBM watsonx.ai, upgrade to a paid plan, set up the services that you need, and add your users with the appropriate permissions.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Setting up the IBM watsonx platform for administrators</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=started-setting-up-platform-administrators"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="setting-up-the-ibm-watsonx-platform-for-administrators" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-setting-up-the-ibm-watsonx-platform-for-administrators">
+        <h1 id="setting-up-the-ibm-watsonx-platform-for-administrators">Setting up the IBM watsonx platform for administrators</h1>
+        <p>To set up the watsonx platform for your organization, sign up for IBM watsonx.ai, upgrade to a paid plan, set up the services that you need, and add your users with the appropriate permissions.</p>
+        <p>IBM watsonx.ai on the watsonx platform includes cloud-based services that provide data preparation, data science, and AI modeling capabilities. The watsonx platform is protected by the same powerful security constraints that are available on IBM
+          Cloud.</p>
+        <table>
+          <caption caption-side="top">Table 1. Configuration steps for IBM watsonx</caption>
+          <thead>
+            <tr>
+              <th>Task</th>
+              <th>Location</th>
+              <th>Required Role</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a href="setup-account.html">Set up the IBM Cloud account</a></td>
+              <td>IBM Cloud</td>
+              <td>Account Owner</td>
+              <td>Set up a paid account.</td>
+            </tr>
+            <tr>
+              <td><a href="setup-access.html">Manage users and access</a></td>
+              <td>IBM Cloud</td>
+              <td>Administrator</td>
+              <td>Invite users to join the account, create user access groups, and assign roles or access groups to users to provide access.</td>
+            </tr>
+            <tr>
+              <td><a href="../console/wdp_admin_cos.html">Set up IBM Cloud Object Storage for use with IBM watsonx</a></td>
+              <td>IBM Cloud and IBM watsonx</td>
+              <td>Administrator</td>
+              <td>Create a test project to initialize IBM Cloud Object Storage and set the location to Global in each user's profile.</td>
+            </tr>
+            <tr>
+              <td><a href="set-up-ws.html">Set up the Watson Studio and Watson Machine Learning services</a></td>
+              <td>IBM Cloud and IBM watsonx</td>
+              <td>Administrator</td>
+              <td>Upgrade to a paid plan.</td>
+            </tr>
+            <tr>
+              <td><a href="../catalog/platform-assets.html">Create the Platform assets catalog</a></td>
+              <td>IBM watsonx</td>
+              <td>Administrator or Manager role for the Cloud Pak for Data service</td>
+              <td>Add connections to the platform assets catalog for use by collaborators.</td>
+            </tr>
+            <tr>
+              <td>Also provides storage for AI use case inventories.</td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><a href="../model/wos-setup-wos.html">Set up watsonx.governance</a></td>
+              <td>IBM Cloud and IBM watsonx</td>
+              <td>Administrator or Editor</td>
+              <td>Create access policies and assign roles to users.</td>
+            </tr>
+            <tr>
+              <td><a href="../admin/firewall_ovrvw.html">Configure firewall access</a> (if necessary)</td>
+              <td>IBM watsonx and cloud provider firewall configuration</td>
+              <td>Administrator</td>
+              <td>Configure inbound access through a firewall.</td>
+            </tr>
+            <tr>
+              <td>Optional. <a href="security-overview.html">Configure security mechanisms</a></td>
+              <td>IBM Cloud</td>
+              <td>Administrator</td>
+              <td>IBM watsonx has five security levels to ensure that data, application endpoints, and identity are protected. For a list of common security mechanisms, see <a href="#security">Common security mechanisms</a>.</td>
+            </tr>
+            <tr>
+              <td>Optional. <a href="../manage-data/securingconn.html">Connect to data behind a firewall</a></td>
+              <td>IBM Cloud</td>
+              <td>Administrator</td>
+              <td>Securely connect to databases that are hosted behind a firewall.</td>
+            </tr>
+            <tr>
+              <td>Optional. <a href="../admin/int-cloud.html">Configure integrations with other cloud platforms</a></td>
+              <td>IBM Cloud and IBM watsonx</td>
+              <td>Administrator</td>
+              <td>Connect to services on other cloud platforms.</td>
+            </tr>
+          </tbody>
+        </table>
+        <section id="section-security">
+          <h2 id="security">Common security mechanisms</h2>
+          <p>As an IBM Cloud account owner or administrator, you set up security for the account by providing single sign-on, IAM role-based access control, secure communication, and other security constraints.</p>
+          <p>Following are common security mechanisms for the IBM watsonx platform:</p>
+          <ul>
+            <li>Encrypt your instance with your own key. See <a href="../console/wdp_admin_cos.html#byok">Encrypt your IBM Cloud Object Storage instance with your own key</a>.</li>
+            <li>Use IBM Key Protect to encrypt key data assets in Cloud Object Storage. See <a href="security-data.html#encrypting-at-rest-data">Encrypting at rest data</a>.</li>
+            <li>Support single sign-on using SAML federation or Active Directory. See <a href="security-account.html#sso-with-federated-ids">SSO with Federated IDs</a>.</li>
+            <li>Configure secure connections to databases that are behind a firewall. See <a href="../manage-data/securingconn.html">Connecting to data behind a firewall</a></li>
+            <li>Configure secure communication between services with Service Endpoints. See <a href="security-network.html#private-network-service-endpoints">Private network service endpoints</a>.</li>
+            <li>Control access at the IP address level. See <a href="security-network.html#allow-specific-ip-addresses">Allow specific IP addresses</a>.</li>
+            <li>Require personal credentials when creating connections. The default setting is shared credentials. See <a href="../admin/account-settings.html#set-the-credentials-for-connections">Managing your account settings</a>.</li>
+          </ul>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li>HIPAA readiness is available for some regions and plans. See <a href="security.html#hipaa">HIPAA readiness</a>.</li>
+            <li>See <a href="security-overview.html">Security for IBM watsonx</a> for a complete list of security constraints available in IBM watsonx.</li>
+            <li>See <a href="overview-wx.html">Overview of watsonx</a> to understand the architecture of the platform.</li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="../getting-started/get-started-wdp.html">Getting started</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

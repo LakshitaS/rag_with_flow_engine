@@ -1,0 +1,235 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="To access your data in Google BigQuery, create a connection asset for it.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Google BigQuery connection</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=connectors-google-bigquery-connection"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="google-bigquery-connection" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-google-bigquery-connection">
+        <h1 id="google-bigquery-connection">Google BigQuery connection</h1>
+        <p>To access your data in Google BigQuery, create a connection asset for it.</p>
+        <p>Google BigQuery is a fully managed, serverless data warehouse that enables scalable analysis over petabytes of data.</p>
+        <section id="section-create-a-connection-to-google-bigquery">
+          <h2 id="create-a-connection-to-google-bigquery">Create a connection to Google BigQuery</h2>
+          <p>To create the connection asset, choose an authentication method. Choices include an authentication with or without workload identity federation.</p>
+          <p><strong>Without workload identity federation</strong></p>
+          <ul>
+            <li><strong>Account key (full JSON snippet)</strong>: The contents of the Google service account key JSON file</li>
+            <li><strong>Client ID, Client secret, Access token, and Refresh token</strong></li>
+          </ul>
+          <p><strong>With workload identity federation</strong> <br> You use an external identity provider (IdP) for authentication. An external identity provider uses Identity and Access Management (IAM) instead of service account keys. IAM provides increased
+            security and centralized management. You can use workload identity federation authentication with an access token or with a token URL.</p>
+          <p>You can configure a Google BigQuery connection for workload identity federation with any identity provider that complies with the OpenID Connect (OIDC) specification and that satisfies the Google Cloud requirements that are described in <a href="https://cloud.google.com/iam/docs/workload-identity-federation-with-other-providers#oidc" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Prepare your external IdP</a>. The requirements include:</p>
+          <ul>
+            <li>The identity provider must support OpenID Connect 1.0.</li>
+            <li>The identity provider's OIDC metadata and JWKS endpoints must be publicly accessible over the internet. Google Cloud uses these endpoints to download your identity provider's key set and uses that key set to validate tokens.</li>
+            <li>The identity provider is configured so that your workload can obtain ID tokens that meet these criteria:
+              <ul>
+                <li>Tokens are signed with the RS256 or ES256 algorithm.</li>
+                <li>Tokens contain an aud claim.</li>
+              </ul>
+            </li>
+          </ul>
+          <p>For examples of the workload identity federation configuration steps for Amazon Web Services (AWS) and Microsoft Azure, see <a href="wif-examples.html">Workload identity federation examples</a>.</p>
+          <section id="section-workload-identity-federation-with-access-token-connection-details">
+            <h4 id="workload-identity-federation-with-access-token-connection-details">Workload Identity Federation with access token connection details</h4>
+            <ul>
+              <li>
+                <p><strong>Access token</strong>: An access token from the identity provider to connect to BigQuery.</p>
+              </li>
+              <li>
+                <p><strong>Security Token Service audience</strong>: The security token service audience that contains the project ID, pool ID, and provider ID. Use this format:</p>
+                <pre class="codeblock"><code class="lang-txt hljs">//iam.googleapis.com/projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/providers/PROVIDER_ID
+</code></pre>
+                <p>For more information, see <a href="https://cloud.google.com/iam/docs/workload-identity-federation-with-other-clouds#rest" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Authenticate a workload by using the REST API</a>.</p>
+              </li>
+              <li>
+                <p><strong>Service account email</strong>: The email address of the Google service account to be impersonated. For more information, see <a href="https://cloud.google.com/iam/docs/workload-identity-federation-with-other-clouds#create_a_service_account_for_the_external_workload" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Create a service account for the external workload</a>.</p>
+              </li>
+              <li>
+                <p><strong>Service account token lifetime</strong> (optional): The lifetime in seconds of the service account access token. The default lifetime of a service account access token is one hour. For more information, see <a href="https://cloud.google.com/iam/docs/workload-identity-federation-with-other-providers#url-sourced-credentials" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">URL-sourced credentials</a>.</p>
+              </li>
+              <li>
+                <p><strong>Token format</strong>: Text or JSON with the Token field name for the name of the field in the JSON response that contains the token.</p>
+              </li>
+              <li>
+                <p><strong>Token field name</strong>: The name of the field in the JSON response that contains the token. This field appears only when the <strong>Token format</strong> is JSON.</p>
+              </li>
+              <li>
+                <p><strong>Token type</strong>: AWS Signature Version 4 request, Google OAuth 2.0 access token, ID token, JSON Web Token (JWT), or SAML 2.0.</p>
+              </li>
+            </ul>
+          </section>
+          <section id="section-workload-identity-federation-with-token-url-connection-details">
+            <h4 id="workload-identity-federation-with-token-url-connection-details">Workload Identity Federation with token URL connection details</h4>
+            <ul>
+              <li>
+                <p><strong>Security Token Service audience</strong>: The security token service audience that contains the project ID, pool ID, and provider ID. Use this format:</p>
+                <pre class="codeblock"><code class="lang-txt hljs">//iam.googleapis.com/projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/providers/PROVIDER_ID
+</code></pre>
+                <p>For more information, see <a href="https://cloud.google.com/iam/docs/workload-identity-federation-with-other-clouds#rest" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Authenticate a workload using the REST API</a>.</p>
+              </li>
+              <li>
+                <p><strong>Service account email</strong>: The email address of the Google service account to be impersonated. For more information, see <a href="https://cloud.google.com/iam/docs/workload-identity-federation-with-other-clouds#create_a_service_account_for_the_external_workload" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Create a service account for the external workload</a>.</p>
+              </li>
+              <li>
+                <p><strong>Service account token lifetime</strong> (optional): The lifetime in seconds of the service account access token. The default lifetime of a service account access token is one hour. For more information, see <a href="https://cloud.google.com/iam/docs/workload-identity-federation-with-other-providers#url-sourced-credentials" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">URL-sourced credentials</a>.</p>
+              </li>
+              <li>
+                <p><strong>Token URL</strong>: The URL to retrieve a token.</p>
+              </li>
+              <li>
+                <p><strong>HTTP method</strong>: HTTP method to use for the token URL request: GET, POST, or PUT.</p>
+              </li>
+              <li>
+                <p><strong>Request body</strong> (for POST or PUT methods): The body of the HTTP request to retrieve a token.</p>
+              </li>
+              <li>
+                <p><strong>HTTP headers</strong>: HTTP headers for the token URL request in JSON or as a JSON body. Use format: <code>"Key1"="Value1","Key2"="Value2"</code>.</p>
+              </li>
+              <li>
+                <p><strong>Token format</strong>: Text or JSON with the Token field name for the name of the field in the JSON response that contains the token.</p>
+              </li>
+              <li>
+                <p><strong>Token field name</strong>: The name of the field in the JSON response that contains the token. This field appears only when the <strong>Token format</strong> is JSON.</p>
+              </li>
+              <li>
+                <p><strong>Token type</strong>: AWS Signature Version 4 request, Google OAuth 2.0 access token, ID token, JSON Web Token (JWT), or SAML 2.0.</p>
+              </li>
+            </ul>
+          </section>
+          <section id="section-other-properties">
+            <h3 id="other-properties">Other properties</h3>
+            <p><strong>Project ID</strong> (optional) The ID of the Google project.</p>
+            <p><strong>Output JSON string format</strong>: JSON string format for output values that are complex data types (for example, nested or repeated).</p>
+            <ul>
+              <li><strong>Pretty</strong>: Values are formatted before sending them to output. Use this option to visually read a few rows.</li>
+              <li><strong>Raw</strong>: (Default) No formatting. Use this option for the best performance.</li>
+            </ul>
+          </section>
+          <section id="section-permissions">
+            <h3 id="permissions">Permissions</h3>
+            <p>The connection to Google BigQuery requires the following BigQuery permissions:</p>
+            <ul>
+              <li><code>bigquery.job.create</code></li>
+              <li><code>bigquery.tables.get</code></li>
+              <li><code>bigquery.tables.getData</code></li>
+            </ul>
+            <p>Use one of three ways to gain these permissions:</p>
+            <ul>
+              <li>Use the predefined BigQuery Cloud IAM role <code>bigquery.admin</code>, which includes these permissions;</li>
+              <li>Use a combination of two roles, one from each column in the following table; or</li>
+              <li>Create a custom role. See <a href="https://cloud.google.com/iam/docs/creating-custom-roles" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Create and manage custom roles</a>.</li>
+            </ul>
+            <table>
+              <thead>
+                <tr>
+                  <th>First role</th>
+                  <th>Second role</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>bigquery.dataEditor</code></td>
+                  <td><code>bigquery.jobUser</code></td>
+                </tr>
+                <tr>
+                  <td><code>bigquery.dataOwner</code></td>
+                  <td><code>bigquery.user</code></td>
+                </tr>
+                <tr>
+                  <td><code>bigquery.dataViewer</code></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+            <p>For more information about permissions and roles in Google BigQuery, see <a href="https://cloud.google.com/bigquery/docs/access-control" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Predefined roles and permissions</a>.</p>
+          </section>
+          <section id="section-choose-the-method-for-creating-a-connection-based-on-where-you-are-in-the-platform">
+            <h3 id="choose-the-method-for-creating-a-connection-based-on-where-you-are-in-the-platform">Choose the method for creating a connection based on where you are in the platform</h3>
+            <dl>
+              <dt><strong>In a project</strong></dt>
+              <dd>Click <strong>Assets &gt; New asset &gt; Connect to a data source</strong>. See <a href="create-conn.html">Adding a connection to a project</a>.</dd>
+              <dt><strong>In a deployment space</strong></dt>
+              <dd>Click <strong>Add to space &gt; Connection</strong>. See <a href="../analyze-data/ml-space-add-assets.html">Adding connections to a deployment space</a>.</dd>
+              <dt><strong>In the Platform assets catalog</strong></dt>
+              <dd>Click <strong>New connection</strong>. See <a href="platform-conn.html">Adding platform connections</a>.</dd>
+            </dl>
+          </section>
+          <section id="section-next-step-add-data-assets-from-the-connection">
+            <h3 id="next-step-add-data-assets-from-the-connection">Next step: Add data assets from the connection</h3>
+            <ul>
+              <li>See <a href="connected-data.html">Add data from a connection in a project</a>.</li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-where-you-can-use-this-connection">
+          <h2 id="where-you-can-use-this-connection">Where you can use this connection</h2>
+          <p>You can use Google BigQuery connections in the following workspaces and tools:</p>
+          <p><strong>Projects</strong></p>
+          <ul>
+            <li>Data Refinery</li>
+            <li>SPSS Modeler</li>
+            <li>Synthetic Data Generator</li>
+          </ul>
+          <p><strong>Catalogs</strong></p>
+          <ul>
+            <li>Platform assets catalog</li>
+          </ul>
+        </section>
+        <section id="section-google-bigquery-setup">
+          <h2 id="google-bigquery-setup">Google BigQuery setup</h2>
+          <p><a href="https://cloud.google.com/bigquery/docs/quickstarts/quickstart-web-ui" target="_blank" rel="noopener noreferrer">Quickstart by using the Cloud Console</a></p>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="https://cloud.google.com/bigquery/docs" target="_blank" rel="noopener noreferrer">Google BigQuery documentation</a></li>
+            <li><a href="wif-examples.html">Workload identity federation examples</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="conn_types.html">Supported connections</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

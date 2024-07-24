@@ -1,0 +1,157 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Prepare a set of prompt examples to use to tune the model. The examples must contain the type of input that the model will need to process at run time and the appropriate output for the model to generate in response.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Data formats for tuning foundation models</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=model-data-formats"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="data-formats-for-tuning-foundation-models" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-data-formats-for-tuning-foundation-models">
+        <h1 id="data-formats-for-tuning-foundation-models">Data formats for tuning foundation models</h1>
+        <p>Prepare a set of prompt examples to use to tune the model. The examples must contain the type of input that the model will need to process at run time and the appropriate output for the model to generate in response.</p>
+        <p>You can add one file as training data. The maximum file size that is allowed is 200 MB.</p>
+        <p>Prompt input-and-output example pairs are sometimes also referred to as <em>samples</em> or <em>records</em>.</p>
+        <p>Follow these guidelines when you create your training data:</p>
+        <ul>
+          <li>
+            <p>Add 100 to 1,000 labeled prompt examples to a file. Between 50 to 10,000 examples are allowed.</p>
+          </li>
+          <li>
+            <p>Use one of the following formats:</p>
+            <ul>
+              <li>JavaScript Object Notation (JSON)</li>
+              <li>JSON Lines (JSONL) format</li>
+            </ul>
+          </li>
+          <li>
+            <p>Each example must include one <code>input</code> and <code>output</code> pair.</p>
+          </li>
+          <li>
+            <p>The language of the training data must be English.</p>
+          </li>
+          <li>
+            <p>If the input or output text includes quotation marks, escape each quotation mark with a backslash(<code>\</code>). For example, <code>He said, \"Yes.\"</code>.</p>
+          </li>
+          <li>
+            <p>To represent a carriage return or line break, you can use a backslash followed by <code>n</code> (<code>\n</code>) to represent the new line. For example, <code>...end of paragraph.\nStart of new paragraph</code>.</p>
+          </li>
+        </ul>
+        <p>You can control the number of tokens from the input and output that are used during training. If an input or output example from the training data is longer than the specified limit, it will be truncated. Only the allowed maximum number of tokens
+          will be used by the experiment. For more information, see <a href="fm-tuning-tune.html#tuning-tokens">Controlling the number of tokens used</a>.</p>
+        <p>How tokens are counted differs by model, which makes the number of tokens difficult to estimate. For language-based foundation models, you can think of 256 tokens as about 130—170 words and 128 tokens as about 65—85 words. To learn more about
+          tokens, see <a href="fm-tokens.html">Tokens and tokenization</a>.</p>
+        <p>If you are using the model to classify data, follow these extra guidelines:</p>
+        <ul>
+          <li>Try to limit the number of class labels to 10 or fewer.</li>
+          <li>Include an equal number of examples of each class type.</li>
+        </ul>
+        <p>You can use the Prompt Lab to craft examples for the training data. For more information, see <a href="fm-prompt-lab.html">Prompt Lab</a>.</p>
+        <p>After you collect a representative set of examples, group the examples into a set to use for training and a separate, smaller set to use for testing purposes.</p>
+        <section id="section-json-example">
+          <h2 id="json-example">JSON example</h2>
+          <p>The following example shows an excerpt from a training data file with labeled prompts for a classification task in JSON format.</p>
+          <pre class="codeblock"><code class="lang-json hljs"><span class="hljs-punctuation">{</span>
+  <span class="hljs-punctuation">[</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"input"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"Message: When I try to log in, I get an error."</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"output"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"Class name: Problem"</span>
+    <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"input"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"Message: Where can I find the plan prices?"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"output"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"Class name: Question"</span>
+    <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"input"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"Message: What is the difference between trial and paygo?"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"output"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"Class name: Question"</span>
+    <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"input"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"Message: The registration page crashed, and now I can't create a new account."</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"output"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"Class name: Problem"</span>
+    <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"input"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"Message: What regions are supported?"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"output"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"Class name: Question"</span>
+    <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"input"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"Message: I can't remember my password."</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"output"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"Class name: Problem"</span>
+    <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"input"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"Message: I'm having trouble registering for a new account."</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"output"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"Classname: Problem"</span>
+    <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"input"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"Message: A teammate shared a service instance with me, but I can't access it. What's wrong?"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"output"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"Class name: Problem"</span>
+    <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"input"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"Message: What extra privileges does an administrator have?"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"output"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"Class name: Question"</span>
+    <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"input"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"Message: Can I create a service instance for data in a language other than English?"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"output"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"Class name: Question"</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+        </section>
+        <section id="section-jsonl-example">
+          <h2 id="jsonl-example">JSONL example</h2>
+          <p>The following example shows an excerpt from a training data file with labeled prompts for a classification task in JSONL format.</p>
+          <pre class="codeblock"><code class="lang-json hljs"><span class="hljs-punctuation">{</span><span class="hljs-attr">"input"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"Message: When I try to log in, I get an error."</span><span class="hljs-punctuation">,</span><span class="hljs-attr">"output"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"Class name: Problem"</span><span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">{</span><span class="hljs-attr">"input"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"Message: Where can I find the plan prices?"</span><span class="hljs-punctuation">,</span><span class="hljs-attr">"output"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"Class name: Question"</span><span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">{</span><span class="hljs-attr">"input"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"Message: What is the difference between trial and paygo?"</span><span class="hljs-punctuation">,</span><span class="hljs-attr">"output"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"Class name: Question"</span><span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">{</span><span class="hljs-attr">"input"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"Message: The registration page crashed, and now I can't create a new account."</span><span class="hljs-punctuation">,</span><span class="hljs-attr">"output"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"Class name: Problem"</span><span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">{</span><span class="hljs-attr">"input"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"Message: What regions are supported?"</span><span class="hljs-punctuation">,</span><span class="hljs-attr">"output"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"Class name: Question"</span><span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">{</span><span class="hljs-attr">"input"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"Message: I can't remember my password."</span><span class="hljs-punctuation">,</span><span class="hljs-attr">"output"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"Class name: Problem"</span><span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">{</span><span class="hljs-attr">"input"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"Message: I'm having trouble registering for a new account."</span><span class="hljs-punctuation">,</span><span class="hljs-attr">"output"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"Classname: Problem"</span><span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">{</span><span class="hljs-attr">"input"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"Message: A teammate shared a service instance with me, but I can't access it. What's wrong?"</span><span class="hljs-punctuation">,</span><span class="hljs-attr">"output"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"Class name: Problem"</span><span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">{</span><span class="hljs-attr">"input"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"Message: What extra privileges does an administrator have?"</span><span class="hljs-punctuation">,</span><span class="hljs-attr">"output"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"Class name: Question"</span><span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">{</span><span class="hljs-attr">"input"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"Message: Can I create a service instance for data in a language other than English?"</span><span class="hljs-punctuation">,</span><span class="hljs-attr">"output"</span><span class="hljs-punctuation">:</span><span class="hljs-string">"Class name: Question"</span><span class="hljs-punctuation">}</span>
+</code></pre>
+          <p><strong>Parent topic:</strong> <a href="fm-tuning-tune.html">Tuning a model</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

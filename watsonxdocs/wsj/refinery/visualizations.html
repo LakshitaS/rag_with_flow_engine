@@ -1,0 +1,223 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Visualizing information in graphical ways gives you insights into your data. You can add steps to your Data Refinery flow while you visualize you data and see the changes. By exploring data from different perspectives with visualizations, you can identify patterns, connections, and relationships within that data as well as quickly understand large amounts of information.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Visualizing your data in Data Refinery</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=data-visualizing-your"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="visualizing-your-data-in-data-refinery" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-visualizing-your-data-in-data-refinery">
+        <h1 id="visualizing-your-data-in-data-refinery">Visualizing your data in Data Refinery</h1>
+        <p>Visualizing information in graphical ways gives you insights into your data. You can add steps to your Data Refinery flow while you visualize you data and see the changes. By exploring data from different perspectives with visualizations, you
+          can identify patterns, connections, and relationships within that data as well as quickly understand large amounts of information.</p>
+        <p>You can also visualize your data with these same charts in an SPSS Modeler flow. Use the Charts node, which is available under the Graphs section on the node palette. Double-click the Charts node to open the properties pane. Then click <strong>Launch Chart Builder</strong>          to open the chart builder and create one or more chart definitions to associate with the node.</p>
+        <p><img src="images/viz_animated.gif" alt="Chart examples"></p>
+        <p>To visualize your data:</p>
+        <ol>
+          <li>From Data Refinery, click the <strong>Visualizations</strong> tab.</li>
+          <li>Start with a chart or select columns:</li>
+        </ol>
+        <ul>
+          <li>Click any of the available charts. Then, add columns in the <strong>DETAILS</strong> pane that opens on the left side of the page.</li>
+          <li>Select the columns that you want to work with. Suggested charts are indicated with a dot next to the chart name. Click a chart to visualize your data.</li>
+        </ul>
+        <div class="note important"><span class="importanttitle">Important:</span> Available chart types are ordered from most relevant to least relevant, based on the selected columns. If there are no columns in the data set with a data type that is supported for a chart type,
+          that chart will not be available. If a column's data type is not supported for a chart, that column is not available for selection for that chart. Dots next to the charts' names suggest the best charts for your data.</div>
+        <section id="section-charts">
+          <h2 id="charts">Charts</h2>
+          <p>The following charts are included:</p>
+          <ul>
+            <li>
+              <p>3D charts display data in a 3-D coordinate system by drawing each column as a cuboid to create a 3D effect.</p>
+            </li>
+            <li>
+              <p>Bar charts are handy for displaying and comparing categories of data side by side. The bars can be in any order. You can also arrange them from high to low or from low to high.</p>
+            </li>
+            <li>
+              <p>Box plot charts compare distributions between many groups or data sets. They display the variation in groups of data: the spread and skew of that data and the outliers.</p>
+            </li>
+            <li>
+              <p>Bubble charts display each category in the groups as a bubble.</p>
+            </li>
+            <li>
+              <p>Candlestick charts are a type of financial chart that displays price movements of a security, derivative, or currency.</p>
+            </li>
+            <li>
+              <p>Circle packing charts display hierarchical data as a set of nested areas.</p>
+            </li>
+            <li>
+              <p>Customized charts give you the ability to render charts based on JSON input.</p>
+            </li>
+            <li>
+              <p>Dual Y-axes charts use two Y-axis variables to show relationships between data.</p>
+            </li>
+            <li>
+              <p>Error bars indicate the error or uncertainty in a value. They give a general idea of how precise a value is or conversely, how far a value might be from the true value.</p>
+            </li>
+            <li>
+              <p>Evaluation charts are combination charts that measure the quality of a binary classifier. You need three columns for input: actual (target) value, predict value, and confidence (0 or 1). Move the slider in the Cutoff chart to dynamically
+                update the other charts. The ROC and other charts are standard measurements of the classifier.</p>
+            </li>
+            <li>
+              <p>Heat map charts display data as color to convey activity levels or density. Typically low values are displayed as cooler colors and high values are displayed as warmer colors.</p>
+            </li>
+            <li>
+              <p>Histogram charts show the frequency distribution of data.</p>
+            </li>
+            <li>
+              <p>Line charts show trends in data over time by calculating a summary statistic for one column for each value of another column and then drawing a line that connects the values.</p>
+            </li>
+            <li>
+              <p>Map charts show geographic point data, so you can compare values and show categories across geographical regions.</p>
+            </li>
+            <li>
+              <p>Math curve charts display a group of curves based on equations that you enter. You do not use a data set with this chart. Instead, you use it to compare the results with the data set in another chart, like the scatter plot chart.</p>
+            </li>
+            <li>
+              <p>Multi-charts display up to four combinations of Bar, Line, Pie, and Scatter plot charts. You can show the same kind of chart more than once with different data. For example, two pie charts with data from different columns.</p>
+            </li>
+            <li>
+              <p>Multi-series charts display data from multiple data sets or multiple columns as a series of points that are connected by straight lines or bars.</p>
+            </li>
+            <li>
+              <p>Parallel coordinate charts display and compare rows of data (called profiles) to find similarities. Each row is a line and the value in each column of the row is represented by a point on that line.</p>
+            </li>
+            <li>
+              <p>Pie charts show proportion. Each value in a series is displayed as a proportional slice of the pie. The pie represents the total sum of the values.</p>
+            </li>
+            <li>
+              <p>Population pyramid charts show the frequency distribution of a variable across categories. They are typically used to show changes in demographic data.</p>
+            </li>
+            <li>
+              <p>Quantile-quantile (Q-Q) plot charts compare the expected distribution values with the observed values by plotting their quantiles.</p>
+            </li>
+            <li>
+              <p>Radar charts integrate three or more quantitative variables that are represented on axes (radii) into a single radial figure. Data is plotted on each axis and joined to adjacent axes by connecting lines. Radar charts are useful to show correlations
+                and compare categorized data.</p>
+            </li>
+            <li>
+              <p>Relationship charts show how columns of data relate to one another and what the strength of that relationship is by using varying types of lines.</p>
+            </li>
+            <li>
+              <p>Scatter matrix charts map columns against each other and display their scatter plots and correlation. Use to compare multiple columns and how strong their correlation is with one another.</p>
+            </li>
+            <li>
+              <p>Scatter plot charts show correlation (how much one variable is affected by another) by displaying and comparing the values in two columns.</p>
+            </li>
+            <li>
+              <p>Sunburst charts are similar to layered pie charts, in which different proportions of different categories are shown at once on multiple levels.</p>
+            </li>
+            <li>
+              <p>Theme river charts use a specialized flow graph that shows changes over time.</p>
+            </li>
+            <li>
+              <p>Time plot charts illustrate data points at successive intervals of time.</p>
+            </li>
+            <li>
+              <p>t-SNE charts help you visualize high-dimensional data sets. They're useful for embedding high-dimensional data into a space of two or three dimensions, which can then be visualized in a scatter plot.</p>
+            </li>
+            <li>
+              <p>Tree charts display hierarchical data, categorically splitting into different branches. Use to sort different data sets under different categories. The Tree chart consists of a root node, line connections called branches that represent the
+                relationships and connections between the members, and leaf nodes that do not have child nodes.</p>
+            </li>
+            <li>
+              <p>Treemap charts display hierarchical data as a set of nested areas. Use to compare sizes between groups and single elements that are nested in the groups.</p>
+            </li>
+            <li>
+              <p>Word cloud charts display how frequently words appear in text by making the size of each word proportional to its frequency.</p>
+            </li>
+          </ul>
+        </section>
+        <section id="section-actions">
+          <h2 id="actions">Actions</h2>
+          <p>You can take any of the following actions:</p>
+          <ul>
+            <li>
+              <p>Start over: Clears the visualization and the <strong>DETAILS</strong> pane, and returns you to the starting page for visualizations</p>
+            </li>
+            <li>
+              <p>Specify whether to display the field value or the field label. This option applies only to SPSS Modeler when you define labels. For example, if you have a "Gender" field and you have defined a label as female with the value 0,
+                and then the label male for value 1. If there is no label defined, the value is displayed.</p>
+            </li>
+            <li>
+              <p>Download visualization:</p>
+              <ul>
+                <li>
+                  <p>Download chart image: Download a PNG file that contains an image of the current chart.</p>
+                </li>
+                <li>
+                  <p>Download chart details: Download a JSON file that contains the details for the current chart.</p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <p>Set global preferences that apply to all charts</p>
+            </li>
+          </ul>
+        </section>
+        <section id="section-chart-actions">
+          <h2 id="chart-actions">Chart actions</h2>
+          <p>Available chart actions depend on the chart. Chart actions include:</p>
+          <ul>
+            <li>
+              <p>Zoom</p>
+            </li>
+            <li>
+              <p>Restore: View the chart at normal scale</p>
+            </li>
+            <li>
+              <p>Select data: Highlight data in the Data tab that you select in the chart</p>
+            </li>
+            <li>
+              <p>Clear selection: Remove highlighting from the data in the Data tab</p>
+            </li>
+          </ul>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p><a href="https://eazybi.com/blog/data_visualization_and_chart_types/" target="_blank" rel="noopener noreferrer">Data Visualization – How to Pick the Right Chart Type?</a></p>
+          <p><strong>Parent topic:</strong> <a href="../refinery/refining_data.html">Refining data</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

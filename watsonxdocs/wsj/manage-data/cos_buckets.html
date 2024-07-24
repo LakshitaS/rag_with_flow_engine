@@ -1,0 +1,279 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="A bucket is a logical abstraction that provides a container for data. Buckets in Cloud Object Storage are created in IBM Cloud. Within a Cloud Object Storage instance, you can use policies to restrict users' access to buckets.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Controlling access to Cloud Object Storage buckets</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=projects-controlling-access-cloud-object-storage-buckets"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="controlling-access-to-cloud-object-storage-buckets" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-controlling-access-to-cloud-object-storage-buckets">
+        <h1 id="controlling-access-to-cloud-object-storage-buckets">Controlling access to Cloud Object Storage buckets</h1>
+        <p>A bucket is a logical abstraction that provides a container for data. Buckets in Cloud Object Storage are created in IBM Cloud. Within a Cloud Object Storage instance, you can use policies to restrict users' access to buckets.</p>
+        <p>Here's how it works:</p>
+        <p><img src="images/COSInstanceAndBuckets.svg" alt="A Cloud Object Storage instance with two buckets"></p>
+        <p>In this illustration, two credentials are associated with a Cloud Object Storage instance. Each of the credentials references an IAM service ID in which policies are defined to control which bucket that service ID can access. By using a specific
+          credential when you add a Cloud Object Storage connection to a project, only the buckets accessible to the service ID associated with that credential are visible.</p>
+        <p>To create connections that restrict users' access to buckets, follow these steps.</p>
+        <p>First, in IBM Cloud:</p>
+        <ol>
+          <li>
+            <p><a href="#createbucket">Create a Cloud Object Storage instance and several buckets</a></p>
+          </li>
+          <li>
+            <p><a href="#credentials">Create a service credential and Service ID for each combination of buckets that you want users to be able to access</a></p>
+          </li>
+          <li>
+            <p><a href="#verify">Verify that the service IDs were created</a></p>
+          </li>
+          <li>
+            <p><a href="#policy">Edit the policies of each service ID to provide access to the appropriate buckets</a></p>
+          </li>
+          <li>
+            <p><a href="#copy">Copy values from each of the service credentials that you created</a></p>
+          </li>
+          <li>
+            <p><a href="#endpoint">Copy the endpoint</a></p>
+            <p>Then, in your project:</p>
+          </li>
+          <li>
+            <p><a href="#add">Add Cloud Object Storage connections that use the service credentials that you created</a></p>
+          </li>
+          <li>
+            <p><a href="#test">Test users' access to buckets</a></p>
+          </li>
+        </ol>
+        <section id="section-createbucket">
+          <h2 id="createbucket">Step 1: Create a Cloud Object Storage instance and several buckets</h2>
+          <ol>
+            <li>
+              <p>From the <a href="https://cloud.ibm.com/catalog#services" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud catalog</a>, search for Object Storage, then create a Cloud Object Storage instance.</p>
+            </li>
+            <li>
+              <p>Select <strong>Buckets</strong> in the navigation pane.</p>
+            </li>
+            <li>
+              <p>Create as many buckets as you need.</p>
+              <p>For example, create three buckets: dept1-bucket, dept2-bucket, and dept3-bucket.</p>
+              <p><img src="images/BucketsAndObjectsPage.png" alt="Buckets page"></p>
+            </li>
+          </ol>
+        </section>
+        <section id="section-credentials">
+          <h2 id="credentials">Step 2: Create a service credential and Service ID for each combination of buckets that you want users to be able to access</h2>
+          <ol>
+            <li>
+              <p>Select <strong>Service credentials</strong> in the navigation pane.</p>
+            </li>
+            <li>
+              <p>Click <strong>New Credential</strong>.</p>
+            </li>
+            <li>
+              <p>In the Add new credential dialog, provide a name for the credential and select the appropriate access role.</p>
+            </li>
+            <li>
+              <p>Within the <strong>Select Service ID</strong> field, click <strong>Create New Service ID</strong>.</p>
+            </li>
+            <li>
+              <p>Enter a name for the new service ID. We recommend using the same or a similar name to that of the credential for easy identification.</p>
+            </li>
+            <li>
+              <p>Click <strong>Add</strong>.</p>
+            </li>
+            <li>
+              <p>Repeat steps 2 to 6 for each credential that you want to create.</p>
+              <p>For example, create three credentials: cos-all-access, dept1-dept2-buckets-only, and dept2-dept3-buckets-only.</p>
+              <p><img src="images/ServiceCredentialsPage.png" alt="Service credentials page"></p>
+            </li>
+          </ol>
+        </section>
+        <section id="section-verify">
+          <h2 id="verify">Step 3: Verify that the service IDs were created</h2>
+          <ol>
+            <li>
+              <p>In the IBM Cloud page header, click <strong>Manage &gt; Access (IAM)</strong>.</p>
+            </li>
+            <li>
+              <p>Select <strong>Service IDs</strong> in the navigation pane.</p>
+            </li>
+            <li>
+              <p>Confirm that the service IDs you created in steps 2d and 2e are visible.</p>
+              <p><img src="images/ServiceIDsPage.png" alt="Service IDs page"></p>
+            </li>
+          </ol>
+        </section>
+        <section id="section-policy">
+          <h2 id="policy">Step 4: Edit the policies of each service ID to provide access to the appropriate buckets</h2>
+          <ol>
+            <li>
+              <p>Open each service ID in turn.</p>
+            </li>
+            <li>
+              <p>On the Access policies tab, select <strong>Edit</strong> from the Actions menu to view the policy.</p>
+            </li>
+            <li>
+              <p>If necessary, edit the policy to provide access to the appropriate buckets.</p>
+            </li>
+            <li>
+              <p>If needed, create one or more new policies.</p>
+              <ol>
+                <li>
+                  <p>Remove the existing, default policy which provides access to all of the buckets in the Cloud Object Storage instance.</p>
+                </li>
+                <li>
+                  <p>Click <strong>Assign access</strong>.</p>
+                </li>
+                <li>
+                  <p>For <strong>Resource type</strong>, specify "bucket".</p>
+                </li>
+                <li>
+                  <p>For <strong>Resource ID</strong>, specify a bucket name.</p>
+                </li>
+                <li>
+                  <p>In the Select roles section, select <strong>Viewer</strong> from the "Assign platform access roles" list and select <strong>Writer</strong> from the "Assign service access roles" list.</p>
+                </li>
+              </ol>
+            </li>
+          </ol>
+          <section id="section-example-1">
+            <h3 id="example-1">Example 1</h3>
+            <p>By default, the policy for the cos-all-access service ID provides Writer access to the Cloud Object Storage instance.<br></p>
+            <p><img src="images/AccessPoliciesPageForcosallaccess.png" alt="Access policies tab for the cos-all-access service ID"></p>
+            <p>Because you want this service ID and the corresponding credential to provide users with access to all of the buckets, no edits are required.<br></p>
+            <p><img src="images/cosallaccessServiceIDPolicy.png" alt="Edit policy page for the cos-all-access service ID"></p>
+          </section>
+          <section id="section-example-2">
+            <h3 id="example-2">Example 2</h3>
+            <p>By default, the policy for the "dept1-dept2-buckets-only" service ID provides Writer access to the Cloud Object Storage instance. Because you want this service ID and the corresponding credential to provide users with access only
+              to the dept1-bucket and dept2-bucket buckets, remove the default policy and create two access policies, one for dept1-bucket and one for dept2-bucket.<br></p>
+            <p><img src="images/AccessPoliciesPageFordept1dept2bucketsonly.png" alt="Access policies tab for the dept1-dept2-buckets-only service ID"></p>
+            <p><img src="images/SelectRolesSection_dept1.png" alt="Edit Policy page for the dept1-bucket-only service ID"></p>
+            <p><img src="images/SelectRolesSection_dept2.png" alt="Edit Policy page for the dept2-bucket-only service ID"></p>
+          </section>
+        </section>
+        <section id="section-step-5-copy-values-from-each-of-the-service-credentials-that-you-created">
+          <h2 id="step-5-copy-values-from-each-of-the-service-credentials-that-you-created">Step 5: Copy values from each of the service credentials that you created</h2>
+          <p id="copy"></p>
+          <ol>
+            <li>
+              <p>Return to your IBM Cloud Dashboard and select Cloud Object Storage from the <strong>Storage</strong> list.</p>
+            </li>
+            <li>
+              <p>Select <strong>Service credentials</strong> in the navigation pane.</p>
+            </li>
+            <li>
+              <p>Click the <strong>View credentials</strong> action for one of the service IDs that you created in step 2.</p>
+            </li>
+            <li>
+              <p>Copy the "apikey" value and the "resource_instance_id" value to a temporary location, such as a desktop note.</p>
+              <p><img src="images/ViewCredentials_apikey.png" alt="cos-all-access credential"></p>
+              <p><img src="images/ViewCredentials_resourceinstanceid.png" alt="cos-all-access credential"></p>
+            </li>
+            <li>
+              <p>Repeat steps 3 and 4 for each credential.</p>
+            </li>
+          </ol>
+        </section>
+        <section id="section-endpoint">
+          <h2 id="endpoint">Step 6: Copy the Endpoint</h2>
+          <ol>
+            <li>
+              <p>Select <strong>Endpoint</strong> in the navigation pane.</p>
+            </li>
+            <li>
+              <p>Copy the URL of the endpoint that you want to connect to. Save the value to a temporary location, such as a desktop note.</p>
+            </li>
+          </ol>
+        </section>
+        <section id="section-add">
+          <h2 id="add">Step 7: Add Cloud Object Storage connections that use the service credentials that you created</h2>
+          <ol>
+            <li>
+              <p>Return to your project on the <em>Assets</em> tab, and click <strong>New asset &gt; Connect to a data source</strong>..</p>
+              <!--![Add to project menu](images/Addtoproject_Connection.png)-->
+            </li>
+            <li>
+              <p>On the New connection page, click <strong>Cloud Object Storage</strong>.</p>
+            </li>
+            <li>
+              <p>Name the new connection and enter the login URL (from the Endpoints page) as well as the "apikey" and "resource_instance_id" values that you copied in step 5 from one of the service credentials.</p>
+              <!--![New connection page for IBM Cloud Object Storage](images/NewConnectionPage_IBMCOS.png)-->
+            </li>
+            <li>
+              <p>Repeat steps 3 to 5 for each service credential.</p>
+              <p>The connections will be visible in the Data assets section of the project.
+                <!--, for example:-->
+              </p>
+              <!--![New connections in the Data assets section of the project](images/DataAssets_Connections.png)-->
+            </li>
+          </ol>
+        </section>
+        <section id="section-test">
+          <h2 id="test">Test users' access to buckets</h2>
+          <p>Going forward, when you add a data asset from a Cloud Object Storage connection to a project, you'll see only the buckets that the policies allow you to access. To test this:</p>
+          <ol>
+            <li>
+              <p>From a project, click <strong>New asset &gt; Connected data</strong>. Or from a catalog, click <strong>Add to project &gt; Connected data</strong>.</p>
+            </li>
+            <li>
+              <p>In the Connection source section, click <strong>Select source</strong>.</p>
+              <p>On the Select connection source page, you can see the Cloud Object Storage connections that you created.
+                <!--, for example:-->
+              </p>
+              <!--![Cloud Object Storage connections](images/SelectConnectionSourcePage.png)-->
+            </li>
+            <li>
+              <p>Select one of the Cloud Object Storage connections to see that only the buckets accessible to the service ID associated with that bucket's credential are visible.</p>
+              <!--For example, selecting the jcm-cos-all-access connection shows you all the buckets in the Cloud Object Storage instance.-->
+              <!--![jcm-cos-all-access connection](images/jcmCosAllAccess.png)-->
+              <!--Selecting the jcm-cos-dept1-dept2 connection shows you only the dept1-bucket and dept2-bucket buckets.-->
+              <!--![jcm-cos-dept1-dept2 connection](images/jcmCosDept1Dept2.png)-->
+              <!--Selecting the jcm-cos-dept2-dept3 connection shows you only the dept2-bucket and dept3-bucket buckets.-->
+              <!--![jcm-cos-dept2-dept3 connection](images/jcmCosDept2Dept3.png)-->
+            </li>
+          </ol>
+          <p><strong>Parent topic:</strong>
+            <a href="../manage-data/create-conn.html">Adding connections to projects</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

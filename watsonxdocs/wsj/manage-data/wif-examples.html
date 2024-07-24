@@ -1,0 +1,216 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Workload identity federation for the Google BigQuery and Google Cloud Storage connections is supported by any identity provider that supports OpenID Connect (OIDC) or SAML 2.0.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Workload identity federation examples</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=connection-workload-identity-federation-examples"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="workload-identity-federation-examples" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-workload-identity-federation-examples">
+        <h1 id="workload-identity-federation-examples">Workload identity federation examples</h1>
+        <p>Workload identity federation for the Google BigQuery and Google Cloud Storage connections is supported by any identity provider that supports OpenID Connect (OIDC) or SAML 2.0.</p>
+        <p>These examples are for <a href="#aws">AWS with Amazon Cognito</a> and for <a href="#azure">Microsoft Azure</a>.</p>
+        <section id="section-aws">
+          <h2 id="aws">AWS</h2>
+          <section id="section-configure-workload-identity-federation-in-amazon-cognito">
+            <h3 id="configure-workload-identity-federation-in-amazon-cognito">Configure workload identity federation in Amazon Cognito</h3>
+            <ol>
+              <li>
+                <p>Create an OIDC identity provider (IdP) with Cognito by following the instructions in the Amazon documentation:</p>
+                <ul>
+                  <li><a href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-as-user-directory.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Step 1. Create a user pool</a></li>
+                  <li><a href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-configuring-app-integration.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Step 2. Add an app client and set up the hosted UI</a></li>
+                </ul>
+                <p>For more information, see <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-getting-started.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Getting started with Amazon Cognito</a>.</p>
+              </li>
+              <li>
+                <p>Create a group and user in the IdP with the AWS console. Or you can use AWS CLI:</p>
+                <pre class="codeblock"><code class="lang-txt hljs">CLIENT_ID=YourClientId
+ISSUER_URL=https://cognito-idp.YourRegion.amazonaws.com/YourPoolId
+POOL_ID=YourPoolId
+USERNAME=YourUsername
+PASSWORD=YourPassword
+GROUPNAME=YourGroupName
+
+aws cognito-idp admin-create-user --user-pool-id $POOL_ID --username $USERNAME --temporary-password Temp-Pass1
+aws cognito-idp admin-set-user-password --user-pool-id $POOL_ID --username $USERNAME --password $PASSWORD --permanent
+aws cognito-idp create-group --group-name $GROUPNAME --user-pool-id $POOL_ID
+aws cognito-idp admin-add-user-to-group --user-pool-id $POOL_ID --username $USERNAME --group-name $GROUPNAME
+</code></pre>
+              </li>
+              <li>
+                <p>From the AWS console, click <strong>View Hosted UI</strong> and log in to the IDP UI in a browser to ensure that any new password challenge is resolved.</p>
+              </li>
+              <li>
+                <p>Get an IdToken with the AWS CLI:</p>
+                <pre class="codeblock"><code class="lang-txt hljs">aws cognito-idp admin-initiate-auth --auth-flow ADMIN_USER_PASSWORD_AUTH --client-id $CLIENT_ID --auth-parameters USERNAME=$USERNAME,PASSWORD=$PASSWORD --user-pool-id $POOL_ID
+</code></pre>
+                <p>For more information on the Amazon Cognito User Pools authentication flow, see <a href="https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminInitiateAuth.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">AdminInitiateAuth</a>.</p>
+              </li>
+            </ol>
+          </section>
+          <section id="section-configure-google-cloud-for-amazon-cognito">
+            <h3 id="configure-google-cloud-for-amazon-cognito">Configure Google Cloud for Amazon Cognito</h3>
+            <p>When you create the provider in Google Cloud, use these settings:</p>
+            <ul>
+              <li>Set <strong>Issuer (URL)</strong> to <code>https://cognito-idp.YourRegion.amazonaws.com/YourPoolId</code>.</li>
+              <li>Set <strong>Allowed Audience</strong> to your client ID.</li>
+              <li>Under <strong>Attribute Mapping</strong>, map <code>google.subject</code> to <code>assertion.sub</code>.</li>
+            </ul>
+          </section>
+          <section id="section-create-the-connection-with-amazon-cognito-workload-identity-federation">
+            <h3 id="create-the-connection-with-amazon-cognito-workload-identity-federation">Create the connection with Amazon Cognito workload identity federation</h3>
+            <ol>
+              <li>
+                <p>Choose the <strong>Workload Identity Federation with access token</strong> authentication method.</p>
+              </li>
+              <li>
+                <p>For the <strong>Security Token Service audience</strong> field, use this format:</p>
+                <pre class="codeblock"><code class="lang-txt hljs">//iam.googleapis.com/projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/providers/PROVIDER_ID
+</code></pre>
+              </li>
+              <li>
+                <p>For the <strong>Service account e-mail</strong>, enter the email address of the Google service account to be impersonated. For more information, see <a href="https://cloud.google.com/iam/docs/workload-identity-federation-with-other-clouds#create_a_service_account_for_the_external_workload" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Create a service account for the external workload</a>.</p>
+              </li>
+              <li>
+                <p>(Optional) Specify a value for the <strong>Service account token lifetime</strong> in seconds. The default lifetime of a service account access token is one hour. For more information, see <a href="https://cloud.google.com/iam/docs/workload-identity-federation-with-other-providers#url-sourced-credentials" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">URL-sourced credentials</a>.</p>
+              </li>
+              <li>
+                <p>Set <strong>Token format</strong> to <code>Text</code></p>
+              </li>
+              <li>
+                <p>Set <strong>Token type</strong> to <code>ID token</code></p>
+              </li>
+            </ol>
+          </section>
+        </section>
+        <section id="section-azure">
+          <h2 id="azure">Azure</h2>
+          <section id="section-configure-workload-identity-federation-in-azure">
+            <h3 id="configure-workload-identity-federation-in-azure">Configure workload identity federation in Azure</h3>
+            <ol>
+              <li>
+                <p><a href="https://learn.microsoft.com/en-au/azure/active-directory/develop/howto-create-service-principal-portal#register-an-application-with-azure-ad-and-create-a-service-principal" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Create an Azure AD application and service principal</a>.</p>
+              </li>
+              <li>
+                <p>Set an <strong>Application ID URI</strong> for the application. You can use the default Application ID URI (<code>api://APPID</code>) or specify a custom URI. <br><br>You can skip the instructions on creating a managed identity.</p>
+              </li>
+              <li>
+                <p>Follow the instructions to <a href="https://learn.microsoft.com/en-au/azure/active-directory/develop/howto-create-service-principal-portal#option-2-create-a-new-application-secret" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">create a new application secret</a>                  to get an access token with the REST API.</p>
+                <p>For more information, see <a href="https://cloud.google.com/iam/docs/workload-identity-federation-with-other-clouds#azure" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Configure workload identity federation with Azure</a>.</p>
+              </li>
+            </ol>
+          </section>
+          <section id="section-configure-google-cloud-for-azure">
+            <h3 id="configure-google-cloud-for-azure">Configure Google Cloud for Azure</h3>
+            <ol>
+              <li>Follow the instructions: <a href="https://cloud.google.com/iam/docs/workload-identity-federation-with-other-clouds#configure" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Configure workload identity federation</a>.</li>
+              <li>Follow the instructions: <a href="https://cloud.google.com/iam/docs/workload-identity-federation-with-other-clouds#create_the_workload_identity_pool_and_provider" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Create the workload identity pool and provider</a>.
+                When you configure the provider, use these settings:
+                <ul>
+                  <li>Set <strong>Issuer (URL)</strong> to <code>https://sts.windows.net/TENANTID/</code>, where <code>TENANTID</code> is the tenant ID that you received when you set up Azure Active Directory.</li>
+                  <li>Set the <strong>Allowed audience</strong> to the client ID that you received when you set up the app registration. Or specify another <strong>Application ID URI</strong> that you used when you set up the application identity in Azure.</li>
+                  <li>Under <strong>Attribute Mapping</strong>, map <code>google.subject</code> to <code>assertion.sub</code>.</li>
+                </ul>
+              </li>
+            </ol>
+          </section>
+          <section id="section-create-the-connection-with-azure-workload-identity-federation">
+            <h3 id="create-the-connection-with-azure-workload-identity-federation">Create the connection with Azure workload identity federation</h3>
+            <ol>
+              <li>
+                <p>Choose one of these authentication methods:</p>
+                <ul>
+                  <li><strong>Workload Identity Federation with access token</strong></li>
+                  <li><strong>Workload Identity Federation with token URL</strong></li>
+                </ul>
+              </li>
+              <li>
+                <p>For the <strong>Security Token Service audience</strong> field, use the format that is described in <a href="https://cloud.google.com/iam/docs/workload-identity-federation-with-other-clouds#azure_7" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Authenticate a workload that uses the REST API</a>. For example:</p>
+                <pre class="codeblock"><code class="lang-txt hljs">//iam.googleapis.com/projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/providers/PROVIDER_ID
+</code></pre>
+              </li>
+              <li>
+                <p>For the <strong>Service account e-mail</strong>, enter the email address of the Google service account to be impersonated. For more information, see <a href="https://cloud.google.com/iam/docs/workload-identity-federation-with-other-clouds#create_a_service_account_for_the_external_workload" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Create a service account for the external workload</a>.</p>
+              </li>
+              <li>
+                <p>(Optional) Specify a value for the <strong>Service account token lifetime</strong> in seconds. The default lifetime of a service account access token is one hour. For more information, see <a href="https://cloud.google.com/iam/docs/workload-identity-federation-with-other-providers#url-sourced-credentials" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">URL-sourced credentials</a>.</p>
+              </li>
+              <li>
+                <p>If you specified <strong>Workload Identity Federation with token URL</strong>, use these values:</p>
+                <ul>
+                  <li><strong>Token URL</strong>: <code>https://login.microsoftonline.com/TENANT_ID/oauth2/v2.0/token</code>. This URL will fetch a token from Azure.</li>
+                  <li><strong>HTTP method</strong>: <code>POST</code></li>
+                  <li><strong>HTTP headers</strong>: <code>"Content-Type"="application/x-www-form-urlencoded;charset=UTF-8","Accept"="application/json"</code></li>
+                  <li><strong>Request body</strong>: <code>grant_type=client_credentials&amp;client_id=CLIENT_ID&amp;client_secret=CLIENT_SECRET&amp;scope=APPLICATION_ID_URI/.default</code></li>
+                </ul>
+              </li>
+              <li>
+                <p>For <strong>Token type</strong>, select <strong>ID token</strong> for an identity provider that complies with the OpenID Connect (OIDC) specification. For information, see <a href="https://cloud.google.com/docs/authentication/token-types" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Token types</a>.</p>
+              </li>
+              <li>
+                <p>The <strong>Token format</strong> option depends on that authentication selection:</p>
+                <ul>
+                  <li><strong>Workload Identity Federation with access token</strong>: Select <strong>Text</strong> if you supplied the raw token value in the <strong>Access token</strong> field.</li>
+                  <li><strong>Workload Identity Federation with token URL</strong>: For a response from the token URL in JSON format with the access token that is returned in a field named <code>access_token</code>, use these settings:
+                    <ul>
+                      <li><strong>Token format</strong>: <code>JSON</code></li>
+                      <li><strong>Token field name</strong>: <code>access_token</code></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ol>
+          </section>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="https://cloud.google.com/iam/docs/workload-identity-federation" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Workload identity federation (Google Cloud)</a></li>
+            <li><a href="https://cloud.google.com/iam/docs/workload-identity-federation-with-other-clouds" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Configure workload identity federation on the identity provider (Google Cloud)</a></li>
+            <li><a href="https://github.com/googleapis/google-auth-library-java#workforce-identity-federation" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Generate a credentials configuration file (Google Cloud)</a></li>
+          </ul>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

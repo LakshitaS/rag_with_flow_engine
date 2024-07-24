@@ -1,0 +1,218 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Create a batch deployment to process input data from a file, data connection, or connected data in a storage bucket, and write the output to a selected destination.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Creating batch deployments in Watson Machine Learning</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=assets-creating-batch-deployments"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="creating-batch-deployments-in-watson-machine-learning" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-creating-batch-deployments-in-watson-machine-learning">
+        <h1 id="creating-batch-deployments-in-watson-machine-learning">Creating batch deployments in Watson Machine Learning</h1>
+        <p>Create a batch deployment to process input data from a file, data connection, or connected data in a storage bucket, and write the output to a selected destination.</p>
+        <section id="section-creating-a-batch-deployment">
+          <h2 id="creating-a-batch-deployment">Creating a batch deployment</h2>
+          <p>Unlike an online deployment, where data is submitted directly to the endpoint URL for real-time scoring or processing, a batch deployment provides more control over the scoring process. Follow this sequence to create a batch deployment job:</p>
+          <ol>
+            <li>Organize your resources in a deployment space. You can promote or add the deployable asset, and optionally add data files or data connections for scoring the deployment.</li>
+            <li>When you deploy the asset, such as a machine learning model, you choose Batch as the deployment type.</li>
+            <li>Create and configure a batch deployment job. You must specify the input data for the deployment, location for writing the output, details for running the job on a schedule or on demand. You can also configure optional settings such as hardware
+              configuration details or options for notification.</li>
+            <li>Running the job submits the input data to the deployment endpoint, and writes the output to the output file. You can view or download the output from the Assets page of the space after the job completes successfully.</li>
+          </ol>
+        </section>
+        <section id="section-deployable_assets_batch">
+          <h2 id="deployable_assets_batch">Deployable asset types for batch deployments</h2>
+          <p>You can create batch deployments for these types of assets:</p>
+          <ul>
+            <li>Functions
+              <ul>
+                <li><a href="deploy-batch-input-py-function.html">Python functions</a></li>
+              </ul>
+            </li>
+            <li>Models
+              <ul>
+                <li><a href="deploy-batch-input-autoai.html">AutoAI models</a></li>
+                <li><a href="deploy-batch-input-do.html">Decision Optimization models</a></li>
+                <li>PMML Models</li>
+                <li>PyTorch-Onnx</li>
+                <li><a href="deploy-batch-input-scikit.html">Scikit-learn models</a></li>
+                <li>Spark MLlib</li>
+                <li><a href="deploy-batch-input-spss.html">SPSS Modeler models</a></li>
+                <li><a href="deploy-batch-input-tensorflow.html">Tensorflow models</a></li>
+                <li><a href="deploy-batch-input-scikit.html">XGBoost models</a></li>
+              </ul>
+            </li>
+            <li>Scripts
+              <ul>
+                <li><a href="deploy-batch-input-py-script.html">Python scripts</a></li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section id="section-ways-to-create-a-batch-deployment">
+          <h2 id="ways-to-create-a-batch-deployment">Ways to create a batch deployment</h2>
+          <p>You can create a batch deployment in one of these ways:</p>
+          <ul>
+            <li>Use a no-code approach to <a href="#batch-ui">create a batch deployment from a deployment space</a>.</li>
+            <li>Use code to <a href="#batch-notebooks">create a batch deployment programmatically in notebooks</a>.</li>
+          </ul>
+        </section>
+        <section id="section-batch-ui">
+          <h2 id="batch-ui">Creating a batch deployment from a deployment space</h2>
+          <p>Follow these steps to create and test a batch deployment.</p>
+          <section id="section-before-you-begin">
+            <h3 id="before-you-begin">Before you begin</h3>
+            <p>You must promote the saved model from your project to your deployment space. For more information, see <a href="../analyze-data/ml-spaces_local.html">Deployment spaces</a>.</p>
+          </section>
+          <section id="section-creating-a-batch-deployment-2">
+            <h3 id="creating-a-batch-deployment-2">Creating a batch deployment</h3>
+            <p>Follow these steps to create your batch deployment from a deployment space:</p>
+            <ol>
+              <li>
+                <p>From the <strong>Assets</strong> tab in your deployment space, click the name of the model that you want to deploy.</p>
+              </li>
+              <li>
+                <p>Click <strong>New deployment</strong>.</p>
+              </li>
+              <li>
+                <p>Choose <strong>Batch</strong> as the deployment type.</p>
+              </li>
+              <li>
+                <p>Enter a name and an optional description for your deployment.</p>
+              </li>
+              <li>
+                <p>Select a <a href="ml-hardware-configs.html">hardware specification</a>.</p>
+                <div class="note restriction"><span class="restrictiontitle">Restriction:</span>
+                  <md-block>
+                    <p>If you want to use a custom hardware specification, you must create and select the custom hardware specification by using the <a href="https://ibm.github.io/watson-machine-learning-sdk/core_api.html#client.HwSpec.store"><code>hardware_specifications.store</code> function</a>                      from the <a href="https://www.ibm.com/links?url=https%3A%2F%2Fibm.github.io%2Fwatson-machine-learning-sdk%2F">Python client</a> or <a href="https://api.dataplatform.cloud.ibm.com/v2/environments/docs/swagger/#/">Environments API</a>.
+                      You cannot create or select a custom hardware specification from the user interface in a deployment space.</p>
+                    <p></p>
+                  </md-block>
+                </div>
+                <p></p>
+              </li>
+              <li>
+                <p>Click <strong>Create</strong>. When status changes to <strong>Deployed</strong>, your deployment is created.</p>
+              </li>
+            </ol>
+          </section>
+          <section id="section-testing-a-batch-deployment">
+            <h3 id="testing-a-batch-deployment">Testing a batch deployment</h3>
+            <p>To test a batch deployment from your deployment space, you must create a batch job to submit data for processing.</p>
+            <ol>
+              <li>Click <strong>New job</strong> to create a batch job for the deployed asset.</li>
+              <li>Follow the prompts to define the job, specifying input data, and details for running the job.</li>
+              <li>Save and run the job manually or on a specified schedule.</li>
+            </ol>
+            <p>To learn more about creating, running, and managing jobs, see <a href="create-jobs.html">Creating jobs in a deployment space</a>.</p>
+            <p><img src="images/batch-deployment-job.png" alt="Test a batch deployment by creating a batch job" style="max-width:90%;height:auto;width:auto"></p>
+          </section>
+          <section id="section-batch-endpoint">
+            <h3 id="batch-endpoint">Retrieving the endpoint for a batch deployment</h3>
+            <p>You must retrieve the endpoint URL to access your batch deployment from your applications. Follow these steps to get the endpoint URL for your batch deployment:</p>
+            <ol>
+              <li>From your deployment space, click the name of your batch deployment.</li>
+              <li>From the deployment details page, click the name of your batch job.</li>
+            </ol>
+            <div class="note note"><span class="notetitle">Note:</span>
+              <md-block>
+                <p>If you don't have an existing batch job for your batch deployment, you must create one. For more information, see <a href="create-jobs.html">Creating jobs in a deployment space</a>.</p>
+                <p></p>
+              </md-block>
+            </div>
+            <p></p>
+            <ol start="3">
+              <li>From the batch job details page, you can access the endpoint URL for your batch deployment. Click the copy (<img src="images/copy-to-clipboard-icon.png" alt="Copy to clipboard icon" height="20" style="vertical-align:text-bottom">) icon to
+                copy the endpoint URL to your clipboard.</li>
+            </ol>
+            <p><img src="images/batch-deployment-endpoint.png" alt="Retrieve endpoint URL for batch deployment" style="max-width:90%;height:auto;width:auto"></p>
+          </section>
+          <section id="section-accessing-batch-deployment-details">
+            <h3 id="accessing-batch-deployment-details">Accessing batch deployment details</h3>
+            <p>You can view the configuration details such as hardware and software specifications. You can also get the deployment ID, which you can use in API calls from an endpoint.</p>
+            <p>Follow these steps to review or update the details for your batch deployment:</p>
+            <ol>
+              <li>From the <strong>Deployments</strong> tab of your space, click a deployment name.</li>
+              <li>Click the <strong>Deployment details</strong> tab to access information that is related to your batch deployment.</li>
+            </ol>
+            <p><img src="images/batch-deployment-details.png" alt="View batch deployment details" style="max-width:90%;height:auto;width:auto"></p>
+          </section>
+        </section>
+        <section id="section-batch-notebooks">
+          <h2 id="batch-notebooks">Creating a batch deployment programmatically by using notebooks</h2>
+          <p>You can create a batch deployment programmatically by using:</p>
+          <ul>
+            <li><a href="https://ibm.github.io/watson-machine-learning-sdk/">Watson Machine Learning Python client library</a>.</li>
+            <li><a href="https://cloud.ibm.com/apidocs/machine-learning-cp">Watson Machine Learning REST API</a>.</li>
+          </ul>
+          <p>To access sample notebooks that demonstrate how to create and manage deployments by using Watson Machine Learning Python client, see <a href="ml-samples-overview.html">Watson Machine Learning Python client samples and examples</a>.</p>
+          <section id="section-testing-your-batch-deployment-programmatically">
+            <h3 id="testing-your-batch-deployment-programmatically">Testing your batch deployment programmatically</h3>
+            <p>To test your batch deployment programmatically, you must create and run a batch job. After the batch-scoring runs successfully, the results are written to a file.</p>
+          </section>
+          <section id="section-retrieving-the-endpoint-for-a-batch-deployment-programmatically">
+            <h3 id="retrieving-the-endpoint-for-a-batch-deployment-programmatically">Retrieving the endpoint for a batch deployment programmatically</h3>
+            <p>To retrieve the endpoint URL of your batch deployment from a notebook:</p>
+            <ol>
+              <li>List the deployments by calling the <a href="https://ibm.github.io/watson-machine-learning-sdk/core_api.html#client.Deployments.list">Python client method</a> <code>client.deployments.list()</code>.</li>
+              <li>Find the row with your deployment. The deployment endpoint URL is listed in the <code>url</code> column.</li>
+            </ol>
+          </section>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li>To learn more about testing your batch deployment by creating a batch job, see <a href="../analyze-data/create-jobs.html">Creating jobs in deployment spaces</a>.</li>
+            <li>To access sample notebooks for batch deployments, see:
+              <ul>
+                <li><a href="../analyze-data/ml-samples-overview.html">Machine Learning samples and examples</a></li>
+                <li><a href="https://ibm.github.io/watson-machine-learning-sdk/">Watson Machine Learning Python client library</a></li>
+                <li><a href="https://cloud.ibm.com/apidocs/machine-learning-cp">REST API</a></li>
+              </ul>
+            </li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="../analyze-data/ml-deploy-general.html">Managing predictive deployments</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

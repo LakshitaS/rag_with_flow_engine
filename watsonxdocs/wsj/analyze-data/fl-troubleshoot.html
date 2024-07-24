@@ -1,0 +1,80 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="The following are some of the limitations and troubleshoot methods that apply to Federated learning experiments.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Troubleshooting Federated Learning experiments</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=learning-limitations-troubleshooting"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="troubleshooting-federated-learning-experiments" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-troubleshooting-federated-learning-experiments">
+        <h1 id="troubleshooting-federated-learning-experiments">Troubleshooting Federated Learning experiments</h1>
+        <p>The following are some of the limitations and troubleshoot methods that apply to Federated learning experiments.</p>
+        <section id="section-fl-troubleshoot-limit">
+          <h2 id="fl-troubleshoot-limit">Limitations</h2>
+          <ul>
+            <li>If you choose to enable homomorphic encryption, intermediate models can no longer be saved. However, the final model of the training experiment can be saved and used normally. The aggregator will not be able to decrypt the model updates and
+              the intermediate global models. The aggregator can see only the final global model.</li>
+          </ul>
+        </section>
+        <section id="section-fl-troubleshoot-troubleshoot">
+          <h2 id="fl-troubleshoot-troubleshoot">Troubleshooting</h2>
+          <ul>
+            <li>If a quorum error occurs during homomorphic keys distribution, restart the experiment.
+              <!--- If a party that drops and rejoins encounters a decryption failure in an experiment that applies homomorphic encryption, the party should try to reconnect to the aggregator. If the decryption failure causes the experiment to fail with a time-out, try to restart the experiment. You can also configure the experiment with a quorum parameter value that allows the experiment to complete successfully in cases where some parties drop from the experiment. For more details on quorum, see [Hyperparameters](fl-param.html).-->
+            </li>
+            <li>Changing the name of a Federated Learning experiment causes it to lose its current name, including earlier runs. If this is not intended, create a new experiment with the new name.</li>
+            <li>The default software spec is used by every run. If your model type becomes outdated and not compatible with future software specs, re-running an older experiment might run into issues.</li>
+            <li>As Remote Training Systems are meant to run on different servers, you might encounter unexpected behavior when you run with multiple parties that are based in the same server.</li>
+          </ul>
+        </section>
+        <section id="section-federated-learning-known-issues">
+          <h2 id="federated-learning-known-issues">Federated Learning known issues</h2>
+          <ul>
+            <li><a href="../getting-started/known-issues.html#wml">Known issues for Federated Learning</a></li>
+            <li><a href="https://www.ibm.com/docs/SSQNUZ_4.8.x/wsj/getting-started/known-issues.html#wml">Known issues for Federated Learning</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="fed-lea.html">IBM Federated Learning</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

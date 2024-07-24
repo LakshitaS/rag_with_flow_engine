@@ -1,0 +1,87 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="A PMML-compliant scoring engine supports:">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>SPSS predictive analytics algorithms for scoring</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=algorithms-score"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="spss-predictive-analytics-algorithms-for-scoring" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-spss-predictive-analytics-algorithms-for-scoring">
+        <h1 id="spss-predictive-analytics-algorithms-for-scoring">SPSS predictive analytics algorithms for scoring</h1>
+        <p>A PMML-compliant scoring engine supports:</p>
+        <ul>
+          <li>PMML-compliant models (4.2 and earlier versions) produced by various vendors, except for Baseline Model, ScoreCard Model, Sequence Model, and Text Model. Refer to the <a href="http://www.dmg.org/" target="_blank" rel="noopener noreferrer">Data Mining Group (DMG) web site</a>            for a list of supported models.</li>
+          <li>Non-PMML models produced by IBM SPSS products: Discriminant and Bayesian networks</li>
+          <li>PMML 4.2 transformations completely</li>
+        </ul>
+        <p>Different kinds of models can produce various scoring results. For example:
+        </p>
+        <ul>
+          <li>Classification models (those with a categorical target: Bayes Net, General Regression, Mining, Naive Bayes, k-Nearest Neighbor, Neural Network, Regression, Ruleset, Support Vector Machine, and Tree) produce:
+            <ul>
+              <li>Predicted values</li>
+              <li>Probabilities</li>
+              <li>Confidence values</li>
+            </ul>
+          </li>
+          <li>Regression models (those with a continuous target: General Regression, Mining, k-Nearest Neighbor, Neural Network, Regression, and Tree) produce predicted values; some also produce standard errors.</li>
+          <li>Cox regression (in General Regression) produces predicted survival probability and cumulative hazard values.</li>
+          <li>Tree models also produce Node ID.</li>
+          <li>Clustering models produce Cluster ID and Cluster affinity.</li>
+          <li>Anomaly Detection (represented as Clustering) produces anomaly index and top reasons.</li>
+          <li>Association models produce Consequent, Rule ID, and confidence for top matching rules.</li>
+        </ul>
+        <p><strong>Python example code:</strong></p>
+        <pre class="codeblock"><code class="hljs">from spss.ml.score import Score
+
+with open("linear.pmml") as reader:
+    pmmlString = reader.read()
+
+score = Score().fromPMML(pmmlString)
+scoredDf = score.transform(data)
+scoredDf.show()
+</code></pre>
+        <p><strong>Parent topic:</strong> <a href="../analyze-data/spss-algorithms.html">SPSS predictive analytics algorithms</a></p>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

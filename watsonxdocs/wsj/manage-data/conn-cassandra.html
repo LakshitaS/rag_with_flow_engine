@@ -1,0 +1,153 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="To access your data in Apache Cassandra, create a connection asset for it.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Apache Cassandra connection</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=connectors-apache-cassandra-connection"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="apache-cassandra-connection" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-apache-cassandra-connection">
+        <h1 id="apache-cassandra-connection">Apache Cassandra connection</h1>
+        <p>To access your data in Apache Cassandra, create a connection asset for it.</p>
+        <p>Apache Cassandra is an open source, distributed, NoSQL database.</p>
+        <!--NLW: ^^ From https://cassandra.apache.org/doc/latest/architecture/overview.html-->
+        <section id="section-supported-versions">
+          <h2 id="supported-versions">Supported versions</h2>
+          <p>Apache Cassandra 2.0 or later</p>
+        </section>
+        <section id="section-create-a-connection-to-apache-cassandra">
+          <h2 id="create-a-connection-to-apache-cassandra">Create a connection to Apache Cassandra</h2>
+          <p>To create the connection asset, you need these connection details:</p>
+          <ul>
+            <li><strong>Hostname or IP address</strong></li>
+            <li><strong>Port number</strong></li>
+            <li><strong>Keyspace</strong></li>
+            <li><strong>Username</strong> and <strong>password</strong></li>
+            <li><strong>Read consistency</strong>: Specifies the number of replicas that must respond to a read request before the data is returned to the client application.
+              <ul>
+                <li><strong>all</strong>: Data is returned to the application after all replicas have responded. This setting provides the highest consistency and lowest availability.</li>
+                <li><strong>local_one</strong>: Data is returned from the closest replica in the local data center.</li>
+                <li><strong>local_quorum</strong>: Data is returned after a quorum of replicas in the same data center as the coordinator node has responded. This setting voids latency of inter -data center communication.</li>
+                <li><strong>local_serial</strong>: Data within a data center is read without proposing a new addition or update. Uncommitted transactions within the data center are committed as part of the read.</li>
+                <li><strong>one</strong>: Data is returned from the closest replica. This setting provides the highest availability, but increases the likelihood of stale data being read.</li>
+                <li><strong>quorum</strong>: (Default). Data is returned after a quorum of replicas has responded from any data center.</li>
+                <li><strong>serial</strong>: Data is read without proposing a new addition or update. Uncommitted transactions are committed as part of the read.</li>
+                <li><strong>three</strong>: Data is returned from three of the closest replicas.</li>
+                <li><strong>two</strong>: Data is returned from two of the closest replicas. &nbsp;</li>
+              </ul>
+            </li>
+            <li><strong>Write consistency</strong>: Specifies the number of replicas for which the write request must succeed before an acknowledgment is returned to the client application.
+              <ul>
+                <li><strong>all</strong>: A write must succeed on all replica nodes in the cluster for that partition key. This setting provides the highest consistency and lowest availability.</li>
+                <li><strong>any</strong>: A write must succeed on at least one node. Even if all replica nodes for the given partition key are down, the write can succeed after a hinted handoff has been written. This setting provides the lowest consistency
+                  and highest availability.</li>
+                <li><strong>each_quorum</strong>: A write must succeed on a quorum of replica nodes across a data center.</li>
+                <li><strong>local_one</strong>: A write must succeed on at least one replica node in the local data center.</li>
+                <li><strong>local_quorum</strong>: A write must succeed on a quorum of replica nodes in the same data center as the coordinator node. This setting voids latency of inter -data center communication.</li>
+                <li><strong>local_serial</strong>: The driver prevents unconditional updates to achieve linearizable consistency for lightweight transactions within the data center.</li>
+                <li><strong>one</strong>: A write must succeed on at least one replica node.</li>
+                <li><strong>quorum</strong>: (Default). A write must succeed on a quorum of replica nodes.</li>
+                <li><strong>serial</strong>: The driver prevents unconditional updates to achieve linearizable consistency for lightweight transactions.</li>
+                <li><strong>three:</strong> A write must succeed on at least three replica nodes.</li>
+                <li><strong>two</strong>: A write must succeed on at least two replica nodes.</li>
+              </ul>
+            </li>
+          </ul>
+          <p>&nbsp;</p>
+          <ul>
+            <li><strong>SSL certificate</strong> (if required by the database server)</li>
+          </ul>
+          <p>For <strong>Private connectivity</strong>, to connect to a database that is not externalized to the internet (for example, behind a firewall), you must set up a <a href="securingconn.html">secure connection</a>.</p>
+          <section id="section-choose-the-method-for-creating-a-connection-based-on-where-you-are-in-the-platform">
+            <h3 id="choose-the-method-for-creating-a-connection-based-on-where-you-are-in-the-platform">Choose the method for creating a connection based on where you are in the platform</h3>
+            <dl>
+              <dt><strong>In a project</strong></dt>
+              <dd>Click <strong>Assets &gt; New asset &gt; Connect to a data source</strong>. See <a href="create-conn.html">Adding a connection to a project</a>.</dd>
+              <dt><strong>In a deployment space</strong></dt>
+              <dd>Click <strong>Add to space &gt; Connection</strong>. See <a href="../analyze-data/ml-space-add-assets.html">Adding connections to a deployment space</a>.</dd>
+              <dt><strong>In the Platform assets catalog</strong></dt>
+              <dd>Click <strong>New connection</strong>. See <a href="platform-conn.html">Adding platform connections</a>.</dd>
+            </dl>
+          </section>
+          <section id="section-next-step-add-data-assets-from-the-connection">
+            <h3 id="next-step-add-data-assets-from-the-connection">Next step: Add data assets from the connection</h3>
+            <ul>
+              <li>See <a href="connected-data.html">Add data from a connection in a project</a>.</li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-where-you-can-use-this-connection">
+          <h2 id="where-you-can-use-this-connection">Where you can use this connection</h2>
+          <p>You can use Apache Cassandra connections in the following workspaces and tools:</p>
+          <p><strong>Projects</strong></p>
+          <ul>
+            <li>Data Refinery</li>
+            <li>Decision Optimization</li>
+            <li>Notebooks. Click <strong>Read data</strong> on the <strong>Code snippets</strong> pane to get the connection credentials and load the data into a data structure. See <a href="../analyze-data/load-and-access-data.html#conns">Load data from data source connections</a>.</li>
+            <li>SPSS Modeler</li>
+            <li>Synthetic Data Generator</li>
+          </ul>
+          <p><strong>Catalogs</strong></p>
+          <ul>
+            <li>Platform assets catalog</li>
+          </ul>
+        </section>
+        <section id="section-apache-cassandra-setup">
+          <h2 id="apache-cassandra-setup">Apache Cassandra setup</h2>
+          <ul>
+            <li><a href="https://cassandra.apache.org/doc/latest/getting_started/installing.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Installing Cassandra</a></li>
+            <li><a href="https://cassandra.apache.org/doc/latest/getting_started/configuring.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Configuring Cassandra</a></li>
+            <li><a href="https://cassandra.apache.org/doc/latest/cql/ddl.html#create-keyspace" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">CREATE KEYSPACE</a></li>
+          </ul>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="https://cassandra.apache.org/" target="_blank" rel="noopener noreferrer">cassandra.apache.org</a></li>
+            <li><a href="https://cassandra.apache.org/doc/latest/architecture/overview.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Cassandra Documentation</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="conn_types.html">Supported connections</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="The Watson OpenScale enables responsible, transparent, and explainable AI.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Watson OpenScale offering plan options</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=watsonxgovernance-watsonopenscale-plans"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="wos-plan-options-2" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-wos-plan-options-2">
+        <h1 id="wos-plan-options-2">Watson OpenScale offering plan options</h1>
+        <p>The Watson OpenScale enables responsible, transparent, and explainable AI.</p>
+        <p>With Watson OpenScale you can:</p>
+        <ul>
+          <li>Evaluate machine learning models for dimensions such as fairness, quality, or drift.</li>
+          <li>Explore transactions to gain insights about your model.</li>
+        </ul>
+        <section id="section-watson-openscale-legacy-offering-plans">
+          <h2 id="watson-openscale-legacy-offering-plans">Watson OpenScale legacy offering plans</h2>
+          <div class="note important"><span class="importanttitle">Important:</span>
+            <md-block>
+              <p>The legacy offering plan for Watson OpenScale is available only in the Frankfurt region. In the Dallas region, the <a href="wos-plan-options.html">watsonx.governance plans</a> are available instead.</p>
+              <p></p>
+            </md-block>
+          </div>
+          <p></p>
+          <!--Watson OpenScale offers two pricing plans: a free Lite plan and a paid standard V2 plan. Both plans offer access to Watson OpenScale evaluation and performance metrics and contain the following limitations.
+
+- [Lite plan (limitations)](#wos-lite-plan)
+- [Standard v2 plan (limitations)](#wos-v2-plan)
+- [Regional availability](#wos-region)
+- [Quota limits](#wos-quota)
+- [PostgreSQL database](#postgres-db)
+
+### OpenScale Lite plan (limitations) {: #wos-lite-plan}
+
+Watson OpenScale offers a free Lite plan for users to explore and sample Watson OpenScale model and performance metrics. Lite plans contain several limitations.
+
+The following limitations apply to the Lite plan:
+
+- Active debiasing: Maximum 50,000 rows of input (cumulative) across five deployed models per month.
+
+- Accuracy monitoring: Maximum 50,000 feedback records (cumulative) across 5 models per month.
+
+- Fairness monitoring: Maximum of two protected features per model, 50,000 payload rows (cumulative), and 50,000 feedback records (cumulative) across five deployed models per month.
+
+- Explainability: Maximum of 15 local transactions and five global explanations explained per month.
+
+- Data cannot be migrated from the Lite plan instance. If you must migrate data a Lite plan instance to a standard v2 plan instance, provision your own instance of a paid [PostgreSQL database](#postgres-db) from the IBM Cloud catalog.
+
+- Lite plan databases are not GDPR-compliant. If your model processes personally identifiable information (PII), you must purchase a new database or use an existing database that does conform to GDPR rules.
+
+- Lite plan services are deleted after 30 days of inactivity.-->
+          <section id="section-wos-v2-plan-2">
+            <h3 id="wos-v2-plan-2">Watson OpenScale Standard v2 plan</h3>
+            <p>Watson OpenScale offers a Standard v2 plan that charge users on a per model basis.</p>
+            <p>There are no restrictions or limitations on payload data, feedback rows, or explanations under the Standard v2 instance.</p>
+          </section>
+          <section id="section-wos-region-2">
+            <h3 id="wos-region-2">Regional limitations</h3>
+            <p>Watson OpenScale is not available in some regions. See <a href="../getting-started/regional-datactr.html">Regional availability for services and features</a> for more details.</p>
+            <div class="note note"><span class="notetitle">Note:</span>
+              <md-block>
+                <p>The regional availability for every service can also be found in the <a href="https://dataplatform.cloud.ibm.com/data/catalog?target=services&amp;context=cpdaas">IBM watsonx catalog</a>.</p>
+                <p></p>
+              </md-block>
+            </div>
+            <p></p>
+          </section>
+          <section id="section-wos-quota-2">
+            <h3 id="wos-quota-2">Quota limits</h3>
+            <p>To avoid performance issues and manage resources efficiently, Watson OpenScale sets the following quota limits:</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Asset</th>
+                  <th>Limit</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>DataMart</td>
+                  <td>100 per instance</td>
+                </tr>
+                <tr>
+                  <td>Service providers</td>
+                  <td>100 per instance</td>
+                </tr>
+                <tr>
+                  <td>Integrated systems</td>
+                  <td>100 per instance</td>
+                </tr>
+                <tr>
+                  <td>Subscriptions</td>
+                  <td>100 per service provider</td>
+                </tr>
+                <tr>
+                  <td>Monitor instances</td>
+                  <td>100 per subscription</td>
+                </tr>
+              </tbody>
+            </table>
+            <p>Every asset in Watson OpenScale has a hard limitation of 10000 instances of the asset per service instance.</p>
+          </section>
+          <section id="section-postgres-db">
+            <h3 id="postgres-db">PostgreSQL databases for Watson OpenScale</h3>
+            <p>You can use a PostgreSQL database for your Watson OpenScale instance. PostgreSQL is a powerful, open source object-relational database that is highly customizable and compliant with many security standards.</p>
+            <p>If your model processes personally identifiable information (PII), use a PostgreSQL database for your model. PostgreSQL is compliant with:</p>
+            <ul>
+              <li>GDPR</li>
+              <li>HIPAA</li>
+              <li>PCI-DSS</li>
+              <li>SOC 1 Type 2</li>
+              <li>SOC 2 Type 2</li>
+              <li>ISO 27001</li>
+              <li>ISO 27017</li>
+              <li>ISO 27018</li>
+              <li>ISO 27701</li>
+            </ul>
+          </section>
+        </section>
+        <section id="section-next-steps">
+          <h2 id="next-steps">Next steps</h2>
+          <p><a href="wos-provision-launch.html">Managing the Watson OpenScale service</a></p>
+          <p><strong>Parent topic:</strong> <a href="../../svc-welcome/aiopenscale.html">watsonx.governance</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

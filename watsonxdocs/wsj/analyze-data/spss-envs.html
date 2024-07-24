@@ -1,0 +1,125 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="When you run an SPSS Modeler flow in a project, you choose an environment template for the runtime environment. The environment template specifies the type, size, and power of the hardware configuration, plus the software template.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Compute resource options for SPSS Modeler in projects</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=tools-compute-options-spss-modeler"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="compute-resource-options-for-spss-modeler-in-projects" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-compute-resource-options-for-spss-modeler-in-projects">
+        <h1 id="compute-resource-options-for-spss-modeler-in-projects">Compute resource options for SPSS Modeler in projects</h1>
+        <p>When you run an SPSS Modeler flow in a project, you choose an environment template for the runtime environment. The environment template specifies the type, size, and power of the hardware configuration, plus the software template.</p>
+        <ul>
+          <li><a href="#types_spss">Types of environments</a></li>
+          <li><a href="#default_spss">Default environment templates</a></li>
+          <li><a href="#compute_spss">Compute usage</a></li>
+          <li><a href="#change-env_spss">Changing the runtime</a></li>
+        </ul>
+        <section id="section-types_spss">
+          <h2 id="types_spss">Types of environments</h2>
+          <p>You can use this type of environment with SPSS Modeler:</p>
+          <ul>
+            <li>Default SPSS Modeler CPU environments for standard workloads</li>
+          </ul>
+        </section>
+        <section id="section-default_spss">
+          <h2 id="default_spss">Default environment templates</h2>
+          <p>You can select any of the following default environment templates for SPSS Modeler in a project. The included environment templates are listed under <strong>Templates</strong> on the <strong>Environments</strong> page on the <strong>Manage</strong>            tab of your project.</p>
+          <table>
+            <caption caption-side="top">Default SPSS Modeler environment templates</caption>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Hardware configuration</th>
+                <th>Local storage</th>
+                <th>CUH rate per hour</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>Default SPSS Modeler S</code></td>
+                <td>2 vCPU and 8 GB RAM</td>
+                <td>128 GB</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td><code>Default SPSS Modeler M</code></td>
+                <td>4 vCPU and 16 GB RAM</td>
+                <td>128 GB</td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td><code>Default SPSS Modeler L</code></td>
+                <td>6 vCPU and 24 GB RAM</td>
+                <td>128 GB</td>
+                <td>3</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>After selecting an environment, any other SPSS Modeler flows opened in that project will use the same runtime. The hardware configuration of the available SPSS Modeler environments is preset and cannot be changed.</p>
+        </section>
+        <section id="section-compute_spss">
+          <h2 id="compute_spss">Compute usage in projects</h2>
+          <p>SPSS Modeler consumes compute resources as CUH from the Watson Studio service in projects.</p>
+          <p>You can monitor the Watson Studio CUH consumption on the <strong>Resource usage</strong> page on the <strong>Manage</strong> tab of your project.</p>
+        </section>
+        <section id="section-change-env_spss">
+          <h2 id="change-env_spss">Changing the SPSS Modeler runtime</h2>
+          <p>If you notice that processing is very slow, you can restart SPSS Modeler and select a larger environment runtime.</p>
+          <p>To change the SPSS Modeler environment runtime:</p>
+          <ol>
+            <li>Save any data from your current session before switching to another environment.</li>
+            <li>Stop the active SPSS Modeler runtime under <strong>Tool runtimes</strong> on the <strong>Environments</strong> page on the <strong>Manage</strong> tab of your project.</li>
+            <li>Restart SPSS Modeler and select another environment with the compute power and memory capacity that better meets your requirements.</li>
+          </ol>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <ul>
+            <li><a href="../../wsd/spss-modeler.html">SPSS Modeler</a></li>
+          </ul>
+          <p><strong>Parent topic:</strong> <a href="../analyze-data/environments-parent.html">Choosing compute resources for tools</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

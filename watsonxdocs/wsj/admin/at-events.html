@@ -1,0 +1,971 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="You can see the events for actions for your provisioned services in the IBM Cloud Activity Tracker. You can use the information that is registered through the IBM Cloud Activity Tracker service to identify security incidents, detect unauthorized access, and comply with regulatory and internal auditing requirements.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Activity Tracker events</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=administration-activity-tracker-events"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="activity-tracker-events" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-activity-tracker-events">
+        <h1 id="activity-tracker-events">Activity Tracker events</h1>
+        <p>You can see the events for actions for your provisioned services in the IBM Cloud Activity Tracker. You can use the information that is registered through the IBM Cloud Activity Tracker service to identify security incidents, detect unauthorized
+          access, and comply with regulatory and internal auditing requirements.</p>
+        <p>To get started, provision an instance of the IBM Cloud Activity Tracker service. See <a href="https://cloud.ibm.com/docs/activity-tracker?topic=activity-tracker-getting-started" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud Activity Tracker</a>.</p>
+        <p>View events in the Activity Tracker in the same IBM Cloud region where you provisioned your services. To view the account and user management events and other global platform events, you must provision an instance of the IBM Cloud Activity Tracker
+          service in the <strong>Frankfurt (eu-de)</strong> region. See <a href="https://cloud.ibm.com/docs/activity-tracker?topic=activity-tracker-cloud_services_locations#cloud_services_locations_core_integrated" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Platform services</a>.</p>
+        <ul>
+          <li>
+            <p><a href="#acct">Events for account and user management</a></p>
+          </li>
+          <li>
+            <p><a href="#ws">Events for Watson Studio</a></p>
+          </li>
+          <li>
+            <p><a href="#wx">Events for watsonx.ai</a></p>
+          </li>
+          <li>
+            <p><a href="#wml">Events for Watson Machine Learning</a></p>
+          </li>
+          <li>
+            <p><a href="#wos">Events for model evaluation (Watson OpenScale)</a></p>
+          </li>
+        </ul>
+        <section id="section-acct">
+          <h2 id="acct">Events for account and user management</h2>
+          <p>You can audit account and user management events in Activity Tracker, including:</p>
+          <ul>
+            <li>Billing events</li>
+            <li>Global catalog events</li>
+            <li>IAM and user management events</li>
+          </ul>
+          <p>For the complete list of account and user management events, see <a href="https://cloud.ibm.com/docs/activity-tracker?topic=activity-tracker-at_events_acc_mgt" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">IBM Cloud docs: Auditing events for account management</a>.</p>
+        </section>
+        <section id="section-ws">
+          <h2 id="ws">Events for Watson Studio</h2>
+          <table>
+            <caption caption-side="top">Events in Activity Tracker for Watson Studio</caption>
+            <thead>
+              <tr>
+                <th>Action</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>data-science-experience.project.create</td>
+                <td>Create a project.</td>
+              </tr>
+              <tr>
+                <td>data-science-experience.project.delete</td>
+                <td>Delete a project.</td>
+              </tr>
+              <tr>
+                <td>data-science-experience.notebook.create</td>
+                <td>Create a Notebook.</td>
+              </tr>
+              <tr>
+                <td>data-science-experience.notebook.delete</td>
+                <td>Delete a Notebook.</td>
+              </tr>
+              <tr>
+                <td>data-science-experience.notebook.update</td>
+                <td>Change the runtime service of a Notebook by selecting another one.</td>
+              </tr>
+              <tr>
+                <td>data-science-experience.rstudio.start</td>
+                <td>Open RStudio.</td>
+              </tr>
+              <tr>
+                <td>data-science-experience.rstudio.stop</td>
+                <td>RStudio session timed out.</td>
+              </tr>
+            </tbody>
+          </table>
+          <br>
+          <section id="section-events-for-decision-optimization">
+            <h3 id="events-for-decision-optimization">Events for Decision Optimization</h3>
+            <table>
+              <caption caption-side="top">Events in Activity Tracker for Decision Optimization</caption>
+              <thead>
+                <tr>
+                  <th>Action</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>domodel.decision.create</td>
+                  <td>Create experiments</td>
+                </tr>
+                <tr>
+                  <td>domodel.decision.update</td>
+                  <td>Update experiments</td>
+                </tr>
+                <tr>
+                  <td>domodel.decision.delete</td>
+                  <td>Delete experiments</td>
+                </tr>
+                <tr>
+                  <td>domodel.container.create</td>
+                  <td>Create scenarios</td>
+                </tr>
+                <tr>
+                  <td>domodel.container.update</td>
+                  <td>Update scenarios</td>
+                </tr>
+                <tr>
+                  <td>domodel.container.delete</td>
+                  <td>Delete scenarios</td>
+                </tr>
+                <tr>
+                  <td>domodel.notebook.import</td>
+                  <td>Update a scenario from a notebook</td>
+                </tr>
+                <tr>
+                  <td>domodel.notebook.export</td>
+                  <td>Generate a model notebook from a scenario</td>
+                </tr>
+                <tr>
+                  <td>domodel.wml.export</td>
+                  <td>Generate Watson Machine Learning models from a scenario</td>
+                </tr>
+                <tr>
+                  <td>domodel.solve.start</td>
+                  <td>Solve a scenario</td>
+                </tr>
+                <tr>
+                  <td>domodel.solve.stop</td>
+                  <td>Cancel a solve</td>
+                </tr>
+              </tbody>
+            </table>
+            <br>
+          </section>
+          <section id="section-events-for-feature-groups">
+            <h3 id="events-for-feature-groups">Events for feature groups</h3>
+            <table>
+              <caption caption-side="top">Events in Activity Tracker for feature groups (Watson Studio)</caption>
+              <thead>
+                <tr>
+                  <th>Action</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>data_science_experience.feature-group.retrieve</td>
+                  <td>Retrieve a feature group</td>
+                </tr>
+                <tr>
+                  <td>data_science_experience.feature-group.create</td>
+                  <td>Create a feature group</td>
+                </tr>
+                <tr>
+                  <td>data_science_experience.feature-group.update</td>
+                  <td>Update a feature group</td>
+                </tr>
+                <tr>
+                  <td>data_science_experience.feature-group.delete</td>
+                  <td>Delete a feature group</td>
+                </tr>
+              </tbody>
+            </table>
+            <br>
+          </section>
+          <section id="section-events-for-asset-management">
+            <h3 id="events-for-asset-management">Events for asset management</h3>
+            <table>
+              <caption caption-side="top">Events in Activity Tracker for asset management in Watson Studio</caption>
+              <thead>
+                <tr>
+                  <th>Action</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>datacatalog.asset.clone</td>
+                  <td>Copy an asset.</td>
+                </tr>
+                <tr>
+                  <td>datacatalog.asset.create</td>
+                  <td>Create an asset.</td>
+                </tr>
+                <tr>
+                  <td>datacatalog.data-asset.create</td>
+                  <td>Create a data asset.</td>
+                </tr>
+                <tr>
+                  <td>datacatalog.folder-asset.create</td>
+                  <td>Create a folder asset.</td>
+                </tr>
+                <tr>
+                  <td>datacatalog.type.create</td>
+                  <td>Create an asset type.</td>
+                </tr>
+                <tr>
+                  <td>datacatalog.asset.purge</td>
+                  <td>Delete an asset from the trash.</td>
+                </tr>
+                <tr>
+                  <td>datacatalog.asset.restore</td>
+                  <td>Restore an asset from the trash.</td>
+                </tr>
+                <tr>
+                  <td>datacatalog.asset.trash</td>
+                  <td>Send an asset to the trash.</td>
+                </tr>
+                <tr>
+                  <td>datacatalog.asset.update</td>
+                  <td>Update an asset.</td>
+                </tr>
+                <tr>
+                  <td>datacatalog.promoted-asset.create</td>
+                  <td>Create a project asset in a space.</td>
+                </tr>
+                <tr>
+                  <td>datacatalog.promoted-asset.update</td>
+                  <td>Update a space asset that started in a project.</td>
+                </tr>
+                <tr>
+                  <td>datacatalog.asset.promote</td>
+                  <td>Promote an asset from project to space.</td>
+                </tr>
+              </tbody>
+            </table>
+            <br>
+          </section>
+          <section id="section-events-for-asset-attachments">
+            <h3 id="events-for-asset-attachments">Events for asset attachments</h3>
+            <table>
+              <caption caption-side="top">Events in Activity Tracker for attachments</caption>
+              <thead>
+                <tr>
+                  <th>Action</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>datacatalog.attachment.create</td>
+                  <td>Create an attachment.</td>
+                </tr>
+                <tr>
+                  <td>datacatalog.attachment.delete</td>
+                  <td>Delete an attachment.</td>
+                </tr>
+                <tr>
+                  <td>datacatalog.attachment-resources.increase</td>
+                  <td>Increase resources for an attachment.</td>
+                </tr>
+                <tr>
+                  <td>datacatalog.complete.transfer</td>
+                  <td>Mark an attachment as transfer complete.</td>
+                </tr>
+                <tr>
+                  <td>datacatalog.attachment.update</td>
+                  <td>Update attachment metadata.</td>
+                </tr>
+              </tbody>
+            </table>
+            <br>
+          </section>
+          <section id="section-events-for-asset-attributes">
+            <h3 id="events-for-asset-attributes">Events for asset attributes</h3>
+            <table>
+              <caption caption-side="top">Events in Activity Tracker for attributes</caption>
+              <thead>
+                <tr>
+                  <th>Action</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>datacatalog.attribute.create</td>
+                  <td>Create an attribute.</td>
+                </tr>
+                <tr>
+                  <td>datacatalog.attribute.delete</td>
+                  <td>Delete an attribute.</td>
+                </tr>
+                <tr>
+                  <td>datacatalog.attribute.update</td>
+                  <td>Update an attribute.</td>
+                </tr>
+              </tbody>
+            </table>
+            <br>
+          </section>
+          <section id="section-events-for-connections">
+            <h3 id="events-for-connections">Events for connections</h3>
+            <table>
+              <caption caption-side="top">Events in Activity Tracker for connections</caption>
+              <thead>
+                <tr>
+                  <th>Action</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>wdp-connect-connection.connection.read</td>
+                  <td>Read a connection.</td>
+                </tr>
+                <tr>
+                  <td>wdp-connect-connection.connection.get</td>
+                  <td>Retrieve a connection.</td>
+                </tr>
+                <tr>
+                  <td>wdp-connect-connection.connection.get.list</td>
+                  <td>Get a list of connections.</td>
+                </tr>
+                <tr>
+                  <td>wdp-connect-connection.connection.create</td>
+                  <td>Create a connection.</td>
+                </tr>
+                <tr>
+                  <td>wdp-connect-connection.connection.delete</td>
+                  <td>Delete a connection.</td>
+                </tr>
+              </tbody>
+            </table>
+            <br>
+          </section>
+          <section id="section-events-for-scheduling">
+            <h3 id="events-for-scheduling">Events for scheduling</h3>
+            <table>
+              <caption caption-side="top">Events in Activity Tracker for scheduling</caption>
+              <thead>
+                <tr>
+                  <th>Action</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>wdp.scheduling.schedule.update.failed</td>
+                  <td>An update to a schedule failed.</td>
+                </tr>
+                <tr>
+                  <td>wdp.scheduling.schedule.create.failed</td>
+                  <td>The creation of a schedule failed.</td>
+                </tr>
+                <tr>
+                  <td>wdp.scheduling.schedule.read</td>
+                  <td>Read a schedule.</td>
+                </tr>
+                <tr>
+                  <td>wdp.scheduling.schedule.update</td>
+                  <td>Update a schedule.</td>
+                </tr>
+                <tr>
+                  <td>wdp.scheduling.schedule.delete.multiple</td>
+                  <td>Delete multiple schedules.</td>
+                </tr>
+                <tr>
+                  <td>wdp.scheduling.schedule.list</td>
+                  <td>List all schedules.</td>
+                </tr>
+                <tr>
+                  <td>wdp.scheduling.schedule.create</td>
+                  <td>Create a schedule.</td>
+                </tr>
+              </tbody>
+            </table>
+            <br>
+          </section>
+          <section id="section-events-for-data-refinery-flows">
+            <h3 id="events-for-data-refinery-flows">Events for Data Refinery flows</h3>
+            <table>
+              <caption caption-side="top">Events in Activity Tracker for Data Refinery flows</caption>
+              <thead>
+                <tr>
+                  <th>Action</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>data-science-experience.datarefinery-flow.read</td>
+                  <td>Read a Data Refinery flow</td>
+                </tr>
+                <tr>
+                  <td>data-science-experience.datarefinery-flow.create</td>
+                  <td>Create a Data Refinery flow</td>
+                </tr>
+                <tr>
+                  <td>data-science-experience.datarefinery-flow.delete</td>
+                  <td>Delete a Data Refinery flow</td>
+                </tr>
+                <tr>
+                  <td>data-science-experience.datarefinery-flow.update</td>
+                  <td>Update (save) a Data Refinery flow</td>
+                </tr>
+                <tr>
+                  <td>data-science-experience.datarefinery-flow.backup</td>
+                  <td>Clone (duplicate) a Data Refinery flow</td>
+                </tr>
+                <tr>
+                  <td>data-science-experience.datarefinery-flowrun.create</td>
+                  <td>Create a Data Refinery flow job run</td>
+                </tr>
+                <tr>
+                  <td>data-science-experience.datarefinery-flowrun-complete.update</td>
+                  <td>Complete a Data Refinery flow job run</td>
+                </tr>
+                <tr>
+                  <td>data-science-experience.datarefinery-flowrun-cancel.update</td>
+                  <td>Cancel a Data Refinery flow job run</td>
+                </tr>
+              </tbody>
+            </table>
+            <br>
+          </section>
+          <section id="section-events-for-profiling">
+            <h3 id="events-for-profiling">Events for profiling</h3>
+            <table>
+              <caption caption-side="top">Events in Activity Tracker for profiling</caption>
+              <thead>
+                <tr>
+                  <th>Action</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>wdp-profiling.profile.start</td>
+                  <td>Initiate profiling.</td>
+                </tr>
+                <tr>
+                  <td>wdp-profiling.profile.create</td>
+                  <td>Create a profile.</td>
+                </tr>
+                <tr>
+                  <td>wdp-profiling.profile.delete</td>
+                  <td>Delete a profile.</td>
+                </tr>
+                <tr>
+                  <td>wdp-profiling.profile.read</td>
+                  <td>Read a profile.</td>
+                </tr>
+                <tr>
+                  <td>wdp-profiling.profile.list</td>
+                  <td>List the profiles of a data asset.</td>
+                </tr>
+                <tr>
+                  <td>wdp-profiling.profile.update</td>
+                  <td>Update a profile.</td>
+                </tr>
+                <tr>
+                  <td>wdp-profiling.profile.asset-classification.update</td>
+                  <td>Update the asset classification of a profile.</td>
+                </tr>
+                <tr>
+                  <td>wdp-profiling.profile.column-classification.update</td>
+                  <td>Update the column classification of a profile.</td>
+                </tr>
+                <tr>
+                  <td>wdp-profiling.profile.create.failed</td>
+                  <td>Profile could not be created.</td>
+                </tr>
+                <tr>
+                  <td>wdp-profiling.profile.delete.failed</td>
+                  <td>Profile could not be deleted.</td>
+                </tr>
+                <tr>
+                  <td>wdp-profiling.profile.read.failed</td>
+                  <td>Profile could not be read.</td>
+                </tr>
+                <tr>
+                  <td>wdp-profiling.profile.list.failed</td>
+                  <td>Profiles could not be listed.</td>
+                </tr>
+                <tr>
+                  <td>wdp-profiling.profile.update.failed</td>
+                  <td>Profile could not be updated.</td>
+                </tr>
+                <tr>
+                  <td>wdp-profiling.profile.asset-classification.update.failed</td>
+                  <td>Asset classification of the profile could not be updated.</td>
+                </tr>
+                <tr>
+                  <td>wdp-profiling.profile.column-classification.update.failed</td>
+                  <td>Column classification of the profile could not be updated.</td>
+                </tr>
+              </tbody>
+            </table>
+            <br>
+          </section>
+          <section id="section-events-for-profiling-options">
+            <h3 id="events-for-profiling-options">Events for profiling options</h3>
+            <table>
+              <caption caption-side="top">Events in Activity Tracker for profiling options</caption>
+              <thead>
+                <tr>
+                  <th>Action</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>wdp-profiling.profile_options.create</td>
+                  <td>Create profiling options.</td>
+                </tr>
+                <tr>
+                  <td>wdp-profiling.profile_options.read</td>
+                  <td>Read profiling options.</td>
+                </tr>
+                <tr>
+                  <td>wdp-profiling.profile_options.update</td>
+                  <td>Update profiling options.</td>
+                </tr>
+                <tr>
+                  <td>wdp-profiling.profile_options.delete</td>
+                  <td>Delete profiling options</td>
+                </tr>
+                <tr>
+                  <td>wdp-profiling.profile_options.create.failed</td>
+                  <td>Profiling options could not be created.</td>
+                </tr>
+                <tr>
+                  <td>wdp-profiling.profile_options.read.failed</td>
+                  <td>Profiling options could not be read.</td>
+                </tr>
+                <tr>
+                  <td>wdp-profiling.profile_options.update.failed</td>
+                  <td>Profiling options could not be updated.</td>
+                </tr>
+                <tr>
+                  <td>wdp-profiling.profile_options.delete.failed</td>
+                  <td>Profiling options could not be deleted.</td>
+                </tr>
+              </tbody>
+            </table>
+            <br>
+          </section>
+          <section id="section-events-for-feature-groups-2">
+            <h3 id="events-for-feature-groups-2">Events for feature groups</h3>
+            <table>
+              <caption caption-side="top">Events in Activity Tracker for feature groups (IBM Knowledge Catalog)</caption>
+              <thead>
+                <tr>
+                  <th>Action</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>data_catalog.feature-group.retrieve</td>
+                  <td>Retrieve a feature group</td>
+                </tr>
+                <tr>
+                  <td>data_catalog.feature-group.create</td>
+                  <td>Create a feature group</td>
+                </tr>
+                <tr>
+                  <td>data_catalog.feature-group.update</td>
+                  <td>Update a feature group</td>
+                </tr>
+                <tr>
+                  <td>data_catalog.feature-group.delete</td>
+                  <td>Delete a feature group</td>
+                </tr>
+              </tbody>
+            </table>
+            <br>
+          </section>
+        </section>
+        <section id="section-wx">
+          <h2 id="wx">Events for watsonx.ai</h2>
+          <section id="section-events-for-prompt-engineering-foundation-models">
+            <h3 id="events-for-prompt-engineering-foundation-models">Events for prompt engineering foundation models</h3>
+            <table>
+              <caption caption-side="top">Event in Activity Tracker for prompt engineering</caption>
+              <thead>
+                <tr>
+                  <th>Action</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>pm-20.foundation-model.send</td>
+                  <td>Send a prompt to a foundation model or tuned foundation model for inferencing.</td>
+                </tr>
+                <tr>
+                  <td>pm-20.text-tokenization.send</td>
+                  <td>Send a tokenization request to a foundation model.</td>
+                </tr>
+              </tbody>
+            </table>
+            <br>
+          </section>
+          <section id="section-events-for-foundation-model-tuning">
+            <h3 id="events-for-foundation-model-tuning">Events for foundation model tuning</h3>
+            <p>When you tune a foundation model in watsonx.ai, you trigger standard Watson Machine Learning events.</p>
+            <table>
+              <caption caption-side="top">Events in Activity Tracker for foundation model tuning</caption>
+              <thead>
+                <tr>
+                  <th>Tuning Studio action</th>
+                  <th>Watson Machine Learning Activity Tracker events</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Work with a tuning experiment or tuned foundation model asset</td>
+                  <td><a href="#wml-repo-assets">Watson Machine Learning repository assets</a></td>
+                </tr>
+                <tr>
+                  <td>Start or stop a tuning experiment</td>
+                  <td><a href="#wml-training">Watson Machine Learning training assets</a></td>
+                </tr>
+                <tr>
+                  <td>Deploy a tuned foundation model</td>
+                  <td><a href="#wml-deployments">Watson Machine Learning deployments</a><br>Note: Batch mode is not supported, so job events are not triggered.</td>
+                </tr>
+              </tbody>
+            </table>
+            <br>
+          </section>
+        </section>
+        <section id="section-wml">
+          <h2 id="wml">Events for Watson Machine Learning</h2>
+          <section id="section-wml-deployments">
+            <h3 id="wml-deployments">Events for Watson Machine Learning deployments</h3>
+            <table>
+              <caption caption-side="top">Events in Activity Tracker for Watson Machine Learning deployments</caption>
+              <thead>
+                <tr>
+                  <th>Action</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>pm-20.deployment.create</td>
+                  <td>Create a Watson Machine Learning deployment.</td>
+                </tr>
+                <tr>
+                  <td>pm-20.deployment.read</td>
+                  <td>Get a Watson Machine Learning deployment.</td>
+                </tr>
+                <tr>
+                  <td>pm-20.deployment.update</td>
+                  <td>Update a Watson Machine Learning deployment.</td>
+                </tr>
+                <tr>
+                  <td>pm-20.deployment.delete</td>
+                  <td>Delete a Watson Machine Learning deployment.</td>
+                </tr>
+                <tr>
+                  <td>pm-20.deployment_job.create</td>
+                  <td>Create a Watson Machine Learning deployment job.</td>
+                </tr>
+                <tr>
+                  <td>pm-20.deployment_job.read</td>
+                  <td>Get a Watson Machine Learning deployment job.</td>
+                </tr>
+                <tr>
+                  <td>pm-20.deployment_job.delete</td>
+                  <td>Delete a Watson Machine Learning deployment job.</td>
+                </tr>
+              </tbody>
+            </table>
+            <br>
+          </section>
+          <section id="section-events-for-spss-modeler-flows">
+            <h3 id="events-for-spss-modeler-flows">Events for SPSS Modeler flows</h3>
+            <table>
+              <caption caption-side="top">Events in Activity Tracker for SPSS Modeler flows</caption>
+              <thead>
+                <tr>
+                  <th>Action</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>data-science-experience.modeler-session.create</td>
+                  <td>Create a new SPSS Modeler session.</td>
+                </tr>
+                <tr>
+                  <td>data-science-experience.modeler-flow.send</td>
+                  <td>Store the current SPSS Modeler flow.</td>
+                </tr>
+                <tr>
+                  <td>data-science-experience.modeler-flows-user.receive</td>
+                  <td>Get the current user information.</td>
+                </tr>
+                <tr>
+                  <td>data-science-experience.modeler-flow-preview.create</td>
+                  <td>Preview a node in an SPSS Modeler flow.</td>
+                </tr>
+                <tr>
+                  <td>data-science-experience.modeler-examples.receive</td>
+                  <td>Get the list of example SPSS Modeler flows.</td>
+                </tr>
+                <tr>
+                  <td>data-science-experience.modeler-runtimes.receive</td>
+                  <td>Get the list of available SPSS Modeler runtimes.</td>
+                </tr>
+                <tr>
+                  <td>data-science-experience.lock-modeler-flow.enable</td>
+                  <td>Allocate the lock for the SPSS Modeler flow to the user.</td>
+                </tr>
+                <tr>
+                  <td>data-science-experience.project-name.receive</td>
+                  <td>Get the name of the project.</td>
+                </tr>
+              </tbody>
+            </table>
+            <br>
+          </section>
+          <section id="section-event-for-model-visualizations">
+            <h3 id="event-for-model-visualizations">Event for model visualizations</h3>
+            <table>
+              <caption caption-side="top">Event in Activity Tracker for modeler visualizations</caption>
+              <thead>
+                <tr>
+                  <th>Action</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>pm-20.model.visualize</td>
+                  <td>Visualize model output. The model output can have a single model, ensemble models, or a time-series model. The visualization type can be single, auto, or time-series. This visualization type is in requestedData section.</td>
+                </tr>
+              </tbody>
+            </table>
+            <br>
+          </section>
+          <section id="section-wml-training">
+            <h3 id="wml-training">Events for Watson Machine Learning training assets</h3>
+            <table>
+              <caption caption-side="top">Event in Activity Tracker for Watson Machine Learning training assets</caption>
+              <thead>
+                <tr>
+                  <th>Action</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>pm-20.training.authenticate</td>
+                  <td>Authenticate user.</td>
+                </tr>
+                <tr>
+                  <td>pm-20.training.authorize</td>
+                  <td>Authorize user.</td>
+                </tr>
+                <tr>
+                  <td>pm-20.training.list</td>
+                  <td>List all of training.</td>
+                </tr>
+                <tr>
+                  <td>pm-20.training.get</td>
+                  <td>Get one training.</td>
+                </tr>
+                <tr>
+                  <td>pm-20.training.create</td>
+                  <td>Start a training.</td>
+                </tr>
+                <tr>
+                  <td>pm-20.training.delete</td>
+                  <td>Stop a training.</td>
+                </tr>
+              </tbody>
+            </table>
+            <br>
+          </section>
+          <section id="section-wml-repo-assets">
+            <h3 id="wml-repo-assets">Events for Watson Machine Learning repository assets</h3>
+            <p>The deployment events are tracked for these Watson Machine Learning repository assets:</p>
+            <table>
+              <caption caption-side="top">Event in Activity Tracker for Watson Machine Learning repository assets</caption>
+              <thead>
+                <tr>
+                  <th>Asset type</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>wml_model</td>
+                  <td>Represents a machine learning model asset.</td>
+                </tr>
+                <tr>
+                  <td>wml_model_definition</td>
+                  <td>Represents the code that is used to train one or more models.</td>
+                </tr>
+                <tr>
+                  <td>wml_pipeline</td>
+                  <td>Represents a hybrid-pipeline, a SparkML pipeline or a sklearn pipeline that is represented as a JSON document that is used to train one or more models.</td>
+                </tr>
+                <tr>
+                  <td>wml_experiment</td>
+                  <td>Represents the assets that capture a set of wml_pipeline or wml_model_definition assets that are trained at the same time on the same data set.</td>
+                </tr>
+                <tr>
+                  <td>wml_function</td>
+                  <td>Represents a Python function (code is packaged in a compressed file) that will be deployed as online deployment in Watson Machine Learning. This code needs to contain a score(...) python function.</td>
+                </tr>
+                <tr>
+                  <td>wml_training_definition</td>
+                  <td>Represents the training metadata necessary to start a training job.</td>
+                </tr>
+                <tr>
+                  <td>wml_deployment_job_definition</td>
+                  <td>Represents the deployment metadata information to create a batch job in WML. This asset type contains the same metadata that is used by the /ml/v4/deployment_jobs endpoint. When you submit batch deployment jobs, you can either provide
+                    the job definition inline or reference a job definition in a query parameter.</td>
+                </tr>
+              </tbody>
+            </table>
+            <p>These activities are tracked for each asset type:</p>
+            <table>
+              <caption caption-side="top">Event in Activity Tracker for Watson Machine Learning repository assets</caption>
+              <thead>
+                <tr>
+                  <th>Action</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>pm-20.<code>&lt;asset_type&gt;</code>.list</td>
+                  <td>List all of the specified asset type.</td>
+                </tr>
+                <tr>
+                  <td>pm-20.<code>&lt;asset_type&gt;</code>.create</td>
+                  <td>Create one of the specified asset types.</td>
+                </tr>
+                <tr>
+                  <td>pm-20.<code>&lt;asset_type&gt;</code>.delete</td>
+                  <td>Delete one of the specified asset types.</td>
+                </tr>
+                <tr>
+                  <td>pm-20.<code>&lt;asset_type&gt;</code>.update</td>
+                  <td>Update a specified asset type.</td>
+                </tr>
+                <tr>
+                  <td>pm-20.<code>&lt;asset_type&gt;</code>.read</td>
+                  <td>View a specified asset type.</td>
+                </tr>
+                <tr>
+                  <td>pm-20.<code>&lt;asset_type&gt;</code>.add</td>
+                  <td>Add a specified asset type.</td>
+                </tr>
+              </tbody>
+            </table>
+            <br>
+          </section>
+        </section>
+        <section id="section-wos">
+          <h2 id="wos">Events for model evaluation (Watson OpenScale)</h2>
+          <section id="section-wos-at-pubapi">
+            <h3 id="wos-at-pubapi">Events for public APIs</h3>
+            <table>
+              <caption caption-side="top">Events in Activity Tracker for Watson OpenScale public APIs</caption>
+              <thead>
+                <tr>
+                  <th>Action</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>aiopenscale.metrics.create</td>
+                  <td>Store metric in the Watson OpenScale instance</td>
+                </tr>
+                <tr>
+                  <td>aiopenscale.payload.create</td>
+                  <td>Log payload in the Watson OpenScale instance</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <section id="section-wos-at-priapi">
+            <h3 id="wos-at-priapi">Events for private APIs</h3>
+            <table>
+              <caption caption-side="top">Events in Activity Tracker for Watson OpenScale private APIs</caption>
+              <thead>
+                <tr>
+                  <th>Action</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>aiopenscale.datamart.configure</td>
+                  <td>Configure the Watson OpenScale instance</td>
+                </tr>
+                <tr>
+                  <td>aiopenscale.datamart.delete</td>
+                  <td>Delete the Watson OpenScale instance</td>
+                </tr>
+                <tr>
+                  <td>aiopenscale.binding.create</td>
+                  <td>Add service binding to the Watson OpenScale instance</td>
+                </tr>
+                <tr>
+                  <td>aiopenscale.binding.delete</td>
+                  <td>Delete service binding from the Watson OpenScale instance</td>
+                </tr>
+                <tr>
+                  <td>aiopenscale.subscription.create</td>
+                  <td>Add subscription to the Watson OpenScale instance</td>
+                </tr>
+                <tr>
+                  <td>aiopenscale.subscription.delete</td>
+                  <td>Delete subscription from the Watson OpenScale instance</td>
+                </tr>
+              </tbody>
+            </table>
+            <p><strong>Parent topic:</strong> <a href="../admin/administer-accounts.html">Administration</a></p>
+          </section>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

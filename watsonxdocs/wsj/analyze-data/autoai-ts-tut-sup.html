@@ -1,0 +1,212 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="DC.Publisher" content="IBM Corporation">
+  <meta name="DC.rights" content="© Copyright IBM Corporation {{ copyright.years }}">
+  <meta name="IBM.Country" content="ZZ">
+  <meta name="DC.Date" content="{{ lastupdated }}">
+  <meta name="keywords" content="{{ keywords }}">
+  <meta name="subcollection" content="{{ subcollection }}">
+  <meta name="description" content="Use sample data to train a multivariate time series experiment that predicts pollution rate and temperature with the help of supporting features that influence the prediction fields.">
+  <meta name="content.type" content="topic">
+  <meta name="tags" content="{{ services }}">
+  <meta name="account.plan" content="{{ account-plan }}">
+  <meta name="completion.time" content="{{ completion-time }}">
+  <meta name="version" content="{{ version }}">
+  <meta name="deployment.url" content="{{ deployment-url }}">
+  <meta name="industry" content="{{ industry }}">
+  <meta name="compliance" content="{{ compliance }}">
+  <meta name="use.case" content="{{ use-case }}">
+  <meta name="source.format" content="markdown">
+
+
+
+
+  <!-- Licensed Materials - Property of IBM -->
+  <!-- US Government Users Restricted Rights -->
+  <!-- Use, duplication or disclosure restricted by -->
+  <!-- GSA ADP Schedule Contract with IBM Corp. -->
+
+  <title>Tutorial: AutoAI multivariate time series experiment with Supporting features</title>
+<link rel="canonical" href="https://www.ibm.com/docs/en/watsonx-as-a-service?topic=experiment-tutorial-autoai-supporting-features-time-series"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+
+<body>
+  <main role="main">
+    <article aria-labelledby="tutorial-autoai-multivariate-time-series-experiment-with-supporting-features" role="article">
+      <style>
+        .midd::after {
+          content: "\A\00A0\00A0";
+          white-space: pre
+        }
+      </style>
+      <section id="section-tutorial-autoai-multivariate-time-series-experiment-with-supporting-features">
+        <h1 id="tutorial-autoai-multivariate-time-series-experiment-with-supporting-features">Tutorial: AutoAI multivariate time series experiment with Supporting features</h1>
+        <p>Use sample data to train a multivariate time series experiment that predicts pollution rate and temperature with the help of supporting features that influence the prediction fields.</p>
+        <p>When you set up the experiment, you load sample data that tracks weather conditions in Beijing from 2010 to 2014. The experiment generates a set of pipelines that use algorithms to predict future pollution and temperature with supporting features,
+          including dew, pressure, snow, and rain. After generating the pipelines, AutoAI compares and tests them, chooses the best performers, and presents them in a leaderboard for you to review.</p>
+        <section id="section-data-set-overview">
+          <h2 id="data-set-overview">Data set overview</h2>
+          <p>For this tutorial, you use the <a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/56e40ca77f9a72b0ab65b2c7938a99e2" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Beijing PM 2.5</a> data set from
+            the Resource hub. This data set describes the weather conditions in Beijing from 2010 to 2014, which are measured in 1-day steps, or increments. You use this data set to configure your AutoAI experiment and select Supporting features. Details
+            about the data set are described here:</p>
+          <ul>
+            <li>Each column, other than the date column, represents a weather condition that impacts pollution index.</li>
+            <li>The Resource hub entry shows the origin of the data. You can preview the file before you download the file.</li>
+            <li>The sample data is structured in rows and columns and saved as a .csv file.</li>
+          </ul>
+          <p><img src="images/autoai-sup-dataset-preview.png" alt="Data set preview" style="max-width:90%;height:auto;width:auto"></p>
+        </section>
+        <section id="section-tasks-overview">
+          <h2 id="tasks-overview">Tasks overview</h2>
+          <p>In this tutorial, you follow steps to create a multivariate time series experiment that uses Supporting features:</p>
+          <ol>
+            <li><a href="#step1">Create a project</a></li>
+            <li><a href="#step2">Create an AutoAI experiment</a></li>
+            <li><a href="#step3">Configure the experiment</a></li>
+            <li><a href="#step4">Review experiment results</a></li>
+            <li><a href="#step5">Deploy the trained model</a></li>
+            <li><a href="#step6">Test the deployed model</a></li>
+          </ol>
+        </section>
+        <section id="section-step1">
+          <h2 id="step1">Create a project</h2>
+          <p>Follow these steps to create an empty project and download the <a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/56e40ca77f9a72b0ab65b2c7938a99e2" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Beijing PM 2.5</a>            data set from the IBM watsonx Resource hub:</p>
+          <ol>
+            <li>From the main navigation pane, click <strong>Projects</strong> &gt; <strong>View all projects</strong>, then click <strong>New Project</strong>.<br> a. Click <strong>Create an empty project</strong>.<br> b. Enter a name and optional description
+              for your project. <br> c. Click <strong>Create</strong>.</li>
+            <li>From the main navigation panel, click <strong>Resource hub</strong> and download a local copy of the <a href="https://dataplatform.cloud.ibm.com/exchange/public/entry/view/56e40ca77f9a72b0ab65b2c7938a99e2" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Beijing PM 2.5</a> data set.</li>
+          </ol>
+        </section>
+        <section id="section-step2">
+          <h2 id="step2">Create an AutoAI experiment</h2>
+          <p>Follow these steps to create an AutoAI experiment and add sample data to your experiment:</p>
+          <ol>
+            <li>
+              <p>On the <em>Assets</em> tab from within your project, click <strong>New asset &gt; Build machine learning models automatically</strong>.</p>
+            </li>
+            <li>
+              <p>Specify a name and optional description for your experiment.</p>
+            </li>
+            <li>
+              <p>Associate a machine learning service instance with your experiment.</p>
+            </li>
+            <li>
+              <p>Choose an environment definition of 8 vCPU and 32 GB RAM.</p>
+            </li>
+            <li>
+              <p>Click <strong>Create</strong>.</p>
+            </li>
+            <li>
+              <p>To add sample data, choose one of the these methods:</p>
+              <ul>
+                <li>If you downloaded your file locally, upload the training data file, <em>PM25.csv</em> by clicking <strong>Browse</strong> and then following the prompts.</li>
+                <li>If you already uploaded your file to your project, click <strong>Select from project</strong>, then select the <strong>Data asset</strong> tab and choose <em>Beijing PM 25.csv</em>.</li>
+              </ul>
+            </li>
+          </ol>
+        </section>
+        <section id="section-step3">
+          <h2 id="step3">Configure the experiment</h2>
+          <p>Follow these steps to configure your multivariate AutoAI time series experiment:</p>
+          <ol>
+            <li>
+              <p>Click <strong>Yes</strong> for the option to create a Time Series Forecast.</p>
+            </li>
+            <li>
+              <p>Choose as prediction columns: <code>pollution</code>, <code>temp</code>.</p>
+            </li>
+            <li>
+              <p>Choose as the date/time column: <code>date</code>.</p>
+              <p><img src="images/autoai-sup-run-config.png" alt="Configuring experiment settings. Yes, to time series forecast and pollution and temp as the prediction columns with date as the date/time column." style="max-width:90%;height:auto;width:auto"></p>
+            </li>
+            <li>
+              <p>Click <strong>Experiment settings</strong> to configure the experiment:<br> a. In the <strong>Prediction</strong> page, accept the default selection for Algorithms to include. Algorithms that allow you to use Supporting features are indicated
+                by a checkmark in the column <em>Allows supporting features</em>.<br>
+                <img src="images/autoai-sup-predict-general.JPG" alt="Configuring experiment settings. Algorithms that support the use of Supporting features" style="max-width:90%;height:auto;width:auto"> <br></p>
+              <p>b. Go to the <strong>Data Source</strong> page. For this tutorial, you will supply future values of Supporting features while testing. Future values are helpful when values for the supporting features are knowable for the prediction horizon.
+                Accept the default enablement for <strong>Leverage future values of supporting features</strong>. Additionally, accept the default selection for columns that will be used as Supporting features. <br>
+                <img src="images/autoai-sup-features.JPG" alt="Supporting features" style="max-width:90%;height:auto;width:auto"> <br> c. Click <strong>Cancel</strong> to exit from Experiment settings.</p>
+            </li>
+            <li>
+              <p>Click <strong>Run experiment</strong> to begin the training.</p>
+            </li>
+          </ol>
+        </section>
+        <section id="section-step4">
+          <h2 id="step4">Review experiment results</h2>
+          <p>The experiment takes several minutes to complete. As the experiment trains, the relationship map shows the transformations that are used to create pipelines. Follow these steps to review experiment results and save the pipeline with the best
+            performance.</p>
+          <ol>
+            <li>
+              <p>Optional: Hover over any node in the relationship map to get details on the transformation for a particular pipeline.</p>
+              <p><img src="images/autoai-sup-rel-map.png" alt="Relationship map" style="max-width:90%;height:auto;width:auto"></p>
+            </li>
+            <li>
+              <p>Optional: After the pipelines are listed on the leaderboard, click <strong>Pipeline comparison</strong> to see how they differ. For example:</p>
+              <p><img src="images/autoai-sup-pipeline-comparison.JPG" alt="Pipeline comparison" style="max-width:90%;height:auto;width:auto"></p>
+            </li>
+            <li>
+              <p>When the training completes, the top three best performing pipelines are saved to the leaderboard. Click any pipeline name to review details.</p>
+              <div class="note note"><span class="notetitle">Note:</span> Pipelines that use Supporting features are indicated by **SUP** enhancement.</div>
+              <p><img src="images/autoai-sup-pipeline-leaderboard.png" alt="Pipeline leaderboard" style="max-width:90%;height:auto;width:auto"></p>
+            </li>
+            <li>
+              <p>Select the pipeline with Rank 1 and click <strong>Save as</strong> to create your model. Then, click <strong>Create</strong>. This action saves the pipeline under the <em>Models</em> section in the <em>Assets</em> tab.</p>
+            </li>
+          </ol>
+        </section>
+        <section id="section-step5">
+          <h2 id="step5">Deploy the trained model</h2>
+          <p>Before you can use your trained model to make predictions on new data, you must deploy the model. Follow these steps to promote your trained model to a deployment space:</p>
+          <ol>
+            <li>You can deploy the model from the <em>model details</em> page. To access the <em>model details</em> page, choose one of these options:
+              <ul>
+                <li>Click the model’s name in the notification that is displayed when you save the model.</li>
+                <li>Open the <em>Assets</em> page for the project that contains the model and click the model’s name in the <em>Machine Learning Model</em> section.</li>
+              </ul>
+            </li>
+            <li>Click the <strong>Promote to deployment space</strong> <img src="../getting-started/images/promote.svg" alt="Promote to deployment space icon" title="Promote to deployment space" height="20" style="vertical-align:text-bottom"> icon, then select
+              or create a deployment space where the model will be deployed. <br>
+              <strong>Optional</strong>: Follow these steps to create a deployment space: <br> a. From the Target space list, select <strong>Create a new deployment space</strong>. <br> b. Enter a name for your deployment space. <br> c. To associate a
+              machine learning instance, go to <strong>Select machine learning service (optional)</strong> and select a machine learning instance from the list. <br> d. Click <strong>Create</strong>. <br></li>
+            <li>Once you select or create your space, click <strong>Promote</strong>.</li>
+            <li>Click the deployment space link from the notification.</li>
+            <li>From the <strong>Assets</strong> tab of the deployment space: <br> a. Hover over the model’s name and click the <strong>deployment</strong> icon <img src="images/deploy-icon.png" alt="Deploy icon" style="max-width:90%;height:auto;width:auto">.
+              <br> b. In the page that opens, complete the fields: <br> - Select <strong>Online</strong> as the Deployment type. <br> - Specify a name for the deployment. <br> - Click <strong>Create</strong>. <br></li>
+          </ol>
+          <p>After the deployment is complete, click the <strong>Deployments</strong> tab and select the deployment name to view the details page.</p>
+        </section>
+        <section id="section-step6">
+          <h2 id="step6">Test the deployed model</h2>
+          <p>Follow these steps to test the deployed model from the deployment details page:</p>
+          <ol>
+            <li>
+              <p>On the <strong>Test</strong> tab of the deployment details page, go to <strong>New observations (optional)</strong> spreadsheet and enter the following values: <br> pollution (double): <code>80.417</code> <br> temp (double): <code>-5.5</code>                <br> dew (double): <code>-7.083</code> <br> press (double): <code>1020.667</code> <br> wnd_spd (double): <code>9.518</code> <br> snow (double): <code>0</code> <br> rain (double): <code>0</code> <br></p>
+              <p><img src="images/autoai-sup-new-obs.JPG" alt="New observations" style="max-width:90%;height:auto;width:auto"><br></p>
+            </li>
+            <li>
+              <p>To add future values of Supporting features, go to <strong>Future exogenous features (optional)</strong> spreadsheet and enter the following values: <br> dew (double): <code>-12.667</code> <br> press (double): <code>1023.708</code> <br>                wnd_spd (double): <code>9.518</code> <br> snow (double): <code>0</code> <br> rain (double): <code>0.042</code> <br></p>
+              <div class="note note"><span class="notetitle">Note:</span> You must provide the same number of values for future exogenous features as the prediction horizon that you set during experiment configuration stage.</div>
+              <p><img src="images/autoai-sup-future-exogenous.JPG" alt="Future exogenous values" style="max-width:90%;height:auto;width:auto"><br></p>
+            </li>
+            <li>
+              <p>Click <strong>Predict</strong>. The resulting prediction indicates values for pollution and temperature. <br></p>
+              <div class="note note"><span class="notetitle">Note:</span> Prediction values that are shown in the output might differ when you test your deployment.</div>
+              <p><img src="images/autoai-sup-output.JPG" alt="Resulting prediction" style="max-width:90%;height:auto;width:auto"><br></p>
+            </li>
+          </ol>
+        </section>
+        <section id="section-learn-more">
+          <h2 id="learn-more">Learn more</h2>
+          <p><strong>Parent topic:</strong> <a href="../analyze-data/autoai-timeseries.html" target="_blank" rel="noopener noreferrer" title="Opens a new window or tab">Building a time series experiment</a></p>
+        </section>
+      </section>
+    </article>
+  </main>
+
+<script type="text/javascript"  src="/DEWsG3/JOI980/yQyM/iRupUf/mVarA/YDJa4kXtLhb7/LwkITClvAg/Wgkg/WmBVIDs"></script><link rel="stylesheet" type="text/css"  href="/_sec/cp_challenge/sec-4-4.css">
+                                        <script  src="/_sec/cp_challenge/sec-cpt-4-4.js" async defer></script>
+                                        <div id="sec-overlay" style="display:none;">
+                                        <div id="sec-container">
+                                        </div>
+                                      </div></body></html>

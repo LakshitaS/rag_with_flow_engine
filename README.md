@@ -20,9 +20,3 @@ The application is designed to provide accurate and contextually relevant answer
 - **Vector Database**: Set up a compatible vector database for storing and retrieving document embeddings.
 - **Document Set**: The application uses `watsonxdocs` as the source of information for answering questions.
 
-### Installation
-
-1. **Clone the Repository**
-   ```bash
-   git clone https://github.com/yourusername/rag-question-answer.git
-   cd rag-question-answer
